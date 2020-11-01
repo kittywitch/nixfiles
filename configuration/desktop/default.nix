@@ -36,11 +36,11 @@
     gtk = {
       enable = true;
       iconTheme = {
-        name = "Arc";
+        name = "Numix-Square";
         package = pkgs.numix-icon-theme-square;
       };
       theme = {
-        name = "Arc";
+        name = "Arc-Dark";
         package = pkgs.arc-theme;
       };
     };
