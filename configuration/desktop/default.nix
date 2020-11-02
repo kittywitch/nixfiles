@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 
-{
+let unstable = import ( fetchTarball https://github.com/NixOS/nixpkgs/archive/master.tar.gz ) {}; in {
   nixpkgs.config = {
     mumble.speechdSupport = true;
   };
@@ -10,7 +10,7 @@
       pkgs._1password
       pkgs.mpv
       pkgs.mumble
-      pkgs.syncplay
+      unstable.pkgs.syncplay
       pkgs.youtube-dl
       pkgs.jdk11
       pkgs.lm_sensors
