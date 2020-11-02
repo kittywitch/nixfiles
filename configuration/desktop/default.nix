@@ -18,6 +18,9 @@ let unstable = import ( fetchTarball https://github.com/NixOS/nixpkgs/archive/ma
       pkgs.tdesktop
       pkgs.dino
       pkgs.dconf2nix
+      pkgs.nitrogen
+      pkgs.appimage-run
+      pkgs.gimp
       pkgs.vscode
       pkgs.neofetch
       pkgs.htop

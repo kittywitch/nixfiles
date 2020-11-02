@@ -47,6 +47,10 @@
       userEmail = "me@dork.dev";
     };
 
+    programs.kakoune = {
+      enable = true;
+    };
+
     programs.ssh = {
       enable = true;
       controlMaster = "auto";
