@@ -5,20 +5,39 @@ let unstable = import ( fetchTarball https://github.com/NixOS/nixpkgs/archive/ma
     mumble.speechdSupport = true;
   };
 
+  hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
+  hardware.pulseaudio.support32Bit = true;
+
+  environment.systemPackages = [ 
+    pkgs.php 
+    pkgs.php74Packages.composer2
+  ];
+
+  services.gvfs = {
+    enable = true;
+    package = pkgs.gnome3.gvfs;
+  };
+
   home-manager.users.kat = {
     home.packages = [
       pkgs._1password
       pkgs.mpv
       pkgs.mumble
       unstable.pkgs.syncplay
-      pkgs.youtube-dl
+      unstable.pkgs.youtube-dl
       pkgs.jdk11
       pkgs.lm_sensors
       pkgs.discord
       pkgs.tdesktop
+      pkgs.carnix
+      pkgs.rustc
+      pkgs.cargo
+      pkgs.steam
       pkgs.dino
       pkgs.dconf2nix
       pkgs.nitrogen
+      pkgs.terminator
       pkgs.appimage-run
       pkgs.gimp
       pkgs.vscode
@@ -27,6 +46,7 @@ let unstable = import ( fetchTarball https://github.com/NixOS/nixpkgs/archive/ma
       pkgs.jetbrains.clion
       pkgs.jetbrains.idea-ultimate
       pkgs.jetbrains.goland
+      pkgs.jetbrains.phpstorm
       pkgs.gnome3.gnome-tweak-tool
       pkgs.gnomeExtensions.caffeine
       pkgs.gnomeExtensions.emoji-selector
@@ -36,6 +56,13 @@ let unstable = import ( fetchTarball https://github.com/NixOS/nixpkgs/archive/ma
       pkgs.gnomeExtensions.dash-to-dock
       pkgs.gnomeExtensions.arc-menu
     ];
+
+    programs.fish = {
+      interactiveShellInit = ''
+        set PATH $PATH $HOME/.config/composer/vendor/bin
+      '';
+    };
+
     gtk = {
       enable = true;
       iconTheme = {
