@@ -4,11 +4,11 @@
   imports =
     [
       ./hardware-configuration.nix
-      ../../common
-      ../../desktop
-      ../../gnome
-      ../../gaming
-      ../../development
+      ../../profiles/common
+      ../../profiles/desktop
+      ../../profiles/gnome
+      ../../profiles/gaming
+      ../../profiles/development
     ];
 
   boot.loader.systemd-boot.enable = true;

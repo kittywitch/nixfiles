@@ -8,9 +8,9 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../../common
-      ../../desktop
-      ../../xfce
+      ../../profiles/common
+      ../../profiles/desktop
+      ../../profiles/xfce
     ];
 
   # Use the systemd-boot EFI boot loader.

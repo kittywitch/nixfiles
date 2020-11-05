@@ -7,14 +7,14 @@ let
   };
 in {
   imports = [
-    ../../modules
+    ../../../modules
     "${home-manager}/nixos"
     ./pbb.nix
     ./users.nix
   ];
 
   nixpkgs.overlays = [
-    (self: super: import ../../pkgs { nixpkgs = super.path; })
+    (self: super: import ../../../pkgs { nixpkgs = super.path; })
   ];
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;

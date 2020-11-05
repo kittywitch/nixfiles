@@ -3,7 +3,7 @@
 let unstable = import <nixos-unstable> {}; in {
   imports =
     [
-      ../../common
+      ../../profiles/common
       ./hardware-configuration.nix
       #./services/postgres.nix
       ./services/znc.nix
