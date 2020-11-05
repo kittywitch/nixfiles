@@ -6,6 +6,9 @@
       ./hardware-configuration.nix
       ../../common
       ../../desktop
+      ../../gnome
+      ../../gaming
+      ../../development
     ];
 
   boot.loader.systemd-boot.enable = true;

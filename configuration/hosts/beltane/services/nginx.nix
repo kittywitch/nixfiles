@@ -3,7 +3,7 @@
 let common = {
     enableACME = true;
     forceSSL = true;
-}; in {
+}; secrets = import ../secrets.nix; in {
     services.nginx = {
         enable = true;
         recommendedGzipSettings = true;
@@ -81,7 +81,7 @@ let common = {
     };
 
     security.acme = {
-        email = "dorkdev99+acme@gmail.com";
+        email = secrets.acme.email;
         acceptTerms = true;
     };
 }

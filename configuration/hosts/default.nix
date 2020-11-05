@@ -12,6 +12,10 @@ let
       ssh.host = "kat@samhain";
       groups = [ "desktop" "personal" ];
     };
+    litha = {
+      ssh.host = "root@litha";
+      groups = [ "desktop" "personal" ];
+    };
   };
   pkgs = import <nixpkgs> {};
   evalConfig = import <nixpkgs/nixos/lib/eval-config.nix>;

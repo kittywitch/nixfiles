@@ -5,20 +5,6 @@ let unstable = import ( fetchTarball https://github.com/NixOS/nixpkgs/archive/ma
     mumble.speechdSupport = true;
   };
 
-  hardware.opengl.driSupport32Bit = true;
-  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
-  hardware.pulseaudio.support32Bit = true;
-
-  environment.systemPackages = [ 
-    pkgs.php 
-    pkgs.php74Packages.composer2
-  ];
-
-  services.gvfs = {
-    enable = true;
-    package = pkgs.gnome3.gvfs;
-  };
-
   home-manager.users.kat = {
     home.packages = [
       pkgs._1password
@@ -30,12 +16,7 @@ let unstable = import ( fetchTarball https://github.com/NixOS/nixpkgs/archive/ma
       pkgs.lm_sensors
       pkgs.discord
       pkgs.tdesktop
-      pkgs.carnix
-      pkgs.rustc
-      pkgs.cargo
-      pkgs.steam
       pkgs.dino
-      pkgs.dconf2nix
       pkgs.nitrogen
       pkgs.terminator
       pkgs.appimage-run
@@ -43,18 +24,6 @@ let unstable = import ( fetchTarball https://github.com/NixOS/nixpkgs/archive/ma
       pkgs.vscode
       pkgs.neofetch
       pkgs.htop
-      pkgs.jetbrains.clion
-      pkgs.jetbrains.idea-ultimate
-      pkgs.jetbrains.goland
-      pkgs.jetbrains.phpstorm
-      pkgs.gnome3.gnome-tweak-tool
-      pkgs.gnomeExtensions.caffeine
-      pkgs.gnomeExtensions.emoji-selector
-      pkgs.gnomeExtensions.gsconnect
-      pkgs.gnomeExtensions.dash-to-panel
-      pkgs.gnomeExtensions.appindicator
-      pkgs.gnomeExtensions.dash-to-dock
-      pkgs.gnomeExtensions.arc-menu
     ];
 
     programs.fish = {
@@ -81,10 +50,6 @@ let unstable = import ( fetchTarball https://github.com/NixOS/nixpkgs/archive/ma
     pkgs.nerdfonts
     pkgs.corefonts
   ];
-
-  services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome3.enable = true;
 
   sound.enable = true;
   hardware.pulseaudio.enable = true;

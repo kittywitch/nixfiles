@@ -71,6 +71,9 @@
         "samhain" = {
           hostname = "192.168.1.135";
         } // kat;
+        "litha" = {
+          hostname = "192.168.1.240";
+        } // kat;
         "yule" = {
           hostname = "192.168.1.92";
         } // kat;

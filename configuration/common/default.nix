@@ -18,7 +18,7 @@ in {
   ];
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-  boot.kernelParams = [ "quiet" ];
+  #boot.kernelParams = [ "quiet" ];
 
   nixpkgs.config = {
     allowUnfree = true;
@@ -46,12 +46,6 @@ in {
     font = "Lat2-Terminus16";
     keyMap = "uk";
   };
-
-  fonts.fontconfig.enable = true;
-  fonts.fonts = [
-    pkgs.nerdfonts
-    pkgs.corefonts
-  ];
 
   environment.systemPackages = with pkgs; [
     smartmontools 
