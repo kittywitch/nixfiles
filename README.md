@@ -1,6 +1,6 @@
-# nix-ring
+# dotfiles
 
-One repository to deploy to them all!
+Nix deployment related stuff.
 
 ## Related commands for usage
 
