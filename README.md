@@ -14,8 +14,8 @@ For new deploys, the SSHOPTS="-p 22" when // kat is applied to a SSH host defini
 ### Deployment
 
 * nix build -f . deploy.all && ./result
-* nix build -f . deploy.<group> && ./result
-* nix build -f . deploy.<hostname> && ./result
+* nix build -f . deploy.\<group\> && ./result
+* nix build -f . deploy.\<hostname\> && ./result
 
 ## Systems
 
