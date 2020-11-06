@@ -9,6 +9,8 @@
       ../../profiles/gnome
       ../../profiles/gaming
       ../../profiles/development
+      ../../profiles/network
+      ../../profiles/yubikey
     ];
 
   boot.loader.systemd-boot.enable = true;
