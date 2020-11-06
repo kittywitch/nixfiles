@@ -32,3 +32,4 @@ For new deploys, the SSHOPTS="-p 22" when // kat is applied to a SSH host defini
 - [ ] Additional services configuration for Beltane (that isn't )
 - [ ] Migrate to something that isn't XFCE or GNOME for the laptop devices (likely Sway).
 - [ ] Move Firefox configuration to be done using home-manager, maybe even going as far to NUR package things like 1password + tree style tabs(?)
+- [ ] Move Beltane to using ZFS.
