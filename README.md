@@ -1,4 +1,4 @@
-# dotfiles
+# nixfiles
 
 Nix deployment related stuff.
 
@@ -29,7 +29,7 @@ For new deploys, the SSHOPTS="-p 22" when // kat is applied to a SSH host defini
 
 - [ ] Integrate Ostara into configurations.
 - [ ] Secrets management for Beltane.
-- [ ] Additional services configuration for Beltane (that isn't )
+- [ ] Additional services configuration for Beltane
 - [ ] Migrate to something that isn't XFCE or GNOME for the laptop devices (likely Sway).
 - [ ] Move Firefox configuration to be done using home-manager, maybe even going as far to NUR package things like 1password + tree style tabs(?)
 - [ ] Move Beltane to using ZFS.
