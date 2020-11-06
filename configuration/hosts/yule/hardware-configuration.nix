@@ -4,33 +4,30 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules =
+    [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "zpool/safe/root";
-      fsType = "zfs";
-    };
+  fileSystems."/" = {
+    device = "zpool/safe/root";
+    fsType = "zfs";
+  };
 
-  fileSystems."/home" =
-    { device = "zpool/safe/home";
-      fsType = "zfs";
-    };
+  fileSystems."/home" = {
+    device = "zpool/safe/home";
+    fsType = "zfs";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/4683-4139";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/4683-4139";
+    fsType = "vfat";
+  };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/7e6f47fd-bedb-4012-8072-5e3a556e2f45"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/7e6f47fd-bedb-4012-8072-5e3a556e2f45"; }];
 
 }
-  

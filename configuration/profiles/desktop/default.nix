@@ -1,9 +1,10 @@
 { config, lib, pkgs, ... }:
 
-let unstable = import ( fetchTarball https://github.com/NixOS/nixpkgs/archive/master.tar.gz ) {}; in {
-  nixpkgs.config = {
-    mumble.speechdSupport = true;
-  };
+let
+  unstable = import
+    (fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz") { };
+in {
+  nixpkgs.config = { mumble.speechdSupport = true; };
 
   home-manager.users.kat = {
     home.packages = [
@@ -46,10 +47,7 @@ let unstable = import ( fetchTarball https://github.com/NixOS/nixpkgs/archive/ma
   };
 
   fonts.fontconfig.enable = true;
-  fonts.fonts = [
-    pkgs.nerdfonts
-    pkgs.corefonts
-  ];
+  fonts.fonts = [ pkgs.nerdfonts pkgs.corefonts ];
 
   sound.enable = true;
   hardware.pulseaudio.enable = true;

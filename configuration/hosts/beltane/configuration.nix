@@ -1,19 +1,19 @@
 { config, pkgs, ... }:
 
-let unstable = import <nixos-unstable> {}; in {
-  imports =
-    [
-      ../../profiles/common
-      ./hardware-configuration.nix
-      #./services/postgres.nix
-      ./services/znc.nix
-      ./services/weechat.nix
-      #./services/gitea.nix
-      #./services/matrix.nix
-      #./services/nextcloud.nix
-      #./services/bitwarden.nix
-      ./services/nginx.nix
-    ];
+let unstable = import <nixos-unstable> { };
+in {
+  imports = [
+    ../../profiles/common
+    ./hardware-configuration.nix
+    #./services/postgres.nix
+    ./services/znc.nix
+    ./services/weechat.nix
+    #./services/gitea.nix
+    #./services/matrix.nix
+    #./services/nextcloud.nix
+    #./services/bitwarden.nix
+    ./services/nginx.nix
+  ];
 
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;

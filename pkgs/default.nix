@@ -1,10 +1,9 @@
 { nixpkgs ? <nixpkgs>, ... }:
 
 let
-  pkgs = import nixpkgs {};
+  pkgs = import nixpkgs { };
   callPackage = pkgs.lib.callPackageWith (pkgs // newpkgs);
 
-  newpkgs = {
-  };
+  newpkgs = { };
 
 in newpkgs

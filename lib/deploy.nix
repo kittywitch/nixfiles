@@ -1,34 +1,27 @@
-    let
-      pkgs = import <nixpkgs> {};
-      lib = pkgs.lib;
+let
+  pkgs = import <nixpkgs> { };
+  lib = pkgs.lib;
 
-      hosts = import ../configuration/hosts;
-      nixosHosts = lib.filterAttrs (name: host: host ? ssh) hosts;
+  hosts = import ../configuration/hosts;
+  nixosHosts = lib.filterAttrs (name: host: host ? ssh) hosts;
 
-      allGroups = lib.unique (
-        lib.flatten (
-          lib.mapAttrsToList (
-            name: host: host.groups
-          ) hosts
-        )
-      );
+  allGroups = lib.unique
+    (lib.flatten (lib.mapAttrsToList (name: host: host.groups) hosts));
 
-      hostsInGroup = group: 
-        lib.filterAttrs (
-          k: v: builtins.elem group v.groups
-        ) hosts;
+  hostsInGroup = group:
+    lib.filterAttrs (k: v: builtins.elem group v.groups) hosts;
 
-      hostsInAllGroups = lib.listToAttrs (
-        map (
-          group: lib.nameValuePair group (
-            lib.attrNames (hostsInGroup group)
-          )
-        ) allGroups );
+  hostsInAllGroups = lib.listToAttrs
+    (map (group: lib.nameValuePair group (lib.attrNames (hostsInGroup group)))
+      allGroups);
 
-      mkDeploy = hostnames: pkgs.writeScript "deploy-${lib.concatStringsSep "-" hostnames}" ''
-        #!${pkgs.stdenv.shell}
-        set -e -o pipefail
-        export PATH=/run/wrappers/bin/:${with pkgs; lib.makeBinPath [
+  mkDeploy = hostnames:
+    pkgs.writeScript "deploy-${lib.concatStringsSep "-" hostnames}" ''
+      #!${pkgs.stdenv.shell}
+      set -e -o pipefail
+      export PATH=/run/wrappers/bin/:${
+        with pkgs;
+        lib.makeBinPath [
           coreutils
           openssh
           nix
@@ -37,21 +30,24 @@
           nettools
           gzip
           git
-        ]}
+        ]
+      }
 
-        MODE=$1
-        shift || true
-        ARGS=$@
+      MODE=$1
+      shift || true
+      ARGS=$@
 
-        [ "$MODE" == "" ] && MODE="switch"
+      [ "$MODE" == "" ] && MODE="switch"
 
-        ${lib.concatMapStrings (hostname: let
+      ${lib.concatMapStrings (hostname:
+        let
           hostAttrs = nixosHosts.${hostname};
           nixosSystem = (import <nixpkgs/nixos/lib/eval-config.nix> {
             modules = [
               "${toString ../configuration}/hosts/${hostname}/configuration.nix"
             ];
-            system = if hostAttrs ? system then hostAttrs.system else "x86_64-linux";
+            system =
+              if hostAttrs ? system then hostAttrs.system else "x86_64-linux";
           }).config.system.build.toplevel;
         in ''
           (
@@ -63,14 +59,16 @@
           PID_LIST+=" $!"
         '') hostnames}
 
-        echo "deploys started, waiting for them to finish..."
+      echo "deploys started, waiting for them to finish..."
 
-        trap "kill $PID_LIST" SIGINT
-        wait $PID_LIST
-      '';
+      trap "kill $PID_LIST" SIGINT
+      wait $PID_LIST
+    '';
 
-    in {
-      deploy = (lib.mapAttrs (hostname: hostAttrs: mkDeploy [ hostname ]) nixosHosts) 
-      // (lib.mapAttrs (group: hosts: mkDeploy hosts) hostsInAllGroups)
-      // { all = mkDeploy (lib.attrNames nixosHosts); };
-    }
+in {
+  deploy =
+    (lib.mapAttrs (hostname: hostAttrs: mkDeploy [ hostname ]) nixosHosts)
+    // (lib.mapAttrs (group: hosts: mkDeploy hosts) hostsInAllGroups) // {
+      all = mkDeploy (lib.attrNames nixosHosts);
+    };
+}
