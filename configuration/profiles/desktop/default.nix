@@ -20,6 +20,7 @@ in {
       pkgs.dino
       pkgs.nitrogen
       pkgs.terminator
+      pkgs.kdeconnect
       pkgs.appimage-run
       pkgs.gimp
       pkgs.vscode
