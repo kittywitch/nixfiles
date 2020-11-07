@@ -13,6 +13,7 @@ in {
       pkgs.mumble
       unstable.pkgs.syncplay
       unstable.pkgs.youtube-dl
+      pkgs.transmission-gtk
       pkgs.jdk11
       pkgs.lm_sensors
       pkgs.discord
@@ -20,8 +21,8 @@ in {
       pkgs.dino
       pkgs.nitrogen
       pkgs.terminator
-      pkgs.kdeconnect
       pkgs.appimage-run
+      pkgs.scrot
       pkgs.gimp
       pkgs.vscode
       pkgs.neofetch
@@ -32,6 +33,11 @@ in {
       interactiveShellInit = ''
         set PATH $PATH $HOME/.config/composer/vendor/bin
       '';
+    };
+
+    services.kdeconnect = {
+      enable = true;
+      indicator = true;
     };
 
     gtk = {
@@ -49,6 +55,15 @@ in {
 
   fonts.fontconfig.enable = true;
   fonts.fonts = [ pkgs.nerdfonts pkgs.corefonts ];
+
+  networking.firewall = {
+    allowedTCPPortRanges = [
+      { from = 1714; to = 1764; }
+    ];
+    allowedUDPPortRanges = [
+      { from = 1714; to = 1764; }
+    ];
+  };
 
   sound.enable = true;
   hardware.pulseaudio.enable = true;

@@ -41,7 +41,6 @@ in {
     smartmontools
     lm_sensors
     htop
-    neovim
     ripgrep
     git
     wget
