@@ -20,7 +20,7 @@ in {
   nix.gc.automatic = lib.mkDefault true;
   nix.gc.options = lib.mkDefault "--delete-older-than 1w";
   nix.trustedUsers = [ "root" "@wheel" ];
-  environment.variables.EDITOR = "neovim";
+  environment.variables.EDITOR = "kak";
 
   services.openssh.enable = true;
   services.openssh.ports = lib.mkDefault [ 62954 ];
