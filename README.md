@@ -22,8 +22,8 @@ For new deploys, the SSHOPTS="-p 22" when // kat is applied to a SSH host defini
 * Beltane - Main server.
 * Samhain - Desktop.
 * Yule - Laptop.
-* Litha - Backup laptop.
-* Ostara - HTPC laptop, maybe.
+* Litha - Netbook.
+* Mabon - Thinkpad.
 
 ## To-do
 
