@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
 let
-  unstable = import
-    (fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz") { };
+  nixpkgs-master = import
+    (fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz") { config.allowUnfree = true; };
 in {
   nixpkgs.config = { mumble.speechdSupport = true; };
 
@@ -11,8 +11,10 @@ in {
       pkgs._1password
       pkgs.mpv
       pkgs.mumble
-      unstable.pkgs.syncplay
-      unstable.pkgs.youtube-dl
+      pkgs.vlc
+      nixpkgs-master.pkgs.syncplay
+      nixpkgs-master.pkgs.youtube-dl
+      nixpkgs-master.google-chrome
       pkgs.transmission-gtk
       pkgs.jdk11
       pkgs.lm_sensors

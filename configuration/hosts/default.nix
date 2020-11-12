@@ -2,7 +2,7 @@ let
   hosts = {
     yule = {
       ssh.host = "kat@yule";
-      groups = [ "desktop" "personal" ];
+      groups = [ "laptop" "personal" ];
     };
     beltane = {
       ssh.host = "kat@beltane";
@@ -14,7 +14,11 @@ let
     };
     litha = {
       ssh.host = "root@litha";
-      groups = [ "desktop" "personal" ];
+      groups = [ "laptop" "personal" ];
+    };
+    mabon = {
+      ssh.host = "root@192.168.1.218";
+      groups = [ "laptop" "personal"];
     };
   };
   pkgs = import <nixpkgs> { };
