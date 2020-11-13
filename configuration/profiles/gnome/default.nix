@@ -9,7 +9,6 @@
       pkgs.gnome3.gnome-tweak-tool
       pkgs.gnomeExtensions.caffeine
       pkgs.gnomeExtensions.emoji-selector
-      pkgs.gnomeExtensions.gsconnect
       pkgs.gnomeExtensions.dash-to-panel
       pkgs.gnomeExtensions.appindicator
       pkgs.gnomeExtensions.dash-to-dock
