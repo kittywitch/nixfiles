@@ -24,7 +24,13 @@
   networking.firewall.allowedTCPPorts = [ 445 139 9091 ];
   networking.firewall.allowedUDPPorts = [ 137 138 ];
 
-  services.transmission.enable = true;
+  services.transmission = {
+    enable = true;
+    settings = {
+      rpc-bind-address = "0.0.0.0";
+      rpc-whitelist = "127.0.0.1,192.168.1.*";
+    };
+  };
   
   services.samba = {
     enable = true;
