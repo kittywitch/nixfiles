@@ -27,6 +27,18 @@
     fsType = "vfat";
   };
 
+  fileSystems."/disks/BigExfat" =
+    { device = "/dev/disk/by-uuid/5F0E-F368";
+      fsType = "exfat";
+    };
+
+  fileSystems."/disks/BigEXT" =
+    { device = "/dev/disk/by-uuid/f9797766-59d6-4fca-9a2a-7bade7f57291";
+      fsType = "ext4";
+    };
+
+  boot.initrd.luks.devices."mewmapper".device = "/dev/disk/by-uuid/2802caf9-2dd6-4365-a022-f1359911a1db";
+
   swapDevices =
     [{ device = "/dev/disk/by-uuid/88595373-9566-401b-8c9b-03bbc8314f1b"; }];
 

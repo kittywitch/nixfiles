@@ -26,7 +26,11 @@
 
   services.transmission = {
     enable = true;
+    home = "/disk/BigEXT/transmission";
     settings = {
+      download-dir = "/disks/BigEXT/Share/";
+      incomplete-dir = "/disks/BigEXT/Share/.incomplete";
+      incomplete-dir-enabled = true;
       rpc-bind-address = "0.0.0.0";
       rpc-whitelist = "127.0.0.1,192.168.1.*";
     };
@@ -49,7 +53,7 @@
     '';
     shares = {
       public = {
-        path = "/var/lib/transmission/Downloads";
+        path = "/disks/BigEXT/Share";
         browseable = "yes";
         "read only" = "no";
         "guest ok" = "yes";

@@ -21,12 +21,14 @@ in {
       pkgs.discord
       pkgs.tdesktop
       pkgs.dino
+      pkgs.vegur
       pkgs.nitrogen
       pkgs.terminator
       pkgs.appimage-run
       pkgs.scrot
       pkgs.gimp
       pkgs.vscode
+      pkgs.cryptsetup
       pkgs.neofetch
       pkgs.htop
     ];

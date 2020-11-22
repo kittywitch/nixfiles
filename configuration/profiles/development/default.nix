@@ -9,8 +9,8 @@
       pkgs.jetbrains.phpstorm
       pkgs.nixfmt
       pkgs.carnix
-      pkgs.rustc
-      pkgs.cargo
+      pkgs.rustup
+      pkgs.gcc
     ];
   };
 }
