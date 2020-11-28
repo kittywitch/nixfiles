@@ -27,13 +27,13 @@
     fsType = "vfat";
   };
 
-  fileSystems."/disks/BigExfat" =
-    { device = "/dev/disk/by-uuid/5F0E-F368";
-      fsType = "exfat";
-    };
+  # fileSystems."/disks/BigExfat" =
+  #   { device = "/dev/disk/by-uuid/5F0E-F368";
+  #     fsType = "exfat";
+  #   };
 
   fileSystems."/disks/BigEXT" =
-    { device = "/dev/disk/by-uuid/f9797766-59d6-4fca-9a2a-7bade7f57291";
+     { device = "/dev/disk/by-uuid/f9797766-59d6-4fca-9a2a-7bade7f57291";
       fsType = "ext4";
     };
 
