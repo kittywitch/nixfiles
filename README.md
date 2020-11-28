@@ -37,6 +37,7 @@ Nix deployment related stuff.
   - [ ] Format "BigExtfs" as an encrypted, perhaps compressed ZFS pool.
   - [ ] Migrate the content from "BigEXT" over to the new ZFS pool.
   - [ ] Format "BigEXT" to be the mirror of the drive formerly known as "BigExtfs".
+  - [ ] Excess space on the 3TiB drive should be formatted as either exFAT or ext4.
   - [ ] Work out any remaining quirks of this.
 
 ### Group: graphical
@@ -55,4 +56,3 @@ Nix deployment related stuff.
     - HTTPS Everywhere
     - Tampermonkey
   - [ ] Import into graphical group host configurations.
-- [ ] Move Samhain's two additional big drives to using ZFS, with an ext4 1TiB partition for the excess on the 3TiB drive.
