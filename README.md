@@ -21,6 +21,7 @@ Nix deployment related stuff.
 ## To-do
 
 ### Overall
+- [ ] Migrate the secrets file currently in use to be usable for each host.
 - [ ] DNS provider migration. (Cloudflare -> Glauca)
   - [ ] Fancy wildcard certificate shenanigans?
 
@@ -51,6 +52,7 @@ Nix deployment related stuff.
     - [ ] Move to using LightDM instead of GDM or start using CLI for session management.
   - [ ] Migrate graphical group host configurations to using the Sway profile instead of the GNOME / XFCE profiles.
   - [ ] Remove GNOME / XFCE profiles.
+- [ ] Include redshift in the desktop profile. Configure using secrets file post-migration if required.
 - [ ] Firefox configuration refactors
   - [ ] See if a 1password NUR package exists. If not, create one.
   - [ ] See if a tree style tabs NUR package exists. If not, create one.
