@@ -20,6 +20,10 @@ Nix deployment related stuff.
 
 ## To-do
 
+### Overall
+- [ ] DNS provider migration. (Cloudflare -> Glauca)
+  - [ ] Fancy wildcard certificate shenanigans?
+
 ### Host: beltane
 - [ ] Reinstall with a ZFS root filesystem.
   - [ ] Backup data from current install.
