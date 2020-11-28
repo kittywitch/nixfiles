@@ -29,6 +29,7 @@ Nix deployment related stuff.
   - [ ] Backup data from current install.
 - [ ] Secrets management for Beltane.
 - [ ] Additional services configuration for Beltane
+  - [ ] Self-hosted mail using [this](https://gitlab.com/simple-nixos-mailserver/nixos-mailserver).
   - [ ] matrix-synapse
   - [ ] matrix-puppet-discord
   - [ ] mautrix-whatsapp
