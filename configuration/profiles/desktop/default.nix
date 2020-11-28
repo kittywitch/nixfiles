@@ -2,7 +2,9 @@
 
 let
   nixpkgs-master = import
-    (fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz") { config.allowUnfree = true; };
+    (fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz") {
+      config.allowUnfree = true;
+    };
 in {
   nixpkgs.config = { mumble.speechdSupport = true; };
 
@@ -61,12 +63,14 @@ in {
   fonts.fonts = [ pkgs.nerdfonts pkgs.corefonts ];
 
   networking.firewall = {
-    allowedTCPPortRanges = [
-      { from = 1714; to = 1764; }
-    ];
-    allowedUDPPortRanges = [
-      { from = 1714; to = 1764; }
-    ];
+    allowedTCPPortRanges = [{
+      from = 1714;
+      to = 1764;
+    }];
+    allowedUDPPortRanges = [{
+      from = 1714;
+      to = 1764;
+    }];
   };
 
   sound.enable = true;

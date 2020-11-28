@@ -14,14 +14,13 @@
     ../../profiles/yubikey
   ];
 
-
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
 
   networking.hostName = "mabon"; # Define your hostname.
-  
+
   networking.useDHCP = false;
   networking.interfaces.enp0s25.useDHCP = true;
   networking.interfaces.wls3.useDHCP = true;
@@ -32,5 +31,4 @@
   system.stateVersion = "20.09"; # Did you read the comment?
 
 }
-
 

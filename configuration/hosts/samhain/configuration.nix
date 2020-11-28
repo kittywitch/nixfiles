@@ -11,7 +11,7 @@
     ../../profiles/network
     ../../profiles/yubikey
   ];
-  
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -35,7 +35,7 @@
       rpc-whitelist = "127.0.0.1,192.168.1.*";
     };
   };
-  
+
   services.samba = {
     enable = true;
     securityType = "user";

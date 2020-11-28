@@ -18,7 +18,7 @@ let
     };
     mabon = {
       ssh.host = "root@192.168.1.218";
-      groups = [ "laptop" "personal"];
+      groups = [ "laptop" "personal" ];
     };
   };
   pkgs = import <nixpkgs> { };
