@@ -36,6 +36,7 @@ Nix deployment related stuff.
   - [ ] mautrix-whatsapp
   - [ ] mautrix-telegram
   - [ ] Nextcloud
+  - [ ] syncserver
   - [ ] bitwarden_rs
 
 ### Host: samhain
@@ -62,4 +63,5 @@ Nix deployment related stuff.
     - Privacy Badger
     - HTTPS Everywhere
     - Tampermonkey
+  - [ ] Attach self-hosted syncserver to profile.
   - [ ] Import into graphical group host configurations.
