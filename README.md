@@ -2,35 +2,57 @@
 
 Nix deployment related stuff.
 
-## Related commands for usage
+## How to use
 
-### SSH Problem solving
+* Change SSH port for ./result's SSH connection to 62954 `export NIX_SSHOPTS="-p 62954"`
+* Change SSH port for ./result's SSH connection to 22: `export NIX_SSHOPTS="-p 22"`
+* Build all devices and execute the resulting deploy script: `nix build -f . deploy.all && ./result`
+* Build all devices in \<group\> and execute the resulting deploy script:  `nix build -f . deploy.\<group\> && ./result`
+* Build \<hostname\> and execute the resulting deploy script: `nix build -f . deploy.\<hostname\> && ./result`
 
-For new deploys, the SSHOPTS="-p 22" when // kat is applied to a SSH host definition will be required.
+## Hosts
 
-* export NIX_SSHOPTS="-p 62954"
-* export NIX_SSHOPTS="-p 22"
-
-### Deployment
-
-* nix build -f . deploy.all && ./result
-* nix build -f . deploy.\<group\> && ./result
-* nix build -f . deploy.\<hostname\> && ./result
-
-## Systems
-
-* Beltane - Main server.
-* Samhain - Desktop.
-* Yule - Laptop.
-* Litha - Netbook.
-* Mabon - Thinkpad.
+* beltane - Hetzner VPS.
+* samhain - Desktop.
+* yule - Laptop.
+* litha - Relatively unused netbook.
+* mabon - Relatively unused Thinkpad t61p.
 
 ## To-do
 
+### Host: beltane
+- [ ] Reinstall with a ZFS root filesystem.
+  - [ ] Backup data from current install.
 - [ ] Secrets management for Beltane.
 - [ ] Additional services configuration for Beltane
-- [ ] Move Firefox configuration to be done using home-manager, maybe even going as far to NUR package things like 1password + tree style tabs(?)
+  - [ ] matrix-synapse
+  - [ ] matrix-puppet-discord
+  - [ ] mautrix-whatsapp
+  - [ ] mautrix-telegram
+  - [ ] Nextcloud
+  - [ ] bitwarden_rs
+
+### Host: samhain
+- [ ] Filesystems revamp for redundancy and media server usage.
+  - [ ] Format "BigExtfs" as an encrypted, perhaps compressed ZFS pool.
+  - [ ] Migrate the content from "BigEXT" over to the new ZFS pool.
+  - [ ] Format "BigEXT" to be the mirror of the drive formerly known as "BigExtfs".
+  - [ ] Work out any remaining quirks of this.
+
+### Group: graphical
+- [ ] Move all devices to using Sway. 
+  - [ ] Write a Sway profile using [this](http://blog.patapon.info/nixos-systemd-sway/) as reference material? 
+    - [ ] Move to using LightDM instead of GDM or start using CLI for session management.
+  - [ ] Migrate graphical group host configurations to using the Sway profile instead of the GNOME / XFCE profiles.
+  - [ ] Remove GNOME / XFCE profiles.
+- [ ] Firefox configuration refactors
+  - [ ] See if a 1password NUR package exists. If not, create one.
+  - [ ] See if a tree style tabs NUR package exists. If not, create one.
+  - [ ] Check [here](https://rycee.gitlab.io/home-manager/options.html) for reference to Firefox configuration options under home-manager. Write a config involving the required addons:
+    - 1password
+    - uBlock Origin
+    - Privacy Badger
+    - HTTPS Everywhere
+    - Tampermonkey
+  - [ ] Import into graphical group host configurations.
 - [ ] Move Samhain's two additional big drives to using ZFS, with an ext4 1TiB partition for the excess on the 3TiB drive.
-- [ ] Move every desktop manager utilizing system to using Sway.
-- [ ] Write a sway configuration. Maybe following [this](http://blog.patapon.info/nixos-systemd-sway/).
-- [ ] Move Beltane to using ZFS.
