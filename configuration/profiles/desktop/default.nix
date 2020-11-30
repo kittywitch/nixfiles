@@ -17,6 +17,7 @@ in {
       nixpkgs-master.pkgs.syncplay
       nixpkgs-master.pkgs.youtube-dl
       nixpkgs-master.google-chrome
+      pkgs.v4l-utils
       pkgs.transmission-gtk
       pkgs.jdk11
       pkgs.lm_sensors

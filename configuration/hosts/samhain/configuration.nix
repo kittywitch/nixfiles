@@ -26,10 +26,10 @@
 
   services.transmission = {
     enable = true;
-    home = "/disk/BigEXT/transmission";
+    home = "/disk/pool-raw/transmission";
     settings = {
-      download-dir = "/disks/BigEXT/Share/";
-      incomplete-dir = "/disks/BigEXT/Share/.incomplete";
+      download-dir = "/disks/pool-raw/Public/Media/";
+      incomplete-dir = "/disks/pool-raw/Public/Media/.incomplete";
       incomplete-dir-enabled = true;
       rpc-bind-address = "0.0.0.0";
       rpc-whitelist = "127.0.0.1,192.168.1.*";
@@ -41,8 +41,8 @@
     securityType = "user";
     extraConfig = ''
       workgroup = WORKGROUP
-      server string = smbnix
-      netbios name = smbnix
+      server string = samhain
+      netbios name = samhain
       security = user 
       #use sendfile = yes
       #max protocol = smb2
@@ -53,7 +53,7 @@
     '';
     shares = {
       public = {
-        path = "/disks/BigEXT/Share";
+        path = "/disks/pool-raw/Public";
         browseable = "yes";
         "read only" = "no";
         "guest ok" = "yes";

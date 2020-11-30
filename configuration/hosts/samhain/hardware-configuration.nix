@@ -4,43 +4,54 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports =
+    [ (modulesPath + "/installer/scan/not-detected.nix")
+    ];
 
-  boot.initrd.availableKernelModules =
-    [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "zroot/safe/root";
-    fsType = "zfs";
-  };
+  fileSystems."/" =
+    { device = "zroot/safe/root";
+      fsType = "zfs";
+    };
 
-  fileSystems."/home" = {
-    device = "zroot/safe/home";
-    fsType = "zfs";
-  };
+  fileSystems."/home" =
+    { device = "zroot/safe/home";
+      fsType = "zfs";
+    };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/50C3-BE99";
-    fsType = "vfat";
-  };
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/50C3-BE99";
+      fsType = "vfat";
+    };
 
-  # fileSystems."/disks/BigExfat" =
-  #   { device = "/dev/disk/by-uuid/5F0E-F368";
-  #     fsType = "exfat";
-  #   };
+  fileSystems."/disks/BigEXT" =
+    { device = "/dev/disk/by-uuid/f9797766-59d6-4fca-9a2a-7bade7f57291";
+      fsType = "ext4";
+    };
 
-  fileSystems."/disks/BigEXT" = {
-    device = "/dev/disk/by-uuid/f9797766-59d6-4fca-9a2a-7bade7f57291";
-    fsType = "ext4";
-  };
+  boot.initrd.luks.devices."mewmapper".device = "/dev/disk/by-uuid/2802caf9-2dd6-4365-a022-f1359911a1db";
 
-  boot.initrd.luks.devices."mewmapper".device =
-    "/dev/disk/by-uuid/2802caf9-2dd6-4365-a022-f1359911a1db";
+  fileSystems."/disks/pool-compress" =
+    { device = "zstore/compress";
+      fsType = "zfs";
+    };
+
+  fileSystems."/disks/pool-raw" =
+    { device = "zstore/raw";
+      fsType = "zfs";
+    };
+
+  fileSystems."/disks/pool-protect" =
+    { device = "zstore/protect";
+      fsType = "zfs";
+    };
 
   swapDevices =
-    [{ device = "/dev/disk/by-uuid/88595373-9566-401b-8c9b-03bbc8314f1b"; }];
+    [ { device = "/dev/disk/by-uuid/88595373-9566-401b-8c9b-03bbc8314f1b"; }
+    ];
 
 }

@@ -5,13 +5,17 @@ let
     url = "https://github.com/nix-community/home-manager";
     rev = "a98ec6ec158686387d66654ea96153ec06be33d7";
   };
+  nixpkgs-master = import
+    (fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz") {
+     config.allowUnfree = true;
+   };
 in {
   imports = [ ../../../modules "${home-manager}/nixos" ./pbb.nix ./users.nix ];
 
   nixpkgs.overlays =
     [ (self: super: import ../../../pkgs { nixpkgs = super.path; }) ];
 
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+  #boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
   #boot.kernelParams = [ "quiet" ];
 
   nixpkgs.config = { allowUnfree = true; };
