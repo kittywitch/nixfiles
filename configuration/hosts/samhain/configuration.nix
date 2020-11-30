@@ -52,8 +52,8 @@
       map to guest = bad user
     '';
     shares = {
-      public = {
-        path = "/disks/pool-raw/Public";
+      media = {
+        path = "/disks/pool-raw/Public/Media";
         browseable = "yes";
         "read only" = "no";
         "guest ok" = "yes";
