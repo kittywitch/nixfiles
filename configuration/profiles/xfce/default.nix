@@ -7,8 +7,7 @@
     package = lib.mkForce pkgs.gnome3.gvfs;
   };
 
-  home-manager.users.kat = {
-    home.packages = [
+  environment.systemPackages = [
       pkgs.xfce.xfce4-terminal
       pkgs.xfce.thunar
       pkgs.xfce.orage
@@ -17,6 +16,5 @@
       pkgs.xfce.xfce4-pulseaudio-plugin
       pkgs.xfce.xfce4-whiskermenu-plugin
       pkgs.xfce.xfce4-screenshooter
-    ];
-  };
+  ];
 }
