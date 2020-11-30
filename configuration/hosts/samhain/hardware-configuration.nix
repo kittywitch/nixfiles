@@ -28,15 +28,8 @@
       fsType = "vfat";
     };
 
-  fileSystems."/disks/BigEXT" =
-    { device = "/dev/disk/by-uuid/f9797766-59d6-4fca-9a2a-7bade7f57291";
-      fsType = "ext4";
-    };
-
-  boot.initrd.luks.devices."mewmapper".device = "/dev/disk/by-uuid/2802caf9-2dd6-4365-a022-f1359911a1db";
-
-  fileSystems."/disks/pool-compress" =
-    { device = "zstore/compress";
+  fileSystems."/disks/pool-protect" =
+    { device = "zstore/protect";
       fsType = "zfs";
     };
 
@@ -45,8 +38,8 @@
       fsType = "zfs";
     };
 
-  fileSystems."/disks/pool-protect" =
-    { device = "zstore/protect";
+  fileSystems."/disks/pool-compress" =
+    { device = "zstore/compress";
       fsType = "zfs";
     };
 
