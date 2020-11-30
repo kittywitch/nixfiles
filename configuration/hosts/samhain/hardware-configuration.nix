@@ -43,6 +43,11 @@
       fsType = "zfs";
     };
 
+  fileSystems."/disks/excess" =
+    { device = "/dev/disk/by-uuid/0af88a48-ccfd-4e54-9652-a5ae7f74e21d";
+      fsType = "xfs";
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/88595373-9566-401b-8c9b-03bbc8314f1b"; }
     ];

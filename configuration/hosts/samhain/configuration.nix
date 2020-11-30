@@ -14,6 +14,7 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "zfs" "xfs" ];
 
   networking.hostName = "samhain";
   networking.hostId = "617050fc";

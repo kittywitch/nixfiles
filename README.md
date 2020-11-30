@@ -47,8 +47,12 @@ Nix deployment related stuff.
   - [x] Format "BigExtfs" as an encrypted, perhaps compressed ZFS pool.
   - [x] Migrate the content from "BigEXT" over to the new ZFS pool.
   - [x] Format "BigEXT" to be the mirror of the drive formerly known as "BigExtfs".
-  - [ ] Excess space on the 3TiB drive should be formatted as either exFAT or ext4.
-  - [ ] Work out any remaining quirks of this.
+  - [x] Excess space on the 3TiB drive should be formatted as either exFAT or ext4.
+  - [x] Work out any remaining quirks of this.
+
+### Host: mabon
+- [ ] Reinstall mabon with a ZFS filesystem for the root.
+  - [ ] Set up a backups system that pulls from samhain's protected dataset.
 
 ### Group: graphical
 - [ ] Move all devices to using Sway. 

@@ -25,7 +25,8 @@ in {
   nix.gc.options = lib.mkDefault "--delete-older-than 1w";
   nix.trustedUsers = [ "root" "@wheel" ];
   environment.variables.EDITOR = "kak";
-
+  boot.supportedFilesystems = [ "zfs" ];
+  
   services.openssh.enable = true;
   services.openssh.ports = lib.mkDefault [ 62954 ];
   services.openssh.passwordAuthentication = false;
