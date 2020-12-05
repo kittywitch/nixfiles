@@ -13,7 +13,9 @@
       pkgs.gnomeExtensions.appindicator
       pkgs.gnomeExtensions.dash-to-dock
       pkgs.gnomeExtensions.arc-menu
+      pkgs.pcmanfm
       pkgs.xfce.thunar
+      pkgs.xfce.thunar-volman
     ];
   };
 

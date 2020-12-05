@@ -7,8 +7,8 @@ let
   };
   nixpkgs-master = import
     (fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz") {
-     config.allowUnfree = true;
-   };
+      config.allowUnfree = true;
+    };
 in {
   imports = [ ../../../modules "${home-manager}/nixos" ./pbb.nix ./users.nix ];
 

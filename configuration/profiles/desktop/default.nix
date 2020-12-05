@@ -8,6 +8,8 @@ let
 in {
   nixpkgs.config = { mumble.speechdSupport = true; };
 
+  environment.systemPackages = [ pkgs.redshift ];
+
   home-manager.users.kat = {
     home.packages = [
       pkgs._1password
@@ -47,6 +49,12 @@ in {
       indicator = true;
     };
 
+    services.redshift = {
+      enable = true;
+      latitude = "51.5074";
+      longitude = "0.1278";
+    };
+
     gtk = {
       enable = true;
       iconTheme = {
@@ -54,7 +62,7 @@ in {
         package = pkgs.numix-icon-theme-square;
       };
       theme = {
-        name = "Arc-Dark";
+        name = "Arc";
         package = pkgs.arc-theme;
       };
     };
