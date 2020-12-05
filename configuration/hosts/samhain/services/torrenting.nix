@@ -14,7 +14,7 @@
       in {
     enable = true;
     home = "/disks/pool-raw/transmission";
-    downloadDirPermissions = "755";
+    downloadDirPermissions = "777";
     settings = {
       download-dir = "/disks/pool-raw/Public/Media/";
       incomplete-dir = "/disks/pool-raw/Public/Media/.incomplete";

@@ -51,6 +51,7 @@ in {
     rsync
     pv
     progress
+    ffmpeg-full
     bc
     zstd
     file

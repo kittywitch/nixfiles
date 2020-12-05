@@ -16,20 +16,21 @@ in {
       pkgs.mpv
       pkgs.mumble
       pkgs.vlc
-      nixpkgs-master.pkgs.syncplay
-      nixpkgs-master.pkgs.youtube-dl
+      nixpkgs-master.syncplay
+      nixpkgs-master.youtube-dl
       nixpkgs-master.google-chrome
       pkgs.v4l-utils
       pkgs.transmission-gtk
       pkgs.jdk11
       pkgs.lm_sensors
-      pkgs.discord
+      nixpkgs-master.discord
       pkgs.tdesktop
       pkgs.dino
       pkgs.vegur
       pkgs.nitrogen
       pkgs.terminator
       pkgs.appimage-run
+      pkgs.gparted
       pkgs.scrot
       pkgs.gimp
       pkgs.vscode
