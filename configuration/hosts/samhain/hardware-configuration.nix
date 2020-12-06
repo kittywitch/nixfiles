@@ -16,19 +16,34 @@
     fsType = "zfs";
   };
 
-  fileSystems."/home" = {
-    device = "rpool/safe/home";
+  fileSystems."/nix" = {
+    device = "rpool/local/nix";
     fsType = "zfs";
   };
 
-  fileSystems."/nix" = {
-    device = "rpool/local/nix";
+  fileSystems."/home" = {
+    device = "rpool/safe/home";
     fsType = "zfs";
   };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/AED6-D0D1";
     fsType = "vfat";
+  };
+
+  fileSystems."/disks/excess" = {
+    device = "/dev/disk/by-uuid/0af88a48-ccfd-4e54-9652-a5ae7f74e21d";
+    fsType = "xfs";
+  };
+
+  fileSystems."/rpool" = {
+    device = "rpool";
+    fsType = "zfs";
+  };
+
+  fileSystems."/disks/pool-raw" = {
+    device = "zstore/raw";
+    fsType = "zfs";
   };
 
   fileSystems."/disks/pool-compress" = {
@@ -41,24 +56,19 @@
     fsType = "zfs";
   };
 
-  fileSystems."/disks/pool-raw" = {
-    device = "zstore/raw";
-    fsType = "zfs";
-  };
-
-  fileSystems."/disks/excess" = {
-    device = "/dev/disk/by-uuid/0af88a48-ccfd-4e54-9652-a5ae7f74e21d";
-    fsType = "xfs";
-  };
-
   fileSystems."/home/kat/Games" = {
     device = "zgame/lutris";
     fsType = "zfs";
   };
 
+  fileSystems."/home/kat/.local/share/Steam" = {
+    device = "zgame/steam";
+    fsType = "zfs";
+  };
+
   swapDevices = [
-    { device = "/dev/disk/by-uuid/8f944315-fe1c-4095-90ce-50af03dd5e3f"; }
     { device = "/dev/disk/by-uuid/89831a0f-93e6-4d30-85e4-09061259f140"; }
+    { device = "/dev/disk/by-uuid/8f944315-fe1c-4095-90ce-50af03dd5e3f"; }
   ];
 
 }
