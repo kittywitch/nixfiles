@@ -4,58 +4,61 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "rpool/safe/root";
-      fsType = "zfs";
-    };
+  fileSystems."/" = {
+    device = "rpool/safe/root";
+    fsType = "zfs";
+  };
 
-  fileSystems."/home" =
-    { device = "rpool/safe/home";
-      fsType = "zfs";
-    };
+  fileSystems."/home" = {
+    device = "rpool/safe/home";
+    fsType = "zfs";
+  };
 
-  fileSystems."/nix" =
-    { device = "rpool/local/nix";
-      fsType = "zfs";
-    };
+  fileSystems."/nix" = {
+    device = "rpool/local/nix";
+    fsType = "zfs";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/AED6-D0D1";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/AED6-D0D1";
+    fsType = "vfat";
+  };
 
-  fileSystems."/disks/pool-compress" =
-    { device = "zstore/compress";
-      fsType = "zfs";
-    };
+  fileSystems."/disks/pool-compress" = {
+    device = "zstore/compress";
+    fsType = "zfs";
+  };
 
-  fileSystems."/disks/pool-protect" =
-    { device = "zstore/protect";
-      fsType = "zfs";
-    };
+  fileSystems."/disks/pool-protect" = {
+    device = "zstore/protect";
+    fsType = "zfs";
+  };
 
-  fileSystems."/disks/pool-raw" =
-    { device = "zstore/raw";
-      fsType = "zfs";
-    };
+  fileSystems."/disks/pool-raw" = {
+    device = "zstore/raw";
+    fsType = "zfs";
+  };
 
-  fileSystems."/disks/excess" =
-    { device = "/dev/disk/by-uuid/0af88a48-ccfd-4e54-9652-a5ae7f74e21d";
-      fsType = "xfs";
-    };
+  fileSystems."/disks/excess" = {
+    device = "/dev/disk/by-uuid/0af88a48-ccfd-4e54-9652-a5ae7f74e21d";
+    fsType = "xfs";
+  };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/8f944315-fe1c-4095-90ce-50af03dd5e3f"; }
-      { device = "/dev/disk/by-uuid/89831a0f-93e6-4d30-85e4-09061259f140"; }
-    ];
+  fileSystems."/home/kat/Games" = {
+    device = "zgame/lutris";
+    fsType = "zfs";
+  };
+
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/8f944315-fe1c-4095-90ce-50af03dd5e3f"; }
+    { device = "/dev/disk/by-uuid/89831a0f-93e6-4d30-85e4-09061259f140"; }
+  ];
 
 }
