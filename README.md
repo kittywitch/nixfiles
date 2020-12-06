@@ -40,9 +40,9 @@ Nix deployment related stuff.
   - [ ] bitwarden_rs
 
 ### Host: samhain
-- [ ] Filesystem revamp of the remaining drives (SSDs).
-  - [ ] Contemplate Windows (and the Arma drive) abandonment, moving NixOS to a ZFS mirror of the 860 and 850 EVO 250GB models.
-  - [ ] Games on remaining 120GB SSD?
+- [x] Filesystem revamp of the remaining drives (SSDs).
+  - [x] Contemplate Windows (and the Arma drive) abandonment, moving NixOS to a ZFS mirror of the 860 and 850 EVO 250GB models.
+  - [x] Games on remaining 120GB SSD?
 - [x] Filesystems revamp for redundancy and media server usage.
   - [x] Format "BigExtfs" as an encrypted, perhaps compressed ZFS pool.
   - [x] Migrate the content from "BigEXT" over to the new ZFS pool.
