@@ -14,8 +14,8 @@
         serviceConfig = {
           RemainAfterExit = "no";
           Type = "simple";
-          ExecStart = "/usr/bin/env bash ${./kaede-thermals.sh} start";
-          ExecStop = "/usr/bin/env bash ${./kaede-thermals.sh} stop";
+          ExecStart = "${pkgs.runtimeShell} ${./kaede-thermals.sh} start";
+          ExecStop = "${pkgs.runtimeShell} ${./kaede-thermals.sh} stop";
           User = "root";
         };
       };
@@ -25,8 +25,8 @@
         serviceConfig = {
           RemainAfterExit = "yes";
           Type = "oneshot";
-          ExecStart = "/usr/bin/env bash ${./kaede-power.sh} start";
-          ExecStop = "/usr/bin/env bash ${./kaede-power.sh} stop";
+          ExecStart = "${pkgs.runtimeShell} ${./kaede-power.sh} start";
+          ExecStop = "${pkgs.runtimeShell} ${./kaede-power.sh} stop";
           User = "root";
         };
       };
