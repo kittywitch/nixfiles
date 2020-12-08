@@ -48,6 +48,7 @@ in {
     htop
     ripgrep
     git
+    mprime
     wget
     rsync
     pv

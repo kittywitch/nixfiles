@@ -33,7 +33,7 @@ use "man thermal-conf.xml" for details
 			<!-- Ideal temp: 70-75*C, Max temp: 95*C -->
 				<TripPoint>
 					<SensorType>CPU_TEMP_CORE</SensorType>
-					<Temperature>70000</Temperature>
+					<Temperature>65000</Temperature>
 					<Type>passive</Type>
 					<ControlType>parallel</ControlType>
 					<CoolingDevice>
