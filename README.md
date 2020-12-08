@@ -49,10 +49,6 @@ Nix deployment related stuff.
   - [x] Excess space on the 3TiB drive should be formatted as either exFAT or ext4.
   - [x] Work out any remaining quirks of this.
 
-### Host: mabon
-- [ ] Reinstall mabon with a ZFS filesystem for the root.
-  - [ ] Set up a backups system that pulls from samhain's protected dataset.
-
 ### Group: graphical
 - [ ] Move all devices to using Sway. 
   - [ ] Write a Sway profile using [this](http://blog.patapon.info/nixos-systemd-sway/) as reference material? 
