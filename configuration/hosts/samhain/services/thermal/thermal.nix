@@ -32,13 +32,8 @@
       };
     };
   };
-  services.thermald = let
-    cfg_file = pkgs.writeTextFile {
-      name = "cfg";
-      text = (builtins.readFile ./kaede-thermald.xml);
-    };
-  in {
+  services.thermald = {
     enable = true;
-    configFile = "${cfg_file}";
+    configFile = "${./kaede-thermald.xml}";
   };
 }
