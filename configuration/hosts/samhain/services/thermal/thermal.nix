@@ -40,16 +40,3 @@
         configFile = "${cfg_file}";
     };
 }
-
-/*
-[Service]
-Type=simple
-RemainAfterExit=no
-User=root
- 
-ExecStart=/etc/systemd/system/kaede-thermals.script start
-ExecStop=/etc/systemd/system/kaede-thermals.script stop
- 
-[Install]
-WantedBy=multi-user.target
-*/
