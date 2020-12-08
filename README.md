@@ -16,7 +16,6 @@ Nix deployment related stuff.
 * samhain - Desktop.
 * yule - Laptop.
 * litha - Relatively unused netbook.
-* mabon - Relatively unused Thinkpad t61p.
 
 ## To-do
 

@@ -12,6 +12,7 @@
     ../../profiles/network
     ../../profiles/yubikey
     ./services/nginx.nix
+    ./services/thermal/thermal.nix
     ./services/torrenting.nix
   ];
 

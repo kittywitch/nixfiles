@@ -77,7 +77,7 @@ let common = {
                     };
                 };
            } // common;
-        };
+        } // secrets.beltane-protected;
     };
 
     security.acme = {

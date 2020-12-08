@@ -36,11 +36,6 @@
     fsType = "xfs";
   };
 
-  fileSystems."/rpool" = {
-    device = "rpool";
-    fsType = "zfs";
-  };
-
   fileSystems."/disks/pool-raw" = {
     device = "zstore/raw";
     fsType = "zfs";

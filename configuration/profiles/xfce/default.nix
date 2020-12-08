@@ -15,6 +15,7 @@
     pkgs.xfce.xfce4-sensors-plugin
     pkgs.xfce.xfce4-pulseaudio-plugin
     pkgs.xfce.xfce4-whiskermenu-plugin
+    pkgs.xfce.xfce4-genmon-plugin
     pkgs.xfce.xfce4-screenshooter
     pkgs.xfce.thunar-volman
   ];
