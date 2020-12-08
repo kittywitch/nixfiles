@@ -38,17 +38,6 @@ Nix deployment related stuff.
   - [ ] syncserver
   - [ ] bitwarden_rs
 
-### Host: samhain
-- [x] Filesystem revamp of the remaining drives (SSDs).
-  - [x] Contemplate Windows (and the Arma drive) abandonment, moving NixOS to a ZFS mirror of the 860 and 850 EVO 250GB models.
-  - [x] Games on remaining 120GB SSD?
-- [x] Filesystems revamp for redundancy and media server usage.
-  - [x] Format "BigExtfs" as an encrypted, perhaps compressed ZFS pool.
-  - [x] Migrate the content from "BigEXT" over to the new ZFS pool.
-  - [x] Format "BigEXT" to be the mirror of the drive formerly known as "BigExtfs".
-  - [x] Excess space on the 3TiB drive should be formatted as either exFAT or ext4.
-  - [x] Work out any remaining quirks of this.
-
 ### Group: graphical
 - [ ] Move all devices to using Sway. 
   - [ ] Write a Sway profile using [this](http://blog.patapon.info/nixos-systemd-sway/) as reference material? 
