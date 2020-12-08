@@ -8,31 +8,25 @@
   };
   systemd = {
     services = {
-      kaede-thermals = let
-        kaede-thermals-script =
-          pkgs.writeScriptBin "script" (builtins.readFile ./kaede-thermals.sh);
-      in {
+      kaede-thermals = {
         wantedBy = [ "multi-user.target" ];
         path = [ pkgs.bash pkgs.coreutils-full ];
         serviceConfig = {
           RemainAfterExit = "no";
           Type = "simple";
-          ExecStart = "${kaede-thermals-script}/bin/script start";
-          ExecStop = "${kaede-thermals-script}/bin/script stop";
+          ExecStart = "/usr/bin/env bash ${./kaede-thermals.sh} start";
+          ExecStop = "/usr/bin/env bash ${./kaede-thermals.sh} stop";
           User = "root";
         };
       };
-      kaede-power = let
-        kaede-power-script =
-          pkgs.writeScriptBin "script" (builtins.readFile ./kaede-power.sh);
-      in {
+      kaede-power = {
         wantedBy = [ "multi-user.target" ];
         path = [ pkgs.bash pkgs.linuxPackages.cpupower ];
         serviceConfig = {
           RemainAfterExit = "yes";
           Type = "oneshot";
-          ExecStart = "${kaede-power-script}/bin/script start";
-          ExecStop = "${kaede-power-script}/bin/script stop";
+          ExecStart = "/usr/bin/env bash ${./kaede-power.sh} start";
+          ExecStop = "/usr/bin/env bash ${./kaede-power.sh} stop";
           User = "root";
         };
       };
