@@ -1,17 +1,18 @@
 { config, lib, pkgs, ... }:
 
 {
-    services.transmission = let transmission-done-script = pkgs.writeScriptBin "script" ''
-          #!${pkgs.bash}/bin/bash
-          set -e
-          if [ "$TR_TORRENT_DIR"/"$TR_TORRENT_NAME" != "/" ]; then
-             cd "$TR_TORRENT_DIR"/"$TR_TORRENT_NAME"
-             if [ ! -z "*.rar" ]; then
-                ${pkgs.unrar}/bin/unrar x "*.rar"
-             fi
-             chmod ugo=rwX .
-          fi'';
-      in {
+  services.transmission = let
+    transmission-done-script = pkgs.writeScriptBin "script" ''
+      #!${pkgs.bash}/bin/bash
+      set -e
+      if [ "$TR_TORRENT_DIR"/"$TR_TORRENT_NAME" != "/" ]; then
+         cd "$TR_TORRENT_DIR"/"$TR_TORRENT_NAME"
+         if [ ! -z "*.rar" ]; then
+            ${pkgs.unrar}/bin/unrar x "*.rar"
+         fi
+         chmod ugo=rwX .
+      fi'';
+  in {
     enable = true;
     home = "/disks/pool-raw/transmission";
     downloadDirPermissions = "777";
@@ -57,11 +58,11 @@
   };
 
   services.nginx.virtualHosts = {
-      "192.168.1.135" = {
-          locations."/share/" = {
-              alias = "/disks/pool-raw/Public/Media/";
-              extraConfig = "autoindex on;";
-          };
+    "192.168.1.135" = {
+      locations."/share/" = {
+        alias = "/disks/pool-raw/Public/Media/";
+        extraConfig = "autoindex on;";
       };
-   };
+    };
+  };
 }
