@@ -10,7 +10,7 @@
     services = {
       kaede-thermals = {
         wantedBy = [ "multi-user.target" ];
-        path = [ pkgs.bash pkgs.coreutils-full ];
+        path = [ pkgs.bash pkgs.coreutils-full pkgs.gawk ];
         serviceConfig = {
           RemainAfterExit = "no";
           Type = "simple";

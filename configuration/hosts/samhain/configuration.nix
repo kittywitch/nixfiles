@@ -1,11 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
     ../../profiles/common
     ../../profiles/desktop
-    ../../profiles/gnome
+    #../../profiles/gnome
     ../../profiles/xfce
     ../../profiles/gaming
     ../../profiles/development
@@ -22,6 +22,10 @@
 
   networking.hostName = "samhain";
   networking.hostId = "617050fc";
+
+  services.xserver.deviceSection = lib.mkDefault ''
+    Option "TearFree" "true"
+  '';
 
   networking.useDHCP = false;
   networking.interfaces.enp34s0.useDHCP = true;
