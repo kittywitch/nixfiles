@@ -19,6 +19,16 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" "xfs" ];
 
+  virtualisation.libvirtd = {
+    enable = true;
+    qemuOvmf = true;
+    qemuRunAsRoot = false;
+    onBoot = "ignore";
+    onShutdown = "shutdown";
+  };
+  
+  users.users.kat.extraGroups = [ "libvirtd" ];
+
   # video=efifb:off allows the 580 to be passed through regardless of being the boot display and allows the 560 to act as a console device
   # pci=noats means that it doesn't kernel panic on my specific configuration
   boot.kernelParams = [

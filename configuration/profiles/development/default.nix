@@ -1,14 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  virtualisation.libvirtd = {
-    enable = true;
-    qemuOvmf = true;
-    qemuRunAsRoot = false;
-    onBoot = "ignore";
-    onShutdown = "shutdown";
-  };
-  users.users.kat.extraGroups = [ "libvirtd" ];
 
   environment.systemPackages = let
     python-env = python-packages:
