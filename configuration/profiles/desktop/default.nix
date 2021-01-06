@@ -15,6 +15,8 @@ in {
       pkgs._1password
       pkgs.mpv
       pkgs.mumble
+      pkgs.obs-studio
+      pkgs.avidemux
       pkgs.vlc
       nixpkgs-master.syncplay
       nixpkgs-master.youtube-dl
@@ -32,18 +34,14 @@ in {
       pkgs.appimage-run
       pkgs.gparted
       pkgs.scrot
-      pkgs.gimp
+      pkgs.gimp-with-plugins
       pkgs.vscode
       pkgs.cryptsetup
       pkgs.neofetch
       pkgs.htop
     ];
 
-    programs.fish = {
-      interactiveShellInit = ''
-        set PATH $PATH $HOME/.config/composer/vendor/bin
-      '';
-    };
+    programs.fish = { interactiveShellInit = "set -g fish_greeting ''"; };
 
     services.kdeconnect = {
       enable = true;
@@ -72,6 +70,7 @@ in {
   fonts.fontconfig.enable = true;
   fonts.fonts = [ pkgs.nerdfonts pkgs.corefonts ];
 
+  # KDE Connect
   networking.firewall = {
     allowedTCPPortRanges = [{
       from = 1714;

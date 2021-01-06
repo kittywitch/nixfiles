@@ -51,16 +51,6 @@
     fsType = "zfs";
   };
 
-  fileSystems."/home/kat/Games" = {
-    device = "zgame/lutris";
-    fsType = "zfs";
-  };
-
-  fileSystems."/home/kat/.local/share/Steam" = {
-    device = "zgame/steam";
-    fsType = "zfs";
-  };
-
   swapDevices = [
     { device = "/dev/disk/by-uuid/89831a0f-93e6-4d30-85e4-09061259f140"; }
     { device = "/dev/disk/by-uuid/8f944315-fe1c-4095-90ce-50af03dd5e3f"; }

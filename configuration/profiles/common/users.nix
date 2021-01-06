@@ -15,6 +15,7 @@
     isNormalUser = true;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDX2x9eT02eJn2lAc7zA3c84+FXkft1f3hbTXKZ6+q/F kat@yule"
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCno0Ci2VEkxgWu1mR24puvphHw3KdaNelEhS7n5LEtNuFuNLd0vhQkP5sWGqg4W9pjcHELV8898Bz7+K+ikbZgD2yiK9ROFxSZc/e47H5m9Yn74blrahFmu4S1RL+UPlqnJoUwULsP28xDW3iZbBYnWffMGWXL6Yr8oAdMvOMmKf6KZ/akfRIB22kS6y1XeJnfnzQZRImr+whrNiXKrCXqlcINLkObZW0Wv+BwfXKMhD0lqlTJYAyMdmfWy7ARep032A/XE+gOcln9Ut55GcVwS45LreZuXlk66lHZvFNeK0ETa079Fl7Bx4kYhuek48bIYwpqsIPW+1CDNyeW79Fd dorkd@DESKTOP-U9VEBIL"
     ];
     shell = pkgs.fish;
     extraGroups = [ "wheel" ];

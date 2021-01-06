@@ -1,6 +1,15 @@
 { config, lib, pkgs, ... }:
 
 {
+  virtualisation.libvirtd = {
+    enable = true;
+    qemuOvmf = true;
+    qemuRunAsRoot = false;
+    onBoot = "ignore";
+    onShutdown = "shutdown";
+  };
+  users.users.kat.extraGroups = [ "libvirtd" ];
+
   environment.systemPackages = let
     python-env = python-packages:
       with pkgs.python38Packages; [
@@ -13,6 +22,12 @@
 
   home-manager.users.kat = {
     programs.go.enable = true;
+
+    programs.fish = {
+      interactiveShellInit = ''
+        set fish_user_paths $fish_user_paths $HOME/.config/composer/vendor/bin
+      '';
+    };
 
     home.packages = [
       pkgs.jetbrains.clion
