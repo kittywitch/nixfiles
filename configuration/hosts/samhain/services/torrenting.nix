@@ -21,7 +21,7 @@
       incomplete-dir = "/disks/pool-raw/Public/Media/.incomplete";
       incomplete-dir-enabled = true;
       rpc-bind-address = "0.0.0.0";
-      rpc-whitelist = "127.0.0.1,192.168.1.*";
+      rpc-whitelist = "127.0.0.1,192.168.1.*,192.168.122.*";
       script-torrent-done-enabled = true;
       script-torrent-done-filename = "${transmission-done-script}/bin/script";
       umask = 0;
@@ -38,7 +38,7 @@
       security = user 
       #use sendfile = yes
       #max protocol = smb2
-      hosts allow = 192.168.1. localhost
+      hosts allow = 192.168.1. 192.168.122. localhost
       hosts deny = 0.0.0.0/0
       guest account = nobody
       map to guest = bad user
