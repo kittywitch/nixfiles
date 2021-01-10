@@ -6,6 +6,7 @@
     ../../profiles/common
     ../../profiles/desktop
     ../../profiles/xfce
+    ../../profiles/sway
     ../../profiles/gaming
     ../../profiles/development
     ../../profiles/network
@@ -18,7 +19,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" "xfs" ];
-
+  boot.extraModulePackages = [ config.boot.kernelPackages.vendor-reset ];
+  
   virtualisation.libvirtd = {
     enable = true;
     qemuOvmf = true;
@@ -57,8 +59,23 @@
       };
   };
 
+    services.udev.extraRules = let
+      localGroup = "users";
+      assignLocalGroup = ''GROUP="${localGroup}"'';
+      i2c = ''
+        SUBSYSTEM=="i2c-dev", ${assignLocalGroup}, MODE="0660"
+      ''; # for DDC/monitor control
+      uinput = ''
+        ACTION="add", SUBSYSTEM=="input", 
+        ACTION=="add", SUBSYSTEM=="input", DEVPATH=="/devices/virtual/input/*", MODE="0660", GROUP="qemu-libvirtd"
+        SUBSYSTEM=="misc", KERNEL=="uinput", OPTIONS+="static_node=uinput", MODE="0660", GROUP="uinput"
+      '';
+    in ''
+      ${i2c}
+      ${uinput}
+    '';
   environment.systemPackages = [
-    pkgs.nur.repos.arc.packages.screenstub # for DDC/CI and input forwarding
+    #pkgs.nur.repos.arc.packages.screenstub # for DDC/CI and input forwarding
     pkgs.nur.repos.arc.packages.scream-arc # for audio forwarding
     pkgs.ddcutil # for diagnostics on DDC/CI
     pkgs.virt-manager # obvious reasons

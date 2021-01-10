@@ -13,7 +13,7 @@ in {
   imports = [ ../../../modules "${home-manager}/nixos" ./pbb.nix ./users.nix ];
 
   nixpkgs.overlays =
-    [ (self: super: import ../../../pkgs { nixpkgs = super.path; }) ];
+    [ (self: super: import ../../../pkgs { nixpkgs = super.path; self = self; super = super; }) ];
 
   #boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
   #boot.kernelParams = [ "quiet" ];
