@@ -46,7 +46,7 @@ home-manager.users.kat = {
     enable = true;
     config = let
         dmenu = "${pkgs.bemenu}/bin/bemenu --fn 'Iosevka 12' --nb '${colors.black}' --nf '${colors.white}' --sb '${colors.red}' --sf '${colors.white}' -l 5 -m 0 -i";
-        lockCommand = "swaylock -i ${./background.jpg} -s fill";
+        lockCommand = "swaylock -i ${./middle.jpg} -s fill";
         cfg = config.home-manager.users.kat.wayland.windowManager.sway.config;
     in {
         bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];

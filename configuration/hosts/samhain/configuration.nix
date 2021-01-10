@@ -66,8 +66,8 @@
         SUBSYSTEM=="i2c-dev", ${assignLocalGroup}, MODE="0660"
       ''; # for DDC/monitor control
       uinput = ''
-        ACTION="add", SUBSYSTEM=="input", 
         ACTION=="add", SUBSYSTEM=="input", DEVPATH=="/devices/virtual/input/*", MODE="0660", GROUP="qemu-libvirtd"
+        ACTION=="add", SUBSYSTEM=="input", ATTRS{idVendor}=="fa58", ATTRS{idProduct}=="04d9", GROUP="users"
         SUBSYSTEM=="misc", KERNEL=="uinput", OPTIONS+="static_node=uinput", MODE="0660", GROUP="uinput"
       '';
     in ''
