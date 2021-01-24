@@ -1,2 +1,2 @@
-result
-secrets.nix
+/result
+/config/hosts/beltane/secrets.nix

@@ -3,10 +3,10 @@
 let
   version = "0.0.18";
   rev = "765b05cdbd4de854c05f771c954ecee0e019d734";
-  sha256 = "0ayn8128i0bfwzcmkn0x2alfplbsmvp0c63z56w11ywyysf342qw"; # TODO add this
-in
+  sha256 =
+    "0ayn8128i0bfwzcmkn0x2alfplbsmvp0c63z56w11ywyysf342qw"; # TODO add this
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "vendor-reset-${version}-${kernel.version}";
   inherit version;
 

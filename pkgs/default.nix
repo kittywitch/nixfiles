@@ -1,11 +1,24 @@
-{ nixpkgs ? <nixpkgs>, self, super, ... }:
+{ config ? { }, system ? builtins.currentSystem, ... }@args:
 
 let
-  pkgs = import nixpkgs { };
+  sources = import ../nix/sources.nix;
+  pkgs = import sources.nixpkgs args;
+
   callPackage = pkgs.lib.callPackageWith (pkgs // newpkgs);
-  newpkgs = { 
-    linuxPackagesFor = kernel: (super.linuxPackagesFor kernel).extend (_: ksuper: {
-      vendor-reset = (callPackage ./vendor-reset {kernel = ksuper.kernel;}).out;
-    });
+
+  newpkgs = {
+    dino = callPackage "${sources.qyliss-nixlib}/overlays/patches/dino" {
+      inherit (pkgs) dino;
+    };
+
+    linuxPackagesFor = kernel:
+      (pkgs.linuxPackagesFor kernel).extend (_: ksuper: {
+        vendor-reset =
+          (callPackage ./vendor-reset { kernel = ksuper.kernel; }).out;
+      });
+
+    inherit callPackage;
+    appendOverlays = overlays: (pkgs.appendOverlays overlays) // newpkgs;
   };
-in newpkgs
+
+in pkgs // newpkgs

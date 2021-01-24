@@ -1,0 +1,73 @@
+{
+    "home-manager": {
+        "branch": "release-20.09",
+        "description": "Manage a user environment using Nix  [maintainer=@rycee] ",
+        "homepage": "https://nix-community.github.io/home-manager/",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "22f6736e628958f05222ddaadd7df7818fe8f59d",
+        "sha256": "1j4hyjd3kgvwym5jjazzyn554ngrm05ca9wl1a7z1bid22asr99p",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/home-manager/archive/22f6736e628958f05222ddaadd7df7818fe8f59d.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "niv": {
+        "branch": "master",
+        "description": "Easy dependency management for Nix projects",
+        "homepage": "https://github.com/nmattia/niv",
+        "owner": "nmattia",
+        "repo": "niv",
+        "rev": "3cd7914b2c4cff48927e11c216dadfab7d903fe5",
+        "sha256": "1agq4nvbhrylf2s77kb4xhh9k7xcwdwggq764k4jgsbs70py8cw3",
+        "type": "tarball",
+        "url": "https://github.com/nmattia/niv/archive/3cd7914b2c4cff48927e11c216dadfab7d903fe5.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixos-mailserver": {
+        "ref": "nixos-20.09",
+        "repo": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver",
+        "rev": "fb1cc04c0a517d4200237b02c3472bcaf9104afb",
+        "sha256": "0vsvgxxg5cgmzwj98171j7h5l028f1yq784alb3lxgbk8znfk51y",
+        "type": "tarball",
+        "url": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/fb1cc04c0a517d4200237b02c3472bcaf9104afb/nixos-mailserver-fb1cc04c0a517d4200237b02c3472bcaf9104afb.tar.gz",
+        "url_template": "<repo>/-/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "release-20.09",
+        "description": "Nix Packages collection",
+        "homepage": "",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "cacb9ac7a5157363a91a1dfb31607024db3bb717",
+        "sha256": "136lc1lsahv03aqbp36xiszfrsi86dhw56dvzi72iczci7bvz4p2",
+        "type": "tarball",
+        "url": "https://github.com/nixos/nixpkgs/archive/cacb9ac7a5157363a91a1dfb31607024db3bb717.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs-unstable": {
+        "branch": "nixos-unstable-small",
+        "description": "Nix Packages collection",
+        "homepage": "",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "ec334a1b01c491faa3463c96717b71921dddef2c",
+        "sha256": "0rcsqnnbaqrl010lv0cnvckimng2w3agm675c3dvcfvxyqlc2z2k",
+        "type": "tarball",
+        "url": "https://github.com/nixos/nixpkgs/archive/ec334a1b01c491faa3463c96717b71921dddef2c.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "pbb-nixfiles": {
+        "ref": "main",
+        "repo": "https://git.petabyte.dev/petabyteboy/nixfiles.git",
+        "rev": "0720c5dba283d782f2f887bf97aad339137d95dc",
+        "type": "git"
+    },
+    "qyliss-nixlib": {
+        "repo": "https://git.qyliss.net/nixlib",
+        "rev": "e14330c5be9b005d4310cd4dc0d384cff882aedc",
+        "sha256": "0nan14ixhdzxxddnckqqhaxhr96yw08rgcmxssddhji6aq5a445j",
+        "type": "tarball",
+        "url": "https://git.qyliss.net/nixlib/snapshot/nixlib-e14330c5be9b005d4310cd4dc0d384cff882aedc.tar.gz",
+        "url_template": "https://git.qyliss.net/nixlib/snapshot/nixlib-<rev>.tar.gz"
+    }
+}
