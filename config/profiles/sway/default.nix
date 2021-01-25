@@ -100,7 +100,7 @@ in {
             };
           };
 
-          fonts = [ "Iosevka Nerd Font 10" ];
+          fonts = [ "Hack Nerd Font 10" ];
           terminal = "${pkgs.kitty}/bin/kitty";
           # TODO: replace with wofi
           menu =
