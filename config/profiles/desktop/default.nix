@@ -20,6 +20,7 @@ in {
         pkgs.mpv
         pkgs.mumble
         pkgs.obs-studio
+        pkgs.xfce.ristretto
         pkgs.avidemux
         pkgs.gnome3.networkmanagerapplet
         pkgs.vlc

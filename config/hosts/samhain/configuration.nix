@@ -86,7 +86,7 @@
   };
 
   # audio for vm on startup
-  systemd.user.services.scream-arc = {
+  systemd.user.services.scream = {
     enable = true;
     wantedBy = [ "multi-user.target" ];
     description = "Scream - Audio forwarding from the VM.";

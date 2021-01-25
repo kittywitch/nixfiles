@@ -21,7 +21,7 @@ in {
     home-manager.users.kat = {
       programs.kitty = {
         enable = true;
-        font.name = "Iosevka Term";
+        font.name = "Hack Nerd Font";
         settings = {
           font_size = "10.0";
           background = colors.black;
@@ -73,20 +73,26 @@ in {
               pos = "3840 0";
               bg = "${./right.jpg} fill";
             };
+            laptop = {
+              res = "1920x1080";
+              pos = "0 0";
+              bg = "${./laptop.jpg} fill";
+            };
           in {
             "DP-1" = left;
             "DVI-D-1" = middle;
             "HDMI-A-1" = right;
+            "eDP-1" = laptop;
           };
 
           input = {
-            # "1739:0:Synaptics_TM3075-002" = {
-            #   dwt = "enabled";
-            #   tap = "enabled";
-            #   natural_scroll = "enabled";
-            #   middle_emulation = "enabled";
-            #   click_method = "clickfinger";
-            # };
+            "1739:33362:Synaptics_TM3336-002" = {
+              dwt = "enabled";
+              tap = "enabled";
+              natural_scroll = "enabled";
+              middle_emulation = "enabled";
+              click_method = "clickfinger";
+            };
             "*" = {
               xkb_layout = "gb";
               # xkb_variant = "nodeadkeys";
