@@ -10,6 +10,10 @@ let
     dino = callPackage "${sources.qyliss-nixlib}/overlays/patches/dino" {
       inherit (pkgs) dino;
     };
+    
+    discord = pkgs.discord.override {
+      nss = pkgs.nss_latest;
+    };
 
     linuxPackagesFor = kernel:
       (pkgs.linuxPackagesFor kernel).extend (_: ksuper: {

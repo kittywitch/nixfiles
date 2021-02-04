@@ -25,8 +25,11 @@ in {
   nix.gc.automatic = lib.mkDefault true;
   nix.gc.options = lib.mkDefault "--delete-older-than 1w";
   nix.trustedUsers = [ "root" "@wheel" ];
-  environment.variables.EDITOR = "kak";
-
+  environment.variables = {
+    EDITOR = "kak";
+    TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
+  };
+  
   services.openssh.enable = true;
   services.openssh.ports = lib.mkDefault [ 62954 ];
   services.openssh.passwordAuthentication = false;
@@ -49,12 +52,12 @@ in {
     htop
     ripgrep
     git
+    kitty.terminfo
     mprime
     wget
     rsync
     pv
     progress
-    ffmpeg-full
     bc
     zstd
     file

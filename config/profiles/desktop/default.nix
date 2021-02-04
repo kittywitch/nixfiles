@@ -24,6 +24,7 @@ in {
         pkgs.avidemux
         pkgs.gnome3.networkmanagerapplet
         pkgs.vlc
+        pkgs.ffmpeg-full
         unstable.syncplay
         unstable.youtube-dl
         unstable.google-chrome

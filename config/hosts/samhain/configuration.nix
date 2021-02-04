@@ -92,7 +92,7 @@
     description = "Scream - Audio forwarding from the VM.";
     serviceConfig = {
       ExecStart =
-        "${pkgs.nur.repos.arc.packages.scream-arc}/bin/scream -i virbr0 -o alsa";
+        "${pkgs.nur.repos.arc.packages.scream-arc}/bin/scream -i virbr0 -o pulse";
       Restart = "always";
     };
   };

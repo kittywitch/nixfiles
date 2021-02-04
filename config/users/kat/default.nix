@@ -60,6 +60,7 @@
         "litha" = { hostname = "192.168.1.240"; } // kat;
         "yule" = { hostname = "192.168.1.92"; } // kat;
         "mabon" = { hostname = "192.168.1.218"; } // kat;
+        "boline" = { hostname = "boline.kittywit.ch"; } // kat;
       };
     };
 
