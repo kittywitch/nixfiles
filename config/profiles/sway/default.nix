@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 
-let colors = import ./colors.nix; in {
+let colors = import ./colors.nix;
+in {
   config = lib.mkIf (lib.elem "sway" config.meta.deploy.profiles) {
     fonts.fonts = with pkgs; [
       font-awesome
@@ -253,10 +254,13 @@ let colors = import ./colors.nix; in {
 
       programs.waybar = {
         enable = true;
-        style = import ./waybar.css.nix { inherit colors; hextorgba = pkgs.colorhelpers.hextorgba; };
+        style = import ./waybar.css.nix {
+          inherit colors;
+          hextorgba = pkgs.colorhelpers.hextorgba;
+        };
         settings = [{
           modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
-          modules-center = [  "clock" ];
+          modules-center = [ "clock" ];
           modules-right = [
             "pulseaudio"
             "network"
@@ -268,18 +272,10 @@ let colors = import ./colors.nix; in {
           ];
 
           modules = {
-            cpu = {
-              format = "  {usage}%";
-            };
-            memory = {
-              format = "  {percentage}%";
-            };
-            battery = {
-              format = "  {capacity}%";
-            };
-            temperature = {
-              format = "﨎 {temperatureC}°C";
-            };
+            cpu = { format = "  {usage}%"; };
+            memory = { format = "  {percentage}%"; };
+            battery = { format = "  {capacity}%"; };
+            temperature = { format = "﨎 {temperatureC}°C"; };
             pulseaudio = {
               format = "  {volume}%";
               on-click = "pavucontrol";

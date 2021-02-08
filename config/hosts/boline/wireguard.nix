@@ -1,15 +1,13 @@
 { config, pkgs, ... }:
 
 {
-    networking.nat.enable = true;
-    networking.nat.externalInterface = "ens3";
-    networking.nat.internalInterfaces = [ "wg0" ];
+  networking.nat.enable = true;
+  networking.nat.externalInterface = "ens3";
+  networking.nat.internalInterfaces = [ "wg0" ];
 
-    networking.firewall = {
-        allowedUDPPorts = [ 51820 ];
-    };
+  networking.firewall = { allowedUDPPorts = [ 51820 ]; };
 
-    networking.wireguard.interfaces = {
+  networking.wireguard.interfaces = {
     wg0 = {
       ips = [ "10.100.0.1/24" ];
 
@@ -24,12 +22,10 @@
 
       privateKeyFile = "/var/secrets/wireguard-private";
 
-      peers = [
-        {
-          publicKey = "{client public key}";
-          allowedIPs = [ "10.100.0.2/32" ];
-        }
-      ];
+      peers = [{
+        publicKey = "{client public key}";
+        allowedIPs = [ "10.100.0.2/32" ];
+      }];
     };
   };
 }

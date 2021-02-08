@@ -4,9 +4,8 @@ let
   emacs = pkgs.callPackage sources.nix-doom-emacs {
     doomPrivateDir = "${./doom.d}";
     emacsPackagesOverlay = self: super: {
-      magit-delta = super.magit-delta.overrideAttrs (esuper: {
-        buildInputs = esuper.buildInputs ++ [ pkgs.git ];
-      });
+      magit-delta = super.magit-delta.overrideAttrs
+        (esuper: { buildInputs = esuper.buildInputs ++ [ pkgs.git ]; });
     };
   };
 in {

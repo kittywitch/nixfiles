@@ -1,13 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
-  meta.deploy.profiles = [ "desktop" "development" "sway" "gaming" "network" "yubikey" ];
+  meta.deploy.profiles =
+    [ "desktop" "development" "sway" "gaming" "network" "yubikey" ];
   meta.deploy.ssh.host = "192.168.1.92";
-  
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];

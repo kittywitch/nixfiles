@@ -1,10 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./emacs.nix
-  ];
-  
+  imports = [ ./emacs.nix ];
+
   users.users.kat = {
     uid = 1000;
     isNormalUser = true;

@@ -9,9 +9,10 @@
     ./services/torrenting.nix
   ];
 
-  meta.deploy.profiles = [ "desktop" "development" "sway" "gaming" "network" "yubikey" ];
+  meta.deploy.profiles =
+    [ "desktop" "development" "sway" "gaming" "network" "yubikey" ];
   meta.deploy.ssh.host = "192.168.1.135";
-  
+
   # libvirtd is used for our virtual machine
   virtualisation.libvirtd = {
     enable = true;
@@ -22,7 +23,8 @@
   };
 
   # required for guest reboots with the 580
-  boot.extraModulePackages = [ (pkgs.linuxPackagesFor config.boot.kernelPackages.kernel).vendor-reset ];
+  boot.extraModulePackages =
+    [ (pkgs.linuxPackagesFor config.boot.kernelPackages.kernel).vendor-reset ];
 
   # required groups for various intentions  
   users.users.kat.extraGroups = [ "libvirtd" "input" "qemu-libvirtd" ];

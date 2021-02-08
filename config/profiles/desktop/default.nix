@@ -6,7 +6,10 @@ let
 in {
   config = lib.mkIf (lib.elem "desktop" config.meta.deploy.profiles) {
 
-    nixpkgs.config = { mumble.speechdSupport = true; pulseaudio = true;};
+    nixpkgs.config = {
+      mumble.speechdSupport = true;
+      pulseaudio = true;
+    };
 
     environment.systemPackages = [ pkgs.redshift ];
 
@@ -52,7 +55,7 @@ in {
       programs.fish = { interactiveShellInit = "set -g fish_greeting ''"; };
 
       programs.firefox = { enable = true; };
-      
+
       services.kdeconnect = {
         enable = true;
         indicator = true;

@@ -29,7 +29,7 @@ in {
     EDITOR = "emacs";
     TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
   };
-  
+
   services.openssh.enable = true;
   services.openssh.ports = lib.mkDefault [ 62954 ];
   services.openssh.passwordAuthentication = false;
