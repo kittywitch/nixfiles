@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 
-let colors = import ./colors.nix;
-in {
+let colors = import ./colors.nix; in {
   config = lib.mkIf (lib.elem "sway" config.meta.deploy.profiles) {
     fonts.fonts = with pkgs; [
       font-awesome
@@ -18,6 +17,8 @@ in {
         [ config.home-manager.users.kat.xdg.configFile."mako/config".source ];
     };
 
+    services.tumbler.enable = true;
+
     home-manager.users.kat = {
       programs.kitty = {
         enable = true;
@@ -25,8 +26,8 @@ in {
         settings = {
           font_size = "10.0";
           background = colors.black;
+          background_opacity = "0.7";
           foreground = colors.white;
-          background_opacity = "0.8";
           selection_background = colors.white;
           selection_foreground = colors.black;
           url_color = colors.yellow;
@@ -249,39 +250,48 @@ in {
           seat seat0 xcursor_theme breeze_cursors 20
         '';
       };
+
       programs.waybar = {
         enable = true;
-        #       style = ''
-        #         * {
-        #           font-family: "Iosevka";
-        #         }
-        #       '';
+        style = import ./waybar.css.nix { inherit colors; hextorgba = pkgs.colorhelpers.hextorgba; };
         settings = [{
-          modules-left = [ "sway/workspaces" "sway/mode" ];
-          modules-center = [ "sway/window" ];
+          modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
+          modules-center = [  "clock" ];
           modules-right = [
             "pulseaudio"
             "network"
             "cpu"
             "memory"
             "temperature"
-            "clock"
             "tray"
+            "battery"
           ];
 
           modules = {
+            cpu = {
+              format = "  {usage}%";
+            };
+            memory = {
+              format = "  {percentage}%";
+            };
+            battery = {
+              format = "  {capacity}%";
+            };
+            temperature = {
+              format = "﨎 {temperatureC}°C";
+            };
             pulseaudio = {
-              format = "{volume}%";
+              format = "  {volume}%";
               on-click = "pavucontrol";
             };
             network = {
-              format-wifi = "{essid} ({signalStrength}%) ";
-              format-ethernet = "{ifname}: {ipaddr}/{cidr} ";
-              format-linked = "{ifname} (No IP) ";
-              format-disconnected = "Disconnected ⚠";
+              format-wifi = "  {essid} ({signalStrength}%)";
+              format-ethernet = "  {ifname}: {ipaddr}/{cidr}";
+              format-linked = "  {ifname} (No IP)";
+              format-disconnected = "  Disconnected ";
               format-alt = "{ifname}: {ipaddr}/{cidr}";
             };
-            clock = { format = "{:%A, %F %T %Z}"; };
+            clock = { format = "  {:%A, %F %T %Z}"; };
           };
         }];
       };

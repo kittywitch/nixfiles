@@ -26,7 +26,7 @@ in {
   nix.gc.options = lib.mkDefault "--delete-older-than 1w";
   nix.trustedUsers = [ "root" "@wheel" ];
   environment.variables = {
-    EDITOR = "kak";
+    EDITOR = "emacs";
     TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
   };
   

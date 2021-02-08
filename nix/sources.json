@@ -32,6 +32,18 @@
         "url": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/fb1cc04c0a517d4200237b02c3472bcaf9104afb/nixos-mailserver-fb1cc04c0a517d4200237b02c3472bcaf9104afb.tar.gz",
         "url_template": "<repo>/-/archive/<rev>.tar.gz"
     },
+    "nix-doom-emacs": {
+        "branch": "master",
+        "description": "doom-emacs packaged for Nix",
+        "homepage": "",
+        "owner": "vlaci",
+        "repo": "nix-doom-emacs",
+        "rev": "b182af7d10aa8394f12ecc2c53fd942fa30de060",
+        "sha256": "1mn01cvax8dmgxv68f9hv4l5i1p2xms0dlzmp30jmf7g31jfbrdy",
+        "type": "tarball",
+        "url": "https://github.com/vlaci/nix-doom-emacs/archive/b182af7d10aa8394f12ecc2c53fd942fa30de060.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nixpkgs": {
         "branch": "release-20.09",
         "description": "Nix Packages collection",

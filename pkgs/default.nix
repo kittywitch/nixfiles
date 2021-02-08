@@ -21,6 +21,8 @@ let
           (callPackage ./vendor-reset { kernel = ksuper.kernel; }).out;
       });
 
+    colorhelpers = import ../lib/colorhelpers.nix { inherit (pkgs) lib; };
+    
     inherit callPackage;
     appendOverlays = overlays: (pkgs.appendOverlays overlays) // newpkgs;
   };
