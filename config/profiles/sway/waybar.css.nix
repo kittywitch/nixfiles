@@ -42,16 +42,16 @@
   #workspaces button:last-child { margin-right: 0px }
 
   #workspaces button.focused {
-      color: ${colors.base16.color1};
-      border-bottom-color: ${colors.base16.color1}
+      color: ${colors.base16.color5};
+      border-bottom-color: ${colors.base16.color5}
   }
 
   #workspaces button:hover {
     transition: none;
     box-shadow: inherit;
     text-shadow: inherit;
-    color: ${colors.base16.color3};
-    border-bottom-color: ${colors.base16.color3}
+    color: ${colors.base16.color2};
+    border-bottom-color: ${colors.base16.color2}
   }
 
   #mpd { border-color: #5af78e }

@@ -218,7 +218,7 @@ in {
           colors = {
             focused = {
               border = colors.bright.black;
-              background = colors.yellow;
+              background = colors.base16.color4;
               text = colors.black;
               indicator = colors.green;
               childBorder = colors.bright.black;
@@ -232,8 +232,8 @@ in {
             };
             unfocused = {
               border = colors.bright.black;
-              background = colors.black;
-              text = colors.bright.black;
+              background = colors.base16.color8;
+              text = colors.base16.color12;
               indicator = colors.bright.black;
               childBorder = colors.bright.black;
             };

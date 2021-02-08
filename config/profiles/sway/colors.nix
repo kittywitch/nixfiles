@@ -1,22 +1,22 @@
 rec {
   base16 = {
-    color0 = "#292a44";
-    color1 = "#a0a0c5";
-    color2 = "#6dfedf";
-    color3 = "#ae81ff";
-    color4 = "#2de0a7";
-    color5 = "#7aa5ff";
-    color6 = "#8eaee0";
-    color7 = "#f1eff8";
+    color0 = "#2e3440";
+    color1 = "#bf616a";
+    color2 = "#a3be8c";
+    color3 = "#ebcb8b";
+    color4 = "#81a1c1";
+    color5 = "#b48ead";
+    color6 = "#88c0d0";
+    color7 = "#e5e9f0";
 
-    color8 = "#666699";
-    color9 = "#efe4a1";
-    color10 = "#663399";
-    color11 = "#383a62";
-    color12 = "#a0a0c5";
-    color13 = "#ccccff";
-    color14 = "#ff79c6";
-    color15 = "#53495d";
+    color8 = "#4c566a";
+    color9 = "#d08770";
+    color10 = "#3b4252";
+    color11 = "#434c5e";
+    color12 = "#d8dee9";
+    color13 = "#eceff4";
+    color14 = "#5e81ac";
+    color15 = "#8fbcbb";
 
     color16 = "#fd971f";
     color17 = "#cc6633";
