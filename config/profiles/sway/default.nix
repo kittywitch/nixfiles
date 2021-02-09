@@ -224,14 +224,14 @@ in {
               childBorder = colors.bright.black;
             };
             focusedInactive = {
-              border = colors.bright.black;
-              background = colors.bright.green;
-              text = colors.black;
+              border = colors.base16.color0;
+              background = colors.base16.color11;
+              text = colors.base16.color12;
               indicator = colors.green;
               childBorder = colors.bright.black;
             };
             unfocused = {
-              border = colors.bright.black;
+              border = colors.base16.color0;
               background = colors.base16.color8;
               text = colors.base16.color12;
               indicator = colors.bright.black;

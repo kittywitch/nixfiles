@@ -48,6 +48,7 @@ in {
         pkgs.gimp-with-plugins
         pkgs.vscode
         pkgs.cryptsetup
+        pkgs.pcmanfm
         pkgs.neofetch
         pkgs.htop
       ];
@@ -61,12 +62,6 @@ in {
         indicator = true;
       };
 
-      services.redshift = {
-        enable = true;
-        latitude = "51.5074";
-        longitude = "0.1278";
-      };
-
       gtk = {
         enable = true;
         iconTheme = {
@@ -74,7 +69,7 @@ in {
           package = pkgs.numix-icon-theme-square;
         };
         theme = {
-          name = "Arc";
+          name = "Arc-Dark";
           package = pkgs.arc-theme;
         };
       };
