@@ -1,4 +1,16 @@
 {
+    "arc-nixexprs": {
+        "branch": "master",
+        "description": "nix stuff",
+        "homepage": null,
+        "owner": "arcnmx",
+        "repo": "nixexprs",
+        "rev": "692466a7f316e69715a0298643ddf75d2157d8d9",
+        "sha256": "0jm71p6cnn8f0fdmmi46gmgr0fm5i050zlwz4xggwj8bhf13crpw",
+        "type": "tarball",
+        "url": "https://github.com/arcnmx/nixexprs/archive/692466a7f316e69715a0298643ddf75d2157d8d9.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "home-manager": {
         "branch": "release-20.09",
         "description": "Manage a user environment using Nix  [maintainer=@rycee] ",
@@ -23,15 +35,6 @@
         "url": "https://github.com/nmattia/niv/archive/3cd7914b2c4cff48927e11c216dadfab7d903fe5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "nixos-mailserver": {
-        "ref": "nixos-20.09",
-        "repo": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver",
-        "rev": "fb1cc04c0a517d4200237b02c3472bcaf9104afb",
-        "sha256": "0vsvgxxg5cgmzwj98171j7h5l028f1yq784alb3lxgbk8znfk51y",
-        "type": "tarball",
-        "url": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/fb1cc04c0a517d4200237b02c3472bcaf9104afb/nixos-mailserver-fb1cc04c0a517d4200237b02c3472bcaf9104afb.tar.gz",
-        "url_template": "<repo>/-/archive/<rev>.tar.gz"
-    },
     "nix-doom-emacs": {
         "branch": "master",
         "description": "doom-emacs packaged for Nix",
@@ -43,6 +46,15 @@
         "type": "tarball",
         "url": "https://github.com/vlaci/nix-doom-emacs/archive/b182af7d10aa8394f12ecc2c53fd942fa30de060.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixos-mailserver": {
+        "ref": "nixos-20.09",
+        "repo": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver",
+        "rev": "fb1cc04c0a517d4200237b02c3472bcaf9104afb",
+        "sha256": "0vsvgxxg5cgmzwj98171j7h5l028f1yq784alb3lxgbk8znfk51y",
+        "type": "tarball",
+        "url": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/fb1cc04c0a517d4200237b02c3472bcaf9104afb/nixos-mailserver-fb1cc04c0a517d4200237b02c3472bcaf9104afb.tar.gz",
+        "url_template": "<repo>/-/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
         "branch": "release-20.09",

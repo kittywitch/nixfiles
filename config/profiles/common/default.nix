@@ -45,6 +45,8 @@ in {
     keyMap = "uk";
   };
 
+  services.tailscale.enable = true;
+
   environment.systemPackages = with pkgs; [
     smartmontools
     hddtemp

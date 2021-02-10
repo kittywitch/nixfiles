@@ -2,10 +2,10 @@
 
 let secrets = (import ../secrets.nix);
 in {
-  matrix-synapse = {
+  services.matrix-synapse = {
     enable = true;
     registration_shared_secret = secrets.matrix.secret;
-    server_name = "dork.dev";
+    server_name = "kittywit.ch";
     listeners = [{
       port = 8008;
       bind_address = "::1";
@@ -18,4 +18,18 @@ in {
       }];
     }];
   };
+/*  services.mautrix-telegram = {
+    enable = true;
+    settings = {
+      homeserver = {
+        address = "http://localhost:8008";
+        domain = "kittywit.ch";
+      };
+      bridge.permissions = {
+        "@kat:kittywit.ch" = "admin";
+        "kittywit.ch" = "full";
+      };
+    };
+    environmentFile = "";
+  };*/
 }

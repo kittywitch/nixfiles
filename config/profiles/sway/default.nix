@@ -267,15 +267,33 @@ in {
             "cpu"
             "memory"
             "temperature"
-            "tray"
+            "backlight"
             "battery"
+            "tray"
           ];
 
           modules = {
             cpu = { format = "  {usage}%"; };
             memory = { format = "  {percentage}%"; };
-            battery = { format = "  {capacity}%"; };
             temperature = { format = "﨎 {temperatureC}°C"; };
+            backlight = {
+              format = "{icon} {percent}%";
+              format-icons = [ "" "" ];
+              on-scroll-up = "${pkgs.light}/bin/light -A 1";
+              on-scroll-down = "${pkgs.light}/bin/light -U 1";
+            };
+            battery = {
+              states = {
+                good = 90;
+                warning = 30;
+                critical = 15;
+              };
+              format = "{icon}  {capacity}%";
+              format-charging = "  {capacity}%";
+              format-plugged = "  {capacity}%";
+              format-alt = "{icon}  {time}";
+              format-icons = [ "" "" "" "" "" ];
+            };
             pulseaudio = {
               format = "  {volume}%";
               on-click = "pavucontrol";

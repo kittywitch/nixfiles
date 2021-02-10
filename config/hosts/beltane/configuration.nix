@@ -4,9 +4,12 @@ let unstable = import <nixos-unstable> { };
 in {
   imports = [
     ./hardware-configuration.nix
+    ./services/bitwarden.nix
     ./services/znc.nix
     ./services/weechat.nix
     ./services/nginx.nix
+    ./services/matrix.nix
+    ./services/postgres.nix
   ];
   meta.deploy.ssh.host = "beltane.dork.dev";
 

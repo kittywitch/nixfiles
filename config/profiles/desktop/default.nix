@@ -21,6 +21,7 @@ in {
       home.packages = [
         pkgs._1password
         pkgs.mpv
+        pkgs.element-desktop
         pkgs.mumble
         pkgs.obs-studio
         pkgs.xfce.ristretto
@@ -35,6 +36,7 @@ in {
         pkgs.transmission-gtk
         pkgs.jdk11
         pkgs.lm_sensors
+        pkgs.psmisc
         unstable.discord
         pkgs.tdesktop
         pkgs.dino
