@@ -6,6 +6,9 @@ in {
     enable = true;
     registration_shared_secret = secrets.matrix.secret;
     server_name = "kittywit.ch";
+    app_service_config_files = [
+      "/var/lib/matrix-synapse/telegram-registration.yaml"
+    ];
     listeners = [{
       port = 8008;
       bind_address = "::1";
@@ -18,18 +21,29 @@ in {
       }];
     }];
   };
-/*  services.mautrix-telegram = {
+  services.mautrix-telegram = {
     enable = true;
     settings = {
       homeserver = {
         address = "http://localhost:8008";
         domain = "kittywit.ch";
       };
-      bridge.permissions = {
+      appservice = {
+        provisioning.enabled = false;
+        id = "telegram";
+        public = {
+          enabled = false;
+          prefix = "/public";
+          external = "https://kittywit.ch/public";
+        };
+      };
+      bridge = {
+        relaybot.authless_portals = false;
+        permissions = {
         "@kat:kittywit.ch" = "admin";
-        "kittywit.ch" = "full";
+        };
       };
     };
-    environmentFile = "";
-  };*/
+    environmentFile = "/etc/secrets/mautrix-telegram.env";
+  };
 }
