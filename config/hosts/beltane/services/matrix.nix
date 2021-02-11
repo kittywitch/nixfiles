@@ -4,6 +4,7 @@ let secrets = (import ../secrets.nix);
 in {
   environment.systemPackages = [
     pkgs.arc.pkgs.mx-puppet-discord
+    pkgs.mautrix-whatsapp
   ];
 
   services.matrix-synapse = {
@@ -13,6 +14,7 @@ in {
     app_service_config_files = [
       "/var/lib/matrix-synapse/telegram-registration.yaml"
       "/var/lib/matrix-synapse/discord-registration.yaml"
+      "/var/lib/matrix-synapse/whatsapp-registration.yaml"
     ];
     listeners = [{
       port = 8008;
@@ -59,6 +61,26 @@ in {
       WorkingDirectory = "/var/lib/mx-puppet-discord";
       DynamicUser = true;
       StateDirectory = "mx-puppet-discord";
+      UMask = 0027;
+      PrivateTmp = true;
+      ProtectSystem = "strict";
+      ProtectHome = true;
+      ProtectKernelTunables = true;
+      ProtectKernelModules = true;
+      ProtectControlGroups = true;
+    };
+    requisite = [ "matrix-synapse.service" ];
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" ];
+  };
+ systemd.services.mautrix-whatsapp = {
+    serviceConfig = {
+      Type = "simple";
+      Restart = "always";
+      ExecStart = "${pkgs.mautrix-whatsapp}/bin/mautrix-whatsapp -c /var/lib/mautrix-whatsapp/config.yaml -r /var/lib/mautrix-whatsapp/registration.yaml";
+      WorkingDirectory = "/var/lib/mautrix-whatsapp";
+      DynamicUser = true;
+      StateDirectory = "mautrix-whatsapp";
       UMask = 0027;
       PrivateTmp = true;
       ProtectSystem = "strict";
