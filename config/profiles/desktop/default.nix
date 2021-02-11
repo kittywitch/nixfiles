@@ -20,6 +20,7 @@ in {
     home-manager.users.kat = {
       home.packages = [
         pkgs._1password
+        pkgs.bitwarden
         pkgs.mpv
         pkgs.element-desktop
         pkgs.mumble

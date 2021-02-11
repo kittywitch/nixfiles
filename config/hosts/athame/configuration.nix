@@ -11,14 +11,14 @@ in {
     ./services/matrix.nix
     ./services/postgres.nix
   ];
-  meta.deploy.ssh.host = "beltane.dork.dev";
+  meta.deploy.ssh.host = "kittywit.ch";
 
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sda";
 
   networking = {
-    hostName = "beltane";
+    hostName = "athame";
     useDHCP = false;
     interfaces.enp1s0.useDHCP = true;
   };

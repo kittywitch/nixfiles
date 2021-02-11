@@ -55,7 +55,7 @@
           port = 62954;
         };
       in {
-        "beltane" = { hostname = "beltane.dork.dev"; } // kat;
+        "athame" = { hostname = "kittywit.ch"; } // kat;
         "samhain" = { hostname = "192.168.1.135"; } // kat;
         "litha" = { hostname = "192.168.1.240"; } // kat;
         "yule" = { hostname = "192.168.1.92"; } // kat;
