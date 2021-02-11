@@ -11,10 +11,9 @@ let
       inherit (pkgs) dino;
     };
 
-    matrix-appservice-irc = callPackage "${sources.arc-nixexprs}/pkgs/public/matrix" {};
-    mx-puppet-discord = callPackage "${sources.arc-nixexprs}/pkgs/public/mx-puppet-discord" {};
-
     discord = pkgs.discord.override { nss = pkgs.nss_latest; };
+
+    arc = import sources.arc-nixexprs { inherit pkgs; };
 
     linuxPackagesFor = kernel:
       (pkgs.linuxPackagesFor kernel).extend (_: ksuper: {

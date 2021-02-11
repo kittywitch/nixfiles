@@ -2,12 +2,17 @@
 
 let secrets = (import ../secrets.nix);
 in {
+  environment.systemPackages = [
+    pkgs.arc.pkgs.mx-puppet-discord
+  ];
+
   services.matrix-synapse = {
     enable = true;
     registration_shared_secret = secrets.matrix.secret;
     server_name = "kittywit.ch";
     app_service_config_files = [
       "/var/lib/matrix-synapse/telegram-registration.yaml"
+      "/var/lib/matrix-synapse/discord-registration.yaml"
     ];
     listeners = [{
       port = 8008;
@@ -45,5 +50,25 @@ in {
       };
     };
     environmentFile = "/etc/secrets/mautrix-telegram.env";
+  };
+  systemd.services.mx-puppet-discord = {
+    serviceConfig = {
+      Type = "simple";
+      Restart = "always";
+      ExecStart = "${pkgs.arc.pkgs.mx-puppet-discord}/bin/mx-puppet-discord -c /var/lib/mx-puppet-discord/config.yaml -f /var/lib/mx-puppet-discord/discord-registration.yaml";
+      WorkingDirectory = "/var/lib/mx-puppet-discord";
+      DynamicUser = true;
+      StateDirectory = "mx-puppet-discord";
+      UMask = 0027;
+      PrivateTmp = true;
+      ProtectSystem = "strict";
+      ProtectHome = true;
+      ProtectKernelTunables = true;
+      ProtectKernelModules = true;
+      ProtectControlGroups = true;
+    };
+    requisite = [ "matrix-synapse.service" ];
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" ];
   };
 }
