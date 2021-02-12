@@ -2,8 +2,6 @@ import requests
 import json
 import sys
 
-#city = "London"
-#api_key = "08588263e133e79c17cef6d01a5c6da8"
 city = sys.argv[1]
 api_key = sys.argv[2]
 
