@@ -28,7 +28,7 @@ rec {
 
   font = {
     name = "Hack Nerd Font";
-    size = "10";
+    size = "9";
     size_css = "12px";
   };
 }

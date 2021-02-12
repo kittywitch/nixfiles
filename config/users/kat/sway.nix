@@ -22,26 +22,6 @@ in {
     };
 
     home-manager.users.kat = {
-      programs.kitty = {
-        enable = true;
-        font.name = style.font.name;
-        settings = {
-          font_size = style.font.size;
-          background = style.base16.color0;
-          background_opacity = "0.7";
-          foreground = style.base16.color7;
-          selection_background = style.base16.color7;
-          selection_foreground = style.base16.color0;
-          url_color = style.base16.color3;
-          cursor = style.base16.color7;
-          active_border_color = "#75715e";
-          active_tab_background = "#9900ff";
-          active_tab_foreground = style.base16.color7;
-          inactive_tab_background = "#3a3a3a";
-          inactive_tab_foreground = "#665577";
-        } // style.base16;
-      };
-
       programs.mako = {
         enable = true;
         defaultTimeout = 3000;
@@ -54,7 +34,7 @@ in {
         enable = true;
         config = let
           dmenu =
-            "${pkgs.bemenu}/bin/bemenu --fn 'Iosevka 12' --nb '${style.base16.color0}' --nf '${style.base16.color7}' --sb '${style.base16.color1}' --sf '${style.base16.color7}' -l 5 -m -1 -i";
+            "${pkgs.bemenu}/bin/bemenu --fn '${style.font.name} ${style.font.size}' --nb '${style.base16.color0}' --nf '${style.base16.color7}' --sb '${style.base16.color1}' --sf '${style.base16.color7}' -l 5 -m -1 -i";
           lockCommand = "swaylock -i ${./wallpapers/main.jpg} -s fill";
           cfg = config.home-manager.users.kat.wayland.windowManager.sway.config;
         in {
