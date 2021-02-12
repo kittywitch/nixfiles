@@ -7,11 +7,9 @@ in {
   imports = [
     ../../../modules
     ../../users
-    ../desktop
     ../development
     ../gaming
     ../network
-    ../sway
     ../yubikey
     (sources.home-manager + "/nixos")
   ];

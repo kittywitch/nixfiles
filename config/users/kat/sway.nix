@@ -1,7 +1,8 @@
 { config, pkgs, lib, ... }:
 
-let colors = import ./colors.nix;
-secrets = import ../../../secrets.nix;
+let
+  style = import ./style.nix;
+  secrets = import ../../../secrets.nix;
 in {
   config = lib.mkIf (lib.elem "sway" config.meta.deploy.profiles) {
     fonts.fonts = with pkgs; [
@@ -10,8 +11,9 @@ in {
       iosevka
       emacs-all-the-icons-fonts
     ];
-    users.users.kat.packages = with pkgs; [ grim slurp ];
+
     programs.sway.enable = true;
+    users.users.kat.packages = with pkgs; [ grim slurp ];
 
     systemd.user.services.mako = {
       serviceConfig.ExecStart = "${pkgs.mako}/bin/mako";
@@ -19,43 +21,41 @@ in {
         [ config.home-manager.users.kat.xdg.configFile."mako/config".source ];
     };
 
-    services.tumbler.enable = true;
-
     home-manager.users.kat = {
       programs.kitty = {
         enable = true;
-        font.name = "Hack Nerd Font";
+        font.name = style.font.name;
         settings = {
-          font_size = "10.0";
-          background = colors.black;
+          font_size = style.font.size;
+          background = style.base16.color0;
           background_opacity = "0.7";
-          foreground = colors.white;
-          selection_background = colors.white;
-          selection_foreground = colors.black;
-          url_color = colors.yellow;
-          cursor = colors.white;
+          foreground = style.base16.color7;
+          selection_background = style.base16.color7;
+          selection_foreground = style.base16.color0;
+          url_color = style.base16.color3;
+          cursor = style.base16.color7;
           active_border_color = "#75715e";
           active_tab_background = "#9900ff";
-          active_tab_foreground = colors.white;
+          active_tab_foreground = style.base16.color7;
           inactive_tab_background = "#3a3a3a";
           inactive_tab_foreground = "#665577";
-        } // colors.base16;
+        } // style.base16;
       };
 
       programs.mako = {
         enable = true;
         defaultTimeout = 3000;
-        borderColor = colors.white;
-        backgroundColor = "${colors.black}70";
-        textColor = colors.white;
+        borderColor = style.base16.color7;
+        backgroundColor = "${style.base16.color0}70";
+        textColor = style.base16.color7;
       };
 
       wayland.windowManager.sway = {
         enable = true;
         config = let
           dmenu =
-            "${pkgs.bemenu}/bin/bemenu --fn 'Iosevka 12' --nb '${colors.black}' --nf '${colors.white}' --sb '${colors.red}' --sf '${colors.white}' -l 5 -m -1 -i";
-          lockCommand = "swaylock -i ${./middle.jpg} -s fill";
+            "${pkgs.bemenu}/bin/bemenu --fn 'Iosevka 12' --nb '${style.base16.color0}' --nf '${style.base16.color7}' --sb '${style.base16.color1}' --sf '${style.base16.color7}' -l 5 -m -1 -i";
+          lockCommand = "swaylock -i ${./wallpapers/middle.jpg} -s fill";
           cfg = config.home-manager.users.kat.wayland.windowManager.sway.config;
         in {
           bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
@@ -64,22 +64,22 @@ in {
             left = {
               res = "1920x1080";
               pos = "0 0";
-              bg = "${./left.jpg} fill";
+              bg = "${./wallpapers/left.jpg} fill";
             };
             middle = {
               res = "1920x1080";
               pos = "1920 0";
-              bg = "${./middle.jpg} fill";
+              bg = "${./wallpapers/middle.jpg} fill";
             };
             right = {
               res = "1920x1080";
               pos = "3840 0";
-              bg = "${./right.jpg} fill";
+              bg = "${./wallpapers/right.jpg} fill";
             };
             laptop = {
               res = "1920x1080";
               pos = "0 0";
-              bg = "${./laptop.jpg} fill";
+              bg = "${./wallpapers/laptop.jpg} fill";
             };
           in {
             "DP-1" = left;
@@ -103,7 +103,7 @@ in {
             };
           };
 
-          fonts = [ "Hack Nerd Font 10" ];
+          fonts = [ "${style.font.name} ${style.font.size}" ];
           terminal = "${pkgs.kitty}/bin/kitty";
           # TODO: replace with wofi
           menu =
@@ -174,8 +174,6 @@ in {
               "exec pactl set-source-mute $(pacmd list-sources |awk '/* index:/{print $3}') toggle";
             "XF86MonBrightnessDown" = "exec ${pkgs.light}/bin/light -U 5";
             "XF86MonBrightnessUp" = "exec ${pkgs.light}/bin/light -A 5";
-            "${cfg.modifier}+Print" =
-              "exec ${pkgs.bash}/bin/bash -c '~/.local/bin/elixiremanager.sh -w'";
 
             "${cfg.modifier}+d" = "exec ${cfg.menu}";
             "${cfg.modifier}+x" = "exec ${lockCommand}";
@@ -197,11 +195,6 @@ in {
               mode "System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown"'';
           };
 
-          #   keycodebindings = {
-          #     "--no-repeat 107" = "exec dbus-send --session --type=method_call --dest=net.sourceforge.mumble.mumble / net.sourceforge.mumble.Mumble.startTalking";
-          #     "--release 107" = "exec dbus-send --session --type=method_call --dest=net.sourceforge.mumble.mumble / net.sourceforge.mumble.Mumble.stopTalking";
-          #   };
-
           modes = {
             "System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown" =
               {
@@ -218,32 +211,32 @@ in {
 
           colors = {
             focused = {
-              border = colors.bright.black;
-              background = colors.base16.color4;
-              text = colors.black;
-              indicator = colors.green;
-              childBorder = colors.bright.black;
+              border = style.base16.color8;
+              background = style.base16.color4;
+              text = style.base16.color0;
+              indicator = style.base16.color2;
+              childBorder = style.base16.color8;
             };
             focusedInactive = {
-              border = colors.base16.color0;
-              background = colors.base16.color11;
-              text = colors.base16.color12;
-              indicator = colors.green;
-              childBorder = colors.bright.black;
+              border = style.base16.color0;
+              background = style.base16.color11;
+              text = style.base16.color12;
+              indicator = style.base16.color2;
+              childBorder = style.base16.color8;
             };
             unfocused = {
-              border = colors.base16.color0;
-              background = colors.base16.color8;
-              text = colors.base16.color12;
-              indicator = colors.bright.black;
-              childBorder = colors.bright.black;
+              border = style.base16.color0;
+              background = style.base16.color8;
+              text = style.base16.color12;
+              indicator = style.base16.color8;
+              childBorder = style.base16.color8;
             };
             urgent = {
-              border = colors.bright.black;
-              background = colors.bright.red;
-              text = colors.black;
-              indicator = colors.red;
-              childBorder = colors.bright.black;
+              border = style.base16.color8;
+              background = style.base16.color9;
+              text = style.base16.color0;
+              indicator = style.base16.color1;
+              childBorder = style.base16.color8;
             };
           };
         };
@@ -253,69 +246,6 @@ in {
         '';
       };
 
-      programs.waybar = {
-        enable = true;
-        style = import ./waybar.css.nix {
-          inherit colors;
-          hextorgba = pkgs.colorhelpers.hextorgba;
-        };
-        settings = [{
-          modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
-          modules-center = [ "clock" ];
-          modules-right = [
-            "pulseaudio"
-            "network"
-            "custom/weather"
-            "cpu"
-            "memory"
-            "temperature"
-            "backlight"
-            "battery"
-            "tray"
-          ];
-
-          modules = {
-            "custom/weather" = {
-              format = "{}";
-              interval = 3600;
-              exec = "nix-shell --command 'python ${../../../scripts/weather.py} ${secrets.profiles.sway.city} ${secrets.profiles.sway.api_key}' ${../../../scripts/weather.nix}";
-            };
-            cpu = { format = "  {usage}%"; };
-            memory = { format = "  {percentage}%"; };
-            temperature = { format = "﨎 {temperatureC}°C"; };
-            backlight = {
-              format = "{icon} {percent}%";
-              format-icons = [ "" "" ];
-              on-scroll-up = "${pkgs.light}/bin/light -A 1";
-              on-scroll-down = "${pkgs.light}/bin/light -U 1";
-            };
-            battery = {
-              states = {
-                good = 90;
-                warning = 30;
-                critical = 15;
-              };
-              format = "{icon}  {capacity}%";
-              format-charging = "  {capacity}%";
-              format-plugged = "  {capacity}%";
-              format-alt = "{icon}  {time}";
-              format-icons = [ "" "" "" "" "" ];
-            };
-            pulseaudio = {
-              format = "  {volume}%";
-              on-click = "pavucontrol";
-            };
-            network = {
-              format-wifi = "  {essid} ({signalStrength}%)";
-              format-ethernet = "  {ifname}: {ipaddr}/{cidr}";
-              format-linked = "  {ifname} (No IP)";
-              format-disconnected = "  Disconnected ";
-              format-alt = "  {ifname}: {ipaddr}/{cidr}";
-            };
-            clock = { format = "  {:%A, %F %T %Z}"; };
-          };
-        }];
-      };
     };
   };
 }

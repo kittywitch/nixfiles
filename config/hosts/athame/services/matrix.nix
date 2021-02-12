@@ -2,10 +2,8 @@
 
 let secrets = (import ../secrets.nix);
 in {
-  environment.systemPackages = [
-    pkgs.arc.pkgs.mx-puppet-discord
-    pkgs.mautrix-whatsapp
-  ];
+  environment.systemPackages =
+    [ pkgs.arc.pkgs.mx-puppet-discord pkgs.mautrix-whatsapp ];
 
   services.matrix-synapse = {
     enable = true;
@@ -46,9 +44,7 @@ in {
       };
       bridge = {
         relaybot.authless_portals = false;
-        permissions = {
-        "@kat:kittywit.ch" = "admin";
-        };
+        permissions = { "@kat:kittywit.ch" = "admin"; };
       };
     };
     environmentFile = "/etc/secrets/mautrix-telegram.env";
@@ -57,11 +53,12 @@ in {
     serviceConfig = {
       Type = "simple";
       Restart = "always";
-      ExecStart = "${pkgs.arc.pkgs.mx-puppet-discord}/bin/mx-puppet-discord -c /var/lib/mx-puppet-discord/config.yaml -f /var/lib/mx-puppet-discord/discord-registration.yaml";
+      ExecStart =
+        "${pkgs.arc.pkgs.mx-puppet-discord}/bin/mx-puppet-discord -c /var/lib/mx-puppet-discord/config.yaml -f /var/lib/mx-puppet-discord/discord-registration.yaml";
       WorkingDirectory = "/var/lib/mx-puppet-discord";
       DynamicUser = true;
       StateDirectory = "mx-puppet-discord";
-      UMask = 0027;
+      UMask = 27;
       PrivateTmp = true;
       ProtectSystem = "strict";
       ProtectHome = true;
@@ -73,15 +70,16 @@ in {
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
   };
- systemd.services.mautrix-whatsapp = {
+  systemd.services.mautrix-whatsapp = {
     serviceConfig = {
       Type = "simple";
       Restart = "always";
-      ExecStart = "${pkgs.mautrix-whatsapp}/bin/mautrix-whatsapp -c /var/lib/mautrix-whatsapp/config.yaml -r /var/lib/mautrix-whatsapp/registration.yaml";
+      ExecStart =
+        "${pkgs.mautrix-whatsapp}/bin/mautrix-whatsapp -c /var/lib/mautrix-whatsapp/config.yaml -r /var/lib/mautrix-whatsapp/registration.yaml";
       WorkingDirectory = "/var/lib/mautrix-whatsapp";
       DynamicUser = true;
       StateDirectory = "mautrix-whatsapp";
-      UMask = 0027;
+      UMask = 27;
       PrivateTmp = true;
       ProtectSystem = "strict";
       ProtectHome = true;

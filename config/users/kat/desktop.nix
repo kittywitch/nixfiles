@@ -16,6 +16,7 @@ in {
     services.xserver.enable = true;
     services.xserver.displayManager.lightdm.enable = true;
     programs.light.enable = true;
+    services.tumbler.enable = true;
 
     home-manager.users.kat = {
       home.packages = [
@@ -27,7 +28,6 @@ in {
         pkgs.obs-studio
         pkgs.xfce.ristretto
         pkgs.avidemux
-        pkgs.gnome3.networkmanagerapplet
         pkgs.vlc
         pkgs.ffmpeg-full
         unstable.syncplay

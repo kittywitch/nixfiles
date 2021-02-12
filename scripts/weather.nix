@@ -1,13 +1,10 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 with pkgs;
 
 mkShell {
-  buildInputs = [
-    pkgs.python3
-    pkgs.python3.pkgs.requests
-  ];
-    shellHook = ''
+  buildInputs = [ pkgs.python3 pkgs.python3.pkgs.requests ];
+  shellHook = ''
     # Tells pip to put packages into $PIP_PREFIX instead of the usual locations.
     # See https://pip.pypa.io/en/stable/user_guide/#environment-variables.
     export PIP_PREFIX=$(pwd)/_build/pip_packages
