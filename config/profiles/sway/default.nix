@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let colors = import ./colors.nix;
+secrets = import ../../../secrets.nix;
 in {
   config = lib.mkIf (lib.elem "sway" config.meta.deploy.profiles) {
     fonts.fonts = with pkgs; [
@@ -264,6 +265,7 @@ in {
           modules-right = [
             "pulseaudio"
             "network"
+            "custom/weather"
             "cpu"
             "memory"
             "temperature"
@@ -273,6 +275,11 @@ in {
           ];
 
           modules = {
+            "custom/weather" = {
+              format = "{}";
+              interval = 3600;
+              exec = "nix-shell --command 'python ${../../../scripts/weather.py} ${secrets.profiles.sway.city} ${secrets.profiles.sway.api_key}' ${../../../scripts/weather.nix}";
+            };
             cpu = { format = "  {usage}%"; };
             memory = { format = "  {percentage}%"; };
             temperature = { format = "﨎 {temperatureC}°C"; };
@@ -303,7 +310,7 @@ in {
               format-ethernet = "  {ifname}: {ipaddr}/{cidr}";
               format-linked = "  {ifname} (No IP)";
               format-disconnected = "  Disconnected ";
-              format-alt = "{ifname}: {ipaddr}/{cidr}";
+              format-alt = "  {ifname}: {ipaddr}/{cidr}";
             };
             clock = { format = "  {:%A, %F %T %Z}"; };
           };
