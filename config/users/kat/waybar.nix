@@ -68,7 +68,10 @@ in {
               format-disconnected = "  Disconnected ";
               format-alt = "  {ifname}: {ipaddr}/{cidr}";
             };
-            clock = { format = "  {:%A, %F %T %Z}"; };
+            clock = {
+              format = "  {:%A, %F %T %Z}";
+              interval = 1;
+            };
           };
         }];
       };
