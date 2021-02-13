@@ -30,6 +30,7 @@ in {
             "custom/weather" = {
               format = "{}";
               interval = 3600;
+              on-click = "xdg-open 'https://google.com/search?q=weather'";
               exec = "nix-shell --command 'python ${
                   ../../../scripts/weather.py
                 } ${secrets.profiles.sway.city} ${secrets.profiles.sway.api_key}' ${
