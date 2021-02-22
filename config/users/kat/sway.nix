@@ -35,7 +35,7 @@ in {
         config = let
           dmenu =
             "${pkgs.bemenu}/bin/bemenu --fn '${style.font.name} ${style.font.size}' --nb '${style.base16.color0}' --nf '${style.base16.color7}' --sb '${style.base16.color1}' --sf '${style.base16.color7}' -l 5 -m -1 -i";
-          lockCommand = "swaylock -i ${./wallpapers/main.jpg} -s fill";
+          lockCommand = "swaylock -i ${./wallpapers/main.png} -s fill";
           cfg = config.home-manager.users.kat.wayland.windowManager.sway.config;
         in {
           bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
@@ -49,7 +49,7 @@ in {
             middle = {
               res = "1920x1080";
               pos = "1920 0";
-              bg = "${./wallpapers/main.jpg} fill";
+              bg = "${./wallpapers/main.png} fill";
             };
             right = {
               res = "1920x1080";
@@ -59,7 +59,7 @@ in {
             laptop = {
               res = "1920x1080";
               pos = "0 0";
-              bg = "${./wallpapers/main.jpg} fill";
+              bg = "${./wallpapers/main.png} fill";
             };
           in {
             "DP-1" = left;

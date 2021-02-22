@@ -8,17 +8,22 @@
 
   services.nextcloud = {
     enable = true;
-    hostName = "fs.dork.dev";
+    hostName = "files.kittywit.ch";
+    package = pkgs.nextcloud20;
     https = true;
-    nginx.enable = true;
     config = {
       dbtype = "pgsql";
       dbuser = "nextcloud";
       dbhost = "/run/postgresql";
       dbname = "nextcloud";
       adminpassFile =
-        "/var/lib/nextcloud/admin_pass"; # TODO replace this with proper secrets management
+        "/var/lib/nextcloud/admin-pass"; # TODO replace this with proper secrets management
       adminuser = "root";
     };
+  };
+
+  services.nginx.virtualHosts."files.kittywit.ch" = {
+    forceSSL = true;
+    enableACME = true;
   };
 }

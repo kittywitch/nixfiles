@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./desktop.nix ./sway.nix ./waybar.nix ./kitty.nix ./emacs.nix ];
+  imports = [ ./desktop.nix ./gaming.nix ./network.nix ./sway.nix ./waybar.nix ./kitty.nix ./emacs.nix ];
 
   users.users.kat = {
     uid = 1000;

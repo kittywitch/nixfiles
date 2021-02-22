@@ -1,10 +1,10 @@
 { config, pkgs, ... }:
 
 {
-  gitea = {
+  services.gitea = {
     enable = true;
     disableRegistration = true; # TODO change for initial setup
-    domain = "git.dork.dev";
-    rootUrl = "https://git.dork.dev";
+    domain = "git.kittywit.ch";
+    rootUrl = "https://git.kittywit.ch";
   };
 }

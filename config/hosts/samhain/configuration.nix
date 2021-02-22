@@ -4,13 +4,13 @@
   imports = [
     ../../services/zfs.nix
     ./hardware-configuration.nix
-    ./services/nginx.nix
+    ../../services/nginx.nix
     ./services/thermal/thermal.nix
     ./services/torrenting.nix
   ];
 
   meta.deploy.profiles =
-    [ "desktop" "development" "sway" "gaming" "network" "yubikey" ];
+    [ "desktop" "development" "sway" "gaming" "network" ];
   meta.deploy.ssh.host = "192.168.1.135";
 
   # libvirtd is used for our virtual machine

@@ -11,8 +11,6 @@ in {
       pulseaudio = true;
     };
 
-    environment.systemPackages = [ pkgs.redshift ];
-
     services.xserver.enable = true;
     services.xserver.displayManager.lightdm.enable = true;
     programs.light.enable = true;
@@ -41,6 +39,7 @@ in {
         unstable.discord
         pkgs.tdesktop
         pkgs.dino
+        pkgs.nextcloud-client
         pkgs.vegur
         pkgs.nitrogen
         pkgs.terminator
@@ -55,6 +54,8 @@ in {
         pkgs.neofetch
         pkgs.htop
       ];
+
+      services.nextcloud-client.enable = true;
 
       programs.fish = { interactiveShellInit = "set -g fish_greeting ''"; };
 
@@ -76,6 +77,15 @@ in {
           package = pkgs.arc-theme;
         };
       };
+    };
+
+    services.pcscd.enable = true;
+    services.udev.packages = [ pkgs.yubikey-personalization ];
+
+    programs.gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+      pinentryFlavor = "curses";
     };
 
     fonts.fontconfig.enable = true;

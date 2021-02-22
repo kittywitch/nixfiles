@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 
-let secrets = import ../secrets.nix;
+let secrets = (import ../../../../secrets.nix);
 in {
   services.znc = {
     enable = true;
@@ -16,28 +16,28 @@ in {
       modules = [ "webadmin" "adminlog" ];
       User.kat = {
         Admin = true;
-        Nick = secrets.znc.nick;
-        AltNick = secrets.znc.altNick;
+        Nick = secrets.hosts.athame.znc.nick;
+        AltNick = secrets.hosts.athame.znc.altNick;
         Network.freenode = {
-          Server = "chat.freenode.net +6697 ${secrets.znc.freenode.password}";
-          Chan = secrets.znc.freenode.channels;
-          Nick = secrets.znc.freenode.nick;
-          AltNick = secrets.znc.freenode.altNick;
+          Server = "chat.freenode.net +6697 ${secrets.hosts.athame.znc.freenode.password}";
+          Chan = secrets.hosts.athame.znc.freenode.channels;
+          Nick = secrets.hosts.athame.znc.freenode.nick;
+          AltNick = secrets.hosts.athame.znc.freenode.altNick;
           JoinDelay = 2;
           LoadModule = [ "simple_away" "nickserv" ];
         };
         Network.espernet = {
-          Server = "anarchy.esper.net +6697 ${secrets.znc.espernet.password}";
-          Chan = secrets.znc.espernet.channels;
-          Nick = secrets.znc.espernet.nick;
-          AltNick = secrets.znc.espernet.altNick;
+          Server = "anarchy.esper.net +6697 ${secrets.hosts.athame.znc.espernet.password}";
+          Chan = secrets.hosts.athame.znc.espernet.channels;
+          Nick = secrets.hosts.athame.znc.espernet.nick;
+          AltNick = secrets.hosts.athame.znc.espernet.altNick;
           JoinDelay = 2;
           LoadModule = [ "simple_away" "nickserv" ];
         };
         Pass.password = {
-          Method = secrets.znc.password.method;
-          Hash = secrets.znc.password.hash;
-          Salt = secrets.znc.password.salt;
+          Method = secrets.hosts.athame.znc.password.method;
+          Hash = secrets.hosts.athame.znc.password.hash;
+          Salt = secrets.hosts.athame.znc.password.salt;
         };
       };
     };

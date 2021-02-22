@@ -1,13 +1,14 @@
 { config, pkgs, ... }:
 
-let secrets = (import ../secrets.nix);
+let secrets = (import ../../../../secrets.nix);
 in {
   environment.systemPackages =
     [ pkgs.arc.pkgs.mx-puppet-discord pkgs.mautrix-whatsapp ];
 
   services.matrix-synapse = {
     enable = true;
-    registration_shared_secret = secrets.matrix.secret;
+    registration_shared_secret = secrets.hosts.athame.matrix_secret;
+    max_upload_size = "512M";
     server_name = "kittywit.ch";
     app_service_config_files = [
       "/var/lib/matrix-synapse/telegram-registration.yaml"

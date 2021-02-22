@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 
-let secrets = (import ../secrets.nix);
+let secrets = (import ../../../../secrets.nix);
 in {
   services.bitwarden_rs = {
     enable = true;
@@ -8,7 +8,7 @@ in {
       rocketPort = 4000;
       websocketEnabled = true;
       signupsAllowed = false;
-      adminToken = secrets.bitwarden.token;
+      adminToken = secrets.hosts.athame.bitwarden_secret;
       domain = "https://vault.kittywit.ch";
     };
   };
