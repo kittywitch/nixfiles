@@ -45,8 +45,8 @@
 
     programs.git = {
       enable = true;
-      userName = "katrin fénix";
-      userEmail = "me@dork.dev";
+      userName = "kat";
+      userEmail = "kat@kittywit.ch";
     };
 
     programs.ssh = {
