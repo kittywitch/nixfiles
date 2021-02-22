@@ -1,24 +1,23 @@
 { config, pkgs, ... }:
 
-let unstable = import <nixos-unstable> { };
-in {
+{
   imports = [
-    ./hardware-configuration.nix
+    ./hardware.nix
     # db 
-    ./services/postgres.nix
+    ./postgres.nix
     # nginx
     ../../services/nginx.nix
-    ./services/virtualHosts.nix
+    ./virtualhosts.nix
     # services
-    ./services/gitea.nix
-    ./services/nextcloud.nix
-    ./services/bitwarden.nix
-    # comms services
-    ./services/znc.nix
-    ./services/weechat.nix
-    ./services/matrix.nix
+    ./gitea.nix
+    ./nextcloud.nix
+    ./bitwarden.nix
+    # comms
+    ./znc.nix
+    ./weechat.nix
+    ./matrix.nix
   ];
-  
+
   meta.deploy.ssh.host = "athame.kittywit.ch";
 
   boot.loader.grub.enable = true;

@@ -3,10 +3,10 @@
 {
   imports = [
     ../../services/zfs.nix
-    ./hardware-configuration.nix
+    ./hardware.nix
     ../../services/nginx.nix
-    ./services/thermal/thermal.nix
-    ./services/torrenting.nix
+    ./thermal/thermal.nix
+    ./torrenting.nix
   ];
 
   meta.deploy.profiles =
