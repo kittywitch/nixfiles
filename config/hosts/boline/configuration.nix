@@ -18,7 +18,7 @@
     domain = "kittywit.ch";
     hostId = "0417b551";
     useDHCP = false;
-      interfaces.ens3.ipv4.addresses = [{
+    interfaces.ens3.ipv4.addresses = [{
       address = "104.244.73.10";
       prefixLength = 24;
     }];

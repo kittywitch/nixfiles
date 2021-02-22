@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: 
+{ config, lib, pkgs, ... }:
 
 {
   config = lib.mkIf (lib.elem "gaming" config.meta.deploy.profiles) {

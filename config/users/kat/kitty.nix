@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
-let style = import ./style.nix; in {
+let style = import ./style.nix;
+in {
   config = lib.mkIf (lib.elem "desktop" config.meta.deploy.profiles) {
 
     home-manager.users.kat = {

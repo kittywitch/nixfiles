@@ -1,13 +1,9 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./hardware.nix
-    ../../services/zfs.nix
-  ];
+  imports = [ ./hardware.nix ../../services/zfs.nix ];
 
-  meta.deploy.profiles =
-    [ "desktop" "development" "sway" "gaming" "network" ];
+  meta.deploy.profiles = [ "desktop" "development" "sway" "gaming" "network" ];
   meta.deploy.ssh.host = "192.168.1.92";
 
   boot.loader.systemd-boot.enable = true;

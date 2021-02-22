@@ -4,11 +4,7 @@ let
   sources = import ../../nix/sources.nix;
   unstable = import sources.nixpkgs-unstable { };
 in {
-  imports = [
-    ../../modules
-    ../users
-    (sources.home-manager + "/nixos")
-  ];
+  imports = [ ../../modules ../users (sources.home-manager + "/nixos") ];
 
   #boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
   #boot.kernelParams = [ "quiet" ];
@@ -49,6 +45,7 @@ in {
     ripgrep
     git
     kitty.terminfo
+    nixfmt
     mprime
     wget
     rsync

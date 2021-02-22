@@ -1,7 +1,15 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./desktop.nix ./gaming.nix ./network.nix ./sway.nix ./waybar.nix ./kitty.nix ./emacs.nix ];
+  imports = [
+    ./desktop.nix
+    ./gaming.nix
+    ./network.nix
+    ./sway.nix
+    ./waybar.nix
+    ./kitty.nix
+    ./emacs.nix
+  ];
 
   users.users.kat = {
     uid = 1000;
@@ -18,6 +26,7 @@
   home-manager.users.kat = {
     programs.fish = {
       enable = true;
+      shellAliases = { nixdirfmt = "fd --color=never .nix | xargs nixfmt"; };
       plugins = [{
         name = "bass";
         src = pkgs.fetchFromGitHub {
@@ -55,11 +64,9 @@
           port = 62954;
         };
       in {
-        "athame" = { hostname = "kittywit.ch"; } // kat;
+        "athame" = { hostname = "athame.kittywit.ch"; } // kat;
         "samhain" = { hostname = "192.168.1.135"; } // kat;
-        "litha" = { hostname = "192.168.1.240"; } // kat;
         "yule" = { hostname = "192.168.1.92"; } // kat;
-        "mabon" = { hostname = "192.168.1.218"; } // kat;
         "boline" = { hostname = "boline.kittywit.ch"; } // kat;
       };
     };
