@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 
-let secrets = (import ../../../../secrets.nix);
+let secrets = (import ../../../secrets.nix);
 in {
   environment.systemPackages =
     [ pkgs.arc.pkgs.mx-puppet-discord pkgs.mautrix-whatsapp ];

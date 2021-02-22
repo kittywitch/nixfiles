@@ -28,6 +28,7 @@ in {
         pkgs.avidemux
         pkgs.vlc
         pkgs.ffmpeg-full
+        pkgs.thunderbird
         unstable.syncplay
         unstable.youtube-dl
         unstable.google-chrome

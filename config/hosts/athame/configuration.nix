@@ -9,6 +9,7 @@
     ../../services/nginx.nix
     ./virtualhosts.nix
     # services
+    ./mail.nix
     ./gitea.nix
     ./nextcloud.nix
     ./bitwarden.nix

@@ -5,7 +5,7 @@ let
     enableACME = true;
     forceSSL = true;
   };
-  secrets = (import ../../../../secrets.nix);
+  secrets = (import ../../../secrets.nix);
 in {
   services.nginx.virtualHosts = {
     "kittywit.ch" = {
