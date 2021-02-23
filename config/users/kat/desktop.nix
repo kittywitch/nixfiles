@@ -15,7 +15,7 @@ in {
     services.xserver.displayManager.lightdm.enable = true;
     programs.light.enable = true;
     services.tumbler.enable = true;
-    
+
     users.users.kat = {
       packages = with pkgs; [
         _1password
@@ -56,15 +56,20 @@ in {
         neofetch
         htop
       ];
-  };
+    };
 
-      programs.gnupg.agent = {
-        enable = true;
-        enableSSHSupport = true;
-        pinentryFlavor = "gtk2";
-      };
+    programs.gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+      pinentryFlavor = "gtk2";
+    };
 
     home-manager.users.kat = {
+
+      home.file.".gnupg/gpg-agent.conf".text = ''
+        enable-ssh-support
+        pinentry-program ${pkgs.pinentry.gtk2}/bin/pinentry
+      '';
 
       services.nextcloud-client.enable = true;
 

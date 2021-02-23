@@ -1,10 +1,9 @@
 { config, pkgs, ... }:
-let sources = (import ../../../nix/sources.nix);
-secrets = (import ../../../secrets.nix);
+let
+  sources = (import ../../../nix/sources.nix);
+  secrets = (import ../../../secrets.nix);
 in {
-  imports = [
-    sources.nixos-mailserver.outPath
-  ];
+  imports = [ sources.nixos-mailserver.outPath ];
 
   mailserver = {
     enable = true;
@@ -14,26 +13,22 @@ in {
     # A list of all login accounts. To create the password hashes, use
     # nix run nixpkgs.apacheHttpd -c htpasswd -nbB "" "super secret password" | cut -d: -f2
     loginAccounts = {
-        "kat@kittywit.ch" = {
-            hashedPassword = secrets.hosts.athame.mail.kat.password;
+      "kat@kittywit.ch" = {
+        hashedPassword = secrets.hosts.athame.mail.kat.password;
 
-            aliases = [
-                "postmaster@kittywit.ch"
-            ];
+        aliases = [ "postmaster@kittywit.ch" ];
 
-            # Make this user the catchAll address for domains kittywit.ch and
-            # example2.com
-            catchAll = [
-                "kittywit.ch"
-            ];
-        };
+        # Make this user the catchAll address for domains kittywit.ch and
+        # example2.com
+        catchAll = [ "kittywit.ch" ];
+      };
     };
 
     # Extra virtual aliases. These are email addresses that are forwarded to
     # loginAccounts addresses.
     extraVirtualAliases = {
-        # address = forward address;
-        "abuse@kittywit.ch" = "kat@kittywit.ch";
+      # address = forward address;
+      "abuse@kittywit.ch" = "kat@kittywit.ch";
     };
 
     # Use Let's Encrypt certificates. Note that this needs to set up a stripped

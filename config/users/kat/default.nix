@@ -15,8 +15,7 @@
     uid = 1000;
     isNormalUser = true;
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDX2x9eT02eJn2lAc7zA3c84+FXkft1f3hbTXKZ6+q/F kat@yule"
-      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCno0Ci2VEkxgWu1mR24puvphHw3KdaNelEhS7n5LEtNuFuNLd0vhQkP5sWGqg4W9pjcHELV8898Bz7+K+ikbZgD2yiK9ROFxSZc/e47H5m9Yn74blrahFmu4S1RL+UPlqnJoUwULsP28xDW3iZbBYnWffMGWXL6Yr8oAdMvOMmKf6KZ/akfRIB22kS6y1XeJnfnzQZRImr+whrNiXKrCXqlcINLkObZW0Wv+BwfXKMhD0lqlTJYAyMdmfWy7ARep032A/XE+gOcln9Ut55GcVwS45LreZuXlk66lHZvFNeK0ETa079Fl7Bx4kYhuek48bIYwpqsIPW+1CDNyeW79Fd dorkd@DESKTOP-U9VEBIL"
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCocjQqiDIvzq+Qu3jkf7FXw5piwtvZ1Mihw9cVjdVcsra3U2c9WYtYrA3rS50N3p00oUqQm9z1KUrvHzdE+03ZCrvaGdrtYVsaeoCuuvw7qxTQRbItTAEsfRcZLQ5c1v/57HNYNEsjVrt8VukMPRXWgl+lmzh37dd9w45cCY1QPi+JXQQ/4i9Vc3aWSe4X6PHOEMSBHxepnxm5VNHm4PObGcVbjBf0OkunMeztd1YYA9sEPyEK3b8IHxDl34e5t6NDLCIDz0N/UgzCxSxoz+YJ0feQuZtud/YLkuQcMxW2dSGvnJ0nYy7SA5DkW1oqcy6CGDndHl5StOlJ1IF9aGh0gGkx5SRrV7HOGvapR60RphKrR5zQbFFka99kvSQgOZqSB3CGDEQGHv8dXKXIFlzX78jjWDOBT67vA/M9BK9FS2iNnBF5x6shJ9SU5IK4ySxq8qvN7Us8emkN3pyO8yqgsSOzzJT1JmWUAx0tZWG/BwKcFBHfceAPQl6pwxx28TM3BTBRYdzPJLTkAy48y6iXW6UYdfAPlShy79IYjQtEThTuIiEzdzgYdros0x3PDniuAP0KOKMgbikr0gRa6zahPjf0qqBnHeLB6nHAfaVzI0aNbhOg2bdOueE1FX0x48sjKqjOpjlIfq4WeZp9REr2YHEsoLFOBfgId5P3BPtpBQ== cardno:000612078454"
     ];
     shell = pkgs.fish;
     extraGroups = [ "wheel" "video" ];
@@ -47,9 +46,7 @@
       enable = true;
       userName = "kat witch";
       userEmail = "kat@kittywit.ch";
-      signing = {
-        key = "01F50A29D4AA91175A11BDB17248991EFA8EFBEE";
-      };
+      signing = { key = "01F50A29D4AA91175A11BDB17248991EFA8EFBEE"; };
     };
 
     programs.ssh = {

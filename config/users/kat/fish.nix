@@ -5,9 +5,10 @@
     programs.fish = {
       enable = true;
       interactiveShellInit = ''
-        ${if (lib.elem "desktop" config.meta.deploy.groups)
-                then "export SSH_AUTH_SOCK=(gpgconf --list-dirs agent-ssh-socket)"
-                else ""}
+        ${if (lib.elem "desktop" config.meta.deploy.groups) then
+          "export SSH_AUTH_SOCK=(gpgconf --list-dirs agent-ssh-socket)"
+        else
+          ""}
         set -g fish_greeting ""
       '';
       shellAliases = { nixdirfmt = "fd --color=never .nix | xargs nixfmt"; };
@@ -22,9 +23,9 @@
       }];
     };
   };
-    programs.direnv = {
-        enable = true;
-        enableFishIntegration = true;
-        enableNixDirenvIntegration = true;
-    };
+  programs.direnv = {
+    enable = true;
+    enableFishIntegration = true;
+    enableNixDirenvIntegration = true;
+  };
 }
