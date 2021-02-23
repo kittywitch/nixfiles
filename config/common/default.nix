@@ -50,6 +50,7 @@ in {
     wget
     rsync
     pv
+    pinentry-curses
     progress
     bc
     zstd

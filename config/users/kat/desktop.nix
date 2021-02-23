@@ -15,50 +15,58 @@ in {
     services.xserver.displayManager.lightdm.enable = true;
     programs.light.enable = true;
     services.tumbler.enable = true;
-
-    home-manager.users.kat = {
-      home.packages = [
-        pkgs._1password
-        pkgs.bitwarden
-        pkgs.mpv
-        pkgs.element-desktop
-        pkgs.mumble
-        pkgs.obs-studio
-        pkgs.xfce.ristretto
-        pkgs.avidemux
-        pkgs.vlc
-        pkgs.ffmpeg-full
-        pkgs.thunderbird
+    
+    users.users.kat = {
+      packages = with pkgs; [
+        _1password
+        bitwarden
+        mpv
+        element-desktop
+        mumble
+        obs-studio
+        xfce.ristretto
+        avidemux
+        vlc
+        ffmpeg-full
+        thunderbird
         unstable.syncplay
         unstable.youtube-dl
         unstable.google-chrome
-        pkgs.v4l-utils
-        pkgs.transmission-gtk
-        pkgs.jdk11
-        pkgs.lm_sensors
-        pkgs.psmisc
+        v4l-utils
+        transmission-gtk
+        jdk11
+        lm_sensors
+        psmisc
         unstable.discord
-        pkgs.tdesktop
-        pkgs.dino
-        pkgs.nextcloud-client
-        pkgs.vegur
-        pkgs.nitrogen
-        pkgs.terminator
-        pkgs.pavucontrol
-        pkgs.appimage-run
-        pkgs.gparted
-        pkgs.scrot
-        pkgs.gimp-with-plugins
-        pkgs.vscode
-        pkgs.cryptsetup
-        pkgs.pcmanfm
-        pkgs.neofetch
-        pkgs.htop
+        tdesktop
+        pinentry.gtk2
+        dino
+        nextcloud-client
+        vegur
+        nitrogen
+        terminator
+        pavucontrol
+        appimage-run
+        gparted
+        scrot
+        gimp-with-plugins
+        vscode
+        cryptsetup
+        pcmanfm
+        neofetch
+        htop
       ];
+  };
+
+      programs.gnupg.agent = {
+        enable = true;
+        enableSSHSupport = true;
+        pinentryFlavor = "gtk2";
+      };
+
+    home-manager.users.kat = {
 
       services.nextcloud-client.enable = true;
-
-      programs.fish = { interactiveShellInit = "set -g fish_greeting ''"; };
 
       programs.firefox = { enable = true; };
 
@@ -82,12 +90,6 @@ in {
 
     services.pcscd.enable = true;
     services.udev.packages = [ pkgs.yubikey-personalization ];
-
-    programs.gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-      pinentryFlavor = "curses";
-    };
 
     fonts.fontconfig.enable = true;
     fonts.fonts = [ pkgs.nerdfonts pkgs.corefonts ];
