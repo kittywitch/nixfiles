@@ -6,6 +6,13 @@ let
 in {
   imports = [ ../../modules ../users (sources.home-manager + "/nixos") ];
 
+  nix.nixPath = [
+    "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
+    "nixpkgs-unstable=${sources.nixpkgs-unstable}"
+    "nixpkgs-mozilla=${sources.nixpkgs-mozilla}"
+    "arc=${sources.arc-nixexprs}"
+  ];
+
   #boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
   #boot.kernelParams = [ "quiet" ];
 

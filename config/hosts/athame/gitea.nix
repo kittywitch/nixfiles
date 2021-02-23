@@ -3,7 +3,7 @@
 {
   services.gitea = {
     enable = true;
-    disableRegistration = true; # TODO change for initial setup
+    disableRegistration = true;
     domain = "git.kittywit.ch";
     rootUrl = "https://git.kittywit.ch";
   };
