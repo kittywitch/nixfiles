@@ -46,7 +46,10 @@
       enable = true;
       userName = "kat witch";
       userEmail = "kat@kittywit.ch";
-      signing = { key = "01F50A29D4AA91175A11BDB17248991EFA8EFBEE"; };
+      signing = {
+        key = "01F50A29D4AA91175A11BDB17248991EFA8EFBEE";
+        signByDefault = true;
+      };
     };
 
     programs.ssh = {
