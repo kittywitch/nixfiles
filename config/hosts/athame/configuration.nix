@@ -10,6 +10,7 @@
     ./virtualhosts.nix
     # services
     ./mail.nix
+    ./phone.nix
     ./gitea.nix
     ./nextcloud.nix
     ./bitwarden.nix
@@ -33,9 +34,16 @@
     interfaces.enp1s0.useDHCP = true;
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-
+  networking.firewall.allowedTCPPorts = [ 80 443 5160 5060 ];
+  networking.firewall.allowedUDPPorts = [ 5160 5060 ];
+  networking.firewall.allowedTCPPortRanges = [{
+    from = 10000;
+    to = 20000;
+  }];
+  networking.firewall.allowedUDPPortRanges = [{
+    from = 10000;
+    to = 20000;
+  }];
   system.stateVersion = "20.09";
 }
 

@@ -36,6 +36,7 @@ in {
         transmission-gtk
         jdk11
         lm_sensors
+        baresip
         psmisc
         unstable.discord
         tdesktop

@@ -1,5 +1,4 @@
 { ... }:
 
-{
-  imports = [ ./deploy ];
-}
+let sources = import ../nix/sources.nix;
+in { imports = [ ./deploy ]; }
