@@ -10,7 +10,7 @@
     ./virtualhosts.nix
     # services
     ./mail.nix
-    ./phone.nix
+    ./asterisk.nix
     ./gitea.nix
     ./nextcloud.nix
     ./bitwarden.nix

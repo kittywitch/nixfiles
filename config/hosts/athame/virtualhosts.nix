@@ -30,6 +30,9 @@ in {
         '';
       };
     } // common;
+    "athame.kittywit.ch" = {
+      root = "/var/www/athame";
+    } // common;
     "vault.kittywit.ch" = {
       locations = {
         "/".proxyPass = "http://127.0.0.1:4000";

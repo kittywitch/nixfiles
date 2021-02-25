@@ -5,19 +5,26 @@ in {
   services.asterisk = {
     enable = true;
     confFiles = {
+      "rtp.conf" = ''
+        [general]
+        rtpstart=10000
+        rtpend=20000
+      '';
       "extensions.conf" = ''
         [outbound]
         exten => _1NXXNXXXXXX,1,Dial(PJSIP/''${EXTEN}@signalwire)
 
         [from-signalwire]
         exten => s,1,Set(numb=''${CUT(CUT(PJSIP_HEADER(read,To),@,1),:,2)})
-        same => n,Goto(''${numb:1},1)  ; Using ''${numb:1} simply strips away the first character or number, in this case a‘+’
-        exten => ${secrets.hosts.athame.phone.number},1,Dial(SIP/1337,20)
+        same  => n,Dial(SIP/1337,20)
 
         [from-internal]
-        exten => _.,1,Set(CALLERID(all)="kat" <+${secrets.hosts.athame.phone.number}>)
-        same => n,Dial(PJSIP/''${EXTEN}@signalwire)
-        same => n(end),Hangup()
+        exten => _1X.,1,Set(CALLERID(all)="kat" <+${secrets.hosts.athame.phone.number.us}>)
+        same  => n,Dial(PJSIP/''${EXTEN:1}@signalwire)
+        same  => n(end),Hangup()
+        exten => _2X.,1,Set(CALLERID(all)="kat" <+${secrets.hosts.athame.phone.number.canada}>)
+        same  => n,Dial(PJSIP/''${EXTEN:1}@signalwire)
+        same  => n(end),Hangup()
       '';
       "pjproject.conf" = ''
         ; Common pjproject options

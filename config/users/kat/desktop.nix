@@ -25,6 +25,7 @@ in {
         mumble
         obs-studio
         xfce.ristretto
+        audacity
         avidemux
         vlc
         ffmpeg-full
