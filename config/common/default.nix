@@ -6,33 +6,41 @@ let
 in {
   imports = [ ../../modules ../users (sources.home-manager + "/nixos") ];
 
-  nix.nixPath = [
-    "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
-    "nixpkgs-unstable=${sources.nixpkgs-unstable}"
-    "nixpkgs-mozilla=${sources.nixpkgs-mozilla}"
-    "arc=${sources.arc-nixexprs}"
-  ];
-
   #boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
   #boot.kernelParams = [ "quiet" ];
 
   nixpkgs.config = { allowUnfree = true; };
+  nix = {
+    nixPath = [
+    "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
+    "nixpkgs-unstable=${sources.nixpkgs-unstable}"
+    "nixpkgs-mozilla=${sources.nixpkgs-mozilla}"
+    "arc=${sources.arc-nixexprs}"
+    ];
+    gc.automatic = lib.mkDefault true;
+    gc.options = lib.mkDefault "--delete-older-than 1w";
+    trustedUsers = [ "root" "@wheel" ];
+  };
 
   services.journald.extraConfig = "SystemMaxUse=512M";
-  nix.gc.automatic = lib.mkDefault true;
-  nix.gc.options = lib.mkDefault "--delete-older-than 1w";
-  nix.trustedUsers = [ "root" "@wheel" ];
+
   environment.variables = {
     EDITOR = "emacs";
     TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
   };
 
-  services.openssh.enable = true;
-  services.openssh.ports = lib.mkDefault [ 62954 ];
-  services.openssh.passwordAuthentication = false;
-  services.openssh.challengeResponseAuthentication = false;
-  services.openssh.permitRootLogin = lib.mkDefault "prohibit-password";
-  services.openssh.extraConfig = "StreamLocalBindUnlink yes";
+  services.openssh = {
+    enable = true;
+    ports = lib.mkDefault [ 62954 ];
+    passwordAuthentication = false;
+    challengeResponseAuthentication = false;
+    permitRootLogin = lib.mkDefault "prohibit-password";
+    kexAlgorithms = [ "curve25519-sha256@libssh.org" ]; 
+    extraConfig = ''
+      StreamLocalBindUnlink yes
+      LogLevel VERBOSE 
+    '';
+  };
   security.sudo.wheelNeedsPassword = lib.mkForce false;
 
   i18n.defaultLocale = "en_GB.UTF-8";
