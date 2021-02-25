@@ -127,8 +127,10 @@ in {
       '';
       "logger.conf" = ''
         [general]
+        dateformat=%F %T
         [logfiles]
         ; Add debug output to log
+        messages => security, notice,warning,error 
         syslog.local0 => notice,warning,error,debug
       '';
     };

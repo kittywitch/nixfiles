@@ -8,6 +8,8 @@
     # nginx
     ../../services/nginx.nix
     ./virtualhosts.nix
+    # security
+    ./fail2ban.nix
     # services
     ./mail.nix
     ./asterisk.nix
