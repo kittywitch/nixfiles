@@ -13,7 +13,6 @@
         enabled  = true
         filter   = asterisk
         action   = iptables-allports[name=ASTERISK, protocol=all]
-                    sendmail[name=ASTERISK, dest=kat@kittywit.ch, sender=fail2ban@localhost]
         logpath  = /var/log/asterisk/messages
         maxretry = 4
       '';
