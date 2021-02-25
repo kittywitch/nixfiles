@@ -12,10 +12,10 @@ in {
   nixpkgs.config = { allowUnfree = true; };
   nix = {
     nixPath = [
-    "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
-    "nixpkgs-unstable=${sources.nixpkgs-unstable}"
-    "nixpkgs-mozilla=${sources.nixpkgs-mozilla}"
-    "arc=${sources.arc-nixexprs}"
+      "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
+      "nixpkgs-unstable=${sources.nixpkgs-unstable}"
+      "nixpkgs-mozilla=${sources.nixpkgs-mozilla}"
+      "arc=${sources.arc-nixexprs}"
     ];
     gc.automatic = lib.mkDefault true;
     gc.options = lib.mkDefault "--delete-older-than 1w";
@@ -35,7 +35,7 @@ in {
     passwordAuthentication = false;
     challengeResponseAuthentication = false;
     permitRootLogin = lib.mkDefault "prohibit-password";
-    kexAlgorithms = [ "curve25519-sha256@libssh.org" ]; 
+    kexAlgorithms = [ "curve25519-sha256@libssh.org" ];
     extraConfig = ''
       StreamLocalBindUnlink yes
       LogLevel VERBOSE 
