@@ -4,7 +4,10 @@ let
   style = import ./style.nix;
   secrets = import ../../../secrets.nix;
 in {
+  imports = [ ./waybar ];
+
   config = lib.mkIf (lib.elem "sway" config.meta.deploy.profiles) {
+
     fonts.fonts = with pkgs; [
       font-awesome
       nerdfonts

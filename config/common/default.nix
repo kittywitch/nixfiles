@@ -15,6 +15,7 @@ in {
       "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
       "nixpkgs-unstable=${sources.nixpkgs-unstable}"
       "nixpkgs-mozilla=${sources.nixpkgs-mozilla}"
+      "NUR=${sources.NUR}"
       "arc=${sources.arc-nixexprs}"
     ];
     gc.automatic = lib.mkDefault true;

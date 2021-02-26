@@ -1,0 +1,33 @@
+
+#!/usr/bin/env bash
+set -eu
+
+usage() {
+    echo example: $0 build samhain boot
+}
+
+build() {
+    HOST=$1
+    if [ $# -gt 2 ]; then
+        METHOD=$2
+    else
+        METHOD="switch"
+    fi
+
+    nix build -f . deploy.$HOST && ./result $METHOD
+}
+
+main() {
+    if [ $# -lt 2 ]; then
+        usage
+    else 
+        CMD=$1
+        shift
+
+        if [[ $CMD == "build" ]]; then 
+            build "$@"
+        fi
+    fi
+}
+
+main "$@"

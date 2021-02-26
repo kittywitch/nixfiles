@@ -3,9 +3,11 @@
 let
   sources = import ../../../nix/sources.nix;
   unstable = import sources.nixpkgs-unstable { inherit (pkgs) config; };
+  nur = import sources.NUR;
 in {
-  config = lib.mkIf (lib.elem "desktop" config.meta.deploy.profiles) {
+  imports = [ ./firefox ];
 
+  config = lib.mkIf (lib.elem "desktop" config.meta.deploy.profiles) {
     nixpkgs.config = {
       mumble.speechdSupport = true;
       pulseaudio = true;
@@ -15,6 +17,17 @@ in {
     services.xserver.displayManager.lightdm.enable = true;
     programs.light.enable = true;
     services.tumbler.enable = true;
+
+    xdg = {
+      portal = {
+        enable = true;
+        extraPortals = with pkgs; [
+          xdg-desktop-portal-wlr
+          xdg-desktop-portal-gtk
+        ];
+        gtkUsePortal = true;
+      };
+    };
 
     users.users.kat = {
       packages = with pkgs; [
@@ -67,6 +80,11 @@ in {
     };
 
     home-manager.users.kat = {
+      home.sessionVariables = {
+        MOZ_ENABLE_WAYLAND = 1;
+        XDG_CURRENT_DESKTOP = "sway";
+        XDG_SESSION_TYPE = "wayland";
+      };
 
       home.file.".gnupg/gpg-agent.conf".text = ''
         enable-ssh-support
@@ -74,8 +92,6 @@ in {
       '';
 
       services.nextcloud-client.enable = true;
-
-      programs.firefox = { enable = true; };
 
       services.kdeconnect = {
         enable = true;

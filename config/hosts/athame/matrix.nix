@@ -27,6 +27,7 @@ in {
       }];
     }];
   };
+
   services.mautrix-telegram = {
     enable = true;
     settings = {
@@ -50,6 +51,7 @@ in {
     };
     environmentFile = "/etc/secrets/mautrix-telegram.env";
   };
+
   systemd.services.mx-puppet-discord = {
     serviceConfig = {
       Type = "simple";
@@ -71,6 +73,7 @@ in {
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
   };
+
   systemd.services.mautrix-whatsapp = {
     serviceConfig = {
       Type = "simple";
@@ -91,5 +94,27 @@ in {
     requisite = [ "matrix-synapse.service" ];
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
+  };
+
+  services.nginx.virtualHosts."kittywit.ch" = {
+    locations = {
+      "/_matrix" = { proxyPass = "http://[::1]:8008"; };
+      "= /.well-known/matrix/server".extraConfig =
+        let server = { "m.server" = "kittywit.ch:443"; };
+        in ''
+          add_header Content-Type application/json;
+          return 200 '${builtins.toJSON server}';
+        '';
+      "= /.well-known/matrix/client".extraConfig = let
+        client = {
+          "m.homeserver" = { "base_url" = "https://kittywit.ch"; };
+          "m.identity_server" = { "base_url" = "https://vector.im"; };
+        };
+      in ''
+        add_header Content-Type application/json;
+        add_header Access-Control-Allow-Origin *;
+        return 200 '${builtins.toJSON client}';
+      '';
+    };
   };
 }

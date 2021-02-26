@@ -15,6 +15,8 @@ let
 
     arc = import sources.arc-nixexprs { inherit pkgs; };
 
+    nur = import sources.NUR { inherit pkgs; };
+
     linuxPackagesFor = kernel:
       (pkgs.linuxPackagesFor kernel).extend (_: ksuper: {
         vendor-reset =

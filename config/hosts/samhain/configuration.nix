@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 
-{
+let sources = (import ../../../nix/sources.nix);
+in {
   imports = [
     ../../services/zfs.nix
     ./hardware.nix
@@ -51,14 +52,6 @@
     modprobe -i vfio-pci
   '';
 
-  # the nur is used for arc's packages, so we include it here
-  nixpkgs.config.packageOverrides = pkgs: {
-    nur = import (builtins.fetchTarball
-      "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-        inherit pkgs;
-      };
-  };
-
   # rules are for:
   # * monitor ddc/ci
   # * input for qemu
@@ -73,7 +66,7 @@
 
   environment.systemPackages = [
     # pkgs.nur.repos.arc.packages.screenstub # for DDC/CI and input forwarding (currently disabled due to using changed source)
-    pkgs.nur.repos.arc.packages.scream-arc # for audio forwarding
+    pkgs.arc.pkgs.scream-arc # for audio forwarding
     pkgs.ddcutil # for diagnostics on DDC/CI
     pkgs.virt-manager # obvious reasons
     pkgs.cachix # arc caching
@@ -92,8 +85,7 @@
     wantedBy = [ "multi-user.target" ];
     description = "Scream - Audio forwarding from the VM.";
     serviceConfig = {
-      ExecStart =
-        "${pkgs.nur.repos.arc.packages.scream-arc}/bin/scream -i virbr0 -o pulse";
+      ExecStart = "${pkgs.arc.pkgs.scream-arc}/bin/scream -i virbr0 -o pulse";
       Restart = "always";
     };
   };

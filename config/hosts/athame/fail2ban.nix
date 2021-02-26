@@ -5,7 +5,7 @@
     enable = true;
     jails = {
       DEFAULT = ''
-        bantime  = 3600
+        bantime  = 1d
         blocktype = DROP
         logpath  = /var/log/auth.log
       '';
@@ -80,5 +80,5 @@
     '';
   };
 
-  systemd.services.fail2ban.serviceConfig.LimitSTACK = 256 * 1024;
+  systemd.services.fail2ban.serviceConfig.LimitSTACK = 128 * 1024;
 }
