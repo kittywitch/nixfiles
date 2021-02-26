@@ -23,9 +23,7 @@ main() {
         CMD=$1
         shift
 
-        if [[ $CMD == "build" ]]; then 
-            build "$@"
-        fi
+        "$CMD" "$@"
     fi
 }
 
