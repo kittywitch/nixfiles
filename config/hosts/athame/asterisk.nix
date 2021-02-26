@@ -11,8 +11,8 @@ in {
         rtpend=20000
       '';
       "extensions.conf" = ''
-        [outbound]
-        exten => _1NXXNXXXXXX,1,Dial(PJSIP/''${EXTEN}@signalwire)
+        [from-twilio]
+        exten => _.,1,Dial(SIP/1337,20)
 
         [from-signalwire]
         exten => s,1,Set(numb=''${CUT(CUT(PJSIP_HEADER(read,To),@,1),:,2)})
@@ -24,6 +24,9 @@ in {
         same  => n(end),Hangup()
         exten => _2X.,1,Set(CALLERID(all)="kat" <+${secrets.hosts.athame.phone.number.canada}>)
         same  => n,Dial(PJSIP/''${EXTEN:1}@signalwire)
+        same  => n(end),Hangup()
+        exten => _3X.,1,Set(CALLERID(all)="kat" <+${secrets.hosts.athame.phone.number.uk}>)
+        same  => n,Dial(PJSIP/+''${EXTEN:1}@twilio-ie)
         same  => n(end),Hangup()
       '';
       "pjproject.conf" = ''
@@ -81,17 +84,78 @@ in {
         secret=${secrets.hosts.athame.phone.password}
         nat=force_rport,comedia
       '';
+      "pjsip_wizard.conf" = ''
+        [user_defaults](!)
+        type = wizard
+        accepts_registrations = yes
+        sends_registrations = no
+        accepts_auth = yes
+        sends_auth = no
+        endpoint/context = from-internal
+        endpoint/tos_audio=ef
+        endpoint/tos_video=af41
+        endpoint/cos_audio=5
+        endpoint/cos_video=4
+        endpoint/allow = !all,ulaw
+        endpoint/dtmf_mode= rfc4733
+        endpoint/aggregate_mwi = yes
+        endpoint/use_avpf = no
+        endpoint/rtcp_mux = no
+        endpoint/bundle = no
+        endpoint/ice_support = no
+        endpoint/media_use_received_transport = no
+        endpoint/trust_id_inbound = yes
+        endpoint/media_encryption = no
+        endpoint/timers = yes
+        endpoint/media_encryption_optimistic = no
+        endpoint/send_pai = yes
+        endpoint/rtp_symmetric = yes
+        endpoint/rewrite_contact = yes
+        endpoint/force_rport = yes
+        endpoint/language = en
+
+        [trunk_defaults](!)
+        type = wizard
+        endpoint/transport=0.0.0.0-udp
+        endpoint/allow = !all,ulaw
+        endpoint/t38_udptl=no
+        endpoint/t38_udptl_ec=none
+        endpoint/fax_detect=no
+        endpoint/trust_id_inbound=no
+        endpoint/t38_udptl_nat=no
+        endpoint/direct_media=no
+        endpoint/rewrite_contact=yes
+        endpoint/rtp_symmetric=yes
+        endpoint/dtmf_mode=rfc4733
+        endpoint/allow_subscribe = no
+        aor/qualify_frequency = 60
+
+        [twilio-ie](trunk_defaults)
+        sends_auth = yes
+        sends_registrations = no
+        remote_hosts = kat-asterisk.pstn.dublin.twilio.com
+        outbound_auth/username = asterisk
+        outbound_auth/password = ${secrets.hosts.athame.phone.endpoint.password.twilio}
+        endpoint/context = from-twilio
+        aor/qualify_frequency = 60
+      '';
       "pjsip.conf" = ''
-        [transport-udp]
+        [global]
+        type=global
+
+        [0.0.0.0-udp]
         type=transport
         protocol=udp
-        bind=0.0.0.0
+        bind=0.0.0.0:5060
+        allow_reload=no
+        tos=cs3
+        cos=3
 
         [signalwire]
         type=auth
         auth_type=userpass
         username=asterisk ; Your username
-        password=${secrets.hosts.athame.phone.endpoint.password}
+        password=${secrets.hosts.athame.phone.endpoint.password.signalwire}
 
         [signalwire]
         type=aor
