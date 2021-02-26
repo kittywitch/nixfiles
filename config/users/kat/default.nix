@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./ssh.nix
     ./desktop.nix
     ./gaming.nix
     ./network.nix
@@ -48,28 +49,6 @@
       signing = {
         key = "01F50A29D4AA91175A11BDB17248991EFA8EFBEE";
         signByDefault = true;
-      };
-    };
-
-    programs.ssh = {
-      enable = true;
-      controlMaster = "auto";
-      controlPersist = "10m";
-      hashKnownHosts = true;
-      matchBlocks = let
-        kat = {
-          forwardAgent = true;
-          extraOptions = {
-            RemoteForward =
-              "/run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra";
-          };
-          port = 62954;
-        };
-      in {
-        "athame" = { hostname = "athame.kittywit.ch"; } // kat;
-        "samhain" = { hostname = "192.168.1.135"; } // kat;
-        "yule" = { hostname = "192.168.1.92"; } // kat;
-        "boline" = { hostname = "boline.kittywit.ch"; } // kat;
       };
     };
 

@@ -48,7 +48,6 @@ in {
         unstable.google-chrome
         v4l-utils
         transmission-gtk
-        jdk11
         lm_sensors
         baresip
         psmisc
@@ -61,7 +60,6 @@ in {
         nitrogen
         terminator
         pavucontrol
-        appimage-run
         gparted
         scrot
         gimp-with-plugins
