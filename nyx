@@ -16,6 +16,13 @@ build() {
     nix build -f . deploy.$HOST && ./result $METHOD
 }
 
+install() {
+    nix build -f . hosts.$HOST.config.system.build.toplevel
+    CLOSURE=$(readlink result)
+    nix-store --export $(nix-store -qR ./result) | ssh root@$HOST nix-store --import --store /mnt
+    ssh root@$HOST nixos-install --system $CLOSURE
+}
+
 main() {
     if [ $# -lt 2 ]; then
         usage
@@ -23,7 +30,7 @@ main() {
         CMD=$1
         shift
 
-        "$CMD" "$@"
+        $CMD $@
     fi
 }
 
