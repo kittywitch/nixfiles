@@ -17,6 +17,7 @@ build() {
 }
 
 install() {
+    HOST=$1
     nix build -f . hosts.$HOST.config.system.build.toplevel
     CLOSURE=$(readlink result)
     nix-store --export $(nix-store -qR ./result) | ssh root@$HOST nix-store --import --store /mnt
