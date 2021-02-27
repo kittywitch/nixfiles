@@ -6,8 +6,7 @@ let
 in {
   imports = [ ../../modules ../users (sources.home-manager + "/nixos") ];
 
-  #boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-  #boot.kernelParams = [ "quiet" ];
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
   nixpkgs.config = { allowUnfree = true; };
   nix = {

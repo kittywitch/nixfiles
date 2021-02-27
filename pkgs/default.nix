@@ -14,7 +14,7 @@ let
     discord = pkgs.discord.override { nss = pkgs.nss_latest; };
 
     arc = import sources.arc-nixexprs { inherit pkgs; };
-
+    unstable = import sources.nixpkgs-unstable { inherit pkgs; };
     nur = import sources.NUR { inherit pkgs; };
 
     linuxPackagesFor = kernel:

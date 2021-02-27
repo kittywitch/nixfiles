@@ -6,6 +6,7 @@
     disableRegistration = true;
     domain = "git.kittywit.ch";
     rootUrl = "https://git.kittywit.ch";
+    httpAddress = "127.0.0.1";
   };
 
   services.nginx.virtualHosts."git.kittywit.ch" = {

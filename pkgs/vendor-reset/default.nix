@@ -1,10 +1,12 @@
-{ stdenv, fetchFromGitHub, kernel }:
+{ stdenv, fetchFromGitHub, kernel, pkgs }:
 
 let
-  version = "0.0.18";
-  rev = "765b05cdbd4de854c05f771c954ecee0e019d734";
+  version = "0.1.1";
+  rev = "225a49a40941e350899e456366265cf82b87ad25";
   sha256 =
-    "0ayn8128i0bfwzcmkn0x2alfplbsmvp0c63z56w11ywyysf342qw"; # TODO add this
+    "071zd8slra0iqsvzqpp6lcvg5dql5hkn161gh9aq34wix7pwzbn5";
+  sources = import ../../nix/sources.nix;
+  unstable = import sources.nixpkgs-unstable { inherit pkgs; };
 
 in stdenv.mkDerivation {
   name = "vendor-reset-${version}-${kernel.version}";
@@ -17,7 +19,10 @@ in stdenv.mkDerivation {
     inherit sha256;
   };
 
-  nativeBuildInputs = kernel.moduleBuildDependencies;
+  nativeBuildInputs =  [
+    unstable.pkgs.binutils
+    unstable.pkgs.libelf
+  ];
   hardeningDisable = [ "pic" ];
 
   makeFlags = [
