@@ -5,8 +5,6 @@ let
   rev = "225a49a40941e350899e456366265cf82b87ad25";
   sha256 =
     "071zd8slra0iqsvzqpp6lcvg5dql5hkn161gh9aq34wix7pwzbn5";
-  sources = import ../../nix/sources.nix;
-  unstable = import sources.nixpkgs-unstable { inherit pkgs; };
 
 in stdenv.mkDerivation {
   name = "vendor-reset-${version}-${kernel.version}";
@@ -19,10 +17,6 @@ in stdenv.mkDerivation {
     inherit sha256;
   };
 
-  nativeBuildInputs =  [
-    unstable.pkgs.binutils
-    unstable.pkgs.libelf
-  ];
   hardeningDisable = [ "pic" ];
 
   makeFlags = [
