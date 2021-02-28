@@ -1,0 +1,12 @@
+* Tasks
+** TODO Pull screenstub in as an overlay with patches
+** TODO Move virtual machine config into nixfiles
+** TODO Add dork.dev to mailserver
+** TODO Set up proper user service for scream
+** TODO Secrets handling
+
+* Secrets handling
+
+** TODO Bitwarden integration for secrets obtainment
+** TODO Secrets transposition service
+** TODO Config delivery + permissions service

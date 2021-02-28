@@ -7,6 +7,7 @@
     ./gaming.nix
     ./network.nix
     ./sway.nix
+    ./waybar
     ./kitty.nix
     ./emacs.nix
   ];

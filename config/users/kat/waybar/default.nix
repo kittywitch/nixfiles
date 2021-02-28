@@ -4,6 +4,7 @@ let
   style = import ../style.nix;
   secrets = import ../../../../secrets.nix;
 in {
+  config = lib.mkIf (lib.elem "sway" config.meta.deploy.profiles) {
   home-manager.users.kat = {
     programs.waybar = {
       enable = true;
@@ -30,11 +31,7 @@ in {
             format = "{}";
             interval = 3600;
             on-click = "xdg-open 'https://google.com/search?q=weather'";
-            exec = "nix-shell --command 'python ${
-                ../../../../scripts/weather/weather.py
-              } ${secrets.profiles.sway.city} ${secrets.profiles.sway.api_key}' ${
-                ../../../../scripts/weather}
-              }";
+            exec = "nix-shell --command 'python ${../../../../scripts/weather/weather.py} ${secrets.profiles.sway.city} ${secrets.profiles.sway.api_key}' ${../../../../scripts/weather}";
           };
           cpu = { format = "  {usage}%"; };
           memory = { format = "  {percentage}%"; };
@@ -75,5 +72,6 @@ in {
         };
       }];
     };
+  };
   };
 }

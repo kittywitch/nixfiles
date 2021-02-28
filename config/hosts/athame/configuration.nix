@@ -22,6 +22,7 @@
     ./matrix.nix
   ];
 
+  meta.deploy.profiles = [];
   meta.deploy.ssh.host = "athame.kittywit.ch";
 
   boot.loader.grub.enable = true;

@@ -7,6 +7,8 @@ in {
   imports = [ ../../modules ../users (sources.home-manager + "/nixos") ];
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+  boot.loader.grub.configurationLimit = 8;
+  boot.loader.systemd-boot.configurationLimit = 8;
 
   nixpkgs.config = { allowUnfree = true; };
   nix = {
