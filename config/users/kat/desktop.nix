@@ -53,6 +53,7 @@ in {
         psmisc
         unstable.discord
         tdesktop
+        yubikey-manager
         pinentry.gtk2
         dino
         nextcloud-client
