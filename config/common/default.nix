@@ -2,7 +2,6 @@
 
 let
   sources = import ../../nix/sources.nix;
-  unstable = import sources.nixpkgs-unstable { };
 in {
   imports = [ ../../modules ../users (sources.home-manager + "/nixos") ];
 

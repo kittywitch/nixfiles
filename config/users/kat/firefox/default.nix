@@ -2,8 +2,6 @@
 
 let
   sources = import ../../../../nix/sources.nix;
-  unstable = import sources.nixpkgs-unstable { inherit (pkgs) config; };
-  nur = import sources.NUR { inherit pkgs; };
   commonSettings = {
     "app.update.auto" = false;
     "identity.fxaccounts.account.device.name" = config.networking.hostName;
@@ -24,7 +22,7 @@ in {
 
     programs.firefox = {
       enable = true;
-      extensions = with nur.repos.rycee.firefox-addons; [
+      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         auto-tab-discard
         bitwarden
         darkreader

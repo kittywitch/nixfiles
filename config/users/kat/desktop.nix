@@ -2,8 +2,6 @@
 
 let
   sources = import ../../../nix/sources.nix;
-  unstable = import sources.nixpkgs-unstable { inherit (pkgs) config; };
-  nur = import sources.NUR;
 in {
   imports = [ ./firefox ];
 

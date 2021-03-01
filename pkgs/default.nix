@@ -4,29 +4,24 @@ let
   sources = import ../nix/sources.nix;
   pkgs = import sources.nixpkgs args;
 
-  callPackage = pkgs.lib.callPackageWith (pkgs // newpkgs);
-
-  newpkgs = {
-    dino = callPackage "${sources.qyliss-nixlib}/overlays/patches/dino" {
-      inherit (pkgs) dino;
+  overlay = self: super: {
+    dino = super.callPackage "${sources.qyliss-nixlib}/overlays/patches/dino" {
+      inherit (super) dino;
     };
 
-    discord = pkgs.discord.override { nss = pkgs.nss_latest; };
+    discord = super.discord.override { nss = self.nss_latest; };
 
-    arc = import sources.arc-nixexprs { inherit pkgs; };
-    unstable = import sources.nixpkgs-unstable { inherit pkgs; };
-    nur = import sources.NUR { inherit pkgs; };
+    arc = import sources.arc-nixexprs { pkgs = super; };
+    unstable = import sources.nixpkgs-unstable { inherit (self) config; };
+    nur = import sources.NUR { nurpkgs = self; pkgs = self; };
 
     linuxPackagesFor = kernel:
-      (pkgs.linuxPackagesFor kernel).extend (_: ksuper: {
+      (super.linuxPackagesFor kernel).extend (_: ksuper: {
         vendor-reset =
-          (callPackage ./vendor-reset { kernel = ksuper.kernel; }).out;
+          (super.callPackage ./vendor-reset { kernel = ksuper.kernel; }).out;
       });
 
-    colorhelpers = import ../lib/colorhelpers.nix { inherit (pkgs) lib; };
-
-    inherit callPackage;
-    appendOverlays = overlays: (pkgs.appendOverlays overlays) // newpkgs;
+    colorhelpers = import ../lib/colorhelpers.nix { inherit (self) lib; };
   };
 
-in pkgs // newpkgs
+in pkgs.extend(overlay)
