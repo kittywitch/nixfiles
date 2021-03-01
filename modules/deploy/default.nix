@@ -3,7 +3,15 @@
 with lib;
 
 let cfg = config.meta.deploy;
-
+secretsScript = concatMapStrings (file: ''
+  ssh $NIX_SSHOPTS ${cfg.ssh.host} '
+  sudo mkdir -p ${toString file.out.dir}
+  echo \\"
+  ${file.text}
+  " | sudo tee ${file.path}
+  sudo chmod ${file.mode} ${file.path}
+  sudo chown ${file.owner}:${file.group} ${file.path}'
+'') (attrValues config.secrets.files);
 in {
   options = {
     meta.deploy = {
@@ -42,6 +50,7 @@ in {
         nix copy ${
           if cfg.substitute then "-s" else ""
         } --no-check-sigs --to ssh://${cfg.ssh.host} ${config.system.build.toplevel}
+        ${secretsScript}
         ssh $NIX_SSHOPTS ${cfg.ssh.host} "sudo nix-env -p /nix/var/nix/profiles/system -i ${config.system.build.toplevel}" 
         ssh $NIX_SSHOPTS ${cfg.ssh.host} "sudo /nix/var/nix/profiles/system/bin/switch-to-configuration $1" 
       '';

@@ -24,6 +24,12 @@ in {
     trustedUsers = [ "root" "@wheel" ];
   };
 
+  secrets = {
+    root = "/var/lib/kat/secrets";
+    persistentRoot = "/var/lib/kat/secrets";
+    external = true;
+  };
+
   services.journald.extraConfig = "SystemMaxUse=512M";
 
   environment.variables = {

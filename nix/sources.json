@@ -117,5 +117,17 @@
         "type": "tarball",
         "url": "https://git.qyliss.net/nixlib/snapshot/nixlib-e14330c5be9b005d4310cd4dc0d384cff882aedc.tar.gz",
         "url_template": "https://git.qyliss.net/nixlib/snapshot/nixlib-<rev>.tar.gz"
+    },
+    "tf-nix": {
+        "branch": "master",
+        "description": "terraform meets nix",
+        "homepage": null,
+        "owner": "arcnmx",
+        "repo": "tf-nix",
+        "rev": "32dae16c0aaba3412905bd80968888a767071808",
+        "sha256": "1c0vg42j096jp65b6indynh2y77xfv8nrfrnbv4llxfjsmd6w3lq",
+        "type": "tarball",
+        "url": "https://github.com/arcnmx/tf-nix/archive/32dae16c0aaba3412905bd80968888a767071808.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

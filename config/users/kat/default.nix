@@ -24,6 +24,10 @@
 
   home-manager.useGlobalPkgs = true;
   home-manager.users.kat = {
+    imports = [ 
+      ./modules
+    ];
+    
     programs.fish = {
       enable = true;
       shellAliases = { nixdirfmt = "fd --color=never .nix | xargs nixfmt"; };
