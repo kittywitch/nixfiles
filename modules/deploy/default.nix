@@ -4,13 +4,12 @@ with lib;
 
 let cfg = config.meta.deploy;
 secretsScript = concatMapStrings (file: ''
-  ssh $NIX_SSHOPTS ${cfg.ssh.host} '
-  sudo mkdir -p ${toString file.out.dir}
-  echo \\"
+  ssh $NIX_SSHOPTS root@${cfg.ssh.host} "mkdir -p ${toString file.out.dir}
+  cat > ${file.path}
+  chmod ${file.mode} ${file.path}
+  chown ${file.owner}:${file.group} ${file.path}" << 'EOF'
   ${file.text}
-  " | sudo tee ${file.path}
-  sudo chmod ${file.mode} ${file.path}
-  sudo chown ${file.owner}:${file.group} ${file.path}'
+  EOF
 '') (attrValues config.secrets.files);
 in {
   options = {
@@ -46,13 +45,13 @@ in {
         #!${pkgs.runtimeShell}
         set -xeo pipefail
         export PATH=${with pkgs; lib.makeBinPath [ coreutils openssh nix ]}
-        export NIX_SSHOPTS="$NIX_SSHOPTS -p${toString cfg.ssh.port}"
+        export NIX_SSHOPTS="$NIX_SSHOPTS -p${toString cfg.ssh.port} -T"
         nix copy ${
           if cfg.substitute then "-s" else ""
-        } --no-check-sigs --to ssh://${cfg.ssh.host} ${config.system.build.toplevel}
+        } --no-check-sigs --to ssh://root@${cfg.ssh.host} ${config.system.build.toplevel}
         ${secretsScript}
-        ssh $NIX_SSHOPTS ${cfg.ssh.host} "sudo nix-env -p /nix/var/nix/profiles/system -i ${config.system.build.toplevel}" 
-        ssh $NIX_SSHOPTS ${cfg.ssh.host} "sudo /nix/var/nix/profiles/system/bin/switch-to-configuration $1" 
+        ssh $NIX_SSHOPTS root@${cfg.ssh.host} "nix-env -p /nix/var/nix/profiles/system -i ${config.system.build.toplevel}" 
+        ssh $NIX_SSHOPTS root@${cfg.ssh.host} "/nix/var/nix/profiles/system/bin/switch-to-configuration $1" 
       '';
   };
 }
