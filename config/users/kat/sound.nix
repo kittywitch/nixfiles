@@ -7,7 +7,7 @@
     '';
     hardware.pulseaudio.daemon.config = {
         default-sample-format = "s24le";
-        default-sample-rate = 192000;
+        default-sample-rate = 96000;
         resample-method = "soxr-vhq";
     };
   };
