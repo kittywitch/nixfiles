@@ -4,6 +4,7 @@
   imports = [
     ./ssh.nix
     ./desktop.nix
+    ./sound.nix
     ./gaming.nix
     ./network.nix
     ./sway.nix
