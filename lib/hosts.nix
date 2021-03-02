@@ -1,4 +1,5 @@
-{ pkgs, hostsDir ? ../config/hosts
+{ pkgs, hostsDir ? ../config/hosts,
+privateHostsDir ? ../config/private/hosts
 , commonImports ? [ ../config/common ../modules ], pkgsPath ? ../pkgs }:
 
 with pkgs.lib;
@@ -12,6 +13,7 @@ rec {
       _module.args = { inherit hosts profiles; };
       imports = [
         (import (hostsDir + "/${hostName}/configuration.nix"))
+        (import (privateHostsDir + "/${hostName}/configuration.nix"))
         ../modules/deploy
       ] ++ commonImports;
       networking = { inherit hostName; };

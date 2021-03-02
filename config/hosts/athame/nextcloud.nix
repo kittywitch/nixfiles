@@ -17,7 +17,7 @@
       dbhost = "/run/postgresql";
       dbname = "nextcloud";
       adminpassFile =
-        "/var/lib/nextcloud/admin-pass"; # TODO replace this with proper secrets management
+        config.secrets.files.nextcloud.path; # TODO replace this with proper secrets management
       adminuser = "root";
     };
   };

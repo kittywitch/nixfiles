@@ -20,6 +20,10 @@
     ];
     shell = pkgs.fish;
     extraGroups = [ "wheel" "video" ];
+    packages = with pkgs; [
+      git-crypt
+      gitAndTools.gitRemoteGcrypt
+    ];
   };
 
   home-manager.useGlobalPkgs = true;
@@ -49,8 +53,12 @@
 
     programs.git = {
       enable = true;
+      package = pkgs.gitAndTools.gitFull;
       userName = "kat witch";
       userEmail = "kat@kittywit.ch";
+      extraConfig = {
+        protocol.gcrypt.allow = "always";
+      };
       signing = {
         key = "01F50A29D4AA91175A11BDB17248991EFA8EFBEE";
         signByDefault = true;
