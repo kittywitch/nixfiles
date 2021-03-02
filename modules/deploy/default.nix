@@ -2,15 +2,16 @@
 
 with lib;
 
-let cfg = config.meta.deploy;
-secretsScript = concatMapStrings (file: ''
-  ssh $NIX_SSHOPTS root@${cfg.ssh.host} "mkdir -p ${toString file.out.dir}
-  cat > ${file.path}
-  chmod ${file.mode} ${file.path}
-  chown ${file.owner}:${file.group} ${file.path}" << 'EOF'
-  ${file.text}
-  EOF
-'') (attrValues config.secrets.files);
+let
+  cfg = config.meta.deploy;
+  secretsScript = concatMapStrings (file: ''
+    ssh $NIX_SSHOPTS root@${cfg.ssh.host} "mkdir -p ${toString file.out.dir}
+    cat > ${file.path}
+    chmod ${file.mode} ${file.path}
+    chown ${file.owner}:${file.group} ${file.path}" << 'EOF'
+    ${file.text}
+    EOF
+  '') (attrValues config.secrets.files);
 in {
   options = {
     meta.deploy = {

@@ -61,31 +61,31 @@ in {
     SUBSYSTEM=="i2c-dev", GROUP="users", MODE="0660"
     SUBSYSTEM=="usb", ACTION=="add", ATTRS{idVendor}=="fa58", ATTRS{idProduct}=="04d9", GROUP="users"
     SUBSYSTEM=="misc", KERNEL=="uinput", OPTIONS+="static_node=uinput", MODE="0660", GROUP="uinput"
-    SUBSYSTEM=="input", ACTION=="add", DEVPATH=="/devices/virtual/input/*", MODE="0660", GROUP="qemu-libvirtd", RUN+="${pkgs.writeShellScript "mewdev" "${pkgs.coreutils}/bin/echo  'c 13:* rw' > /sys/fs/cgroup/devices/machine.slice/machine-qemu*/devices.allow"}"
+    SUBSYSTEM=="input", ACTION=="add", DEVPATH=="/devices/virtual/input/*", MODE="0660", GROUP="qemu-libvirtd", RUN+="${
+      pkgs.writeShellScript "mewdev"
+      "${pkgs.coreutils}/bin/echo  'c 13:* rw' > /sys/fs/cgroup/devices/machine.slice/machine-qemu*/devices.allow"
+    }"
   '';
 
   environment.systemPackages = [
     # pkgs.nur.repos.arc.packages.screenstub # for DDC/CI and input forwarding (currently disabled due to using changed source)
     pkgs.arc.pkgs.scream-arc # for audio forwarding
-    pkgs.screenstub # for input handling 
+    pkgs.screenstub # for input handling
     pkgs.ddcutil # for diagnostics on DDC/CI
     pkgs.virt-manager # obvious reasons
   ];
 
   home-manager.users.kat = {
-      # audio for vm on startup
+    # audio for vm on startup
     systemd.user.services = {
       scream = {
-        Unit = {
-          Description = "Scream - Audio forwarding from the VM.";
-        };
+        Unit = { Description = "Scream - Audio forwarding from the VM."; };
         Service = {
-          ExecStart = "${pkgs.arc.pkgs.scream-arc}/bin/scream -i virbr0 -o pulse";
+          ExecStart =
+            "${pkgs.arc.pkgs.scream-arc}/bin/scream -i virbr0 -o pulse";
           Restart = "always";
         };
-        Install = {
-          WantedBy = [ "default.target" ];
-        };
+        Install = { WantedBy = [ "default.target" ]; };
       };
     };
   };

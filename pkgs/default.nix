@@ -13,7 +13,10 @@ let
 
     arc = import sources.arc-nixexprs { pkgs = super; };
     unstable = import sources.nixpkgs-unstable { inherit (self) config; };
-    nur = import sources.NUR { nurpkgs = self; pkgs = self; };
+    nur = import sources.NUR {
+      nurpkgs = self;
+      pkgs = self;
+    };
 
     screenstub = unstable.callPackage ./screenstub { };
 
@@ -26,4 +29,4 @@ let
     colorhelpers = import ../lib/colorhelpers.nix { inherit (self) lib; };
   };
 
-in pkgs.extend(overlay)
+in pkgs.extend (overlay)

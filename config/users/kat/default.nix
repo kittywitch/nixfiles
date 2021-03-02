@@ -21,18 +21,13 @@
     ];
     shell = pkgs.fish;
     extraGroups = [ "wheel" "video" ];
-    packages = with pkgs; [
-      git-crypt
-      gitAndTools.gitRemoteGcrypt
-    ];
+    packages = with pkgs; [ git-crypt gitAndTools.gitRemoteGcrypt ];
   };
 
   home-manager.useGlobalPkgs = true;
   home-manager.users.kat = {
-    imports = [ 
-      ./modules
-    ];
-    
+    imports = [ ./modules ];
+
     programs.fish = {
       enable = true;
       shellAliases = { nixdirfmt = "fd --color=never .nix | xargs nixfmt"; };
@@ -57,9 +52,7 @@
       package = pkgs.gitAndTools.gitFull;
       userName = "kat witch";
       userEmail = "kat@kittywit.ch";
-      extraConfig = {
-        protocol.gcrypt.allow = "always";
-      };
+      extraConfig = { protocol.gcrypt.allow = "always"; };
       signing = {
         key = "01F50A29D4AA91175A11BDB17248991EFA8EFBEE";
         signByDefault = true;

@@ -1,5 +1,4 @@
-{ pkgs, hostsDir ? ../config/hosts,
-privateHostsDir ? ../config/private/hosts
+{ pkgs, hostsDir ? ../config/hosts, privateHostsDir ? ../config/private/hosts
 , commonImports ? [ ../config/common ../modules ], pkgsPath ? ../pkgs }:
 
 with pkgs.lib;
