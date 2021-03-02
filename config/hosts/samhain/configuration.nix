@@ -72,21 +72,21 @@ in {
     pkgs.cachix # arc caching
   ];
 
-  # arc caching
-  nix = {
-    binaryCaches = [ "https://arc.cachix.org" ];
-    binaryCachePublicKeys =
-      [ "arc.cachix.org-1:DZmhclLkB6UO0rc0rBzNpwFbbaeLfyn+fYccuAy7YVY=" ];
-  };
-
-  # audio for vm on startup
-  systemd.user.services.scream = {
-    enable = true;
-    wantedBy = [ "multi-user.target" ];
-    description = "Scream - Audio forwarding from the VM.";
-    serviceConfig = {
-      ExecStart = "${pkgs.arc.pkgs.scream-arc}/bin/scream -i virbr0 -o pulse";
-      Restart = "always";
+  home-manager.users.kat = {
+      # audio for vm on startup
+    systemd.user.services = {
+      scream = {
+        Unit = {
+          Description = "Scream - Audio forwarding from the VM.";
+        };
+        Service = {
+          ExecStart = "${pkgs.arc.pkgs.scream-arc}/bin/scream -i virbr0 -o pulse";
+          Restart = "always";
+        };
+        Install = {
+          WantedBy = [ "default.target" ];
+        };
+      };
     };
   };
 
