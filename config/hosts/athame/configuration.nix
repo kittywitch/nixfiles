@@ -17,6 +17,7 @@
     ./nextcloud.nix
     ./bitwarden.nix
     # comms
+    ./murmur.nix
     ./znc.nix
     ./weechat.nix
     ./matrix.nix
@@ -37,8 +38,8 @@
     interfaces.enp1s0.useDHCP = true;
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 5160 5060 ];
-  networking.firewall.allowedUDPPorts = [ 5160 5060 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 5160 5060 64738 ];
+  networking.firewall.allowedUDPPorts = [ 5160 5060 64738 ];
   networking.firewall.allowedTCPPortRanges = [{
     from = 10000;
     to = 20000;

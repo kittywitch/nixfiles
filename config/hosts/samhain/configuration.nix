@@ -67,6 +67,7 @@ in {
   environment.systemPackages = [
     # pkgs.nur.repos.arc.packages.screenstub # for DDC/CI and input forwarding (currently disabled due to using changed source)
     pkgs.arc.pkgs.scream-arc # for audio forwarding
+    pkgs.screenstub # for input handling 
     pkgs.ddcutil # for diagnostics on DDC/CI
     pkgs.virt-manager # obvious reasons
   ];
