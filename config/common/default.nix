@@ -67,6 +67,7 @@ in {
     hddtemp
     lm_sensors
     htop
+    cachix
     ripgrep
     git
     kitty.terminfo

@@ -69,7 +69,6 @@ in {
     pkgs.arc.pkgs.scream-arc # for audio forwarding
     pkgs.ddcutil # for diagnostics on DDC/CI
     pkgs.virt-manager # obvious reasons
-    pkgs.cachix # arc caching
   ];
 
   home-manager.users.kat = {
