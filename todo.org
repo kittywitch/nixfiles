@@ -1,4 +1,5 @@
-* Tasks** TODO Move virtual machine config into nixfiles
+* Tasks
+** TODO Move virtual machine config into nixfiles
 ** TODO Add dork.dev to mailserver
 ** TODO Migrate non-PGSQL services to PGSQL
 ** TODO Gitea theme + resources overwrite - See PBB gitea
