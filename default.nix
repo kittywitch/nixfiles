@@ -1,13 +1,14 @@
-let
+rec {
+  sources = import ./nix/sources.nix;
   pkgs = import ./pkgs { };
-  hosts = import ./lib/hosts.nix { inherit pkgs; };
-in {
-  inherit pkgs;
+  witch = import ./lib/witch.nix { lib = pkgs.lib; };
+
+  hosts = import ./lib/hosts.nix { inherit pkgs sources witch; };
+
   inherit (pkgs) lib;
-  inherit (hosts) hosts profiles;
+  
   deploy = import ./lib/deploy.nix {
     inherit pkgs;
     inherit (hosts) hosts profiles;
   };
-  sources = import ./nix/sources.nix;
 }

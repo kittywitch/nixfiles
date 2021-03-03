@@ -1,7 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, witch, ... }:
 
 let
-  style = import ./style.nix;
   secrets = import ../../../secrets.nix;
 in {
   config = lib.mkIf (lib.elem "sway" config.meta.deploy.profiles) {
@@ -26,16 +25,16 @@ in {
       programs.mako = {
         enable = true;
         defaultTimeout = 3000;
-        borderColor = style.base16.color7;
-        backgroundColor = "${style.base16.color0}70";
-        textColor = style.base16.color7;
+        borderColor = witch.style.base16.color7;
+        backgroundColor = "${witch.style.base16.color0}70";
+        textColor = witch.style.base16.color7;
       };
 
       wayland.windowManager.sway = {
         enable = true;
         config = let
           dmenu =
-            "${pkgs.bemenu}/bin/bemenu --fn '${style.font.name} ${style.font.size}' --nb '${style.base16.color0}' --nf '${style.base16.color7}' --sb '${style.base16.color1}' --sf '${style.base16.color7}' -l 5 -m -1 -i";
+            "${pkgs.bemenu}/bin/bemenu --fn '${witch.style.font.name} ${witch.style.font.size}' --nb '${witch.style.base16.color0}' --nf '${witch.style.base16.color7}' --sb '${witch.style.base16.color1}' --sf '${witch.style.base16.color7}' -l 5 -m -1 -i";
           lockCommand = "swaylock -i ${./wallpapers/main.png} -s fill";
           cfg = config.home-manager.users.kat.wayland.windowManager.sway.config;
         in {
@@ -84,7 +83,7 @@ in {
             };
           };
 
-          fonts = [ "${style.font.name} ${style.font.size}" ];
+          fonts = [ "${witch.style.font.name} ${witch.style.font.size}" ];
           terminal = "${pkgs.kitty}/bin/kitty";
           # TODO: replace with wofi
           menu =
@@ -192,32 +191,32 @@ in {
 
           colors = {
             focused = {
-              border = style.base16.color8;
-              background = style.base16.color4;
-              text = style.base16.color0;
-              indicator = style.base16.color2;
-              childBorder = style.base16.color8;
+              border = witch.style.base16.color8;
+              background = witch.style.base16.color4;
+              text = witch.style.base16.color0;
+              indicator = witch.style.base16.color2;
+              childBorder = witch.style.base16.color8;
             };
             focusedInactive = {
-              border = style.base16.color0;
-              background = style.base16.color11;
-              text = style.base16.color12;
-              indicator = style.base16.color2;
-              childBorder = style.base16.color8;
+              border = witch.style.base16.color0;
+              background = witch.style.base16.color11;
+              text = witch.style.base16.color12;
+              indicator = witch.style.base16.color2;
+              childBorder = witch.style.base16.color8;
             };
             unfocused = {
-              border = style.base16.color0;
-              background = style.base16.color8;
-              text = style.base16.color12;
-              indicator = style.base16.color8;
-              childBorder = style.base16.color8;
+              border = witch.style.base16.color0;
+              background = witch.style.base16.color8;
+              text = witch.style.base16.color12;
+              indicator = witch.style.base16.color8;
+              childBorder = witch.style.base16.color8;
             };
             urgent = {
-              border = style.base16.color8;
-              background = style.base16.color9;
-              text = style.base16.color0;
-              indicator = style.base16.color1;
-              childBorder = style.base16.color8;
+              border = witch.style.base16.color8;
+              background = witch.style.base16.color9;
+              text = witch.style.base16.color0;
+              indicator = witch.style.base16.color1;
+              childBorder = witch.style.base16.color8;
             };
           };
         };

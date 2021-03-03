@@ -1,7 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, sources, witch, ... }:
 
-let sources = (import ../../../nix/sources.nix);
-in {
+{
   imports = [
     ../../services/zfs.nix
     ./hardware.nix

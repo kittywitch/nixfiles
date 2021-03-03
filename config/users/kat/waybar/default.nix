@@ -1,7 +1,6 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, witch, ... }:
 
 let
-  style = import ../style.nix;
   secrets = import ../../../../secrets.nix;
 in {
   config = lib.mkIf (lib.elem "sway" config.meta.deploy.profiles) {
@@ -9,8 +8,8 @@ in {
       programs.waybar = {
         enable = true;
         style = import ./waybar.css.nix {
-          inherit style;
-          hextorgba = pkgs.colorhelpers.hextorgba;
+          style = witch.style;
+          hextorgba = witch.colorhelpers.hextorgba;
         };
         settings = [{
           modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];

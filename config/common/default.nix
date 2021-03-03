@@ -1,8 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, sources, ... }:
 
-let sources = import ../../nix/sources.nix;
-in {
-  imports = [ ../../modules ../users (sources.home-manager + "/nixos") ];
+{
+  imports = [../users (sources.home-manager + "/nixos") ];
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
   boot.loader.grub.configurationLimit = 8;

@@ -25,8 +25,6 @@ let
         vendor-reset =
           (super.callPackage ./vendor-reset { kernel = ksuper.kernel; }).out;
       });
-
-    colorhelpers = import ../lib/colorhelpers.nix { inherit (self) lib; };
   };
 
 in pkgs.extend (overlay)
