@@ -3,7 +3,7 @@
 let
   secrets = import ../../../../secrets.nix;
 in {
-  config = lib.mkIf (lib.elem "sway" config.meta.deploy.profiles) {
+  config = lib.mkIf (lib.elem "sway" config.deploy.profiles) {
     home-manager.users.kat = {
       programs.waybar = {
         enable = true;

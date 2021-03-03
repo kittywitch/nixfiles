@@ -1,7 +1,7 @@
 { config, lib, pkgs, witch, ... }:
 
 {
-  config = lib.mkIf (lib.elem "desktop" config.meta.deploy.profiles) {
+  config = lib.mkIf (lib.elem "desktop" config.deploy.profiles) {
 
     home-manager.users.kat = {
       programs.kitty = {

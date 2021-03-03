@@ -6,8 +6,8 @@
     #./wireguard.nix
   ];
 
-  meta.deploy.profiles = [ ];
-  meta.deploy.ssh.host = "boline.kittywit.ch";
+  deploy.profiles = [ ];
+  deploy.ssh.host = "boline.kittywit.ch";
 
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;

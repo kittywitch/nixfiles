@@ -3,7 +3,7 @@
 To provision a new host:
 
 * add that host to the SSH config in programs.ssh
-* create a config for that host that contains a meta.deploy.ssh.host
+* create a config for that host that contains a deploy.ssh.host
 * run `./nyx install <hostname>`.
 
 To rebuild a host:

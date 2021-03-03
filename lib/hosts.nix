@@ -21,8 +21,6 @@ rec {
     imports = [
       (import (hostsDir + "/${hostName}/configuration.nix"))
       (import (privateHostsDir + "/${hostName}/configuration.nix"))
-      # urgh, yes, we still need to manually import the deploy module for now
-      # at least if i want to keep my thing reusable.
       ../modules/nixos/deploy
     ] ++ commonImports;
     networking = {
@@ -47,10 +45,10 @@ rec {
   );
 
   profileNames = unique (concatLists
-    (mapAttrsToList (name: host: host.config.meta.deploy.profiles) hosts));
+    (mapAttrsToList (name: host: host.config.deploy.profiles) hosts));
 
   profiles = listToAttrs (map (profileName:
     nameValuePair profileName
-    (filter (host: elem profileName host.config.meta.deploy.profiles)
+    (filter (host: elem profileName host.config.deploy.profiles)
       (attrValues hosts))) profileNames);
 }

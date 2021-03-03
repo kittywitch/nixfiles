@@ -23,8 +23,8 @@
     ./matrix.nix
   ];
 
-  meta.deploy.profiles = [ ];
-  meta.deploy.ssh.host = "athame.kittywit.ch";
+  deploy.profiles = [ ];
+  deploy.ssh.host = "athame.kittywit.ch";
 
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;

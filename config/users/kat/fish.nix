@@ -5,7 +5,7 @@
     programs.fish = {
       enable = true;
       interactiveShellInit = ''
-        ${if (lib.elem "desktop" config.meta.deploy.groups) then
+        ${if (lib.elem "desktop" config.deploy.groups) then
           "export SSH_AUTH_SOCK=(gpgconf --list-dirs agent-ssh-socket)"
         else
           ""}

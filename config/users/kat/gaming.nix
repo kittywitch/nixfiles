@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  config = lib.mkIf (lib.elem "gaming" config.meta.deploy.profiles) {
+  config = lib.mkIf (lib.elem "gaming" config.deploy.profiles) {
     hardware.opengl.driSupport32Bit = true;
     hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
     hardware.pulseaudio.support32Bit = true;

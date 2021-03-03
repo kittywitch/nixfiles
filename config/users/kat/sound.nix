@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  config = lib.mkIf (lib.elem "desktop" config.meta.deploy.profiles) {
+  config = lib.mkIf (lib.elem "desktop" config.deploy.profiles) {
     sound.extraConfig = ''
       defaults.pcm.rate_converter "speexrate_best"
     '';

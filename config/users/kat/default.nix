@@ -1,7 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, sources, ... }:
 
 {
   imports = [
+    ../../../modules/home
     ./ssh.nix
     ./desktop.nix
     ./sound.nix
@@ -26,11 +27,13 @@
 
   home-manager.useGlobalPkgs = true;
   home-manager.users.kat = {
-    imports = [ ./modules ];
-
     programs.fish = {
       enable = true;
-      shellAliases = { nixdirfmt = "fd --color=never .nix | xargs nixfmt"; };
+      shellAliases = { 
+        nixdirfmt = "fd --color=never .nix | xargs nixfmt"; 
+        tmne = "tmux new -s";
+        tmat = "tmux attach -t";
+      };
       plugins = [{
         name = "bass";
         src = pkgs.fetchFromGitHub {

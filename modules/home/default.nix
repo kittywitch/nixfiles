@@ -1,9 +1,9 @@
 { sources, ... }:
 
-{ 
-    home-manager.users = {
-        imports = [ 
-            (sources.tf-nix + "/modules/home/secrets.nix") 
-        ]; 
+{
+    home-manager.users.kat = {
+        imports = [
+            (sources.tf-nix + "/modules/home/secrets.nix")    
+        ];
     };
 }

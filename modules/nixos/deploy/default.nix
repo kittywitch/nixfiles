@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.meta.deploy;
+  cfg = config.deploy;
   secretsScript = concatMapStrings (file: ''
     ssh $NIX_SSHOPTS root@${cfg.ssh.host} "mkdir -p ${toString file.out.dir}
     cat > ${file.path}
@@ -14,7 +14,7 @@ let
   '') (attrValues config.secrets.files);
 in {
   options = {
-    meta.deploy = {
+    deploy = {
       enable = mkOption {
         type = types.bool;
         default = true;
@@ -39,7 +39,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    meta.deploy.profiles = [ "all" ];
+    deploy.profiles = [ "all" ];
 
     system.build.deployScript =
       pkgs.writeScript "deploy-${config.networking.hostName}" ''

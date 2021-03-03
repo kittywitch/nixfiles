@@ -4,7 +4,7 @@ let sources = import ../../../nix/sources.nix;
 in {
   imports = [ ./firefox ];
 
-  config = lib.mkIf (lib.elem "desktop" config.meta.deploy.profiles) {
+  config = lib.mkIf (lib.elem "desktop" config.deploy.profiles) {
     nixpkgs.config = {
       mumble.speechdSupport = true;
       pulseaudio = true;

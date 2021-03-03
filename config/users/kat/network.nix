@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }: {
-  config = lib.mkIf (lib.elem "network" config.meta.deploy.profiles) {
+  config = lib.mkIf (lib.elem "network" config.deploy.profiles) {
     networking = {
       networkmanager.enable = true;
       resolvconf.useLocalResolver = true;

@@ -1,7 +1,9 @@
 { pkgs, config, ... }:
 
 {
-  imports = [ ./kat ];
+  imports = [ 
+    ./kat 
+  ];
 
   users.users.root = {
     openssh.authorizedKeys.keys = with pkgs.lib;
