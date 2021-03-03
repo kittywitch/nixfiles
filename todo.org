@@ -1,10 +1,10 @@
-* Tasks
-** TODO Pull screenstub in as an overlay with patches
-** TODO Move virtual machine config into nixfiles
+* Tasks** TODO Move virtual machine config into nixfiles
 ** TODO Add dork.dev to mailserver
-** TODO Set up proper user service for scream
 ** TODO Migrate non-PGSQL services to PGSQL
 ** TODO Gitea theme + resources overwrite - See PBB gitea
+** Replace current display manager.
+** Move network config away from network manager.
+** Change profile structure.
 
 * Secrets handling
 
