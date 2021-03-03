@@ -1,9 +1,7 @@
-{ config ? { }, system ? builtins.currentSystem, ... }@args:
+{ config ? { }, sources, system ? builtins.currentSystem, ... }@args:
 
 let
-  sources = import ../nix/sources.nix;
   pkgs = import sources.nixpkgs args;
-
   overlay = self: super: rec {
     dino = super.callPackage "${sources.qyliss-nixlib}/overlays/patches/dino" {
       inherit (super) dino;

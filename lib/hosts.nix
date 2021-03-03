@@ -28,7 +28,7 @@ rec {
     networking = {
       inherit hostName;
     };
-    nixpkgs.pkgs = import pkgsPath { inherit (config.nixpkgs) config; };
+    nixpkgs.pkgs = import pkgsPath { inherit (config.nixpkgs) config; inherit sources; };
   };
 
 
