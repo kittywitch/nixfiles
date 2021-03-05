@@ -1,7 +1,6 @@
-{ config, pkgs, ... }:
+{ config, pkgs, witch, ... }:
 
-let secrets = (import ../../../secrets.nix);
-in {
+{
   services.znc = {
     enable = true;
     mutable = false;
@@ -14,7 +13,7 @@ in {
         AllowWeb = true;
       };
       modules = [ "webadmin" "adminlog" ];
-      User = secrets.hosts.athame.znc;
+      User = witch.secrets.hosts.athame.znc;
     };
   };
 

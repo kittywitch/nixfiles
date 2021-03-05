@@ -1,10 +1,9 @@
 { config, pkgs, ... }:
 
-let secrets = (import ../../../secrets.nix);
-in {
+{
   security.acme = { certs."kittywit.ch" = { group = "kittywit-ch"; }; };
 
-  users.groups."kittywit-ch".members = [ "murmur" "nginx" ];
+  users.groups."kittywit-ch".members = [ "murmur" "nginx" "syncplay" ];
 
   services.murmur = {
     enable = true;

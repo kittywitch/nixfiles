@@ -1,13 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, witch, ... }:
 
-let secrets = (import ../../../secrets.nix);
-in {
+{
   environment.systemPackages =
     [ pkgs.arc.pkgs.mx-puppet-discord pkgs.mautrix-whatsapp ];
 
   services.matrix-synapse = {
     enable = true;
-    registration_shared_secret = secrets.hosts.athame.matrix_secret;
+    registration_shared_secret = witch.secrets.hosts.athame.matrix_secret;
     max_upload_size = "512M";
     server_name = "kittywit.ch";
     app_service_config_files = [

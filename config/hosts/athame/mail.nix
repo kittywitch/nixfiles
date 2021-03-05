@@ -1,8 +1,6 @@
-{ config, pkgs, ... }:
-let
-  sources = (import ../../../nix/sources.nix);
-  secrets = (import ../../../secrets.nix);
-in {
+{ config, pkgs, witch, sources, ... }:
+
+{
   imports = [ sources.nixos-mailserver.outPath ];
 
   mailserver = {
@@ -14,7 +12,7 @@ in {
     # nix run nixpkgs.apacheHttpd -c htpasswd -nbB "" "super secret password" | cut -d: -f2
     loginAccounts = {
       "kat@kittywit.ch" = {
-        hashedPassword = secrets.hosts.athame.mail.kat.password;
+        hashedPassword = witch.secrets.hosts.athame.mail.kat.password;
 
         aliases = [ "postmaster@kittywit.ch" ];
 

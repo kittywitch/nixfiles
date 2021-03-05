@@ -1,7 +1,6 @@
-{ config, pkgs, ... }:
+{ config, pkgs, witch, ... }:
 
-let secrets = (import ../../secrets.nix);
-in {
+{
   services.nginx = {
     enable = true;
     recommendedGzipSettings = true;
@@ -24,7 +23,7 @@ in {
   };
 
   security.acme = {
-    email = secrets.unscoped.acme.email;
+    email = witch.secrets.unscoped.acme.email;
     acceptTerms = true;
   };
 }

@@ -1,7 +1,6 @@
-{ config, pkgs, ... }:
+{ config, pkgs, witch, ... }:
 
-let secrets = (import ../../../secrets.nix);
-in {
+{
   services.asterisk = {
     enable = true;
     confFiles = {
@@ -19,13 +18,13 @@ in {
         same  => n,Dial(SIP/1337,20)
 
         [from-internal]
-        exten => _1X.,1,Set(CALLERID(all)="kat" <+${secrets.hosts.athame.phone.number.us}>)
+        exten => _1X.,1,Set(CALLERID(all)="kat" <+${witch.secrets.hosts.athame.phone.number.us}>)
         same  => n,Dial(PJSIP/''${EXTEN:1}@signalwire)
         same  => n(end),Hangup()
-        exten => _2X.,1,Set(CALLERID(all)="kat" <+${secrets.hosts.athame.phone.number.canada}>)
+        exten => _2X.,1,Set(CALLERID(all)="kat" <+${witch.secrets.hosts.athame.phone.number.canada}>)
         same  => n,Dial(PJSIP/''${EXTEN:1}@signalwire)
         same  => n(end),Hangup()
-        exten => _3X.,1,Set(CALLERID(all)="kat" <+${secrets.hosts.athame.phone.number.uk}>)
+        exten => _3X.,1,Set(CALLERID(all)="kat" <+${witch.secrets.hosts.athame.phone.number.uk}>)
         same  => n,Dial(PJSIP/+''${EXTEN:1}@twilio-ie)
         same  => n(end),Hangup()
       '';
@@ -81,7 +80,7 @@ in {
         type=friend
         context=from-internal
         host=dynamic
-        secret=${secrets.hosts.athame.phone.password}
+        secret=${witch.secrets.hosts.athame.phone.password}
         nat=force_rport,comedia
       '';
       "pjsip_wizard.conf" = ''
@@ -135,7 +134,7 @@ in {
         sends_registrations = no
         remote_hosts = kat-asterisk.pstn.dublin.twilio.com
         outbound_auth/username = asterisk
-        outbound_auth/password = ${secrets.hosts.athame.phone.endpoint.password.twilio}
+        outbound_auth/password = ${witch.secrets.hosts.athame.phone.endpoint.password.twilio}
         endpoint/context = from-twilio
         aor/qualify_frequency = 60
       '';
@@ -155,11 +154,11 @@ in {
         type=auth
         auth_type=userpass
         username=asterisk ; Your username
-        password=${secrets.hosts.athame.phone.endpoint.password.signalwire}
+        password=${witch.secrets.hosts.athame.phone.endpoint.password.signalwire}
 
         [signalwire]
         type=aor
-        contact=sip:${secrets.hosts.athame.phone.endpoint.url}
+        contact=sip:${witch.secrets.hosts.athame.phone.endpoint.url}
 
         [signalwire]
         type=endpoint
@@ -174,20 +173,20 @@ in {
         allow=gsm
         allow=g726
         from_user=asterisk
-        from_domain=${secrets.hosts.athame.phone.endpoint.url}
+        from_domain=${witch.secrets.hosts.athame.phone.endpoint.url}
         media_encryption=sdes ; Note that we are using encryption
         context=from-signalwire
 
         [signalwire]
         type=registration
-        server_uri=sip:${secrets.hosts.athame.phone.endpoint.url}
-        client_uri=sip:asterisk@${secrets.hosts.athame.phone.endpoint.url}; Your full SIP URI
+        server_uri=sip:${witch.secrets.hosts.athame.phone.endpoint.url}
+        client_uri=sip:asterisk@${witch.secrets.hosts.athame.phone.endpoint.url}; Your full SIP URI
         outbound_auth=signalwire
 
         [signalwire]
         type=identify
         endpoint=signalwire
-        match=${secrets.hosts.athame.phone.endpoint.url}
+        match=${witch.secrets.hosts.athame.phone.endpoint.url}
       '';
       "logger.conf" = ''
         [general]

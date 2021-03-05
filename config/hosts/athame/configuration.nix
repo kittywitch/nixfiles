@@ -14,6 +14,7 @@
     ./mail.nix
     ./asterisk.nix
     ./gitea.nix
+    ./syncplay.nix
     ./nextcloud.nix
     ./bitwarden.nix
     # comms
@@ -38,7 +39,7 @@
     interfaces.enp1s0.useDHCP = true;
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 5160 5060 64738 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 5160 5060 8999 64738 ];
   networking.firewall.allowedUDPPorts = [ 5160 5060 64738 ];
   networking.firewall.allowedTCPPortRanges = [{
     from = 10000;

@@ -6,8 +6,13 @@
 ** TODO Move network config away from network manager.
 ** TODO Separate home-manager closure
 ** TODO Nixfiles working outside of NixOS, e.g. Fedora + macOS
+** TODO Refactor Sway config for separate input/outputs on different systems
+** TODO Refactor waybar config for separate modules on different systems
+** TODO Refactor Sway config for separate wallpapers on different systems as a result of the prior outputs change
 ** TODO Investigate nix-darwin
 ** TODO Investigate pipewire
+** TODO Fix function parameter headers
+** TODO Syncplay server
 ** TODO Investigate audio source switching (Arctis 5, integrated front, integrated back)
 
 * Secrets handling
