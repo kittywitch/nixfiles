@@ -9,6 +9,7 @@
           "export SSH_AUTH_SOCK=(gpgconf --list-dirs agent-ssh-socket)"
         else
           ""}
+        fish_vi_key_bindings
         set -g fish_greeting ""
       '';
       shellAliases = { nixdirfmt = "fd --color=never .nix | xargs nixfmt"; };

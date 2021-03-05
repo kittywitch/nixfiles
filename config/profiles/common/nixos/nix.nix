@@ -7,7 +7,7 @@
   nixpkgs.config = { allowUnfree = true; };
   nix = {
     nixPath = [
-      "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
+      "nixpkgs=${sources.nixpkgs}"
       "nixpkgs-unstable=${sources.nixpkgs-unstable}"
       "nixpkgs-mozilla=${sources.nixpkgs-mozilla}"
       "NUR=${sources.NUR}"
