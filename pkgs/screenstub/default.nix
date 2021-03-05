@@ -1,4 +1,5 @@
 { fetchFromGitHub, rustPlatform, pkg-config, lib, libxcb, udev, python3 }:
+
 rustPlatform.buildRustPackage rec {
   pname = "screenstub";
   version = "2021-01-08";

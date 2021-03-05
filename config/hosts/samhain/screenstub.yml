@@ -29,7 +29,7 @@ qemu:
   #routing: qmp # (default) does not require extra configuration or dependencies
   #routing: spice # no external requirements # CURRENTLY UNIMPLEMENTED
   #routing: input-linux # requires uinput
-  #routing: virtio-host # requires uinput, recommended for performance, requires vioinput drivers in guest
+  routing: virtio-host # requires uinput, recommended for performance, requires vioinput drivers in guest
   #driver: ps2 # use PS/2 in the guest for all input devices (absolute mouse mode unsupported)
   #driver: usb # use USB keyboard/mouse/tablet in the guest
   #driver: virtio # Recommended but vioinput drivers must be installed in guest
@@ -39,7 +39,7 @@ qemu:
   #driver: virtio
   #relative_driver: virtio
   qmp_socket: /tmp/vfio-qmp # path to QMP socket
-  #ga_socket: /tmp/vfio-qga # path to Guest Agent socket
+  ga_socket: /tmp/vfio-qga # path to Guest Agent socket
 
 key_remap: # Arbitrary keys can be remapped in the guest
   # See https://docs.rs/input-linux/*/input_linux/enum.Key.html for a list of key names available (mouse buttons can also be used)
@@ -47,12 +47,6 @@ key_remap: # Arbitrary keys can be remapped in the guest
   RightAlt: LeftMeta # remap right alt to trigger the windows key
 
 hotkeys: # Trigger various events on key combinations
-- triggers: [G]
-  modifiers: [LeftMeta]
-  on_release: false # trigger on downpress of key
-  global: false # optionally trigger even when not in focus # CURRENTLY UNIMPLEMENTED
-  events: # Select which events to trigger with this hotkey
-  - toggle_grab: xcore # Standard Xorg window grab
   #- toggle_grab:y
   #    xdevice: # CURRENTLY UNIMPLEMENTED
   #      devices: # Only grab specific devices from Xorg
@@ -65,10 +59,12 @@ hotkeys: # Trigger various events on key combinations
   #- shutdown # safely shuts the guest system down
   #- reboot # reboots the guest
   #- exit # quits screenstub
-- triggers: [Y]
+- triggers: [G]
   modifiers: [LeftMeta]
   events:
-  - toggle_grab: xcore # Confine input/mouse to window
+  - toggle_grab: 
+      x: 
+        mouse: false # Confine input/mouse to window
   - toggle_grab:
       evdev: # evdev grab is useful for playing games that don't work with absolute mouse events
         exclusive: false # grab exclusive access from the device(s)

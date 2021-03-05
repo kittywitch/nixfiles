@@ -23,7 +23,7 @@
     ./matrix.nix
   ];
 
-  deploy.profiles = [ ];
+  deploy.profiles = [ "kat" ];
   deploy.ssh.host = "athame.kittywit.ch";
 
   boot.loader.grub.enable = true;

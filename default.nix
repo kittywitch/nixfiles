@@ -6,9 +6,9 @@ rec {
   hosts = import ./lib/hosts.nix { inherit pkgs sources witch; };
 
   inherit (pkgs) lib;
-  
+
   deploy = import ./lib/deploy.nix {
     inherit pkgs;
-    inherit (hosts) hosts profiles;
+    inherit (hosts) hosts groups;
   };
 }

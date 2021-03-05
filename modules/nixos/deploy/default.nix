@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, options, ... }:
 
 with lib;
 
@@ -35,11 +35,18 @@ in {
         type = with types; listOf str;
         default = [ ];
       };
+      groups = mkOption {
+        type = with types; listOf str;
+        default = [ ];
+      };
     };
   };
 
   config = mkIf cfg.enable {
-    deploy.profiles = [ "all" ];
+    deploy.profile = mkMerge (map (prof: {
+      ${if options ? deploy.profile.${prof} then prof else null} = true;
+    }) config.deploy.profiles);
+    deploy.groups = [ "all" ];
 
     system.build.deployScript =
       pkgs.writeScript "deploy-${config.networking.hostName}" ''

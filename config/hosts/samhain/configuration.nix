@@ -9,7 +9,7 @@
     ./torrenting.nix
   ];
 
-  deploy.profiles = [ "desktop" "development" "sway" "gaming" "network" ];
+  deploy.profiles = [ "gui" "sway" "kat" ];
   deploy.ssh.host = "192.168.1.135";
 
   # libvirtd is used for our virtual machine

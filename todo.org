@@ -3,9 +3,12 @@
 ** TODO Add dork.dev to mailserver
 ** TODO Migrate non-PGSQL services to PGSQL
 ** TODO Gitea theme + resources overwrite - See PBB gitea
-** Replace current display manager.
-** Move network config away from network manager.
-** Change profile structure.
+** TODO Move network config away from network manager.
+** TODO Separate home-manager closure
+** TODO Nixfiles working outside of NixOS, e.g. Fedora + macOS
+** TODO Investigate nix-darwin
+** TODO Investigate pipewire
+** TODO Investigate audio source switching (Arctis 5, integrated front, integrated back)
 
 * Secrets handling
 

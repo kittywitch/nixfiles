@@ -1,9 +1,9 @@
-{ pkgs, hosts, profiles }:
+{ pkgs, hosts, groups }:
 
 with pkgs.lib;
 
 (mapAttrs (name: hosts:
-  pkgs.writeScript "deploy-profile-${name}" ''
+  pkgs.writeScript "deploy-group-${name}" ''
     #!${pkgs.runtimeShell}
     export PATH=
     ${concatMapStrings (host: ''
@@ -14,5 +14,5 @@ with pkgs.lib;
     # FIXME: remove jobs from PIDLIST once they finish
     trap "kill $PID_LIST" SIGINT
     wait $PID_LIST
-  '') profiles)
+  '') groups)
 // (mapAttrs (name: host: host.config.system.build.deployScript) hosts)

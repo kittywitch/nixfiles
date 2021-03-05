@@ -6,7 +6,7 @@
     #./wireguard.nix
   ];
 
-  deploy.profiles = [ ];
+  deploy.profiles = [ "kat" ];
   deploy.ssh.host = "boline.kittywit.ch";
 
   boot.loader.grub.enable = true;
