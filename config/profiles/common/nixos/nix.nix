@@ -7,13 +7,13 @@
   nixpkgs.config = { allowUnfree = true; };
   nix = {
     nixPath = [
-      "nixpkgs=${sources.nixpkgs}"
+      "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
       "nixpkgs-unstable=${sources.nixpkgs-unstable}"
       "nixpkgs-mozilla=${sources.nixpkgs-mozilla}"
       "NUR=${sources.NUR}"
       "arc=${sources.arc-nixexprs}"
     ];
-    binaryCaches = [ "https://arc.cachix.org" ];
+    binaryCaches = [ "https://cache.nixos.org" "https://arc.cachix.org" ];
     binaryCachePublicKeys =
       [ "arc.cachix.org-1:DZmhclLkB6UO0rc0rBzNpwFbbaeLfyn+fYccuAy7YVY=" ];
     gc.automatic = lib.mkDefault true;

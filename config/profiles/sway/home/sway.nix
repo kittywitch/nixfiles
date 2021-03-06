@@ -43,8 +43,8 @@
           };
         in {
           "DP-1" = left;
-          "DVI-D-1" = middle;
-          "HDMI-A-1" = right;
+          "DVI-D-1" = right;
+          "HDMI-A-1" = middle;
           "eDP-1" = laptop;
         };
 

@@ -10,7 +10,7 @@
       };
       settings = [{
         modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
-        modules-center = [ "clock" "custom/weather" ];
+        modules-center = [ "clock" ]; # "custom/weather"
         modules-right = [
           "pulseaudio"
           "network"
@@ -23,16 +23,12 @@
         ];
 
         modules = {
-          "custom/weather" = {
-            format = "{}";
-            interval = 3600;
-            on-click = "xdg-open 'https://google.com/search?q=weather'";
-            exec = "nix-shell --command 'python ${
-                ../../../../../scripts/weather/weather.py
-              } ${witch.secrets.profiles.sway.city} ${witch.secrets.profiles.sway.api_key}' ${
-                ../../../../../scripts/weather
-              }";
-          };
+          #"custom/weather" = {
+          #  format = "{}";
+          #  interval = 3600;
+          #  on-click = "xdg-open 'https://google.com/search?q=weather'";
+          #  exec = "nix-shell --command 'python ${../../../../../scripts/weather/weather.py} ${witch.secrets.profiles.sway.city} ${witch.secrets.profiles.sway.api_key}' ${../../../../../scripts/weather}";
+          #};
           cpu = { format = "  {usage}%"; };
           memory = { format = "  {percentage}%"; };
           temperature = { format = "﨎 {temperatureC}°C"; };

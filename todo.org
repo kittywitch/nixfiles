@@ -6,6 +6,8 @@ https://nixos.wiki/wiki/Virtualization_in_NixOS#Okay.2C_Okay.2C_I.27ll_Do_It_Mys
 ** TODO Add dork.dev to mailserver
 Don't want to pay for fastmail.
 
+** TODO MPV home-manager module rebind scrollwheel
+
 ** TODO Migrate non-PGSQL services to PGSQL
 bitwarden-rs, Gitea, ...
 
