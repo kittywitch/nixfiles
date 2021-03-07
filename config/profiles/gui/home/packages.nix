@@ -9,6 +9,7 @@
       element-desktop
       mumble
       obs-studio
+      niv
       xfce.ristretto
       audacity
       avidemux
@@ -23,7 +24,7 @@
       lm_sensors
       baresip
       psmisc
-      unstable.discord
+      discord
       tdesktop
       yubikey-manager
       pinentry.gtk2

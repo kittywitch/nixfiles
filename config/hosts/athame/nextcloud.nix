@@ -9,7 +9,7 @@
   services.nextcloud = {
     enable = true;
     hostName = "files.kittywit.ch";
-    package = pkgs.nextcloud20;
+    package = pkgs.nextcloud21;
     https = true;
     config = {
       dbtype = "pgsql";

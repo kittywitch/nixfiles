@@ -2,8 +2,6 @@
 
 {
   config = lib.mkIf config.deploy.profile.gui {
-    home.sessionVariables.TERMINFO_DIRS =
-      "${pkgs.kitty.terminfo.outPath}/share/terminfo";
     programs.kitty = {
       enable = true;
       font.name = witch.style.font.name;

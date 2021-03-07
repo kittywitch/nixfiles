@@ -9,7 +9,6 @@
     cachix
     ripgrep
     git
-    kitty.terminfo
     nixfmt
     mprime
     wget

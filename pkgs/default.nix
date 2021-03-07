@@ -1,13 +1,14 @@
 { config ? { }, sources, system ? builtins.currentSystem, ... }@args:
 
 let
-  pkgs = import sources.nixpkgs args;
+  pkgs = import sources.nixpkgs { inherit config; };
+
   overlay = self: super: rec {
     dino = super.callPackage "${sources.qyliss-nixlib}/overlays/patches/dino" {
       inherit (super) dino;
     };
-
-    discord = super.discord.override { nss = self.nss_latest; };
+    
+    discord = unstable.discord.override { nss = self.nss_latest; };
 
     arc = import sources.arc-nixexprs { pkgs = super; };
     unstable = import sources.nixpkgs-unstable { inherit (self) config; };
@@ -17,6 +18,8 @@ let
     };
 
     screenstub = unstable.callPackage ./screenstub { };
+
+    kat-weather = super.callPackage ./kat-weather { };
 
     linuxPackagesFor = kernel:
       (super.linuxPackagesFor kernel).extend (_: ksuper: {

@@ -8,4 +8,4 @@ To provision a new host:
 
 To rebuild a host:
 
-* run `,/nyx build <hostname> <method>` where method is optional, can be... switch or boot or such.
+* run `./nyx build <hostname> <method>` where method is optional, can be... switch or boot or such.
