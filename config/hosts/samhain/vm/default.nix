@@ -1,7 +1,7 @@
 { config, pkgs, lib, sources, witch, ... }:
 
 {
-     # libvirtd is used for our virtual machine
+  # libvirtd is used for our virtual machine
   virtualisation.libvirtd = {
     enable = true;
     qemuOvmf = true;
@@ -11,8 +11,9 @@
   };
 
   # required for guest reboots with the 580
-  boot.extraModulePackages =
-    [ (pkgs.linuxPackagesFor config.boot.kernelPackages.kernel).vendor-reset ];# required groups for various intentions  
+  boot.extraModulePackages = [
+    (pkgs.linuxPackagesFor config.boot.kernelPackages.kernel).vendor-reset
+  ]; # required groups for various intentions
   users.users.kat.extraGroups = [ "libvirtd" "input" "qemu-libvirtd" ];
 
   # video=efifb:off allows the 580 to be passed through regardless of being the boot display and allows the 560 to act as a console device

@@ -40,9 +40,15 @@ Too many excess unneccessary parameters.
 ** TODO Syncplay server
 Need to do SSL properly. Also set up salt + room passwords.
 
-** TODO Unfuckulate the weechat config
-Move to arc's weechat module.
+
+* Refactor 
+
+** TODO Move to arc's weechat module. 
 https://github.com/arcnmx/nixexprs/blob/f3f24ef4226a8ff3531d9a3e005c4993ed0d7ba2/modules/home/weechat.nix
+
+** TODO Refactor secrets usage into private host configs.
+
+** TODO Move ZNC config into etc, out of store.
 
 * Research
 

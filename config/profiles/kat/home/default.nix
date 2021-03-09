@@ -1,5 +1,12 @@
 { ... }:
 
 {
-  imports = [ ./shell.nix ./git.nix ./tmux.nix ./ssh.nix ./emacs ./packages.nix ];
+  imports = [
+    ./shell.nix
+    ./neovim
+    ./git.nix
+    ./tmux.nix
+    ./ssh.nix
+    ./packages.nix
+  ]; # ./emacs bye emacs lol
 }

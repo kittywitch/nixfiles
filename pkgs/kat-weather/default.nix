@@ -3,9 +3,7 @@
 stdenv.mkDerivation {
   name = "kat-weather";
   buildInputs = [
-    (python36.withPackages (pythonPackages: with pythonPackages; [
-      requests
-    ]))
+    (python36.withPackages (pythonPackages: with pythonPackages; [ requests ]))
   ];
   unpackPhase = "true";
   installPhase = ''

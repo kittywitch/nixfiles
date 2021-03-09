@@ -16,7 +16,6 @@
     binaryCaches = [ "https://arc.cachix.org" ];
     binaryCachePublicKeys =
       [ "arc.cachix.org-1:DZmhclLkB6UO0rc0rBzNpwFbbaeLfyn+fYccuAy7YVY=" ];
-    };
     gc.automatic = lib.mkDefault true;
     gc.options = lib.mkDefault "--delete-older-than 1w";
     trustedUsers = [ "root" "@wheel" ];

@@ -8,7 +8,7 @@
       settings = {
         font_size = witch.style.font.size;
         background = witch.style.base16.color0;
-        background_opacity = "0.7";
+        background_opacity = "0.9";
         foreground = witch.style.base16.color7;
         selection_background = witch.style.base16.color7;
         selection_foreground = witch.style.base16.color0;

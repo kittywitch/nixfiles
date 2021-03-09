@@ -2,7 +2,7 @@
 
 {
   imports = [
-      ./hardware.nix
+    ./hardware.nix
     ../../services/zfs.nix
     ../../services/nginx.nix
     ./thermal

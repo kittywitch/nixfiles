@@ -5,6 +5,7 @@ let
     "app.update.auto" = false;
     "identity.fxaccounts.account.device.name" = superConfig.networking.hostName;
     "signon.rememberSignons" = false;
+    "browser.download.lastDir" = "/home/kat/downloads";
     "browser.urlbar.placeholderName" = "DuckDuckGo";
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     "identity.sync.tokenserver.uri" =

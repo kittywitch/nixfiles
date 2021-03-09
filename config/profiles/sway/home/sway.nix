@@ -8,7 +8,7 @@
       XDG_SESSION_TYPE = "wayland";
     };
 
-    home.packages = with pkgs; [ grim slurp ];
+    home.packages = with pkgs; [ grim slurp wl-clipboard jq ];
 
     wayland.windowManager.sway = {
       enable = true;
@@ -138,6 +138,13 @@
           "${cfg.modifier}+d" = "exec ${cfg.menu}";
           "${cfg.modifier}+x" = "exec ${lockCommand}";
 
+          "${cfg.modifier}+Print" =
+            "exec ${./grimshot.sh} --notify save screen";
+          "${cfg.modifier}+Shift+Print" =
+            "exec ${./grimshot.sh} --notify save area";
+          "${cfg.modifier}+Mod1+Print" =
+            "exec ${./grimshot.sh} --notify save window";
+
           "${cfg.modifier}+i" = "move workspace to output left";
           "${cfg.modifier}+o" = "move workspace to output left";
           "${cfg.modifier}+b" = "splith";
@@ -172,15 +179,15 @@
         colors = {
           focused = {
             border = witch.style.base16.color8;
-            background = witch.style.base16.color4;
+            background = witch.style.base16.color13;
             text = witch.style.base16.color0;
             indicator = witch.style.base16.color2;
             childBorder = witch.style.base16.color8;
           };
           focusedInactive = {
             border = witch.style.base16.color0;
-            background = witch.style.base16.color11;
-            text = witch.style.base16.color12;
+            background = witch.style.base16.color10;
+            text = witch.style.base16.color13;
             indicator = witch.style.base16.color2;
             childBorder = witch.style.base16.color8;
           };
@@ -192,7 +199,7 @@
             childBorder = witch.style.base16.color8;
           };
           urgent = {
-            border = witch.style.base16.color8;
+            border = witch.style.base16.color0;
             background = witch.style.base16.color9;
             text = witch.style.base16.color0;
             indicator = witch.style.base16.color1;

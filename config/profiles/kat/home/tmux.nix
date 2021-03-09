@@ -5,6 +5,7 @@
     programs.fish.shellAliases = {
       tne = "tmux new -s";
       tat = "tmux attach -t";
+      tren = "tmux new -AD -s";
     };
     programs.tmux = {
       enable = true;
@@ -37,6 +38,9 @@
 
         # messages
         set -g message-style 'fg=colour232 bg=colour16 bold'
+
+        # mouse
+        set -g mouse on
               '';
     };
   };

@@ -8,5 +8,6 @@
     ./nextcloud.nix
     ./gpg.nix
     ./gtk.nix
+    ./music.nix
   ];
 }

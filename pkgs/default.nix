@@ -7,7 +7,7 @@ let
     dino = super.callPackage "${sources.qyliss-nixlib}/overlays/patches/dino" {
       inherit (super) dino;
     };
-    
+
     discord = unstable.discord.override { nss = self.nss_latest; };
 
     arc = import sources.arc-nixexprs { pkgs = super; };

@@ -10,15 +10,18 @@
       };
       settings = [{
         modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
-        modules-center = [ "clock" "custom/weather" ];
+        modules-center = [ ]; # "clock" "custom/weather"
         modules-right = [
           "pulseaudio"
-          "network"
           "cpu"
           "memory"
           "temperature"
           "backlight"
           "battery"
+          #"mpd"
+          "network"
+          "custom/weather"
+          "clock"
           "tray"
         ];
 
@@ -33,9 +36,15 @@
             format = "{}";
             interval = 3600;
             on-click = "xdg-open 'https://google.com/search?q=weather'";
-            exec = "${pkgs.kat-weather}/bin/kat-weather ${witch.secrets.profiles.sway.city} ${witch.secrets.profiles.sway.api_key}";
+            exec =
+              "${pkgs.kat-weather}/bin/kat-weather ${witch.secrets.profiles.sway.city} ${witch.secrets.profiles.sway.api_key}";
           };
           cpu = { format = "  {usage}%"; };
+          #mpd = { 
+          #  format = "  {album} - {artist} - {title}"; 
+          #  format-stopped = "ﱙ";
+          #  format-paused = "  Paused";
+          #};
           memory = { format = "  {percentage}%"; };
           temperature = { format = "﨎 {temperatureC}°C"; };
           backlight = {

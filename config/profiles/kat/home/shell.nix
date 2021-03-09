@@ -5,10 +5,6 @@
     programs.fish = {
       enable = true;
       interactiveShellInit = ''
-        ${if (config.deploy.profile.gui) then
-          "export SSH_AUTH_SOCK=(gpgconf --list-dirs agent-ssh-socket)"
-        else
-          ""}
         fish_vi_key_bindings
         set -g fish_greeting ""
       '';
