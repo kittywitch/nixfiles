@@ -10,6 +10,11 @@ let
 
     discord = unstable.discord.override { nss = self.nss_latest; };
 
+    ncmpcpp = unstable.ncmpcpp.override {
+      visualizerSupport = true;
+      clockSupport = true;
+    };
+
     arc = import sources.arc-nixexprs { pkgs = super; };
     unstable = import sources.nixpkgs-unstable { inherit (self) config; };
     nur = import sources.NUR {

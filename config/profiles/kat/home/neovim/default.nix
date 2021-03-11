@@ -22,7 +22,7 @@
         }
       ];
       extraPackages = with pkgs;
-        [ (python3.withPackages (ps: with ps; [ black flake8])) ];
+        [ (python3.withPackages (ps: with ps; [ black flake8 ])) ];
       extraPython3Packages = (ps: with ps; [ jedi pylint ]);
       extraConfig = import ./vimrc.nix { inherit pkgs; };
     };

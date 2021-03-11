@@ -23,6 +23,8 @@
       rpc-bind-address = "0.0.0.0";
       rpc-whitelist = "127.0.0.1,192.168.1.*,192.168.122.*";
       script-torrent-done-enabled = true;
+      dht-enabled = true;
+      pex-enabled = true;
       script-torrent-done-filename = "${transmission-done-script}/bin/script";
       umask = 0;
     };

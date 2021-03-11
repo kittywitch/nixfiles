@@ -22,6 +22,7 @@
       v4l-utils
       transmission-gtk
       lm_sensors
+      p7zip
       baresip
       psmisc
       discord
@@ -40,7 +41,7 @@
       gimp-with-plugins
       vscode
       cryptsetup
-      pcmanfm
+      vifm
       neofetch
       htop
     ];
