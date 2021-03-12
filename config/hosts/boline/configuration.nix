@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware.nix
+    ../../services/nginx.nix
     #./wireguard.nix
   ];
 
@@ -25,6 +26,7 @@
     defaultGateway = "104.244.73.1";
     nameservers = [ "1.1.1.1" ];
   };
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   system.stateVersion = "20.09";
 }

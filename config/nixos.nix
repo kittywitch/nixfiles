@@ -15,6 +15,7 @@ in {
       specialArgs = {
         inherit sources witch;
         superConfig = config;
+        modulesPath = sources.home-manager + "/modules";
       };
     });
   };

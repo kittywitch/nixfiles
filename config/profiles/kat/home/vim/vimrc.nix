@@ -1,4 +1,4 @@
-{ pkgs }:
+{ config, pkgs }:
 
 ''
   " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
@@ -8,10 +8,27 @@
   " Enable mouse 
   set mouse=a
 
+  " notmuch!
+  let g:notmuch_config_file='${config.xdg.configHome}/notmuch/notmuchrc'
+  let g:notmuch_folders_count_threads=0
+  let g:notmuch_date_format='%y-%m-%d %H:%M'
+  let g:notmuch_datetime_format='%y-%m-%d %H:%M'
+  let g:notmuch_show_date_format='%Y/%m/%d  %H:%M'
+  let g:notmuch_search_date_format='%Y/%m/%d  %H:%M'
+  let g:notmuch_html_converter='${pkgs.elinks}/bin/elinks --dump'
+
+  " Line numbers!
+  set number
+
   " Open NERDTree at start
   autocmd VimEnter * NERDTree | wincmd p
 
   let g:coc_node_path='${pkgs.nodejs}/bin/node'
+
+  " idk but this means .swp isn't everywhere
+  set undodir=$XDG_DATA_HOME/vim/undo
+  set directory=$XDG_DATA_HOME/vim/swap//
+  set backupdir=$XDG_DATA_HOME/vim/backup
 
   " TextEdit might fail if hidden is not set.
   set hidden

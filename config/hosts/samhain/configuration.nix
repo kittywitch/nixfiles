@@ -25,7 +25,7 @@
   networking.useDHCP = false;
   networking.interfaces.enp34s0.useDHCP = true;
   networking.firewall.allowPing = true;
-  networking.firewall.allowedTCPPorts = [ 445 139 9091 ]; # smb transmission
+  networking.firewall.allowedTCPPorts = [ 80 445 139 9091 ]; # smb transmission
   networking.firewall.allowedUDPPorts = [ 137 138 4010 ]; # smb scream
 
   system.stateVersion = "20.09";

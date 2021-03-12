@@ -17,8 +17,8 @@
     home = "/disks/pool-raw/transmission";
     downloadDirPermissions = "777";
     settings = {
-      download-dir = "/disks/pool-raw/Public/Media/";
-      incomplete-dir = "/disks/pool-raw/Public/Media/.incomplete";
+      download-dir = "/disks/pool-raw/media/";
+      incomplete-dir = "/disks/pool-raw/media/.incomplete";
       incomplete-dir-enabled = true;
       rpc-bind-address = "0.0.0.0";
       rpc-whitelist = "127.0.0.1,192.168.1.*,192.168.122.*";
@@ -47,7 +47,7 @@
     '';
     shares = {
       media = {
-        path = "/disks/pool-raw/Public/Media";
+        path = "/disks/pool-raw/media";
         browseable = "yes";
         "read only" = "no";
         "guest ok" = "yes";
@@ -62,7 +62,13 @@
   services.nginx.virtualHosts = {
     "192.168.1.135" = {
       locations."/share/" = {
-        alias = "/disks/pool-raw/Public/Media/";
+        alias = "/disks/pool-raw/media/";
+        extraConfig = "autoindex on;";
+      };
+    };
+    "100.103.111.44" = {
+      locations."/share/" = {
+        alias = "/disks/pool-raw/media/";
         extraConfig = "autoindex on;";
       };
     };

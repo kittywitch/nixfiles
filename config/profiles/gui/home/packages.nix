@@ -5,12 +5,14 @@
     home.packages = with pkgs; [
       _1password
       bitwarden
+      arc.pkgs.rbw-bitw
       mpv
       element-desktop
       mumble
       obs-studio
       niv
-      xfce.ristretto
+      feh
+      duc
       audacity
       avidemux
       vlc
