@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
+  config = lib.mkIf config.deploy.profile.gui {
   programs.notmuch = {
     enable = true;
     hooks = { preNew = "mbsync --all"; };
@@ -31,4 +32,5 @@
     };
   };
   programs.vim.plugins = [ pkgs.arc.pkgs.vimPlugins.notmuch-vim ];
+};
 }
