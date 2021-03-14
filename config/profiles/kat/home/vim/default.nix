@@ -24,11 +24,13 @@
       #extraPython3Packages = (ps: with ps; [ jedi pylint ]);
       extraConfig = import ./vimrc.nix { inherit pkgs config; };
     };
-    xdg.configFile = {
+    xdg.dataFile = { 
       "vim/undo/.keep".text = "";
       "vim/swap/.keep".text = "";
       "vim/backup/.keep".text = "";
-      "nvim/coc-settings.json".text = builtins.readFile ./coc-settings.json;
+    };
+    xdg.configFile = {
+      "vim/coc-settings.json".text = builtins.readFile ./coc-settings.json;
     };
   };
 }

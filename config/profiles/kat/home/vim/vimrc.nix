@@ -1,15 +1,11 @@
 { config, pkgs }:
 
 ''
-  " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
-  " unicode characters in the file autoload/float.vim
-  set encoding=utf-8
-
   " Enable mouse 
   set mouse=a
 
   " notmuch!
-  let g:notmuch_config_file='${config.xdg.configHome}/notmuch/notmuchrc'
+  let g:notmuch_config_file='$XDG_CONFIG_HOME/notmuch/notmuchrc'
   let g:notmuch_folders_count_threads=0
   let g:notmuch_date_format='%y-%m-%d %H:%M'
   let g:notmuch_datetime_format='%y-%m-%d %H:%M'

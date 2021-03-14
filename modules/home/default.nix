@@ -1,9 +1,7 @@
 { sources, ... }:
 
 {
-  disabledModules = [
-    "programs/vim.nix"
-  ];
+  disabledModules = [ "programs/vim.nix" ];
   imports = [
     ./vim.nix
     (sources.tf-nix + "/modules/home/secrets.nix")
