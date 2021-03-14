@@ -24,7 +24,7 @@
       #extraPython3Packages = (ps: with ps; [ jedi pylint ]);
       extraConfig = import ./vimrc.nix { inherit pkgs config; };
     };
-    xdg.dataFile = { 
+    xdg.dataFile = {
       "vim/undo/.keep".text = "";
       "vim/swap/.keep".text = "";
       "vim/backup/.keep".text = "";

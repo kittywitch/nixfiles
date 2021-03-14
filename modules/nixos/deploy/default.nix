@@ -4,15 +4,19 @@ with lib;
 
 let
   cfg = config.deploy;
-  secretsScript = concatMapStrings (file: ''
-    ssh $NIX_SSHOPTS root@${cfg.ssh.host} "mkdir -p ${toString file.out.dir}
-    cat > ${file.path}
-    chmod ${file.mode} ${file.path}
-      chown ${file.owner}:${file.group} ${file.path}"'' + (if file.source != null then "< ${toString file.source}\n" else ''
-    <<'EOF'
-    ${file.text}
-    EOF
-  '')) (attrValues config.secrets.files);
+  secretsScript = concatMapStrings (file:
+    ''
+      ssh $NIX_SSHOPTS root@${cfg.ssh.host} "mkdir -p ${toString file.out.dir}
+      cat > ${file.path}
+      chmod ${file.mode} ${file.path}
+        chown ${file.owner}:${file.group} ${file.path}"''
+    + (if file.source != null then ''
+      < ${toString file.source}
+    '' else ''
+      <<'EOF'
+      ${file.text}
+      EOF
+    '')) (attrValues config.secrets.files);
 in {
   options = {
     deploy = {

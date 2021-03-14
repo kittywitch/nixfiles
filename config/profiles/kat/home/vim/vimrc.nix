@@ -4,8 +4,8 @@
   " Enable mouse 
   set mouse=a
 
-  " notmuch!
-  let g:notmuch_config_file='$XDG_CONFIG_HOME/notmuch/notmuchrc'
+  " notmuch! 
+  let g:notmuch_config_file='${config.xdg.configHome}/notmuch/notmuchrc'
   let g:notmuch_folders_count_threads=0
   let g:notmuch_date_format='%y-%m-%d %H:%M'
   let g:notmuch_datetime_format='%y-%m-%d %H:%M'
@@ -195,4 +195,10 @@
   nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
   " Resume latest coc list.
   nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-''
+'' + (if config.deploy.profile.sway == true then ''
+  noremap "+y y:call system("wl-copy", @")<CR>
+  nnoremap "+p :let @"=substitute(system("wl-paste --no-newline"), '<C-v><C-m>', ''', 'g')<CR>p
+  nnoremap "*p :let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', ''', 'g')<CR>p
+'' else
+  "")
+

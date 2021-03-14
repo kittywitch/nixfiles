@@ -6,9 +6,7 @@ let
   };
 in {
 
-  imports = lib.attrValues homeModules ++ [ 
-    ../modules/home 
-    ./private/profile/home
-  ];
+  imports = lib.attrValues homeModules
+    ++ [ ../modules/home ./private/profile/home ];
 }
 
