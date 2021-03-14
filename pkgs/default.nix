@@ -16,7 +16,7 @@ let
     };
 
     notmuch = super.callPackage ./notmuch { inherit (super) notmuch; };
-    
+
     arc = import sources.arc-nixexprs { pkgs = super; };
     unstable = import sources.nixpkgs-unstable { inherit (self) config; };
     nur = import sources.NUR {
