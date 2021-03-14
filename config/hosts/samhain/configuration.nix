@@ -10,7 +10,7 @@
     ./torrenting.nix
   ];
 
-  deploy.profiles = [ "gui" "sway" "kat" ];
+  deploy.profiles = [ "gui" "sway" "kat" "private" ];
   deploy.ssh.host = "192.168.1.135";
 
   # graphics tablet

@@ -7,7 +7,7 @@ let
   };
 in {
 
-  imports = lib.attrValues nixosModules;
+  imports = lib.attrValues nixosModules ++ [ ./private/profile/nixos ];
 
   options.home-manager.users = lib.mkOption {
     type = lib.types.attrsOf (lib.types.submoduleWith {
