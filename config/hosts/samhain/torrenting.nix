@@ -17,7 +17,7 @@
     home = "/disks/pool-raw/transmission";
     downloadDirPermissions = "777";
     settings = {
-      download-dir = "/disks/pool-raw/media/";
+      download-dir = "/disks/pool-raw/media/unsorted";
       incomplete-dir = "/disks/pool-raw/media/.incomplete";
       incomplete-dir-enabled = true;
       rpc-bind-address = "0.0.0.0";
@@ -46,6 +46,16 @@
       map to guest = bad user
     '';
     shares = {
+      shared = {
+        path = "/home/kat/shared";
+        browseable = "yes";
+        "read only" = "no";
+        "guest ok" = "no";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+        "force user" = "kat";
+        "force group" = "users";
+      };
       media = {
         path = "/disks/pool-raw/media";
         browseable = "yes";

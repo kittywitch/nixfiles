@@ -4,7 +4,7 @@
   config = lib.mkIf config.deploy.profile.gui {
     programs.ncmpcpp = {
       enable = true;
-      mpdMusicDir = "/home/kat/media/music";
+      mpdMusicDir = "/home/kat/media-share/music";
       settings = {
         visualizer_data_source = "/tmp/mpd.fifo";
         visualizer_output_name = "my_fifo";
@@ -16,7 +16,7 @@
         discard_colors_if_item_is_selected = "no";
         header_window_color = "250";
         volume_color = "250";
-        state_line_color = "cyan"; 
+        state_line_color = "cyan";
         state_flags_color = "cyan";
         alternative_ui_separator_color = "yellow";
         statusbar_color = "yellow";
@@ -27,8 +27,7 @@
         song_columns_list_format =
           "(3f)[cyan]{n} (40)[default]{t|f} (25)[red]{a} (30)[blue]{b} (4f)[cyan]{l}";
         now_playing_prefix = "$b";
-        song_list_format =
-          " $7%n$9 $8-$9 $1$9%l$1$9 $8-$9 $6%a$9 $8-$9 $5%b$9 $R$8%t$9 ";
+        song_list_format = " $6%a$9 $8-$9 $5%b$9 $R $7%n:$8 $8%t$9 ($4%l$9) ";
         song_library_format = "{%n > }{%t}|{%f}";
         song_status_format = "{%a - }{%t - }{%b}";
         titles_visibility = "no";
@@ -42,7 +41,7 @@
       enable = true;
       package = pkgs.unstable.beets;
       settings = {
-        directory = "~/media/music";
+        directory = "~/media-share/music";
         library = "~/.local/share/beets.db";
         plugins = lib.concatStringsSep " " [
           "mpdstats"
@@ -55,7 +54,7 @@
     services.mpd = {
       enable = true;
       network.startWhenNeeded = true;
-      musicDirectory = "/home/kat/media/music";
+      musicDirectory = "/home/kat/media-share/music";
       extraConfig = ''
         audio_output {
             type                    "fifo"
