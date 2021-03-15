@@ -6,6 +6,7 @@ with pkgs.lib;
   ''
     #!${pkgs.runtimeShell}
     export PATH=
+    nix build ${concatMapStringsSep " " (host: builtins.unsafeDiscardStringContext host.config.system.build.toplevel.drvPath) hosts}
     ${concatMapStrings (host: ''
       echo "deploying ${host.config.networking.hostName}..."
       ${host.config.system.build.deployScript} $1 &
