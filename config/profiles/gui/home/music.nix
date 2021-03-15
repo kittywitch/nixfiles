@@ -66,7 +66,20 @@
           audio_output {
             type "pulse"
             name "speaker"
-          }
+          
+
+
+                audio_output {
+                          type "httpd"
+                          name "httpd-high"
+                          encoder "opus"
+                          bitrate "96000"
+                          port "32101"
+                          max_clients "4"
+                          format "48000:16:2"
+                          always_on "yes"
+                          tags "yes"
+              }
       '';
     };
   };

@@ -20,6 +20,7 @@
       thunderbird
       unstable.syncplay
       unstable.youtube-dl
+      unstable.mkchromecast
       unstable.google-chrome
       v4l-utils
       transmission-gtk

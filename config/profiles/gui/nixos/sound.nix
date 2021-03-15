@@ -11,9 +11,14 @@
     hardware.pulseaudio = {
       enable = true;
       daemon.config = {
-        default-sample-format = "s24le";
-        default-sample-rate = 96000;
-        resample-method = "soxr-vhq";
+      exit-idle-time = 5;
+      resample-method = "speex-float-5";
+      avoid-resampling = "true";
+      flat-volumes = "no";
+      default-sample-format = "s32le";
+      default-sample-rate = 48000;
+      alternate-sample-rate = 44100;
+      default-sample-channels = 2;
       };
     };
   };
