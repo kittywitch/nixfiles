@@ -18,6 +18,7 @@
         coc-git
         vim-fugitive
         vim-startify
+        base16-vim 
       ];
       #extraPackages = with pkgs;
       #  [ (python3.withPackages (ps: with ps; [ black flake8 ])) ];

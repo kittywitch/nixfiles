@@ -1,29 +1,29 @@
 rec {
   base16 = {
-    color0 = "#181818";
-    color1 = "#ab4642";
-    color2 = "#a1b56c";
-    color3 = "#f7ca88";
-    color4 = "#7cafc2";
-    color5 = "#ba8baf";
-    color6 = "#86c1b9";
-    color7 = "#d8d8d8";
+    color0 = "#292a44";
+    color1 = "#a0a0c5";
+    color2 = "#6dfedf";
+    color3 = "#ae81ff";
+    color4 = "#2de0a7";
+    color5 = "#7aa5ff";
+    color6 = "#8eaee0";
+    color7 = "#f1eff8";
 
-    color8 = "#585858";
-    color9 = "#dc9656";
-    color10 = "#282828";
-    color11 = "#383838";
-    color12 = "#b8b8b8";
-    color13 = "#e8e8e8";
-    color14 = "#a16946";
-    color15 = "#f8f8f8";
+    color8 = "#666699";
+    color9 = "#a0a0c5";
+    color10 = "#6dfedf";
+    color11 = "#ae81ff";
+    color12 = "#2de0a7";
+    color13 = "#7aa5ff";
+    color14 = "#8eaee0";
+    color15 = "#53495d";
 
-    color16 = "#fd971f";
-    color17 = "#cc6633";
-    color18 = "#383830";
-    color19 = "#49483e";
-    color20 = "#a59f85";
-    color21 = "#f5f4f1";
+    color16 = "#efe4a1";
+    color17 = "#ff79c6";
+    color18 = "#663399";
+    color19 = "#383a62";
+    color20 = "#a0a0c5";
+    color21 = "#ccccff";
 
     ## Nord
 

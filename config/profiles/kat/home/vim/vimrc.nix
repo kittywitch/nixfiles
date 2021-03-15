@@ -4,6 +4,10 @@
   " Enable mouse 
   set mouse=a
 
+  " colors
+  let base16colorspace=256
+  colorscheme base16-rebecca
+
   " notmuch! 
   let g:notmuch_config_file='${config.xdg.configHome}/notmuch/notmuchrc'
   let g:notmuch_folders_count_threads=0

@@ -30,8 +30,8 @@
   #workspaces { padding: 0px 4px 0px 4px }
 
   #workspaces button {
-    color: ${style.base16.color13};
-    background: ${hextorgba style.base16.color10};
+    color: ${style.base16.color7};
+    background: ${hextorgba style.base16.color8};
     font-size: 16px;
     margin: 0px 4px 0px 4px;
     border-bottom: 2px solid transparent;
@@ -57,7 +57,7 @@
   #mpd { border-color: #5af78e }
   #mpd.disconnected, #mpd.stopped { border-color: #282a36 }
   #network { border-color: ${style.base16.color3} }
-  #custom-weather { border-color: ${style.base16.color15} }
+  #custom-weather { border-color: ${style.base16.color14} }
   #pulseaudio { border-color: ${style.base16.color2} }
   #temperature { border-color: ${style.base16.color4} }
   #battery { border-color: ${style.base16.color6} }

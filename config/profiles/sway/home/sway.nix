@@ -182,14 +182,14 @@
         colors = {
           focused = {
             border = witch.style.base16.color8;
-            background = witch.style.base16.color13;
+            background = witch.style.base16.color3;
             text = witch.style.base16.color0;
             indicator = witch.style.base16.color2;
             childBorder = witch.style.base16.color8;
           };
           focusedInactive = {
             border = witch.style.base16.color0;
-            background = witch.style.base16.color10;
+            background = witch.style.base16.color15;
             text = witch.style.base16.color13;
             indicator = witch.style.base16.color2;
             childBorder = witch.style.base16.color8;
@@ -197,7 +197,7 @@
           unfocused = {
             border = witch.style.base16.color0;
             background = witch.style.base16.color8;
-            text = witch.style.base16.color12;
+            text = witch.style.base16.color7;
             indicator = witch.style.base16.color8;
             childBorder = witch.style.base16.color8;
           };
