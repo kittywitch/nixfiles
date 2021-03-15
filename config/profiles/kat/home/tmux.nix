@@ -10,6 +10,9 @@
     programs.tmux = {
       enable = true;
       extraConfig = ''
+        # start from 1
+        set -g base-index 1
+        setw -g pane-base-index 1
 
         #  modes
         setw -g clock-mode-colour colour5
