@@ -58,6 +58,7 @@ in {
         set -xeo pipefail
         export PATH=${with pkgs; lib.makeBinPath [ coreutils openssh nix ]}
         export NIX_SSHOPTS="$NIX_SSHOPTS -p${toString cfg.ssh.port} -T"
+        nix build ${ builtins.unsafeDiscardStringContext config.system.build.toplevel.drvPath} -o result-${config.networking.hostName} 
         nix copy ${
           if cfg.substitute then "-s" else ""
         } --no-check-sigs --to ssh://root@${cfg.ssh.host} ${config.system.build.toplevel}
