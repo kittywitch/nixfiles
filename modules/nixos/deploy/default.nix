@@ -53,8 +53,7 @@ in {
     }) config.deploy.profiles);
     deploy.groups = [ "all" ];
 
-    system.build.deployScript =
-      pkgs.writeScript "deploy-${config.networking.hostName}" ''
+    system.build.deployScript = ''
         #!${pkgs.runtimeShell}
         set -xeo pipefail
         export PATH=${with pkgs; lib.makeBinPath [ coreutils openssh nix ]}

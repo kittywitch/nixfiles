@@ -3,7 +3,7 @@
 with pkgs.lib;
 
 (mapAttrs (name: hosts:
-  pkgs.writeScript "deploy-group-${name}" ''
+  ''
     #!${pkgs.runtimeShell}
     export PATH=
     ${concatMapStrings (host: ''

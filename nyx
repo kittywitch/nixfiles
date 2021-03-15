@@ -5,7 +5,7 @@ usage() {
     echo example: $0 build samhain boot
 }
 
-build() {
+deploy() {
     HOST=$1
     if [ $# -gt 2 ]; then
         METHOD=$2
@@ -13,7 +13,7 @@ build() {
         METHOD="switch"
     fi
 
-    nix build -f . deploy.$HOST && ./result $METHOD
+    nix eval --raw deploy.${HOST} -f . | bash -s -- ${METHOD}
 }
 
 install() {
