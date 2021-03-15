@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./adb.nix
     ./fonts.nix
     ./gpg.nix
     ./firefox.nix

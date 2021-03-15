@@ -7,6 +7,7 @@
     lm_sensors
     htop
     cachix
+    borgbackup
     ripgrep
     git
     nixfmt
