@@ -13,7 +13,7 @@ let
   };
 in {
   config = lib.mkIf config.deploy.profile.gui {
-    programs.fish.shellAliases = {
+    programs.zsh.shellAliases = {
       ff-pm = "firefox --ProfileManager";
       ff-main = "firefox -P main";
       ff-work = "firefox -P work";
