@@ -13,7 +13,7 @@ deploy() {
         METHOD="switch"
     fi
 
-    nix eval --raw deploy.${HOST} -f . | bash -s -- ${METHOD}
+    bash <(nix eval --raw deploy.${HOST} -f .) ${METHOD}
 }
 
 install() {
