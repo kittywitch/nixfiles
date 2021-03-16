@@ -2,7 +2,7 @@
 
 {
   config = lib.mkIf config.deploy.profile.kat {
-    programs.fish.shellAliases = {
+    programs.zsh.shellAliases = {
       tne = "tmux new -s";
       tat = "tmux attach -t";
       tren = "tmux new -AD -s";

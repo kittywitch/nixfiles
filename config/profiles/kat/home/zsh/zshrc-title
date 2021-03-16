@@ -1,0 +1,142 @@
+function term_title {
+	emulate -L zsh
+	unsetopt prompt_subst
+
+	[[ -t 1 ]] || return
+
+	local TITLE="$1"
+	local TAB="${2-$1}"
+
+	case "$TERM" in
+		cygwin|xterm*|putty*|rxvt*|ansi)
+			print -Pn "\e]2;$TITLE:q\a"
+			print -Pn "\e]1;$TAB:q\a"
+			;;
+		screen*)
+			print -Pn "\ek$TITLE:q\e\\"
+			;;
+		*)
+			if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
+				print -Pn "\e]2;$TITLE:q\a"
+				print -Pn "\e]1;$TAB:q\a"
+			else
+				if [[ -n "$terminfo[fsl]" ]] && [[ -n "$terminfo[tsl]" ]]; then
+					echoti tsl
+					print -Pn "$TITLE"
+					echoti fsl
+				fi
+			fi
+			;;
+	esac
+}
+
+function term_dir {
+    emulate -L zsh
+
+	[[ -t 1 ]] || return
+
+	local DIR="${1-$PWD}"
+
+	if [[ "${TERM_PROGRAM-}" == "Apple_Terminal" ]]; then
+		local URL_PATH="$(__omz_urlencode -P "$DIR")"
+		[[ $? != 0 ]] && return 1
+
+		printf '\e]7;%s\a' "file://$HOST$URL_PATH"
+	fi
+}
+
+function __arc_update_precmd {
+	local TERM_TITLE="%~"
+	local TERM_TAB="%~"
+
+	if [[ "${TERM_PROGRAM-}" == "Apple_Terminal" ]]; then
+		TERM_TAB="$USER@%m"
+		TERM_TITLE="$TERM_TAB"
+	elif [[ "$USER" != "$DEFAULT_USER" || -n "${SSH_CLIENT-}" ]]; then
+		TERM_TAB="$USER@%m"
+		TERM_TITLE="$TERM_TAB - $TERM_TITLE"
+	fi
+
+	term_title "$TERM_TITLE" "$TERM_TAB"
+}
+
+function __arc_update_preexec {
+	emulate -L zsh
+	setopt extended_glob
+
+	local TERM_TAB=${1[(wr)^(*=*|sudo|ssh|mosh|rake|-*)]:gs/%/%%}
+	local TERM_TITLE="${2:gs/%/%%}"
+
+	if [[ "$USER" != "$DEFAULT_USER" || -n "${SSH_CLIENT-}" ]]; then
+		TERM_TAB="$USER@%m - $TERM_TAB"
+		TERM_TITLE="$USER@%m - $TERM_TITLE"
+	fi
+
+	term_title "$TERM_TITLE" "$TERM_TAB"
+}
+
+zmodload zsh/langinfo
+
+function __omz_urlencode() {
+	emulate -L zsh
+	zparseopts -D -E -a opts r m P
+
+	local in_str=$1
+	local url_str=""
+	local spaces_as_plus
+	if [[ -z $opts[(r)-P] ]]; then spaces_as_plus=1; fi
+	local str="$in_str"
+
+	# URLs must use UTF-8 encoding; convert str to UTF-8 if required
+	local encoding=$langinfo[CODESET]
+	local safe_encodings
+	safe_encodings=(UTF-8 utf8 US-ASCII)
+	if [[ -z ${safe_encodings[(r)$encoding]} ]]; then
+		str=$(echo -E "$str" | iconv -f $encoding -t UTF-8)
+		if [[ $? != 0 ]]; then
+			echo "Error converting string from $encoding to UTF-8" >&2
+			return 1
+		fi
+	fi
+
+	# Use LC_CTYPE=C to process text byte-by-byte
+	local i byte ord LC_ALL=C
+	export LC_ALL
+	local reserved=';/?:@&=+$,'
+	local mark='_.!~*''()-'
+	local dont_escape="[A-Za-z0-9"
+	if [[ -z $opts[(r)-r] ]]; then
+		dont_escape+=$reserved
+	fi
+	# $mark must be last because of the "-"
+	if [[ -z $opts[(r)-m] ]]; then
+		dont_escape+=$mark
+	fi
+	dont_escape+="]"
+
+	# Implemented to use a single printf call and avoid subshells in the loop,
+	# for performance (primarily on Windows).
+	local url_str=""
+	for (( i = 1; i <= ${#str}; ++i )); do
+		byte="$str[i]"
+		if [[ "$byte" =~ "$dont_escape" ]]; then
+			url_str+="$byte"
+		else
+			if [[ "$byte" == " " && -n $spaces_as_plus ]]; then
+				url_str+="+"
+			else
+				ord=$(( [##16] #byte ))
+				url_str+="%$ord"
+			fi
+		fi
+	done
+	echo -E "$url_str"
+}
+
+if [[ -z "${ARC_PROMPT_RUN-}" ]]; then
+	chpwd_functions+=(term_dir)
+	precmd_functions+=(__arc_update_precmd)
+	preexec_functions+=(__arc_update_preexec)
+
+	term_dir
+fi
