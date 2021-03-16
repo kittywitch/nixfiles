@@ -75,9 +75,7 @@
             command = "systemctl --user restart mako";
             always = true;
           }
-          {
-            command = "mkchromecast -t";
-          }
+          { command = "mkchromecast -t"; }
           {
             command =
               "${pkgs.swayidle}/bin/swayidle -w before-sleep '${lockCommand}'";

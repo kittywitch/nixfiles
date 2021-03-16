@@ -27,7 +27,8 @@
         song_columns_list_format =
           "(3f)[cyan]{n} (40)[default]{t|f} (25)[red]{a} (30)[blue]{b} (4f)[cyan]{l}";
         now_playing_prefix = "$b";
-        song_list_format = " $6%a$9 $8-$9 $5%b$9 $R $7%n:$8 $8%t$9 ($4%l$9) ";
+        song_list_format =
+          " $7%n$9 $8-$9 $6%a$9 $8-$9 $5%b$9 $R $8%t$9 ($4%l$9) ";
         song_library_format = "{%n > }{%t}|{%f}";
         song_status_format = "{%a - }{%t - }{%b}";
         titles_visibility = "no";
@@ -35,6 +36,8 @@
         statusbar_visibility = "no";
         now_playing_suffix = "$/b";
         progressbar_look = "▄▄ ";
+        media_library_primary_tag = "album_artist";
+        search_engine_display_mode = "columns";
       };
     };
     programs.beets = {
@@ -56,6 +59,8 @@
       network.startWhenNeeded = true;
       musicDirectory = "/home/kat/media-share/music";
       extraConfig = ''
+        max_output_buffer_size "32768"
+
         audio_output {
             type                    "fifo"
             name                    "my_fifo"
@@ -66,7 +71,7 @@
           audio_output {
             type "pulse"
             name "speaker"
-          
+        }  
 
 
                 audio_output {

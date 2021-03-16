@@ -2,5 +2,5 @@
 
 {
   programs.adb.enable = true;
-  users.users.kat.extraGroups = ["adbusers"];
+  users.users.kat.extraGroups = [ "adbusers" ];
 }
