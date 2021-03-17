@@ -26,7 +26,7 @@
   <os>
     <type arch="x86_64" machine="pc-q35-5.1">hvm</type>
     <loader readonly="yes" type="pflash">/run/libvirt/nix-ovmf/OVMF_CODE.fd</loader>
-    <nvram>/var/lib/libvirt/qemu/nvram/win10-3_VARS.fd</nvram>
+    <nvram>/var/lib/libvirt/qemu/nvram/win10_VARS.fd</nvram>
   </os>
   <features>
     <acpi/>
