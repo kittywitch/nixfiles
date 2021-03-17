@@ -4,7 +4,7 @@
   config = lib.mkIf config.deploy.profile.kat {
     programs.zsh = {
       enable = true;
-      shellAliases = { 
+      shellAliases = {
         nixdirfmt = "fd --color=never .nix | xargs nixfmt";
         exa = "exa --time-style long-iso";
         ls = "exa -G";

@@ -1,10 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./hardware.nix
-    ../../services/nginx.nix
-  ];
+  imports = [ ./hardware.nix ../../services/nginx.nix ];
 
   deploy.profiles = [ "kat" ];
   deploy.ssh.host = "boline.kittywit.ch";
