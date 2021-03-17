@@ -59,6 +59,7 @@
     pkgs.arc.pkgs.scream-arc # for audio forwarding
     pkgs.screenstub # for input handling
     pkgs.ddcutil # for diagnostics on DDC/CI
+    pkgs.virt-manager # hmm
   ];
 
   systemd.services.libvirtd-guest-win10 = {

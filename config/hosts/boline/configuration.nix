@@ -4,7 +4,6 @@
   imports = [
     ./hardware.nix
     ../../services/nginx.nix
-    #./wireguard.nix
   ];
 
   deploy.profiles = [ "kat" ];

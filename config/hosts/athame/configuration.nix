@@ -3,26 +3,22 @@
 {
   imports = [
     ./hardware.nix
-    # db 
+    # host-specific services 
     ./postgres.nix
-    # nginx
-    ../../services/nginx.nix
     ./virtualhosts.nix
-    # security
     ./fail2ban.nix
-    # services
-    ./mail.nix
-    ./asterisk.nix
-    ./gitea.nix
-    ./syncplay.nix
-    ./nextcloud.nix
-    ./bitwarden.nix
-    ./taskserver.nix
-    # comms
-    ./murmur.nix
-    ./znc.nix
-    ./weechat.nix
-    ./matrix.nix
+    # services 
+    ../../services/nginx.nix
+    ../../services/mail.nix
+    ../../services/asterisk.nix
+    ../../services/gitea.nix
+    ../../services/syncplay.nix
+    ../../services/bitwarden.nix
+    ../../services/taskserver.nix
+    ../../services/murmur.nix
+    ../../services/znc.nix
+    ../../services/weechat.nix
+    ../../services/matrix.nix
   ];
 
   deploy.profiles = [ "kat" ];
