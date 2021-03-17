@@ -62,6 +62,35 @@
     pkgs.virt-manager # obvious reasons
   ];
 
+  systemd.services.libvirtd-guest-win10 = {
+    after = [ "libvirtd.service" ];
+    requires = [ "libvirtd.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      type = "oneshot";
+      RemainAfterExit = "yes";
+    };
+    script = let xml = pkgs.writeText "libvirt-guest-win10.xml" (import ./win10.xml.nix {}); in ''
+        uuid="$(${pkgs.libvirt}/bin/virsh domuuid 'win10' || true)"
+        ${pkgs.libvirt}/bin/virsh define <(sed "s/UUID/$uuid/" '${xml}')
+        ${pkgs.libvirt}/bin/virsh start 'win10';
+    '';
+  preStop =
+    ''
+      ${pkgs.libvirt}/bin/virsh shutdown 'win10'
+      let "timeout = $(date +%s) + 120"
+      while [ "$(${pkgs.libvirt}/bin/virsh list --name | grep --count '^win10$')" -gt 0 ]; do
+        if [ "$(date +%s)" -ge "$timeout" ]; then
+          # meh, we warned it...
+          ${pkgs.libvirt}/bin/virsh destroy 'win10'
+        else
+          # the machine is still running, let's give it some time to shut down
+          sleep 0.5
+        fi
+      done
+    '';
+  };
+
   home-manager.users.kat = {
     # audio for vm on startup
     systemd.user.services = {
