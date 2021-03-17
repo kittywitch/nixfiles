@@ -4,7 +4,14 @@
   config = lib.mkIf config.deploy.profile.kat {
     programs.zsh = {
       enable = true;
-      shellAliases = { nixdirfmt = "fd --color=never .nix | xargs nixfmt"; };
+      shellAliases = { 
+        nixdirfmt = "fd --color=never .nix | xargs nixfmt";
+        exa = "exa --time-style long-iso";
+        ls = "exa -G";
+        la = "exa -Ga";
+        ll = "exa -l";
+        lla = "exa -lga";
+      };
       initExtra = ''
         ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=3,bold"          
         source ${./zshrc-title}
