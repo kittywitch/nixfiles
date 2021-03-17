@@ -12,7 +12,7 @@
     # nix run nixpkgs.apacheHttpd -c htpasswd -nbB "" "super secret password" | cut -d: -f2
     loginAccounts = {
       "kat@kittywit.ch" = {
-        hashedPasswordFile = config.secrets.files.kat-pw-hash.path;
+        hashedPasswordFile = config.secrets.files.kat_mail_hash.path;
 
         aliases = [ "postmaster@kittywit.ch" ];
 
