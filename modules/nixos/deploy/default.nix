@@ -59,7 +59,7 @@ in {
       #!${pkgs.runtimeShell}
       set -xeo pipefail
       export PATH=${with pkgs; lib.makeBinPath [ coreutils openssh nix ]}
-      export NIX_SSHOPTS="$NIX_SSHOPTS -p${toString cfg.ssh.port}"
+      export NIX_SSHOPTS="-p${toString cfg.ssh.port}"
       nix build ${
         builtins.unsafeDiscardStringContext config.system.build.toplevel.drvPath
       } -o result-${config.networking.hostName} 

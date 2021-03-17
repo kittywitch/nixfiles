@@ -11,6 +11,7 @@
   ];
 
   deploy.profiles = [ "gui" "sway" "kat" "private" ];
+  deploy.groups = [ "gui" ];
   deploy.ssh.host = "192.168.1.135";
 
   # graphics tablet

@@ -4,6 +4,7 @@
   imports = [ ./hardware.nix ../../services/zfs.nix ];
 
   deploy.profiles = [ "gui" "sway" "kat" "laptop" "private" ];
+  deploy.groups = [ "gui" ];
   deploy.ssh.host = "192.168.1.92";
 
   boot.loader.systemd-boot.enable = true;
