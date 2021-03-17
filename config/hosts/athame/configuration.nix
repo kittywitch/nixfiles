@@ -17,7 +17,6 @@
     ../../services/taskserver.nix
     ../../services/murmur.nix
     ../../services/znc.nix
-    ../../services/weechat.nix
     ../../services/matrix.nix
   ];
 

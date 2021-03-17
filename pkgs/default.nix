@@ -15,6 +15,17 @@ let
       clockSupport = true;
     };
 
+    weechat = arc.pkgs.wrapWeechat arc.pkgs.weechat-unwrapped {
+        configure = { availablePlugins, ... }: {
+          scripts = [ arc.pkgs.weechatScripts.weechat-matrix ];
+          plugins = [
+            availablePlugins.perl
+            (availablePlugins.python.withPackages
+              (ps: [ ps.potr ps.weechat-matrix ]))
+          ];
+        };
+      };
+
     notmuch = super.callPackage ./notmuch { inherit (super) notmuch; };
 
     arc = import sources.arc-nixexprs { pkgs = super; };

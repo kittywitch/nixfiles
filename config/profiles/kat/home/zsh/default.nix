@@ -14,7 +14,6 @@
       };
       initExtra = ''
         ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=3,bold"          
-        source ${./zshrc-title}
       '';
       plugins = [{
         name = "zsh-autosuggestions";

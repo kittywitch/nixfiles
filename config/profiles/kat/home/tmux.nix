@@ -14,6 +14,10 @@
         set -g base-index 1
         setw -g pane-base-index 1
 
+        # proper title handling
+        set -g set-titles on
+        set -g set-titles-string "#T"
+
         #  modes
         setw -g clock-mode-colour colour5
         setw -g mode-style 'fg=colour1 bg=colour18 bold'
