@@ -27,13 +27,28 @@
       fi
     '';
 
-    wayland.windowManager.sway = {
+    wayland.windowManager.sway = let 
+     cfg = config.wayland.windowManager.sway.config;
+        bindsym = k: v: "bindsym ${k} ${v}";
+        bindWorkspace = key: workspace: {
+          "${cfg.modifier}+${key}" = "workspace number ${workspace}";
+          "${cfg.modifier}+shift+${key}" = "move container to workspace number ${workspace}";
+         };
+        workspaceBindings =
+          map (v: bindWorkspace v "${v}:${v}") ["1" "2" "3" "4" "5" "6" "7" "8" "9"]
+          ++ [(bindWorkspace "0" "10:10")]
+          ++ lib.imap1 (i: v: bindWorkspace v "${toString (10 + i)}:${v}") ["F1" "F2" "F3" "F4" "F5" "F6" "F7" "F8" "F9" "F10" "F11" "F12"];
+        workspaceBindings' =
+          map (lib.mapAttrsToList bindsym) workspaceBindings;
+        workspaceBindingsStr =
+          lib.concatStringsSep "\n" (lib.flatten workspaceBindings');
+    in {
       enable = true;
       config = let
         dmenu =
           "${pkgs.bemenu}/bin/bemenu --fn '${witch.style.font.name} ${witch.style.font.size}' --nb '${witch.style.base16.color0}' --nf '${witch.style.base16.color7}' --sb '${witch.style.base16.color1}' --sf '${witch.style.base16.color7}' -l 5 -m -1 -i";
         lockCommand = "swaylock -i ${./wallpapers/main.png} -s fill";
-        cfg = config.wayland.windowManager.sway.config;
+
       in {
         bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
 
@@ -117,28 +132,6 @@
           "${cfg.modifier}+Shift+space" = "floating toggle";
           "${cfg.modifier}+space" = "focus mode_toggle";
 
-          "${cfg.modifier}+1" = "workspace 1";
-          "${cfg.modifier}+2" = "workspace 2";
-          "${cfg.modifier}+3" = "workspace 3";
-          "${cfg.modifier}+4" = "workspace 4";
-          "${cfg.modifier}+5" = "workspace 5";
-          "${cfg.modifier}+6" = "workspace 6";
-          "${cfg.modifier}+7" = "workspace 7";
-          "${cfg.modifier}+8" = "workspace 8";
-          "${cfg.modifier}+9" = "workspace 9";
-          "${cfg.modifier}+0" = "workspace 10";
-
-          "${cfg.modifier}+Shift+1" = "move container to workspace 1";
-          "${cfg.modifier}+Shift+2" = "move container to workspace 2";
-          "${cfg.modifier}+Shift+3" = "move container to workspace 3";
-          "${cfg.modifier}+Shift+4" = "move container to workspace 4";
-          "${cfg.modifier}+Shift+5" = "move container to workspace 5";
-          "${cfg.modifier}+Shift+6" = "move container to workspace 6";
-          "${cfg.modifier}+Shift+7" = "move container to workspace 7";
-          "${cfg.modifier}+Shift+8" = "move container to workspace 8";
-          "${cfg.modifier}+Shift+9" = "move container to workspace 9";
-          "${cfg.modifier}+Shift+0" = "move container to workspace 10";
-
           "XF86AudioRaiseVolume" =
             "exec pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') +5%";
           "XF86AudioLowerVolume" =
@@ -161,7 +154,7 @@
             "exec ${./grimshot.sh} --notify save window";
 
           "${cfg.modifier}+i" = "move workspace to output left";
-          "${cfg.modifier}+o" = "move workspace to output left";
+          "${cfg.modifier}+o" = "move workspace to output right";
           "${cfg.modifier}+b" = "splith";
           "${cfg.modifier}+v" = "splitv";
           "${cfg.modifier}+s" = "layout stacking";
@@ -228,6 +221,7 @@
         workspace "1" output "DP-1"
         workspace "2" output "DVI-D-1"
         workspace "3" output "HDMI-A-1"
+        ${workspaceBindingsStr}
       '';
     };
   };

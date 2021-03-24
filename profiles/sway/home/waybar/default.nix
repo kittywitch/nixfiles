@@ -27,6 +27,9 @@
         ];
 
         modules = {
+          "sway/workspaces" = {
+            format = "{name}";
+          };
           #"custom/weather" = {
           #  format = "{}";
           #  interval = 3600;
