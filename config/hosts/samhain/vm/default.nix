@@ -46,6 +46,7 @@
   # * uinput rule
   services.udev.extraRules = ''
     SUBSYSTEM=="i2c-dev", GROUP="users", MODE="0660"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="05ac", ATTRS{idProduct}=="12a8", GROUP="qemu-libvirtd"
     SUBSYSTEM=="usb", ACTION=="add", ATTRS{idVendor}=="fa58", ATTRS{idProduct}=="04d9", GROUP="users"
     SUBSYSTEM=="misc", KERNEL=="uinput", OPTIONS+="static_node=uinput", MODE="0660", GROUP="uinput"
     SUBSYSTEM=="input", ACTION=="add", DEVPATH=="/devices/virtual/input/*", MODE="0660", GROUP="qemu-libvirtd", RUN+="${
