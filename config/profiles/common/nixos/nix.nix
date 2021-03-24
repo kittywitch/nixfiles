@@ -5,6 +5,7 @@
   boot.loader.systemd-boot.configurationLimit = 8;
 
   nixpkgs.config = { allowUnfree = true; };
+
   nix = {
     nixPath = [
       "nixpkgs=${sources.nixpkgs}"

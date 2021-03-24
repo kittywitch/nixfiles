@@ -13,7 +13,7 @@
         lla = "exa -lga";
       };
       initExtra = ''
-        ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=3,bold"          
+        ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=3,bold"
       '';
       plugins = [{
         name = "zsh-autosuggestions";

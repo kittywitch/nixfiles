@@ -5,7 +5,7 @@
     home.packages = with pkgs; [
       git-crypt
       gitAndTools.gitRemoteGcrypt
-      gitAndTools.gitAnnex
+      unstable.gitAndTools.gitAnnex
       git-revise
       arc.pkgs.gitAndTools.git-annex-remote-b2
     ];
@@ -19,7 +19,7 @@
         protocol.gcrypt.allow = "always";
         annex = {
           autocommit = false;
-          backend = "SHA256";
+          backend = "BLAKE2B512";
           synccontent = true;
         };
       };

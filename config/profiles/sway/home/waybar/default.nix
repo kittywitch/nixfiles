@@ -18,6 +18,7 @@
           "temperature"
           "backlight"
           "battery"
+          "idle_inhibitor"
           #"mpd"
           "network"
           "custom/weather"
@@ -41,12 +42,20 @@
           };
           cpu = { format = "  {usage}%"; };
           #mpd = { 
-          #  format = "  {album} - {artist} - {title}"; 
+          #  format = "  {albumArtist} - {title}"; 
           #  format-stopped = "ﱙ";
           #  format-paused = "  Paused";
+          #  title-len = 16;
           #};
           memory = { format = "  {percentage}%"; };
           temperature = { format = "﨎 {temperatureC}°C"; };
+          idle_inhibitor = {
+            format = "{icon}";
+            format-icons = {
+              activated = "";
+              deactivated = "";
+            };
+          };
           backlight = {
             format = "{icon} {percent}%";
             format-icons = [ "" "" ];

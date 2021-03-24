@@ -65,8 +65,6 @@ in {
           userChrome = import ./userChrome.css.nix { profile = "lewd"; };
         };
       };
-      package =
-        pkgs.wrapFirefox pkgs.firefox-unwrapped { forceWayland = true; };
     };
 
     home.file.".config/tridactyl/tridactylrc".source = ./tridactylrc;

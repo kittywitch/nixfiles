@@ -6,7 +6,8 @@
 
   " colors
   let base16colorspace=256
-  colorscheme base16-rebecca
+  "colorscheme base16-rebecca
+  colorscheme default
 
   " notmuch! 
   let g:notmuch_config_file='${config.xdg.configHome}/notmuch/notmuchrc'

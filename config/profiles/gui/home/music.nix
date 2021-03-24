@@ -39,6 +39,16 @@
         media_library_primary_tag = "album_artist";
         search_engine_display_mode = "columns";
       };
+      bindings = [
+        {
+          key = "+";
+          command = "add";
+        }
+        {
+          key = "-";
+          command = "load";
+        }
+      ];
     };
     programs.beets = {
       enable = true;
@@ -56,6 +66,7 @@
     };
     services.mpd = {
       enable = true;
+      package = pkgs.mpd-youtube-dl;
       network.startWhenNeeded = true;
       musicDirectory = "/home/kat/media-share/music";
       extraConfig = ''

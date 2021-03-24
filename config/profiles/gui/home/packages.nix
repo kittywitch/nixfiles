@@ -1,11 +1,16 @@
 { config, lib, pkgs, ... }:
 
-{
+let
+  bitw = pkgs.writeShellScriptBin "bitw" ''
+    ${pkgs.arc.pkgs.rbw-bitw}/bin/bitw -p gpg://${
+      ../../../private/files/bitw/master.gpg
+    } "$@"'';
+in {
   config = lib.mkIf config.deploy.profile.gui {
     home.packages = with pkgs; [
       _1password
       bitwarden
-      arc.pkgs.rbw-bitw
+      bitw
       mpv
       element-desktop
       mumble
@@ -13,6 +18,7 @@
       niv
       feh
       duc
+      exiftool
       audacity
       avidemux
       vlc

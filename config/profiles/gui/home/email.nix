@@ -16,7 +16,7 @@
         realName = "kat witch";
         userName = "kat@kittywit.ch";
         passwordCommand = ''
-          bitw -p gpg://${
+          ${pkgs.arc.pkgs.rbw-bitw}/bin/bitw -p gpg://${
             ../../../private/files/bitw/master.gpg
           } get "kittywitch email"'';
         msmtp.enable = true;

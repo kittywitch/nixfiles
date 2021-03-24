@@ -13,7 +13,7 @@
 ## See `man 1 grimshot` or `grimshot usage` for further details.
 
 getTargetDirectory() {
-	echo "/home/kat/scrots"
+	echo "/home/kat/media/scrots"
 }
 
 if [ "$1" = "--notify" ]; then

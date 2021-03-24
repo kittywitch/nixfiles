@@ -9,7 +9,7 @@
     min-height: 14px
    }
 
-  #clock, #memory, #cpu, #temperature, #pulseaudio, #network, #mpd, #backlight, #battery, #custom-weather {
+  #clock, #memory, #cpu, #temperature, #pulseaudio, #network, #mpd, #backlight, #battery, #custom-weather, #idle_inhibitor {
     margin-left: 8px;
     margin-right: 8px;
     padding-left: 8px;
@@ -54,7 +54,7 @@
     border-bottom-color: ${style.base16.color2}
   }
 
-  #mpd { border-color: #5af78e }
+  #mpd, #idle_inhibitor { border-color: #5af78e }
   #mpd.disconnected, #mpd.stopped { border-color: #282a36 }
   #network { border-color: ${style.base16.color3} }
   #custom-weather { border-color: ${style.base16.color14} }

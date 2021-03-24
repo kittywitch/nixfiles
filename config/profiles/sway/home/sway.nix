@@ -10,6 +10,22 @@
 
     home.packages = with pkgs; [ grim slurp wl-clipboard jq ];
 
+    programs.zsh.profileExtra = ''
+      # If running from tty1 start sway
+      if [ "$(tty)" = "/dev/tty1" ]; then
+        systemctl --user unset-environment \
+          SWAYSOCK \
+          I3SOCK \
+          WAYLAND_DISPLAY \
+          DISPLAY \
+          IN_NIX_SHELL \
+          __HM_SESS_VARS_SOURCED \
+          GPG_TTY \
+          NIX_PATH \
+          SHLVL
+        exec env --unset=SHLVL systemd-cat -t sway -- sway
+      fi
+    '';
     wayland.windowManager.sway = {
       enable = true;
       config = let
@@ -76,10 +92,6 @@
             always = true;
           }
           { command = "mkchromecast -t"; }
-          {
-            command =
-              "${pkgs.swayidle}/bin/swayidle -w before-sleep '${lockCommand}'";
-          }
         ];
 
         window = {

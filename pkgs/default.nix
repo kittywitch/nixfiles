@@ -2,33 +2,26 @@
 
 let
   pkgs = import sources.nixpkgs { inherit config; };
-
   overlay = self: super: rec {
     dino = super.callPackage "${sources.qyliss-nixlib}/overlays/patches/dino" {
       inherit (super) dino;
     };
 
+
     discord = unstable.discord.override { nss = self.nss_latest; };
+
+    lib = super.lib.extend
+      (self: super: { deployEmbedFuckery = txt: "__FUCKERY__" + txt; });
 
     ncmpcpp = unstable.ncmpcpp.override {
       visualizerSupport = true;
       clockSupport = true;
     };
 
-    weechat = arc.pkgs.wrapWeechat arc.pkgs.weechat-unwrapped {
-        configure = { availablePlugins, ... }: {
-          scripts = [ arc.pkgs.weechatScripts.weechat-matrix ];
-          plugins = [
-            availablePlugins.perl
-            (availablePlugins.python.withPackages
-              (ps: [ ps.potr ps.weechat-matrix ]))
-          ];
-        };
-      };
+    waybar = super.waybar.override { pulseSupport = true; };
 
     notmuch = super.callPackage ./notmuch { inherit (super) notmuch; };
 
-    arc = import sources.arc-nixexprs { pkgs = super; };
     unstable = import sources.nixpkgs-unstable { inherit (self) config; };
     nur = import sources.NUR {
       nurpkgs = self;
@@ -46,4 +39,5 @@ let
       });
   };
 
-in pkgs.extend (overlay)
+in (pkgs.extend (import (sources.arc-nixexprs + "/top-level.nix"))).extend
+overlay

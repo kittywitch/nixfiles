@@ -15,8 +15,8 @@ let
     + (if file.source != null then ''
       < ${toString file.source}
     '' else ''
-      <<'EOF'
-      ${file.text}
+      <<${if hasPrefix "__FUCKERY__" file.text then "EOF" else "'EOF'"}
+      ${removePrefix "__FUCKERY__" file.text}
       EOF
     '')) (attrValues config.secrets.files);
 in {

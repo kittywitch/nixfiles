@@ -2,6 +2,6 @@
 
 {
   config = lib.mkIf config.deploy.profile.kat {
-    home.packages = with pkgs; [ kitty.terminfo weechat ];
+    home.packages = with pkgs; [ kitty.terminfo ];
   };
 }
