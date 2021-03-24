@@ -30,6 +30,7 @@
         vimode-git
         weechat-matrix
         weechat-notify-send
+        weechat-title
       ];
       config = {
         weechat = {
@@ -42,6 +43,10 @@
         urlgrab.default.copycmd = "${pkgs.wl-clipboard}/bin/wl-copy";
         plugins.var.python.vimode.copy_clipboard_cmd = "wl-copy";
         plugins.var.python.vimode.paste_clipboard_cmd = "wl-paste --no-newline";
+        plugins.var.python.title.title_prefix = "weechat - ";
+        plugins.var.python.title.show_hotlist = true;
+        plugins.var.python.title.current_buffer_suffix = " [";
+        plugins.var.python.title.title_suffix = "]";
         plugins.var.python.notify_send.icon = "";
         sec = {
           crypt = {

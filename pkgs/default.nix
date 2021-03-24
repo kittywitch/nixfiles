@@ -27,6 +27,10 @@ let
       pkgs = self;
     };
 
+    weechatScripts = super.weechatScripts // {
+      weechat-title = (super.callPackage ./weechat-title { });
+    };
+
     screenstub = unstable.callPackage ./screenstub { };
 
     kat-weather = super.callPackage ./kat-weather { };
