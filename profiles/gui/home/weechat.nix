@@ -46,7 +46,7 @@
         plugins.var.python.title.title_prefix = "weechat - ";
         plugins.var.python.title.show_hotlist = true;
         plugins.var.python.title.current_buffer_suffix = " [";
-        plugins.var.python.title.title_suffix = "]";
+        plugins.var.python.title.title_suffix = " ]";
         plugins.var.python.notify_send.icon = "";
         sec = {
           crypt = {
