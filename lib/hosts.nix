@@ -1,5 +1,5 @@
-{ pkgs, hostsDir ? ../config/hosts, privateHostsDir ? ../config/private/hosts
-, commonImports ? [ ../config/nixos.nix ../modules/nixos ], pkgsPath ? ../pkgs
+{ pkgs, hostsDir ? ../hosts, privateHostsDir ? ../private/hosts
+, commonImports ? [ ../nixos.nix ../modules/nixos ], pkgsPath ? ../pkgs
 , sources ? { }, witch ? { } }:
 
 with pkgs.lib;
@@ -12,8 +12,8 @@ rec {
     { config, ... }: {
       _module.args = { inherit hosts groups; };
       imports = [
-        (import (hostsDir + "/${hostName}/configuration.nix"))
-        (import (privateHostsDir + "/${hostName}/configuration.nix"))
+        (import (hostsDir + "/${hostName}/nixos"))
+        (import (privateHostsDir + "/${hostName}/nixos"))
         ../modules/nixos/deploy
       ] ++ commonImports;
       networking = { inherit hostName; };
@@ -32,7 +32,7 @@ rec {
         else
           { })
       ];
-      specialArgs = { inherit sources witch; };
+      specialArgs = { inherit sources witch hostName; };
     })) hostNames);
 
   groupNames = unique (concatLists

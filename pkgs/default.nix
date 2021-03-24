@@ -7,7 +7,6 @@ let
       inherit (super) dino;
     };
 
-
     discord = unstable.discord.override { nss = self.nss_latest; };
 
     lib = super.lib.extend
