@@ -36,7 +36,7 @@
   };
 
   networking.firewall.allowedTCPPorts =
-    [ 80 443 5160 5060 8999 64738 1935 53589 ];
+    [ 80 443 5160 5060 8999 64738 1935 53589 5001 ];
   networking.firewall.allowedUDPPorts = [ 5160 5060 64738 ];
   networking.firewall.allowedTCPPortRanges = [{
     from = 10000;

@@ -12,6 +12,11 @@
         SSL = false;
         AllowWeb = true;
       };
+      Listener.j = {
+        Port = 5001;
+        SSL = true;
+        AllowWeb = false;
+      };
       modules = [ "webadmin" "adminlog" ];
       User = witch.secrets.hosts.athame.znc;
     };
