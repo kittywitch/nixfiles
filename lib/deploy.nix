@@ -12,7 +12,7 @@ with pkgs.lib;
   }
   ${concatMapStrings (host: ''
     echo "deploying ${host.config.networking.hostName}..."
-    ${host.config.system.build.deployScript} $1 &
+    ${host.config.system.build.deployScript} 
     PID_LIST+=" $!"
   '') hosts}
   # FIXME: remove jobs from PIDLIST once they finish
