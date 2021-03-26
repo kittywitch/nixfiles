@@ -18,12 +18,12 @@
           "temperature"
           "backlight"
           "battery"
-          "idle_inhibitor"
           #"mpd"
           "network"
           "custom/gpg-status"
           "custom/weather"
           "clock"
+          "idle_inhibitor"
           "tray"
         ];
 
