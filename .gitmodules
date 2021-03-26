@@ -1,4 +1,4 @@
 [submodule "config/private"]
 	path = private
-	url = "gcrypt::git@github.com:kittywitch/nixfiles-private#main"
+	url = "gcrypt::ssh://gitea@git.kittywit.ch:62954/kat/nixfiles-private.git"
 	branch = main
