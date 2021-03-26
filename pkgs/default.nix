@@ -17,6 +17,8 @@ let
       clockSupport = true;
     };
 
+    kat-website = super.callPackage ./kat-website { };
+
     waybar = super.waybar.override { pulseSupport = true; };
 
     notmuch = super.callPackage ./notmuch { inherit (super) notmuch; };
