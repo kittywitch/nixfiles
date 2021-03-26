@@ -7,6 +7,9 @@
     domain = "git.kittywit.ch";
     rootUrl = "https://git.kittywit.ch";
     httpAddress = "127.0.0.1";
+    ssh = {
+      clonePort = 62954;
+    };
     settings = {
       security = {
         DISABLE_GIT_HOOKS = false;
