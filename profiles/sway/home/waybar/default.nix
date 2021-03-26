@@ -21,6 +21,7 @@
           "idle_inhibitor"
           #"mpd"
           "network"
+          "custom/gpg-status"
           "custom/weather"
           "clock"
           "tray"
@@ -42,6 +43,11 @@
             on-click = "xdg-open 'https://google.com/search?q=weather'";
             exec =
               "${pkgs.kat-weather}/bin/kat-weather ${witch.secrets.profiles.sway.city} ${witch.secrets.profiles.sway.api_key}";
+            };
+            "custom/gpg-status" = {
+              format = "{}";
+              interval= 300;
+              exec = "${pkgs.kat-gpg-status}/bin/kat-gpg-status";
           };
           cpu = { format = "  {usage}%"; };
           #mpd = { 

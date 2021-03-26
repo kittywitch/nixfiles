@@ -35,6 +35,8 @@ let
 
     kat-weather = super.callPackage ./kat-weather { };
 
+    kat-gpg-status =super.callPackage ./kat-gpg-status { };
+
     linuxPackagesFor = kernel:
       (super.linuxPackagesFor kernel).extend (_: ksuper: {
         vendor-reset =
