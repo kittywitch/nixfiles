@@ -7,6 +7,17 @@
     domain = "git.kittywit.ch";
     rootUrl = "https://git.kittywit.ch";
     httpAddress = "127.0.0.1";
+    settings = {
+      security = {
+        DISABLE_GIT_HOOKS = false;
+      };
+      mailer = {
+        ENABLED = true;
+        MAILER_TYPE = "sendmail";
+        FROM = "gitea@kittywit.ch";
+        SENDMAIL_PATH = "${pkgs.system-sendmail}/bin/sendmail";
+      };
+    };
   };
 
   services.nginx.virtualHosts."git.kittywit.ch" = {
