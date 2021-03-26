@@ -96,6 +96,15 @@
           };
           clock = {
             format = "  {:%A, %F %T %Z}";
+            tooltip = true;
+            tooltip-format = "{calendar}";
+            timezones = [
+              "Europe/London"
+              "America/Vancouver"
+              "America/Chicago"
+              "Europe/Berlin"
+              "Pacific/Auckland"
+            ];
             interval = 1;
           };
         };

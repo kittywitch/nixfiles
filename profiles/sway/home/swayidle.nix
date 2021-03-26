@@ -11,7 +11,7 @@
       Service = {
         Type = "simple";
         ExecStart = ''
-          ${pkgs.swayidle}/bin/swayidle --i eDP-1:${../../../private/files/wallpapers/main.png} -i HDMI-A-1:${../../../private/files/wallpapers/main.png} -i DP-1:${../../../private/files/wallpapers/left.jpg}  -i DVI-D-1:${../../../private/files/wallpapers/right.jpg} -s fill w \
+          ${pkgs.swayidle}/bin/swayidle --i eDP-1:${../../../private/files/wallpapers/main.png} -i HDMI-A-1:${../../../private/files/wallpapers/main.png} -i DP-1:${../../../private/files/wallpapers/left.jpg}  -i DVI-D-1:${../../../private/files/wallpapers/right.jpg}  \
             timeout 300 '${pkgs.swaylock}/bin/swaylock' \
             timeout 600 'swaymsg "output * dpms off"' \
               resume 'swaymsg "output * dpms on"' \
