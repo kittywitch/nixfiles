@@ -108,6 +108,7 @@
             command = "systemctl --user restart mako";
             always = true;
           }
+          { command = "${pkgs.i3gopher}/bin/i3gopher"; }
           { command = "mkchromecast -t"; }
         ];
 
@@ -131,6 +132,11 @@
 
           "${cfg.modifier}+Shift+space" = "floating toggle";
           "${cfg.modifier}+space" = "focus mode_toggle";
+
+          "${cfg.modifier}+Tab" = "workspace back_and_forth";
+          "${cfg.modifier}+Shift+Tab" = "${pkgs.i3gopher}/bin/i3gopher --focus-last";
+          "${cfg.modifier}+Ctrl+Left" = "workspace prev_on_output";
+          "${cfg.modifier}+Ctrl+Right" = "workspace next_on_output";
 
           "XF86AudioRaiseVolume" =
             "exec pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') +5%";
@@ -227,6 +233,7 @@
         workspace "1" output "DP-1"
         workspace "2" output "DVI-D-1"
         workspace "3" output "HDMI-A-1"
+        workspace_auto_back_and_forth yes
         ${workspaceBindingsStr}
       '';
     };
