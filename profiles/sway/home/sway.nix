@@ -88,6 +88,15 @@
             middle_emulation = "enabled";
             click_method = "clickfinger";
           };
+          "5824:1503:screenstub-tablet" = {
+            events = "disabled";
+          };
+          "5824:1503:screenstub-mouse" = {
+            events = "disabled";
+          };
+          "5824:1503:screenstub-kbd" = {
+            events = "disabled";
+          };
           "*" = {
             xkb_layout = "gb";
             # xkb_variant = "nodeadkeys";
@@ -102,7 +111,7 @@
           "${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --dmenu=\"${dmenu}\" --term='${cfg.terminal}'";
         modifier = "Mod4";
 
-        assigns = { "2" = [{ class = "screenstub"; }]; };
+        assigns = { "F1" = [{ class = "screenstub"; }]; };
         startup = [
           {
             command = "systemctl --user restart mako";
@@ -231,8 +240,8 @@
       extraConfig = ''
         seat seat0 xcursor_theme breeze_cursors 20
         workspace "1" output "DP-1"
-        workspace "2" output "DVI-D-1"
-        workspace "3" output "HDMI-A-1"
+        workspace "F2" output "DVI-D-1"
+        workspace "F1" output "HDMI-A-1"
         workspace_auto_back_and_forth yes
         ${workspaceBindingsStr}
       '';
