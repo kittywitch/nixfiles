@@ -147,11 +147,17 @@
           "${cfg.modifier}+x" = "exec ${lockCommand}";
 
           "${cfg.modifier}+Print" =
-            "exec ${./grimshot.sh} --notify save screen";
+            "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify upload screen";
           "${cfg.modifier}+Shift+Print" =
-            "exec ${./grimshot.sh} --notify save area";
+            "exec ${pkgs.kat-scrot}/bin/kat-scrot  --notify upload area";
           "${cfg.modifier}+Mod1+Print" =
-            "exec ${./grimshot.sh} --notify save window";
+            "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify upload window";
+          "Print" =
+            "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify save screen";
+          "Shift+Print" =
+            "exec ${pkgs.kat-scrot}/bin/kat-scrot  --notify save area";
+          "Mod1+Print" =
+            "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify save window";
 
           "${cfg.modifier}+i" = "move workspace to output left";
           "${cfg.modifier}+o" = "move workspace to output right";

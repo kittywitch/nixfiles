@@ -17,6 +17,7 @@ in {
       obs-studio
       niv
       feh
+      kat-scrot
       duc
       exiftool
       audacity

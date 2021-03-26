@@ -35,7 +35,9 @@ let
 
     kat-weather = super.callPackage ./kat-weather { };
 
-    kat-gpg-status =super.callPackage ./kat-gpg-status { };
+    kat-gpg-status = super.callPackage ./kat-gpg-status { };
+
+    kat-scrot = super.callPackage ./kat-scrot { };
 
     linuxPackagesFor = kernel:
       (super.linuxPackagesFor kernel).extend (_: ksuper: {
