@@ -11,11 +11,11 @@
       Service = {
         Type = "simple";
         ExecStart = ''
-          ${pkgs.swayidle}/bin/swayidle --i eDP-1:${../../../private/files/wallpapers/main.png} -i HDMI-A-1:${../../../private/files/wallpapers/main.png} -i DP-1:${../../../private/files/wallpapers/left.jpg}  -i DVI-D-1:${../../../private/files/wallpapers/right.jpg}  \
-            timeout 300 '${pkgs.swaylock}/bin/swaylock' \
+          ${pkgs.swayidle}/bin/swayidle -w \
+            timeout 300 '${pkgs.swaylock}/bin/swaylock -f -i eDP-1:${../../../private/files/wallpapers/main.png} -i HDMI-A-1:${../../../private/files/wallpapers/main.png} -i DP-1:${../../../private/files/wallpapers/left.jpg}  -i DVI-D-1:${../../../private/files/wallpapers/right.jpg}' \
             timeout 600 'swaymsg "output * dpms off"' \
               resume 'swaymsg "output * dpms on"' \
-            before-sleep '${pkgs.swaylock}/bin/swaylock'
+            before-sleep '${pkgs.swaylock}/bin/swaylock -f -i eDP-1:${../../../private/files/wallpapers/main.png} -i HDMI-A-1:${../../../private/files/wallpapers/main.png} -i DP-1:${../../../private/files/wallpapers/left.jpg}  -i DVI-D-1:${../../../private/files/wallpapers/right.jpg}'
         '';
         RestartSec = 3;
         Restart = "always";
