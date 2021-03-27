@@ -14,6 +14,35 @@
   deploy.groups = [ "gui" ];
   deploy.ssh.host = "192.168.1.135";
 
+  secrets.files.kat-glauca-dns = {
+    text = pkgs.lib.deployEmbedFuckery ''
+      user="$(${pkgs.rbw-bitw}/bin/bitw -p gpg://${../../../private/files/bitw/master.gpg} get infra/hexdns-dynamic -f username)"
+      pass="$(${pkgs.rbw-bitw}/bin/bitw -p gpg://${../../../private/files/bitw/master.gpg} get infra/hexdns-dynamic -f password)"
+      hostname="$(${pkgs.rbw-bitw}/bin/bitw -p gpg://${../../../private/files/bitw/master.gpg} get infra/hexdns-dynamic -f hostname)"
+    '';
+    owner = "kat";
+    group = "users";
+  };
+
+  systemd.services.kat-glauca-dns = {
+    serviceConfig = {
+      ExecStart = "${pkgs.kat-glauca-dns}/bin/kat-glauca-dns";
+    };
+    environment = {
+      passFile = config.secrets.files.kat-glauca-dns.path;
+    };
+    wantedBy = [ "default.target"];
+  };
+
+  systemd.timers.kat-glauca-dns = {
+    timerConfig = {
+      Unit = "kat-glauca-dns.service";
+      OnBootSec = "5m";
+      OnUnitActiveSec = "30m";
+    };
+    wantedBy = [ "default.target" ];
+  };
+
   # graphics tablet
   services.xserver.wacom.enable = true;
 

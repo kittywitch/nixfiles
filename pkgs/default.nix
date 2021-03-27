@@ -17,8 +17,6 @@ let
       clockSupport = true;
     };
 
-    kat-website = super.callPackage ./kat-website { };
-
     waybar = super.waybar.override { pulseSupport = true; };
 
     notmuch = super.callPackage ./notmuch { inherit (super) notmuch; };
@@ -34,6 +32,10 @@ let
     };
 
     screenstub = unstable.callPackage ./screenstub { };
+
+    kat-glauca-dns = unstable.callPackage ./kat-glauca-dns { inherit sources; };
+
+    kat-website = super.callPackage ./kat-website { };
 
     kat-weather = super.callPackage ./kat-weather { };
 
