@@ -28,17 +28,17 @@
     fsType = "vfat";
   };
 
-  fileSystems."/disks/pool-raw" = {
+  fileSystems."/mnt/zraw" = {
     device = "zstore/raw";
     fsType = "zfs";
   };
 
-  fileSystems."/disks/pool-compress" = {
+  fileSystems."/mnt/zcomp" = {
     device = "zstore/compress";
     fsType = "zfs";
   };
 
-  fileSystems."/disks/pool-protect" = {
+  fileSystems."/mnt/zenc" = {
     device = "zstore/protect";
     fsType = "zfs";
   };

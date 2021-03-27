@@ -14,11 +14,11 @@
       fi'';
   in {
     enable = true;
-    home = "/disks/pool-raw/transmission";
+    home = "/mnt/zraw/transmission";
     downloadDirPermissions = "777";
     settings = {
-      download-dir = "/disks/pool-raw/media/unsorted";
-      incomplete-dir = "/disks/pool-raw/media/.incomplete";
+      download-dir = "/mnt/zraw/media/unsorted";
+      incomplete-dir = "/mnt/zraw/media/.incomplete";
       incomplete-dir-enabled = true;
       rpc-bind-address = "0.0.0.0";
       rpc-whitelist = "127.0.0.1,192.168.1.*,192.168.122.*";
@@ -57,7 +57,7 @@
         "force group" = "users";
       };
       media = {
-        path = "/disks/pool-raw/media";
+        path = "/mnt/zraw/media";
         browseable = "yes";
         "read only" = "no";
         "guest ok" = "yes";
@@ -72,13 +72,13 @@
   services.nginx.virtualHosts = {
     "192.168.1.135" = {
       locations."/share/" = {
-        alias = "/disks/pool-raw/media/";
+        alias = "/mnt/zraw/media/";
         extraConfig = "autoindex on;";
       };
     };
     "100.103.111.44" = {
       locations."/share/" = {
-        alias = "/disks/pool-raw/media/";
+        alias = "/mnt/zraw/media/";
         extraConfig = "autoindex on;";
       };
     };
