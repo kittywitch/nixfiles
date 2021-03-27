@@ -5,8 +5,8 @@
 
   mailserver = {
     enable = true;
-    fqdn = "kittywit.ch";
-    domains = [ "kittywit.ch" ];
+    fqdn = "athame.kittywit.ch";
+    domains = [ "kittywit.ch" "dork.dev" ];
 
     # A list of all login accounts. To create the password hashes, use
     # nix run nixpkgs.apacheHttpd -c htpasswd -nbB "" "super secret password" | cut -d: -f2
@@ -18,7 +18,7 @@
 
         # Make this user the catchAll address for domains kittywit.ch and
         # example2.com
-        catchAll = [ "kittywit.ch" ];
+        catchAll = [ "kittywit.ch" "dork.dev" ];
       };
     };
 
