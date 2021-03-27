@@ -9,11 +9,18 @@
     };
     programs.weechat = {
       enable = true;
-      init = lib.mkBefore ''
-        /server add freenode athame.kittywit.ch/5001 -ssl -autoconnect
-        /server add espernet athame.kittywit.ch/5001 -ssl -autoconnect
-        /matrix server add kat kittywit.ch
-      '';
+      init = lib.mkMerge [
+        (lib.mkBefore ''
+          /server add freenode athame.kittywit.ch/5001 -ssl -autoconnect
+          /server add espernet athame.kittywit.ch/5001 -ssl -autoconnect
+          /matrix server add kat kittywit.ch
+          /key bind meta-g /go
+          /key bind meta-c /buffer close
+          /key bind meta-n /bar toggle nicklist 
+          /key bind meta-b /bar toggle buflist
+        '')
+        (lib.mkAfter "/matrix connect kat")
+      ];
       packageUnwrapped = pkgs.unstable.weechat-unwrapped;
       homeDirectory = "${config.xdg.dataHome}/weechat";
       plugins.python = {
