@@ -65,6 +65,14 @@
         <boot order="2"/>
         <address type="drive" controller="0" bus="0" target="0" unit="0"/>
       </disk>
+  <disk type="block" device="disk">
+  <driver name="qemu" type="raw" cache="none" io="native"/>
+  <source dev="/dev/disk/by-id/ata-TOSHIBA_HDWD130_787VUS4AS-part2" index="2"/>
+  <backingStore/>
+  <target dev="sdb" bus="scsi"/>
+  <alias name="scsi0-0-0-1"/>
+  <address type="drive" controller="0" bus="0" target="0" unit="1"/>
+  </disk>
       <controller type="usb" index="0" model="qemu-xhci" ports="15">
         <address type="pci" domain="0x0000" bus="0x02" slot="0x00" function="0x0"/>
       </controller>

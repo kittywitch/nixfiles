@@ -28,11 +28,6 @@
     fsType = "vfat";
   };
 
-  fileSystems."/disks/excess" = {
-    device = "/dev/disk/by-uuid/0af88a48-ccfd-4e54-9652-a5ae7f74e21d";
-    fsType = "xfs";
-  };
-
   fileSystems."/disks/pool-raw" = {
     device = "zstore/raw";
     fsType = "zfs";
