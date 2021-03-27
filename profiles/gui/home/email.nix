@@ -23,8 +23,8 @@
         mbsync.enable = true;
         mbsync.create = "maildir";
         notmuch.enable = true;
-        imap.host = "kittywit.ch";
-        smtp.host = "kittywit.ch";
+        imap.host = "athame.kittywit.ch";
+        smtp.host = "athame.kittywit.ch";
         gpg = {
           signByDefault = true;
           key = "01F50A29D4AA91175A11BDB17248991EFA8EFBEE";
