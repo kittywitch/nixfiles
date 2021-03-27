@@ -1,4 +1,4 @@
-{ fetchFromGitHub, lib, stdenv, jp2a, imagemagick, curl, neofetch }:
+{ fetchFromGitHub, makeWrapper, lib, stdenv, jp2a, imagemagick, curl, neofetch }:
 
 stdenv.mkDerivation rec {
   pname = "nekofetch";
@@ -11,6 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "03p1br1pn9j9nsdjg29rdznm5qh34p8dx0834rgmlc3pxlr910ng";
   };
 
+
+  nativeBuildInputs = [ makeWrapper ];
+
   buildPhase = ''true'';
 
   installPhase = ''
@@ -18,5 +21,10 @@ stdenv.mkDerivation rec {
     cp $src/nekofetch $out/bin/
   '';
 
-  buildInputs = [ jp2a imagemagick curl neofetch ];
+  nekoPath = lib.makeBinPath [ jp2a imagemagick curl neofetch ];
+
+  preFixup = ''
+    wrapProgram $out/bin/nekofetch --prefix PATH : $nekoPath
+  '';
+
 }
