@@ -18,7 +18,7 @@ let
       <<${if hasPrefix "__FUCKERY__" file.text then "EOF" else "'EOF'"}
       ${removePrefix "__FUCKERY__" file.text}
       EOF
-'')) (attrValues config.secrets.files);
+    '')) (attrValues config.secrets.files);
 in {
   options = {
     deploy = {

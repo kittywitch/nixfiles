@@ -16,9 +16,15 @@
 
   secrets.files.kat-glauca-dns = {
     text = pkgs.lib.deployEmbedFuckery ''
-      user="$(${pkgs.rbw-bitw}/bin/bitw -p gpg://${../../../private/files/bitw/master.gpg} get infra/hexdns-dynamic -f username)"
-      pass="$(${pkgs.rbw-bitw}/bin/bitw -p gpg://${../../../private/files/bitw/master.gpg} get infra/hexdns-dynamic -f password)"
-      hostname="$(${pkgs.rbw-bitw}/bin/bitw -p gpg://${../../../private/files/bitw/master.gpg} get infra/hexdns-dynamic -f hostname)"
+      user="$(${pkgs.rbw-bitw}/bin/bitw -p gpg://${
+        ../../../private/files/bitw/master.gpg
+      } get infra/hexdns-dynamic -f username)"
+      pass="$(${pkgs.rbw-bitw}/bin/bitw -p gpg://${
+        ../../../private/files/bitw/master.gpg
+      } get infra/hexdns-dynamic -f password)"
+      hostname="$(${pkgs.rbw-bitw}/bin/bitw -p gpg://${
+        ../../../private/files/bitw/master.gpg
+      } get infra/hexdns-dynamic -f hostname)"
     '';
     owner = "kat";
     group = "users";
@@ -28,10 +34,8 @@
     serviceConfig = {
       ExecStart = "${pkgs.kat-glauca-dns}/bin/kat-glauca-dns";
     };
-    environment = {
-      passFile = config.secrets.files.kat-glauca-dns.path;
-    };
-    wantedBy = [ "default.target"];
+    environment = { passFile = config.secrets.files.kat-glauca-dns.path; };
+    wantedBy = [ "default.target" ];
   };
 
   systemd.timers.kat-glauca-dns = {

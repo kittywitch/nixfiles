@@ -2,12 +2,8 @@
 
 {
   config = lib.mkIf config.deploy.profile.kat {
-    xdg.dataFile = {
-      "z/.keep".text = "";
-    };
-    home.packages = with pkgs; [
-      fzf fd
-    ];
+    xdg.dataFile = { "z/.keep".text = ""; };
+    home.packages = with pkgs; [ fzf fd ];
     programs.zsh = {
       enable = true;
       enableAutosuggestions = true;
@@ -21,7 +17,7 @@
       };
       localVariables = {
         _Z_DATA = "${config.xdg.dataHome}/z/data";
-        ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=3,bold";
+        ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=3,bold";
         ZSH_AUTOSUGGEST_USE_ASYNC = 1;
       };
       plugins = [

@@ -27,27 +27,52 @@
       fi
     '';
 
-    wayland.windowManager.sway = let 
-     cfg = config.wayland.windowManager.sway.config;
-        bindsym = k: v: "bindsym ${k} ${v}";
-        bindWorkspace = key: workspace: {
-          "${cfg.modifier}+${key}" = "workspace number ${workspace}";
-          "${cfg.modifier}+shift+${key}" = "move container to workspace number ${workspace}";
-         };
-        workspaceBindings =
-          map (v: bindWorkspace v "${v}:${v}") ["1" "2" "3" "4" "5" "6" "7" "8" "9"]
-          ++ [(bindWorkspace "0" "10:10")]
-          ++ lib.imap1 (i: v: bindWorkspace v "${toString (10 + i)}:${v}") ["F1" "F2" "F3" "F4" "F5" "F6" "F7" "F8" "F9" "F10" "F11" "F12"];
-        workspaceBindings' =
-          map (lib.mapAttrsToList bindsym) workspaceBindings;
-        workspaceBindingsStr =
-          lib.concatStringsSep "\n" (lib.flatten workspaceBindings');
+    wayland.windowManager.sway = let
+      cfg = config.wayland.windowManager.sway.config;
+      bindsym = k: v: "bindsym ${k} ${v}";
+      bindWorkspace = key: workspace: {
+        "${cfg.modifier}+${key}" = "workspace number ${workspace}";
+        "${cfg.modifier}+shift+${key}" =
+          "move container to workspace number ${workspace}";
+      };
+      workspaceBindings = map (v: bindWorkspace v "${v}:${v}") [
+        "1"
+        "2"
+        "3"
+        "4"
+        "5"
+        "6"
+        "7"
+        "8"
+        "9"
+      ] ++ [ (bindWorkspace "0" "10:10") ]
+        ++ lib.imap1 (i: v: bindWorkspace v "${toString (10 + i)}:${v}") [
+          "F1"
+          "F2"
+          "F3"
+          "F4"
+          "F5"
+          "F6"
+          "F7"
+          "F8"
+          "F9"
+          "F10"
+          "F11"
+          "F12"
+        ];
+      workspaceBindings' = map (lib.mapAttrsToList bindsym) workspaceBindings;
+      workspaceBindingsStr =
+        lib.concatStringsSep "\n" (lib.flatten workspaceBindings');
     in {
       enable = true;
       config = let
         dmenu =
           "${pkgs.bemenu}/bin/bemenu --fn '${witch.style.font.name} ${witch.style.font.size}' --nb '${witch.style.base16.color0}' --nf '${witch.style.base16.color7}' --sb '${witch.style.base16.color1}' --sf '${witch.style.base16.color7}' -l 5 -m -1 -i";
-        lockCommand = "swaylock -i eDP-1:${../../../private/files/wallpapers/main.png} -i HDMI-A-1:${../../../private/files/wallpapers/main.png} -i DP-1:${../../../private/files/wallpapers/left.jpg}  -i DVI-D-1:${../../../private/files/wallpapers/right.jpg} -s fill";
+        lockCommand = "swaylock -i eDP-1:${
+            ../../../private/files/wallpapers/main.png
+          } -i HDMI-A-1:${../../../private/files/wallpapers/main.png} -i DP-1:${
+            ../../../private/files/wallpapers/left.jpg
+          }  -i DVI-D-1:${../../../private/files/wallpapers/right.jpg} -s fill";
 
       in {
         bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
@@ -88,15 +113,9 @@
             middle_emulation = "enabled";
             click_method = "clickfinger";
           };
-          "5824:1503:screenstub-tablet" = {
-            events = "disabled";
-          };
-          "5824:1503:screenstub-mouse" = {
-            events = "disabled";
-          };
-          "5824:1503:screenstub-kbd" = {
-            events = "disabled";
-          };
+          "5824:1503:screenstub-tablet" = { events = "disabled"; };
+          "5824:1503:screenstub-mouse" = { events = "disabled"; };
+          "5824:1503:screenstub-kbd" = { events = "disabled"; };
           "*" = {
             xkb_layout = "gb";
             # xkb_variant = "nodeadkeys";
@@ -143,7 +162,8 @@
           "${cfg.modifier}+space" = "focus mode_toggle";
 
           "${cfg.modifier}+Tab" = "workspace back_and_forth";
-          "${cfg.modifier}+Shift+Tab" = "${pkgs.i3gopher}/bin/i3gopher --focus-last";
+          "${cfg.modifier}+Shift+Tab" =
+            "${pkgs.i3gopher}/bin/i3gopher --focus-last";
           "${cfg.modifier}+Ctrl+Left" = "workspace prev_on_output";
           "${cfg.modifier}+Ctrl+Right" = "workspace next_on_output";
 
@@ -167,8 +187,7 @@
             "exec ${pkgs.kat-scrot}/bin/kat-scrot  --notify upload area";
           "${cfg.modifier}+Mod1+Print" =
             "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify upload window";
-          "Print" =
-            "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify save screen";
+          "Print" = "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify save screen";
           "Shift+Print" =
             "exec ${pkgs.kat-scrot}/bin/kat-scrot  --notify save area";
           "Mod1+Print" =

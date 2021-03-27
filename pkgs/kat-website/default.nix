@@ -18,15 +18,11 @@ stdenv.mkDerivation rec {
     gemset = ./gemset.nix;
   };
 
-  buildInputs = [
-    bundler
-    ruby
-    jekyll_env
-  ];
+  buildInputs = [ bundler ruby jekyll_env ];
 
   installPhase = ''
-      mkdir $out
-      ${jekyll_env}/bin/jekyll build -d $out
+    mkdir $out
+    ${jekyll_env}/bin/jekyll build -d $out
   '';
 }
 

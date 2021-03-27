@@ -28,9 +28,7 @@
         ];
 
         modules = {
-          "sway/workspaces" = {
-            format = "{name}";
-          };
+          "sway/workspaces" = { format = "{name}"; };
           #"custom/weather" = {
           #  format = "{}";
           #  interval = 3600;
@@ -43,11 +41,11 @@
             on-click = "xdg-open 'https://google.com/search?q=weather'";
             exec =
               "${pkgs.kat-weather}/bin/kat-weather ${witch.secrets.profiles.sway.city} ${witch.secrets.profiles.sway.api_key}";
-            };
-            "custom/gpg-status" = {
-              format = "{}";
-              interval= 300;
-              exec = "${pkgs.kat-gpg-status}/bin/kat-gpg-status";
+          };
+          "custom/gpg-status" = {
+            format = "{}";
+            interval = 300;
+            exec = "${pkgs.kat-gpg-status}/bin/kat-gpg-status";
           };
           cpu = { format = "  {usage}%"; };
           #mpd = { 

@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }: {
   config = lib.mkIf config.deploy.profile.gui {
     networking = {
-#      networkmanager.enable = true;
+      #      networkmanager.enable = true;
       resolvconf.useLocalResolver = true;
       networkmanager.dns = "none";
     };
