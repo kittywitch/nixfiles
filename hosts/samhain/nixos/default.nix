@@ -56,7 +56,7 @@
   networking.interfaces.enp34s0.useDHCP = true;
   networking.firewall.allowPing = true;
   networking.firewall.allowedTCPPorts =
-    [ 80 445 139 9091 5000 32101 ]; # smb transmission mkchromecast
+    [ 80 443 445 139 9091 5000 32101 ]; # smb transmission mkchromecast
   networking.firewall.allowedUDPPorts = [ 137 138 4010 ]; # smb scream
   networking.firewall.allowedUDPPortRanges = [{
     from = 32768;
