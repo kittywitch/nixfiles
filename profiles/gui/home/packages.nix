@@ -20,6 +20,7 @@ in {
       kat-scrot
       duc
       exiftool
+      nekofetch
       audacity
       avidemux
       gst_all_1.gstreamer.dev
