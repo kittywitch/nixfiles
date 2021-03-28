@@ -1,12 +1,12 @@
 { config, pkgs, lib, ... }:
 
 {
-    services.pcscd.enable = true;
-    services.udev.packages = [ pkgs.yubikey-personalization ];
+  services.pcscd.enable = true;
+  services.udev.packages = [ pkgs.yubikey-personalization ];
 
-    programs.gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-      pinentryFlavor = "gtk2";
-    };
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+    pinentryFlavor = "gtk2";
+  };
 }

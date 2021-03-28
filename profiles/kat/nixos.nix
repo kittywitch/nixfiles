@@ -17,6 +17,8 @@
     };
   };
 
-  options = { deploy.profile.kat = lib.mkEnableOption "uhh meow" // { default = true; }; };
+  options = {
+    deploy.profile.kat = lib.mkEnableOption "uhh meow" // { default = true; };
+  };
 
 }

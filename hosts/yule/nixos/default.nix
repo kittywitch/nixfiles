@@ -1,13 +1,13 @@
 { config, pkgs, profiles, ... }:
 
 {
-  imports = [ 
-    ./hw.nix 
-    ../../../services/zfs.nix 
-    profiles.gui 
-    profiles.sway 
-    profiles.kat 
-    profiles.laptop 
+  imports = [
+    ./hw.nix
+    ../../../services/zfs.nix
+    profiles.gui
+    profiles.sway
+    profiles.kat
+    profiles.laptop
   ];
 
   deploy.groups = [ "gui" ];

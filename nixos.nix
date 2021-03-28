@@ -6,7 +6,7 @@
     (import (./hosts + "/${hostName}/nixos"))
     (import (./private/hosts + "/${hostName}/nixos"))
     ./profiles/common/nixos.nix
-    ./private/profile/nixos 
+    ./private/profile/nixos
   ];
 
   options.home-manager.users = lib.mkOption {

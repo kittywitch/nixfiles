@@ -1,5 +1,5 @@
-{ pkgs, hostsDir ? ../hosts, profiles, pkgsPath ? ../pkgs
-, sources ? { }, witch ? { } }:
+{ pkgs, hostsDir ? ../hosts, profiles, pkgsPath ? ../pkgs, sources ? { }
+, witch ? { } }:
 
 with pkgs.lib;
 
@@ -10,11 +10,7 @@ rec {
   hostConfig = hostName:
     { config, ... }: {
       _module.args = { inherit hosts groups; };
-      imports = [
-        ../nixos.nix
-        ../modules/nixos
-        ../modules/nixos/deploy
-      ];
+      imports = [ ../nixos.nix ../modules/nixos ../modules/nixos/deploy ];
       networking = { inherit hostName; };
       nixpkgs.pkgs = import pkgsPath {
         inherit (config.nixpkgs) config;
