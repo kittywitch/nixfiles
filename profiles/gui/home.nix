@@ -2,4 +2,6 @@
 
 {
   imports = [ ./home ];
+
+  deploy.profile.gui = true;
 }

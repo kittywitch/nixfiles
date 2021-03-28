@@ -10,14 +10,10 @@
   ];
 
   options = {
-    deploy.profile.kat = lib.mkEnableOption "uhh meow" // { default = true; };
-    deploy.profile.gui = lib.mkEnableOption "graphical system" // {
-      default = true;
-    };
-    deploy.profile.sway = lib.mkEnableOption "sway wm" // { default = true; };
-    deploy.profile.laptop = lib.mkEnableOption "lappytop" // {
-      default = true;
-    };
+    deploy.profile.kat = lib.mkEnableOption "uhh meow";
+    deploy.profile.gui = lib.mkEnableOption "graphical system";
+    deploy.profile.sway = lib.mkEnableOption "sway wm";
+    deploy.profile.laptop = lib.mkEnableOption "lappytop";
   };
 
   options.home-manager.users = lib.mkOption {
@@ -42,18 +38,10 @@
           imports = [ ./home.nix (import (./hosts + "/${hostName}/home")) ];
 
           options = {
-            deploy.profile.kat = lib.mkEnableOption "uhh meow" // {
-              default = true;
-            };
-            deploy.profile.gui = lib.mkEnableOption "graphical system" // {
-              default = true;
-            };
-            deploy.profile.sway = lib.mkEnableOption "sway wm" // {
-              default = true;
-            };
-            deploy.profile.laptop = lib.mkEnableOption "lappytop" // {
-              default = true;
-            };
+            deploy.profile.kat = lib.mkEnableOption "uhh meow";
+            deploy.profile.gui = lib.mkEnableOption "graphical system";
+            deploy.profile.sway = lib.mkEnableOption "sway wm";
+            deploy.profile.laptop = lib.mkEnableOption "lappytop";
           };
         };
       };
