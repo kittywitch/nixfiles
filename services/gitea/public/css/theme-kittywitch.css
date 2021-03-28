@@ -45,6 +45,10 @@
     color: #6a8759
 }
 
+.chroma {
+	background: none !important;
+}
+
 .hljs-addition,
 .hljs-built_in,
 .hljs-builtin-name,
