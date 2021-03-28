@@ -19,8 +19,8 @@
             } -i DP-1:${
               ../../../private/files/wallpapers/left.jpg
             }  -i DVI-D-1:${../../../private/files/wallpapers/right.jpg}' \
-            timeout 600 'swaymsg "output * dpms off"' \
-              resume 'swaymsg "output * dpms on"' \
+            #timeout 600 'swaymsg "output * dpms off"' \
+            #  resume 'swaymsg "output * dpms on"' \
             before-sleep '${pkgs.swaylock}/bin/swaylock -f -i eDP-1:${
               ../../../private/files/wallpapers/main.png
             } -i HDMI-A-1:${
