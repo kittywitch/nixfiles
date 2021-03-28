@@ -11,7 +11,7 @@
     ../../../services/nginx.nix
     ../../../services/mail.nix
     ../../../services/asterisk.nix
-    ../../../services/gitea.nix
+    ../../../services/gitea
     ../../../services/syncplay.nix
     ../../../services/bitwarden.nix
     ../../../services/taskserver.nix

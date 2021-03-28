@@ -1,0 +1,29 @@
+<div class="ui secondary pointing tabular top attached borderless menu stackable new-menu navbar">
+	<a class="item {{if .PageIsAdminDashboard}}acty{{end}}" href="{{AppSubUrl}}/admin">
+		{{.i18n.Tr "admin.dashboard"}}
+	</a>
+	<a class="item {{if .PageIsAdminUsers}}acty{{end}}" href="{{AppSubUrl}}/admin/users">
+		{{.i18n.Tr "admin.users"}}
+	</a>
+	<a class="item {{if .PageIsAdminOrganizations}}acty{{end}}" href="{{AppSubUrl}}/admin/orgs">
+		{{.i18n.Tr "admin.organizations"}}
+	</a>
+	<a class="item {{if .PageIsAdminRepositories}}acty{{end}}" href="{{AppSubUrl}}/admin/repos">
+		{{.i18n.Tr "admin.repositories"}}
+	</a>
+	<a class="item {{if .PageIsAdminHooks}}acty{{end}}" href="{{AppSubUrl}}/admin/hooks">
+		{{.i18n.Tr "admin.hooks"}}
+	</a>
+	<a class="item {{if .PageIsAdminAuthentications}}acty{{end}}" href="{{AppSubUrl}}/admin/auths">
+		{{.i18n.Tr "admin.authentication"}}
+	</a>
+	<a class="item {{if .PageIsAdminConfig}}acty{{end}}" href="{{AppSubUrl}}/admin/config">
+		{{.i18n.Tr "admin.config"}}
+	</a>
+	<a class="item {{if .PageIsAdminNotices}}acty{{end}}" href="{{AppSubUrl}}/admin/notices">
+		{{.i18n.Tr "admin.notices"}}
+	</a>
+	<a class="item {{if .PageIsAdminMonitor}}acty{{end}}" href="{{AppSubUrl}}/admin/monitor">
+		{{.i18n.Tr "admin.monitor"}}
+	</a>
+</div>
