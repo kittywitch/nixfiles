@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  config = lib.mkIf config.deploy.profile.gui {
     gtk = {
       enable = true;
       iconTheme = {
@@ -13,5 +12,4 @@
         package = pkgs.arc-theme;
       };
     };
-  };
 }

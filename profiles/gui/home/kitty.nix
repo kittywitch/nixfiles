@@ -1,7 +1,6 @@
 { config, lib, pkgs, witch, ... }:
 
 {
-  config = lib.mkIf config.deploy.profile.gui {
     programs.kitty = {
       enable = true;
       font.name = witch.style.font.name;
@@ -21,5 +20,4 @@
         # inactive_tab_foreground = "#665577";
       }; # // witch.style.base16;
     };
-  };
 }

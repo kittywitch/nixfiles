@@ -1,7 +1,6 @@
 { config, pkgs, lib, witch, ... }:
 
 {
-  config = lib.mkIf config.deploy.profile.sway {
     systemd.user.services = {
       mako = {
         Unit = {
@@ -24,5 +23,4 @@
       backgroundColor = "${witch.style.base16.color0}70";
       textColor = witch.style.base16.color7;
     };
-  };
 }

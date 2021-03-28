@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  config = lib.mkIf config.deploy.profile.gui {
     sound = {
       enable = true;
       extraConfig = ''
@@ -21,5 +20,4 @@
         default-sample-channels = 2;
       };
     };
-  };
 }

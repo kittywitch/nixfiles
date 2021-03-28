@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
-  config = lib.mkIf config.deploy.profile.kat {
     home.packages = with pkgs; [
       git-crypt
       gitAndTools.gitRemoteGcrypt
@@ -28,5 +27,4 @@
         signByDefault = true;
       };
     };
-  };
 }

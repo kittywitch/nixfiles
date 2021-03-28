@@ -1,5 +1,5 @@
 { lib, ... }:
 
 {
-  options = { deploy.profile.laptop = lib.mkEnableOption "lappytop"; };
+  options = { deploy.profile.laptop = lib.mkEnableOption "lappytop" // { default = true; }; };
 }

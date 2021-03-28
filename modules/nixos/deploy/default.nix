@@ -38,10 +38,6 @@ in {
         type = types.bool;
         default = true;
       };
-      profiles = mkOption {
-        type = with types; listOf str;
-        default = [ ];
-      };
       groups = mkOption {
         type = with types; listOf str;
         default = [ ];
@@ -50,9 +46,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    deploy.profile = mkMerge (map (prof: {
-      ${if options ? deploy.profile.${prof} then prof else null} = true;
-    }) config.deploy.profiles);
     deploy.groups = [ "all" ];
 
     system.build.deployScript = ''

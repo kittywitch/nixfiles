@@ -1,7 +1,6 @@
 { config, lib, pkgs, sources, ... }:
 
 {
-  config = lib.mkIf config.deploy.profile.gui {
     home.sessionVariables = {
       SSH_AUTH_SOCK =
         "\${SSH_AUTH_SOCK:-$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)}";
@@ -19,5 +18,4 @@
         "no-allow-external-cache"
       ];
     };
-  };
 }

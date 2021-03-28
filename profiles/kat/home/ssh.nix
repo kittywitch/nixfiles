@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
-  config = lib.mkIf config.deploy.profile.kat {
     programs.ssh = {
       enable = true;
       controlMaster = "auto";
@@ -23,5 +22,4 @@
         "boline" = { hostname = "boline.kittywit.ch"; } // common;
       };
     };
-  };
 }

@@ -1,7 +1,6 @@
 { config, lib, pkgs, witch, ... }:
 
 {
-  config = lib.mkIf config.deploy.profile.kat {
     home.sessionVariables.EDITOR = "vim";
     programs.vim = {
       enable = true;
@@ -35,5 +34,4 @@
     xdg.configFile = {
       "vim/coc-settings.json".text = builtins.readFile ./coc-settings.json;
     };
-  };
 }

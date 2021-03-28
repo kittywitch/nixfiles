@@ -1,9 +1,15 @@
-{ config, pkgs, ... }:
+{ config, pkgs, profiles, ... }:
 
 {
-  imports = [ ./hw.nix ../../../services/zfs.nix ];
+  imports = [ 
+    ./hw.nix 
+    ../../../services/zfs.nix 
+    profiles.gui 
+    profiles.sway 
+    profiles.kat 
+    profiles.laptop 
+  ];
 
-  deploy.profiles = [ "gui" "sway" "kat" "laptop" "private" ];
   deploy.groups = [ "gui" ];
   deploy.ssh.host = "192.168.1.92";
 

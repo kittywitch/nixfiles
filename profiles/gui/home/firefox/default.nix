@@ -12,7 +12,6 @@ let
       "https://sync.kittywit.ch/token/1.0/sync/1.5";
   };
 in {
-  config = lib.mkIf config.deploy.profile.gui {
     programs.zsh.shellAliases = {
       ff-pm = "firefox --ProfileManager";
       ff-main = "firefox -P main";
@@ -68,5 +67,4 @@ in {
     };
 
     home.file.".config/tridactyl/tridactylrc".source = ./tridactylrc;
-  };
 }

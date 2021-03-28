@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  config = lib.mkIf config.deploy.profile.kat {
     programs.zsh.shellAliases = {
       tne = "tmux new -s";
       tat = "tmux attach -t";
@@ -53,5 +52,4 @@
                 set -g mouse on
                       '';
     };
-  };
 }

@@ -1,7 +1,6 @@
 { config, lib, pkgs, witch, ... }:
 
 {
-  config = lib.mkIf config.deploy.profile.gui {
     programs.ncmpcpp = {
       enable = true;
       mpdMusicDir = "/home/kat/media-share/music";
@@ -98,5 +97,4 @@
               }
       '';
     };
-  };
 }

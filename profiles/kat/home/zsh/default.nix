@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  config = lib.mkIf config.deploy.profile.kat {
     xdg.dataFile = { "z/.keep".text = ""; };
     home.packages = with pkgs; [ fzf fd ];
     programs.zsh = {
@@ -59,5 +58,4 @@
       enableZshIntegration = true;
       enableNixDirenvIntegration = true;
     };
-  };
 }

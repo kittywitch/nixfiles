@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
-  config = lib.mkIf config.deploy.profile.sway {
     systemd.user.services.swayidle = {
       Unit = {
         Description = "swayidle";
@@ -34,5 +33,4 @@
       };
       Install = { WantedBy = [ "sway-session.target" ]; };
     };
-  };
 }

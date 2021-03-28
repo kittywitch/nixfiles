@@ -1,7 +1,9 @@
 { config, pkgs, lib, ... }:
 
 {
-  config = lib.mkIf config.deploy.profile.kat {
+  config = {
+    home-manager.users.kat = { imports = [ ./home.nix ]; };
+
     users.users.kat = {
       uid = 1000;
       isNormalUser = true;
@@ -15,5 +17,6 @@
     };
   };
 
-  options = { deploy.profile.kat = lib.mkEnableOption "uhh meow"; };
+  options = { deploy.profile.kat = lib.mkEnableOption "uhh meow" // { default = true; }; };
+
 }

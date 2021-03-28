@@ -1,7 +1,6 @@
 { config, pkgs, lib, superConfig, ... }:
 
 {
-  config = lib.mkIf config.deploy.profile.gui {
     home.file = {
       ".local/share/weechat/sec.conf" = lib.mkIf config.deploy.profile.private {
         source = "${../../../private/files/weechat/sec.conf}";
@@ -104,5 +103,4 @@
         };
       };
     };
-  };
 }

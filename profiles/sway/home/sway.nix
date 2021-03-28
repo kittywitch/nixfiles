@@ -1,7 +1,6 @@
 { config, pkgs, lib, witch, ... }:
 
 {
-  config = lib.mkIf config.deploy.profile.sway {
     home.sessionVariables = {
       MOZ_ENABLE_WAYLAND = 1;
       XDG_CURRENT_DESKTOP = "sway";
@@ -265,6 +264,5 @@
         ${workspaceBindingsStr}
       '';
     };
-  };
 
 }

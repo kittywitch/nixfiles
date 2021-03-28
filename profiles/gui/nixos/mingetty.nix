@@ -25,7 +25,6 @@ let
     " ${c1}         .::::      ::::      ${c2}'::::.         "
   ];
 in {
-  config = lib.mkIf config.deploy.profile.gui {
     services.mingetty = {
       greetingLine = ''
         \e[H\e[2J
@@ -33,5 +32,4 @@ in {
         + "\\e[1;32m>>> NixOS ${config.system.nixos.label} (Linux \\r) - \\l\\e[0m";
       helpLine = lib.mkForce "";
     };
-  };
 }

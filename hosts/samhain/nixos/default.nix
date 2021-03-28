@@ -1,8 +1,11 @@
-{ config, pkgs, lib, sources, witch, ... }:
+{ config, pkgs, lib, profiles, sources, witch, ... }:
 
 {
   imports = [
     ./hw.nix
+    profiles.gui
+    profiles.sway
+    profiles.kat
     ../../../services/zfs.nix
     ../../../services/nginx.nix
     ./thermal
@@ -10,7 +13,6 @@
     ./torrenting.nix
   ];
 
-  deploy.profiles = [ "gui" "sway" "kat" "private" ];
   deploy.groups = [ "gui" ];
   deploy.ssh.host = "192.168.1.135";
 

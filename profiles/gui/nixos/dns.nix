@@ -1,5 +1,4 @@
 { config, lib, pkgs, ... }: {
-  config = lib.mkIf config.deploy.profile.gui {
     networking = {
       #      networkmanager.enable = true;
       resolvconf.useLocalResolver = true;
@@ -39,5 +38,4 @@
     systemd.services.dnscrypt-proxy2.serviceConfig = {
       StateDirectory = "dnscrypt-proxy2";
     };
-  };
 }

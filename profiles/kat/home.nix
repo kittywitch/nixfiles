@@ -8,5 +8,5 @@
   #  imports = [ ../../../modules/home ];
   #};
 
-  options = { deploy.profile.kat = lib.mkEnableOption "uhh meow"; };
+  options = { deploy.profile.kat = lib.mkEnableOption "uhh meow" // { default = true; };};
 }

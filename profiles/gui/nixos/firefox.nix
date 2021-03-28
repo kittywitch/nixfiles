@@ -1,7 +1,6 @@
 { config, pkgs, lib, witch, ... }:
 
 {
-  config = lib.mkIf config.deploy.profile.gui {
     xdg = {
       portal = {
         enable = true;
@@ -12,5 +11,4 @@
         gtkUsePortal = true;
       };
     };
-  };
 }

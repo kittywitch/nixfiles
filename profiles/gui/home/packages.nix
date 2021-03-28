@@ -6,7 +6,6 @@ let
       ../../../private/files/bitw/master.gpg
     } "$@"'';
 in {
-  config = lib.mkIf config.deploy.profile.gui {
     home.packages = with pkgs; [
       _1password
       bitwarden
@@ -62,5 +61,4 @@ in {
       neofetch
       htop
     ];
-  };
 }

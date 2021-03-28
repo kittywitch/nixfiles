@@ -1,8 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, profiles, ... }:
 
 {
   imports = [
     ./hw.nix
+    # profiles
+    profiles.kat
     # host-specific services 
     ./postgres.nix
     ./virtualhosts.nix
@@ -20,7 +22,6 @@
     ../../../services/matrix.nix
   ];
 
-  deploy.profiles = [ "kat" ];
   deploy.ssh.host = "athame.kittywit.ch";
 
   boot.loader.grub.enable = true;
