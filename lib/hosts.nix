@@ -34,7 +34,7 @@ rec {
     (mapAttrsToList (name: host: host.config.deploy.groups) hosts));
 
   groups = listToAttrs (map (groupName:
-    nameValuePair groupName
-    (attrNames (filterAttrs (name: host: elem groupName host.config.deploy.groups)
-    hosts))) groupNames);
+    nameValuePair groupName (attrNames
+      (filterAttrs (name: host: elem groupName host.config.deploy.groups)
+        hosts))) groupNames);
 }

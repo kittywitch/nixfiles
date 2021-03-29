@@ -12,7 +12,5 @@ with lib;
     };
   };
 
-  config = {
-    deploy.groups = [ "all" ];
-  };
+  config = { deploy.groups = [ "all" ]; };
 }
