@@ -1,4 +1,4 @@
-{ pkgs, hosts, sources, groups, group ? "all", host ? null}:
+{ pkgs, hosts, sources, groups }:
 
 with pkgs.lib;
 
@@ -11,10 +11,10 @@ let
       specialArgs = { };
     }).config;
 
-  tf = tfEval ({ config, ... }: {
+  tf = makeOverridable ({ group ? null, host ? null }: tfEval ({ config, ... }: {
     deps = { 
       enable = true;
-      select.hclPaths = (map (name: config.resources."${name}_system_switch".out.hclPathStr) (if host != null then [ host ] else groups.${group} ));
+      select.hclPaths = (map (name: config.resources."${name}_system_switch".out.hclPathStr) (if host != null then [ host ] else (if group != null then groups.${group} else []) ));
     };
 
     state = { file = toString ../private/files/tf/terraform.tfstate; };
@@ -22,7 +22,7 @@ let
     runners.lazy = {
       file = ../.;
       args = [ "--show-trace" ];
-      attrPrefix = let attr = if host != null then "host.${host}" else "group.${group}"; in "deploy.${attr}.runners.run.";
+      attrPrefix = let attr = if host != null then "host.${host}" else if group != null then "group.${group}" else "tf"; in "deploy.${attr}.runners.run.";
     };
 
     terraform = {
@@ -95,9 +95,9 @@ let
       triggers.copy.yule = athame.refAttr "id";
       triggers.secrets.yule = athame.refAttr "id";
     };
-  });
+  })) {};
 in { 
   inherit tf; 
-  group = genAttrs (attrNames groups) (group: (import ./deploy.nix { inherit pkgs hosts sources groups group; }).tf); 
-  host = genAttrs (attrNames hosts) (host: (import ./deploy.nix { inherit pkgs hosts sources groups host; }).tf);  
+  group = genAttrs (attrNames groups) (group: (tf.override { inherit group; })); 
+  host = genAttrs (attrNames hosts) (host:  (tf.override { inherit host; }));  
 }
