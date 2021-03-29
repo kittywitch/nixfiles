@@ -1,6 +1,16 @@
 { config, pkgs, ... }:
 
 {
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [ "gitea" ];
+    ensureUsers = [
+      { name = "gitea";
+        ensurePermissions."DATABASE gitea" = "ALL PRIVILEGES";
+      }
+    ];
+  };
+
   services.gitea = {
     enable = true;
     disableRegistration = true;
@@ -11,6 +21,11 @@
     ssh = { clonePort = 62954; };
     settings = {
       security = { DISABLE_GIT_HOOKS = false; };
+      database = {
+        type = "postgres";
+        name = "gitea";
+        user = "gitea";
+      };
       mailer = {
         ENABLED = true;
         MAILER_TYPE = "sendmail";
@@ -19,7 +34,7 @@
       };
       ui = {
         THEMES = "gitea,arc-green,kittywitch";
-        DEFAULT_THEME = "kittywitch";
+        DEFAULT_THEME = "gitea";
         THEME_COLOR_META_TAG = "#222222";
       };
     };

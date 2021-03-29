@@ -1,14 +1,26 @@
 { config, pkgs, witch, ... }:
 
 {
+  services.postgresql = {
+    ensureDatabases = [ "bitwarden_rs" ];
+    ensureUsers = [{
+      name = "bitwarden_rs";
+      ensurePermissions = {
+        "DATABASE bitwarden_rs" = "ALL PRIVILEGES";
+      };
+    }];
+  };
+
   services.bitwarden_rs = {
     enable = true;
+    dbBackend = "postgresql";
     config = {
       rocketPort = 4000;
       websocketEnabled = true;
       signupsAllowed = false;
       adminToken = witch.secrets.hosts.athame.bitwarden_secret;
       domain = "https://vault.kittywit.ch";
+      databaseUrl = "postgresql://bitwarden_rs@/bitwarden_rs";
     };
   };
 
