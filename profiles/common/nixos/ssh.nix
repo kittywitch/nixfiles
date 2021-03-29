@@ -3,7 +3,7 @@
 {
   services.openssh = {
     enable = true;
-    ports = lib.mkDefault [ 62954 ];
+    #ports = lib.mkDefault [ 62954 ];
     passwordAuthentication = false;
     challengeResponseAuthentication = false;
     permitRootLogin = lib.mkDefault "prohibit-password";

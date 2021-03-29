@@ -12,7 +12,7 @@ rec {
   inherit (pkgs) lib;
 
   deploy = import ./lib/deploy.nix {
-    inherit pkgs;
+    inherit pkgs sources;
     inherit (hosts) hosts groups;
   };
 }

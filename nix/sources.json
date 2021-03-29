@@ -124,10 +124,10 @@
         "homepage": null,
         "owner": "arcnmx",
         "repo": "tf-nix",
-        "rev": "32dae16c0aaba3412905bd80968888a767071808",
-        "sha256": "1c0vg42j096jp65b6indynh2y77xfv8nrfrnbv4llxfjsmd6w3lq",
+        "rev": "f8388c58aa7759dede5163a011fb1a08e7c27fc8",
+        "sha256": "0n0cp2hz00naz78dxi3b7ayrjv4l0001sc1k08w01aw2p400wpyc",
         "type": "tarball",
-        "url": "https://github.com/arcnmx/tf-nix/archive/32dae16c0aaba3412905bd80968888a767071808.tar.gz",
+        "url": "https://github.com/arcnmx/tf-nix/archive/f8388c58aa7759dede5163a011fb1a08e7c27fc8.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

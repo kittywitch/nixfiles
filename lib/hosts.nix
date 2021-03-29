@@ -10,7 +10,7 @@ rec {
   hostConfig = hostName:
     { config, ... }: {
       _module.args = { inherit hosts groups; };
-      imports = [ ../nixos.nix ../modules/nixos ../modules/nixos/deploy ];
+      imports = [ ../nixos.nix ../modules/nixos ];
       networking = { inherit hostName; };
       nixpkgs.pkgs = import pkgsPath {
         inherit (config.nixpkgs) config;

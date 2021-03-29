@@ -3,7 +3,7 @@
 {
   home-manager.users.kat = { imports = [ ./home.nix ]; };
 
-  deploy.profile.kat = true; 
+  deploy.profile.kat = true;
 
   users.users.kat = {
     uid = 1000;
