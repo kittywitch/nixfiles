@@ -11,7 +11,6 @@
   ];
 
   deploy.groups = [ "gui" ];
-  deploy.ssh.host = "192.168.1.92";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

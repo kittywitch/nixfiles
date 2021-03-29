@@ -6,20 +6,20 @@
     # profiles
     profiles.kat
     # host-specific services 
-    #./postgres.nix
-    #./virtualhosts.nix
-    #./fail2ban.nix
+    ./postgres.nix
+    ./virtualhosts.nix
+    ./fail2ban.nix
     # services 
-    #../../../services/nginx.nix
-    #../../../services/mail.nix
-    #../../../services/asterisk.nix
-    #../../../services/gitea
-    #../../../services/syncplay.nix
-    #../../../services/bitwarden.nix
-    #../../../services/taskserver.nix
-    #../../../services/murmur.nix
-    #../../../services/znc.nix
-    #../../../services/matrix.nix
+    ../../../services/nginx.nix
+    ../../../services/mail.nix
+    ../../../services/asterisk.nix
+    ../../../services/gitea
+    ../../../services/syncplay.nix
+    ../../../services/bitwarden.nix
+    ../../../services/taskserver.nix
+    ../../../services/murmur.nix
+    ../../../services/znc.nix
+    ../../../services/matrix.nix
   ];
 
   boot.loader.grub.enable = true;

@@ -1,4 +1,4 @@
-{ pkgs, hosts, sources, groups }:
+{ pkgs, hosts, sources, groups, group ? "all", host ? null}:
 
 with pkgs.lib;
 
@@ -12,14 +12,17 @@ let
     }).config;
 
   tf = tfEval ({ config, ... }: {
-    deps = { enable = true; };
+    deps = { 
+      enable = true;
+      select.hclPaths = (map (name: config.resources."${name}_system_switch".out.hclPathStr) (if host != null then [ host ] else groups.${group} ));
+    };
 
     state = { file = toString ../private/files/tf/terraform.tfstate; };
 
     runners.lazy = {
       file = ../.;
       args = [ "--show-trace" ];
-      attrPrefix = "deploy.tf.runners.run.";
+      attrPrefix = let attr = if host != null then "host.${host}" else "group.${group}"; in "deploy.${attr}.runners.run.";
     };
 
     terraform = {
@@ -45,7 +48,11 @@ let
         };
       };
 
-      athame = {
+      athame = { provider = "null"; type = "resource"; connection = { port = 62954; host = "athame.kittywit.ch"; }; };
+      samhain = { provider = "null"; type = "resource"; connection = { port = 62954; host = "192.168.1.135"; }; };
+      yule = { provider = "null"; type = "resource"; connection = { port = 62954; host = "192.168.1.92"; }; };
+
+      athame-testing = {
         provider = "hcloud";
         type = "server";
         inputs = {
@@ -76,5 +83,21 @@ let
       triggers.copy.athame = athame.refAttr "id";
       triggers.secrets.athame = athame.refAttr "id";
     };
+    deploy.systems.samhain = with config.resources; {
+      nixosConfig = hosts.samhain.config;
+      connection = samhain.connection.set;
+      triggers.copy.samhain = athame.refAttr "id";
+      triggers.secrets.samhain = athame.refAttr "id";
+    };
+    deploy.systems.yule = with config.resources; {
+      nixosConfig = hosts.yule.config;
+      connection = yule.connection.set;
+      triggers.copy.yule = athame.refAttr "id";
+      triggers.secrets.yule = athame.refAttr "id";
+    };
   });
-in { inherit tf; }
+in { 
+  inherit tf; 
+  group = genAttrs (attrNames groups) (group: (import ./deploy.nix { inherit pkgs hosts sources groups group; }).tf); 
+  host = genAttrs (attrNames hosts) (host: (import ./deploy.nix { inherit pkgs hosts sources groups host; }).tf);  
+}
