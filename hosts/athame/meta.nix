@@ -27,7 +27,7 @@
       connection = athame.connection.set;
       triggers.copy.athame = athame.refAttr "id";
       triggers.secrets.athame = athame.refAttr "id";
-      triggers.switch.athame = athame_test_domain.refAttr "id";
+      triggers.switch.athame = config.lib.tf.terraformExpr ''join(",", ${athame_test_domain.namedRef}.addresses)'';
     };
   };
 }
