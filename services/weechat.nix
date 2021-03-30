@@ -35,5 +35,11 @@ in {
         proxyWebsockets = true;
       };
     };
+  };  
+
+  deploy.tf.dns.records.kittywitch_irc = {
+    tld = "kittywit.ch.";
+    domain = "irc";
+    cname.target = "athame.kittywit.ch.";
   };
 }

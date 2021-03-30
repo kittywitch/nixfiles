@@ -50,4 +50,10 @@
     forceSSL = true;
     locations = { "/".proxyPass = "http://127.0.0.1:3000"; };
   };
+
+  deploy.tf.dns.records.kittywitch_git = {
+    tld = "kittywit.ch.";
+    domain = "git";
+    cname.target = "athame.kittywit.ch.";
+  };
 }

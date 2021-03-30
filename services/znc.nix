@@ -27,4 +27,10 @@
     forceSSL = true;
     locations = { "/".proxyPass = "http://127.0.0.1:5000"; };
   };
+
+  deploy.tf.dns.records.kittywitch_znc = {
+    tld = "kittywit.ch.";
+    domain = "znc";
+    cname.target = "athame.kittywit.ch.";
+  };
 }

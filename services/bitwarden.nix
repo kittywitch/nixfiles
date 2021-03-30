@@ -32,5 +32,11 @@
       "/notifications/hub".proxyPass = "http://127.0.0.1:3012";
       "/notifications/hub/negotiate".proxyPass = "http://127.0.0.1:80";
     };
+  }; 
+
+  deploy.tf.dns.records.kittywitch_vault = {
+    tld = "kittywit.ch.";
+    domain = "vault";
+    cname.target = "athame.kittywit.ch.";
   };
 }

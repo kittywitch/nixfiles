@@ -33,6 +33,12 @@
     interfaces.enp1s0.useDHCP = true;
   };
 
+  deploy.tf.dns.records.kittywitch_www = {
+    tld = "kittywit.ch.";
+    domain = "www";
+    cname.target = "athame.kittywit.ch.";
+  };
+
   networking.firewall.allowedTCPPorts =
     [ 22 80 443 5160 5060 8999 64738 1935 53589 5001 ];
   networking.firewall.allowedUDPPorts = [ 5160 5060 64738 ];
