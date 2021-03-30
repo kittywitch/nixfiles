@@ -35,7 +35,7 @@ in {
         proxyWebsockets = true;
       };
     };
-  };  
+  };
 
   deploy.tf.dns.records.kittywitch_irc = {
     tld = "kittywit.ch.";

@@ -13,7 +13,7 @@
     ./torrenting.nix
   ];
 
-  deploy.groups = [ "gui" ];
+  deploy.target = "personal";
 
   # graphics tablet
   services.xserver.wacom.enable = true;

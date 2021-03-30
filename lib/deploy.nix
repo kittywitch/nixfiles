@@ -1,4 +1,4 @@
-{ pkgs, hosts, sources, groups }:
+{ pkgs, hosts, sources, targets }:
 
 with pkgs.lib;
 
@@ -11,41 +11,38 @@ let
       specialArgs = { inherit hosts; };
     }).config;
 
-  tf = makeOverridable ({ group ? null, host ? null }:
+  tf = { targetName, target }:
     tfEval ({ config, ... }: {
-      imports =
-        mapAttrsToList (name: host: import (../hosts + "/${name}/meta.nix"))
-        hosts ++ [{ config = mkMerge (mapAttrsToList (_: host: mapAttrs (_: mkMerge) host.config.deploy.tf.out.set) hosts); }];
+      imports = map (hostName: ../hosts + "/${hostName}/meta.nix") target ++ [{
+        config = mkMerge (map (hostName:
+          mapAttrs (_: mkMerge) hosts.${hostName}.config.deploy.tf.out.set)
+          target);
+      }] ++ concatMap (hostName:
+        filter builtins.pathExists
+        (map (profile: ../profiles + "/${profile}/meta.nix") (attrNames
+          (filterAttrs (_: id) hosts.${hostName}.config.deploy.profile))))
+        target;
 
-        deps = {
+      deps = {
         select.allProviders = true;
         enable = true;
-        select.hclPaths =
-          (map (name: config.resources."${name}_system_switch".out.hclPathStr)
-            (if host != null then
-              [ host ]
-            else
-              (if group != null then groups.${group} else [ ])));
       };
 
-      state = { file = toString ../private/files/tf/terraform.tfstate; };
+      state = {
+        file = ../private/files/tf + "/terraform-${targetName}.tfstate";
+      };
 
       runners.lazy = {
         file = ../.;
         args = [ "--show-trace" ];
-        attrPrefix = let
-          attr = if host != null then
-            "host.${host}"
-          else if group != null then
-            "group.${group}"
-          else
-            "tf";
-        in "deploy.${attr}.runners.run.";
+        attrPrefix =
+          let attr = if target != null then "target.${targetName}" else "tf";
+          in "deploy.${attr}.runners.run.";
       };
 
       terraform = {
-        dataDir = toString ../private/files/tf/tfdata;
-        logPath = toString ../private/files/tf/terraform.log;
+        dataDir = ../private/files/tf + "/tfdata/${targetName}";
+        logPath = ../private/files/tf + "/terraform-${targetName}.log";
       };
 
       variables.hcloud_token = {
@@ -87,9 +84,9 @@ let
           };
         };
       };
-    })) { };
+    });
 in {
   inherit tf;
-  group = genAttrs (attrNames groups) (group: (tf.override { inherit group; }));
-  host = genAttrs (attrNames hosts) (host: (tf.override { inherit host; }));
+  target =
+    mapAttrs (targetName: target: tf { inherit target targetName; }) targets;
 }

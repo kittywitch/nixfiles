@@ -11,8 +11,8 @@
     deploy.systems.yule = with config.resources; {
       nixosConfig = hosts.yule.config;
       connection = yule.connection.set;
-      triggers.copy.yule = athame.refAttr "id";
-      triggers.secrets.yule = athame.refAttr "id";
+      triggers.copy.yule = yule.refAttr "id";
+      triggers.secrets.yule = yule.refAttr "id";
     };
   };
 }

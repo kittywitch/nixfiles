@@ -14,7 +14,7 @@
       sslCert=/var/lib/acme/kittywit.ch/fullchain.pem
       sslKey=/var/lib/acme/kittywit.ch/key.pem
     '';
-  };  
+  };
 
   deploy.tf.dns.records.kittywitch_voice = {
     tld = "kittywit.ch.";

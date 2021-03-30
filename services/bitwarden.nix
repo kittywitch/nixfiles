@@ -5,9 +5,7 @@
     ensureDatabases = [ "bitwarden_rs" ];
     ensureUsers = [{
       name = "bitwarden_rs";
-      ensurePermissions = {
-        "DATABASE bitwarden_rs" = "ALL PRIVILEGES";
-      };
+      ensurePermissions = { "DATABASE bitwarden_rs" = "ALL PRIVILEGES"; };
     }];
   };
 
@@ -32,7 +30,7 @@
       "/notifications/hub".proxyPass = "http://127.0.0.1:3012";
       "/notifications/hub/negotiate".proxyPass = "http://127.0.0.1:80";
     };
-  }; 
+  };
 
   deploy.tf.dns.records.kittywitch_vault = {
     tld = "kittywit.ch.";

@@ -10,7 +10,7 @@
     profiles.laptop
   ];
 
-  deploy.groups = [ "gui" ];
+  deploy.target = "personal";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

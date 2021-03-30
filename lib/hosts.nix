@@ -9,7 +9,7 @@ rec {
 
   hostConfig = hostName:
     { config, ... }: {
-      _module.args = { inherit hosts groups; };
+      _module.args = { inherit hosts targets; };
       imports = [ ../nixos.nix ../modules/nixos ];
       networking = { inherit hostName; };
       nixpkgs.pkgs = import pkgsPath {
@@ -30,11 +30,6 @@ rec {
       specialArgs = { inherit sources tf profiles witch hostName; };
     })) hostNames);
 
-  groupNames = unique (concatLists
-    (mapAttrsToList (name: host: host.config.deploy.groups) hosts));
-
-  groups = listToAttrs (map (groupName:
-    nameValuePair groupName (attrNames
-      (filterAttrs (name: host: elem groupName host.config.deploy.groups)
-        hosts))) groupNames);
+  targets = foldAttrs (host: hosts: [ host ] ++ hosts) [ ] (mapAttrsToList
+    (hostName: host: { ${host.config.deploy.target} = hostName; }) hosts);
 }

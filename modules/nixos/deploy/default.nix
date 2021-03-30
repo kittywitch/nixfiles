@@ -5,12 +5,10 @@ with lib;
 {
   options = {
     deploy = {
-      groups = mkOption {
-        type = with types; listOf str;
-        default = [ ];
+      target = mkOption {
+        type = with types; str;
+        default = "";
       };
     };
   };
-
-  config = { deploy.groups = [ "all" ]; };
 }

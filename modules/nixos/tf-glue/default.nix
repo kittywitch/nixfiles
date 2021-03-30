@@ -1,4 +1,6 @@
-{ config, lib, ... }: with lib; let
+{ config, lib, ... }:
+with lib;
+let
   cfg = config.deploy.tf;
   unmergedValues = types.mkOptionType {
     name = "unmergedValues";
@@ -14,9 +16,7 @@ in {
           type = types.listOf types.str;
           default = [ ];
         };
-        out.set = mkOption {
-          type = types.unspecified;
-        };
+        out.set = mkOption { type = types.unspecified; };
       };
     };
   };
@@ -25,6 +25,6 @@ in {
     deploy.tf = {
       attrs = [ "out" "attrs" ];
       out.set = removeAttrs cfg cfg.attrs;
-    }; 
+    };
   };
 }
