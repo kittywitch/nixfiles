@@ -1,4 +1,4 @@
-{ pkgs, hostsDir ? ../hosts, profiles, pkgsPath ? ../pkgs, sources ? { }
+{ pkgs, tf, hostsDir ? ../hosts, profiles, pkgsPath ? ../pkgs, sources ? { }
 , witch ? { } }:
 
 with pkgs.lib;
@@ -27,7 +27,7 @@ rec {
         else
           { })
       ];
-      specialArgs = { inherit sources profiles witch hostName; };
+      specialArgs = { inherit sources tf profiles witch hostName; };
     })) hostNames);
 
   groupNames = unique (concatLists

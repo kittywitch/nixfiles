@@ -15,9 +15,10 @@ let
     tfEval ({ config, ... }: {
       imports =
         mapAttrsToList (name: host: import (../hosts + "/${name}/meta.nix"))
-        hosts;
+        hosts ++ [{ config = mkMerge (mapAttrsToList (_: host: mapAttrs (_: mkMerge) host.config.deploy.tf.out.set) hosts); }];
 
-      deps = {
+        deps = {
+        select.allProviders = true;
         enable = true;
         select.hclPaths =
           (map (name: config.resources."${name}_system_switch".out.hclPathStr)
@@ -62,11 +63,13 @@ let
         value.shellCommand = "bitw get infra/rfc2136 -f password";
       };
 
+      dns.zones."kittywit.ch." = { provider = "dns"; };
+
       providers.hcloud = { inputs.token = config.variables.hcloud_token.ref; };
 
       providers.dns = {
         inputs.update = {
-          server = "45.129.95.255";
+          server = "ns1.as207960.net";
           key_name = config.variables.glauca_key.ref;
           key_secret = config.variables.glauca_secret.ref;
           key_algorithm = "hmac-sha512";

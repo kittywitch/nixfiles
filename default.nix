@@ -7,7 +7,7 @@ rec {
     defaultFile = "nixos.nix";
   };
 
-  hosts = import ./lib/hosts.nix { inherit pkgs sources witch profiles; };
+  hosts = import ./lib/hosts.nix { inherit pkgs sources witch profiles; inherit (deploy) tf;  };
 
   inherit (pkgs) lib;
 
