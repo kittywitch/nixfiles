@@ -9,7 +9,7 @@ rec {
 
   hosts = import ./lib/hosts.nix {
     inherit pkgs sources witch profiles;
-    inherit (deploy) tf;
+    inherit (deploy) target;
   };
 
   inherit (pkgs) lib;

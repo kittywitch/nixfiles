@@ -1,4 +1,4 @@
-{ config, pkgs, lib, profiles, sources, witch, ... }:
+{ tf, config, pkgs, lib, profiles, sources, witch, ... }:
 
 {
   imports = [

@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ tf, target, config, lib, ... }:
 with lib;
 let
   cfg = config.deploy.tf;
@@ -26,5 +26,6 @@ in {
       attrs = [ "out" "attrs" ];
       out.set = removeAttrs cfg cfg.attrs;
     };
+    _module.args.tf = target.${config.deploy.target};
   };
 }

@@ -1,4 +1,4 @@
-{ pkgs, tf, hostsDir ? ../hosts, profiles, pkgsPath ? ../pkgs, sources ? { }
+{ pkgs, target, hostsDir ? ../hosts, profiles, pkgsPath ? ../pkgs, sources ? { }
 , witch ? { } }:
 
 with pkgs.lib;
@@ -27,7 +27,7 @@ rec {
         else
           { })
       ];
-      specialArgs = { inherit sources tf profiles witch hostName; };
+      specialArgs = { inherit sources target profiles witch hostName; };
     })) hostNames);
 
   targets = foldAttrs (host: hosts: [ host ] ++ hosts) [ ] (mapAttrsToList
