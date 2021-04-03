@@ -162,7 +162,7 @@
 
         "${cfg.modifier}+Tab" = "workspace back_and_forth";
         "${cfg.modifier}+Shift+Tab" =
-          "${pkgs.i3gopher}/bin/i3gopher --focus-last";
+          "exec ${pkgs.i3gopher}/bin/i3gopher --focus-last";
         "${cfg.modifier}+Ctrl+Left" = "workspace prev_on_output";
         "${cfg.modifier}+Ctrl+Right" = "workspace next_on_output";
 
