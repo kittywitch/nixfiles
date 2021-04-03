@@ -9,9 +9,6 @@ let
 
     discord = unstable.discord.override { nss = self.nss_latest; };
 
-    lib = super.lib.extend
-      (self: super: { deployEmbedFuckery = txt: "__FUCKERY__" + txt; });
-
     ncmpcpp = unstable.ncmpcpp.override {
       visualizerSupport = true;
       clockSupport = true;

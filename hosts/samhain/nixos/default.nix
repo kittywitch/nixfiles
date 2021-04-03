@@ -15,6 +15,48 @@
 
   deploy.target = "personal";
 
+  deploy.tf.variables.dyn_username = {
+    type = "string";
+    value.shellCommand = "bitw get infra/hexdns-dynamic -f username";
+  };
+
+  deploy.tf.variables.dyn_password = {
+    type = "string";
+    value.shellCommand = "bitw get infra/hexdns-dynamic -f password";
+  };
+
+  deploy.tf.variables.dyn_hostname = {
+    type = "string";
+    value.shellCommand = "bitw get infra/hexdns-dynamic -f hostname";
+  };
+
+  secrets.files.kat-glauca-dns = {
+    text = ''
+      user="${tf.variables.dyn_username.ref}"
+      pass="${tf.variables.dyn_password.ref}"
+      hostname="${tf.variables.dyn_hostname.ref}"
+    '';
+    owner = "kat";
+    group = "users";
+  };
+
+  systemd.services.kat-glauca-dns = {
+    serviceConfig = {
+      ExecStart = "${pkgs.kat-glauca-dns}/bin/kat-glauca-dns";
+    };
+    environment = { passFile = config.secrets.files.kat-glauca-dns.path; };
+    wantedBy = [ "default.target" ];
+  };
+
+  systemd.timers.kat-glauca-dns = {
+    timerConfig = {
+      Unit = "kat-glauca-dns.service";
+      OnBootSec = "5m";
+      OnUnitActiveSec = "30m";
+    };
+    wantedBy = [ "default.target" ];
+  };
+  
   # graphics tablet
   services.xserver.wacom.enable = true;
 
