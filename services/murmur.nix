@@ -16,14 +16,10 @@
     enableACME = true;
     forceSSL = true;
   };
-  
+
   users.groups."voice-cert".members = [ "nginx" "murmur" ];
 
-  security.acme.certs = {
-    "voice.kittywit.ch" = {
-      group = "voice-cert";
-    };
-  };
+  security.acme.certs = { "voice.kittywit.ch" = { group = "voice-cert"; }; };
 
   deploy.tf.dns.records.kittywitch_voice = {
     tld = "kittywit.ch.";

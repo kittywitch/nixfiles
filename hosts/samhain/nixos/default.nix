@@ -56,7 +56,7 @@
     };
     wantedBy = [ "default.target" ];
   };
-  
+
   # graphics tablet
   services.xserver.wacom.enable = true;
 

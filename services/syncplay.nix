@@ -24,5 +24,7 @@
     certDir = "/var/lib/acme/sync.kittywit.ch/";
   };
 
-  security.acme.certs."sync.kittywit.ch".postRun = "cp key.pem privkey.pem\nchown acme:voice-cert privkey.pem";
+  security.acme.certs."sync.kittywit.ch".postRun = ''
+    cp key.pem privkey.pem
+    chown acme:voice-cert privkey.pem'';
 }
