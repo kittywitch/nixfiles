@@ -6,20 +6,20 @@
     # profiles
     profiles.kat
     # host-specific services 
-    #./postgres.nix
-    #./virtualhosts.nix
-    #./fail2ban.nix
+    ./postgres.nix
+    ./virtualhosts.nix
+    ./fail2ban.nix
     # services 
-    #../../../services/nginx.nix
-    #../../../services/mail.nix
-    #../../../services/asterisk.nix
-    #../../../services/gitea
-    #../../../services/syncplay.nix
-    #../../../services/bitwarden.nix
-    #../../../services/taskserver.nix
-    #../../../services/murmur.nix
-    #../../../services/znc.nix
-    #../../../services/matrix.nix
+    ../../../services/nginx.nix
+    ../../../services/mail.nix
+    ../../../services/asterisk.nix
+    ../../../services/gitea
+    ../../../services/syncplay.nix
+    ../../../services/bitwarden.nix
+    ../../../services/taskserver.nix
+    ../../../services/murmur.nix
+    ../../../services/znc.nix
+    ../../../services/matrix.nix
   ];
 
   boot.loader.grub.enable = true;
@@ -35,11 +35,6 @@
     interfaces.enp1s0.useDHCP = true;
   };
 
-  deploy.tf.dns.records.kittywitch_www = {
-    tld = "kittywit.ch.";
-    domain = "www";
-    cname.target = "athame.kittywit.ch.";
-  };
 
   networking.firewall.allowedTCPPorts =
     [ 22 80 443 5160 5060 8999 64738 1935 53589 5001 ];
