@@ -54,6 +54,7 @@
       plugins.var.python.title.current_buffer_suffix = " [";
       plugins.var.python.title.title_suffix = " ]";
       plugins.var.python.notify_send.icon = "";
+      plugins.var.python.go.short_name = true;
       sec = {
         crypt = {
           passphrase_command = ''
