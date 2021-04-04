@@ -1,19 +1,28 @@
 { config, pkgs, ... }:
 
 {
-  security.acme = { certs."kittywit.ch" = { group = "kittywit-ch"; }; };
-
-  users.groups."kittywit-ch".members = [ "murmur" "nginx" "syncplay" ];
-
   services.murmur = {
     enable = true;
 
     hostName = "voice.kittywit.ch";
 
     extraConfig = ''
-      sslCert=/var/lib/acme/kittywit.ch/fullchain.pem
-      sslKey=/var/lib/acme/kittywit.ch/key.pem
+      sslCert=/var/lib/acme/voice.kittywit.ch/fullchain.pem
+      sslKey=/var/lib/acme/voice.kittywit.ch/key.pem
     '';
+  };
+
+  services.nginx.virtualHosts."voice.kittywit.ch" = {
+    enableACME = true;
+    forceSSL = true;
+  };
+  
+  users.groups."voice-cert".members = [ "nginx" "murmur" ];
+
+  security.acme.certs = {
+    "voice.kittywit.ch" = {
+      group = "voice-cert";
+    };
   };
 
   deploy.tf.dns.records.kittywitch_voice = {
