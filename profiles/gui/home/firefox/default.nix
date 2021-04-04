@@ -8,8 +8,6 @@ let
     "browser.download.lastDir" = "/home/kat/downloads";
     "browser.urlbar.placeholderName" = "DuckDuckGo";
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-    "identity.sync.tokenserver.uri" =
-      "https://sync.kittywit.ch/token/1.0/sync/1.5";
   };
 in {
   programs.zsh.shellAliases = {
