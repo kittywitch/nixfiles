@@ -18,13 +18,13 @@
     httpAddress = "127.0.0.1";
     appName = "kittywitch git";
     ssh = { clonePort = 62954; };
+    database = {
+      type = "postgres";
+      name = "gitea";
+      user = "gitea";
+    };
     settings = {
       security = { DISABLE_GIT_HOOKS = false; };
-      database = {
-        type = "postgres";
-        name = "gitea";
-        user = "gitea";
-      };
       mailer = {
         ENABLED = true;
         MAILER_TYPE = "sendmail";
