@@ -1,6 +1,4 @@
 /result
 /result*
 secrets.nix
-*.swp
-*.swo
 !config/profiles/common/nixos/secrets.nix
