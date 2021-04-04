@@ -17,13 +17,13 @@ in {
         };
       };
     in "${new-weechat}/bin/weechat";
-    enable = true;
+    #enable = true;
   };
 
-  programs.screen.screenrc = ''
-    multiuser on
-    acladd kat
-  '';
+  #programs.screen.screenrc = ''
+  #  multiuser on
+  #  acladd kat
+  #'';
 
   services.nginx.virtualHosts."irc.kittywit.ch" = {
     enableACME = true;

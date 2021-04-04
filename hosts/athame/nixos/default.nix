@@ -15,6 +15,7 @@
     ../../../services/asterisk.nix
     ../../../services/gitea
     ../../../services/syncplay.nix
+    ../../../services/weechat.nix
     ../../../services/bitwarden.nix
     ../../../services/taskserver.nix
     ../../../services/murmur.nix
