@@ -7,6 +7,7 @@
     ./packages.nix
     ./email.nix
     ./gpg.nix
+    ./bitw.nix
     ./weechat.nix
     ./gtk.nix
     ./music.nix
