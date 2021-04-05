@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, witch, ... }:
 
 {
   users.users.syncplay = { isSystemUser = true; };
@@ -17,13 +17,22 @@
     cname.target = "athame.kittywit.ch.";
   };
 
-  services.syncplay = {
-    enable = true;
-    user = "syncplay";
-    group = "sync-cert";
-    certDir = "/var/lib/acme/sync.kittywit.ch/";
-  };
+  systemd.services.syncplay = {
+    environment = {
+      SYNCPLAY_PASSWORD = witch.secrets.hosts.athame.syncplay.password;
+      SYNCPLAY_SALT = witch.secrets.hosts.athame.syncplay.salt;
+    };
+    description = "Syncplay Service";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network-online.target " ];
 
+    serviceConfig = {
+      ExecStart =
+        "${pkgs.syncplay}/bin/syncplay-server --port 8999 --tls /var/lib/acme/sync.kittywit.ch/ --disable-ready";
+      User = "syncplay";
+      Group = "sync-cert";
+    };
+  };
   security.acme.certs."sync.kittywit.ch".postRun = ''
     cp key.pem privkey.pem
     chown acme:voice-cert privkey.pem'';
