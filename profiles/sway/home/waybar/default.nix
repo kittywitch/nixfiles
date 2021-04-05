@@ -21,7 +21,7 @@
           #"mpd"
           "network"
           "custom/gpg-status"
-          "custom/weather"
+          #"custom/weather"
           "clock"
           "idle_inhibitor"
           "tray"
@@ -33,29 +33,23 @@
           #  format = "{}";
           #  interval = 3600;
           #  on-click = "xdg-open 'https://google.com/search?q=weather'";
-          #  exec = "nix-shell --command 'python ${../../../../../scripts/weather/weather.py} ${witch.secrets.profiles.sway.city} ${witch.secrets.profiles.sway.api_key}' ${../../../../../scripts/weather}";
+          #  exec =
+          #    "${pkgs.kat-weather}/bin/kat-weather ${witch.secrets.profiles.sway.city} ${witch.secrets.profiles.sway.api_key}";
           #};
-          "custom/weather" = {
-            format = "{}";
-            interval = 3600;
-            on-click = "xdg-open 'https://google.com/search?q=weather'";
-            exec =
-              "${pkgs.kat-weather}/bin/kat-weather ${witch.secrets.profiles.sway.city} ${witch.secrets.profiles.sway.api_key}";
-          };
           "custom/gpg-status" = {
             format = "{}";
             interval = 300;
             exec = "${pkgs.kat-gpg-status}/bin/kat-gpg-status";
           };
-          cpu = { format = "  {usage}%"; };
+          cpu = { format = " {usage}%"; };
           #mpd = { 
           #  format = "  {albumArtist} - {title}"; 
           #  format-stopped = "ﱙ";
           #  format-paused = "  Paused";
           #  title-len = 16;
           #};
-          memory = { format = "  {percentage}%"; };
-          temperature = { format = "﨎 {temperatureC}°C"; };
+          memory = { format = " {percentage}%"; };
+          temperature = { format = "﨎{temperatureC}°C"; };
           idle_inhibitor = {
             format = "{icon}";
             format-icons = {
@@ -75,27 +69,28 @@
               warning = 30;
               critical = 15;
             };
-            format = "{icon}  {capacity}%";
+            format = "{icon} {capacity}%";
             format-charging = "  {capacity}%";
             format-plugged = "  {capacity}%";
             format-alt = "{icon}  {time}";
             format-icons = [ "" "" "" "" "" ];
           };
           pulseaudio = {
-            format = "  {volume}%";
+            format = " {volume}%";
             on-click = "pavucontrol";
           };
           network = {
-            format-wifi = "  {essid} ({signalStrength}%)";
-            format-ethernet = "  {ifname}: {ipaddr}/{cidr}";
+            format-wifi = "";
+            format-ethernet = "";
             format-linked = "  {ifname} (No IP)";
             format-disconnected = "  Disconnected ";
             format-alt = "  {ifname}: {ipaddr}/{cidr}";
+            tooltip-format-wifi = "{essid} ({signalStrength}%)";
           };
           clock = {
-            format = "  {:%A, %F %T %Z}";
+            format = " {:%T %z}";
             tooltip = true;
-            tooltip-format = "{calendar}";
+            tooltip-format = "{:%A, %F %T %z (%Z)}";
             timezones = [
               "Europe/London"
               "America/Vancouver"
