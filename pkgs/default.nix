@@ -30,8 +30,6 @@ let
 
     screenstub = unstable.callPackage ./screenstub { };
 
-    nekofetch = unstable.callPackage ./nekofetch { };
-
     kat-glauca-dns = unstable.callPackage ./kat-glauca-dns { inherit sources; };
 
     kat-website = super.callPackage ./kat-website { };
