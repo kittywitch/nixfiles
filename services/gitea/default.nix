@@ -32,7 +32,7 @@
         SENDMAIL_PATH = "${pkgs.system-sendmail}/bin/sendmail";
       };
       ui = {
-        THEMES = "gitea,arc-green,kittywitch";
+        THEMES = "gitea,arc-green";
         DEFAULT_THEME = "gitea";
         THEME_COLOR_META_TAG = "#222222";
       };
