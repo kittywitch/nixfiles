@@ -67,7 +67,7 @@
     config = let
       dmenu =
         "${pkgs.bemenu}/bin/bemenu --fn '${witch.style.font.name} ${witch.style.font.size}' --nb '${witch.style.base16.color0}' --nf '${witch.style.base16.color7}' --sb '${witch.style.base16.color1}' --sf '${witch.style.base16.color7}' -l 5 -m -1 -i";
-      lockCommand = "swaylock -i eDP-1:${
+      lockCommand = "swaylock -i LVDS-1:${../../../private/files/wallpapers/main.png}-i eDP-1:${
           ../../../private/files/wallpapers/main.png
         } -i HDMI-A-1:${../../../private/files/wallpapers/main.png} -i DP-1:${
           ../../../private/files/wallpapers/left.jpg
@@ -97,11 +97,17 @@
           pos = "0 0";
           bg = "${../../../private/files/wallpapers/main.png} fill";
         };
+        mbp = {
+          res = "1280x800";
+          pos = "0 0";
+          bg = "${../../../private/files/wallpapers/main.png} fill";
+        };
       in {
         "DP-1" = left;
         "DVI-D-1" = right;
         "HDMI-A-1" = middle;
         "eDP-1" = laptop;
+        "LVDS-1" = mbp;
       };
 
       input = {

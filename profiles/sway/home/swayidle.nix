@@ -11,14 +11,18 @@
       Type = "simple";
       ExecStart = ''
         ${pkgs.swayidle}/bin/swayidle -w \
-          timeout 300 '${pkgs.swaylock}/bin/swaylock -f -i eDP-1:${
+          timeout 300 '${pkgs.swaylock}/bin/swaylock -f -i LVDS-1:${
+            ../../../private/files/wallpapers/main.png
+          } -i eDP-1:${
             ../../../private/files/wallpapers/main.png
           } -i HDMI-A-1:${../../../private/files/wallpapers/main.png} -i DP-1:${
             ../../../private/files/wallpapers/left.jpg
           }  -i DVI-D-1:${../../../private/files/wallpapers/right.jpg}' \
           #timeout 600 'swaymsg "output * dpms off"' \
           #  resume 'swaymsg "output * dpms on"' \
-          before-sleep '${pkgs.swaylock}/bin/swaylock -f -i eDP-1:${
+          before-sleep '${pkgs.swaylock}/bin/swaylock -f -i LVDS-1:${
+            ../../../private/files/wallpapers/main.png
+          } -p eDP-1:${
             ../../../private/files/wallpapers/main.png
           } -i HDMI-A-1:${../../../private/files/wallpapers/main.png} -i DP-1:${
             ../../../private/files/wallpapers/left.jpg
