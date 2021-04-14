@@ -38,6 +38,8 @@ let
 
     kat-gpg-status = super.callPackage ./kat-gpg-status { };
 
+    kat-tw-export = super.callPackage ./kat-tw-export { };
+
     kat-scrot = super.callPackage ./kat-scrot { };
 
     linuxPackagesFor = kernel:
