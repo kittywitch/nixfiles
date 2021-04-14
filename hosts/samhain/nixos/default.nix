@@ -48,6 +48,8 @@
     wantedBy = [ "default.target" ];
   };
 
+  services.usbmuxd.enable = true;
+
   systemd.timers.kat-glauca-dns = {
     timerConfig = {
       Unit = "kat-glauca-dns.service";
@@ -59,6 +61,8 @@
 
   # graphics tablet
   services.xserver.wacom.enable = true;
+
+  environment.systemPackages = [ pkgs.idevicerestore ];
 
   # other stuffs
   boot.loader.systemd-boot.enable = true;
