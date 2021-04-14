@@ -67,11 +67,13 @@
     config = let
       dmenu =
         "${pkgs.bemenu}/bin/bemenu --fn '${witch.style.font.name} ${witch.style.font.size}' --nb '${witch.style.base16.color0}' --nf '${witch.style.base16.color7}' --sb '${witch.style.base16.color1}' --sf '${witch.style.base16.color7}' -l 5 -m -1 -i";
-      lockCommand = "swaylock -i LVDS-1:${../../../private/files/wallpapers/main.png}-i eDP-1:${
+      lockCommand = "swaylock -i LVDS-1:${
           ../../../private/files/wallpapers/main.png
-        } -i HDMI-A-1:${../../../private/files/wallpapers/main.png} -i DP-1:${
-          ../../../private/files/wallpapers/left.jpg
-        }  -i DVI-D-1:${../../../private/files/wallpapers/right.jpg} -s fill";
+        }-i eDP-1:${../../../private/files/wallpapers/main.png} -i HDMI-A-1:${
+          ../../../private/files/wallpapers/main.png
+        } -i DP-1:${../../../private/files/wallpapers/left.jpg}  -i DVI-D-1:${
+          ../../../private/files/wallpapers/right.jpg
+        } -s fill";
 
     in {
       bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];

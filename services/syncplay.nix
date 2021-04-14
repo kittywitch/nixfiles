@@ -33,6 +33,7 @@
       Group = "sync-cert";
     };
   };
+
   security.acme.certs."sync.kittywit.ch".postRun = ''
     cp key.pem privkey.pem
     chown acme:voice-cert privkey.pem'';
