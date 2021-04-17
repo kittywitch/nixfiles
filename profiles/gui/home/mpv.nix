@@ -3,6 +3,7 @@
 {
   programs.mpv = {
     enable = true;
+    scripts = [ pkgs.mpvScripts.sponsorblock ];    
     config = {
       profile = "gpu-hq";
       gpu-context = "wayland";
