@@ -64,6 +64,7 @@
   ];
 
   systemd.services.libvirtd-guest-win10 = {
+    enable = false;
     after = [ "libvirtd.service" ];
     requires = [ "libvirtd.service" ];
     wantedBy = [ "multi-user.target" ];
