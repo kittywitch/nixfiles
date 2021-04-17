@@ -11,6 +11,7 @@ in {
     bitwarden
     bitw
     mpv
+    wire-desktop
     element-desktop
     mumble
     obs-studio
