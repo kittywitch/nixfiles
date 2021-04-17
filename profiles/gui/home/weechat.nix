@@ -3,7 +3,7 @@
 {
   home.file = {
     ".local/share/weechat/sec.conf" = lib.mkIf config.deploy.profile.private {
-      source = "${../../../private/files/weechat/sec.conf}";
+      source = ../../../private/files/weechat/sec.conf;
     };
   };
   programs.weechat = {
