@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkg-config python3 ];
   buildInputs = [ libxcb udev ];
 
-  cargoSha256 = "0yijg5v731n49ygav2cfiawnw84hxd6kvik5hmz544vikxj96bj4";
+  cargoSha256 = "1m85lisy0085z4lr27lw0b9kbf134qz8dkjvcjnkwxgikx60pq3i";
 
   doCheck = false;
 }
