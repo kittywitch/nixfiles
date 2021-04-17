@@ -266,8 +266,8 @@
     extraConfig = ''
       seat seat0 xcursor_theme breeze_cursors 20
       workspace "1" output "DP-1"
-      workspace "11:F2" output "DVI-D-1"
-      workspace "12:F1" output "HDMI-A-1"
+      workspace "11:F1" output "HDMI-A-1"
+      workspace "12:F2" output "DVI-D-1"
       workspace_auto_back_and_forth yes
       ${workspaceBindingsStr}
     '';
