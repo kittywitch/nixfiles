@@ -10,9 +10,9 @@ in {
     _1password
     bitwarden
     bitw
-    mpv
     wire-desktop
     element-desktop
+    wf-recorder
     mumble
     obs-studio
     niv
