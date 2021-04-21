@@ -26,6 +26,12 @@
       }];
     }];
   };
+ 
+  secrets.files = {
+        telegram-env = {
+          source = ../private/files/matrix/mautrix-telegram.env;
+        };
+  };
 
   services.mautrix-telegram = {
     enable = true;
@@ -45,10 +51,10 @@
       };
       bridge = {
         relaybot.authless_portals = false;
-        permissions = { "@kat:kittywit.ch" = "admin"; };
+        permissions = { "@kat:kittywit.ch" = "admin"; "kittywit.ch" = "full"; };
       };
     };
-    environmentFile = "/etc/secrets/mautrix-telegram.env";
+    environmentFile = config.secrets.files.telegram-env.path;
   };
 
   systemd.services.mx-puppet-discord = {
