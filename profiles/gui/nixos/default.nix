@@ -11,4 +11,6 @@
     ./mingetty.nix
     ./sound.nix
   ];
+
+  services.tumbler.enable = true;
 }
