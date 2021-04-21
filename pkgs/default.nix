@@ -49,5 +49,4 @@ let
       });
   };
 
-in (pkgs.extend (import (sources.arc-nixexprs + "/overlay.nix"))).extend
-overlay
+in (pkgs.extend (import (sources.arc-nixexprs + "/overlay.nix"))).extend overlay

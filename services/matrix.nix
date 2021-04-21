@@ -26,11 +26,9 @@
       }];
     }];
   };
- 
+
   secrets.files = {
-        telegram-env = {
-          source = ../private/files/matrix/mautrix-telegram.env;
-        };
+    telegram-env = { source = ../private/files/matrix/mautrix-telegram.env; };
   };
 
   services.mautrix-telegram = {
@@ -51,7 +49,10 @@
       };
       bridge = {
         relaybot.authless_portals = false;
-        permissions = { "@kat:kittywit.ch" = "admin"; "kittywit.ch" = "full"; };
+        permissions = {
+          "@kat:kittywit.ch" = "admin";
+          "kittywit.ch" = "full";
+        };
       };
     };
     environmentFile = config.secrets.files.telegram-env.path;

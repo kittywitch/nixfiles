@@ -15,9 +15,7 @@
     userName = "kat witch";
     userEmail = "kat@kittywit.ch";
     extraConfig = {
-      init = {
-        defaultBranch = "main";
-      };
+      init = { defaultBranch = "main"; };
       protocol.gcrypt.allow = "always";
       annex = {
         autocommit = false;
