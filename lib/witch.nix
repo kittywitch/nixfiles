@@ -3,6 +3,6 @@
 {
   style = import ./style.nix;
   colorhelpers = import ./colorhelpers.nix { inherit lib; };
-  secrets = import ./secrets.nix;
+  secrets = import ../private/secrets.nix;
   modList = import ./modules.nix;
 }
