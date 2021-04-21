@@ -5,7 +5,7 @@
     smartmontools
     hddtemp
     lm_sensors
-    unstable.htop
+    htop
     cachix
     borgbackup
     ripgrep

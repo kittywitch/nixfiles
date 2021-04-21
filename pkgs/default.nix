@@ -7,7 +7,7 @@ let
       inherit (super) dino;
     };
 
-    discord = unstable.discord.override { nss = self.nss_latest; };
+    discord = unstable.discord.override { nss = self.nss; };
 
     ncmpcpp = unstable.ncmpcpp.override {
       visualizerSupport = true;

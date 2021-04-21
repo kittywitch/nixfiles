@@ -25,7 +25,7 @@ let
     " ${c1}         .::::      ::::      ${c2}'::::.         "
   ];
 in {
-  services.mingetty = {
+  services.getty = {
     greetingLine = ''
       \e[H\e[2J
       \e[9;10]'' + lib.concatStringsSep "\n" nixos_logo + "\n\n"

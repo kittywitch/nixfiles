@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, kernel, pkgs }:
+{ stdenv, lib, fetchFromGitHub, kernel, pkgs }:
 
 let
   version = "0.1.1";
@@ -24,7 +24,7 @@ in stdenv.mkDerivation {
     "INSTALL_MOD_PATH=$(out)"
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     license = [ licenses.gpl2Only ];
     platforms = [ "i686-linux" "x86_64-linux" ];
     description = "Vendor Reset kernel module";

@@ -31,10 +31,10 @@ in {
     vlc
     ffmpeg-full
     thunderbird
-    unstable.syncplay
-    unstable.youtube-dl
-    unstable.mkchromecast
-    unstable.google-chrome
+    syncplay
+    youtube-dl
+    mkchromecast
+    google-chrome
     v4l-utils
     transmission-gtk
     lm_sensors

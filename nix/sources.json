@@ -24,15 +24,15 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "home-manager": {
-        "branch": "release-20.09",
+        "branch": "master",
         "description": "Manage a user environment using Nix  [maintainer=@rycee] ",
         "homepage": "https://nix-community.github.io/home-manager/",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "2aa20ae969f2597c4df10a094440a66e9d7f8c86",
-        "sha256": "0i5fxaxqm53zp767smrn250q1wjywf9c1jmg6vhp28973p7jysah",
+        "rev": "db00b39a9abec04245486a01b236b8d9734c9ad0",
+        "sha256": "12r8j34j6x26c7vr4na5nrm4sm8rg5m5im109j6xw0zfcpi9vjqi",
         "type": "tarball",
-        "url": "https://github.com/nix-community/home-manager/archive/2aa20ae969f2597c4df10a094440a66e9d7f8c86.tar.gz",
+        "url": "https://github.com/nix-community/home-manager/archive/db00b39a9abec04245486a01b236b8d9734c9ad0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
@@ -60,6 +60,7 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixos-mailserver": {
+        "branch": "master",
         "ref": "nixos-20.09",
         "repo": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver",
         "rev": "fb1cc04c0a517d4200237b02c3472bcaf9104afb",
@@ -69,15 +70,15 @@
         "url_template": "<repo>/-/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
-        "branch": "nixos-20.09",
+        "branch": "nixos-unstable",
         "description": "Nix Packages collection",
         "homepage": "",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "cce26cd83d20356ee96ac9cf1de748e87fcc50b5",
-        "sha256": "0ji00jz18fvppbi5y98gcalxq2mrsg7dhh9l64yf38jpb5rx3sd4",
+        "rev": "0a5f5bab0e08e968ef25cff393312aa51a3512cf",
+        "sha256": "161xisa5a7wi2h5hs0p1w7zbf095w21cs0wp0524kp7p6cpvvfyn",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/cce26cd83d20356ee96ac9cf1de748e87fcc50b5.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs/archive/0a5f5bab0e08e968ef25cff393312aa51a3512cf.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-mozilla": {
