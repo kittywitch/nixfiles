@@ -13,9 +13,8 @@
       "--keep-monthly 12"
     ];
     repository = "";
-    s3CredentialsFile = "/etc/restic/system.repo";
   };
-
+  systemd.services."restic-backups-tardis".environment.RESTIC_REPOSITORY_FILE = "/etc/restic/system.repo";
   services.postgresqlBackup = {
     enable = config.services.postgresql.enable;
     backupAll = true;
