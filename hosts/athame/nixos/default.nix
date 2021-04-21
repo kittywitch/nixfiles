@@ -21,6 +21,7 @@
     ../../../services/murmur.nix
     ../../../services/znc.nix
     ../../../services/matrix.nix
+    ../../../services/restic.nix
   ];
 
   boot.loader.grub.enable = true;

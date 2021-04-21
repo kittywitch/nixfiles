@@ -7,6 +7,7 @@
     profiles.sway
     profiles.kat
     ../../../services/zfs.nix
+    ../../../services/restic.nix
     ../../../services/nginx.nix
     ./thermal
     ./vm

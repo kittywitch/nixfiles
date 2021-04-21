@@ -4,6 +4,7 @@
   imports = [
     ./hw.nix
     ../../../services/zfs.nix
+    ../../../services/restic.nix
     profiles.gui
     profiles.sway
     profiles.kat
