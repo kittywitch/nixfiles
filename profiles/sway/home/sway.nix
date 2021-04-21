@@ -123,6 +123,8 @@
         "5824:1503:screenstub-tablet" = { events = "disabled"; };
         "5824:1503:screenstub-mouse" = { events = "disabled"; };
         "5824:1503:screenstub-kbd" = { events = "disabled"; };
+        "1386:215:Wacom_BambooPT_2FG_Small_Pen" = { map_to_output = "HDMI-A-1"; };
+        "1386:215:Wacom_BambooPT_2FG_Small_Finger" = { };
         "*" = {
           xkb_layout = "gb";
           # xkb_variant = "nodeadkeys";
