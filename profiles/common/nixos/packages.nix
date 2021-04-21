@@ -11,7 +11,6 @@
     ripgrep
     git
     nixfmt
-    mprime
     wget
     rsync
     pv
