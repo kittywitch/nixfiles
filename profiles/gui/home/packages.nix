@@ -13,7 +13,7 @@ in {
     wire-desktop
     element-desktop
     wf-recorder
-    mumble
+    mumble-speechd
     obs-studio
     niv
     feh
