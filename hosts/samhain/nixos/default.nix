@@ -49,6 +49,11 @@
     wantedBy = [ "default.target" ];
   };
 
+  hardware.ckb-next = {
+    enable = true;
+    package = pkgs.kat-ckb;
+  };
+
   services.usbmuxd.enable = true;
 
   systemd.timers.kat-glauca-dns = {
@@ -63,7 +68,7 @@
   # graphics tablet
   services.xserver.wacom.enable = true;
 
-  environment.systemPackages = [ pkgs.idevicerestore ];
+  environment.systemPackages = [ pkgs.idevicerestore pkgs.kat-ckb ];
 
   # other stuffs
   boot.loader.systemd-boot.enable = true;
