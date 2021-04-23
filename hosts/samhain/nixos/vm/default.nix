@@ -46,13 +46,13 @@
   # * uinput rule
   services.udev.extraRules = ''
     SUBSYSTEM=="i2c-dev", GROUP="users", MODE="0660"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="05ac", ATTRS{idProduct}=="12a8", GROUP="qemu-libvirtd"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="05ac", ATTRS{idProduct}=="12a8", GROUP="users"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="04d9", ATTRS{idProduct}=="fa58", GROUP="users"
     SUBSYSTEM=="usb", ACTION=="add", ATTRS{idVendor}=="fa58", ATTRS{idProduct}=="04d9", GROUP="users"
     SUBSYSTEM=="misc", KERNEL=="uinput", OPTIONS+="static_node=uinput", MODE="0660", GROUP="uinput"
-    SUBSYSTEM=="input", ACTION=="add", DEVPATH=="/devices/virtual/input/*", MODE="0660", GROUP="qemu-libvirtd", RUN+="${
-      pkgs.writeShellScript "mewdev"
-      "${pkgs.coreutils}/bin/echo  'c 13:* rw' > /sys/fs/cgroup/devices/machine.slice/machine-qemu*/devices.allow"
-    }"
+    SUBSYSTEM=="vfio", OWNER="kat", GROUP="users"
+    SUBSYSTEM=="block", ACTION=="add", ATTRS{model}=="HFS256G32TNF-N3A", ATTRS{wwid}=="t10.ATA     HFS256G32TNF-N3A0A                      MJ8BN15091150BM1Z   ", OWNER="kat"
+    SUBSYSTEM=="block", ACTION=="add", ATTR{partition}=="2", ATTR{size}=="1953503232", ATTRS{wwid}=="naa.5000039fe6e8614e", OWNER="kat"
   '';
 
   environment.systemPackages = [
@@ -63,11 +63,20 @@
     pkgs.virt-manager # hmm
   ];
 
+  security.pam.loginLimits = [
+      {
+        domain = "@users";
+        type = "-";
+        item = "memlock";
+        value = "unlimited";
+      }
+    ];
+
+systemd.extraConfig = "DefaultLimitMEMLOCK=infinity";
   systemd.services.libvirtd-guest-win10 = {
-    enable = false;
+    enable = true;
     after = [ "libvirtd.service" ];
     requires = [ "libvirtd.service" ];
-    wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       type = "oneshot";
       RemainAfterExit = "yes";
