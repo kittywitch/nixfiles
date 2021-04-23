@@ -15,7 +15,7 @@
     rsync
     pv
     pinentry-curses
-    kitty.terminfo 
+    kitty.terminfo
     progress
     bc
     zstd
