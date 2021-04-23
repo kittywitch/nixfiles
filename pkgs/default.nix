@@ -49,6 +49,7 @@ let
       ];
     });
 
+    kat-vm = super.callPackage ./kat-vm { };
 
     kat-glauca-dns = unstable.callPackage ./kat-glauca-dns { inherit sources; };
 

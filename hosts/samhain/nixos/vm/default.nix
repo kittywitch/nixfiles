@@ -1,6 +1,7 @@
 { config, pkgs, lib, sources, witch, ... }:
 
 {
+  /*
   # libvirtd is used for our virtual machine
   virtualisation.libvirtd = {
     enable = true;
@@ -8,7 +9,8 @@
     qemuRunAsRoot = false;
     onBoot = "ignore";
     onShutdown = "shutdown";
-  };
+    };
+  */
 
   # required for guest reboots with the 580
   boot.extraModulePackages = [
@@ -60,7 +62,7 @@
     pkgs.arc.pkgs.scream-arc # for audio forwarding
     pkgs.screenstub # for input handling
     pkgs.ddcutil # for diagnostics on DDC/CI
-    pkgs.virt-manager # hmm
+    pkgs.kat-vm
   ];
 
   security.pam.loginLimits = [
@@ -72,7 +74,9 @@
       }
     ];
 
-systemd.extraConfig = "DefaultLimitMEMLOCK=infinity";
+  systemd.extraConfig = "DefaultLimitMEMLOCK=infinity";
+
+  /*
   systemd.services.libvirtd-guest-win10 = {
     enable = true;
     after = [ "libvirtd.service" ];
@@ -103,6 +107,7 @@ systemd.extraConfig = "DefaultLimitMEMLOCK=infinity";
       done
     '';
   };
+  */
 
   home-manager.users.kat = {
     # audio for vm on startup
