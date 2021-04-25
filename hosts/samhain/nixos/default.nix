@@ -1,6 +1,13 @@
 { tf, config, pkgs, lib, profiles, sources, witch, ... }:
 
-{
+with lib;
+
+let
+  hexchen = (import sources.nix-hexchen) {};
+  hexYgg = filterAttrs (_: c: c.enable) (
+    mapAttrs (_: host: host.config.hexchen.network) hexchen.hosts
+  );
+in {
   imports = [
     ./hw.nix
     profiles.gui
@@ -88,6 +95,17 @@
   } # dnla
     ];
   services.avahi.enable = true;
+
+  hexchen.network = {
+    enable = true;
+    pubkey = "a7110d0a1dc9ec963d6eb37bb6922838b8088b53932eae727a9136482ce45d47";
+    # if server, enable this and set endpoint:
+    listen.enable = false;
+    listen.endpoints = [
+      "tcp://0.0.0.0:0"
+    ];
+  };
+
 
   system.stateVersion = "20.09";
 }

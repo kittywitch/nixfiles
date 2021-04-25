@@ -25,6 +25,15 @@
   networking.interfaces.wlp2s0.useDHCP = true;
   networking.networkmanager.enable = true;
 
+   hexchen.network = {
+     enable = true;
+     pubkey = "9779fd6b5bdba6b9e0f53c96e141f4b11ce5ef749d1b9e77a759a3fdbd33a653";
+     # if server, enable this and set endpoint:
+     listen.enable = false;
+     listen.endpoints = [
+       "tcp://0.0.0.0:0"
+     ];
+   };
   system.stateVersion = "20.09";
 }
 

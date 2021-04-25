@@ -48,6 +48,16 @@
     from = 10000;
     to = 20000;
   }];
+
+   hexchen.network = {
+     enable = true;
+     pubkey = "55e3f29c252d16e73ac849a6039824f94df1dee670c030b9e29f90584f935575";
+     # if server, enable this and set endpoint:
+     listen.enable = false;
+     listen.endpoints = [
+       "tcp://0.0.0.0:0"
+     ];
+   };
   system.stateVersion = "20.09";
 }
 

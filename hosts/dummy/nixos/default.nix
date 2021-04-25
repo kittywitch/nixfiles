@@ -20,6 +20,8 @@ in {
     listen.enable = true;
     listen.endpoints = flatten (map (c: c.listen.endpoints) (filter (c: c.listen.enable) (attrValues hexYgg)));
     extra.pubkeys = {
+      satorin = "53d99a74a648ff7bd5bc9ba68ef4f472fb4fb8b2e26dfecea33c781f0d5c9525";
+      shanghai = "0cc3c26366cbfddfb1534b25c5655733d8f429edc941bcce674c46566fc87027";
     } // (mapAttrs (_: c: c.pubkey) hexYgg);
   };
 
