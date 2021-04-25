@@ -59,6 +59,13 @@
         "url": "https://github.com/vlaci/nix-doom-emacs/archive/51645030623075a50f0f2fb8e95d113336fa109f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "nix-hexchen": {
+        "branch": "main",
+        "ref": "main",
+        "repo": "https://gitlab.com/hexchen/nixfiles",
+        "rev": "c0cb61737832d3332984b92939eb15e90ed6b8c2",
+        "type": "git"
+    },
     "nixos-mailserver": {
         "branch": "master",
         "ref": "master",
