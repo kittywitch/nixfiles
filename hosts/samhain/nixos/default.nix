@@ -38,6 +38,18 @@ in {
     value.shellCommand = "bitw get infra/hexdns-dynamic -f hostname";
   };
 
+  fileSystems."/mnt/hex-corn" = {
+    device = "storah.net.lilwit.ch:/data/cornbox";
+    fsType = "nfs";
+    options = [ "x-systemd.automount" "noauto" ];
+  };
+
+  fileSystems."/mnt/hex-tor" = {
+    device = "storah.net.lilwit.ch:/data/torrents";
+    fsType = "nfs";
+    options = [ "x-systemd.automount" "noauto" ];
+  };
+
   secrets.files.kat-glauca-dns = {
     text = ''
       user="${tf.variables.dyn_username.ref}"
@@ -80,7 +92,7 @@ in {
   # other stuffs
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = [ "zfs" "xfs" ];
+  boot.supportedFilesystems = [ "zfs" "xfs" "nfs" ];
   networking.hostName = "samhain";
   networking.hostId = "617050fc";
   networking.useDHCP = false;
