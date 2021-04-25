@@ -106,6 +106,11 @@ in {
     ];
   };
 
+  deploy.tf.dns.records.kittywitch_net_samhain = {
+    tld = "kittywit.ch.";
+    domain = "${config.networking.hostName}.net";
+    aaaa.address = config.hexchen.network.address;
+  };
 
   system.stateVersion = "20.09";
 }

@@ -49,6 +49,12 @@
     to = 20000;
   }];
 
+  deploy.tf.dns.records.kittywitch_net_athame = {
+    tld = "kittywit.ch.";
+    domain = "${config.networking.hostName}.net";
+    aaaa.address = config.hexchen.network.address;
+  };
+
    hexchen.network = {
      enable = true;
      pubkey = "55e3f29c252d16e73ac849a6039824f94df1dee670c030b9e29f90584f935575";
