@@ -30,30 +30,6 @@ let
 
     screenstub = unstable.callPackage ./screenstub { };
 
-    kat-ckb = super.ckb-next.overrideAttrs (old: rec {
-      version = "0.4.4";
-      src = self.fetchFromGitHub {
-        owner = "ckb-next";
-        repo = "ckb-next";
-        rev = "v${version}";
-        sha256 = "1fgvh2hsrm8vqbqq9g45skhyyrhhka4d8ngmyldkldak1fgmrvb7";
-      };
-      buildInputs = old.buildInputs ++ [
-        self.xorg.libXdmcp
-        self.qt5.qttools
-        self.libsForQt5.qt5.qtx11extras
-        self.libsForQt5.libdbusmenu
-      ];
-      patches = [
-        ./kat-ckb/install-dirs.patch
-        (self.substituteAll {
-          name = "ckb-next-modprobe.patch";
-          src = ./kat-ckb/modprobe.patch;
-          kmod = self.kmod;
-        })
-      ];
-    });
-
     kat-vm = super.callPackage ./kat-vm { };
 
     kat-glauca-dns = unstable.callPackage ./kat-glauca-dns { inherit sources; };

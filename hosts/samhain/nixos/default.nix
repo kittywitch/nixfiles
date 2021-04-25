@@ -51,7 +51,7 @@
 
   hardware.ckb-next = {
     enable = true;
-    package = pkgs.kat-ckb;
+    package = pkgs.ckb-next;
   };
 
   services.usbmuxd.enable = true;
@@ -68,7 +68,7 @@
   # graphics tablet
   services.xserver.wacom.enable = true;
 
-  environment.systemPackages = [ pkgs.idevicerestore pkgs.kat-ckb ];
+  environment.systemPackages = [ pkgs.idevicerestore pkgs.ckb-next ];
 
   # other stuffs
   boot.loader.systemd-boot.enable = true;
