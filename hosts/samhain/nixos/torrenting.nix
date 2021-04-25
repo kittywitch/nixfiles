@@ -71,6 +71,20 @@
   };
 
   services.nginx.virtualHosts = {
+    "samhain.net.kittywit.ch" = {
+      useACMEHost = "samhain.net.kittywit.ch";
+      forceSSL = true;
+      locations = {
+        "/" = { 
+          root = "/mnt/zraw/media/";
+          extraConfig = "autoindex on;";
+        };
+        "/transmission" = { 
+          proxyPass = "http://[::1]:9091";
+          extraConfig = "proxy_pass_header  X-Transmission-Session-Id;";
+        };
+      };
+    };
     "192.168.1.135" = {
       locations."/share/" = {
         alias = "/mnt/zraw/media/";
