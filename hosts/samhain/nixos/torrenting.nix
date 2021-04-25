@@ -20,8 +20,9 @@
       download-dir = "/mnt/zraw/media/unsorted";
       incomplete-dir = "/mnt/zraw/media/.incomplete";
       incomplete-dir-enabled = true;
-      rpc-bind-address = "0.0.0.0";
-      rpc-whitelist = "127.0.0.1,192.168.1.*,192.168.122.*";
+      rpc-bind-address = "::";
+      rpc-whitelist-enabled = false;
+      rpc-host-whitelist-enabled = false;
       script-torrent-done-enabled = true;
       dht-enabled = true;
       pex-enabled = true;
