@@ -38,6 +38,14 @@ in {
     value.shellCommand = "bitw get infra/hexdns-dynamic -f hostname";
   };
 
+
+  security.acme.certs."samhain.net.kittywit.ch" = {
+    domain = "samhain.net.kittywit.ch";
+    dnsProvider = "rfc2136";
+    credentialsFile = config.secrets.files.dns_creds.path;
+    group = "nginx";
+  };
+
   fileSystems."/mnt/hex-corn" = {
     device = "storah.net.lilwit.ch:/data/cornbox";
     fsType = "nfs";

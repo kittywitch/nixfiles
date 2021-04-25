@@ -29,6 +29,13 @@
 
   deploy.target = "infra";
 
+  security.acme.certs."athame.net.kittywit.ch" = {
+    domain = "athame.net.kittywit.ch";
+    dnsProvider = "rfc2136";
+    credentialsFile = config.secrets.files.dns_creds.path;
+    group = "nginx";
+  };
+
   networking = {
     hostName = "athame";
     domain = "kittywit.ch";
