@@ -25,6 +25,7 @@
     };
     settings = {
       security = { DISABLE_GIT_HOOKS = false; };
+      api = { ENABLE_SWAGGER = true; };
       mailer = {
         ENABLED = true;
         MAILER_TYPE = "sendmail";
