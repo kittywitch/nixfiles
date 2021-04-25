@@ -1,4 +1,4 @@
 /result
 /result*
 secrets.nix
-!config/profiles/common/nixos/secrets.nix
+!profiles/common/nixos/secrets.nix
