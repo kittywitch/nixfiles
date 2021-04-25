@@ -20,7 +20,7 @@ in {
   programs.firefox = {
     enable = true;
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-      pkgs.nur.repos.ethancedwards8.firefox-addons.sponsorblock
+      pkgs.ff-sponsorblock
       auto-tab-discard
       bitwarden
       darkreader
