@@ -55,7 +55,7 @@
   };
 
   networking.firewall.allowedTCPPorts =
-    [ 22 80 443 5160 5060 8999 64738 1935 53589 5001 ];
+    [ 22 80 443 5160 5060 8999 64738 1935 53589 5001 62969 ];
   networking.firewall.allowedUDPPorts = [ 5160 5060 64738 ];
   networking.firewall.allowedTCPPortRanges = [{
     from = 10000;
@@ -72,12 +72,18 @@
     aaaa.address = config.hexchen.network.address;
   };
 
+  deploy.tf.dns.records.kittywitch_athame_v6 = {
+    tld = "kittywit.ch.";
+    domain = "athame";
+    aaaa.address = (lib.head config.networking.interfaces.enp1s0.ipv6.addresses).address;
+  };
+
   hexchen.network = {
     enable = true;
     pubkey = "55e3f29c252d16e73ac849a6039824f94df1dee670c030b9e29f90584f935575";
     # if server, enable this and set endpoint:
-    listen.enable = false;
-    listen.endpoints = [ "tcp://0.0.0.0:0" ];
+    listen.enable = true;
+    listen.endpoints = [ "tcp://168.119.126.111:62969" "tcp://2a01:4f8:c2c:b7a8::1:62969" ];
   };
   system.stateVersion = "20.09";
 }
