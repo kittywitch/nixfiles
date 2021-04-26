@@ -1,9 +1,14 @@
-{ config, lib, pkgs, witch, sources, ... }:
+{ config, lib, tf, pkgs, witch, sources, ... }:
 
 with lib;
 
 {
   imports = [ sources.nixos-mailserver.outPath ];
+
+  deploy.tf.variables.domainkey_kitty = {
+    type = "string";
+    value.shellCommand = "bitw get infra/domainkey-kitty";
+  };
 
   deploy.tf.dns.records.kittywitch_mx = {
     tld = "kittywit.ch.";
@@ -18,6 +23,18 @@ with lib;
     tld = "kittywit.ch.";
     domain = "@";
     txt.value = "v=spf1 ip4:168.119.126.111 ip6:${(head config.networking.interfaces.enp1s0.ipv6.addresses).address} -all";
+  };
+
+  deploy.tf.dns.records.kittywitch_dmarc = {
+    tld = "kittywit.ch.";
+    domain = "_dmarc";
+    txt.value = "v=DMARC1; p=none";
+  };
+
+  deploy.tf.dns.records.kittywitch_domainkey = {
+    tld = "kittywit.ch.";
+    domain = "mail._domainkey";
+    txt.value = tf.variables.domainkey_kitty.ref;
   };
 
   mailserver = {
