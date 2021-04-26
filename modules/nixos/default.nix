@@ -5,6 +5,7 @@ in {
   imports = [
     ./deploy
     ./tf-glue
+    (sources.pbb-nixfiles + "/modules/nftables")
     (sources.tf-nix + "/modules/nixos/secrets.nix")
     (sources.tf-nix + "/modules/nixos/secrets-users.nix")
     hexchen.modules.hexnet

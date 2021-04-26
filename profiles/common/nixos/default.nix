@@ -3,6 +3,7 @@
 {
   imports = [
     ./system.nix
+    ./net.nix
     ./access.nix
     ./locale.nix
     ./nix.nix
