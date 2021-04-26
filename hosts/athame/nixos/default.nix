@@ -43,11 +43,11 @@
     useDHCP = false;
     interfaces.enp1s0.useDHCP = true;
   };
-  
-  networking.interfaces.enp1s0.ipv6.addresses = [ {
+
+  networking.interfaces.enp1s0.ipv6.addresses = [{
     address = "2a01:4f8:c2c:b7a8::1";
     prefixLength = 64;
-  } ];
+  }];
 
   networking.defaultGateway6 = {
     address = "fe80::1";
@@ -75,7 +75,8 @@
   deploy.tf.dns.records.kittywitch_athame_v6 = {
     tld = "kittywit.ch.";
     domain = "athame";
-    aaaa.address = (lib.head config.networking.interfaces.enp1s0.ipv6.addresses).address;
+    aaaa.address =
+      (lib.head config.networking.interfaces.enp1s0.ipv6.addresses).address;
   };
 
   hexchen.network = {
@@ -83,7 +84,8 @@
     pubkey = "55e3f29c252d16e73ac849a6039824f94df1dee670c030b9e29f90584f935575";
     # if server, enable this and set endpoint:
     listen.enable = true;
-    listen.endpoints = [ "tcp://168.119.126.111:62969" "tcp://2a01:4f8:c2c:b7a8::1:62969" ];
+    listen.endpoints =
+      [ "tcp://168.119.126.111:62969" "tcp://2a01:4f8:c2c:b7a8::1:62969" ];
   };
   system.stateVersion = "20.09";
 }

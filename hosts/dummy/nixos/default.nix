@@ -17,8 +17,10 @@ in {
     enable = true;
     pubkey = "0000000000000000000000000000000000000000000000000000000000000000";
     listen.enable = true;
-    listen.endpoints = flatten (map (c: c.listen.endpoints)
-      (filter (c: c.listen.enable && (c.pubkey != "0000000000000000000000000000000000000000000000000000000000000000")) (attrValues hexYgg)));
+    listen.endpoints = flatten (map (c: c.listen.endpoints) (filter (c:
+      c.listen.enable && (c.pubkey
+        != "0000000000000000000000000000000000000000000000000000000000000000"))
+      (attrValues hexYgg)));
     extra.pubkeys = {
       satorin =
         "53d99a74a648ff7bd5bc9ba68ef4f472fb4fb8b2e26dfecea33c781f0d5c9525";
