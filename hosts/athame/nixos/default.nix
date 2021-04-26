@@ -105,9 +105,9 @@
     enable = true;
     pubkey = "55e3f29c252d16e73ac849a6039824f94df1dee670c030b9e29f90584f935575";
     # if server, enable this and set endpoint:
-    listen.enable = true;
+    listen.enable = false;
     listen.endpoints =
-      [ "tcp://168.119.126.111:62969" "tcp://2a01:4f8:c2c:b7a8::1:62969" ];
+      [ ];
   };
   system.stateVersion = "20.09";
 }
