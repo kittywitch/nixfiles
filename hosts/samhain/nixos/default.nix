@@ -44,18 +44,6 @@ in {
     group = "nginx";
   };
 
-  fileSystems."/mnt/hex-corn" = {
-    device = "storah.net.lilwit.ch:/data/cornbox";
-    fsType = "nfs";
-    options = [ "x-systemd.automount" "noauto" ];
-  };
-
-  fileSystems."/mnt/hex-tor" = {
-    device = "storah.net.lilwit.ch:/data/torrents";
-    fsType = "nfs";
-    options = [ "x-systemd.automount" "noauto" ];
-  };
-
   secrets.files.kat-glauca-dns = {
     text = ''
       user="${tf.variables.dyn_username.ref}"
@@ -98,32 +86,35 @@ in {
   # other stuffs
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = [ "zfs" "xfs" "nfs" ];
+  boot.supportedFilesystems = [ "zfs" "xfs" ];
   networking.hostName = "samhain";
   networking.hostId = "617050fc";
   networking.useDHCP = false;
   networking.interfaces.enp34s0.useDHCP = true;
   networking.firewall.allowPing = true;
 
-  networking.firewall.interfaces.enp1s0.allowedTCPPorts = [
+  networking.firewall.interfaces.enp34s0.allowedTCPPorts = [
     1935 # rtmp
     80 # http
     443 # https
-    445 # samba
-    139 # samba
   ];
 
   networking.firewall.interfaces.hexnet.allowedTCPPorts = [
     80 # http
     443 # https
     32101 # mpv
+    443 # https
+    111 # nfs
+    2049 # nfs
   ];
 
-  networking.firewall.interfaces.enp1s0.allowedUDPPorts = [
-    137 # samba
-    138 # samba
+  networking.firewall.interfaces.enp34s0.allowedUDPPorts = [
     4010 # scream
+    111 # nfs
+    2049 # nfs
   ];
+
+  networking.firewall.interfaces.hexnet.allowedUDPPorts = [ ];
 
   networking.firewall.allowedUDPPortRanges = [{
     from = 32768;
