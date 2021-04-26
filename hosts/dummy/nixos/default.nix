@@ -18,10 +18,15 @@ in {
     enable = true;
     pubkey = "0000000000000000000000000000000000000000000000000000000000000000";
     listen.enable = true;
-    listen.endpoints = flatten (map (c: c.listen.endpoints) (filter (c: c.listen.enable) (attrValues hexYgg)));
+    listen.endpoints = flatten (map (c: c.listen.endpoints)
+      (filter (c: c.listen.enable) (attrValues hexYgg)));
     extra.pubkeys = {
-      satorin = "53d99a74a648ff7bd5bc9ba68ef4f472fb4fb8b2e26dfecea33c781f0d5c9525";
-      shanghai = "0cc3c26366cbfddfb1534b25c5655733d8f429edc941bcce674c46566fc87027";
+      satorin =
+        "53d99a74a648ff7bd5bc9ba68ef4f472fb4fb8b2e26dfecea33c781f0d5c9525";
+      shanghai =
+        "0cc3c26366cbfddfb1534b25c5655733d8f429edc941bcce674c46566fc87027";
+      grimoire =
+        "2a1567a2848540070328c9e938c58d40f2b1a3f08982c15c7edc5dcabfde3330";
     } // (mapAttrs (_: c: c.pubkey) hexYgg);
   };
 

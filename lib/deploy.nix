@@ -17,10 +17,14 @@ let
         config = mkMerge (map (hostName:
           mapAttrs (_: mkMerge) hosts.${hostName}.config.deploy.tf.out.set)
           target);
-      }] ++ concatMap (hostName:
-        filter builtins.pathExists
-        (map (profile: ../profiles + "/${profile}/meta.nix") (attrNames
-          (filterAttrs (_: id) hosts.${hostName}.config.deploy.profile))))
+      }] ++ optional
+        (builtins.pathExists (../private/targets + "/${targetName}"))
+        (../private/targets + "/${targetName}")
+        ++ optional (builtins.pathExists (../targets + "/${targetName}"))
+        (../targets + "/${targetName}") ++ concatMap (hostName:
+          filter builtins.pathExists
+          (map (profile: ../profiles + "/${profile}/meta.nix") (attrNames
+            (filterAttrs (_: id) hosts.${hostName}.config.deploy.profile))))
         target;
 
       deps = {
