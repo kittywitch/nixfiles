@@ -1,4 +1,4 @@
-{ config, pkgs, profiles, ... }:
+{ config, lib, pkgs, profiles, ... }:
 
 {
   imports = [
@@ -42,6 +42,16 @@
     hostId = "7b0ac74e";
     useDHCP = false;
     interfaces.enp1s0.useDHCP = true;
+  };
+  
+  networking.interfaces.enp1s0.ipv6.addresses = [ {
+    address = "2a01:4f8:c2c:b7a8::1";
+    prefixLength = 64;
+  } ];
+
+  networking.defaultGateway6 = {
+    address = "fe80::1";
+    interface = "enp1s0";
   };
 
   networking.firewall.allowedTCPPorts =
