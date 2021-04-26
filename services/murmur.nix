@@ -26,4 +26,30 @@
     domain = "voice";
     cname.target = "athame.kittywit.ch.";
   };
+
+  deploy.tf.dns.records.kittywitch_voice_tcp = {
+    tld = "kittywit.ch.";
+    domain = "@";
+    srv = {
+      service = "mumble";
+      proto = "tcp";
+      priority = 0;
+      weight = 5;
+      port = 64738;
+      target = "voice.kittywit.ch.";
+    };
+  };
+
+  deploy.tf.dns.records.kittywitch_voice_udp = {
+    tld = "kittywit.ch.";
+    domain = "@";
+    srv = {
+      service = "mumble";
+      proto = "udp";
+      priority = 0;
+      weight = 5;
+      port = 64738;
+      target = "voice.kittywit.ch.";
+    };
+  };
 }
