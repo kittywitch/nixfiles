@@ -3,10 +3,9 @@
 with lib;
 
 let
-  hexchen = (import sources.nix-hexchen) {};
-  hexYgg = filterAttrs (_: c: c.enable) (
-    mapAttrs (_: host: host.config.hexchen.network) hexchen.hosts
-  );
+  hexchen = (import sources.nix-hexchen) { };
+  hexYgg = filterAttrs (_: c: c.enable)
+    (mapAttrs (_: host: host.config.hexchen.network) hexchen.hosts);
 in {
   imports = [
     ./hw.nix
@@ -37,7 +36,6 @@ in {
     type = "string";
     value.shellCommand = "bitw get infra/hexdns-dynamic -f hostname";
   };
-
 
   security.acme.certs."samhain.net.kittywit.ch" = {
     domain = "samhain.net.kittywit.ch";
@@ -121,9 +119,7 @@ in {
     pubkey = "a7110d0a1dc9ec963d6eb37bb6922838b8088b53932eae727a9136482ce45d47";
     # if server, enable this and set endpoint:
     listen.enable = false;
-    listen.endpoints = [
-      "tcp://0.0.0.0:0"
-    ];
+    listen.endpoints = [ "tcp://0.0.0.0:0" ];
   };
 
   deploy.tf.dns.records.kittywitch_net_samhain = {

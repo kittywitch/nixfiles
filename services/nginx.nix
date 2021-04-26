@@ -2,14 +2,13 @@
 
 {
   secrets.files.dns_creds = {
-     text = ''
-     RFC2136_NAMESERVER='ns1.as207960.net'
-     RFC2136_TSIG_ALGORITHM='hmac-sha512.'
-     RFC2136_TSIG_KEY='${tf.variables.glauca_key.ref}'
-     RFC2136_TSIG_SECRET='${tf.variables.glauca_secret.ref}'
+    text = ''
+      RFC2136_NAMESERVER='ns1.as207960.net'
+      RFC2136_TSIG_ALGORITHM='hmac-sha512.'
+      RFC2136_TSIG_KEY='${tf.variables.glauca_key.ref}'
+      RFC2136_TSIG_SECRET='${tf.variables.glauca_secret.ref}'
     '';
   };
-
 
   services.nginx = {
     enable = true;

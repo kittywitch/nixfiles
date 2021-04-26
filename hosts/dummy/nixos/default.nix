@@ -3,10 +3,9 @@
 with lib;
 
 let
-  hexchen = (import sources.nix-hexchen) {};
-  hexYgg = filterAttrs (_: c: c.enable) (
-    mapAttrs (_: host: host.config.hexchen.network) hexchen.hosts
-  );
+  hexchen = (import sources.nix-hexchen) { };
+  hexYgg = filterAttrs (_: c: c.enable)
+    (mapAttrs (_: host: host.config.hexchen.network) hexchen.hosts);
 in {
   # stuff so dummy host is buildable (you probably don't want/need this???)
   # but idk your config sooooo

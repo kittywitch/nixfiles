@@ -75,11 +75,11 @@
       useACMEHost = "samhain.net.kittywit.ch";
       forceSSL = true;
       locations = {
-        "/" = { 
+        "/" = {
           root = "/mnt/zraw/media/";
           extraConfig = "autoindex on;";
         };
-        "/transmission" = { 
+        "/transmission" = {
           proxyPass = "http://[::1]:9091";
           extraConfig = "proxy_pass_header  X-Transmission-Session-Id;";
         };

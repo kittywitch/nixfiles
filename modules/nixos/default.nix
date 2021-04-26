@@ -1,7 +1,6 @@
 { sources, lib, ... }:
 
-let
-  hexchen = (import sources.nix-hexchen) {};
+let hexchen = (import sources.nix-hexchen) { };
 in {
   imports = [
     ./deploy
@@ -12,6 +11,6 @@ in {
   ];
 
   # stubs for hexchens modules, until more generalized
-  options.hexchen.dns = lib.mkOption {};
-  options.hexchen.deploy = lib.mkOption {};
+  options.hexchen.dns = lib.mkOption { };
+  options.hexchen.deploy = lib.mkOption { };
 }
