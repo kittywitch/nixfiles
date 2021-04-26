@@ -22,7 +22,9 @@ with lib;
   deploy.tf.dns.records.kittywitch_spf = {
     tld = "kittywit.ch.";
     domain = "@";
-    txt.value = "v=spf1 ip4:168.119.126.111 ip6:${(head config.networking.interfaces.enp1s0.ipv6.addresses).address} -all";
+    txt.value = "v=spf1 ip4:168.119.126.111 ip6:${
+        (head config.networking.interfaces.enp1s0.ipv6.addresses).address
+      } -all";
   };
 
   deploy.tf.dns.records.kittywitch_dmarc = {
