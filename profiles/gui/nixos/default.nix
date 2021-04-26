@@ -7,6 +7,7 @@
     ./gpg.nix
     ./firefox.nix
     ./dns.nix
+    ./nfs.nix
     ./nixpkgs.nix
     ./mingetty.nix
     ./sound.nix

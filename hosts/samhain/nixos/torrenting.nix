@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, witch, ... }:
 
 {
   services.transmission = let
@@ -31,50 +31,25 @@
     };
   };
 
-  services.samba = {
-    enable = true;
-    securityType = "user";
-    extraConfig = ''
-      workgroup = WORKGROUP
-      server string = samhain
-      netbios name = samhain
-      security = user 
-      #use sendfile = yes
-      #max protocol = smb2
-      hosts allow = 192.168.1. 192.168.122. localhost
-      hosts deny = 0.0.0.0/0
-      guest account = nobody
-      map to guest = bad user
-    '';
-    shares = {
-      shared = {
-        path = "/home/kat/shared";
-        browseable = "yes";
-        "read only" = "no";
-        "guest ok" = "no";
-        "create mask" = "0644";
-        "directory mask" = "0755";
-        "force user" = "kat";
-        "force group" = "users";
-      };
-      media = {
-        path = "/mnt/zraw/media";
-        browseable = "yes";
-        "read only" = "no";
-        "guest ok" = "yes";
-        "create mask" = "0644";
-        "directory mask" = "0755";
-        "force user" = "transmission";
-        "force group" = "transmission";
-      };
-    };
-  };
+  services.nfs.server.enable = true;
+  services.nfs.server.exports =
+    "/mnt/zraw/media 192.168.1.0/24(rw) 200::/7(rw) ${witch.secrets.unscoped.ipv6_prefix}(rw)";
+
+  services.jellyfin.enable = true;
 
   services.nginx.virtualHosts = {
     "samhain.net.kittywit.ch" = {
       useACMEHost = "samhain.net.kittywit.ch";
       forceSSL = true;
       locations = {
+        "/jellyfin/".proxyPass = "http://127.0.0.1:8096/jellyfin/";
+        "/jellyfin/socket" = {
+          proxyPass = "http://127.0.0.1:8096/jellyfin/";
+          extraConfig = ''
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+          '';
+        };
         "/" = {
           root = "/mnt/zraw/media/";
           extraConfig = "autoindex on;";
@@ -86,9 +61,20 @@
       };
     };
     "192.168.1.135" = {
-      locations."/share/" = {
-        alias = "/mnt/zraw/media/";
-        extraConfig = "autoindex on;";
+      locations = {
+        "/jellyfin/".proxyPass = "http://127.0.0.1:8096/jellyfin/";
+        "/jellyfin/socket" = {
+          proxyPass = "http://127.0.0.1:8096/jellyfin/";
+          extraConfig = ''
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+          '';
+        };
+
+        "/share/" = {
+          alias = "/mnt/zraw/media/";
+          extraConfig = "autoindex on;";
+        };
       };
     };
     "100.103.111.44" = {
