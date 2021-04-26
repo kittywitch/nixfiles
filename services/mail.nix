@@ -3,6 +3,15 @@
 {
   imports = [ sources.nixos-mailserver.outPath ];
 
+  deploy.tf.dns.records.kittywitch_mx = {
+    tld = "kittywit.ch.";
+    domain = "@";
+    mx = {
+      priority = 10;
+      target = "athame.kittywit.ch.";
+    };
+  };
+
   mailserver = {
     enable = true;
     fqdn = "athame.kittywit.ch";
