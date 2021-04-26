@@ -43,9 +43,9 @@
       password = witch.secrets.hosts.athame.syncplay.password;
     };
     # gui = false;
-    trustedDomains = [ "youtube.com" "youtu.be" "twitch.tv" "soundcloud.com" ];
     config = {
       client_settings = {
+        onlyswitchtotrusteddomains = false;
         autoplayrequiresamefiles = false;
         readyatstart = true;
         pauseonleave = false;
