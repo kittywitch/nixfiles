@@ -1,4 +1,6 @@
-{ config, pkgs, witch, sources, ... }:
+{ config, lib, pkgs, witch, sources, ... }:
+
+with lib;
 
 {
   imports = [ sources.nixos-mailserver.outPath ];
@@ -10,6 +12,12 @@
       priority = 10;
       target = "athame.kittywit.ch.";
     };
+  };
+
+  deploy.tf.dns.records.kittywitch_spf = {
+    tld = "kittywit.ch.";
+    domain = "@";
+    txt.value = "v=spf1 ip4:168.119.126.111 ip6:${(head config.networking.interfaces.enp1s0.ipv6.addresses).address} -all";
   };
 
   mailserver = {
