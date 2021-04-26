@@ -1,4 +1,4 @@
-{ pkgs, config, lib, sources, witch, options, hostName, ... }:
+{ pkgs, config, lib, sources, tf, witch, options, hostName, ... }:
 
 {
 
@@ -20,7 +20,7 @@
     type = lib.types.attrsOf (lib.types.submoduleWith {
       modules = [ ];
       specialArgs = {
-        inherit sources witch hostName;
+        inherit sources witch hostName tf;
         superConfig = config;
         modulesPath = sources.home-manager + "/modules";
       };
