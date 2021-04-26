@@ -54,17 +54,39 @@
     interface = "enp1s0";
   };
 
-  networking.firewall.allowedTCPPorts =
-    [ 22 80 443 5160 5060 8999 64738 1935 53589 5001 62969 ];
-  networking.firewall.allowedUDPPorts = [ 5160 5060 64738 ];
-  networking.firewall.allowedTCPPortRanges = [{
+  networking.firewall.interfaces.hexnet.allowedTCPPorts = [
+    80 # http
+    443 # https
+  ];
+
+  networking.firewall.interfaces.enp1s0.allowedTCPPorts = [
+    80 # http
+    443 # https
+    5160 # asterisk
+    5060 # asterisk
+    8999 # syncplay
+    64738 # murmur
+    1935 # rtmp
+    53589 # taskwarrior
+    5001 # znc
+    62969 # yggdrasil
+  ];
+
+  networking.firewall.interfaces.enp1s0.allowedUDPPorts = [
+    5160 # asterisk
+    5060 # asterisk
+    64738 # murmur
+  ];
+
+  networking.firewall.interfaces.enp1s0.allowedTCPPortRanges = [{
     from = 10000;
     to = 20000;
-  }];
-  networking.firewall.allowedUDPPortRanges = [{
+  }]; # asterisk
+
+  networking.firewall.interfaces.enp1s0.allowedUDPPortRanges = [{
     from = 10000;
     to = 20000;
-  }];
+  }]; # asterisk
 
   deploy.tf.dns.records.kittywitch_net_athame = {
     tld = "kittywit.ch.";

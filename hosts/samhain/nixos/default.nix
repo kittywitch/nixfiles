@@ -104,14 +104,32 @@ in {
   networking.useDHCP = false;
   networking.interfaces.enp34s0.useDHCP = true;
   networking.firewall.allowPing = true;
-  networking.firewall.allowedTCPPorts =
-    [ 1935 80 443 445 139 9091 5000 32101 ]; # smb transmission mkchromecast
-  networking.firewall.allowedUDPPorts = [ 137 138 4010 ]; # smb scream
+
+  networking.firewall.interfaces.enp1s0.allowedTCPPorts = [
+    1935 # rtmp
+    80 # http
+    443 # https
+    445 # samba
+    139 # samba
+  ];
+
+  networking.firewall.interfaces.hexnet.allowedTCPPorts = [
+    80 # http
+    443 # https
+    32101 # mpv
+  ];
+
+  networking.firewall.interfaces.enp1s0.allowedUDPPorts = [
+    137 # samba
+    138 # samba
+    4010 # scream
+  ];
+
   networking.firewall.allowedUDPPortRanges = [{
     from = 32768;
     to = 60999;
-  } # dnla
-    ];
+  }]; # dnla
+
   services.avahi.enable = true;
 
   hexchen.network = {
