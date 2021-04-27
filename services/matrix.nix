@@ -1,8 +1,15 @@
 { config, pkgs, witch, ... }:
 
 {
-  environment.systemPackages =
-    [ pkgs.arc.pkgs.mx-puppet-discord pkgs.mautrix-whatsapp ];
+  environment.systemPackages = [ pkgs.mx-puppet-discord pkgs.mautrix-whatsapp ];
+
+  services.postgresql.initialScript = pkgs.writeText "synapse-init.sql" ''
+    CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
+    CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
+    TEMPLATE template0
+    LC_COLLATE = "C"
+    LC_CTYPE = "C";
+  '';
 
   services.matrix-synapse = {
     enable = true;

@@ -1,15 +1,17 @@
 { config, lib, pkgs, profiles, ... }:
 
+with lib;
+
 {
   imports = [
     ./hw.nix
     # profiles
     profiles.kat
     # host-specific services 
-    ./postgres.nix
     ./virtualhosts.nix
-    ./fail2ban.nix
-    # services 
+    # services
+    ../../../services/fail2ban.nix
+    ../../../services/postgres.nix
     ../../../services/nginx.nix
     ../../../services/mail.nix
     ../../../services/asterisk.nix
