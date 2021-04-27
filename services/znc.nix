@@ -1,6 +1,10 @@
-{ config, pkgs, witch, ... }:
+{ config, lib, pkgs, witch, ... }:
+
+with lib;
 
 {
+  katnet.public.tcp.ports = singleton 5001;
+
   services.znc = {
     enable = true;
     mutable = false;

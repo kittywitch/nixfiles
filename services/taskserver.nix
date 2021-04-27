@@ -1,8 +1,14 @@
 { config, lib, ... }:
 
+with lib;
+
 {
-  services.taskserver.enable = true;
-  services.taskserver.fqdn = "kittywit.ch";
-  services.taskserver.listenHost = "::";
-  services.taskserver.organisations.kittywitch.users = [ "kat" ];
+  katnet.public.tcp.ports = singleton 53589;
+
+  services.taskserver = {
+    enable = true;
+    fqdn = "kittywit.ch";
+    listenHost = "::";
+    organisations.kittywitch.users = singleton "kat";
+  };
 }

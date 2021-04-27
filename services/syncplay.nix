@@ -1,10 +1,14 @@
-{ config, pkgs, witch, ... }:
+{ config, lib, pkgs, witch, ... }:
+
+with lib;
 
 {
   users.users.syncplay = { isSystemUser = true; };
 
   users.groups."sync-cert".members = [ "nginx" "syncplay" ];
   security.acme = { certs."sync.kittywit.ch" = { group = "sync-cert"; }; };
+
+  katnet.public.tcp.ports = singleton 8999;
 
   services.nginx.virtualHosts."sync.kittywit.ch" = {
     enableACME = true;
@@ -23,8 +27,8 @@
       SYNCPLAY_SALT = witch.secrets.hosts.athame.syncplay.salt;
     };
     description = "Syncplay Service";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "network-online.target " ];
+    wantedBy = singleton "multi-user.target";
+    after = singleton "network-online.target";
 
     serviceConfig = {
       ExecStart =

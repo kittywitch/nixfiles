@@ -2,12 +2,88 @@
 
 with lib;
 
-{
-  config = mkIf config.hexchen.network.enable {
-    deploy.tf.dns.records."kittywitch_net_${config.networking.hostName}" = {
-      tld = "kittywit.ch.";
-      domain = "${config.networking.hostName}.net";
-      aaaa.address = config.hexchen.network.address;
+let cfg = config.katnet;
+in {
+  options.katnet = {
+    public.tcp.ports = mkOption {
+      type = types.listOf types.port;
+      default = [ ];
     };
+    public.udp.ports = mkOption {
+      type = types.listOf types.port;
+      default = [ ];
+    };
+    private.tcp.ports = mkOption {
+      type = types.listOf types.port;
+      default = [ ];
+    };
+    private.udp.ports = mkOption {
+      type = types.listOf types.port;
+      default = [ ];
+    };
+
+    public.tcp.ranges = mkOption {
+      type = types.listOf (types.attrsOf types.port);
+      default = [ ];
+    };
+    public.udp.ranges = mkOption {
+      type = types.listOf (types.attrsOf types.port);
+      default = [ ];
+    };
+    private.tcp.ranges = mkOption {
+      type = types.listOf (types.attrsOf types.port);
+      default = [ ];
+    };
+    private.udp.ranges = mkOption {
+      type = types.listOf (types.attrsOf types.port);
+      default = [ ];
+    };
+
+    public.interfaces = mkOption {
+      type = types.listOf types.str;
+      description = "Public firewall interfaces";
+      default = [ ];
+    };
+    private.interfaces = mkOption {
+      type = types.listOf types.str;
+      description = "Private firewall interfaces";
+      default = [ ];
+    };
+  };
+
+  config = {
+    networking.firewall.interfaces = let
+      fwTypes = {
+        ports = "Ports";
+        ranges = "PortRanges";
+      };
+
+      interfaceDef = visibility:
+        listToAttrs (flatten (mapAttrsToList (type: typeString:
+          map (proto: {
+            name = "allowed${toUpper proto}${typeString}";
+            value = cfg.${visibility}.${proto}.${type};
+          }) [ "tcp" "udp" ]) fwTypes));
+
+      interfaces = visibility:
+        listToAttrs
+        (map (interface: nameValuePair interface (interfaceDef visibility))
+          cfg.${visibility}.interfaces);
+    in mkMerge (map (visibility: interfaces visibility) [ "public" "private" ]);
+
+    deploy.tf.dns.records."kittywitch_net_${config.networking.hostName}" =
+      mkIf config.hexchen.network.enable {
+        tld = "kittywit.ch.";
+        domain = "${config.networking.hostName}.net";
+        aaaa.address = config.hexchen.network.address;
+      };
+
+    security.acme.certs."${config.networking.hostName}.net.kittywit.ch" =
+      mkIf (config.services.nginx.enable && config.hexchen.network.enable) {
+        domain = "${config.networking.hostName}.net.kittywit.ch";
+        dnsProvider = "rfc2136";
+        credentialsFile = config.secrets.files.dns_creds.path;
+        group = "nginx";
+      };
   };
 }

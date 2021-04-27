@@ -1,4 +1,6 @@
-{ config, pkgs, witch, tf, ... }:
+{ config, lib, pkgs, witch, tf, ... }:
+
+with lib;
 
 {
   secrets.files.dns_creds = {
@@ -9,6 +11,9 @@
       RFC2136_TSIG_SECRET='${tf.variables.glauca_secret.ref}'
     '';
   };
+
+  katnet.public.tcp.ports = [ 443 80 ];
+  katnet.private.tcp.ports = [ 443 80 ];
 
   services.nginx = {
     enable = true;

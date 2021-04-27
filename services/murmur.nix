@@ -1,11 +1,14 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
+
+with lib;
 
 {
+  katnet.public.tcp.ports = singleton 64738;
+  katnet.public.udp.ports = singleton 64738;
+
   services.murmur = {
     enable = true;
-
     hostName = "voice.kittywit.ch";
-
     extraConfig = ''
       sslCert=/var/lib/acme/voice.kittywit.ch/fullchain.pem
       sslKey=/var/lib/acme/voice.kittywit.ch/key.pem

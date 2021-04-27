@@ -29,13 +29,6 @@
 
   deploy.target = "infra";
 
-  security.acme.certs."athame.net.kittywit.ch" = {
-    domain = "athame.net.kittywit.ch";
-    dnsProvider = "rfc2136";
-    credentialsFile = config.secrets.files.dns_creds.path;
-    group = "nginx";
-  };
-
   networking = {
     hostName = "athame";
     domain = "kittywit.ch";
@@ -54,39 +47,8 @@
     interface = "enp1s0";
   };
 
-  networking.firewall.interfaces.hexnet.allowedTCPPorts = [
-    80 # http
-    443 # https
-  ];
-
-  networking.firewall.interfaces.enp1s0.allowedTCPPorts = [
-    80 # http
-    443 # https
-    5160 # asterisk
-    5060 # asterisk
-    8999 # syncplay
-    64738 # murmur
-    1935 # rtmp
-    53589 # taskwarrior
-    5001 # znc
-    62969 # yggdrasil
-  ];
-
-  networking.firewall.interfaces.enp1s0.allowedUDPPorts = [
-    5160 # asterisk
-    5060 # asterisk
-    64738 # murmur
-  ];
-
-  networking.firewall.interfaces.enp1s0.allowedTCPPortRanges = [{
-    from = 10000;
-    to = 20000;
-  }]; # asterisk
-
-  networking.firewall.interfaces.enp1s0.allowedUDPPortRanges = [{
-    from = 10000;
-    to = 20000;
-  }]; # asterisk
+  katnet.public.interfaces = singleton "enp1s0";
+  katnet.private.interfaces = singleton "hexnet";
 
   deploy.tf.dns.records.kittywitch_athame_v6 = {
     tld = "kittywit.ch.";

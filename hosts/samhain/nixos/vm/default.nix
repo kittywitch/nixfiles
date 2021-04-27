@@ -105,6 +105,8 @@
      };
   */
 
+  katnet.public.tcp.ports = [ 4010 ];
+
   home-manager.users.kat = {
     # audio for vm on startup
     systemd.user.services = {

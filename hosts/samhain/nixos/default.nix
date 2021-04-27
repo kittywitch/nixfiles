@@ -93,48 +93,6 @@ in {
   networking.interfaces.enp34s0.useDHCP = true;
   networking.firewall.allowPing = true;
 
-  services.nginx.appendConfig = ''
-    rtmp {
-      server {
-        listen [::]:1935 ipv6only=off;
-        application kattv {
-          live on;
-
-          allow publish all;
-          allow play all;
-        }
-      }
-    }
-  '';
-  
-  networking.firewall.interfaces.enp34s0.allowedTCPPorts = [
-    80 # http
-    443 # https
-  ];
-
-  networking.firewall.interfaces.hexnet.allowedTCPPorts = [
-    80 # http
-    443 # https
-    32101 # mpv
-    443 # https
-    111 # nfs
-    2049 # nfs
-    1935 # rtmp
-  ];
-
-  networking.firewall.interfaces.enp34s0.allowedUDPPorts = [
-    4010 # scream
-    111 # nfs
-    2049 # nfs
-  ];
-
-  networking.firewall.interfaces.hexnet.allowedUDPPorts = [ ];
-
-  networking.firewall.allowedUDPPortRanges = [{
-    from = 32768;
-    to = 60999;
-  }]; # dnla
-
   services.avahi.enable = true;
 
   hexchen.network = {
