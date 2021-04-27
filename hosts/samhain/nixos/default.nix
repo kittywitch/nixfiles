@@ -70,6 +70,9 @@ in {
     package = pkgs.ckb-next;
   };
 
+  katnet.private.interfaces = singleton "hexnet";
+  katnet.public.interfaces = singleton "enp34s0";
+
   services.usbmuxd.enable = true;
 
   systemd.timers.kat-glauca-dns = {

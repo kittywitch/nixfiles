@@ -1,6 +1,11 @@
-{ config, ... }:
+{ config, lib, ... }:
+
+with lib;
 
 {
+  katnet.private.tcp.ports = singleton 1935;
+  katnet.public.tcp.ports = singleton 1935;
+
   services.nginx.virtualHosts = {
     "samhain.net.kittywit.ch" = {
       useACMEHost = "samhain.net.kittywit.ch";
