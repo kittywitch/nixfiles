@@ -19,7 +19,7 @@
       "athame" = { hostname = "athame.kittywit.ch"; } // common;
       "samhain" = { hostname = "192.168.1.135"; } // common;
       "yule" = { hostname = "192.168.1.92"; } // common;
-      "boline" = { hostname = "boline.kittywit.ch"; } // common;
+      "ostara" = { hostname = "192.168.1.245"; } // common;
     };
   };
 }
