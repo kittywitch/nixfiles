@@ -1,5 +1,1 @@
-{ ... }: {
-  imports = [
-    ./weechat.nix
-  ];
-}
+{ ... }: { imports = [ ./weechat.nix ]; }
