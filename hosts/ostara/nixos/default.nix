@@ -2,7 +2,7 @@
 
 {
   imports =
-    [ ./hw.nix profiles.gui profiles.sway profiles.kat profiles.laptop ];
+    [ ./hw.nix profiles.kat profiles.laptop ];
 
   deploy.target = "slow";
 
