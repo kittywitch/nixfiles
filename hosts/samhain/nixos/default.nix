@@ -93,8 +93,21 @@ in {
   networking.interfaces.enp34s0.useDHCP = true;
   networking.firewall.allowPing = true;
 
+  services.nginx.appendConfig = ''
+    rtmp {
+      server {
+        listen [::]:1935 ipv6only=off;
+        application kattv {
+          live on;
+
+          allow publish all;
+          allow play all;
+        }
+      }
+    }
+  '';
+  
   networking.firewall.interfaces.enp34s0.allowedTCPPorts = [
-    1935 # rtmp
     80 # http
     443 # https
   ];
@@ -106,6 +119,7 @@ in {
     443 # https
     111 # nfs
     2049 # nfs
+    1935 # rtmp
   ];
 
   networking.firewall.interfaces.enp34s0.allowedUDPPorts = [
