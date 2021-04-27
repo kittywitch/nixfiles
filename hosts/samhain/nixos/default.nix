@@ -17,7 +17,10 @@ in {
     ../../../services/nginx.nix
     ./thermal
     ./vm
-    ./torrenting.nix
+    ./nfs.nix
+    ./transmission.nix
+    ./jellyfin.nix
+    ./virtualhosts.nix
   ];
 
   deploy.target = "personal";
