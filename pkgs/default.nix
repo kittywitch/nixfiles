@@ -48,6 +48,8 @@ let
         '';
       };
 
+    obs-studio = super.obs-studio.override { pipewireSupport = true; };
+
     ff-sponsorblock = super.callPackage ./ff-sponsorblock { };
 
     kat-vm = super.callPackage ./kat-vm { };
