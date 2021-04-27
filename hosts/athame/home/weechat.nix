@@ -12,6 +12,7 @@
         /key bind meta-c /buffer close
         /key bind meta-n /bar toggle nicklist 
         /key bind meta-b /bar toggle buflist
+        /relay add weechat 9000
       '')
       (lib.mkAfter "/matrix connect kat")
     ];
@@ -41,6 +42,7 @@
           nicklist = { size_max = 18; };
         };
       };
+      relay.network.password = witch.secrets.unscoped.weechat.relay;
       urlgrab.default.copycmd = "${pkgs.wl-clipboard}/bin/wl-copy";
       plugins.var.python.vimode.copy_clipboard_cmd = "wl-copy";
       plugins.var.python.vimode.paste_clipboard_cmd = "wl-paste --no-newline";
