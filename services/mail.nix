@@ -82,6 +82,14 @@ with lib;
     txt.value = tf.variables.domainkey_kitty.ref;
   };
 
+  secrets.files = {
+    kat_mail_hash = {
+      source = ../private/files/mail/kat-pw-hash;
+      owner = "kat";
+      group = "users";
+    };
+  };
+
   mailserver = {
     enable = true;
     fqdn = "athame.kittywit.ch";
