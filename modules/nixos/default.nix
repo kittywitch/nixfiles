@@ -4,6 +4,7 @@ let hexchen = (import sources.nix-hexchen) { };
 in {
   imports = [
     ./deploy
+    ./katnet
     ./tf-glue
     (sources.pbb-nixfiles + "/modules/nftables")
     (sources.tf-nix + "/modules/nixos/secrets.nix")

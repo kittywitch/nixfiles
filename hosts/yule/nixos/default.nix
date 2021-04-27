@@ -33,12 +33,6 @@
     listen.endpoints = [ "tcp://0.0.0.0:0" ];
   };
 
-  deploy.tf.dns.records.kittywitch_net_yule = {
-    tld = "kittywit.ch.";
-    domain = "${config.networking.hostName}.net";
-    aaaa.address = config.hexchen.network.address;
-  };
-
   system.stateVersion = "20.09";
 }
 

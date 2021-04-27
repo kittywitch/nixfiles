@@ -88,12 +88,6 @@
     to = 20000;
   }]; # asterisk
 
-  deploy.tf.dns.records.kittywitch_net_athame = {
-    tld = "kittywit.ch.";
-    domain = "${config.networking.hostName}.net";
-    aaaa.address = config.hexchen.network.address;
-  };
-
   deploy.tf.dns.records.kittywitch_athame_v6 = {
     tld = "kittywit.ch.";
     domain = "athame";
