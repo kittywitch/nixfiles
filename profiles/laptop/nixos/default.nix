@@ -1,5 +1,5 @@
 { ... }:
 
 {
-  imports = [ ./light.nix ./wifi.nix ];
+  imports = [ ./light.nix ];
 }

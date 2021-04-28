@@ -19,7 +19,6 @@
   networking.useDHCP = false;
   networking.interfaces.enp1s0.useDHCP = true;
   networking.interfaces.wlp2s0.useDHCP = true;
-  networking.networkmanager.enable = true;
 
   system.stateVersion = "20.09";
 }

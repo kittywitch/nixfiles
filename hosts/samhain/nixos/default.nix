@@ -69,7 +69,7 @@ in {
   };
 
   katnet.private.interfaces = singleton "hexnet";
-  katnet.public.interfaces = singleton "enp34s0";
+  katnet.public.interfaces = singleton "br";
 
   services.usbmuxd.enable = true;
 
@@ -96,7 +96,7 @@ in {
   networking.useDHCP = false;
   networking.useNetworkd = true;
   networking.firewall.allowPing = true;
-  
+ 
   systemd.network = {
     networks.enp34s0 = {
       matchConfig.Name = "enp34s0";
