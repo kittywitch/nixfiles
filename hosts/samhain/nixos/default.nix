@@ -96,7 +96,7 @@ in {
   networking.useDHCP = false;
   networking.useNetworkd = true;
   networking.firewall.allowPing = true;
- 
+
   systemd.network = {
     networks.enp34s0 = {
       matchConfig.Name = "enp34s0";

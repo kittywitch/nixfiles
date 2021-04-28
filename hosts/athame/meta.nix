@@ -90,19 +90,19 @@ with config.resources; {
   #  cname.target = "athame.kittywit.ch.";
   #};
 
-    #    connection = {
-    #      host = athame.refAttr "ipv4_address";
-    #      port = 62954;
-    #    };
+  #    connection = {
+  #      host = athame.refAttr "ipv4_address";
+  #      port = 62954;
+  #    };
 
-    #triggers.switch = lib.mapAttrs (name: record:
-    #  {
-    #    A = config.lib.tf.terraformExpr
-    #      ''join(",", ${record.out.resource.namedRef}.addresses)'';
-    #    AAAA = config.lib.tf.terraformExpr
-    #      ''join(",", ${record.out.resource.namedRef}.addresses)'';
-    #    CNAME = record.out.resource.refAttr "cname";
-    #    SRV = record.out.resource.refAttr "id";
-    #  }.${record.out.type}) config.dns.records;
+  #triggers.switch = lib.mapAttrs (name: record:
+  #  {
+  #    A = config.lib.tf.terraformExpr
+  #      ''join(",", ${record.out.resource.namedRef}.addresses)'';
+  #    AAAA = config.lib.tf.terraformExpr
+  #      ''join(",", ${record.out.resource.namedRef}.addresses)'';
+  #    CNAME = record.out.resource.refAttr "cname";
+  #    SRV = record.out.resource.refAttr "id";
+  #  }.${record.out.type}) config.dns.records;
 
 }
