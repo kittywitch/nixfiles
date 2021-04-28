@@ -2,3 +2,4 @@
 /result*
 secrets.nix
 !profiles/common/nixos/secrets.nix
+!profiles/kat/home/secrets.nix
