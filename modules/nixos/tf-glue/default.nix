@@ -26,6 +26,15 @@ in {
       attrs = [ "out" "attrs" ];
       out.set = removeAttrs cfg cfg.attrs;
     };
+
+    deploy.tf.deploy.systems."${config.networking.hostName}" = with tf.resources; {
+      isRemote = false;
+      nixosConfig = config;
+      connection = tf.resources.${config.networking.hostName}.connection.set;
+      triggers.copy."${config.networking.hostName}" = tf.resources.${config.networking.hostName}.refAttr "id";
+      triggers.secrets."${config.networking.hostName}" = tf.resources.${config.networking.hostName}.refAttr "id";
+    };
+
     deploy.tf.dns.records."kittywitch_net_${config.networking.hostName}" =
       mkIf (config.hexchen.network.enable) {
         tld = "kittywit.ch.";

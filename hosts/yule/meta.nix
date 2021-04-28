@@ -8,11 +8,5 @@
         host = "192.168.1.92";
       };
     };
-    deploy.systems.yule = with config.resources; {
-      nixosConfig = hosts.yule.config;
-      connection = yule.connection.set;
-      triggers.copy.yule = yule.refAttr "id";
-      triggers.secrets.yule = yule.refAttr "id";
-    };
   };
 }

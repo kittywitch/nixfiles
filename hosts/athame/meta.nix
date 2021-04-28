@@ -90,15 +90,11 @@ with config.resources; {
   #  cname.target = "athame.kittywit.ch.";
   #};
 
-  deploy.systems.athame = {
-    nixosConfig = hosts.athame.config;
-    connection = athame.connection.set;
     #    connection = {
     #      host = athame.refAttr "ipv4_address";
     #      port = 62954;
     #    };
-    triggers.copy.athame = athame.refAttr "id";
-    triggers.secrets.athame = athame.refAttr "id";
+
     #triggers.switch = lib.mapAttrs (name: record:
     #  {
     #    A = config.lib.tf.terraformExpr
@@ -108,5 +104,5 @@ with config.resources; {
     #    CNAME = record.out.resource.refAttr "cname";
     #    SRV = record.out.resource.refAttr "id";
     #  }.${record.out.type}) config.dns.records;
-  };
+
 }
