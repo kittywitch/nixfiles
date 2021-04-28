@@ -1,4 +1,4 @@
-{ config, pkgs, lib, witch, ... }:
+{ config, pkgs, ... }:
 
 {
   xdg = {

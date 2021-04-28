@@ -1,4 +1,4 @@
-{ config, lib, tf, pkgs, witch, sources, ... }:
+{ config, lib, tf, pkgs, sources, ... }:
 
 with lib;
 
@@ -80,14 +80,6 @@ with lib;
     tld = "kittywit.ch.";
     domain = "mail._domainkey";
     txt.value = tf.variables.domainkey_kitty.ref;
-  };
-
-  secrets.files = {
-    kat_mail_hash = {
-      source = ../private/files/mail/kat-pw-hash;
-      owner = "kat";
-      group = "users";
-    };
   };
 
   mailserver = {

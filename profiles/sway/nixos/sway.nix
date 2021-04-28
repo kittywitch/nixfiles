@@ -1,4 +1,4 @@
-{ config, pkgs, lib, sources, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   programs.sway = {

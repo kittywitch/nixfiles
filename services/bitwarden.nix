@@ -1,4 +1,4 @@
-{ config, pkgs, witch, ... }:
+{ config, pkgs, ... }:
 
 {
   services.postgresql = {
@@ -16,7 +16,6 @@
       rocketPort = 4000;
       websocketEnabled = true;
       signupsAllowed = false;
-      adminToken = witch.secrets.hosts.athame.bitwarden_secret;
       domain = "https://vault.kittywit.ch";
       databaseUrl = "postgresql://bitwarden_rs@/bitwarden_rs";
     };

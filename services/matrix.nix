@@ -1,4 +1,4 @@
-{ config, pkgs, witch, ... }:
+{ config, pkgs, ... }:
 
 {
   environment.systemPackages = [ pkgs.mx-puppet-discord pkgs.mautrix-whatsapp ];
@@ -13,7 +13,6 @@
 
   services.matrix-synapse = {
     enable = true;
-    registration_shared_secret = witch.secrets.hosts.athame.matrix_secret;
     max_upload_size = "512M";
     server_name = "kittywit.ch";
     app_service_config_files = [
@@ -32,10 +31,6 @@
         compress = false;
       }];
     }];
-  };
-
-  secrets.files = {
-    telegram-env = { source = ../private/files/matrix/mautrix-telegram.env; };
   };
 
   services.mautrix-telegram = {
@@ -62,7 +57,6 @@
         };
       };
     };
-    environmentFile = config.secrets.files.telegram-env.path;
   };
 
   systemd.services.mx-puppet-discord = {

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, sources, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [ ./nixos ];

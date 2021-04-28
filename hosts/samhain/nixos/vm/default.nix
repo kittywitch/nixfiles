@@ -1,4 +1,4 @@
-{ config, pkgs, lib, sources, witch, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   /* # libvirtd is used for our virtual machine
@@ -113,8 +113,7 @@
       scream = {
         Unit = { Description = "Scream - Audio forwarding from the VM."; };
         Service = {
-          ExecStart =
-            "${pkgs.arc.pkgs.scream-arc}/bin/scream -i virbr0 -o pulse";
+          ExecStart = "${pkgs.scream-arc}/bin/scream -i virbr0 -o pulse";
           Restart = "always";
         };
         Install = { WantedBy = [ "default.target" ]; };

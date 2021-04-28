@@ -1,4 +1,4 @@
-{ config, lib, pkgs, witch, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   programs.ncmpcpp = {
@@ -51,7 +51,7 @@
   };
   programs.beets = {
     enable = true;
-    package = pkgs.unstable.beets;
+    package = pkgs.beets;
     settings = {
       directory = "~/media-share/music";
       library = "~/.local/share/beets.db";

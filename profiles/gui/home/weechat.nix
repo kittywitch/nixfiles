@@ -20,7 +20,7 @@
       '')
       (lib.mkAfter "/matrix connect kat")
     ];
-    packageUnwrapped = pkgs.unstable.weechat-unwrapped;
+    packageUnwrapped = pkgs.weechat-unwrapped;
     homeDirectory = "${config.xdg.dataHome}/weechat";
     plugins.python = {
       enable = true;
@@ -36,9 +36,11 @@
       vimode-git
       weechat-matrix
       weechat-notify-send
-      weechat-title
+      title
     ];
     config = {
+      logger.level.irc = 0;
+      logger.level.matrix = 0;
       weechat = {
         look = { mouse = true; };
         bar = {

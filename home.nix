@@ -1,4 +1,4 @@
-{ pkgs, config, lib, witch, ... }:
+{ pkgs, config, lib, ... }:
 
 {
   imports = [ ./modules/home ./private/profile/home ];

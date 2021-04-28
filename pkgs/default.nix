@@ -7,9 +7,9 @@ let
       inherit (super) dino;
     };
 
-    discord = unstable.discord.override { nss = self.nss; };
+    discord = super.discord.override { nss = self.nss; };
 
-    ncmpcpp = unstable.ncmpcpp.override {
+    ncmpcpp = super.ncmpcpp.override {
       visualizerSupport = true;
       clockSupport = true;
     };
@@ -24,11 +24,7 @@ let
       pkgs = self;
     };
 
-    weechatScripts = super.weechatScripts // {
-      weechat-title = (super.callPackage ./weechat-title { });
-    };
-
-    screenstub = unstable.callPackage ./screenstub { };
+    screenstub = super.callPackage ./screenstub { };
 
     buildFirefoxXpiAddon = { pname, version, addonId, url, sha256, meta, ... }:
       pkgs.stdenv.mkDerivation {
@@ -54,7 +50,7 @@ let
 
     kat-vm = super.callPackage ./kat-vm { };
 
-    kat-glauca-dns = unstable.callPackage ./kat-glauca-dns { inherit sources; };
+    kat-glauca-dns = super.callPackage ./kat-glauca-dns { };
 
     kat-website = super.callPackage ./kat-website { };
 
@@ -65,12 +61,6 @@ let
     kat-tw-export = super.callPackage ./kat-tw-export { };
 
     kat-scrot = super.callPackage ./kat-scrot { };
-
-    linuxPackagesFor = kernel:
-      (super.linuxPackagesFor kernel).extend (_: ksuper: {
-        vendor-reset =
-          (super.callPackage ./vendor-reset { kernel = ksuper.kernel; }).out;
-      });
   };
 
 in (pkgs.extend (import (sources.arc-nixexprs + "/overlay.nix"))).extend overlay

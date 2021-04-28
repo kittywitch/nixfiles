@@ -1,4 +1,4 @@
-{ config, lib, pkgs, witch, ... }:
+{ config, lib, pkgs, tf, ... }:
 
 with lib;
 
@@ -21,16 +21,32 @@ with lib;
     cname.target = "athame.kittywit.ch.";
   };
 
+  deploy.tf.variables.syncplay_pass = {
+    type = "string";
+    value.shellCommand = "bitw get infra/syncplay-server -f password";
+  };
+
+  deploy.tf.variables.syncplay_salt = {
+    type = "string";
+    value.shellCommand = "bitw get infra/syncplay-salt -f password";
+  };
+
+  secrets.files.syncplay-env = {
+    text = ''
+      SYNCPLAY_PASSWORD=${tf.variables.syncplay_pass.ref}
+      SYNCPLAY_SALT=${tf.variables.syncplay_salt.ref}
+    '';
+    owner = "syncplay";
+    group = "sync-cert";
+  };
+
   systemd.services.syncplay = {
-    environment = {
-      SYNCPLAY_PASSWORD = witch.secrets.hosts.athame.syncplay.password;
-      SYNCPLAY_SALT = witch.secrets.hosts.athame.syncplay.salt;
-    };
     description = "Syncplay Service";
     wantedBy = singleton "multi-user.target";
     after = singleton "network-online.target";
 
     serviceConfig = {
+      EnvironmentFile = config.secrets.files.syncplay-env.path;
       ExecStart =
         "${pkgs.syncplay}/bin/syncplay-server --port 8999 --tls /var/lib/acme/sync.kittywit.ch/ --disable-ready";
       User = "syncplay";

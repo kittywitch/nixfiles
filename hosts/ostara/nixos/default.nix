@@ -1,8 +1,7 @@
 { config, pkgs, profiles, ... }:
 
 {
-  imports =
-    [ ./hw.nix profiles.kat profiles.laptop ];
+  imports = [ ./hw.nix profiles.kat profiles.laptop ];
 
   deploy.target = "slow";
 

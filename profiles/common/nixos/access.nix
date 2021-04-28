@@ -1,4 +1,4 @@
-{ config, lib, pkgs, sources, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   security.sudo.wheelNeedsPassword = lib.mkForce false;

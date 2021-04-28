@@ -4,9 +4,9 @@
   home.packages = with pkgs; [
     git-crypt
     gitAndTools.gitRemoteGcrypt
-    unstable.gitAndTools.gitAnnex
+    gitAndTools.gitAnnex
     git-revise
-    arc.pkgs.gitAndTools.git-annex-remote-b2
+    gitAndTools.git-annex-remote-b2
   ];
 
   programs.git = {

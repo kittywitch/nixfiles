@@ -1,7 +1,6 @@
-{ sources, pkgs, curl, coreutils, writeShellScriptBin }:
+{ pkgs, curl, coreutils, writeShellScriptBin }:
 
-let rbw-bitw = (import sources.arc-nixexprs { inherit pkgs; }).pkgs.rbw-bitw;
-in writeShellScriptBin "kat-glauca-dns" ''
+writeShellScriptBin "kat-glauca-dns" ''
   #!/usr/bin/env bash
   set -eu
 

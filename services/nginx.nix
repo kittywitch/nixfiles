@@ -1,4 +1,4 @@
-{ config, lib, pkgs, witch, tf, ... }:
+{ config, lib, pkgs, tf, ... }:
 
 with lib;
 
@@ -37,7 +37,7 @@ with lib;
   };
 
   security.acme = {
-    email = witch.secrets.unscoped.acme.email;
+    email = "acme@kittywit.ch";
     acceptTerms = true;
   };
 }

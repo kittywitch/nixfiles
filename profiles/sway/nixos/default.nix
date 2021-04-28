@@ -1,4 +1,4 @@
-{ config, pkgs, sources, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [ ./sway.nix ];

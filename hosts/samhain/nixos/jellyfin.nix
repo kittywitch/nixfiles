@@ -1,4 +1,4 @@
-{ config, lib, pkgs, witch, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   katnet.public.tcp.ranges = [{

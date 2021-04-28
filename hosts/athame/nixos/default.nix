@@ -14,14 +14,12 @@ with lib;
     ../../../services/postgres.nix
     ../../../services/nginx.nix
     ../../../services/mail.nix
-    ../../../services/asterisk.nix
     ../../../services/gitea
     ../../../services/syncplay.nix
     ../../../services/weechat.nix
     ../../../services/bitwarden.nix
     ../../../services/taskserver.nix
     ../../../services/murmur.nix
-    ../../../services/znc.nix
     ../../../services/matrix.nix
     ../../../services/restic.nix
   ];

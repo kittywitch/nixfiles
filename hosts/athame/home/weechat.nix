@@ -1,4 +1,4 @@
-{ config, pkgs, witch, lib, superConfig, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   programs.weechat = {
@@ -16,7 +16,7 @@
       '')
       (lib.mkAfter "/matrix connect kat")
     ];
-    packageUnwrapped = pkgs.unstable.weechat-unwrapped;
+    packageUnwrapped = pkgs.weechat-unwrapped;
     homeDirectory = "${config.xdg.dataHome}/weechat";
     plugins.python = {
       enable = true;
@@ -32,9 +32,11 @@
       vimode-git
       weechat-matrix
       weechat-notify-send
-      weechat-title
+      title
     ];
     config = {
+      logger.level.irc = 0;
+      logger.level.matrix = 0;
       weechat = {
         look = { mouse = true; };
         bar = {
@@ -42,7 +44,6 @@
           nicklist = { size_max = 18; };
         };
       };
-      relay.network.password = witch.secrets.unscoped.weechat.relay;
       urlgrab.default.copycmd = "${pkgs.wl-clipboard}/bin/wl-copy";
       plugins.var.python.vimode.copy_clipboard_cmd = "wl-copy";
       plugins.var.python.vimode.paste_clipboard_cmd = "wl-paste --no-newline";
@@ -52,25 +53,7 @@
       plugins.var.python.title.title_suffix = " ]";
       plugins.var.python.notify_send.icon = "";
       plugins.var.python.go.short_name = true;
-      irc = {
-        look = { server_buffer = "independent"; };
-        server = {
-          freenode = {
-            address = "athame.kittywit.ch/5001";
-            password = "kat/freenode:${witch.secrets.unscoped.weechat.znc}";
-            ssl = true;
-            ssl_verify = false;
-            autoconnect = true;
-          };
-          espernet = {
-            address = "athame.kittywit.ch/5001";
-            password = "kat/espernet:${witch.secrets.unscoped.weechat.znc}";
-            ssl = true;
-            ssl_verify = false;
-            autoconnect = true;
-          };
-        };
-      };
+      irc = { look = { server_buffer = "independent"; }; };
       matrix = {
         network = {
           max_backlog_sync_events = 30;
@@ -81,13 +64,6 @@
         look = {
           server_buffer = "independent";
           redactions = "notice";
-        };
-        server.kat = {
-          address = "kittywit.ch";
-          device_name = "${superConfig.networking.hostName}/weechat";
-          username = "kat";
-          password = "${witch.secrets.unscoped.weechat.matrix}";
-          autoconnect = true;
         };
       };
     };

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, witch, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   programs.mpv = {
@@ -38,10 +38,7 @@
     enable = false;
     username = "kat";
     defaultRoom = "lounge";
-    server = {
-      host = "sync.kittywit.ch";
-      password = witch.secrets.hosts.athame.syncplay.password;
-    };
+    server = { host = "sync.kittywit.ch"; };
     # gui = false;
     config = {
       client_settings = {

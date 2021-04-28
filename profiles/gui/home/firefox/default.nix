@@ -1,4 +1,4 @@
-{ config, lib, pkgs, sources, superConfig, ... }:
+{ config, lib, pkgs, superConfig, ... }:
 
 let
   commonSettings = {

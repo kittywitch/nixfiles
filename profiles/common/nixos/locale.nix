@@ -1,4 +1,4 @@
-{ config, lib, pkgs, sources, ... }:
+{ config, pkgs, ... }:
 
 {
   i18n.defaultLocale = "en_GB.UTF-8";

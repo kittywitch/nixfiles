@@ -1,4 +1,4 @@
-{ config, lib, pkgs, witch, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   home.sessionVariables.EDITOR = "vim";

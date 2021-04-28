@@ -1,4 +1,4 @@
-{ tf, config, pkgs, lib, profiles, sources, witch, ... }:
+{ tf, config, pkgs, lib, profiles, sources, ... }:
 
 with lib;
 
@@ -17,7 +17,6 @@ in {
     ../../../services/nginx.nix
     ./thermal
     ./vm
-    ./nfs.nix
     ./transmission.nix
     ./jellyfin.nix
     ./virtualhosts.nix
