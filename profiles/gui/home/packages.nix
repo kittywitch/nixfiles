@@ -1,15 +1,9 @@
 { config, lib, pkgs, ... }:
 
-let
-  bitw = pkgs.writeShellScriptBin "bitw" ''
-    ${pkgs.arc.pkgs.rbw-bitw}/bin/bitw -p gpg://${
-      ../../../private/files/bitw/master.gpg
-    } "$@"'';
-in {
+{
   home.packages = with pkgs; [
     _1password
     bitwarden
-    bitw
     wire-desktop
     element-desktop
     wf-recorder

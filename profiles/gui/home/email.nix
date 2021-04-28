@@ -14,10 +14,6 @@
       primary = true;
       realName = "kat witch";
       userName = "kat@kittywit.ch";
-      passwordCommand = ''
-        ${pkgs.arc.pkgs.rbw-bitw}/bin/bitw -p gpg://${
-          ../../../private/files/bitw/master.gpg
-        } get "email/kittywitch"'';
       msmtp.enable = true;
       mbsync.enable = true;
       mbsync.create = "maildir";

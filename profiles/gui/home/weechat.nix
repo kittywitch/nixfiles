@@ -57,15 +57,6 @@
       plugins.var.python.title.title_suffix = " ]";
       plugins.var.python.notify_send.icon = "";
       plugins.var.python.go.short_name = true;
-      sec = {
-        crypt = {
-          passphrase_command = ''
-            ${pkgs.rbw-bitw}/bin/bitw -p gpg://${
-              ../../../private/files/bitw/master.gpg
-            } get "comms/weechat"'';
-          hash_algo = "sha512";
-        };
-      };
       irc = {
         look = { server_buffer = "independent"; };
         server = {
