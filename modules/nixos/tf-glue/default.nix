@@ -26,6 +26,20 @@ in {
       attrs = [ "out" "attrs" ];
       out.set = removeAttrs cfg cfg.attrs;
     };
+    deploy.tf.dns.records."kittywitch_net_${config.networking.hostName}" =
+      mkIf (config.hexchen.network.enable) {
+        tld = "kittywit.ch.";
+        domain = "${config.networking.hostName}.net";
+        aaaa.address = config.hexchen.network.address;
+      };
+
+    security.acme.certs."${config.networking.hostName}.net.kittywit.ch" =
+      mkIf (config.services.nginx.enable && config.hexchen.network.enable) {
+        domain = "${config.networking.hostName}.net.kittywit.ch";
+        dnsProvider = "rfc2136";
+        credentialsFile = config.secrets.files.dns_creds.path;
+        group = "nginx";
+      };
     _module.args.tf = target.${config.deploy.target};
   };
 }
