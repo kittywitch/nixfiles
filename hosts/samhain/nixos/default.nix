@@ -16,7 +16,6 @@ in {
     ../../../services/restic.nix
     ../../../services/nginx.nix
     ./thermal
-    ./vm
     ./transmission.nix
     ./jellyfin.nix
     ./virtualhosts.nix
