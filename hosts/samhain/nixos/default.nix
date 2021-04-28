@@ -94,8 +94,27 @@ in {
   networking.hostName = "samhain";
   networking.hostId = "617050fc";
   networking.useDHCP = false;
-  networking.interfaces.enp34s0.useDHCP = true;
+  networking.useNetworkd = true;
   networking.firewall.allowPing = true;
+  
+  systemd.network = {
+    networks.enp34s0 = {
+      matchConfig.Name = "enp34s0";
+      bridge = singleton "br";
+    };
+    networks.br = {
+      matchConfig.Name = "br";
+      address = [ "192.168.1.135/24" ];
+      gateway = [ "192.168.1.254" ];
+    };
+    netdevs.br = {
+      netdevConfig = {
+        Name = "br";
+        Kind = "bridge";
+        MACAddress = "00:d8:61:c7:f4:9d";
+      };
+    };
+  };
 
   services.avahi.enable = true;
 
