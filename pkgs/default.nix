@@ -48,8 +48,6 @@ let
 
     ff-sponsorblock = super.callPackage ./ff-sponsorblock { };
 
-    kat-vm = super.callPackage ./kat-vm { };
-
     kat-glauca-dns = super.callPackage ./kat-glauca-dns { };
 
     kat-website = super.callPackage ./kat-website { };
@@ -61,6 +59,6 @@ let
     kat-tw-export = super.callPackage ./kat-tw-export { };
 
     kat-scrot = super.callPackage ./kat-scrot { };
-  };
+  } // super.lib.optionalAttrs (builtins.pathExists ../private/pkgs) (import ../private/pkgs { inherit super self; });
 
 in (pkgs.extend (import (sources.arc-nixexprs + "/overlay.nix"))).extend overlay
