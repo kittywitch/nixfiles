@@ -1,6 +1,7 @@
 { pkgs, config, lib, ... }:
 
 {
-  imports = [ ./modules/home ./private/profile/home ];
+  imports = [ ./modules/home ]
+  ++ lib.optional (builtins.pathExists (./private/profile/home)) (import ./private/profile/home);
 }
 
