@@ -4,7 +4,8 @@
 
   imports =
     [ (import (./hosts + "/${hostName}/nixos")) ./profiles/common/nixos.nix ]
-    ++ lib.optional (builtins.pathExists ./private/hosts)
+    ++ lib.optional
+    (builtins.pathExists (./private/hosts + "/${hostName}/nixos"))
     (import (./private/hosts + "/${hostName}/nixos"))
     ++ lib.optional (builtins.pathExists ./private/profile)
     ./private/profile/nixos;
@@ -35,7 +36,11 @@
 
       users = {
         kat = {
-          imports = [ ./home.nix (import (./hosts + "/${hostName}/home")) ];
+          imports = [ ./home.nix ] ++ lib.optional
+            (builtins.pathExists (./hosts + "/${hostName}/home"))
+            (import (./hosts + "/${hostName}/home")) ++ lib.optional
+            (builtins.pathExists (./private/hosts + "/${hostName}/home"))
+            (import (./private/hosts + "/${hostName}/home"));
 
           options = {
             deploy.profile.kat = lib.mkEnableOption "uhh meow";
