@@ -28,7 +28,7 @@ in {
     };
 
     deploy.tf.deploy.systems."${config.networking.hostName}" = with tf.resources; {
-      isRemote = false;
+      isRemote = (config.networking.hostName != builtins.getEnv "HOME_HOSTNAME");
       nixosConfig = config;
       connection = tf.resources.${config.networking.hostName}.connection.set;
       triggers.copy."${config.networking.hostName}" = tf.resources.${config.networking.hostName}.refAttr "id";
