@@ -30,7 +30,7 @@
     mkchromecast
     google-chrome
     v4l-utils
-    transmission-gtk
+    transmission-remote-gtk
     lm_sensors
     p7zip
     baresip
