@@ -34,7 +34,7 @@ in {
       refined-github
       stylus
       terms-of-service-didnt-read
-      tabcenter-reborn
+      tree-style-tab
       tridactyl
       ublock-origin
       violentmonkey
