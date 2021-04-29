@@ -5,11 +5,10 @@ let
   overlay = self: super:
     rec {
 
-      /* dino = super.callPackage "${sources.qyliss-nixlib}/overlays/patches/dino" {
-         inherit (super) dino;
-         };
-      */
-
+      dino = super.callPackage "${sources.qyliss-nixlib}/overlays/patches/dino" {
+        inherit (super) dino;
+      };
+      
       discord = super.discord.override { nss = self.nss; };
 
       ncmpcpp = super.ncmpcpp.override {
