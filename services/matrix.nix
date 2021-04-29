@@ -13,6 +13,7 @@
 
   services.matrix-synapse = {
     enable = true;
+    package = pkgs.unstable.matrix-synapse;
     max_upload_size = "512M";
     server_name = "kittywit.ch";
     app_service_config_files = [
