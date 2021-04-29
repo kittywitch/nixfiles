@@ -13,4 +13,5 @@
       LogLevel VERBOSE 
     '';
   };
+  programs.mosh.enable = true;
 }
