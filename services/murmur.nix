@@ -9,6 +9,8 @@ with lib;
   services.murmur = {
     enable = true;
     hostName = "voice.kittywit.ch";
+    bandwidth = 130000;
+    welcometext = "mew!";
     extraConfig = ''
       sslCert=/var/lib/acme/voice.kittywit.ch/fullchain.pem
       sslKey=/var/lib/acme/voice.kittywit.ch/key.pem
