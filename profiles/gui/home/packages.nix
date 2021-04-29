@@ -25,7 +25,6 @@
     vlc
     ffmpeg-full
     thunderbird
-    syncplay
     youtube-dl
     mkchromecast
     google-chrome

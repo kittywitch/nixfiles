@@ -35,7 +35,7 @@
   };
 
   programs.syncplay = {
-    enable = false;
+    enable = true;
     username = "kat";
     defaultRoom = "lounge";
     server = { host = "sync.kittywit.ch"; };
@@ -54,7 +54,6 @@
       gui = {
         #autosavejoinstolist = false;
         showdurationnotification = false;
-        chatoutputrelativefontsize = config.lib.gui.fontSize 13.0;
       };
     };
   };
