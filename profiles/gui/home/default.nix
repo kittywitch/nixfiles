@@ -11,5 +11,7 @@
     ./gtk.nix
     ./music.nix
     ./mpv.nix
+    ./syncplay.nix
+    ./obs.nix
   ];
 }
