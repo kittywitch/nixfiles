@@ -49,6 +49,8 @@ let
 
       obs-studio = super.obs-studio.override { pipewireSupport = true; };
 
+      hextorgba = (import ../lib/colorhelpers.nix { inherit (super) lib; }).hextorgba;
+
       ff-sponsorblock = super.callPackage ./ff-sponsorblock { };
 
       kat-glauca-dns = super.callPackage ./kat-glauca-dns { };

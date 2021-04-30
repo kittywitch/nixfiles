@@ -1,6 +1,10 @@
 { config, pkgs, lib, witch, ... }:
 
-{
+let witch.style.base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}") config.lib.arc.base16.schemeForAlias.default; witch.style.font = {
+    name = "FantasqueSansMono Nerd Font";
+    size = "10";
+    size_css = "14px";
+  }; in {
   home.sessionVariables = {
     MOZ_ENABLE_WAYLAND = 1;
     XDG_CURRENT_DESKTOP = "sway";
@@ -66,7 +70,7 @@
     enable = true;
     config = let
       dmenu =
-        "${pkgs.bemenu}/bin/bemenu --fn '${witch.style.font.name} ${witch.style.font.size}' --nb '${witch.style.base16.color0}' --nf '${witch.style.base16.color7}' --sb '${witch.style.base16.color1}' --sf '${witch.style.base16.color7}' -l 5 -m -1 -i";
+        "${pkgs.bemenu}/bin/bemenu --fn '${witch.style.font.name} ${witch.style.font.size}' --nb '${witch.style.base16.base00}' --nf '${witch.style.base16.base07}' --sb '${witch.style.base16.base01}' --sf '${witch.style.base16.base07}' -l 5 -m -1 -i";
       lockCommand = "swaylock -i LVDS-1:${
           ../../../private/files/wallpapers/main.png
         }-i eDP-1:${../../../private/files/wallpapers/main.png} -i HDMI-A-1:${
@@ -189,32 +193,32 @@
 
       colors = {
         focused = {
-          border = witch.style.base16.color8;
-          background = witch.style.base16.color3;
-          text = witch.style.base16.color0;
-          indicator = witch.style.base16.color2;
-          childBorder = witch.style.base16.color8;
+          border = witch.style.base16.base08;
+          background = witch.style.base16.base0A;
+          text = witch.style.base16.base00;
+          indicator = witch.style.base16.base0B;
+          childBorder = witch.style.base16.base08;
         };
         focusedInactive = {
-          border = witch.style.base16.color0;
-          background = witch.style.base16.color15;
-          text = witch.style.base16.color13;
-          indicator = witch.style.base16.color2;
-          childBorder = witch.style.base16.color8;
+          border = witch.style.base16.base00;
+          background = witch.style.base16.base07;
+          text = witch.style.base16.base0E;
+          indicator = witch.style.base16.base0B;
+          childBorder = witch.style.base16.base03;
         };
         unfocused = {
-          border = witch.style.base16.color0;
-          background = witch.style.base16.color8;
-          text = witch.style.base16.color7;
-          indicator = witch.style.base16.color8;
-          childBorder = witch.style.base16.color8;
+          border = witch.style.base16.base00;
+          background = witch.style.base16.base01;
+          text = witch.style.base16.base04;
+          indicator = witch.style.base16.base08;
+          childBorder = witch.style.base16.base08;
         };
         urgent = {
-          border = witch.style.base16.color0;
-          background = witch.style.base16.color9;
-          text = witch.style.base16.color0;
-          indicator = witch.style.base16.color1;
-          childBorder = witch.style.base16.color8;
+          border = witch.style.base16.base00;
+          background = witch.style.base16.base09;
+          text = witch.style.base16.base00;
+          indicator = witch.style.base16.base01;
+          childBorder = witch.style.base16.base08;
         };
       };
     };
