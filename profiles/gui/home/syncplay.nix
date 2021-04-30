@@ -7,6 +7,7 @@
     username = "kat";
     defaultRoom = "lounge";
     server = { host = "sync.kittywit.ch"; };
+    playerArgs = [ "--ytdl-format=bestvideo[height<=1080]+bestaudio/best[height<=1080]/bestvideo+bestaudio/best" ];
     # gui = false;
     config = {
       client_settings = {
