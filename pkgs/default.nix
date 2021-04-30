@@ -5,10 +5,11 @@ let
   overlay = self: super:
     rec {
 
-      dino = super.callPackage "${sources.qyliss-nixlib}/overlays/patches/dino" {
-        inherit (super) dino;
-      };
-      
+      dino =
+        super.callPackage "${sources.qyliss-nixlib}/overlays/patches/dino" {
+          inherit (super) dino;
+        };
+
       discord = super.discord.override { nss = self.nss; };
 
       ncmpcpp = super.ncmpcpp.override {
@@ -50,7 +51,8 @@ let
 
       obs-studio = super.obs-studio.override { pipewireSupport = true; };
 
-      hextorgba = (import ../lib/colorhelpers.nix { inherit (super) lib; }).hextorgba;
+      hextorgba =
+        (import ../lib/colorhelpers.nix { inherit (super) lib; }).hextorgba;
 
       ff-sponsorblock = self.callPackage ./ff-sponsorblock { };
 

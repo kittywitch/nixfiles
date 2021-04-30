@@ -1,10 +1,14 @@
 { config, pkgs, lib, witch, ... }:
 
-let witch.style.base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}") config.lib.arc.base16.schemeForAlias.default; witch.style.font = {
+let
+  witch.style.base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}")
+    config.lib.arc.base16.schemeForAlias.default;
+  witch.style.font = {
     name = "FantasqueSansMono Nerd Font";
     size = "10";
     size_css = "14px";
-  }; in {
+  };
+in {
   home.sessionVariables = {
     MOZ_ENABLE_WAYLAND = 1;
     XDG_CURRENT_DESKTOP = "sway";
@@ -12,21 +16,21 @@ let witch.style.base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}
   };
 
   home.packages = with pkgs; [ grim slurp wl-clipboard jq ];
-  
-   systemd.user.services.i3gopher = {
-      Unit = {
-        Description = "i3 focus history";
-        After = ["sway-session.target"];
-        PartOf = ["graphical-session.target"];
-      };
-      Service = {
-        Type = "exec";
-        Restart = "on-failure";
-        StandardOutput = "null";
-        ExecStart = "${pkgs.i3gopher}/bin/i3gopher";
-      };
-      Install.WantedBy = ["sway-session.target"];
+
+  systemd.user.services.i3gopher = {
+    Unit = {
+      Description = "i3 focus history";
+      After = [ "sway-session.target" ];
+      PartOf = [ "graphical-session.target" ];
     };
+    Service = {
+      Type = "exec";
+      Restart = "on-failure";
+      StandardOutput = "null";
+      ExecStart = "${pkgs.i3gopher}/bin/i3gopher";
+    };
+    Install.WantedBy = [ "sway-session.target" ];
+  };
 
   programs.zsh.profileExtra = ''
     # If running from tty1 start sway
