@@ -6,8 +6,7 @@
 
   " colors
   let base16colorspace=256
-  "colorscheme base16-rebecca
-  colorscheme default
+  colorscheme base16-default-dark
 
   " tabline
   let g:airline#extensions#tabline#enabled = 1
