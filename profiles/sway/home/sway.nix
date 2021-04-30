@@ -12,6 +12,21 @@ let witch.style.base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}
   };
 
   home.packages = with pkgs; [ grim slurp wl-clipboard jq ];
+  
+   systemd.user.services.i3gopher = {
+      Unit = {
+        Description = "i3 focus history";
+        After = ["sway-session.target"];
+        PartOf = ["graphical-session.target"];
+      };
+      Service = {
+        Type = "exec";
+        Restart = "on-failure";
+        StandardOutput = "null";
+        ExecStart = "${pkgs.i3gopher}/bin/i3gopher";
+      };
+      Install.WantedBy = ["sway-session.target"];
+    };
 
   programs.zsh.profileExtra = ''
     # If running from tty1 start sway
@@ -103,7 +118,6 @@ let witch.style.base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}
           command = "systemctl --user restart mako";
           always = true;
         }
-        { command = "${pkgs.i3gopher}/bin/i3gopher"; }
         { command = "mkchromecast -t"; }
       ];
 
