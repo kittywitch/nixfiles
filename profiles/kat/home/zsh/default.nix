@@ -14,6 +14,9 @@
       ll = "exa -l";
       lla = "exa -lga";
     };
+    initExtra = ''
+      nano() { echo "baps you for being naughty, use vim" }
+    '';
     localVariables = {
       _Z_DATA = "${config.xdg.dataHome}/z/data";
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=3,bold";
