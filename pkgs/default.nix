@@ -21,6 +21,7 @@ let
       notmuch = super.callPackage ./notmuch { inherit (super) notmuch; };
 
       unstable = import sources.nixpkgs-unstable { inherit (self) config; };
+
       nur = import sources.NUR {
         nurpkgs = self;
         pkgs = self;
@@ -51,19 +52,20 @@ let
 
       hextorgba = (import ../lib/colorhelpers.nix { inherit (super) lib; }).hextorgba;
 
-      ff-sponsorblock = super.callPackage ./ff-sponsorblock { };
+      ff-sponsorblock = self.callPackage ./ff-sponsorblock { };
 
-      kat-glauca-dns = super.callPackage ./kat-glauca-dns { };
+      kat-glauca-dns = self.callPackage ./kat-glauca-dns { };
 
-      kat-website = super.callPackage ./kat-website { };
+      kat-website = self.callPackage ./kat-website { };
 
-      kat-weather = super.callPackage ./kat-weather { };
+      kat-weather = self.callPackage ./kat-weather { };
 
-      kat-gpg-status = super.callPackage ./kat-gpg-status { };
+      kat-gpg-status = self.callPackage ./kat-gpg-status { };
 
-      kat-tw-export = super.callPackage ./kat-tw-export { };
+      kat-tw-export = self.callPackage ./kat-tw-export { };
 
-      kat-scrot = super.callPackage ./kat-scrot { };
+      kat-scrot = self.callPackage ./kat-scrot { };
+
     } // super.lib.optionalAttrs (builtins.pathExists ../private/pkgs)
     (import ../private/pkgs { inherit super self; });
 
