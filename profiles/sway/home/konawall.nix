@@ -1,7 +1,5 @@
 { config, ... }:
 
 {
-  services.konawall = {
-    enable = true;
-  };  
+  services.konawall = { enable = true; };
 }

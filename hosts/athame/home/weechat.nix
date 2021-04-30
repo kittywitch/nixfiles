@@ -1,7 +1,5 @@
 { config, pkgs, lib, ... }:
 
 {
-  programs.weechat = {
-    enable = true;
-  };
+  programs.weechat = { enable = true; };
 }
