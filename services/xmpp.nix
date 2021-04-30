@@ -8,15 +8,15 @@
     ssl.cert = "/var/lib/acme/prosody/fullchain.pem";
     ssl.key = "/var/lib/acme/prosody/key.pem";
     admins = [ "kat@kittywit.ch" ];
+    extraConfig = ''
+      legacy_ssl_ports = { 5223 }
+    '';
     virtualHosts = {
       "xmpp.kittywit.ch" = {
         domain = "kittywit.ch";
         enabled = true;
         ssl.cert = "/var/lib/acme/prosody/fullchain.pem";
         ssl.key = "/var/lib/acme/prosody/key.pem";
-        extraConfig = ''
-          legacy_ssl_ports = { 5223 }
-        '';
       };
     };
     muc = [{ domain = "conference.kittywit.ch"; }];
