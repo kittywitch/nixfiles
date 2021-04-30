@@ -8,7 +8,6 @@
     element-desktop
     wf-recorder
     mumble-speechd
-    obs-studio
     niv
     feh
     kat-scrot

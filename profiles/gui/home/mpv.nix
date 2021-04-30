@@ -1,6 +1,11 @@
 { config, lib, pkgs, ... }:
 
 {
+  programs.obs-studio = {
+    enable = true;
+    plugins = [ pkgs.obs-wlrobs ];
+  };
+
   programs.mpv = {
     enable = true;
     scripts = [ pkgs.mpvScripts.sponsorblock ];
