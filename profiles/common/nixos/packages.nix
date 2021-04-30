@@ -18,6 +18,7 @@
     kitty.terminfo
     progress
     bc
+    bat
     zstd
     file
     whois
