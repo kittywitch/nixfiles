@@ -15,6 +15,7 @@ with lib;
     ../../../services/nginx.nix
     ../../../services/mail.nix
     ../../../services/calendar.nix
+    ../../../services/xmpp.nix
     ../../../services/gitea
     ../../../services/syncplay.nix
     ../../../services/weechat.nix
