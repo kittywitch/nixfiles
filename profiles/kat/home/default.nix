@@ -12,5 +12,6 @@
     ./xdg.nix
     ./ssh.nix
     ./packages.nix
+    ./weechat.nix
   ];
 }
