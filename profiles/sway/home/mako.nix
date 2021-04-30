@@ -23,8 +23,8 @@ let witch.style.base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}
   programs.mako = {
     enable = true;
     defaultTimeout = 3000;
-    borderColor = witch.style.base16.base07;
+    borderColor = witch.style.base16.base0A;
     backgroundColor = "${witch.style.base16.base00}70";
-    textColor = witch.style.base16.base07;
+    textColor = witch.style.base16.base05;
   };
 }
