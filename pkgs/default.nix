@@ -54,6 +54,8 @@ let
       hextorgba =
         (import ../lib/colorhelpers.nix { inherit (super) lib; }).hextorgba;
 
+      konawall = super.konawall.overide { swaySupport = true; };
+
       ff-sponsorblock = self.callPackage ./ff-sponsorblock { };
 
       kat-glauca-dns = self.callPackage ./kat-glauca-dns { };

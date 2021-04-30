@@ -123,6 +123,10 @@ in {
           always = true;
         }
         { command = "mkchromecast -t"; }
+        {
+          command = "systemctl --user restart konawall.service";
+          always = true;
+        }
       ];
 
       window = {

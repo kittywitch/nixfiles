@@ -6,7 +6,7 @@
       laptop = {
         res = "1920x1080";
         pos = "0 0";
-        bg = "${../../../private/files/wallpapers/main.png} fill";
+        #bg = "${../../../private/files/wallpapers/main.png} fill";
       };
     in { "eDP-1" = laptop; };
 

@@ -9,17 +9,17 @@
         left = {
           res = "1920x1080";
           pos = "0 0";
-          bg = "${../../../private/files/wallpapers/left.jpg} fill";
+          #bg = "${../../../private/files/wallpapers/left.jpg} fill";
         };
         middle = {
           res = "1920x1080";
           pos = "1920 0";
-          bg = "${../../../private/files/wallpapers/main.png} fill";
+          #bg = "${../../../private/files/wallpapers/main.png} fill";
         };
         right = {
           res = "1920x1080";
           pos = "3840 0";
-          bg = "${../../../private/files/wallpapers/right.jpg}  fill";
+          #bg = "${../../../private/files/wallpapers/right.jpg}  fill";
         };
       in {
         "DP-1" = left;
