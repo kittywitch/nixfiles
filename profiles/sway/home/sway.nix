@@ -202,7 +202,7 @@ let witch.style.base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}
         focusedInactive = {
           border = witch.style.base16.base00;
           background = witch.style.base16.base07;
-          text = witch.style.base16.base0E;
+          text = witch.style.base16.base0A;
           indicator = witch.style.base16.base0B;
           childBorder = witch.style.base16.base03;
         };
