@@ -30,15 +30,16 @@ REMOTE_PORT="62954"
 REMOTE_PATH="/var/www/files/"
 REMOTE_URL="https://files.kittywit.ch/"
 
-if [ "$ACTION" != "save" ] && [ "$ACTION" != "copy" ] && [ "$ACTION" != "check" ] && [ "$ACTION" != "upload" ]; then
+if [ "$ACTION" != "save" ] && [ "$ACTION" != "copy" ] && [ "$ACTION" != "check" ] && [ "$ACTION" != "upload" ] && [ "$ACTION" != "copys" ]; then
 	echo "Usage:"
-	echo "  kat-scrot [--notify] (copy|save|upload) [active|screen|output|area|window] [FILE]"
+	echo "  kat-scrot [--notify] (copy|save|upload|copys) [active|screen|output|area|window] [FILE]"
 	echo "  kat-scrot check"
 	echo "  kat-scrot usage"
 	echo ""
 	echo "Commands:"
 	echo "  copy: Copy the screenshot data into the clipboard."
 	echo "  upload: Uses SCP to transfer the screenshot to a remote server."
+	echo "  copys: Copy the screenshot data into the clipboard and save it to a regular file."
 	echo "  save: Save the screenshot to a regular file."
 	echo "  check: Verify if required tools are installed and exit."
 	echo "  usage: Show this message and exit."
@@ -143,6 +144,16 @@ fi
 if [ "$ACTION" = "copy" ] ; then
 	takeScreenshot - "$GEOM" "$OUTPUT" | wl-copy --type image/png || die "Clipboard error"
 	notifyOk "$WHAT copied to buffer"
+elif [ "$ACTION" = "copys" ]; then 
+	if takeScreenshot "$FILE" "$GEOM" "$OUTPUT"; then
+		TITLE="Screenshot of $SUBJECT"
+		MESSAGE=$(basename "$FILE")
+		notifyOk "$MESSAGE" "$TITLE"
+		echo $FILE
+		cat "$FILE" | wl-copy --type image/png || die "Clipboard error"
+	else
+		notifyError "Error taking screenshot with grim"
+	fi
 elif [ "$ACTION" = "upload" ]; then 
 	if takeScreenshot "$FILE" "$GEOM" "$OUTPUT"; then
 		if scp -P $REMOTE_PORT $FILE $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PATH$FILENAME; then
