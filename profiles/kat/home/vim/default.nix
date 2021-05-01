@@ -17,6 +17,8 @@
       coc-json
       coc-yaml
       coc-git
+      coc-css
+      coc-html
       vim-fugitive
       vim-startify
       vim-airline
