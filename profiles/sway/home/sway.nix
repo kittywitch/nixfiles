@@ -176,11 +176,16 @@ in {
           "exec ${pkgs.kat-scrot}/bin/kat-scrot  --notify upload area";
         "${cfg.modifier}+Mod1+Print" =
           "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify upload window";
-        "Print" = "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify save screen";
+        "${cfg.modifier}+Control+Print" =
+          "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify upload output";
+
+        "Print" = "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify copys screen";
         "Shift+Print" =
-          "exec ${pkgs.kat-scrot}/bin/kat-scrot  --notify save area";
+          "exec ${pkgs.kat-scrot}/bin/kat-scrot  --notify copys area";
         "Mod1+Print" =
-          "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify save window";
+          "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify copys window";
+        "Control+Print" =
+          "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify copys output";
 
         "${cfg.modifier}+i" = "move workspace to output left";
         "${cfg.modifier}+o" = "move workspace to output right";
