@@ -12,7 +12,7 @@
           #bg = "${../../../private/files/wallpapers/left.jpg} fill";
         };
         middle = {
-          res = "1920x1080";
+          res = "1920x1200";
           pos = "1920 0";
           #bg = "${../../../private/files/wallpapers/main.png} fill";
         };
@@ -23,8 +23,8 @@
         };
       in {
         "DP-1" = left;
-        "DVI-D-1" = right;
-        "HDMI-A-1" = middle;
+        "DVI-D-1" = middle;
+        "HDMI-A-1" = right;
       };
 
       input = {
@@ -46,8 +46,8 @@
     };
     extraConfig = ''
       workspace "1" output "DP-1"
-      workspace "11:F1" output "HDMI-A-1"
-      workspace "12:F2" output "DVI-D-1"
+      workspace "11:F1" output "DVI-1"
+      workspace "12:F2" output "HDMI-A-1"
     '';
   };
 }
