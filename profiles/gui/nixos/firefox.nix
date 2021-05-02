@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  environment.variables = {
+    BROWSER = "firefox";
+  };
+
   xdg = {
     portal = {
       enable = true;
