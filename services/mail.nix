@@ -10,20 +10,20 @@ with lib;
       enabled  = true
       filter   = postfix
       maxretry = 3
-      action   = iptables[name=postfix, port=smtp, protocol=tcp]
+      action   = nftables-multiport[name=postfix, port=smtp, protocol=tcp]
     '';
     postfix-sasl = ''
       enabled  = true
       filter   = postfix-sasl
       port     = postfix,imap3,imaps,pop3,pop3s
       maxretry = 3
-      action   = iptables[name=postfix, port=smtp, protocol=tcp]
+      action   = nftables-multiport[name=postfix, port=smtp, protocol=tcp]
     '';
     postfix-ddos = ''
       enabled  = true
       filter   = postfix-ddos
       maxretry = 3
-      action   = iptables[name=postfix, port=submission, protocol=tcp]
+      action   = nftables-multiport[name=postfix, port=submission, protocol=tcp]
       bantime  = 7200
     '';
   };

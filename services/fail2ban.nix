@@ -3,23 +3,27 @@
 {
   services.fail2ban = {
     enable = true;
+    packageFirewall = pkgs.nftables;
+    banaction="nftables-multiport";
+    banaction-allports = "nftables-allports";
     jails = {
-      DEFAULT = ''
-        bantime  = 1d
+      default = ''
+        bantime  = 7d
         blocktype = DROP
-        logpath  = /var/log/auth.log
+        action = nftables-allports
+        logpath = /var/log/auth.log
       '';
       ssh = ''
         enabled = true
         filter = sshd
         maxretry = 4
-        action = iptables[name=SSH, port=ssh, protocol=tcp]
+        action = nftables-multiport[name=SSH, port=ssh, protocol=tcp]
       '';
       sshd-ddos = ''
         enabled  = true
         filter = sshd-ddos
         maxretry = 4
-        action   = iptables[name=ssh, port=ssh, protocol=tcp]
+        action   = nftables-multiport[name=ssh, port=ssh, protocol=tcp]
       '';
     };
   };
