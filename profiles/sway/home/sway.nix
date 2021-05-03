@@ -17,19 +17,8 @@ in {
 
   home.packages = with pkgs; [ grim slurp wl-clipboard jq ];
 
-  systemd.user.services.i3gopher = {
-    Unit = {
-      Description = "i3 focus history";
-      After = [ "sway-session.target" ];
-      PartOf = [ "graphical-session.target" ];
-    };
-    Service = {
-      Type = "exec";
-      Restart = "on-failure";
-      StandardOutput = "null";
-      ExecStart = "${pkgs.i3gopher}/bin/i3gopher";
-    };
-    Install.WantedBy = [ "sway-session.target" ];
+  services.i3gopher = {
+    enable = true;    
   };
 
   programs.zsh.profileExtra = ''
@@ -152,7 +141,7 @@ in {
 
         "${cfg.modifier}+Tab" = "workspace back_and_forth";
         "${cfg.modifier}+Shift+Tab" =
-          "exec ${pkgs.i3gopher}/bin/i3gopher --focus-last";
+          "exec ${config.services.i3gopher.focus-last}";
         "${cfg.modifier}+Ctrl+Left" = "workspace prev_on_output";
         "${cfg.modifier}+Ctrl+Right" = "workspace next_on_output";
 

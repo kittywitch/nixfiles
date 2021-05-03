@@ -1,5 +1,5 @@
-{ config, ... }:
+{ config, pkgs, lib, ... }:
 
 {
-  services.konawall = { enable = true; };
+  services.konawall = { enable = true; interval = "20m"; };
 }
