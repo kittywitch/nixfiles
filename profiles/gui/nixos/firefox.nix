@@ -1,9 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  environment.variables = {
-    BROWSER = "firefox";
-  };
+  environment.variables = { BROWSER = "firefox"; };
 
   xdg = {
     portal = {
