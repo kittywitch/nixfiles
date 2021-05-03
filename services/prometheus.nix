@@ -11,7 +11,12 @@ let
 in {
   services.prometheus = {
     enable = true;
-    scrapeConfigs = mapAttrsToList (hostName: prom: {
+    scrapeConfigs = [ 
+      {
+        job_name = "boline";
+        static_configs = [{ targets = [ "boline.net.kittywit.ch:8002" ];}];
+      }
+    ] ++ mapAttrsToList (hostName: prom: {
       job_name = hostName;
       static_configs = [{
         targets = [ "${hostName}.net.kittywit.ch:${toString prom.port}" ];
