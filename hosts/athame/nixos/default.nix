@@ -24,6 +24,11 @@ with lib;
     ../../../services/murmur.nix
     ../../../services/matrix.nix
     ../../../services/restic.nix
+    ../../../services/grafana.nix
+    ../../../services/prometheus.nix
+    ../../../services/loki.nix
+    ../../../services/node-exporter.nix
+    ../../../services/promtail.nix
   ];
 
   boot.loader.grub.enable = true;

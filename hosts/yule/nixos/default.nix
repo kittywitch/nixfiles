@@ -1,10 +1,14 @@
-{ config, pkgs, profiles, ... }:
+{ config, pkgs, lib, profiles, ... }:
+
+with lib;
 
 {
   imports = [
     ./hw.nix
     ../../../services/zfs.nix
     ../../../services/restic.nix
+    ../../../services/node-exporter.nix
+    ../../../services/promtail.nix
     profiles.gui
     profiles.sway
     profiles.kat

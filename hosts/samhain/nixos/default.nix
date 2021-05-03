@@ -15,6 +15,8 @@ in {
     ../../../services/zfs.nix
     ../../../services/restic.nix
     ../../../services/nginx.nix
+    ../../../services/node-exporter.nix
+    ../../../services/promtail.nix
     ./thermal
     ./transmission.nix
     ./jellyfin.nix
