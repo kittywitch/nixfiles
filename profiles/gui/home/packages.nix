@@ -10,6 +10,8 @@
     mumble-speechd
     niv
     feh
+    rink
+    sd
     kat-scrot
     duc
     exiftool
