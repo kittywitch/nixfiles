@@ -9,6 +9,8 @@ with lib;
     ../../../services/restic.nix
     ../../../services/node-exporter.nix
     ../../../services/promtail.nix
+    ../../../services/netdata.nix
+    ../../../services/nginx.nix
     profiles.gui
     profiles.sway
     profiles.kat

@@ -29,6 +29,7 @@ with lib;
     ../../../services/loki.nix
     ../../../services/node-exporter.nix
     ../../../services/promtail.nix
+    ../../../services/netdata.nix
   ];
 
   boot.loader.grub.enable = true;

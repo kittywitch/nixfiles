@@ -17,6 +17,7 @@ in {
     ../../../services/nginx.nix
     ../../../services/node-exporter.nix
     ../../../services/promtail.nix
+    ../../../services/netdata.nix
     ./thermal
     ./transmission.nix
     ./jellyfin.nix

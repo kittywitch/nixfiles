@@ -8,6 +8,11 @@ let
       (filterAttrs
         (_: host: host.config.services.prometheus.exporters.node.enable)
         hosts));
+  nd_configs =
+    (mapAttrs (hostName: host: host.config.services.netdata)
+      (filterAttrs
+        (_: host: host.config.services.netdata.enable)
+        hosts));
 in {
   services.prometheus = {
     enable = true;
@@ -17,9 +22,23 @@ in {
         static_configs = [{ targets = [ "boline.net.kittywit.ch:8002" ];}];
       }
     ] ++ mapAttrsToList (hostName: prom: {
+      job_name = "${hostName}-nd";
+      metrics_path = "/api/v1/allmetrics";
+      honor_labels = true;
+      params = {
+        format = [ "prometheus" ];        
+      };
+      static_configs = [{
+        targets = [ 
+          "${hostName}.net.kittywit.ch:19999" 
+        ];
+      }];
+    }) nd_configs ++ mapAttrsToList (hostName: prom: {
       job_name = hostName;
       static_configs = [{
-        targets = [ "${hostName}.net.kittywit.ch:${toString prom.port}" ];
+        targets = [ 
+          "${hostName}.net.kittywit.ch:${toString prom.port}" 
+        ];
       }];
     }) prom_configs;
   };
