@@ -105,7 +105,7 @@ in {
         "${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --dmenu=\"${dmenu}\" --term='${cfg.terminal}'";
       modifier = "Mod4";
 
-      assigns = { "11:F1" = [{ class = "screenstub"; }]; };
+      assigns = { "12:F2" = [{ class = "screenstub"; }]; };
       startup = [
         {
           command = "systemctl --user restart mako";
