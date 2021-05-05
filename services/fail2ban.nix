@@ -4,7 +4,7 @@
   services.fail2ban = {
     enable = true;
     packageFirewall = pkgs.nftables;
-    banaction="nftables-multiport";
+    banaction = "nftables-multiport";
     banaction-allports = "nftables-allports";
     jails = {
       default = ''

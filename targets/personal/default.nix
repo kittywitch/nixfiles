@@ -20,6 +20,6 @@
   dns.records.kittywitch_net_boline = {
     tld = "kittywit.ch.";
     domain = "boline.net";
-    aaaa.address = config.variables.pi_ygg.ref;    
-  };    
+    aaaa.address = config.variables.pi_ygg.ref;
+  };
 }

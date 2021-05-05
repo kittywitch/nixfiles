@@ -28,7 +28,7 @@ in {
         "0cc3c26366cbfddfb1534b25c5655733d8f429edc941bcce674c46566fc87027";
       grimoire =
         "2a1567a2848540070328c9e938c58d40f2b1a3f08982c15c7edc5dcabfde3330";
-      boline = 
+      boline =
         "89684441745467da0d1bf7f47dc74ec3ca65e05c72f752298ef3c22a22024d43";
     } // (mapAttrs (_: c: c.pubkey) hexYgg);
   };

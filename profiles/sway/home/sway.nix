@@ -17,9 +17,7 @@ in {
 
   home.packages = with pkgs; [ grim slurp wl-clipboard jq ];
 
-  services.i3gopher = {
-    enable = true;    
-  };
+  services.i3gopher = { enable = true; };
 
   programs.zsh.profileExtra = ''
     # If running from tty1 start sway

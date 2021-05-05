@@ -1,5 +1,8 @@
 { config, ... }:
 
 {
-  services.konawall = { enable = true; interval = "20m"; };
+  services.konawall = {
+    enable = true;
+    interval = "20m";
+  };
 }

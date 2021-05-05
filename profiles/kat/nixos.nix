@@ -4,10 +4,8 @@
   home-manager.users.kat = { imports = [ ./home.nix ]; };
 
   deploy.profile.kat = true;
-  
-  users.groups = {
-    uinput = {};
-  };
+
+  users.groups = { uinput = { }; };
 
   users.users.kat = {
     uid = 1000;
