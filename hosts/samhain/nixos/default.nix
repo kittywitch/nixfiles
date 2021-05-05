@@ -74,6 +74,8 @@ in {
   katnet.private.interfaces = singleton "hexnet";
   katnet.public.interfaces = singleton "br";
 
+  katnet.private.tcp.ports = [ 10445 ];
+
   services.usbmuxd.enable = true;
 
   systemd.timers.kat-glauca-dns = {

@@ -13,10 +13,17 @@ let
 in {
   services.prometheus = {
     enable = true;
-    scrapeConfigs = [{
+    scrapeConfigs = [
+      {
       job_name = "boline";
       static_configs = [{ targets = [ "boline.net.kittywit.ch:8002" ]; }];
-    }] ++ mapAttrsToList (hostName: prom: {
+      }
+      {
+        job_name = "samhain-vm";
+        metrics_path = "/metrics";
+        static_configs = [{ targets = [ "samhain.net.kittywit.ch:10445" ]; }];
+      }
+    ] ++ mapAttrsToList (hostName: prom: {
       job_name = "${hostName}-nd";
       metrics_path = "/api/v1/allmetrics";
       honor_labels = true;
