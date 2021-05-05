@@ -3,9 +3,8 @@
 let hexchen = (import sources.nix-hexchen) { };
 in {
   imports = [
-    ./deploy
     ./katnet
-    ./tf-glue
+    ./deploy-tf
     (sources.pbb-nixfiles + "/modules/nftables")
     (sources.tf-nix + "/modules/nixos/secrets.nix")
     (sources.tf-nix + "/modules/nixos/secrets-users.nix")

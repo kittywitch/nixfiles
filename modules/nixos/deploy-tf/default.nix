@@ -7,6 +7,11 @@ let
     merge = loc: defs: map (def: def.value) defs;
   };
 in {
+  options.deploy.target = mkOption {
+    type = with types; str;
+    default = "";
+  };
+
   options.deploy.tf = mkOption {
     type = types.submodule {
       freeformType = types.attrsOf unmergedValues;
