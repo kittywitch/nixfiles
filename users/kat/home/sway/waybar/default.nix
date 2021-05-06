@@ -1,9 +1,9 @@
 { config, lib, pkgs, witch, ... }:
 
 let
-  witch.style.base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}")
+  base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}")
     config.lib.arc.base16.schemeForAlias.default;
-  witch.style.font = {
+  font = {
     name = "FantasqueSansMono Nerd Font";
     size = "10";
     size_css = "14px";
@@ -13,8 +13,8 @@ in {
     programs.waybar = {
       enable = true;
       style = import ./waybar.css.nix {
-        style = witch.style;
-        hextorgba = pkgs.hextorgba;
+        inherit font base16;
+        inherit (pkgs) hextorgba;
       };
       settings = [{
         modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];

@@ -1,9 +1,9 @@
 { config, pkgs, lib, witch, ... }:
 
 let
-  witch.style.base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}")
+  base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}")
     config.lib.arc.base16.schemeForAlias.default;
-  witch.style.font = {
+  font = {
     name = "FantasqueSansMono Nerd Font";
     size = "10";
     size_css = "14px";
@@ -76,7 +76,7 @@ in {
     enable = true;
     config = let
       dmenu =
-        "${pkgs.bemenu}/bin/bemenu --fn '${witch.style.font.name} ${witch.style.font.size}' --nb '${witch.style.base16.base00}' --nf '${witch.style.base16.base07}' --sb '${witch.style.base16.base01}' --sf '${witch.style.base16.base07}' -l 5 -m -1 -i";
+        "${pkgs.bemenu}/bin/bemenu --fn '${font.name} ${font.size}' --nb '${base16.base00}' --nf '${base16.base07}' --sb '${base16.base01}' --sf '${base16.base07}' -l 5 -m -1 -i";
       lockCommand = "swaylock -i LVDS-1:${./wallpapers/main.png}-i eDP-1:${
           ./wallpapers/main.png
         } -i HDMI-A-1:${./wallpapers/main.png} -i DP-1:${
@@ -94,7 +94,7 @@ in {
         };
       };
 
-      fonts = [ "${witch.style.font.name} ${witch.style.font.size}" ];
+      fonts = [ "${font.name} ${font.size}" ];
       terminal = "${pkgs.kitty}/bin/kitty";
       # TODO: replace with wofi
       menu =
@@ -205,32 +205,32 @@ in {
 
       colors = {
         focused = {
-          border = witch.style.base16.base08;
-          background = witch.style.base16.base0A;
-          text = witch.style.base16.base00;
-          indicator = witch.style.base16.base0B;
-          childBorder = witch.style.base16.base08;
+          border = base16.base08;
+          background = base16.base0A;
+          text = base16.base00;
+          indicator = base16.base0B;
+          childBorder = base16.base08;
         };
         focusedInactive = {
-          border = witch.style.base16.base00;
-          background = witch.style.base16.base07;
-          text = witch.style.base16.base0A;
-          indicator = witch.style.base16.base0B;
-          childBorder = witch.style.base16.base03;
+          border = base16.base00;
+          background = base16.base07;
+          text = base16.base0A;
+          indicator = base16.base0B;
+          childBorder = base16.base03;
         };
         unfocused = {
-          border = witch.style.base16.base00;
-          background = witch.style.base16.base01;
-          text = witch.style.base16.base04;
-          indicator = witch.style.base16.base08;
-          childBorder = witch.style.base16.base08;
+          border = base16.base00;
+          background = base16.base01;
+          text = base16.base04;
+          indicator = base16.base08;
+          childBorder = base16.base08;
         };
         urgent = {
-          border = witch.style.base16.base00;
-          background = witch.style.base16.base09;
-          text = witch.style.base16.base00;
-          indicator = witch.style.base16.base01;
-          childBorder = witch.style.base16.base08;
+          border = base16.base00;
+          background = base16.base09;
+          text = base16.base00;
+          indicator = base16.base01;
+          childBorder = base16.base08;
         };
       };
     };

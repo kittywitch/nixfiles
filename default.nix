@@ -11,7 +11,7 @@ rec {
   users = modList { modulesDir = ./users; };
 
   inherit (import ./lib/hosts.nix {
-    inherit pkgs sources witch profiles users;
+    inherit pkgs sources profiles users;
     inherit (deploy) target;
   })
     hosts targets;

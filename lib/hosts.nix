@@ -1,5 +1,5 @@
 { pkgs, target, users, hostsDir ? ../hosts, profiles, pkgsPath ? ../pkgs
-, sources ? { }, witch ? { } }:
+, sources ? { } }:
 
 with pkgs.lib;
 
@@ -27,7 +27,7 @@ rec {
         else
           { })
       ];
-      specialArgs = { inherit sources target profiles witch hostName users; };
+      specialArgs = { inherit sources target profiles hostName users; };
     })) hostNames);
 
   targets = foldAttrs (host: hosts: [ host ] ++ hosts) [ ] (mapAttrsToList
