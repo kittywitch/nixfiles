@@ -1,15 +1,37 @@
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
+
+with lib;
 
 {
   katnet.public.tcp.ports = [ 5000 5222 5223 5269 580 5281 5347 5582 ];
+
+  services.postgresql = {
+    ensureDatabases = [ "prosody" ];
+    ensureUsers = [{
+      name = "prosody";
+      ensurePermissions."DATABASE prosody" = "ALL PRIVILEGES";
+    }];
+  };
+
 
   services.prosody = {
     enable = true;
     ssl.cert = "/var/lib/acme/prosody/fullchain.pem";
     ssl.key = "/var/lib/acme/prosody/key.pem";
     admins = [ "kat@kittywit.ch" ];
+    package = let
+          package = pkgs.prosody.override (old: {
+            withExtraLibs = old.withExtraLibs ++ singleton pkgs.luaPackages.luadbi-postgresql;
+          }); in package;
     extraConfig = ''
       legacy_ssl_ports = { 5223 }
+        storage = "sql"
+        sql = {
+          driver = "PostgreSQL";
+          host = "";
+          database = "prosody";
+          username = "prosody";
+        }
     '';
     virtualHosts = {
       "xmpp.kittywit.ch" = {
