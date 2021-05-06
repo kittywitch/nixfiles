@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -13,5 +13,6 @@
     ./sound.nix
   ];
 
+  hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl ];
   services.tumbler.enable = true;
 }
