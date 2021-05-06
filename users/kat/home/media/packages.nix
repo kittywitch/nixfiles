@@ -11,6 +11,7 @@
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-ugly
     vlc
+    imv
     ffmpeg-full
     youtube-dl
     mkchromecast
