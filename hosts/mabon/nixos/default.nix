@@ -1,8 +1,14 @@
-{ config, pkgs, profiles, ... }:
+{ config, users, pkgs, profiles, ... }:
 
 {
-  imports =
-    [ ./hw.nix profiles.gui profiles.sway profiles.kat profiles.laptop ];
+  imports = [
+    ./hw.nix
+    profiles.gui
+    profiles.sway
+    profiles.laptop
+    users.kat.sway
+    users.kat.gui
+  ];
 
   deploy.target = "mbp";
 

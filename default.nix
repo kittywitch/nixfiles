@@ -10,15 +10,18 @@ rec {
     defaultFile = "nixos.nix";
   };
 
-  hosts = import ./lib/hosts.nix {
-    inherit pkgs sources witch profiles;
+  users = witch.modList { modulesDir = ./users; };
+
+  inherit (import ./lib/hosts.nix {
+    inherit pkgs sources witch profiles users;
     inherit (deploy) target;
-  };
+  })
+    hosts targets;
 
   inherit (pkgs) lib;
 
   deploy = import ./lib/deploy.nix {
     inherit pkgs sources;
-    inherit (hosts) hosts targets;
+    inherit hosts targets;
   };
 }

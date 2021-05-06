@@ -1,4 +1,4 @@
-{ tf, config, pkgs, lib, profiles, sources, ... }:
+{ tf, config, users, pkgs, lib, profiles, sources, ... }:
 
 with lib;
 
@@ -11,7 +11,7 @@ in {
     ./hw.nix
     profiles.gui
     profiles.sway
-    profiles.kat
+    users.kat.guiFull
     ../../../services/zfs.nix
     ../../../services/restic.nix
     ../../../services/nginx.nix

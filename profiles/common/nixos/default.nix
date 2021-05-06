@@ -1,7 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, users, lib, pkgs, ... }:
 
 {
   imports = [
+    users.kat.base
+    users.arc
     ./system.nix
     ./net.nix
     ./access.nix

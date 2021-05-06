@@ -1,4 +1,4 @@
-{ config, lib, pkgs, profiles, ... }:
+{ config, users, lib, pkgs, profiles, ... }:
 
 with lib;
 
@@ -6,7 +6,7 @@ with lib;
   imports = [
     ./hw.nix
     # profiles
-    profiles.kat
+    users.kat.server
     # host-specific services 
     ./virtualhosts.nix
     # services

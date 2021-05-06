@@ -1,4 +1,4 @@
-{ config, pkgs, lib, profiles, ... }:
+{ config, users, pkgs, lib, profiles, ... }:
 
 with lib;
 
@@ -13,8 +13,8 @@ with lib;
     ../../../services/nginx.nix
     profiles.gui
     profiles.sway
-    profiles.kat
     profiles.laptop
+    users.kat.guiFull
   ];
 
   deploy.target = "personal";

@@ -11,7 +11,6 @@
     ./private/profile/nixos;
 
   options = {
-    deploy.profile.kat = lib.mkEnableOption "uhh meow";
     deploy.profile.gui = lib.mkEnableOption "graphical system";
     deploy.profile.sway = lib.mkEnableOption "sway wm";
     deploy.profile.laptop = lib.mkEnableOption "lappytop";
@@ -43,7 +42,6 @@
             (import (./private/hosts + "/${hostName}/home"));
 
           options = {
-            deploy.profile.kat = lib.mkEnableOption "uhh meow";
             deploy.profile.gui = lib.mkEnableOption "graphical system";
             deploy.profile.sway = lib.mkEnableOption "sway wm";
             deploy.profile.laptop = lib.mkEnableOption "lappytop";
