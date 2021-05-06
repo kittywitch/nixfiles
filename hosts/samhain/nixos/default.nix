@@ -76,8 +76,6 @@ in {
 
   katnet.private.tcp.ports = [ 10445 ];
 
-  services.usbmuxd.enable = true;
-
   systemd.timers.kat-glauca-dns = {
     timerConfig = {
       Unit = "kat-glauca-dns.service";
@@ -90,7 +88,7 @@ in {
   # graphics tablet
   services.xserver.wacom.enable = true;
 
-  environment.systemPackages = [ pkgs.idevicerestore pkgs.ckb-next ];
+  environment.systemPackages = [ pkgs.ckb-next ];
 
   # other stuffs
   boot.loader.systemd-boot.enable = true;
