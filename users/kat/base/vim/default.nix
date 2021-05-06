@@ -23,6 +23,7 @@
       vim-startify
       vim-airline
       vim-airline-themes
+      vim-lastplace
       base16-vim
     ];
     #extraPackages = with pkgs;

@@ -27,37 +27,40 @@ in {
   };
 
   config = {
-    deploy.tf = {
+    deploy.tf = mkMerge (singleton {
       attrs = [ "out" "attrs" ];
       out.set = removeAttrs cfg cfg.attrs;
-    };
+      deploy.systems.${config.networking.hostName} =
+        with tf.resources; {
+          isRemote =
+            (config.networking.hostName != builtins.getEnv "HOME_HOSTNAME");
+          nixosConfig = config;
+          connection = tf.resources.${config.networking.hostName}.connection.set;
+          triggers.copy.${config.networking.hostName} =
+            tf.resources.${config.networking.hostName}.refAttr "id";
+          triggers.secrets.${config.networking.hostName} =
+            tf.resources.${config.networking.hostName}.refAttr "id";
+        };
 
-    deploy.tf.deploy.systems.${config.networking.hostName} =
-      with tf.resources; {
-        isRemote =
-          (config.networking.hostName != builtins.getEnv "HOME_HOSTNAME");
-        nixosConfig = config;
-        connection = tf.resources.${config.networking.hostName}.connection.set;
-        triggers.copy.${config.networking.hostName} =
-          tf.resources.${config.networking.hostName}.refAttr "id";
-        triggers.secrets.${config.networking.hostName} =
-          tf.resources.${config.networking.hostName}.refAttr "id";
-      };
+      dns.records."kittywitch_net_${config.networking.hostName}" =
+        mkIf (config.hexchen.network.enable) {
+          tld = "kittywit.ch.";
+          domain = "${config.networking.hostName}.net";
+          aaaa.address = config.hexchen.network.address;
+        };
 
-    deploy.tf.dns.records."kittywitch_net_${config.networking.hostName}" =
-      mkIf (config.hexchen.network.enable) {
-        tld = "kittywit.ch.";
-        domain = "${config.networking.hostName}.net";
-        aaaa.address = config.hexchen.network.address;
-      };
+      } ++ mapAttrsToList (_: user:
+            mapAttrs (_: mkMerge) user.deploy.tf.out.set)
+            config.home-manager.users);
 
-    security.acme.certs."${config.networking.hostName}.net.kittywit.ch" =
-      mkIf (config.services.nginx.enable && config.hexchen.network.enable) {
-        domain = "${config.networking.hostName}.net.kittywit.ch";
-        dnsProvider = "rfc2136";
-        credentialsFile = config.secrets.files.dns_creds.path;
-        group = "nginx";
-      };
+      security.acme.certs."${config.networking.hostName}.net.kittywit.ch" =
+        mkIf (config.services.nginx.enable && config.hexchen.network.enable) {
+          domain = "${config.networking.hostName}.net.kittywit.ch";
+          dnsProvider = "rfc2136";
+          credentialsFile = config.secrets.files.dns_creds.path;
+          group = "nginx";
+        };
+
     _module.args.tf = target.${config.deploy.target};
   };
 }

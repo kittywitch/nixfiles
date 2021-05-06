@@ -22,6 +22,9 @@
     let g:notmuch_search_date_format='%Y/%m/%d  %H:%M'
     let g:notmuch_html_converter='${pkgs.elinks}/bin/elinks --dump'
 
+    " lastplace 
+    let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit"
+
     autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
         \ quit | endif
     autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
@@ -52,18 +55,6 @@
     set relativenumber
     set completeopt=longest,menuone
     
-    function! ResCur()
-      if line("'\"") <= line("$")
-        normal! g`"
-        return 1
-      endif
-    endfunction
-
-    augroup resCur
-      autocmd!
-      autocmd BufWinEnter * call ResCur()
-    augroup END
-
   inoremap <silent><expr> <TAB>
         \ pumvisible() ? "\<C-n>" :
         \ <SID>check_back_space() ? "\<TAB>" :

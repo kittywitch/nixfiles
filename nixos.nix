@@ -1,14 +1,15 @@
-{ pkgs, config, lib, sources, tf, witch, options, hostName, ... }:
+{ pkgs, config, lib, sources, tf, witch, options, profiles, hostName, ... }:
 
 {
 
   imports =
-    [ (import (./hosts + "/${hostName}/nixos")) ./profiles/common/nixos.nix ]
-    ++ lib.optional
-    (builtins.pathExists (./private/hosts + "/${hostName}/nixos"))
-    (import (./private/hosts + "/${hostName}/nixos"))
-    ++ lib.optional (builtins.pathExists ./private/profile)
-    ./private/profile/nixos;
+    [ (import (./hosts + "/${hostName}/nixos")) profiles.common ]
+    # trusted check
+    ++ lib.optional (builtins.pathExists (./trusted/hosts + "/${hostName}/nixos")) (import (./trusted/hosts + "/${hostName}/nixos"))
+    # trusted default check
+    ++ lib.optional (builtins.pathExists ./trusted) (import ./trusted/hosts)
+    # trusted profile check
+    ++ lib.optional (builtins.pathExists ./trusted/profile) (import ./trusted/profile);
 
   options = {
     deploy.profile.gui = lib.mkEnableOption "graphical system";
@@ -35,11 +36,12 @@
 
       users = {
         kat = {
-          imports = [ ./home.nix ] ++ lib.optional
-            (builtins.pathExists (./hosts + "/${hostName}/home"))
-            (import (./hosts + "/${hostName}/home")) ++ lib.optional
-            (builtins.pathExists (./private/hosts + "/${hostName}/home"))
-            (import (./private/hosts + "/${hostName}/home"));
+          imports = [ ./modules/home ] 
+          ++ lib.optional (builtins.pathExists (./hosts + "/${hostName}/home")) (import (./hosts + "/${hostName}/home")) 
+          # trusted hosts check
+          ++ lib.optional (builtins.pathExists (./trusted/hosts + "/${hostName}/home")) (import (./trusted/hosts + "/${hostName}/home"))
+          # trusted users check 
+          ++ lib.optional (builtins.pathExists ./trusted/users) (import ./trusted/users);
 
           options = {
             deploy.profile.gui = lib.mkEnableOption "graphical system";

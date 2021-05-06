@@ -5,7 +5,6 @@ rec {
     
   profiles = modList {
     modulesDir = ./profiles;
-    defaultFile = "nixos.nix";
   };
 
   users = modList { modulesDir = ./users; };

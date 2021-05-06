@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
-  home-manager.users.kat = { imports = [ ../home/base ]; };
+  home-manager.users.kat = { imports = [ ./base ]; };
 
   users.users.kat = {
     uid = 1000;

@@ -2,6 +2,7 @@
 
 {
   home.packages = with pkgs; [
+    tmate
     htop
     fd
     sd

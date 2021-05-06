@@ -16,4 +16,6 @@
 
   hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl ];
   services.tumbler.enable = true;
+
+  deploy.profile.gui = true;
 }

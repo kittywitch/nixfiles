@@ -15,8 +15,8 @@ in {
     enable = true;
     scrapeConfigs = [
       {
-      job_name = "boline";
-      static_configs = [{ targets = [ "boline.net.kittywit.ch:8002" ]; }];
+        job_name = "boline";
+        static_configs = [{ targets = [ "boline.net.kittywit.ch:8002" ]; }];
       }
       {
         job_name = "samhain-vm";
