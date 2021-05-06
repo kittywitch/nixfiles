@@ -4,7 +4,10 @@
   services.mpd = {
     enable = true;
     package = pkgs.mpd-youtube-dl;
-    network.startWhenNeeded = true;
+    network = {
+      startWhenNeeded = true;
+      listenAddress = "::";
+    };
     musicDirectory = "/home/kat/media-share/music";
     extraConfig = ''
       max_output_buffer_size "32768"
