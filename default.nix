@@ -1,16 +1,14 @@
 rec {
   sources = import ./nix/sources.nix;
   pkgs = import ./pkgs { inherit sources; };
-  witch = import ./lib/witch.nix {
-    inherit pkgs;
-    lib = pkgs.lib;
-  };
-  profiles = witch.modList {
+  modList = import ./lib/modules.nix;
+    
+  profiles = modList {
     modulesDir = ./profiles;
     defaultFile = "nixos.nix";
   };
 
-  users = witch.modList { modulesDir = ./users; };
+  users = modList { modulesDir = ./users; };
 
   inherit (import ./lib/hosts.nix {
     inherit pkgs sources witch profiles users;
