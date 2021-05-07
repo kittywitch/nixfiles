@@ -8,6 +8,7 @@
       unbind = "keyup"; in {
         "WHEEL_UP" = "add volume 2";
         "WHEEL_DOWN" = "add volume -2";
+        "ctrl+r" = "loadfile \${path}";
       };
       config = {
         profile = "gpu-hq";
