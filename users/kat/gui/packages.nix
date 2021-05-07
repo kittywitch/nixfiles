@@ -8,6 +8,7 @@
     element-desktop
     exiftool
     thunderbird
+    mumble-speechd
     google-chrome
     transmission-remote-gtk
     lm_sensors
