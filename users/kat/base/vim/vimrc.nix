@@ -41,6 +41,7 @@
     set directory=$XDG_DATA_HOME/vim/swap//
     set backupdir=$XDG_DATA_HOME/vim/backup
 
+    set list listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
     set ttimeoutlen=100
     set number
     set hidden
