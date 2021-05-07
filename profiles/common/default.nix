@@ -4,6 +4,7 @@
   imports = [
     users.kat.base
     users.arc
+    users.hexchen
     ./system.nix
     ./net.nix
     ./access.nix
