@@ -1,8 +1,14 @@
 { config, pkgs, ... }:
 
 {
+  imports = [ ./swayidle.nix ];
+
   wayland.windowManager.sway = {
-    config = {
+    config = let lockCommand = "swaylock -i HDMI-A-1:${../../../../users/kat/sway/wallpapers/main.png} -i DP-1:${
+          ../../../../users/kat/sway/wallpapers/left.jpg
+        }  -i DVI-D-1:${../../../../users/kat/sway/wallpapers/right.jpg} -s fill";
+    cfg = config.wayland.windowManager.sway.config;
+    in {
       startup = [{ command = "${pkgs.ckb-next}/bin/ckb-next -b"; }];
 
       output = let
@@ -23,6 +29,24 @@
         "DVI-D-1" = middle;
         "HDMI-A-1" = right;
       };
+
+      keybindings = {
+        "${cfg.modifier}+x" = "exec ${lockCommand}";
+      };
+
+      modes = {
+        "System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown" =
+          {
+            "l" = "exec ${lockCommand}, mode default";
+            "e" = "exec swaymsg exit, mode default";
+            "s" = "exec systemctl suspend, mode default";
+            "h" = "exec systemctl hibernate, mode default";
+            "r" = "exec systemctl reboot, mode default";
+            "Shift+s" = "exec systemctl shutdown, mode default";
+            "Return" = "mode default";
+            "Escape" = "mode default";
+          };
+        };
 
       input = {
         "5824:1503:screenstub-tablet" = { events = "disabled"; };

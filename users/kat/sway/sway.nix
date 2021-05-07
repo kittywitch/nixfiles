@@ -77,12 +77,6 @@ in {
     config = let
       dmenu =
         "${pkgs.bemenu}/bin/bemenu --fn '${font.name} ${font.size}' --nb '${base16.base00}' --nf '${base16.base07}' --sb '${base16.base01}' --sf '${base16.base07}' -l 5 -m -1 -i";
-      lockCommand = "swaylock -i LVDS-1:${./wallpapers/main.png}-i eDP-1:${
-          ./wallpapers/main.png
-        } -i HDMI-A-1:${./wallpapers/main.png} -i DP-1:${
-          ./wallpapers/left.jpg
-        }  -i DVI-D-1:${./wallpapers/right.jpg} -s fill";
-
     in {
       bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
 
@@ -153,7 +147,6 @@ in {
         "XF86MonBrightnessUp" = "exec ${pkgs.light}/bin/light -A 5";
 
         "${cfg.modifier}+d" = "exec ${cfg.menu}";
-        "${cfg.modifier}+x" = "exec ${lockCommand}";
 
         "${cfg.modifier}+Print" =
           "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify upload screen";
@@ -187,20 +180,6 @@ in {
         "${cfg.modifier}+r" = "mode resize";
         "${cfg.modifier}+Delete" = ''
           mode "System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown"'';
-      };
-
-      modes = {
-        "System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown" =
-          {
-            "l" = "exec ${lockCommand}, mode default";
-            "e" = "exec swaymsg exit, mode default";
-            "s" = "exec systemctl suspend, mode default";
-            "h" = "exec systemctl hibernate, mode default";
-            "r" = "exec systemctl reboot, mode default";
-            "Shift+s" = "exec systemctl shutdown, mode default";
-            "Return" = "mode default";
-            "Escape" = "mode default";
-          };
       };
 
       colors = {
