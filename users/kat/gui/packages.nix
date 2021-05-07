@@ -9,6 +9,7 @@
     exiftool
     thunderbird
     mumble-speechd
+    dino
     google-chrome
     transmission-remote-gtk
     lm_sensors
