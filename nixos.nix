@@ -19,7 +19,7 @@
 
   options.home-manager.users = lib.mkOption {
     type = lib.types.attrsOf (lib.types.submoduleWith {
-      modules = [ ];
+      modules = [ ./modules/home ];
       specialArgs = {
         inherit sources witch hostName tf;
         superConfig = config;
@@ -36,8 +36,7 @@
 
       users = {
         kat = {
-          imports = [ ./modules/home ] 
-          ++ lib.optional (builtins.pathExists (./hosts + "/${hostName}/home")) (import (./hosts + "/${hostName}/home")) 
+          imports = lib.optional (builtins.pathExists (./hosts + "/${hostName}/home")) (import (./hosts + "/${hostName}/home")) 
           # trusted hosts check
           ++ lib.optional (builtins.pathExists (./trusted/hosts + "/${hostName}/home")) (import (./trusted/hosts + "/${hostName}/home"))
           # trusted users check 
