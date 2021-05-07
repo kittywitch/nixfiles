@@ -65,7 +65,7 @@
       Type = "simple";
       Restart = "always";
       ExecStart =
-        "${pkgs.arc.pkgs.mx-puppet-discord}/bin/mx-puppet-discord -c /var/lib/mx-puppet-discord/config.yaml -f /var/lib/mx-puppet-discord/discord-registration.yaml";
+        "${pkgs.mx-puppet-discord}/bin/mx-puppet-discord -c /var/lib/mx-puppet-discord/config.yaml -f /var/lib/mx-puppet-discord/discord-registration.yaml";
       WorkingDirectory = "/var/lib/mx-puppet-discord";
       DynamicUser = true;
       StateDirectory = "mx-puppet-discord";

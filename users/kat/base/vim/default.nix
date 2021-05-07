@@ -4,7 +4,7 @@
   home.sessionVariables.EDITOR = "vim";
   programs.vim = {
     enable = true;
-    package = pkgs.arc.pkgs.vim_configurable-pynvim;
+    package = pkgs.vim_configurable-pynvim;
     #withPython3 = true;
     plugins = with pkgs.vimPlugins; [
       nerdtree
