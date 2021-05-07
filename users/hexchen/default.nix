@@ -13,6 +13,10 @@
   };
 
   home-manager.users.hexchen = {
+    imports = [
+      ../../modules/home      
+    ];
+
     programs.vim = {
       enable = true;
       extraConfig = ''
