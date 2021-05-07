@@ -66,10 +66,10 @@ in {
     wantedBy = [ "default.target" ];
   };
 
-  hardware.ckb-next = {
-    enable = true;
-    package = pkgs.ckb-next;
-  };
+  #hardware.ckb-next = {
+  #  enable = true;
+  #  package = pkgs.ckb-next;
+  #};
 
   katnet.private.interfaces = singleton "hexnet";
   katnet.public.interfaces = singleton "br";
@@ -88,7 +88,7 @@ in {
   # graphics tablet
   services.xserver.wacom.enable = true;
 
-  environment.systemPackages = [ pkgs.ckb-next ];
+  #environment.systemPackages = [ pkgs.ckb-next ];
 
   # other stuffs
   boot.loader.systemd-boot.enable = true;

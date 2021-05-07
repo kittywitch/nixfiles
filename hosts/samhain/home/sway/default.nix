@@ -9,7 +9,7 @@
         }  -i DVI-D-1:${../../../../users/kat/sway/wallpapers/right.jpg} -s fill";
     cfg = config.wayland.windowManager.sway.config;
     in {
-      startup = [{ command = "${pkgs.ckb-next}/bin/ckb-next -b"; }];
+      #startup = [{ command = "${pkgs.ckb-next}/bin/ckb-next -b"; }];
 
       output = let
         left = {
