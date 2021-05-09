@@ -89,7 +89,7 @@ in
   # graphics tablet
   services.xserver.wacom.enable = true;
 
-  #environment.systemPackages = [ pkgs.ckb-next ];
+  environment.systemPackages = [ pkgs.stepmania ];
 
   # other stuffs
   boot.loader.systemd-boot.enable = true;
