@@ -1,5 +1,17 @@
-# kat's nixfiles
+# nixfiles
 
-* `nix run -f . deploy.target.<target name>.run.apply`
-* `nix run -f . deploy.target.<target name>.run -c terraform destroy`
-* `nix build -f . hosts.<host name>.config.system.build.toplevel`
+The public section of my NixOS configuration, using [arcnmx/tf-nix](https://github.com/arcnmx/tf-nix) for deployment and [nmattia/niv](https://github.com/nmattia/niv) for dependency management.
+
+Building and evaluation should hopefully be possible without the trusted submodule. CI should eventually be used to attempt to ensure this.
+
+## Commands
+
+### Deployment
+
+* `nix run -f . deploy.target.<targetName>.run.apply`
+
+* `nix run -f . deploy.target.<targetName>.run -c terraform destroy`
+
+### Host Building
+
+* `nix build -f . hosts.<hostName>.config.system.build.toplevel`
