@@ -3,19 +3,24 @@
 {
   imports = [ ./swayidle.nix ];
 
-  wayland.windowManager.sway.config = let lockCommand = "swaylock -i eDP-1:${
+  wayland.windowManager.sway.config =
+    let
+      lockCommand = "swaylock -i eDP-1:${
           ../../../../users/kat/sway/wallpapers/main.png
         } -s fill";
-        cfg = config.wayland.windowManager.sway.config;
-  in {
-    output = let
-      laptop = {
-        res = "1920x1080";
-        pos = "0 0";
-      };
-    in { "eDP-1" = laptop; };
+      cfg = config.wayland.windowManager.sway.config;
+    in
+    {
+      output =
+        let
+          laptop = {
+            res = "1920x1080";
+            pos = "0 0";
+          };
+        in
+        { "eDP-1" = laptop; };
 
-    keybindings = {
+      keybindings = {
         "${cfg.modifier}+x" = "exec ${lockCommand}";
       };
 
@@ -31,16 +36,16 @@
             "Return" = "mode default";
             "Escape" = "mode default";
           };
-    };
+      };
 
-    input = {
-      "1739:33362:Synaptics_TM3336-002" = {
-        dwt = "enabled";
-        tap = "enabled";
-        natural_scroll = "enabled";
-        middle_emulation = "enabled";
-        click_method = "clickfinger";
+      input = {
+        "1739:33362:Synaptics_TM3336-002" = {
+          dwt = "enabled";
+          tap = "enabled";
+          natural_scroll = "enabled";
+          middle_emulation = "enabled";
+          click_method = "clickfinger";
+        };
       };
     };
-  };
 }

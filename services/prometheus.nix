@@ -10,7 +10,8 @@ let
         hosts));
   nd_configs = (mapAttrs (hostName: host: host.config.services.netdata)
     (filterAttrs (_: host: host.config.services.netdata.enable) hosts));
-in {
+in
+{
   services.prometheus = {
     enable = true;
     scrapeConfigs = [
@@ -23,18 +24,22 @@ in {
         metrics_path = "/metrics";
         static_configs = [{ targets = [ "samhain.net.kittywit.ch:10445" ]; }];
       }
-    ] ++ mapAttrsToList (hostName: prom: {
-      job_name = "${hostName}-nd";
-      metrics_path = "/api/v1/allmetrics";
-      honor_labels = true;
-      params = { format = [ "prometheus" ]; };
-      static_configs = [{ targets = [ "${hostName}.net.kittywit.ch:19999" ]; }];
-    }) nd_configs ++ mapAttrsToList (hostName: prom: {
-      job_name = hostName;
-      static_configs = [{
-        targets = [ "${hostName}.net.kittywit.ch:${toString prom.port}" ];
-      }];
-    }) prom_configs;
+    ] ++ mapAttrsToList
+      (hostName: prom: {
+        job_name = "${hostName}-nd";
+        metrics_path = "/api/v1/allmetrics";
+        honor_labels = true;
+        params = { format = [ "prometheus" ]; };
+        static_configs = [{ targets = [ "${hostName}.net.kittywit.ch:19999" ]; }];
+      })
+      nd_configs ++ mapAttrsToList
+      (hostName: prom: {
+        job_name = hostName;
+        static_configs = [{
+          targets = [ "${hostName}.net.kittywit.ch:${toString prom.port}" ];
+        }];
+      })
+      prom_configs;
   };
 }
 

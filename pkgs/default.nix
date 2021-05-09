@@ -49,7 +49,7 @@ let
           '';
         };
 
-        obs-studio = super.obs-studio.override { pipewireSupport = true; };
+      obs-studio = super.obs-studio.override { pipewireSupport = true; };
 
       hextorgba =
         (import ../lib/colorhelpers.nix { inherit (super) lib; }).hextorgba;
@@ -71,6 +71,7 @@ let
       kat-scrot = self.callPackage ./kat-scrot { };
 
     } // super.lib.optionalAttrs (builtins.pathExists ../trusted/pkgs)
-    (import ../trusted/pkgs { inherit super self; });
+      (import ../trusted/pkgs { inherit super self; });
 
-in (pkgs.extend (import (sources.arc-nixexprs + "/overlay.nix"))).extend overlay
+in
+(pkgs.extend (import (sources.arc-nixexprs + "/overlay.nix"))).extend overlay

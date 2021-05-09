@@ -9,7 +9,8 @@ let
     "browser.urlbar.placeholderName" = "DuckDuckGo";
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
   };
-in {
+in
+{
   programs.zsh.shellAliases = {
     ff-pm = "firefox --ProfileManager";
     ff-main = "firefox -P main";
@@ -48,23 +49,17 @@ in {
       main = {
         id = 0;
         isDefault = true;
-        settings = commonSettings // {
-
-        };
+        settings = commonSettings // { };
         userChrome = import ./userChrome.css.nix { profile = "main"; };
       };
       work = {
         id = 1;
-        settings = commonSettings // {
-
-        };
+        settings = commonSettings // { };
         userChrome = import ./userChrome.css.nix { profile = "work"; };
       };
       lewd = {
         id = 2;
-        settings = commonSettings // {
-
-        };
+        settings = commonSettings // { };
         userChrome = import ./userChrome.css.nix { profile = "lewd"; };
       };
     };

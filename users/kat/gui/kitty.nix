@@ -8,7 +8,8 @@ let
     size = "10";
     size_css = "14px";
   };
-in {
+in
+{
   programs.kitty = {
     enable = true;
     font.name = witch.style.font.name;

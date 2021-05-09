@@ -14,18 +14,20 @@ let
   tf = { targetName, target }:
     tfEval ({ config, ... }: {
       imports = optional (builtins.pathExists ../trusted/tf) (import ../trusted/tf/meta.nix)
-      ++ map (hostName: ../hosts + "/${hostName}/meta.nix") target ++ [{
-        config = mkMerge (map (hostName:
-          mapAttrs (_: mkMerge) hosts.${hostName}.config.deploy.tf.out.set)
+        ++ map (hostName: ../hosts + "/${hostName}/meta.nix") target ++ [{
+        config = mkMerge (map
+          (hostName:
+            mapAttrs (_: mkMerge) hosts.${hostName}.config.deploy.tf.out.set)
           target);
       }] ++ optional
         (builtins.pathExists (../trusted/targets + "/${targetName}"))
         (../trusted/targets + "/${targetName}")
         ++ optional (builtins.pathExists (../targets + "/${targetName}"))
-        (../targets + "/${targetName}") ++ concatMap (hostName:
+        (../targets + "/${targetName}") ++ concatMap
+        (hostName:
           filter builtins.pathExists
-          (map (profile: ../profiles + "/${profile}/meta.nix") (attrNames
-            (filterAttrs (_: id) hosts.${hostName}.config.deploy.profile))))
+            (map (profile: ../profiles + "/${profile}/meta.nix") (attrNames
+              (filterAttrs (_: id) hosts.${hostName}.config.deploy.profile))))
         target;
 
       deps = {
@@ -73,7 +75,8 @@ let
         inherit targetName;
       };
     });
-in {
+in
+{
   inherit tf;
   target =
     mapAttrs (targetName: target: tf { inherit target targetName; }) targets;

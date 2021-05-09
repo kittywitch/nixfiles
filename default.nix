@@ -2,7 +2,7 @@ rec {
   sources = import ./nix/sources.nix;
   pkgs = import ./pkgs { inherit sources; };
   modList = import ./lib/modules.nix;
-    
+
   profiles = modList {
     modulesDir = ./profiles;
   };

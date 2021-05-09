@@ -1,7 +1,8 @@
 { sources, lib, ... }:
 
 let hexchen = (import sources.nix-hexchen) { };
-in {
+in
+{
   imports = [
     ./katnet
     ./deploy-tf

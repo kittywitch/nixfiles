@@ -8,7 +8,8 @@ let
     size = "10";
     size_css = "14px";
   };
-in {
+in
+{
   config = lib.mkIf config.deploy.profile.sway {
     programs.waybar = {
       enable = true;

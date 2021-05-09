@@ -36,6 +36,6 @@
           always_on "yes"
           tags "yes"
         }
-     '';
+    '';
   };
 }

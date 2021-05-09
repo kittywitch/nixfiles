@@ -8,7 +8,8 @@ let
     size = "10";
     size_css = "14px";
   };
-in {
+in
+{
   systemd.user.services = {
     mako = {
       Unit = {

@@ -2,7 +2,8 @@
 let
   notmuch = args.notmuch.super or args.notmuch;
   drv = notmuch.override { withEmacs = false; };
-in drv.overrideAttrs (old: {
+in
+drv.overrideAttrs (old: {
   doCheck = false;
 
   postInstall = ''

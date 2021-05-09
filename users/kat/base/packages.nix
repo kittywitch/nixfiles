@@ -14,7 +14,7 @@
     rsync
     wget
     ripgrep
-    nixfmt
+    nixpkgs-fmt
     pv
     progress
     zstd

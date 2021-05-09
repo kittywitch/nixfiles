@@ -8,9 +8,10 @@ let
     name = "unmergedValues";
     merge = loc: defs: map (def: def.value) defs;
   };
-in {
+in
+{
 
-    options.deploy.tf = mkOption {
+  options.deploy.tf = mkOption {
     type = types.submodule {
       freeformType = types.attrsOf unmergedValues;
 
@@ -22,7 +23,7 @@ in {
         out.set = mkOption { type = types.unspecified; };
       };
     };
-  
+
   };
   config = {
     deploy.tf = {

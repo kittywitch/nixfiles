@@ -50,14 +50,14 @@ with config.resources; {
   #};
 
   /* resources.athame_rdns = {
-       provider = "hcloud";
-       type = "rdns";
-       inputs = {
-         server_id = athame.refAttr "id";
-         dns_ptr = "athame.kittywit.ch";
-         ip_address = athame.refAttr "ipv4_address";
-       };
-     };
+    provider = "hcloud";
+    type = "rdns";
+    inputs = {
+    server_id = athame.refAttr "id";
+    dns_ptr = "athame.kittywit.ch";
+    ip_address = athame.refAttr "ipv4_address";
+    };
+    };
   */
 
   #dns.records.kittywitch_athame = {

@@ -7,7 +7,8 @@ let
     enableACME = true;
     forceSSL = true;
   };
-in {
+in
+{
   services.nginx.virtualHosts = {
     "kittywit.ch" = { root = pkgs.kat-website; } // common;
     "athame.kittywit.ch" = { root = "/var/www/athame"; } // common;

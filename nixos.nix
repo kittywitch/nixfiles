@@ -36,11 +36,11 @@
 
       users = {
         kat = {
-          imports = lib.optional (builtins.pathExists (./hosts + "/${hostName}/home")) (import (./hosts + "/${hostName}/home")) 
-          # trusted hosts check
-          ++ lib.optional (builtins.pathExists (./trusted/hosts + "/${hostName}/home")) (import (./trusted/hosts + "/${hostName}/home"))
-          # trusted users check 
-          ++ lib.optional (builtins.pathExists ./trusted/users) (import ./trusted/users);
+          imports = lib.optional (builtins.pathExists (./hosts + "/${hostName}/home")) (import (./hosts + "/${hostName}/home"))
+            # trusted hosts check
+            ++ lib.optional (builtins.pathExists (./trusted/hosts + "/${hostName}/home")) (import (./trusted/hosts + "/${hostName}/home"))
+            # trusted users check 
+            ++ lib.optional (builtins.pathExists ./trusted/users) (import ./trusted/users);
 
           options = {
             deploy.profile.gui = lib.mkEnableOption "graphical system";

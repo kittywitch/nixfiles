@@ -26,7 +26,8 @@ let
       http_listen_port = 28183;
     };
   });
-in {
+in
+{
   systemd.services.promtail = {
     description = "Promtail service for Loki";
     wantedBy = [ "multi-user.target" ];

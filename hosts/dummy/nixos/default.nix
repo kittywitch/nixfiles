@@ -6,7 +6,8 @@ let
   hexchen = (import sources.nix-hexchen) { };
   hexYgg = filterAttrs (_: c: c.enable)
     (mapAttrs (_: host: host.config.hexchen.network) hexchen.hosts);
-in {
+in
+{
   # stuff so dummy host is buildable (you probably don't want/need this???)
   # but idk your config sooooo
   boot.isContainer = true;
@@ -17,8 +18,9 @@ in {
     enable = true;
     pubkey = "0000000000000000000000000000000000000000000000000000000000000000";
     listen.enable = true;
-    listen.endpoints = flatten (map (c: c.listen.endpoints) (filter (c:
-      c.listen.enable && (c.pubkey
+    listen.endpoints = flatten (map (c: c.listen.endpoints) (filter
+      (c:
+        c.listen.enable && (c.pubkey
         != "0000000000000000000000000000000000000000000000000000000000000000"))
       (attrValues hexYgg)));
     extra.pubkeys = {

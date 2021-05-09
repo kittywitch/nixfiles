@@ -24,12 +24,13 @@ let
     " ${c1}          .::::'   ::::.     ${c2}'::::.          "
     " ${c1}         .::::      ::::      ${c2}'::::.         "
   ];
-in {
+in
+{
   services.getty = {
     greetingLine = ''
       \e[H\e[2J
       \e[9;10]'' + lib.concatStringsSep "\n" nixos_logo + "\n\n"
-      + "\\e[1;32m>>> NixOS ${config.system.nixos.label} (Linux \\r) - \\l\\e[0m";
+    + "\\e[1;32m>>> NixOS ${config.system.nixos.label} (Linux \\r) - \\l\\e[0m";
     helpLine = lib.mkForce "";
   };
 }

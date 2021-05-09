@@ -19,10 +19,12 @@ with lib;
     ssl.cert = "/var/lib/acme/prosody/fullchain.pem";
     ssl.key = "/var/lib/acme/prosody/key.pem";
     admins = [ "kat@kittywit.ch" ];
-    package = let
-          package = pkgs.prosody.override (old: {
-            withExtraLibs = old.withExtraLibs ++ singleton pkgs.luaPackages.luadbi-postgresql;
-          }); in package;
+    package =
+      let
+        package = pkgs.prosody.override (old: {
+          withExtraLibs = old.withExtraLibs ++ singleton pkgs.luaPackages.luadbi-postgresql;
+        }); in
+      package;
     extraConfig = ''
       legacy_ssl_ports = { 5223 }
         storage = "sql"

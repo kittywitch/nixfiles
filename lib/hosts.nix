@@ -1,5 +1,11 @@
-{ pkgs, target, users, hostsDir ? ../hosts, profiles, pkgsPath ? ../pkgs
-, sources ? { } }:
+{ pkgs
+, target
+, users
+, hostsDir ? ../hosts
+, profiles
+, pkgsPath ? ../pkgs
+, sources ? { }
+}:
 
 with pkgs.lib;
 
@@ -18,18 +24,21 @@ rec {
       };
     };
 
-  hosts = listToAttrs (map (hostName:
-    nameValuePair hostName (import (pkgs.path + "/nixos/lib/eval-config.nix") {
-      modules = [
-        (hostConfig hostName)
-        (if sources ? home-manager then
-          sources.home-manager + "/nixos"
-        else
-          { })
-      ];
-      specialArgs = { inherit sources target profiles hostName users; };
-    })) hostNames);
+  hosts = listToAttrs (map
+    (hostName:
+      nameValuePair hostName (import (pkgs.path + "/nixos/lib/eval-config.nix") {
+        modules = [
+          (hostConfig hostName)
+          (if sources ? home-manager then
+            sources.home-manager + "/nixos"
+          else
+            { })
+        ];
+        specialArgs = { inherit sources target profiles hostName users; };
+      }))
+    hostNames);
 
   targets = foldAttrs (host: hosts: [ host ] ++ hosts) [ ] (mapAttrsToList
-    (hostName: host: { ${host.config.deploy.target} = hostName; }) hosts);
+    (hostName: host: { ${host.config.deploy.target} = hostName; })
+    hosts);
 }

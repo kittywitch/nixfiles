@@ -6,7 +6,8 @@ let
   hexchen = (import sources.nix-hexchen) { };
   hexYgg = filterAttrs (_: c: c.enable)
     (mapAttrs (_: host: host.config.hexchen.network) hexchen.hosts);
-in {
+in
+{
   imports = [
     ./hw.nix
     profiles.gui

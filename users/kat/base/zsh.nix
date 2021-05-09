@@ -7,7 +7,7 @@
     enable = true;
     enableAutosuggestions = true;
     shellAliases = {
-      nixdirfmt = "fd --color=never .nix | xargs nixfmt";
+      nixdirfmt = "fd --color=never .nix | xargs nixpkgs-fmt";
       exa = "exa --time-style long-iso";
       ls = "exa -G";
       la = "exa -Ga";

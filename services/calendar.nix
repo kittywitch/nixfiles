@@ -8,7 +8,8 @@ let
     (flip mapAttrsToList mailAccounts
       (mail: user: mail + ":" + user.hashedPassword + "\n")));
 
-in {
+in
+{
   services.radicale = {
     enable = true;
     config = ''
