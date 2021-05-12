@@ -21,7 +21,6 @@
     whois
     niv
     dnsutils
-    rink
     borgbackup
     neofetch
   ];

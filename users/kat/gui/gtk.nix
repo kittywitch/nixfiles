@@ -8,8 +8,8 @@
       package = pkgs.numix-icon-theme-square;
     };
     theme = {
-      name = "Arc-Dark";
-      package = pkgs.arc-theme;
+      name = "Adementary Dark";
+      package = pkgs.adementary-theme;
     };
   };
 }

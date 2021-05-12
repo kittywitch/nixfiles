@@ -21,4 +21,8 @@
     gc.options = lib.mkDefault "--delete-older-than 1w";
     trustedUsers = [ "root" "@wheel" ];
   };
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "ffmpeg-2.8.17"
+  ];
 }
