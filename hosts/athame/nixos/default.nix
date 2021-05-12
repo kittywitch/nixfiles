@@ -58,6 +58,8 @@ with lib;
   katnet.public.interfaces = singleton "enp1s0";
   katnet.private.interfaces = singleton "hexnet";
 
+  katnet.public.tcp.ports = singleton 52969;
+
   deploy.tf.dns.records.kittywitch_athame_v6 = {
     tld = "kittywit.ch.";
     domain = "athame";
@@ -68,8 +70,8 @@ with lib;
   hexchen.network = {
     enable = true;
     pubkey = "55e3f29c252d16e73ac849a6039824f94df1dee670c030b9e29f90584f935575";
-    listen.enable = false;
-    listen.endpoints = [ ];
+    listen.enable = true;
+    listen.endpoints = [ "tcp://168.119.126.111:52969" ];
   };
   system.stateVersion = "20.09";
 }
