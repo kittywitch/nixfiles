@@ -9,7 +9,6 @@
     duc
     bat
     exa
-    fd
     socat
     rsync
     wget
