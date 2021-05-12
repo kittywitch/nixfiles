@@ -51,6 +51,8 @@ let
 
       obs-studio = super.obs-studio.override { pipewireSupport = true; };
 
+      libreelec-dvb-firmware = self.callPackage ./libreelec-dvb-firmware { };
+
       hextorgba =
         (import ../lib/colorhelpers.nix { inherit (super) lib; }).hextorgba;
 

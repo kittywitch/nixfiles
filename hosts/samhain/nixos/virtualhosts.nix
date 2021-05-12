@@ -19,6 +19,7 @@ with lib;
             proxy_set_header Connection "upgrade";
           '';
         };
+        "/tvheadend/".proxyPass = "http://192.168.1.245:9981";
         "/" = {
           root = "/mnt/zraw/media/";
           extraConfig = "autoindex on;";
