@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./packages.nix ];
+  imports = [ ./packages.nix ./cookiecutter.nix ];
 }
