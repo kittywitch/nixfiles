@@ -14,6 +14,7 @@ in {
   cache.cachix.arc = {
     enable = true;
     publicKey = "arc.cachix.org-1:DZmhclLkB6UO0rc0rBzNpwFbbaeLfyn+fYccuAy7YVY=";
+    signingKey = null;
   };
   cache.cachix.kittywitch = {
     enable = true;
