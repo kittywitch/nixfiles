@@ -1,4 +1,4 @@
-{ lib, channels, ... }: with lib; let
+{ lib, channels, env, ... }: with lib; let
   nixfiles = import ./.; 
 in {
   name = "nixfiles";
