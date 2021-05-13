@@ -21,15 +21,6 @@ jobs:
       with:
         attrs: ci.run.bootstrap
         quiet: false
-    - id: host-athame
-      name: build host/athame
-      run: nix build -Lf . hosts.athame.config.system.build.toplevel --show-trace
-    - id: host-samhain
-      name: build host/samhain
-      run: nix build -Lf . hosts.samhain.config.system.build.toplevel --show-trace
-    - id: host-yule
-      name: build host/yule
-      run: nix build -Lf . hosts.yule.config.system.build.toplevel --show-trace
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@master
