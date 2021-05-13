@@ -53,6 +53,8 @@ let
 
       libreelec-dvb-firmware = self.callPackage ./libreelec-dvb-firmware { };
 
+      nerdfonts = super.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; };
+
       hextorgba =
         (import ../lib/colorhelpers.nix { inherit (super) lib; }).hextorgba;
 

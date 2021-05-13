@@ -10,7 +10,6 @@
     thunderbird
     mumble-speechd
     dino
-    google-chrome
     transmission-remote-gtk
     lm_sensors
     p7zip
