@@ -7,7 +7,7 @@
     # trusted check
     ++ lib.optional (builtins.pathExists (./trusted/hosts + "/${hostName}/nixos")) (import (./trusted/hosts + "/${hostName}/nixos"))
     # trusted default check
-    ++ lib.optional (builtins.pathExists ./trusted) (import ./trusted/hosts)
+    ++ lib.optional (builtins.pathExists ./trusted/hosts) (import ./trusted/hosts)
     # trusted profile check
     ++ lib.optional (builtins.pathExists ./trusted/profile) (import ./trusted/profile);
 
