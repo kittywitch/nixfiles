@@ -1,22 +1,14 @@
-{ lib, channels, ... }: with lib; {
+{ lib, channels, ... }: with lib; let
+  nixfiles = import ./.; 
+in {
   name = "nixfiles";
   ci.gh-actions.enable = true;
   ci.gh-actions.export = true;
 
   jobs = let hostnames = [ "samhain" "yule" "athame" ];
   in mapAttrs' (k: nameValuePair "host-${k}") (genAttrs hostnames (host: {
-      tasks = {
-      inputs = with channels.cipkgs; ci.command {
-        name = "build-${host}";
-        displayName = "build hosts/${host}";
-        nativeBuildInputs = [ nix ];
-        command = ''
-          nix build -Lf . hosts.${host}.config.system.build.toplevel --show-trace --no-link
-          nix-collect-garbage
-        '';
-      };
-    };
-    }));
+      tasks.${host}.inputs = nixfiles.hosts.${host}.config.system.build.toplevel;
+  }));
 
   ci.gh-actions.checkoutOptions.submodules = false;
   cache.cachix.arc = {
