@@ -23,6 +23,18 @@
         "url": "https://github.com/arcnmx/nixexprs/archive/614d248d1ab66fab84903b8bd6d387a7530915c4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "ci": {
+        "branch": "master",
+        "description": "CI helpers",
+        "homepage": "https://arcnmx.github.io/ci",
+        "owner": "arcnmx",
+        "repo": "ci",
+        "rev": "7c5456059dda85618340c5aa9ede3267eae5aa5d",
+        "sha256": "1xa66px4k10whrggk64q2dc6sbixid2rf39nh58n95viqjy31s6g",
+        "type": "tarball",
+        "url": "https://github.com/arcnmx/ci/archive/7c5456059dda85618340c5aa9ede3267eae5aa5d.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "home-manager": {
         "branch": "master",
         "description": "Manage a user environment using Nix  [maintainer=@rycee] ",

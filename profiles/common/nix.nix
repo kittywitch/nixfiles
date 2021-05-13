@@ -14,9 +14,9 @@
       "NUR=${sources.NUR}"
       "arc=${sources.arc-nixexprs}"
     ];
-    binaryCaches = [ "https://arc.cachix.org" ];
+    binaryCaches = [ "https://arc.cachix.org" "https://kittywitch.cachix.org" ];
     binaryCachePublicKeys =
-      [ "arc.cachix.org-1:DZmhclLkB6UO0rc0rBzNpwFbbaeLfyn+fYccuAy7YVY=" ];
+      [ "arc.cachix.org-1:DZmhclLkB6UO0rc0rBzNpwFbbaeLfyn+fYccuAy7YVY=" "kittywitch.cachix.org-1:KIzX/G5cuPw5WgrXad6UnrRZ8UDr7jhXzRTK/lmqyK0=" ];
     gc.automatic = lib.mkDefault true;
     gc.options = lib.mkDefault "--delete-older-than 1w";
     trustedUsers = [ "root" "@wheel" ];
