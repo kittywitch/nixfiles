@@ -18,6 +18,6 @@ in {
   cache.cachix.kittywitch = {
     enable = true;
     publicKey = "kittywitch.cachix.org-1:KIzX/G5cuPw5WgrXad6UnrRZ8UDr7jhXzRTK/lmqyK0=";
-    signingKey = env.get "CACHIX_SIGNING_KEY";
+    signingKey = "mewp";
   };
 }
