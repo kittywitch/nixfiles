@@ -21,6 +21,8 @@
     initExtra = ''
       genmac() { nix run nixpkgs.openssl -c openssl rand -hex 6 | sed 's/\(..\)\(..\)\(..\)\(..\)\(..\)\(..\)/\1:\2:\3:\4:\5:\6/' }
       nano() { echo "baps you for being naughty, use vim" }
+      find() { echo "use fd!" }
+      sed() { echo "use sd!" }
     '';
     localVariables = {
       _Z_DATA = "${config.xdg.dataHome}/z/data";
