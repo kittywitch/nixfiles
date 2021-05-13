@@ -89,7 +89,7 @@ in
   # graphics tablet
   services.xserver.wacom.enable = true;
 
-  environment.systemPackages = [ pkgs.stepmania pkgs.etterna ];
+  environment.systemPackages = [ pkgs.stepmania pkgs.etterna pkgs.screenstub ];
 
   # other stuffs
   boot.loader.systemd-boot.enable = true;
