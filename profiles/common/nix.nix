@@ -13,6 +13,7 @@
       "nixpkgs-mozilla=${sources.nixpkgs-mozilla}"
       "NUR=${sources.NUR}"
       "arc=${sources.arc-nixexprs}"
+      "ci=${sources.ci}"
     ];
     binaryCaches = [ "https://arc.cachix.org" "https://kittywitch.cachix.org" ];
     binaryCachePublicKeys =

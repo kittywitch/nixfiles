@@ -9,6 +9,10 @@
     run = "nix build -Lf . hosts.${host}.config.system.build.toplevel --show-trace";
   }));
   ci.gh-actions.checkoutOptions.submodules = false;
+  cache.cachix.arc = {
+    enable = true;
+    publicKey = "arc.cachix.org-1:DZmhclLkB6UO0rc0rBzNpwFbbaeLfyn+fYccuAy7YVY=";
+  };
   cache.cachix.kittywitch = {
     enable = true;
     publicKey = "kittywitch.cachix.org-1:KIzX/G5cuPw5WgrXad6UnrRZ8UDr7jhXzRTK/lmqyK0=";
