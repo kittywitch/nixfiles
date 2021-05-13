@@ -3,8 +3,9 @@
   ci.gh-actions.enable = true;
   ci.gh-actions.export = true;
 
-  tasks = let hostnames = [ "samhain" "yule" "athame" ];
+  jobs = let hostnames = [ "samhain" "yule" "athame" ];
   in mapAttrs' (k: nameValuePair "host-${k}") (genAttrs hostnames (host: {
+      tasks = {
       inputs = with channels.cipkgs; ci.command {
         name = "build-${host}";
         displayName = "build hosts/${host}";
@@ -13,8 +14,8 @@
           nix build -Lf . hosts.${host}.config.system.build.toplevel --show-trace --no-link
           nix-collect-garbage
         '';
-        impure = true;
       };
+    };
     }));
 
   ci.gh-actions.checkoutOptions.submodules = false;
