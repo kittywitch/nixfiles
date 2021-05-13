@@ -8,7 +8,7 @@
       package = pkgs.numix-icon-theme-square;
     };
     theme = {
-      name = "Adementary Dark";
+      name = "Adementary-dark";
       package = pkgs.adementary-theme;
     };
   };
