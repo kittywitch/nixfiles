@@ -16,6 +16,5 @@
 
   hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl ];
   services.tumbler.enable = true;
-  boot.extraModulePackages = [ config.boot.kernelPackages.exfat-nofuse ];
   deploy.profile.gui = true;
 }
