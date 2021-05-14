@@ -5,7 +5,7 @@ let
     config.lib.arc.base16.schemeForAlias.default;
   font = {
     name = "FantasqueSansMono Nerd Font";
-    size = "10";
+    size = 10.0;
     size_css = "14px";
   };
 in
@@ -80,7 +80,7 @@ in
       config =
         let
           dmenu =
-            "${pkgs.bemenu}/bin/bemenu --fn '${font.name} ${font.size}' --nb '${base16.base00}' --nf '${base16.base07}' --sb '${base16.base01}' --sf '${base16.base07}' -l 5 -m -1 -i";
+            "${pkgs.bemenu}/bin/bemenu --fn '${font.name} ${toString font.size}' --nb '${base16.base00}' --nf '${base16.base07}' --sb '${base16.base01}' --sf '${base16.base07}' -l 5 -m -1 -i";
         in
         {
           bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
@@ -93,7 +93,11 @@ in
             };
           };
 
-          fonts = [ "${font.name} ${font.size}" ];
+          fonts = { 
+            names = [ font.name ];
+            style = "Normal";
+            size = font.size;
+          };
           terminal = "${pkgs.kitty}/bin/kitty";
           # TODO: replace with wofi
           menu =
