@@ -5,10 +5,10 @@
         "homepage": "https://nur.nix-community.org/",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "cdc73aa7b11e14dc5e8a41165fab88c249c485b5",
-        "sha256": "0b318hpnp0jya0firr4jxcpy2s3cjnl7xgmlmi6aqd4qhqhn4fav",
+        "rev": "fbf1baf239232172b3d0c076ca0e68a4364e3cfc",
+        "sha256": "187i1m3yq7drk1cmah2b5j3p62aqrws99c6hlsvf6x3g93kshrm5",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/cdc73aa7b11e14dc5e8a41165fab88c249c485b5.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/fbf1baf239232172b3d0c076ca0e68a4364e3cfc.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "arc-nixexprs": {
@@ -17,10 +17,10 @@
         "homepage": null,
         "owner": "arcnmx",
         "repo": "nixexprs",
-        "rev": "614d248d1ab66fab84903b8bd6d387a7530915c4",
-        "sha256": "0zyhv8r69l9cn64nfifn61h0iabsakzjzsp3nxxzzg6iizbrmjcp",
+        "rev": "4194da88807277966a67f662c7810260c721b551",
+        "sha256": "0ba2kr2pr0b5mh145sp7py33wm08bvds107amq68swjbcr2j9n4i",
         "type": "tarball",
-        "url": "https://github.com/arcnmx/nixexprs/archive/614d248d1ab66fab84903b8bd6d387a7530915c4.tar.gz",
+        "url": "https://github.com/arcnmx/nixexprs/archive/4194da88807277966a67f662c7810260c721b551.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "ci": {
@@ -29,10 +29,10 @@
         "homepage": "https://arcnmx.github.io/ci",
         "owner": "arcnmx",
         "repo": "ci",
-        "rev": "7c5456059dda85618340c5aa9ede3267eae5aa5d",
-        "sha256": "1xa66px4k10whrggk64q2dc6sbixid2rf39nh58n95viqjy31s6g",
+        "rev": "32439a783522510fe16c3f57bf9887335cdc2799",
+        "sha256": "0g0vhzk1vmdybxn7k6cw3rmfvrjny8l27wj6safl8hy4cn0yfiah",
         "type": "tarball",
-        "url": "https://github.com/arcnmx/ci/archive/7c5456059dda85618340c5aa9ede3267eae5aa5d.tar.gz",
+        "url": "https://github.com/arcnmx/ci/archive/32439a783522510fe16c3f57bf9887335cdc2799.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "home-manager": {
@@ -73,6 +73,7 @@
     },
     "nix-hexchen": {
         "branch": "main",
+        "ref": "main",
         "repo": "https://gitlab.com/hexchen/nixfiles",
         "rev": "1dee1474f147ce8d04ec4b200df1c6255ae59bdc",
         "type": "git"
@@ -93,10 +94,10 @@
         "homepage": "",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "3a9d159ed1b41ca18523b2c95c7edb3845c1b411",
-        "sha256": "0w55zfaz5gg0xs7aq8zx0w4igp5nrnzfvwhkmkwmr0qcvhbxdijm",
+        "rev": "d1601a40c48426ae460eede1675fd1d6ee23e198",
+        "sha256": "00nl5b0ncqrcv6zr000dxk1jdvs7aj4s53njiyrh3sn78w1nghl6",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/3a9d159ed1b41ca18523b2c95c7edb3845c1b411.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs/archive/d1601a40c48426ae460eede1675fd1d6ee23e198.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-mozilla": {
@@ -117,14 +118,15 @@
         "homepage": "",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "93123faae0281d2e97d12641a7cfad07c8028aff",
-        "sha256": "0kc8rwsfsirr784hh2w143cy2yaqq7in7n5rzjx3j77z7nwsab26",
+        "rev": "93740c3e603e08a61bcfd7aa4d16a0b015284055",
+        "sha256": "0acbi185h6bfff73q9lx79n7x21zd99bi730hxwvzl2zbi1kzl7j",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/93123faae0281d2e97d12641a7cfad07c8028aff.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs/archive/93740c3e603e08a61bcfd7aa4d16a0b015284055.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pbb-nixfiles": {
         "branch": "main",
+        "ref": "main",
         "repo": "https://git.petabyte.dev/petabyteboy/nixfiles.git",
         "rev": "66f890a5f66db574fad2967dab2ee6755bed056f",
         "type": "git"
