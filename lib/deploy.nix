@@ -5,24 +5,30 @@ with pkgs.lib;
 let
   pkgsModule = { ... }: { config._module.args = { pkgs = mkDefault pkgs; }; };
 
+  configExtension = { ... }: {
+    options.terraform.baseDir = mkOption {
+      type = types.path;
+    };
+  };
+
   tfEval = config:
     (evalModules {
-      modules = [ pkgsModule (sources.tf-nix + "/modules") ] ++ toList config;
+      modules = [ pkgsModule (sources.tf-nix + "/modules") configExtension ] ++ toList config;
       specialArgs = { inherit hosts; };
     }).config;
 
-  tf = { targetName, target }:
+  tf = { targetName ? null, target ? [] }:
     tfEval ({ config, ... }: {
       imports = optional (builtins.pathExists ../trusted/tf) (import ../trusted/tf/meta.nix)
-        ++ map (hostName: ../hosts + "/${hostName}/meta.nix") target ++ [{
+        ++ flatten (map (hostName: optional (builtins.pathExists (../hosts + "/${hostName}/meta.nix")) (../hosts + "/${hostName}/meta.nix")) target) ++ [{
         config = mkMerge (map
           (hostName:
             mapAttrs (_: mkMerge) hosts.${hostName}.config.deploy.tf.out.set)
           target);
       }] ++ optional
-        (builtins.pathExists (../trusted/targets + "/${targetName}"))
+        (targetName != null && builtins.pathExists (../trusted/targets + "/${targetName}"))
         (../trusted/targets + "/${targetName}")
-        ++ optional (builtins.pathExists (../targets + "/${targetName}"))
+        ++ optional (targetName != null && builtins.pathExists (../targets + "/${targetName}"))
         (../targets + "/${targetName}") ++ concatMap
         (hostName:
           filter builtins.pathExists
@@ -35,12 +41,17 @@ let
         enable = true;
       };
 
-      runners.lazy = {
-        file = ../.;
-        args = [ "--show-trace" ];
-        attrPrefix =
-          let attr = if target != null then "target.${targetName}" else "tf";
-          in "deploy.${attr}.runners.run.";
+      runners = {
+        lazy = {
+          file = ../.;
+          args = [ "--show-trace" ];
+          attrPrefix =
+            let attr = if targetName != null then "target.${targetName}" else "tf";
+            in "deploy.${attr}.runners.run.";
+          };
+          run = {
+            apply.name = if targetName != null then "${targetName}-apply" else "tf-apply";
+          };
       };
 
       variables.hcloud_token = {

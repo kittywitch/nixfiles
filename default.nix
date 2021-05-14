@@ -15,7 +15,9 @@ rec {
   })
     hosts targets;
 
-  inherit (pkgs) lib;
+    inherit (pkgs) lib;
+
+    runners = import ./runners.nix { inherit lib; inherit (deploy) target; };
 
   deploy = import ./lib/deploy.nix {
     inherit pkgs sources;

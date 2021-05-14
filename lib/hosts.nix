@@ -38,7 +38,7 @@ rec {
       }))
     hostNames);
 
-  targets = foldAttrs (host: hosts: [ host ] ++ hosts) [ ] (mapAttrsToList
+  targets = filterAttrs (targetName: _: targetName != "") (foldAttrs (host: hosts: [ host ] ++ hosts) [ ] (mapAttrsToList
     (hostName: host: { ${host.config.deploy.target} = hostName; })
-    hosts);
+    hosts));
 }
