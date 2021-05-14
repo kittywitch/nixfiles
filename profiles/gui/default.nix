@@ -16,6 +16,6 @@
 
   hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl ];
   services.tumbler.enable = true;
-  boot.supportedFilesystems = [ "exfat" ];
+  
   deploy.profile.gui = true;
 }
