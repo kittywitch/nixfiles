@@ -2,8 +2,6 @@
 
 with lib;
 
-# targets -> targetName list of hosts
-
 let
 runners = {
   run = foldAttrList (mapAttrsToList (targetName: targetx: mapAttrs' (k: run:
