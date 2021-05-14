@@ -1,5 +1,5 @@
 { ... }:
 
 {
-  imports = [ ./secrets.nix ./gpg.nix ./packages.nix ];
+  imports = [ ./gpg.nix ./packages.nix ];
 }
