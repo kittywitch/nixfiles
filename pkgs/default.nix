@@ -49,6 +49,10 @@ let
           '';
         };
 
+      linuxPackagesFor = kernel: (super.linuxPackagesFor kernel).extend (_: ksuper: {
+        zfsUnstable = ksuper.zfsUnstable.overrideAttrs (old: { meta = old.meta // { broken = false; }; });
+      });
+
       obs-studio = super.obs-studio.override { pipewireSupport = true; };
 
       libreelec-dvb-firmware = self.callPackage ./libreelec-dvb-firmware { };
