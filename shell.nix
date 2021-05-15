@@ -27,7 +27,7 @@
     NF_CONFIG_FILES=($NF_CONFIG_ROOT/hosts.nix)
     for f in "''${NF_CONFIG_FILES[@]}"; do
       echo $f
-      nix run --arg config $f ci.run.gh-actions-generate
+      nix run --arg config $f ci.test
     done
     cd ${toString ./trusted}
     export TRUSTED_CONFIG_ROOT=${toString ./trusted}/ci
