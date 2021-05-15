@@ -1,5 +1,5 @@
 { lib, channels, env, ... }: with lib; let
-  nixfiles = import ./.; 
+  nixfiles = import ../.; 
 in {
   name = "hosts";
   ci.gh-actions.enable = true;
