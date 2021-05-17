@@ -25,10 +25,6 @@ with lib; {
             mkdir ~/.ssh
             echo "$OPENSSH_PRIVATE_KEY" > ~/.ssh/id_rsa
             chmod 0600 ~/.ssh/id_rsa
-            GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git clone ssh://gitea@git.kittywit.ch:62954/kat/nixfiles.git
-            rmdir nixfiles/trusted
-            ln -s $PWD nixfiles/trusted
-            cd nixfiles
             nix run -f . pkgs.niv  -c niv update
             if git status --porcelain | grep -qF nix/sources.json ; then
               if nix build -Lf . hosts.{athame,yule,samhain}.config.system.build.toplevel; then
