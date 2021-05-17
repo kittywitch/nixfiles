@@ -24,10 +24,10 @@
     fsType = "zfs";
   };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/D680-ED0E";
-    fsType = "vfat";
-  };
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/2552-18F2";
+      fsType = "vfat";
+    };
 
   swapDevices =
     [{ device = "/dev/disk/by-uuid/87ff4f68-cc00-494e-8eba-050469c3bf03"; }];
