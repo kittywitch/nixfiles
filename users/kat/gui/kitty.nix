@@ -9,7 +9,10 @@ let
     size_css = "14px";
   };
 in
-{
+  {
+    wayland.windowManager.sway.extraSessionCommands = ''
+      export KITTY_CACHE_DIRECTORY="/tmp/kitty";
+  '';
   programs.kitty = {
     enable = true;
     font.name = witch.style.font.name;
