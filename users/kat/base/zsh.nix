@@ -16,7 +16,7 @@
       sys = "systemctl";
       log = "journalctl";
       dmesg = "dmesg -HP";
-      jg = "log --no-pager | grep";
+      lg = "log --no-pager | grep";
     };
     initExtra = ''
       genmac() { nix run nixpkgs.openssl -c openssl rand -hex 6 | sed 's/\(..\)\(..\)\(..\)\(..\)\(..\)\(..\)/\1:\2:\3:\4:\5:\6/' }
