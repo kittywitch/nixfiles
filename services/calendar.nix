@@ -12,12 +12,13 @@ in
 {
   services.radicale = {
     enable = true;
-    config = ''
-      [auth]
-      type = htpasswd
-      htpasswd_filename = ${htpasswd}
-      htpasswd_encryption = bcrypt
-    '';
+    settings = {
+      auth = {
+        type = "htpasswd";
+        htpasswd_filename = toString htpasswd;
+        htpasswd_encryption = "bcrypt";
+      };
+    };
   };
 
   services.nginx.virtualHosts = {
