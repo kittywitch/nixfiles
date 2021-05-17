@@ -15,6 +15,7 @@
     p7zip
     zip
     unzip
+    nyxt
     baresip
     discord
     tdesktop
