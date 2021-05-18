@@ -25,7 +25,9 @@ with lib; {
             mkdir ~/.ssh
             echo "$OPENSSH_PRIVATE_KEY" > ~/.ssh/id_rsa
             chmod 0600 ~/.ssh/id_rsa
-            nix run -f . pkgs.niv  -c niv update
+            for source in $(cat nix/sources.json | jq -r 'keys[]'); do
+              nix run -f . pkgs.niv  -c niv update $source 2>&1 >/dev/null
+            done
             if git status --porcelain | grep -qF nix/sources.json ; then
               if nix build -Lf . hosts.{athame,yule,samhain}.config.system.build.toplevel; then
                 git add nix/sources.json
