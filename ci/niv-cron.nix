@@ -21,7 +21,9 @@ with lib; {
           displayName = "niv update build";
           nativeBuildInputs = [ nix cachix ];
           environment = [ "OPENSSH_PRIVATE_KEY" ];
-          command = ''
+          command = let sources = (import ../.).sources; 
+          sourceCache = (import ../.).sourceCache; in
+          ''
             mkdir ~/.ssh
             echo "$OPENSSH_PRIVATE_KEY" > ~/.ssh/id_rsa
             chmod 0600 ~/.ssh/id_rsa
@@ -29,6 +31,7 @@ with lib; {
               nix run -f . pkgs.niv  -c niv update $source || true
               echo $(nix eval --raw '(import ./.).sources.$source') | ${cachix}/bin/cachix push kittywitch
             done
+            cachix push kittywitch $(nix eval --raw -f ../. sourceCache)
             if git status --porcelain | grep -qF nix/sources.json ; then
               if nix build -Lf . hosts.{athame,yule,samhain}.config.system.build.toplevel; then
                 git add nix/sources.json
