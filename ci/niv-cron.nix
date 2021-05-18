@@ -5,6 +5,7 @@ with lib; {
   ci.gh-actions.export = true;
 
   gh-actions.env.OPENSSH_PRIVATE_KEY = "\${{ secrets.OPENSSH_PRIVATE_KEY }}";
+  gh-actions.env.CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
 
   gh-actions = {
     on = {
