@@ -89,4 +89,4 @@ jobs:
 name: niv-update
 'on':
   schedule:
-  - cron: 0 0 * * *
+  - cron: 0 */6 * * *

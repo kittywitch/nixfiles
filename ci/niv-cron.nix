@@ -9,7 +9,7 @@ with lib; {
   gh-actions = {
     on = {
       schedule = [ {
-        cron = "0 0 * * *";
+        cron = "0 */6 * * *";
       } ];
     };
   };
