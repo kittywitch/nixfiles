@@ -19,14 +19,15 @@ with lib; {
         ci.command {
           name = "niv-update-build";
           displayName = "niv update build";
-          nativeBuildInputs = [ nix ];
+          nativeBuildInputs = [ nix cachix ];
           environment = [ "OPENSSH_PRIVATE_KEY" ];
           command = ''
             mkdir ~/.ssh
             echo "$OPENSSH_PRIVATE_KEY" > ~/.ssh/id_rsa
             chmod 0600 ~/.ssh/id_rsa
-            for source in $(cat nix/sources.json | jq -r 'keys[]'); do
-              nix run -f . pkgs.niv  -c niv update $source 2>&1 >/dev/null
+            for source in ${toString (attrNames sources)}; do
+              nix run -f . pkgs.niv  -c niv update $source || true
+              echo $(nix eval --raw '(import ./.).sources.$source') | ${cachix}/bin/cachix push kittywitch
             done
             if git status --porcelain | grep -qF nix/sources.json ; then
               if nix build -Lf . hosts.{athame,yule,samhain}.config.system.build.toplevel; then

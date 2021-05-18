@@ -5,10 +5,10 @@
         "homepage": "https://nur.nix-community.org/",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "3a2308350e11ccbc28a642187e8c49508a58e67d",
-        "sha256": "0xw9fvsy2wbyzgjwra26gf7bb9izfwmifcarsy0jaabahdmj5dan",
+        "rev": "065b26d87e6d2067b490b88696279d22042c3a41",
+        "sha256": "0lji7bnyg70zxfyzqmj8g6wvkjqp32jk0cpl5hd7ainyd4pfjksw",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/3a2308350e11ccbc28a642187e8c49508a58e67d.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/065b26d87e6d2067b490b88696279d22042c3a41.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "arc-nixexprs": {
@@ -41,10 +41,10 @@
         "homepage": "https://nix-community.github.io/home-manager/",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "01ec2aaefeeed45764841cf42e1de56e01209e66",
-        "sha256": "0bjmqyv2jpgi5nrva7lyaxj4qwxpfpckrimknixcfwg3jh90fp6f",
+        "rev": "f9e45390deced72bc7cc0b75d3a922aa10a33e08",
+        "sha256": "14z5d9rlqcp35d4lg7wlvkqzydkhc8qvpjlf0bnn9gkng5wia2w9",
         "type": "tarball",
-        "url": "https://github.com/nix-community/home-manager/archive/01ec2aaefeeed45764841cf42e1de56e01209e66.tar.gz",
+        "url": "https://github.com/nix-community/home-manager/archive/f9e45390deced72bc7cc0b75d3a922aa10a33e08.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
@@ -73,10 +73,15 @@
     },
     "nix-hexchen": {
         "branch": "main",
+        "description": "A cutie's nixfiles",
+        "homepage": "",
         "ref": "main",
         "repo": "https://gitlab.com/hexchen/nixfiles",
         "rev": "1dee1474f147ce8d04ec4b200df1c6255ae59bdc",
-        "type": "git"
+        "sha256": "0zz0fxdf3k4nmm5l2raw35wd1m27d5qp46r4aq4lc124bm30qqab",
+        "type": "tarball",
+        "url": "https://gitlab.com/hexchen/nixfiles/-/archive/1dee1474f147ce8d04ec4b200df1c6255ae59bdc/nixfiles-1dee1474f147ce8d04ec4b200df1c6255ae59bdc.tar.gz",
+        "url_template": "<repo>/-/archive/<rev>.tar.gz"
     },
     "nixos-mailserver": {
         "branch": "master",
@@ -118,18 +123,23 @@
         "homepage": "",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "9b92a817238eae3e2f3dfbc8d205a5a1c0d1461c",
-        "sha256": "1v41lrh5xc9ll7hlygqzvcs3d9b0q8bbnavshk202rqw7ga9hnln",
+        "rev": "bcadf12e7f8ee360654176ae3aacf3e8c0993ab4",
+        "sha256": "0q8f71ssa0pd16l0sf0976h659fypl9kp3syx6sxcx0k04rg3hz4",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/9b92a817238eae3e2f3dfbc8d205a5a1c0d1461c.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs/archive/bcadf12e7f8ee360654176ae3aacf3e8c0993ab4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pbb-nixfiles": {
         "branch": "main",
+        "description": "why does this infrastructure keep going down? i'm dead inside",
+        "homepage": "",
         "ref": "main",
-        "repo": "https://git.petabyte.dev/petabyteboy/nixfiles.git",
+        "repo": "https://git.petabyte.dev/petabyteboy/nixfiles",
         "rev": "66f890a5f66db574fad2967dab2ee6755bed056f",
-        "type": "git"
+        "sha256": "07vdgav3bsf5fzkxzn3v7rkv2i9b5mbg5q74bj6ff8c4hjflvshz",
+        "type": "tarball",
+        "url": "https://git.petabyte.dev/petabyteboy/nixfiles/archive/66f890a5f66db574fad2967dab2ee6755bed056f.tar.gz",
+        "url_template": "<repo>/archive/<rev>.tar.gz"
     },
     "qyliss-nixlib": {
         "repo": "https://git.qyliss.net/nixlib",
