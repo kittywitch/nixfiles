@@ -73,9 +73,9 @@ with lib; {
               if nix build -Lf . hosts.{athame,yule,samhain}.config.system.build.toplevel; then
                 if [[ -n $CACHIX_SIGNING_KEY ]]; then
                   nix build --no-link -Lf . sourceCache.all
-                  cachix push kittywitch $(nix eval -f . sourceCache.allStr)
+                  cachix push kittywitch $(nix eval --raw -f . sourceCache.allStr)
 
-                  cachix push kittywitch $(readlink result*/) &
+                  cachix push kittywitch result*/ &
                   CACHIX_PUSH=$!
                 fi
                 if [[ -n $OPENSSH_PRIVATE_KEY ]]; then
