@@ -1,4 +1,5 @@
 env:
+  CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
   CI_ALLOW_ROOT: '1'
   CI_CONFIG: ./ci/niv-cron.nix
   CI_PLATFORM: gh-actions
