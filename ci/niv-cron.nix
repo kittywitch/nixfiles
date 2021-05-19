@@ -41,7 +41,7 @@ with lib; {
         ci.command {
           name = "niv-update-build";
           displayName = "niv update build";
-          environment = [ "OPENSSH_PRIVATE_KEY" "CACHIX_SIGNING_KEY" ];
+          environment = [ "OPENSSH_PRIVATE_KEY" "CACHIX_SIGNING_KEY" "GITHUB_REF" ];
           command = ''
             if [[ -n $OPENSSH_PRIVATE_KEY ]]; then
               mkdir ~/.ssh
