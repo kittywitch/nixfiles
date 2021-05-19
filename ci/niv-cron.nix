@@ -40,9 +40,11 @@ with lib; {
           displayName = "niv update build";
           environment = [ "OPENSSH_PRIVATE_KEY" "CACHIX_SIGNING_KEY" ];
           command = ''
-            mkdir ~/.ssh
-            echo "$OPENSSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-            chmod 0600 ~/.ssh/id_rsa
+            if [[ -n $OPENSSH_PRIVATE_KEY ]]; then
+              mkdir ~/.ssh
+              echo "$OPENSSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+              chmod 0600 ~/.ssh/id_rsa
+            fi
 
             for source in ${toString (attrNames channels.nixfiles.sources)}; do
               niv update $source || true
@@ -51,15 +53,19 @@ with lib; {
             if git status --porcelain | grep -qF nix/sources.json; then
               if nix build -Lf . hosts.{athame,yule,samhain}.config.system.build.toplevel; then
                 nix build -f ../. sourceCache
-                cachix push kittywitch $(nix eval '(toString (import ../.).sourceCache)')
-                nix-build $(echo "-A hosts."{athame,yule,samhain}.config.system.build.toplevel) | cachix push kittywitch
-                git add nix/sources.json
-                export GIT_{COMMITTER,AUTHOR}_EMAIL=kat@kittywit.ch
-                export GIT_{COMMITTER,AUTHOR}_NAME=kat witch
-                git commit --message="ci-trusted: niv update"
-                git remote add gitea ssh://gitea@git.kittywit.ch:62954/kat/nixfiles.git
-                GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
-                  git push gitea master
+                if [[ -n $CACHIX_SIGNING_KEY ]]; then
+                  cachix push kittywitch $(nix eval '(toString (import ../.).sourceCache)')
+                  nix-build $(echo "-A hosts."{athame,yule,samhain}.config.system.build.toplevel) | cachix push kittywitch
+                fi
+                if [[ -n $OPENSSH_PRIVATE_KEY ]]; then
+                  git add nix/sources.json
+                  export GIT_{COMMITTER,AUTHOR}_EMAIL=kat@kittywit.ch
+                  export GIT_{COMMITTER,AUTHOR}_NAME=kat witch
+                  git commit --message="ci-trusted: niv update"
+                  git remote add gitea ssh://gitea@git.kittywit.ch:62954/kat/nixfiles.git
+                  GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
+                    git push gitea master
+                fi
               fi
             else
               echo "no source changes" >&2
