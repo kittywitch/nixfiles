@@ -85,7 +85,7 @@ with lib; {
                   git commit --message="ci: niv update"
                   if [[ $GITHUB_REF = refs/heads/main ]]; then
                     GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
-                      git push ssh://gitea@git.kittywit.ch:62954/kat/nixfiles.git main
+                      git push ssh://gitea@git.kittywit.ch:62954/kat/nixfiles.git HEAD:main
                   fi
                 fi
 
