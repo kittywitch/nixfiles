@@ -139,7 +139,8 @@
         "sha256": "07vdgav3bsf5fzkxzn3v7rkv2i9b5mbg5q74bj6ff8c4hjflvshz",
         "type": "tarball",
         "url": "https://git.petabyte.dev/petabyteboy/nixfiles/archive/66f890a5f66db574fad2967dab2ee6755bed056f.tar.gz",
-        "url_template": "<repo>/archive/<rev>.tar.gz"
+        "url_template": "<repo>/archive/<rev>.tar.gz",
+	"builtin": true
     },
     "qyliss-nixlib": {
         "repo": "https://git.qyliss.net/nixlib",
@@ -147,7 +148,8 @@
         "sha256": "0nan14ixhdzxxddnckqqhaxhr96yw08rgcmxssddhji6aq5a445j",
         "type": "tarball",
         "url": "https://git.qyliss.net/nixlib/snapshot/nixlib-e14330c5be9b005d4310cd4dc0d384cff882aedc.tar.gz",
-        "url_template": "https://git.qyliss.net/nixlib/snapshot/nixlib-<rev>.tar.gz"
+        "url_template": "https://git.qyliss.net/nixlib/snapshot/nixlib-<rev>.tar.gz",
+	"builtin": true
     },
     "tf-nix": {
         "branch": "master",
