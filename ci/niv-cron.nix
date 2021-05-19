@@ -61,6 +61,8 @@ with lib; {
                 GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
                   git push gitea master
               fi
+            else
+              echo "no source changes" >&2
             fi
           '';
           impure = true;
