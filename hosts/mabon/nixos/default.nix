@@ -6,8 +6,7 @@
     profiles.gui
     profiles.sway
     profiles.laptop
-    users.kat.sway
-    users.kat.gui
+    users.kat.guiFull
   ];
 
   deploy.target = "mbp";
@@ -23,7 +22,7 @@
   networking.hostName = "mabon";
 
   networking.useDHCP = false;
-  networking.interfaces.enp1s0.useDHCP = true;
+  networking.interfaces.enp1s0.useDHCP = false;
   networking.interfaces.wlp2s0.useDHCP = true;
 
   system.stateVersion = "20.09";
