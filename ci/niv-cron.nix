@@ -29,7 +29,7 @@ with lib; {
             chmod 0600 ~/.ssh/id_rsa
             for source in ${toString (attrNames sources)}; do
               if nix run -f . pkgs.niv  -c niv update $source; then
-                echo $(nix eval --raw "(import ./.).sources.$source") | ${cachix}/bin/cachix push kittywitch
+                echo $(nix eval --raw "(import ./.).sources.$source.outPath") | ${cachix}/bin/cachix push kittywitch
               fi
             done
             cachix push kittywitch $(nix eval --raw -f ../. sourceCache)

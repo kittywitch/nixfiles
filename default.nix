@@ -19,7 +19,7 @@ rec {
 
     runners = import ./runners.nix { inherit lib; inherit (deploy) target; };
 
-  sourceCache = toString (lib.mapAttrsToList(sourceName: value: "${value}") (removeAttrs (import sources.nix-hexchen {}).sources [ "__functor" ]));
+  sourceCache = toString (lib.mapAttrsToList(sourceName: value: value.outPath) (removeAttrs (import sources.nix-hexchen {}).sources [ "__functor" ]));
 
   deploy = import ./lib/deploy.nix {
     inherit pkgs sources;
