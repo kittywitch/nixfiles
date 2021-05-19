@@ -49,10 +49,11 @@ with lib; {
               chmod 0600 ~/.ssh/id_rsa
             fi
 
+            git init -q sources
             ${concatStringsSep "\n" (mapAttrsToList (source: spec: let
               update = "niv update ${source}";
-              fetch = "timeout 30 git fetch -q --depth 1 ${spec.repo} ${spec.branch}:source-${source}";
-              revision = "$(git show-ref -s source-${source})";
+              fetch = "timeout 30 git -C sources fetch -q --depth 1 ${spec.repo} ${spec.branch}:source-${source}";
+              revision = "$(git -C sources show-ref -s source-${source})";
               isGit = hasPrefix "https://" spec.repo or "";
               git = ''
                 if ${fetch}; then
