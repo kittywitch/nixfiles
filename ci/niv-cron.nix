@@ -21,7 +21,7 @@ with lib; {
           name = "niv-update-build";
           displayName = "niv update build";
           nativeBuildInputs = [ nix cachix ];
-          environment = [ "OPENSSH_PRIVATE_KEY" ];
+          environment = [ "OPENSSH_PRIVATE_KEY" "CACHIX_SIGNING_KEY" ];
           command = let sources = (import ../.).sources; in
           ''
             mkdir ~/.ssh
