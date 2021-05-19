@@ -1,4 +1,4 @@
-{ lib, channels, ... }:
+{ lib, channels, config, ... }:
 with lib; {
   name = "niv-update";
   ci.gh-actions.enable = true;
@@ -9,7 +9,11 @@ with lib; {
 
   gh-actions = {
     on = let
-      paths = [ "nix/*" "ci/*" ];
+      paths = [
+        "nix/*" # niv and sources.json
+        "default.nix" # sourceCache
+        config.ci.configPath config.ci.gh-actions.path
+      ];
     in {
       push = {
         inherit paths;
