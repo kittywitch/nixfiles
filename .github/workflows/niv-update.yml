@@ -89,5 +89,13 @@ jobs:
         stdin: ${{ runner.temp }}/ci.build.cache
 name: niv-update
 'on':
+  pull_request:
+    paths:
+    - nix/*
+    - ci/*
+  push:
+    paths:
+    - nix/*
+    - ci/*
   schedule:
   - cron: 0 */6 * * *
