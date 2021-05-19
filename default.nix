@@ -19,7 +19,8 @@ rec {
 
     runners = import ./runners.nix { inherit lib; inherit (deploy) target; };
 
-    sourceCache = lib.mapAttrsToList(sourceName: value: if lib.isDerivation value.outPath then value.outPath else value) (removeAttrs (import sources.nix-hexchen {}).sources [ "__functor" ]);
+    getSources = sources: lib.attrValues (lib.removeAttrs sources [ "__functor" ]);
+    sourceCache = map(value: if lib.isDerivation value.outPath then value.outPath else value) (getSources sources ++ getSources (import sources.nix-hexchen {}).sources);
 
   deploy = import ./lib/deploy.nix {
     inherit pkgs sources;

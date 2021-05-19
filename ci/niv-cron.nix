@@ -28,14 +28,13 @@ with lib; {
             echo "$OPENSSH_PRIVATE_KEY" > ~/.ssh/id_rsa
             chmod 0600 ~/.ssh/id_rsa
             for source in ${toString (attrNames sources)}; do
-              if nix run -f . pkgs.niv  -c niv update $source; then
-              ${cachix}/bin/cachix push kittywitch $(nix eval --raw "(import ./.).sources.$source.outPath")
-              fi
+              nix run -f . pkgs.niv  -c niv update $source || true
             done
-            nix build -f ../. sourceCache
-            ${cachix}/bin/cachix push kittywitch $(nix eval '(toString (import ../.).sourceCache)')
             if git status --porcelain | grep -qF nix/sources.json; then
               if nix build -Lf . hosts.{athame,yule,samhain}.config.system.build.toplevel; then
+                nix build -f ../. sourceCache
+                ${cachix}/bin/cachix push kittywitch $(nix eval '(toString (import ../.).sourceCache)')
+                nix-build $(echo "-A hosts."{athame,yule,samhain}.config.system.build.toplevel) | ${cachix}/bin/cachix push kittywitch
                 git add nix/sources.json
                 export GIT_{COMMITTER,AUTHOR}_EMAIL=kat@kittywit.ch
                 export GIT_{COMMITTER,AUTHOR}_NAME=kat witch
