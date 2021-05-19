@@ -8,7 +8,15 @@ with lib; {
   gh-actions.env.CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
 
   gh-actions = {
-    on = {
+    on = let
+      paths = [ "nix/*" "ci/*" ];
+    in {
+      push = {
+        inherit paths;
+      };
+      pull_request = {
+        inherit paths;
+      };
       schedule = [ {
         cron = "0 */6 * * *";
       } ];
@@ -39,7 +47,9 @@ with lib; {
                 export GIT_{COMMITTER,AUTHOR}_EMAIL=kat@kittywit.ch
                 export GIT_{COMMITTER,AUTHOR}_NAME=kat witch
                 git commit --message="ci-trusted: niv update"
-                GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git push
+                git remote add gitea ssh://gitea@git.kittywit.ch:62954/kat/nixfiles.git
+                GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
+                  git push gitea master
               fi
             fi
           '';
