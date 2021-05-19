@@ -55,10 +55,12 @@ with lib; {
             done
 
             if git status --porcelain | grep -qF nix/sources.json; then
-              nix build --no-link -f . sourceCache.local
+              git -P diff nix/sources.json
+              nix build --no-link -Lf . sourceCache.local
+              echo "checking that hosts still build..." >&2
               if nix build -Lf . hosts.{athame,yule,samhain}.config.system.build.toplevel; then
                 if [[ -n $CACHIX_SIGNING_KEY ]]; then
-                  nix build --no-link -f . sourceCache.all
+                  nix build --no-link -Lf . sourceCache.all
                   cachix push kittywitch $(nix eval -f . sourceCache.allStr)
 
                   cachix push kittywitch result*/ &
