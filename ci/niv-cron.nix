@@ -10,9 +10,8 @@ with lib; {
   gh-actions = {
     on = let
       paths = [
-        "nix/*" # niv and sources.json
         "default.nix" # sourceCache
-        config.ci.configPath config.ci.gh-actions.path
+        "ci/niv-cron.nix" config.ci.gh-actions.path
       ];
     in {
       push = {
@@ -50,10 +49,11 @@ with lib; {
               chmod 0600 ~/.ssh/id_rsa
             fi
 
+            git init -q sources
             ${concatStringsSep "\n" (mapAttrsToList (source: spec: let
               update = "niv update ${source}";
-              fetch = "timeout 30 git fetch -q --depth 1 ${spec.repo} ${spec.branch}:source-${source}";
-              revision = "$(git show-ref -s source-${source})";
+              fetch = "timeout 30 git -C sources fetch -q --depth 1 ${spec.repo} ${spec.branch}:source-${source}";
+              revision = "$(git -C sources show-ref -s source-${source})";
               isGit = hasPrefix "https://" spec.repo or "";
               git = ''
                 if ${fetch}; then
@@ -75,17 +75,18 @@ with lib; {
                   nix build --no-link -Lf . sourceCache.all
                   cachix push kittywitch $(nix eval -f . sourceCache.allStr)
 
-                  cachix push kittywitch result*/ &
+                  cachix push kittywitch result* &
                   CACHIX_PUSH=$!
                 fi
                 if [[ -n $OPENSSH_PRIVATE_KEY ]]; then
                   git add nix/sources.json
                   export GIT_{COMMITTER,AUTHOR}_EMAIL=kat@kittywit.ch
                   export GIT_{COMMITTER,AUTHOR}_NAME=kat witch
-                  git commit --message="ci-trusted: niv update"
-                  git remote add gitea ssh://gitea@git.kittywit.ch:62954/kat/nixfiles.git
-                  GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
-                    git push gitea master
+                  git commit --message="ci: niv update"
+                  if [[ $GITHUB_REF = refs/heads/main ]]; then
+                    GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
+                      git push ssh://gitea@git.kittywit.ch:62954/kat/nixfiles.git main
+                  fi
                 fi
 
                 wait ''${CACHIX_PUSH-}
