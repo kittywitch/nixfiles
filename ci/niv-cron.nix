@@ -75,7 +75,7 @@ with lib; {
                   nix build --no-link -Lf . sourceCache.all
                   cachix push kittywitch $(nix eval -f . sourceCache.allStr)
 
-                  cachix push kittywitch result*/ &
+                  cachix push kittywitch result* &
                   CACHIX_PUSH=$!
                 fi
                 if [[ -n $OPENSSH_PRIVATE_KEY ]]; then
