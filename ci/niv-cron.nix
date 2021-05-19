@@ -8,7 +8,15 @@ with lib; {
   gh-actions.env.CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
 
   gh-actions = {
-    on = {
+    on = let
+      paths = [ "nix/*" "ci/*" ];
+    in {
+      push = {
+        inherit paths;
+      };
+      pull_request = {
+        inherit paths;
+      };
       schedule = [ {
         cron = "0 */6 * * *";
       } ];
