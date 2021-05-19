@@ -8,6 +8,7 @@
     ./firefox.nix
     ./dns.nix
     ./nfs.nix
+    ./nix-doc.nix
     ./mpd.nix
     ./nixpkgs.nix
     ./mingetty.nix
