@@ -78,9 +78,9 @@
         "ref": "main",
         "repo": "https://gitlab.com/hexchen/nixfiles",
         "rev": "8a152b95d09c9729bfe4582c89a8900a0d32caf1",
-        "sha256": "0zz0fxdf3k4nmm5l2raw35wd1m27d5qp46r4aq4lc124bm30qqab",
+        "sha256": "0yqh49v0212v6h66xk9j5rbvm454pyfp10mbqcqs9sf67lndga4m",
         "type": "tarball",
-        "url": "https://gitlab.com/hexchen/nixfiles/-/archive/1dee1474f147ce8d04ec4b200df1c6255ae59bdc/nixfiles-1dee1474f147ce8d04ec4b200df1c6255ae59bdc.tar.gz",
+        "url": "https://gitlab.com/hexchen/nixfiles/-/archive/8a152b95d09c9729bfe4582c89a8900a0d32caf1/nixfiles-8a152b95d09c9729bfe4582c89a8900a0d32caf1.tar.gz",
         "url_template": "<repo>/-/archive/<rev>.tar.gz"
     },
     "nixos-mailserver": {
@@ -143,6 +143,7 @@
         "url_template": "<repo>/archive/<rev>.tar.gz"
     },
     "qyliss-nixlib": {
+        "branch": "master",
         "builtin": false,
         "repo": "https://git.qyliss.net/nixlib",
         "rev": "e14330c5be9b005d4310cd4dc0d384cff882aedc",
