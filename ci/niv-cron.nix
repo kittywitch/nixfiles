@@ -29,10 +29,11 @@ with lib; {
             chmod 0600 ~/.ssh/id_rsa
             for source in ${toString (attrNames sources)}; do
               if nix run -f . pkgs.niv  -c niv update $source; then
-                echo $(nix eval --raw "(import ./.).sources.$source.outPath") | ${cachix}/bin/cachix push kittywitch
+              ${cachix}/bin/cachix push kittywitch $(nix eval --raw "(import ./.).sources.$source.outPath")
               fi
             done
-            cachix push kittywitch $(nix eval --raw -f ../. sourceCache)
+            nix build -f ../. sourceCache
+            ${cachix}/bin/cachix push kittywitch $(nix eval '(toString (import ../.).sourceCache)')
             if git status --porcelain | grep -qF nix/sources.json; then
               if nix build -Lf . hosts.{athame,yule,samhain}.config.system.build.toplevel; then
                 git add nix/sources.json
