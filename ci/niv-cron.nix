@@ -50,9 +50,21 @@ with lib; {
               chmod 0600 ~/.ssh/id_rsa
             fi
 
-            for source in ${toString (attrNames channels.nixfiles.sources)}; do
-              niv update $source || true
-            done
+            ${concatStringsSep "\n" (mapAttrsToList (source: spec: let
+              update = "niv update ${source}";
+              fetch = "timeout 30 git fetch -q --depth 1 ${spec.repo} ${spec.branch}:source-${source}";
+              revision = "$(git show-ref -s source-${source})";
+              isGit = hasPrefix "https://" spec.repo or "";
+              git = ''
+                if ${fetch}; then
+                  echo "${source}:${spec.branch} HEAD at ${revision}" >&2
+                  ${update} -r ${revision} || true
+                else
+                  echo "failed to fetch latest revision from ${spec.repo}" >&2
+                fi
+              '';
+              auto = "${update} || true";
+            in if isGit then git else auto) channels.nixfiles.sources)}
 
             if git status --porcelain | grep -qF nix/sources.json; then
               git -P diff nix/sources.json

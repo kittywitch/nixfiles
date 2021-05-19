@@ -143,6 +143,7 @@
         "url_template": "<repo>/archive/<rev>.tar.gz"
     },
     "qyliss-nixlib": {
+        "branch": "master",
         "builtin": false,
         "repo": "https://git.qyliss.net/nixlib",
         "rev": "e14330c5be9b005d4310cd4dc0d384cff882aedc",
