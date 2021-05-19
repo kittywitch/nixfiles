@@ -82,10 +82,11 @@ with lib; {
                   git add nix/sources.json
                   export GIT_{COMMITTER,AUTHOR}_EMAIL=kat@kittywit.ch
                   export GIT_{COMMITTER,AUTHOR}_NAME=kat witch
-                  git commit --message="ci-trusted: niv update"
-                  git remote add gitea ssh://gitea@git.kittywit.ch:62954/kat/nixfiles.git
-                  GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
-                    git push gitea master
+                  git commit --message="ci: niv update"
+                  if [[ $GITHUB_REF = refs/heads/main ]]; then
+                    GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
+                      git push ssh://gitea@git.kittywit.ch:62954/kat/nixfiles.git main
+                  fi
                 fi
 
                 wait ''${CACHIX_PUSH-}
