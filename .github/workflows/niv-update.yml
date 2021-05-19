@@ -91,15 +91,13 @@ name: niv-update
 'on':
   pull_request:
     paths:
-    - nix/*
     - default.nix
-    - ./ci/niv-cron.nix
+    - ci/niv-cron.nix
     - .github/workflows/niv-update.yml
   push:
     paths:
-    - nix/*
     - default.nix
-    - ./ci/niv-cron.nix
+    - ci/niv-cron.nix
     - .github/workflows/niv-update.yml
   schedule:
   - cron: 0 */6 * * *

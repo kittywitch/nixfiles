@@ -10,9 +10,8 @@ with lib; {
   gh-actions = {
     on = let
       paths = [
-        "nix/*" # niv and sources.json
         "default.nix" # sourceCache
-        config.ci.configPath config.ci.gh-actions.path
+        "ci/niv-cron.nix" config.ci.gh-actions.path
       ];
     in {
       push = {
