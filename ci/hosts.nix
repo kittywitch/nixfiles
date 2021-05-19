@@ -1,13 +1,12 @@
-{ lib, channels, env, ... }: with lib; let
-  nixfiles = import ../.; 
-in {
+{ lib, channels, env, ... }: with lib; {
   name = "hosts";
   ci.gh-actions.enable = true;
   ci.gh-actions.export = true;
+  channels.nixfiles.path = ../.;
 
   jobs = let hostnames = [ "samhain" "yule" "athame" ];
   in mapAttrs' (k: nameValuePair "host-${k}") (genAttrs hostnames (host: {
-      tasks.${host}.inputs = nixfiles.hosts.${host}.config.system.build.toplevel;
+      tasks.${host}.inputs = channels.nixfiles.hosts.${host}.config.system.build.toplevel;
   }));
 
   ci.gh-actions.checkoutOptions.submodules = false;
