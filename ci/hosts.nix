@@ -4,6 +4,16 @@
   ci.gh-actions.export = true;
   channels.nixfiles.path = ../.;
 
+  # ensure sources are fetched and available in the local store before evaluating host configs
+  environment.bootstrap = {
+    sourceCache = channels.cipkgs.runCommand "sources" {
+      srcs = attrNames channels.nixfiles.sourceCache.local;
+    } ''
+      mkdir -p $out/share/sources
+      ln -s $srcs $out/share/sources/
+    '';
+  };
+
   jobs = let hostnames = [ "samhain" "yule" "athame" ];
   in mapAttrs' (k: nameValuePair "host-${k}") (genAttrs hostnames (host: {
       tasks.${host}.inputs = channels.nixfiles.hosts.${host}.config.system.build.toplevel;

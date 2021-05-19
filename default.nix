@@ -19,8 +19,16 @@ rec {
 
     runners = import ./runners.nix { inherit lib; inherit (deploy) target; };
 
-    getSources = sources: lib.attrValues (lib.removeAttrs sources [ "__functor" ]);
-    sourceCache = map(value: if lib.isDerivation value.outPath then value.outPath else value) (getSources sources ++ getSources (import sources.nix-hexchen {}).sources);
+    sourceCache = with lib; let
+      getSources = sources: removeAttrs sources [ "__functor" "dorkfiles" ];
+      source2drv = value: if isDerivation value.outPath then value.outPath else value;
+      sources2drvs = sources: mapAttrs (_: source2drv) (getSources sources);
+    in recurseIntoAttrs rec {
+      local = sources2drvs sources;
+      hexchen = sources2drvs (import sources.nix-hexchen {}).sources;
+      all = attrValues local ++ attrValues hexchen;
+      allStr = toString all;
+    };
 
   deploy = import ./lib/deploy.nix {
     inherit pkgs sources;

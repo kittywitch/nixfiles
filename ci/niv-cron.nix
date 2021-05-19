@@ -51,11 +51,14 @@ with lib; {
             done
 
             if git status --porcelain | grep -qF nix/sources.json; then
+              nix build --no-link -f . sourceCache.local
               if nix build -Lf . hosts.{athame,yule,samhain}.config.system.build.toplevel; then
-                nix build -f ../. sourceCache
                 if [[ -n $CACHIX_SIGNING_KEY ]]; then
-                  cachix push kittywitch $(nix eval '(toString (import ../.).sourceCache)')
-                  nix-build $(echo "-A hosts."{athame,yule,samhain}.config.system.build.toplevel) | cachix push kittywitch
+                  nix build --no-link -f . sourceCache.all
+                  cachix push kittywitch $(nix eval -f . sourceCache.allStr)
+
+                  cachix push kittywitch result*/ &
+                  CACHIX_PUSH=$!
                 fi
                 if [[ -n $OPENSSH_PRIVATE_KEY ]]; then
                   git add nix/sources.json
@@ -66,6 +69,8 @@ with lib; {
                   GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
                     git push gitea master
                 fi
+
+                wait ''${CACHIX_PUSH-}
               fi
             else
               echo "no source changes" >&2
