@@ -117,6 +117,11 @@ with lib;
   };
 
   services.nginx.virtualHosts."kittywit.ch" = {
+    # allegedly fixes https://github.com/poljar/weechat-matrix/issues/240
+    extraConfig = ''
+      http2_max_requests 100000;
+    '';
+
     locations = {
       "/_matrix" = { proxyPass = "http://[::1]:8008"; };
       "= /.well-known/matrix/server".extraConfig =

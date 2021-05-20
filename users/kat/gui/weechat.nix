@@ -28,7 +28,6 @@
           device_name = "${superConfig.networking.hostName}/weechat";
           username = "kat";
           password = "\${sec.data.matrix}";
-          autoconnect = true;
         };
       };
     };
