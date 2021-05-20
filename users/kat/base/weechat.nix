@@ -15,7 +15,6 @@
       '')
       (lib.mkAfter "/matrix connect kat")
     ];
-    packageUnwrapped = pkgs.weechat-unwrapped;
     homeDirectory = "${config.xdg.dataHome}/weechat";
     plugins.python = {
       enable = true;
