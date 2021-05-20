@@ -5,10 +5,10 @@
         "homepage": "https://nur.nix-community.org/",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "7d2e8b8eaa1c25abc9b43c6b6912037a73ca9b93",
-        "sha256": "1fwn62i1lq1971lxvvw34fq4bz1vg7js8k38xwdpb55niz3i5qqq",
+        "rev": "90d437849990bbb66314dad43d2df53f28b81bbe",
+        "sha256": "0qnx7l2zgyzcywv2g8pm1gd0qy52aadnk3plxsh5a5l3m9pn6s9s",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/7d2e8b8eaa1c25abc9b43c6b6912037a73ca9b93.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/90d437849990bbb66314dad43d2df53f28b81bbe.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "arc-nixexprs": {
@@ -136,10 +136,10 @@
         "homepage": "",
         "ref": "main",
         "repo": "https://git.petabyte.dev/petabyteboy/nixfiles",
-        "rev": "66f890a5f66db574fad2967dab2ee6755bed056f",
-        "sha256": "07vdgav3bsf5fzkxzn3v7rkv2i9b5mbg5q74bj6ff8c4hjflvshz",
+        "rev": "c57fe4b3553a1cc5e6fa1d383b458379951657fe",
+        "sha256": "0a5ybaaslrg6v30wnrydprcq2y64myqdglzsszh3f6m50fyzb1rd",
         "type": "tarball",
-        "url": "https://git.petabyte.dev/petabyteboy/nixfiles/archive/66f890a5f66db574fad2967dab2ee6755bed056f.tar.gz",
+        "url": "https://git.petabyte.dev/petabyteboy/nixfiles/archive/c57fe4b3553a1cc5e6fa1d383b458379951657fe.tar.gz",
         "url_template": "<repo>/archive/<rev>.tar.gz"
     },
     "qyliss-nixlib": {
