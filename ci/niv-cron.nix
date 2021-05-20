@@ -80,8 +80,8 @@ with lib; {
                 fi
                 if [[ -n $OPENSSH_PRIVATE_KEY ]]; then
                   git add nix/sources.json
-                  export GIT_{COMMITTER,AUTHOR}_EMAIL=kat@kittywit.ch
-                  export GIT_{COMMITTER,AUTHOR}_NAME=kat witch
+                  export GIT_{COMMITTER,AUTHOR}_EMAIL=github@kittywit.ch
+                  export GIT_{COMMITTER,AUTHOR}_NAME="niv cron job"
                   git commit --message="ci: niv update"
                   if [[ $GITHUB_REF = refs/heads/main ]]; then
                     GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
