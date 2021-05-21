@@ -11,7 +11,7 @@
             password = "kat/freenode:\${sec.data.znc}";
             ssl = true;
             ssl_verify = false;
-            autoconnect = true;
+            autoconnect = false;
           };
           espernet = {
             address = "athame.kittywit.ch/5001";

@@ -1,10 +1,11 @@
 { config, pkgs, lib, ... }:
 
+with lib;
+
 {
   programs.weechat = {
     init = lib.mkMerge [
       (lib.mkBefore ''
-        /server add freenode athame.kittywit.ch/5001 -ssl -autoconnect
         /server add espernet athame.kittywit.ch/5001 -ssl -autoconnect
         /matrix server add kat kittywit.ch
         /key bind meta-g /go
@@ -32,14 +33,53 @@
       weechat-notify-send
       title
     ];
-    config = {
+    config = with mapAttrs (_: toString) pkgs.base16.shell.shell256; {
       logger.level.irc = 0;
       logger.level.matrix = 0;
+      buflist = {
+        format = {
+            indent = " "; # default "  "
+            buffer_current = "\${color:,${base01}}\${format_buffer}";
+            hotlist = " \${color:${base0B}}(\${hotlist}\${color:${base0B}})";
+            hotlist_highlight = "\${color:${base0F}}";
+            hotlist_low = "\${color:${base06}}";
+            hotlist_message = "\${color:${base0E}}";
+            hotlist_none = "\${color:${base05}}";
+            hotlist_private = "\${color:${base09}}";
+            hotlist_separator = "\${color:${base04}},";
+            number = "\${color:${base0A}}\${number}\${if:\${number_displayed}?.: }";
+        };
+      };
       weechat = {
         look = { mouse = true; };
+        color = {
+          chat_nick_self = base0F;
+          separator = base0A;
+        };
         bar = {
-          buflist = { size_max = 24; };
-          nicklist = { size_max = 18; };
+          buflist = {
+            size_max = 24;
+            color_delim = base0A;
+          };
+          input = {
+            items = "[input_prompt]+(away),[input_search],[input_paste],input_text,[vi_buffer]";
+            color_delim = base0A;
+          };
+          nicklist = {
+            size_max = 18;
+            color_delim = base0A;
+          };
+          status = {
+            color_bg = base01;
+            color_fg = base05;
+            color_delim = base0A;
+            items = "[time],mode_indicator,[buffer_last_number],[buffer_plugin],buffer_number+:+buffer_name+(buffer_modes)+{buffer_nicklist_count}+matrix_typing_notice+buffer_zoom+buffer_filter,scroll,[lag],[hotlist],completion,cmd_completion";
+          };
+          title = {
+            color_bg = base01;
+            color_fg = base05;
+            color_delim = base0A;
+          };
         };
       };
       urlgrab.default.copycmd = "${pkgs.wl-clipboard}/bin/wl-copy";
@@ -51,7 +91,12 @@
       plugins.var.python.title.title_suffix = " ]";
       plugins.var.python.notify_send.icon = "";
       plugins.var.python.go.short_name = true;
-      irc = { look = { server_buffer = "independent"; }; };
+      irc = {
+        look = {
+          server_buffer = "independent";
+          color_nicks_in_nicklist = true;
+        };
+      };
       matrix = {
         network = {
           max_backlog_sync_events = 30;
