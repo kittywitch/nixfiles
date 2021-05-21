@@ -21,6 +21,9 @@ with lib;
       enable = true;
       packages = [ "weechat-matrix" ];
     };
+    plugins.perl = {
+      enable = true;
+    };
     scripts = with pkgs.weechatScripts; [
       go
       auto_away
@@ -32,6 +35,7 @@ with lib;
       weechat-matrix
       weechat-notify-send
       title
+      highmon
     ];
     config = with mapAttrs (_: toString) pkgs.base16.shell.shell256; {
       logger.level.irc = 0;
