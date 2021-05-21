@@ -40,6 +40,9 @@ with lib; {
       tasks.niv-build.inputs = with channels.cipkgs;
         ci.command {
           name = "niv-update-build";
+          cache = {
+            enable = false;
+          };
           displayName = "niv update build";
           environment = [ "OPENSSH_PRIVATE_KEY" "CACHIX_SIGNING_KEY" "GITHUB_REF" ];
           command = ''
