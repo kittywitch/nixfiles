@@ -1,7 +1,12 @@
 { config, pkgs }:
 
 ''
-    " Enable mouse 
+    source ${pkgs.writeText "vimrc" ''
+    set encoding=utf-8
+    scriptencoding utf-8
+    set list listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:✖
+    ''}";
+    " Enable mouse
     set mouse=a
 
     set viminfo='100000,<100000,s1000,h,n$XDG_DATA_HOME/vim/viminfo 
@@ -41,7 +46,6 @@
     set directory=$XDG_DATA_HOME/vim/swap//
     set backupdir=$XDG_DATA_HOME/vim/backup
 
-    set list listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
     set ttimeoutlen=100
     set number
     set hidden
