@@ -119,7 +119,7 @@ with lib;
   services.nginx.virtualHosts."kittywit.ch" = {
     # allegedly fixes https://github.com/poljar/weechat-matrix/issues/240
     extraConfig = ''
-      http2_max_requests 100000;
+      keepalive_requests 100000;
     '';
 
     locations = {
