@@ -23,7 +23,7 @@
         };
       };
       matrix = {
-        server.kat = {
+        server.kittywitch = {
           address = "kittywit.ch";
           device_name = "${superConfig.networking.hostName}/weechat";
           username = "kat";

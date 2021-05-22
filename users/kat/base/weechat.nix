@@ -7,7 +7,7 @@ with lib;
     init = lib.mkMerge [
       (lib.mkBefore ''
         /server add espernet athame.kittywit.ch/5001 -ssl -autoconnect
-        /matrix server add kat kittywit.ch
+        /matrix server add kittywitch kittywit.ch
         /key bind meta-g /go
         /key bind meta-c /buffer close
         /key bind meta-n /bar toggle nicklist 
@@ -15,7 +15,7 @@ with lib;
         /relay add weechat 9000
       '')
       (lib.mkAfter ''
-        /matrix connect kat
+        /matrix connect kittywitch
         /window splith +10
         /window 2
         /buffer highmon
@@ -48,7 +48,7 @@ with lib;
       logger.level.matrix = 0;
       buflist = {
         format = {
-            indent = " "; # default "  "
+          indent = "\${if:\${merged}?\${if:\${buffer.prev_buffer.number}!=\${buffer.number}?│┌:\${if:\${buffer.next_buffer.number}==\${buffer.number}?│├:\${if:\${buffer.next_buffer.name}=~^server||\${buffer.next_buffer.number}<0?└┴:├┴}}}:\${if:\${buffer.active}>0?\${if:\${buffer.next_buffer.name}=~^server?└:\${if:\${buffer.next_buffer.number}>0?├:└}}:\${if:\${buffer.next_buffer.name}=~^server? :│}}}─";
             buffer_current = "\${color:,${base01}}\${format_buffer}";
             hotlist = " \${color:${base0B}}(\${hotlist}\${color:${base0B}})";
             hotlist_highlight = "\${color:${base0F}}";
@@ -65,6 +65,7 @@ with lib;
           mouse = true;
           separator_horizontal = "";
           read_marker_string = "─";
+          prefix_same_nick = "↳";
         };
         color = {
           chat_nick_self = base0F;
@@ -99,10 +100,6 @@ with lib;
             color_delim = base0A;
             conditions = "\${window.buffer.full_name} != perl.highmon";
           };
-          highmon = {
-            position = "top";
-            color_delim = base0A;
-          };
         };
       };
       urlgrab.default.copycmd = "${pkgs.wl-clipboard}/bin/wl-copy";
@@ -117,6 +114,8 @@ with lib;
       plugins.var.perl.highmon = {
         short_names = "on";
         output = "buffer";
+        merge_private = "on";
+        alignment = "nchannel,nick";
       };
       irc = {
         look = {
