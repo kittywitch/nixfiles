@@ -61,10 +61,16 @@ with lib;
         };
       };
       weechat = {
-        look = { mouse = true; };
+        look = {
+          mouse = true;
+          separator_horizontal = "";
+          read_marker_string = "─";
+        };
         color = {
           chat_nick_self = base0F;
           separator = base0A;
+          chat_read_marker = base0D;
+          chat_read_marker_bg = base03;
         };
         bar = {
           buflist = {
