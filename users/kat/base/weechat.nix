@@ -14,7 +14,13 @@ with lib;
         /key bind meta-b /bar toggle buflist
         /relay add weechat 9000
       '')
-      (lib.mkAfter "/matrix connect kat")
+      (lib.mkAfter ''
+        /matrix connect kat
+        /window splith +10
+        /window 2
+        /buffer highmon
+        /window 1
+      '')
     ];
     homeDirectory = "${config.xdg.dataHome}/weechat";
     plugins.python = {
@@ -68,6 +74,7 @@ with lib;
           input = {
             items = "[input_prompt]+(away),[input_search],[input_paste],input_text,[vi_buffer]";
             color_delim = base0A;
+            conditions = "\${window.buffer.full_name} != perl.highmon";
           };
           nicklist = {
             size_max = 18;
@@ -78,10 +85,16 @@ with lib;
             color_fg = base05;
             color_delim = base0A;
             items = "[time],mode_indicator,[buffer_last_number],[buffer_plugin],buffer_number+:+buffer_name+(buffer_modes)+{buffer_nicklist_count}+matrix_typing_notice+buffer_zoom+buffer_filter,scroll,[lag],[hotlist],completion,cmd_completion";
+            conditions = "\${window.buffer.full_name} != perl.highmon";
           };
           title = {
             color_bg = base01;
             color_fg = base05;
+            color_delim = base0A;
+            conditions = "\${window.buffer.full_name} != perl.highmon";
+          };
+          highmon = {
+            position = "top";
             color_delim = base0A;
           };
         };
@@ -95,6 +108,10 @@ with lib;
       plugins.var.python.title.title_suffix = " ]";
       plugins.var.python.notify_send.icon = "";
       plugins.var.python.go.short_name = true;
+      plugins.var.perl.highmon = {
+        short_names = "on";
+        output = "buffer";
+      };
       irc = {
         look = {
           server_buffer = "independent";
