@@ -40,12 +40,14 @@ with lib; {
       tasks.niv-build.inputs = with channels.cipkgs;
         ci.command {
           name = "niv-update-build";
+          allowSubstitutes = false;
           cache = {
             enable = false;
           };
           displayName = "niv update build";
           environment = [ "OPENSSH_PRIVATE_KEY" "CACHIX_SIGNING_KEY" "GITHUB_REF" ];
           command = ''
+            # ${toString builtins.currentTime}
             if [[ -n $OPENSSH_PRIVATE_KEY ]]; then
               mkdir ~/.ssh
               echo "$OPENSSH_PRIVATE_KEY" > ~/.ssh/id_rsa
