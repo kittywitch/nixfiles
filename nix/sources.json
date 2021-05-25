@@ -5,10 +5,10 @@
         "homepage": "https://nur.nix-community.org/",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "70f5fc98850c22d1553b9574a3d8e915f80262b5",
-        "sha256": "0rab6jp04sjgfg6xbddv9f8z2jfhkwhqyz60i33g20dx0vngb3qd",
+        "rev": "e606d718cb7d5444cba28aa17305831bd061135a",
+        "sha256": "1xqfqwfzhfp4xcpklwbdma5m34y45r58ry9mdgnslv5lqv32zzs6",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/70f5fc98850c22d1553b9574a3d8e915f80262b5.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/e606d718cb7d5444cba28aa17305831bd061135a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "arc-nixexprs": {
@@ -41,10 +41,10 @@
         "homepage": "https://nix-community.github.io/home-manager/",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "64607f58b75741470284c698f82f0199fcecdfa7",
-        "sha256": "11mi34z030favcp3kizkwdxpbfzk9if25iw0y5dknrx4q965ijjd",
+        "rev": "90493027e33ba9eb3f50dc1da365d0e4ca31bf14",
+        "sha256": "0jnxpc1ywnccri1d3m7hqrmxzifi65dk1zyh9xdlbx1fjm4x6xr5",
         "type": "tarball",
-        "url": "https://github.com/nix-community/home-manager/archive/64607f58b75741470284c698f82f0199fcecdfa7.tar.gz",
+        "url": "https://github.com/nix-community/home-manager/archive/90493027e33ba9eb3f50dc1da365d0e4ca31bf14.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
@@ -87,10 +87,10 @@
         "branch": "master",
         "ref": "master",
         "repo": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver",
-        "rev": "8b287056215cac91438a671054e7eb2c932ab21a",
-        "sha256": "1h1x2498j5ki6pajsbgwq664j9isihzgjsg87fgqdzyizrxn0mai",
+        "rev": "37376efbbf44ac5accaef84ccbbebbdfdc02e95d",
+        "sha256": "02z95gk3ga0zgnypy6aby1zikxpbkq7by7vlnvamjhyfb0c0lph6",
         "type": "tarball",
-        "url": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/8b287056215cac91438a671054e7eb2c932ab21a.tar.gz",
+        "url": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/37376efbbf44ac5accaef84ccbbebbdfdc02e95d.tar.gz",
         "url_template": "<repo>/-/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
@@ -99,10 +99,10 @@
         "homepage": "",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "9971c5d1a40d4e9ff8159ec6595cb9e91da7d438",
-        "sha256": "1vm4hd72r0lrimik25i1j7kadky2483r1c2g2mikfjxav0wpwwkx",
+        "rev": "900115a4f7fdd9189e7803ca781a65be663f2c89",
+        "sha256": "11551nawxjbgya8sq1p6ghkbws9qz9fbfq3wqawm3zh8ayr4l13j",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/9971c5d1a40d4e9ff8159ec6595cb9e91da7d438.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs/archive/900115a4f7fdd9189e7803ca781a65be663f2c89.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-mozilla": {
@@ -123,10 +123,10 @@
         "homepage": "",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "255709420269fcd57392824ee43f2b0638f3de5d",
-        "sha256": "134l6qyq832r8x0kaq81pq20z84xdjvgcrxgkpsb0s1ywxpamr6h",
+        "rev": "f0fa05742058fef85c49e132c2851940915698ef",
+        "sha256": "04gxs7gqk52d9qybm7h6zfz93jyirga07gd8iw1yf0sanay1dcyi",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/255709420269fcd57392824ee43f2b0638f3de5d.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs/archive/f0fa05742058fef85c49e132c2851940915698ef.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pbb-nixfiles": {
@@ -136,10 +136,10 @@
         "homepage": "",
         "ref": "main",
         "repo": "https://git.petabyte.dev/petabyteboy/nixfiles",
-        "rev": "c57fe4b3553a1cc5e6fa1d383b458379951657fe",
-        "sha256": "0a5ybaaslrg6v30wnrydprcq2y64myqdglzsszh3f6m50fyzb1rd",
+        "rev": "2f867b107cc1ecabed01667650e975bb6a17a9af",
+        "sha256": "064ssifsw46xhjxsqmzp6np595nk5zzk4m2kj96ays79idjwk4is",
         "type": "tarball",
-        "url": "https://git.petabyte.dev/petabyteboy/nixfiles/archive/c57fe4b3553a1cc5e6fa1d383b458379951657fe.tar.gz",
+        "url": "https://git.petabyte.dev/petabyteboy/nixfiles/archive/2f867b107cc1ecabed01667650e975bb6a17a9af.tar.gz",
         "url_template": "<repo>/archive/<rev>.tar.gz"
     },
     "qyliss-nixlib": {
