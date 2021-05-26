@@ -8,7 +8,7 @@
     element-desktop
     exiftool
     thunderbird
-    mumble-speechd
+    mumble-develop
     dino
     transmission-remote-gtk
     lm_sensors
