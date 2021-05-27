@@ -55,7 +55,7 @@ with lib;
             hotlist_low = "\${color:${base06}}";
             hotlist_message = "\${color:${base0E}}";
             hotlist_none = "\${color:${base05}}";
-            hotlist_private = "\${color:${base09}}";
+            hotlist_private = "\${color:${base0A}}";
             hotlist_separator = "\${color:${base04}},";
             number = "\${color:${base0A}}\${number}\${if:\${number_displayed}?.: }";
         };
