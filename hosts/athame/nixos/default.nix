@@ -11,6 +11,7 @@ with lib;
     ./virtualhosts.nix
     # services
     ../../../services/fail2ban.nix
+    ../../../services/logrotate.nix
     ../../../services/postgres.nix
     ../../../services/nginx.nix
     ../../../services/mail.nix
