@@ -9,6 +9,7 @@ with lib;
         /server add espernet athame.kittywit.ch/5001 -ssl -autoconnect
         /matrix server add kittywitch kittywit.ch
         /key bind meta-g /go
+        /key bind meta-v /input jump_last_buffer_displayed
         /key bind meta-c /buffer close
         /key bind meta-n /bar toggle nicklist 
         /key bind meta-b /bar toggle buflist
@@ -49,16 +50,16 @@ with lib;
       logger.level.core.weechat = 0;
       buflist = {
         format = {
-            indent = "\${if:\${merged}?\${if:\${buffer.prev_buffer.number}!=\${buffer.number}?│┌:\${if:\${buffer.next_buffer.number}==\${buffer.number}?│├:\${if:\${buffer.next_buffer.name}=~^server||\${buffer.next_buffer.number}<0?└┴:├┴}}}:\${if:\${buffer.active}>0?\${if:\${buffer.next_buffer.name}=~^server?└:\${if:\${buffer.next_buffer.number}>0?├:└}}:\${if:\${buffer.next_buffer.name}=~^server? :│}}}─";
-            buffer_current = "\${color:,${base01}}\${format_buffer}";
-            hotlist = " \${color:${base0B}}(\${hotlist}\${color:${base0B}})";
-            hotlist_highlight = "\${color:${base0F}}";
-            hotlist_low = "\${color:${base06}}";
-            hotlist_message = "\${color:${base0E}}";
-            hotlist_none = "\${color:${base05}}";
-            hotlist_private = "\${color:${base0A}}";
-            hotlist_separator = "\${color:${base04}},";
-            number = "\${color:${base0A}}\${number}\${if:\${number_displayed}?.: }";
+          indent = "\${if:\${merged}?\${if:\${buffer.prev_buffer.number}!=\${buffer.number}?│┌:\${if:\${buffer.next_buffer.number}==\${buffer.number}?│├:\${if:\${buffer.next_buffer.name}=~^server||\${buffer.next_buffer.number}<0?└┴:├┴}}}:\${if:\${buffer.active}>0?\${if:\${buffer.next_buffer.name}=~^server?└:\${if:\${buffer.next_buffer.number}>0?├:└}}:\${if:\${buffer.next_buffer.name}=~^server? :│}}}─";
+          buffer_current = "\${color:,${base01}}\${format_buffer}";
+          hotlist = " \${color:${base0B}}(\${hotlist}\${color:${base0B}})";
+          hotlist_highlight = "\${color:${base0F}}";
+          hotlist_low = "\${color:${base06}}";
+          hotlist_message = "\${color:${base0E}}";
+          hotlist_none = "\${color:${base05}}";
+          hotlist_private = "\${color:${base0A}}";
+          hotlist_separator = "\${color:${base04}},";
+          number = "\${color:${base0A}}\${number}\${if:\${number_displayed}?.: }";
         };
       };
       weechat = {
@@ -104,19 +105,60 @@ with lib;
         };
       };
       urlgrab.default.copycmd = "${pkgs.wl-clipboard}/bin/wl-copy";
-      plugins.var.python.vimode.copy_clipboard_cmd = "wl-copy";
-      plugins.var.python.vimode.paste_clipboard_cmd = "wl-paste --no-newline";
-      plugins.var.python.title.title_prefix = "weechat - ";
-      plugins.var.python.title.show_hotlist = true;
-      plugins.var.python.title.current_buffer_suffix = " [";
-      plugins.var.python.title.title_suffix = " ]";
-      plugins.var.python.notify_send.icon = "";
-      plugins.var.python.go.short_name = true;
-      plugins.var.perl.highmon = {
-        short_names = "on";
-        output = "buffer";
-        merge_private = "on";
-        alignment = "nchannel,nick";
+      plugins.var = {
+        python = {
+          title = {
+            title_prefix = "weechat - ";
+            show_hotlist = true;
+            current_buffer_suffix = " [";
+            title_suffix = " ]";
+          };
+
+
+          vimode = {
+            copy_clipboard_cmd = "wl-copy";
+            paste_clipboard_cmd = "wl-paste --no-newline";
+            imap_esc_timeout = "100";
+            search_vim = true;
+            user_mappings = builtins.toJSON {
+              "," = "/buffer #{1}<CR>";
+              "``" = "/input jump_last_buffer_displayed<CR>";
+              "`n" = "/input jump_smart<CR>";
+              "k" = "/input history_previous<CR>";
+              "j" = "/input history_next<CR>";
+              "p" = "a/input clipboard_paste<ICMD><ESC>";
+              "P" = "/input clipboard_paste<CR>";
+              #"u" = "/input undo<CR>";
+              #"\\x01R" = "/input redo<CR>";
+              "\\x01K" = "/buffer move -1<CR>";
+              "\\x01J" = "/buffer move +1<CR>";
+            };
+            user_mappings_noremap = builtins.toJSON {
+              "\\x01P" = "p";
+              "/" = "i/";
+            };
+            user_search_mapping = "?";
+            mode_indicator_cmd_color_bg = base01;
+            mode_indicator_cmd_color = base04;
+            mode_indicator_insert_color_bg = base01;
+            mode_indicator_insert_color = base04;
+            mode_indicator_normal_color_bg = base01;
+            mode_indicator_normal_color = base04;
+            mode_indicator_replace_color_bg = base01;
+            mode_indicator_replace_color = base0E;
+            mode_indicator_search_color_bg = base0A;
+            mode_indicator_search_color = base04;
+            no_warn = true;
+          };
+          notify_send.icon = "";
+          go.short_name = true;
+        };
+        perl.highmon = {
+          short_names = "on";
+          output = "buffer";
+          merge_private = "on";
+          alignment = "nchannel,nick";
+        };
       };
       irc = {
         look = {
