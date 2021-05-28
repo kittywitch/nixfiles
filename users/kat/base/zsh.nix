@@ -1,6 +1,29 @@
 { config, lib, pkgs, ... }:
 
-{
+with lib;
+
+let
+  shellFunAlias = command: replacement: ''
+    if [[ ! -t 0 ]]; then
+      command ${command} $@
+    else
+      echo 'use ${replacement}!'
+    fi
+  '';
+  shellFunAliases = mapAttrs shellFunAlias;
+in {
+  home.shell.functions = {
+    genmac = ''
+      nix run nixpkgs.openssl -c openssl rand -hex 6 | sed 's/\(..\)\(..\)\(..\)\(..\)\(..\)\(..\)/\1:\2:\3:\4:\5:\6/'
+    '';
+    nano = ''
+      kitty +kitten icat ${./nano.png}
+    '';
+  } // shellFunAliases {
+    sed = "sd";
+    find = "fd";
+    grep = "rg";
+  };
   xdg.dataFile = { "z/.keep".text = ""; };
   home.packages = with pkgs; [ fzf fd ];
   programs.zsh = {
@@ -18,12 +41,6 @@
       dmesg = "dmesg -HP";
       lg = "log --no-pager | grep";
     };
-    initExtra = ''
-      genmac() { nix run nixpkgs.openssl -c openssl rand -hex 6 | sed 's/\(..\)\(..\)\(..\)\(..\)\(..\)\(..\)/\1:\2:\3:\4:\5:\6/' }
-      nano() { kitty +kitten icat ${./nano.png} }
-      find() { echo "use fd!" }
-      sed() { echo "use sd!" }
-    '';
     localVariables = {
       _Z_DATA = "${config.xdg.dataHome}/z/data";
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=3,bold";
