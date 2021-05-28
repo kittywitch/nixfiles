@@ -20,7 +20,7 @@
     };
     initExtra = ''
       genmac() { nix run nixpkgs.openssl -c openssl rand -hex 6 | sed 's/\(..\)\(..\)\(..\)\(..\)\(..\)\(..\)/\1:\2:\3:\4:\5:\6/' }
-      nano() { echo "baps you for being naughty, use vim" }
+      nano() { kitty +kitten icat ${./nano.png} }
       find() { echo "use fd!" }
       sed() { echo "use sd!" }
     '';
