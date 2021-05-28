@@ -5,10 +5,10 @@
         "homepage": "https://nur.nix-community.org/",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "9f505f95b8894678e7cc8f147dafdf5e006fbb7f",
-        "sha256": "05mp4z3cc5ngvcq2fnx7r4zkbwcc30gb4ibmg4a1ia4fzrm0f0w3",
+        "rev": "51b84ce842189a4f3b615b727b9683068a2cb540",
+        "sha256": "12jwrhgq49hhxpl8jza8cnnidw0h1zqi2ja5amv06h39gcryqlyw",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/9f505f95b8894678e7cc8f147dafdf5e006fbb7f.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/51b84ce842189a4f3b615b727b9683068a2cb540.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "arc-nixexprs": {
@@ -123,10 +123,10 @@
         "homepage": "",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a48d4bf159076106895df685e879aff235bcbff3",
-        "sha256": "1fl65w1b1gp07ifbpmi04jd9ddl7naj7kwgqvnpc9dq34fdfjcll",
+        "rev": "490aeb3cfa932d9a7314f7c068ad034df89d5b05",
+        "sha256": "0s86x61pzqlqp7z6yxk20g0m75pw6vg6fc387v9mhqh73q6whaf5",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/a48d4bf159076106895df685e879aff235bcbff3.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs/archive/490aeb3cfa932d9a7314f7c068ad034df89d5b05.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pbb-nixfiles": {
@@ -136,10 +136,10 @@
         "homepage": "",
         "ref": "main",
         "repo": "https://git.petabyte.dev/petabyteboy/nixfiles",
-        "rev": "da6d09c5750f838a8598ccd1a580a54e95428695",
-        "sha256": "0i6h9hf5gxzvxmmnz0hhjqw5w892pjqsspw8i0pi0h9khk3m0dvy",
+        "rev": "3b664d5dc81fd22440799c3096028ed17967a9f1",
+        "sha256": "18xiwaa7fgcxq9i09389mmgpma31xf6bfzx3zv67mdsqxxqrm3v0",
         "type": "tarball",
-        "url": "https://git.petabyte.dev/petabyteboy/nixfiles/archive/da6d09c5750f838a8598ccd1a580a54e95428695.tar.gz",
+        "url": "https://git.petabyte.dev/petabyteboy/nixfiles/archive/3b664d5dc81fd22440799c3096028ed17967a9f1.tar.gz",
         "url_template": "<repo>/archive/<rev>.tar.gz"
     },
     "qyliss-nixlib": {
