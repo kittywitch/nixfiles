@@ -17,10 +17,10 @@
         "homepage": null,
         "owner": "arcnmx",
         "repo": "nixexprs",
-        "rev": "d1628d117c670a853bb1f7a0aa407fe77208e08d",
-        "sha256": "19h87d22ybni9hc1qqvz10hk6gwmn4fzk4693fh9qk1ccwddjm0w",
+        "rev": "86bc4f0cd3afd8cfbbfb46e4813dc000aab0f352",
+        "sha256": "1lssa6a7znq4bxaln38fjfs0wyfrpwjg70z0w46zfqgf3h2fssph",
         "type": "tarball",
-        "url": "https://github.com/arcnmx/nixexprs/archive/d1628d117c670a853bb1f7a0aa407fe77208e08d.tar.gz",
+        "url": "https://github.com/arcnmx/nixexprs/archive/86bc4f0cd3afd8cfbbfb46e4813dc000aab0f352.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "ci": {
