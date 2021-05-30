@@ -56,11 +56,13 @@
         other = {
           "RIGHT" = vim."l";
           "LEFT" = vim."h";
-          "UP" = vim."j";
-          "DOWN" = vim."k";
+          "UP" = vim."k";
+          "DOWN" = vim."j";
           "Ctrl+0" = "set speed 1.0";
           "Ctrl+=" = "multiply speed 1.1";
           "Ctrl+-" = "multiply speed 1/1.1";
+          "Shift+LEFT" = vim."H";
+          "Shift+RIGHT" = vim."L";
           "Ctrl+RIGHT" = vim."Ctrl+l";
           "Ctrl+LEFT" = vim."Ctrl+h";
           "Ctrl+Shift+LEFT" = vim."Ctrl+H";
