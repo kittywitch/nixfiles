@@ -5,10 +5,10 @@
         "homepage": "https://nur.nix-community.org/",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "1190770a713fb15aea2c6c25d3a0e0304ad51d71",
-        "sha256": "0d8yji1n44jb551qsbxv51iz72d62zxybzlgw4sxjiwkj857vqqc",
+        "rev": "48d683952b44fa5dc56edc09b59a2afec3ee2d0a",
+        "sha256": "1a4lgg02g5vsg8ci40mnhizsqywa9jn6zh0nakvcp8ywa86krbz9",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/1190770a713fb15aea2c6c25d3a0e0304ad51d71.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/48d683952b44fa5dc56edc09b59a2afec3ee2d0a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "arc-nixexprs": {
@@ -87,10 +87,10 @@
         "branch": "master",
         "ref": "master",
         "repo": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver",
-        "rev": "190ac7ca60c6baed47c966d207874171ab112ce6",
-        "sha256": "12y18qll3yqb8gmcyg5bpw14xvgn81ajfrqx7skb3vgmmpkxvmpq",
+        "rev": "2ca02f32c828c3b1dd27f3e290102b283edfdd26",
+        "sha256": "0jh9qhns3szx6c7lzgms3wvk3l4m0czpdsh2d5mlnqn4ji2233dd",
         "type": "tarball",
-        "url": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/190ac7ca60c6baed47c966d207874171ab112ce6.tar.gz",
+        "url": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/2ca02f32c828c3b1dd27f3e290102b283edfdd26.tar.gz",
         "url_template": "<repo>/-/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
