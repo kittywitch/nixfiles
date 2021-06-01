@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   services.znc = {
@@ -6,5 +6,9 @@
     mutable = false;
     useLegacyConfig = false;
     openFirewall = false;
+    modulePackages = with pkgs.zncModules; [
+      clientbuffer
+      clientaway
+    ];
   };
 }
