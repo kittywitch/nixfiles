@@ -40,7 +40,6 @@ with lib;
       urlgrab
       vimode-git
       weechat-matrix
-      weechat-notify-send
       title
       highmon
     ];
