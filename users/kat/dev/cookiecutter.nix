@@ -3,9 +3,7 @@
 {
   home.packages = with pkgs; [ cookiecutter ];
 
-  programs.zsh.initExtra = ''
-    katenv () {
+  home.shell.functions.katenv = ''
       cookiecutter cookiecutters --directory $1
-    }
   '';
 }
