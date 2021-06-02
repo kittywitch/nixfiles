@@ -7,6 +7,7 @@
     lm_sensors
     cachix
     pinentry-curses
+    wezterm-terminfo
     kitty.terminfo
     gnupg
   ];

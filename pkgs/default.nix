@@ -68,6 +68,8 @@ let
 
       kat-glauca-dns = self.callPackage ./kat-glauca-dns { };
 
+      wezterm-terminfo = self.callPackage ./wezterm-terminfo { inherit (self) ncurses; };
+
       kat-website = self.callPackage ./kat-website { };
 
       kat-weather = self.callPackage ./kat-weather { };

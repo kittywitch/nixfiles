@@ -98,7 +98,7 @@ in
             style = "Normal";
             size = font.size;
           };
-          terminal = "${pkgs.kitty}/bin/kitty";
+          terminal = "${pkgs.wezterm}/bin/wezterm";
           # TODO: replace with wofi
           menu =
             "${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --dmenu=\"${dmenu}\" --term='${cfg.terminal}'";
