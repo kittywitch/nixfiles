@@ -64,8 +64,6 @@ let
 
       konawall = super.konawall.overide { swaySupport = true; };
 
-      ff-sponsorblock = self.callPackage ./ff-sponsorblock { };
-
       kat-glauca-dns = self.callPackage ./kat-glauca-dns { };
 
       wezterm-terminfo = self.callPackage ./wezterm-terminfo { inherit (self) ncurses; };

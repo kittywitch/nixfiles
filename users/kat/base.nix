@@ -1,7 +1,10 @@
 { config, pkgs, lib, ... }:
 
 {
-  home-manager.users.kat = { imports = [ ./base ]; };
+  home-manager.users.kat = {
+    imports = [ ./base ];
+    home.stateVersion = "20.09";
+  };
 
   users.users.kat = {
     uid = 1000;

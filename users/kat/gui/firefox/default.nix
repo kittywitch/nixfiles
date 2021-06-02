@@ -14,19 +14,17 @@ in
   programs.zsh.shellAliases = {
     ff-pm = "firefox --ProfileManager";
     ff-main = "firefox -P main";
-    ff-work = "firefox -P work";
-    ff-lewd = "firefox -P lewd";
   };
 
   home.sessionVariables = {
-    MOZ_ENABLE_WAYLAND = 1;
     XDG_CURRENT_DESKTOP = "sway";
   };
 
   programs.firefox = {
     enable = true;
+    package = pkgs.firefox-wayland;
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-      pkgs.ff-sponsorblock
+      sponsorblock
       auto-tab-discard
       bitwarden
       darkreader
@@ -34,14 +32,13 @@ in
       foxyproxy-standard
       google-search-link-fix
       https-everywhere
-      #old-reddit-redirect # made unnecessary due to tridactylrc
+      old-reddit-redirect
       privacy-badger
       reddit-enhancement-suite
       refined-github
       stylus
       terms-of-service-didnt-read
       tree-style-tab
-      tridactyl
       ublock-origin
       violentmonkey
     ];
@@ -52,18 +49,6 @@ in
         settings = commonSettings // { };
         userChrome = import ./userChrome.css.nix { profile = "main"; };
       };
-      work = {
-        id = 1;
-        settings = commonSettings // { };
-        userChrome = import ./userChrome.css.nix { profile = "work"; };
-      };
-      lewd = {
-        id = 2;
-        settings = commonSettings // { };
-        userChrome = import ./userChrome.css.nix { profile = "lewd"; };
-      };
     };
   };
-
-  home.file.".config/tridactyl/tridactylrc".source = ./tridactylrc;
 }
