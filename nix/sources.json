@@ -5,10 +5,10 @@
         "homepage": "https://nur.nix-community.org/",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "08fb594112579f5a7334f6a89c222d9b57bc8964",
-        "sha256": "14k10m4jppv5qc1b72j1y9jq5b352cls791c2jrbl1l70b5fpm9f",
+        "rev": "fcf91a264061e76352163bb696469ae8f59235ee",
+        "sha256": "1m57v13n7casg2yw09rb9v3qyyfz04p87v4gx8rz7ip1yv5zbr99",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/08fb594112579f5a7334f6a89c222d9b57bc8964.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/fcf91a264061e76352163bb696469ae8f59235ee.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "arc-nixexprs": {
@@ -65,10 +65,10 @@
         "homepage": "",
         "owner": "vlaci",
         "repo": "nix-doom-emacs",
-        "rev": "201e023c671c50c0ee2efe5ca11143161166a736",
-        "sha256": "0a9df4sg9bq13zvd6cgc1qidmzd9lll55fx25d9frm5fl7jrn561",
+        "rev": "f2849e51a557b78214ab19bb504fb936d8d513d4",
+        "sha256": "0izfjssamvibgg16df2lg2144mm1vsvgf513srhzlylfbs05ds6c",
         "type": "tarball",
-        "url": "https://github.com/vlaci/nix-doom-emacs/archive/201e023c671c50c0ee2efe5ca11143161166a736.tar.gz",
+        "url": "https://github.com/vlaci/nix-doom-emacs/archive/f2849e51a557b78214ab19bb504fb936d8d513d4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nix-hexchen": {
@@ -111,10 +111,10 @@
         "homepage": "",
         "owner": "mozilla",
         "repo": "nixpkgs-mozilla",
-        "rev": "ad227c55c34124cde17b30c9bb28be6cd3c70815",
-        "sha256": "1g33k5da71b11bkia7gjfv70d3bpd0vafidgf9qjrgvld0s2n9r9",
+        "rev": "3f3fba4e2066f28a1ad7ac60e86a688a92eb5b5f",
+        "sha256": "1mrj89gzrzhci4lssvzmmk31l715cddp7l39favnfs1qaijly814",
         "type": "tarball",
-        "url": "https://github.com/mozilla/nixpkgs-mozilla/archive/ad227c55c34124cde17b30c9bb28be6cd3c70815.tar.gz",
+        "url": "https://github.com/mozilla/nixpkgs-mozilla/archive/3f3fba4e2066f28a1ad7ac60e86a688a92eb5b5f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-unstable": {
