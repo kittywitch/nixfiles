@@ -16,11 +16,11 @@ in {
     local wezterm = require 'wezterm';
 
     return {
+      enable_wayland = true,
       term = "wezterm",
       font = wezterm.font_with_fallback({"FantasqueSansMono Nerd Font","Twitter Color Emoji"}),
       font_size = 10.0,
       window_background_opacity = 0.9,
-      hide_tab_bar_if_only_one_tab = true,
       colors = {
         ansi = {${colors.ansi}},
         brights = {${colors.brights}},
