@@ -5,10 +5,10 @@
         "homepage": "https://nur.nix-community.org/",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "c316165616c80522dea0deefd2c615b072e74efb",
-        "sha256": "12h740bvw209sc0nib8ivgic2qh7s5ri23086194l1c7h334caxa",
+        "rev": "80032980b9dd3e10f6bc661d5d77cea0f2b8c0ca",
+        "sha256": "1500b7dfn49hx09gn18c3l69xhzn35zni7z0rh789f9vik49h7cp",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/c316165616c80522dea0deefd2c615b072e74efb.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/80032980b9dd3e10f6bc661d5d77cea0f2b8c0ca.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "arc-nixexprs": {
