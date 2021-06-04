@@ -9,7 +9,7 @@
       visibility: collapse !important;
   }
 
-  #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
+  #sidebar-header {
     display: none;
   }
 ''

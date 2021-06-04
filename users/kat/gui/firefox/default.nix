@@ -30,7 +30,9 @@ in
       darkreader
       decentraleyes
       foxyproxy-standard
-      google-search-link-fix
+      clearurls
+      bypass-paywalls
+      df-youtube
       https-everywhere
       old-reddit-redirect
       privacy-badger
@@ -38,7 +40,8 @@ in
       refined-github
       stylus
       terms-of-service-didnt-read
-      tree-style-tab
+      #tree-style-tab
+      sidebery
       ublock-origin
       violentmonkey
     ];
