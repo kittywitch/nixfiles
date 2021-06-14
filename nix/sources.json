@@ -5,10 +5,10 @@
         "homepage": "https://nur.nix-community.org/",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "8260a9a637cebae6fcecd8195cea554ad9c5e485",
-        "sha256": "0ask1b6iq1kf6rfd02dwzn22yc99cz2p37iw891f4vgd4nv9icli",
+        "rev": "b30db74f095c5decf7eab234a80d4e071c4c571e",
+        "sha256": "0xll4sni0khfskfdnqg8gpn1ya5n6lmydg0zl30x62xrbgsgc4pi",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/8260a9a637cebae6fcecd8195cea554ad9c5e485.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/b30db74f095c5decf7eab234a80d4e071c4c571e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "arc-nixexprs": {
@@ -41,10 +41,10 @@
         "homepage": "https://nix-community.github.io/home-manager/",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "25bf3d79531ce45fd36866205bf07a24bb3be2b9",
-        "sha256": "1m99cpbgq9b029d2ppd0n74jcd1gj4xvq3i2dablzkiq70yvjjq2",
+        "rev": "4ed6705b0fa52c93c9131c6cd37cfdc0155d6b33",
+        "sha256": "0dqy5i7qxicb3gwik8lc01zkb6xlqzh3r328wrfik0qq5c94psrd",
         "type": "tarball",
-        "url": "https://github.com/nix-community/home-manager/archive/25bf3d79531ce45fd36866205bf07a24bb3be2b9.tar.gz",
+        "url": "https://github.com/nix-community/home-manager/archive/4ed6705b0fa52c93c9131c6cd37cfdc0155d6b33.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
@@ -53,10 +53,10 @@
         "homepage": "https://github.com/nmattia/niv",
         "owner": "nmattia",
         "repo": "niv",
-        "rev": "527494090f7075ed5e3aa15ef7093846e5e25d52",
-        "sha256": "1hahf0i0iix1iyzaaq5a7rbgyfm3xjcfl69lm1b5mas1p8vdimih",
+        "rev": "e9e31a7248e0728ab67a5a911b7ef704b1e399c4",
+        "sha256": "0xc781ivc0qrbnvk3njfz6xxpfqr46f5gw5ykjc0588jy86bmk91",
         "type": "tarball",
-        "url": "https://github.com/nmattia/niv/archive/527494090f7075ed5e3aa15ef7093846e5e25d52.tar.gz",
+        "url": "https://github.com/nmattia/niv/archive/e9e31a7248e0728ab67a5a911b7ef704b1e399c4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nix-doom-emacs": {
