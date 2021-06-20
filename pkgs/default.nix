@@ -3,12 +3,12 @@
 let
   pkgs = import sources.nixpkgs { inherit config; };
   overlay = self: super:
-    rec {
+  rec {
 
-      dino =
-        super.callPackage "${sources.qyliss-nixlib}/overlays/patches/dino" {
-          inherit (super) dino;
-        };
+    dino =
+      super.callPackage "${sources.qyliss-nixlib}/overlays/patches/dino" {
+        inherit (super) dino;
+      };
 
       discord = super.discord.override { nss = self.nss; };
 
@@ -49,37 +49,40 @@ let
           '';
         };
 
-      linuxPackagesFor = kernel: (super.linuxPackagesFor kernel).extend (_: ksuper: {
-        zfsUnstable = ksuper.zfsUnstable.overrideAttrs (old: { meta = old.meta // { broken = false; }; });
-      });
+        linuxPackagesFor = kernel: (super.linuxPackagesFor kernel).extend (_: ksuper: {
+          zfsUnstable = ksuper.zfsUnstable.overrideAttrs (old: { meta = old.meta // { broken = false; }; });
+        });
 
-      obs-studio = super.obs-studio.override { pipewireSupport = true; };
+        obs-studio = super.obs-studio.override { pipewireSupport = true; };
 
-      libreelec-dvb-firmware = self.callPackage ./libreelec-dvb-firmware { };
+        libreelec-dvb-firmware = self.callPackage ./libreelec-dvb-firmware { };
 
-      nerdfonts = super.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; };
+        nerdfonts = super.nerdfonts.override { fonts = [ "Iosevka" ]; };
 
-      hextorgba =
-        (import ../lib/colorhelpers.nix { inherit (super) lib; }).hextorgba;
+        hextorgba = (import ../lib/colorhelpers.nix { inherit (super) lib; }).hextorgba;
 
-      konawall = super.konawall.overide { swaySupport = true; };
+        konawall = super.konawall.overide { swaySupport = true; };
 
-      kat-glauca-dns = self.callPackage ./kat-glauca-dns { };
+        imv = super.imv.override {
+          withBackends = [ "freeimage" "libjpeg" "libpng" "librsvg" "libnsgif" "libheif" "libtiff" ];
+        };
 
-      wezterm-terminfo = self.callPackage ./wezterm-terminfo { inherit (self) ncurses; };
+        kat-glauca-dns = self.callPackage ./kat-glauca-dns { };
 
-      kat-website = self.callPackage ./kat-website { };
+        wezterm-terminfo = self.callPackage ./wezterm-terminfo { inherit (self) ncurses; };
 
-      kat-weather = self.callPackage ./kat-weather { };
+        kat-website = self.callPackage ./kat-website { };
 
-      kat-gpg-status = self.callPackage ./kat-gpg-status { };
+        kat-weather = self.callPackage ./kat-weather { };
 
-      kat-tw-export = self.callPackage ./kat-tw-export { };
+        kat-gpg-status = self.callPackage ./kat-gpg-status { };
 
-      kat-scrot = self.callPackage ./kat-scrot { };
+        kat-tw-export = self.callPackage ./kat-tw-export { };
 
-    } // super.lib.optionalAttrs (builtins.pathExists ../trusted/pkgs)
+        kat-scrot = self.callPackage ./kat-scrot { };
+
+      } // super.lib.optionalAttrs (builtins.pathExists ../trusted/pkgs)
       (import ../trusted/pkgs { inherit super self; });
 
 in
-(pkgs.extend (import (sources.arc-nixexprs + "/overlay.nix"))).extend overlay
+  (pkgs.extend (import (sources.arc-nixexprs + "/overlay.nix"))).extend overlay
