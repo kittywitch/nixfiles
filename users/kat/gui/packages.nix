@@ -11,6 +11,7 @@
     mumble-develop
     dino
     transmission-remote-gtk
+    scrcpy
     lm_sensors
     p7zip
     zip
