@@ -16,10 +16,9 @@ in {
     local wezterm = require 'wezterm';
 
     return {
-      enable_wayland = true,
       term = "wezterm",
-      font = wezterm.font_with_fallback({"FantasqueSansMono Nerd Font","Twitter Color Emoji"}),
-      font_size = 10.0,
+      font = wezterm.font_with_fallback({"Iosevka Term","Twitter Color Emoji"}),
+      font_size = 9.0,
       window_background_opacity = 0.9,
       colors = {
         ansi = {${colors.ansi}},

@@ -12,7 +12,6 @@
   fonts.fonts = with pkgs; [
     font-awesome
     nerdfonts
-    iosevka
     emacs-all-the-icons-fonts
     twitter-color-emoji
   ];

@@ -4,7 +4,7 @@ let
   witch.style.base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}")
     config.lib.arc.base16.schemeForAlias.default;
   witch.style.font = {
-    name = "FantasqueSansMono Nerd Font";
+    name = "Iosevka Nerd Font";
     size = "10";
     size_css = "14px";
   };

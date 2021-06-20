@@ -4,8 +4,8 @@ let
   base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}")
     config.lib.arc.base16.schemeForAlias.default;
   font = {
-    name = "FantasqueSansMono Nerd Font";
-    size = 10.0;
+    name = "Iosevka";
+    size = 9.0;
     size_css = "14px";
   };
 in
@@ -94,7 +94,7 @@ in
 
           fonts = { 
             names = [ font.name ];
-            style = "Normal";
+            style = "Medium";
             size = font.size;
           };
           terminal = "${pkgs.wezterm}/bin/wezterm";
