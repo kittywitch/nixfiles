@@ -41,6 +41,8 @@ let
         enable = true;
       };
 
+      terraform.version = "0.15";
+
       runners = {
         lazy = {
           file = ../.;
