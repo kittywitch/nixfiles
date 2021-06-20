@@ -8,6 +8,7 @@
     ''}";
     " Enable mouse
     set mouse=a
+    set ttymouse=sgr
 
     set viminfo='100000,<100000,s1000,h,n$XDG_DATA_HOME/vim/viminfo 
 
