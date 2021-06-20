@@ -17,6 +17,8 @@ with lib;
     users.kat.guiFull
   ];
 
+  networking.wireless.interfaces = [ "wlp2s0" ];
+
   deploy.target = "personal";
 
   boot.loader.systemd-boot.enable = true;
