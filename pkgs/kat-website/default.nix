@@ -5,9 +5,9 @@ stdenv.mkDerivation rec {
   version = "0.1";
 
   src = fetchgit {
-    rev = "22ed32f62d48d432b40cc69408a912848c26972b";
+    rev = "93f68ca3d1d0997fd04087355d6d112a186f4945";
     url = "https://github.com/kittywitch/website";
-    sha256 = "0rp26axwcsqs1xid6abf2ai8zncj494w402r4vncn9zg4rkrzq44";
+    sha256 = "0jmrwz277m43l2kzbibhgyfh14q8rbabq4c7kprcpgd0myfzcrpg";
   };
 
   jekyll_env = bundlerEnv rec {
