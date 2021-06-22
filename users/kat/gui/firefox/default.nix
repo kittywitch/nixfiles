@@ -42,6 +42,7 @@ in
       terms-of-service-didnt-read
       #tree-style-tab
       sidebery
+      multi-account-containers
       ublock-origin
       violentmonkey
     ];
