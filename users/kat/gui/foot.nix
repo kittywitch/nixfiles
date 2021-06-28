@@ -13,8 +13,17 @@ in {
     settings = {
       main = {
         term = "xterm-256color";
-        font = "FantasqueSansMono Nerd Font:size=10";
+        font = "Iosevka Term:size=9, Twitter Color Emoji:size=8";
+        font-bold = "Iosevka Term:size=9:style=Bold";
+        font-italic = "Iosevka Term:size=9:style=Italic";
+        font-bold-italic = "Iosevka Term:size=9:style=Bold Italic";
         dpi-aware = "yes";
+      };
+      colors = {
+        alpha = "0.9";
+      };
+      key-bindings = {
+        show-urls-copy = "Control+Shift+i";
       };
     };
   };

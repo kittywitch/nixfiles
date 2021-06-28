@@ -10,7 +10,7 @@
   hexToInt = str:
     lib.foldl (value: chr: value * 16 + hexCharToInt chr) 0
       (lib.stringToCharacters str);
-  hextorgba = hex:
+  hextorgba = hex: alpha:
     (
       let
         r_hex = lib.substring 1 2 hex;
@@ -20,6 +20,6 @@
         g_dec = hexToInt g_hex;
         b_dec = hexToInt b_hex;
       in
-      "rgba(${toString r_dec}, ${toString g_dec}, ${toString b_dec}, 0.75)"
+      "rgba(${toString r_dec}, ${toString g_dec}, ${toString b_dec}, ${toString alpha})"
     );
 }

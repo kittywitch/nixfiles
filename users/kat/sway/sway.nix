@@ -4,7 +4,7 @@ let
   base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}")
     config.lib.arc.base16.schemeForAlias.default;
   font = {
-    name = "Iosevka";
+    name = "Iosevka Term";
     size = 9.0;
     size_css = "14px";
   };
@@ -97,7 +97,7 @@ in
             style = "Medium";
             size = font.size;
           };
-          terminal = "${pkgs.wezterm}/bin/wezterm";
+          terminal = "${pkgs.foot}/bin/foot";
           # TODO: replace with wofi
           menu =
             "${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --dmenu=\"${dmenu}\" --term='${cfg.terminal}'";
@@ -118,7 +118,12 @@ in
 
           window = {
             border = 1;
-            titlebar = true;
+            titlebar = false;
+          };
+
+          floating = {
+            border = 1;
+            titlebar = false;
           };
 
           keybindings = {
@@ -187,7 +192,7 @@ in
 
             "${cfg.modifier}+r" = "mode resize";
             "${cfg.modifier}+Delete" = ''
-              mode "System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown"'';
+                mode "System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown"'';
           };
 
           colors = {
@@ -195,36 +200,76 @@ in
               border = base16.base08;
               background = base16.base0A;
               text = base16.base00;
-              indicator = base16.base0B;
-              childBorder = base16.base08;
+              indicator = base16.base0F;
+              childBorder = base16.base0A;
             };
             focusedInactive = {
               border = base16.base00;
               background = base16.base07;
               text = base16.base0A;
-              indicator = base16.base0B;
-              childBorder = base16.base03;
+              indicator = base16.base07;
+              childBorder = base16.base07;
             };
             unfocused = {
               border = base16.base00;
               background = base16.base01;
               text = base16.base04;
               indicator = base16.base08;
-              childBorder = base16.base08;
+              childBorder = base16.base01;
             };
             urgent = {
               border = base16.base00;
               background = base16.base09;
               text = base16.base00;
-              indicator = base16.base01;
-              childBorder = base16.base08;
+              indicator = base16.base09;
+              childBorder = base16.base09;
             };
           };
         };
       wrapperFeatures.gtk = true;
       extraConfig = ''
+        hide_edge_borders smart_no_gaps
+        smart_borders no_gaps
+        title_align center
         seat seat0 xcursor_theme breeze_cursors 20
         workspace_auto_back_and_forth yes
+        set $mode_gaps Gaps: (o) outer, (i) inner
+        set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+        set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+        bindsym ${cfg.modifier}+Shift+g mode "$mode_gaps"
+
+        mode "$mode_gaps" {
+          bindsym o      mode "$mode_gaps_outer"
+          bindsym i      mode "$mode_gaps_inner"
+          bindsym Return mode "default"
+          bindsym Escape mode "default"
+        }
+
+        mode "$mode_gaps_inner" {
+          bindsym equal  gaps inner current plus 5
+          bindsym minus gaps inner current minus 5
+          bindsym 0     gaps inner current set 0
+
+          bindsym plus  gaps inner all plus 5
+          bindsym Shift+minus gaps inner all minus 5
+          bindsym Shift+0     gaps inner all set 0
+
+          bindsym Return mode "default"
+          bindsym Escape mode "default"
+        }
+
+        mode "$mode_gaps_outer" {
+          bindsym equal  gaps outer current plus 5
+          bindsym minus gaps outer current minus 5
+          bindsym 0     gaps outer current set 0
+
+          bindsym plus  gaps outer all plus 5
+          bindsym Shift+minus gaps outer all minus 5
+          bindsym Shift+0     gaps outer all set 0
+
+          bindsym Return mode "default"
+          bindsym Escape mode "default"
+        }
         ${workspaceBindingsStr}
       '';
     };

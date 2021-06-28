@@ -19,7 +19,7 @@ in
       };
       settings = [{
         modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
-        modules-center = [ ]; # "clock" "custom/weather"
+        modules-center = ["clock" ]; # "clock" "custom/weather"
         modules-right = [
           "pulseaudio"
           "cpu"
@@ -29,15 +29,18 @@ in
           "battery"
           #"mpd"
           "network"
-          "custom/gpg-status"
           #"custom/weather"
-          "clock"
           "idle_inhibitor"
+          "custom/gpg-status"
           "tray"
         ];
 
         modules = {
           "sway/workspaces" = { format = "{name}"; };
+          "sway/window" = {
+            format = "{}";
+            max-length = 50;
+          };
           #"custom/weather" = {
           #  format = "{}";
           #  interval = 3600;
@@ -50,24 +53,24 @@ in
             interval = 300;
             exec = "${pkgs.kat-gpg-status}/bin/kat-gpg-status";
           };
-          cpu = { format = " {usage}%"; };
+          cpu = { format = "CPU {usage}%"; };
           #mpd = { 
           #  format = "  {albumArtist} - {title}"; 
           #  format-stopped = "ﱙ";
           #  format-paused = "  Paused";
           #  title-len = 16;
           #};
-          memory = { format = " {percentage}%"; };
-          temperature = { format = "﨎{temperatureC}°C"; };
+          memory = { format = "MEM {percentage}%"; };
+          temperature = { format = "TMP {temperatureC}°C"; };
           idle_inhibitor = {
             format = "{icon}";
             format-icons = {
-              activated = "";
-              deactivated = "";
+              activated = "CAF";
+              deactivated = "SLP";
             };
           };
           backlight = {
-            format = "{icon} {percent}%";
+            format = "BL {percent}%";
             format-icons = [ "" "" ];
             on-scroll-up = "${pkgs.light}/bin/light -A 1";
             on-scroll-down = "${pkgs.light}/bin/light -U 1";
@@ -79,25 +82,25 @@ in
               critical = 15;
             };
             format = "{icon} {capacity}%";
-            format-charging = "  {capacity}%";
-            format-plugged = "  {capacity}%";
+            format-charging = "CHRG  {capacity}%";
+            format-plugged = "PI  {capacity}%";
             format-alt = "{icon}  {time}";
             format-icons = [ "" "" "" "" "" ];
           };
           pulseaudio = {
-            format = " {volume}%";
+            format = "VOL {volume}%";
             on-click = "pavucontrol";
           };
           network = {
-            format-wifi = "";
-            format-ethernet = "";
-            format-linked = "  {ifname} (No IP)";
-            format-disconnected = "  Disconnected ";
-            format-alt = "  {ifname}: {ipaddr}/{cidr}";
+            format-wifi = "WIFI";
+            format-ethernet = "NET {ifname}";
+            format-linked = "NET {ifname} (NO IP)";
+            format-disconnected = "NET DC";
+            format-alt = "{ifname}: {ipaddr}/{cidr}";
             tooltip-format-wifi = "{essid} ({signalStrength}%)";
           };
           clock = {
-            format = " {:%T %z}";
+            format = "{:%a, %F %T %Z}";
             tooltip = true;
             tooltip-format = "{:%A, %F %T %z (%Z)}";
             timezones = [
