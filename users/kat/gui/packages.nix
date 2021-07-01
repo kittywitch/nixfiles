@@ -13,6 +13,7 @@
     transmission-remote-gtk
     scrcpy
     lm_sensors
+    google-chrome
     p7zip
     zip
     unzip
