@@ -75,6 +75,10 @@ in
   katnet.private.interfaces = singleton "hexnet";
   katnet.public.interfaces = singleton "br";
 
+  hardware.openrazer = {
+    enable = true;
+  };
+
   katnet.private.tcp.ports = [ 10445 ];
 
   systemd.timers.kat-glauca-dns = {
