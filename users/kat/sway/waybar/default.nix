@@ -81,10 +81,10 @@ in
               warning = 30;
               critical = 15;
             };
-            format = "{icon} {capacity}%";
+            format = "BAT {capacity}%";
             format-charging = "CHRG  {capacity}%";
             format-plugged = "PI  {capacity}%";
-            format-alt = "{icon}  {time}";
+            format-alt = "BAT {time}";
             format-icons = [ "" "" "" "" "" ];
           };
           pulseaudio = {
