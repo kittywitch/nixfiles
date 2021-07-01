@@ -17,7 +17,7 @@ in {
         font-bold = "Iosevka Term:size=9:style=Bold";
         font-italic = "Iosevka Term:size=9:style=Italic";
         font-bold-italic = "Iosevka Term:size=9:style=Bold Italic";
-        dpi-aware = "yes";
+        dpi-aware = "no";
       };
       colors = {
         alpha = "0.9";
