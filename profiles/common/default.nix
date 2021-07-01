@@ -3,6 +3,7 @@
 {
   imports = [
     users.kat.base
+    users.kairi.base
     users.arc
     users.hexchen
     ./system.nix

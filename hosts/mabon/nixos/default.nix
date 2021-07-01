@@ -4,12 +4,14 @@
   imports = [
     ./hw.nix
     profiles.gui
-    profiles.sway
+    profiles.fvwm
     profiles.laptop
-    users.kat.guiFull
+    users.kairi.guiFull
   ];
 
   deploy.target = "mbp";
+
+  networking.wireless.interfaces = [ "wlp3s0" ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

@@ -13,6 +13,7 @@
 
   options = {
     deploy.profile.gui = lib.mkEnableOption "graphical system";
+    deploy.profile.fvwm = lib.mkEnableOption "fvwm";
     deploy.profile.sway = lib.mkEnableOption "sway wm";
     deploy.profile.laptop = lib.mkEnableOption "lappytop";
   };
@@ -45,6 +46,19 @@
           options = {
             deploy.profile.gui = lib.mkEnableOption "graphical system";
             deploy.profile.sway = lib.mkEnableOption "sway wm";
+            deploy.profile.laptop = lib.mkEnableOption "lappytop";
+          };
+        };
+        kairi = {
+          imports = lib.optional (builtins.pathExists (./hosts + "/${hostName}/home")) (import (./hosts + "/${hostName}/home"))
+            # trusted hosts check
+            ++ lib.optional (builtins.pathExists (./trusted/hosts + "/${hostName}/home")) (import (./trusted/hosts + "/${hostName}/home"))
+            # trusted user kairi check
+            ++ lib.optional (builtins.pathExists ./trusted/users/kairi) (import ./trusted/users/kairi);
+
+          options = {
+            deploy.profile.gui = lib.mkEnableOption "graphical system";
+            deploy.profile.fvwm = lib.mkEnableOption "fvwm";
             deploy.profile.laptop = lib.mkEnableOption "lappytop";
           };
         };
