@@ -19,7 +19,6 @@ in
     ../../../services/node-exporter.nix
     ../../../services/promtail.nix
     ../../../services/netdata.nix
-    ./thermal
     ./transmission.nix
     ./jellyfin.nix
     ./virtualhosts.nix
