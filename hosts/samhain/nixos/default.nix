@@ -3,7 +3,7 @@
 with lib;
 
 let
-  hexchen = (import sources.nix-hexchen) { };
+  hexchen = (import sources.hexchen) { };
   hexYgg = filterAttrs (_: c: c.enable)
     (mapAttrs (_: host: host.config.hexchen.network) hexchen.hosts);
 in
@@ -71,14 +71,14 @@ in
   #  package = pkgs.ckb-next;
   #};
 
-  katnet.private.interfaces = singleton "hexnet";
-  katnet.public.interfaces = singleton "br";
+  kw.fw.private.interfaces = singleton "hexnet";
+  kw.fw.public.interfaces = singleton "br";
 
   hardware.openrazer = {
     enable = true;
   };
 
-  katnet.private.tcp.ports = [ 10445 ];
+  kw.fw.private.tcp.ports = [ 10445 ];
 
   systemd.timers.kat-glauca-dns = {
     timerConfig = {

@@ -3,8 +3,8 @@
 with lib;
 
 {
-  katnet.public.tcp.ports = singleton 64738;
-  katnet.public.udp.ports = singleton 64738;
+  kw.fw.public.tcp.ports = singleton 64738;
+  kw.fw.public.udp.ports = singleton 64738;
 
   services.murmur = {
     enable = true;

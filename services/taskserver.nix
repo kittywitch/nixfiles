@@ -3,7 +3,7 @@
 with lib;
 
 {
-  katnet.public.tcp.ports = singleton 53589;
+  kw.fw.public.tcp.ports = singleton 53589;
 
   services.taskserver = {
     enable = true;

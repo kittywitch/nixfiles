@@ -25,8 +25,8 @@ with lib;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
 
-  katnet.private.interfaces = singleton "hexnet";
-  katnet.public.interfaces = [ "enp1s0" "wlp2s0" ];
+  kw.fw.private.interfaces = singleton "hexnet";
+  kw.fw.public.interfaces = [ "enp1s0" "wlp2s0" ];
 
   networking.hostId = "dddbb888";
   networking.hostName = "yule";

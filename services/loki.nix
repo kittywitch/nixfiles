@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  katnet.private.tcp.ports = [ 3100 ];
+  kw.fw.private.tcp.ports = [ 3100 ];
   services.loki = {
     enable = true;
     configuration = {

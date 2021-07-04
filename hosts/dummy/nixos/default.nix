@@ -3,7 +3,7 @@
 with lib;
 
 let
-  hexchen = (import sources.nix-hexchen) { };
+  hexchen = (import sources.hexchen) { };
   hexYgg = filterAttrs (_: c: c.enable)
     (mapAttrs (_: host: host.config.hexchen.network) hexchen.hosts);
 in

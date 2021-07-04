@@ -4,15 +4,15 @@
 with lib;
 
 {
-  katnet.public.tcp.ports = [ 5160 5060 ];
-  katnet.public.udp.ports = [ 5160 5060 ];
+  kw.fw.public.tcp.ports = [ 5160 5060 ];
+  kw.fw.public.udp.ports = [ 5160 5060 ];
 
-  katnet.public.tcp.ranges = [{
+  kw.fw.public.tcp.ranges = [{
     from = 10000;
     to = 20000;
   }];
 
-  katnet.public.udp.ranges = [{
+  kw.fw.public.udp.ranges = [{
     from = 10000;
     to = 20000;
   }];

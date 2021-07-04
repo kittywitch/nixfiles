@@ -12,8 +12,8 @@ with lib;
     '';
   };
 
-  katnet.public.tcp.ports = [ 443 80 ];
-  katnet.private.tcp.ports = [ 443 80 ];
+  kw.fw.public.tcp.ports = [ 443 80 ];
+  kw.fw.private.tcp.ports = [ 443 80 ];
 
   services.nginx = {
     enable = true;

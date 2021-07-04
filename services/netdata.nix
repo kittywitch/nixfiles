@@ -1,7 +1,7 @@
 { config, ... }:
 
 {
-  katnet.private.tcp.ports = [ 19999 ];
+  kw.fw.private.tcp.ports = [ 19999 ];
 
   services.netdata = { enable = true; };
 

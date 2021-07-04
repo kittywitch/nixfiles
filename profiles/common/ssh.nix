@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
 {
-  katnet.public.udp.ranges = [{
+  kw.fw.public.udp.ranges = [{
     from = 60000;
     to = 61000;
   }];
-  katnet.private.udp.ranges = [{
+  kw.fw.private.udp.ranges = [{
     from = 60000;
     to = 61000;
   }];

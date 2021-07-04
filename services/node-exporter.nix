@@ -1,7 +1,7 @@
 { config, ... }:
 
 {
-  katnet.private.tcp.ports = [ 9002 ];
+  kw.fw.private.tcp.ports = [ 9002 ];
 
   services.prometheus = {
     exporters = {

@@ -9,14 +9,10 @@
   nix = {
     nixPath = [
       "nixpkgs=${sources.nixpkgs}"
-      "nixpkgs-unstable=${sources.nixpkgs-unstable}"
-      "NUR=${sources.NUR}"
-      "arc=${sources.arc-nixexprs}"
+      "NUR=${sources.nur}"
+      "arc=${sources.nixexprs}"
       "ci=${sources.ci}"
-      "nixpkgs-mozilla=${sources.nixpkgs-mozilla}"
-      "hexy=${sources.nix-hexchen}"
-      "pbb=${sources.pbb-nixfiles}"
-      "qlyiss=${sources.qyliss-nixlib}"
+      "hexy=${sources.hexchen}"
     ];
     binaryCaches = [ "https://arc.cachix.org" "https://kittywitch.cachix.org" ];
     binaryCachePublicKeys =

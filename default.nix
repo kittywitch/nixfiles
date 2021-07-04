@@ -25,7 +25,7 @@ rec {
       sources2drvs = sources: mapAttrs (_: source2drv) (getSources sources);
     in recurseIntoAttrs rec {
       local = sources2drvs sources;
-      hexchen = sources2drvs (import sources.nix-hexchen {}).sources;
+      hexchen = sources2drvs (import sources.hexchen {}).sources;
       all = attrValues local ++ attrValues hexchen;
       allStr = toString all;
     };

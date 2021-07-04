@@ -3,8 +3,8 @@
 with lib;
 
 {
-  katnet.private.tcp.ports = singleton 1935;
-  katnet.public.tcp.ports = singleton 1935;
+  kw.fw.private.tcp.ports = singleton 1935;
+  kw.fw.public.tcp.ports = singleton 1935;
 
   services.nginx.virtualHosts = {
     "samhain.net.kittywit.ch" = {

@@ -2,10 +2,10 @@
 
 with lib;
 
-let cfg = config.katnet;
+let cfg = config.kw.fw;
 in
 {
-  options.katnet = {
+  options.kw.fw = {
     public.tcp.ports = mkOption {
       type = types.listOf types.port;
       default = [ ];

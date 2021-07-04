@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 {
-  katnet.public.tcp.ranges = [{
+  kw.fw.public.tcp.ranges = [{
     from = 32768;
     to = 60999;
   }];
 
-  katnet.private.tcp.ranges = [{
+  kw.fw.private.tcp.ranges = [{
     from = 32768;
     to = 60999;
   }];

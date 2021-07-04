@@ -4,11 +4,13 @@ let
   pkgs = import sources.nixpkgs { inherit config; };
   overlay = self: super:
   rec {
-
-    dino =
-      super.callPackage "${sources.qyliss-nixlib}/overlays/patches/dino" {
-        inherit (super) dino;
-      };
+    dino = super.dino.overrideAttrs ( 
+    { patches ? [], ... }: {
+      patches = patches ++ [
+        ./dino/0001-add-an-option-to-enable-omemo-by-default-in-new-conv.patch
+      ];
+    }
+    );
 
       discord = super.discord.override { nss = self.nss; };
 
@@ -21,9 +23,7 @@ let
 
       notmuch = super.callPackage ./notmuch { inherit (super) notmuch; };
 
-      unstable = import sources.nixpkgs-unstable { inherit (self) config; };
-
-      nur = import sources.NUR {
+      nur = import sources.nur {
         nurpkgs = self;
         pkgs = self;
       };
@@ -85,4 +85,4 @@ let
       (import ../trusted/pkgs { inherit super self; });
 
 in
-  (pkgs.extend (import (sources.arc-nixexprs + "/overlay.nix"))).extend overlay
+  (pkgs.extend (import (sources.nixexprs + "/overlay.nix"))).extend overlay

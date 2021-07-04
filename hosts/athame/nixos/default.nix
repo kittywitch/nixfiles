@@ -58,10 +58,10 @@ with lib;
     interface = "enp1s0";
   };
 
-  katnet.public.interfaces = singleton "enp1s0";
-  katnet.private.interfaces = singleton "hexnet";
+  kw.fw.public.interfaces = singleton "enp1s0";
+  kw.fw.private.interfaces = singleton "hexnet";
 
-  katnet.public.tcp.ports = singleton 52969;
+  kw.fw.public.tcp.ports = singleton 52969;
 
   deploy.tf.dns.records.kittywitch_athame_v6 = {
     tld = "kittywit.ch.";

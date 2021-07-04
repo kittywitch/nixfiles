@@ -18,9 +18,9 @@ with lib;
   networking.interfaces.enp1s0.useDHCP = true;
   networking.interfaces.wlp2s0.useDHCP = true;
 
-  katnet.public.interfaces = singleton "wlp2s0";
+  kw.fw.public.interfaces = singleton "wlp2s0";
 
-  katnet.public.tcp.ports = [ 9981 9982 ];
+  kw.fw.public.tcp.ports = [ 9981 9982 ];
 
   hardware.firmware = [ pkgs.libreelec-dvb-firmware ];
 

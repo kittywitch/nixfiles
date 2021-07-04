@@ -1,15 +1,13 @@
 { sources, lib, ... }:
 
-let hexchen = (import sources.nix-hexchen) { };
-in
 {
   imports = [
-    ./katnet
+    ./nftables
+    ./fw-abstraction
     ./deploy-tf
-    (sources.pbb-nixfiles + "/modules/nftables")
     (sources.tf-nix + "/modules/nixos/secrets.nix")
     (sources.tf-nix + "/modules/nixos/secrets-users.nix")
-    hexchen.modules.hexnet
+    (sources.hexchen + "/modules/hexnet")
   ];
 
   # stubs for hexchens modules, until more generalized
