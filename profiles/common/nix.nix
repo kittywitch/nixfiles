@@ -9,7 +9,7 @@
   nix = {
     nixPath = [
       "nixpkgs=${sources.nixpkgs}"
-      "NUR=${sources.nur}"
+      "nur=${sources.nur}"
       "arc=${sources.nixexprs}"
       "ci=${sources.ci}"
       "hexy=${sources.hexchen}"
