@@ -12,23 +12,22 @@ rec {
   inherit (import ./lib/hosts.nix {
     inherit pkgs sources profiles users;
     inherit (deploy) target;
-  })
-    hosts targets;
+  }) hosts targets;
 
-    inherit (pkgs) lib;
+  inherit (pkgs) lib;
 
-    runners = import ./runners.nix { inherit lib; inherit (deploy) target; };
+  runners = import ./runners.nix { inherit lib; inherit (deploy) target; };
 
-    sourceCache = with lib; let
-      getSources = sources: removeAttrs sources [ "__functor" "dorkfiles" ];
-      source2drv = value: if isDerivation value.outPath then value.outPath else value;
-      sources2drvs = sources: mapAttrs (_: source2drv) (getSources sources);
-    in recurseIntoAttrs rec {
-      local = sources2drvs sources;
-      hexchen = sources2drvs (import sources.hexchen {}).sources;
-      all = attrValues local ++ attrValues hexchen;
-      allStr = toString all;
-    };
+  sourceCache = with lib; let
+    getSources = sources: removeAttrs sources [ "__functor" "dorkfiles" ];
+    source2drv = value: if isDerivation value.outPath then value.outPath else value;
+    sources2drvs = sources: mapAttrs (_: source2drv) (getSources sources);
+  in recurseIntoAttrs rec {
+    local = sources2drvs sources;
+    hexchen = sources2drvs (import sources.hexchen {}).sources;
+    all = attrValues local ++ attrValues hexchen;
+    allStr = toString all;
+  };
 
   deploy = import ./lib/deploy.nix {
     inherit pkgs sources;

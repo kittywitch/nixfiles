@@ -7,6 +7,7 @@
     users.arc
     users.hexchen
     ./system.nix
+    ./base16.nix
     ./net.nix
     ./access.nix
     ./locale.nix

@@ -5,11 +5,14 @@
 , profiles
 , pkgsPath ? ../pkgs
 , sources ? { }
+, system ? builtins.currentSystem
 }:
 
 with pkgs.lib;
 
 rec {
+  baseModules = import (pkgs.path + "/nixos/modules/module-list.nix");
+
   hostNames = attrNames
     (filterAttrs (name: type: type == "directory") (builtins.readDir hostsDir));
 
@@ -18,23 +21,31 @@ rec {
       _module.args = { inherit hosts targets; };
       imports = [ ../nixos.nix ../modules/nixos ];
       networking = { inherit hostName; };
-      nixpkgs.pkgs = import pkgsPath {
-        inherit (config.nixpkgs) config;
-        inherit sources;
-      };
+      nixpkgs.pkgs = pkgs;
     };
 
   hosts = listToAttrs (map
     (hostName:
-      nameValuePair hostName (import (pkgs.path + "/nixos/lib/eval-config.nix") {
-        modules = [
+    nameValuePair hostName (evalModules {
+        modules = baseModules ++ [
           (hostConfig hostName)
+          ({ config, ... }: {
+            config._module.args.pkgs = pkgs;
+            config.nixpkgs.system = mkDefault system;
+            config.nixpkgs.initialSystem = system;
+          })
           (if sources ? home-manager then
             sources.home-manager + "/nixos"
           else
             { })
-        ];
-        specialArgs = { inherit sources target profiles hostName users; };
+          ];
+          args = {
+            inherit baseModules modules;
+          };
+          specialArgs = {
+            modulesPath = builtins.toString pkgs.path + "/nixos/modules";
+            inherit sources target profiles hostName users;
+          };
       }))
     hostNames);
 

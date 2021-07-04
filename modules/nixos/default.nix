@@ -1,7 +1,7 @@
 { sources, lib, ... }:
 
 {
-  imports = [
+  imports = with (import (sources.nixexprs + "/modules")).nixos; [ base16 base16-shared ] ++ [
     ./nftables
     ./fw-abstraction
     ./deploy-tf

@@ -1,10 +1,8 @@
-{ config ? { }, sources, system ? builtins.currentSystem, ... }@args:
+{  sources, system ? builtins.currentSystem, ... }@args:
 
 let
-  pkgs = import sources.nixpkgs { inherit config; };
-  overlay = self: super:
-  rec {
-    dino = super.dino.overrideAttrs ( 
+  overlay = self: super: rec {
+    dino = super.dino.overrideAttrs (
     { patches ? [], ... }: {
       patches = patches ++ [
         ./dino/0001-add-an-option-to-enable-omemo-by-default-in-new-conv.patch
@@ -20,8 +18,6 @@ let
       };
 
       waybar = super.waybar.override { pulseSupport = true; };
-
-      notmuch = super.callPackage ./notmuch { inherit (super) notmuch; };
 
       nur = import sources.nur {
         nurpkgs = self;
@@ -83,6 +79,16 @@ let
 
       } // super.lib.optionalAttrs (builtins.pathExists ../trusted/pkgs)
       (import ../trusted/pkgs { inherit super self; });
-
-in
-  (pkgs.extend (import (sources.nixexprs + "/overlay.nix"))).extend overlay
+    pkgs = import sources.nixpkgs {
+    overlays = [
+      overlay
+      (import (sources.nixexprs + "/overlay.nix"))
+    ];
+    config = {
+      allowUnfree = true;
+      permittedInsecurePackages = [
+        "ffmpeg-2.8.17"
+      ];
+    };
+  };
+in pkgs
