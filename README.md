@@ -8,10 +8,9 @@ The public section of my NixOS configuration, using [arcnmx/tf-nix](https://gith
 
 ### Deployment
 
-* `nix run -f . deploy.target.<targetName>.run.apply`
-
-* `nix run -f . deploy.target.<targetName>.run -c terraform destroy`
+* `<targetName>-deploy`
+* `<targetName>-tf`
 
 ### Host Building
 
-* `nix build -f . hosts.<hostName>.config.system.build.toplevel`
+* `nix build -f . network.nodes.<hostName>.deploy.system`

@@ -74,8 +74,8 @@ with lib; {
             if git status --porcelain | grep -qF nix/sources.json; then
               git -P diff nix/sources.json
               nix build --no-link -Lf . sourceCache.local
-                echo "checking that hosts still build..." >&2
-              if nix build -Lf . hosts.athame.config.system.build.toplevel && nix-collect-garbage -d && nix build -Lf . hosts.yule.config.system.build.toplevel && nix-collect-garbage -d && nix build -Lf . hosts.samhain.config.system.build.toplevel; then
+                echo "checking that network.nodes.still build..." >&2
+              if nix build -Lf . network.nodes.athame.deploy.system && nix-collect-garbage -d && nix build -Lf . network.nodes.yule.system && nix-collect-garbage -d && nix build -Lf . network.nodes.samhain.system; then
                 if [[ -n $CACHIX_SIGNING_KEY ]]; then
                   nix build --no-link -Lf . sourceCache.all
                   cachix push kittywitch $(nix eval --raw -f . sourceCache.allStr)

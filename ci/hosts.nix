@@ -16,7 +16,7 @@
 
   jobs = let hostnames = [ "samhain" "yule" "athame" ];
   in mapAttrs' (k: nameValuePair "host-${k}") (genAttrs hostnames (host: {
-      tasks.${host}.inputs = channels.nixfiles.hosts.${host}.config.system.build.toplevel;
+      tasks.${host}.inputs = channels.nixfiles.network.nodes.${host}.deploy.system;
   }));
 
   ci.gh-actions.checkoutOptions.submodules = false;

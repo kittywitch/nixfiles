@@ -1,8 +1,8 @@
 { }: let
-  config = import ./default.nix;
-  tf = config.deploy.tf {};
-  inherit (config) pkgs;
-  nf-actions = config.pkgs.writeShellScriptBin "nf-actions" ''
+  meta = import ./default.nix;
+  config = meta;
+  inherit (meta) pkgs;
+  nf-actions = pkgs.writeShellScriptBin "nf-actions" ''
     export START_DIR="$PWD"
     cd ${toString ./.}
     export NF_CONFIG_ROOT=${toString ./.}/ci
@@ -20,7 +20,7 @@
     done
     cd $START_DIR
   '';
-  nf-test = config.pkgs.writeShellScriptBin "nf-test" ''
+  nf-test = pkgs.writeShellScriptBin "nf-test" ''
     export START_DIR="$PWD"
     cd ${toString ./.}
     export NF_CONFIG_ROOT=${toString ./.}/ci
@@ -39,16 +39,18 @@
     cd $START_DIR
   '';
 in pkgs.mkShell {
-  nativeBuildInputs = [
+  nativeBuildInputs = with pkgs; [
+    inetutils
     nf-actions
     nf-test
   ] ++ config.runners.lazy.nativeBuildInputs;
 
-  HISTFILE = toString (tf.terraform.baseDir + "/.history");
-  CI_PLATFORM = "impure"; # use host's nixpkgs for more convenient testing
+  HISTFILE = toString (config.deploy.dataDir + "/.history");
 
   shellHook = ''
     export HOME_HOSTNAME=$(hostname -s)
-    export NIX_PATH="$NIX_PATH:nixfiles=${toString ./.}"
+    export HOME_UID=$(id -u)
+    export NIX_PATH="$NIX_PATH:home=${toString ./.}"
   '';
 }
+

@@ -1,4 +1,4 @@
-[submodule "trusted"]
-	path = trusted
+[submodule "config/trusted"]
+	path = config/trusted
 	branch = main
 	url = "https://git.kittywit.ch/kat/nixfiles-trusted.git"

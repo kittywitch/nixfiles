@@ -1,6 +1,15 @@
-{  sources, system ? builtins.currentSystem, ... }@args:
+{ sources, system ? builtins.currentSystem, ... }@args:
 
 let
+  liboverlay = self: super: {
+    lib = super.lib.extend (self: super: import ./lib
+    {
+      inherit super;
+      lib = self;
+      isOverlayLib = true;
+    }
+    );
+  };
   overlay = self: super: rec {
     dino = super.dino.overrideAttrs (
     { patches ? [], ... }: {
@@ -55,8 +64,6 @@ let
 
         nerdfonts = super.nerdfonts.override { fonts = [ "Iosevka" ]; };
 
-        hextorgba = (import ../lib/colorhelpers.nix { inherit (super) lib; }).hextorgba;
-
         konawall = super.konawall.overide { swaySupport = true; };
 
         imv = super.imv.override {
@@ -77,11 +84,12 @@ let
 
         kat-scrot = self.callPackage ./kat-scrot { };
 
-      } // super.lib.optionalAttrs (builtins.pathExists ../trusted/pkgs)
-      (import ../trusted/pkgs { inherit super self; });
+      } // super.lib.optionalAttrs (builtins.pathExists ../config/trusted/pkgs)
+      (import ../config/trusted/pkgs { inherit super self; });
     pkgs = import sources.nixpkgs {
     overlays = [
       overlay
+      liboverlay
       (import (sources.nixexprs + "/overlay.nix"))
     ];
     config = {
