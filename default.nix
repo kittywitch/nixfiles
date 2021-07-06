@@ -30,6 +30,7 @@ let
       metaConfig
       ./config/targets
       ./config/modules/meta/default.nix
+      ./config/hosts/dummy/meta.nix
       ./config/hosts/athame/meta.nix
       ./config/hosts/samhain/meta.nix
       ./config/hosts/yule/meta.nix
