@@ -8,7 +8,7 @@ The public section of my NixOS configuration, using [arcnmx/tf-nix](https://gith
 
 ### Deployment
 
-* `<targetName>-deploy`
+* `<targetName>-apply`
 * `<targetName>-tf`
 
 ### Host Building
