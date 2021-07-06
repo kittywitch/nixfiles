@@ -33,6 +33,8 @@ let
       ./config/hosts/athame/meta.nix
       ./config/hosts/samhain/meta.nix
       ./config/hosts/yule/meta.nix
+      ./config/hosts/mabon/meta.nix
+      ./config/hosts/ostara/meta.nix
     ];
     specialArgs = {
       inherit sources profiles users;

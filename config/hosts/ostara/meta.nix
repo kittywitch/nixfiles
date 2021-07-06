@@ -1,6 +1,7 @@
 { lib, config, ... }: with lib; {
   config = {
-    deploy.targets.personal = {
+    deploy.targets.ostara = {
+      nodeNames = singleton "ostara";
       tf = {
         resources.ostara = {
           provider = "null";
@@ -11,11 +12,11 @@
           };
         };
       };
-      network.nodes.samhain = {
-        imports = lib.hostImport "samhain";
-        networking = {
-          hostName = "samhain";
-        };
+    };
+    network.nodes.ostara = {
+      imports = lib.hostImport "ostara";
+      networking = {
+        hostName = "ostara";
       };
     };
   };
