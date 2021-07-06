@@ -100,4 +100,4 @@ name: niv-update
     - ci/niv-cron.nix
     - .github/workflows/niv-update.yml
   schedule:
-  - cron: 0 */6 * * *
+  - cron: 0 0 * * *

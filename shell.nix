@@ -11,8 +11,8 @@
       echo $f
       nix run --arg config $f ci.run.gh-actions-generate
     done
-    cd ${toString ./trusted}
-    export TRUSTED_CONFIG_ROOT=${toString ./trusted}/ci
+    cd ${toString ./config/trusted}
+    export TRUSTED_CONFIG_ROOT=${toString ./config/trusted}/ci
     TRUSTED_CONFIG_FILES=($TRUSTED_CONFIG_ROOT/hosts.nix)
     for f in "''${TRUSTED_CONFIG_FILES[@]}"; do
       echo $f
@@ -29,8 +29,8 @@
       echo $f
       nix run --arg config $f ci.test
     done
-    cd ${toString ./trusted}
-    export TRUSTED_CONFIG_ROOT=${toString ./trusted}/ci
+    cd ${toString ./config/trusted}
+    export TRUSTED_CONFIG_ROOT=${toString ./config/trusted}/ci
     TRUSTED_CONFIG_FILES=($TRUSTED_CONFIG_ROOT/hosts.nix)
     for f in "''${TRUSTED_CONFIG_FILES[@]}"; do
       echo $f

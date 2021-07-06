@@ -21,7 +21,7 @@ with lib; {
         inherit paths;
       };
       schedule = [ {
-        cron = "0 */6 * * *";
+        cron = "0 0 * * *";
       } ];
     };
   };
