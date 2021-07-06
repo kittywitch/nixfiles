@@ -53,10 +53,10 @@
         "homepage": null,
         "owner": "arcnmx",
         "repo": "nixexprs",
-        "rev": "cc433f9aab8bb2ff6941fc88cdd2184a398649ce",
-        "sha256": "08lsypc8y5lxmyc7wjsk9nqyah3b4k8llrdmjxba2sp8q84zy6dg",
+        "rev": "fc715002ebf974c5bfa1a2c40f2fb430077f26c5",
+        "sha256": "127319hg9aqanmm8hjzm9fwh05lg1mrx6n06325ssxbrfn6iy5rz",
         "type": "tarball",
-        "url": "https://github.com/arcnmx/nixexprs/archive/cc433f9aab8bb2ff6941fc88cdd2184a398649ce.tar.gz",
+        "url": "https://github.com/arcnmx/nixexprs/archive/fc715002ebf974c5bfa1a2c40f2fb430077f26c5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixos-mailserver": {
