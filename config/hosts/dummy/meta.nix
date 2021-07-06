@@ -1,8 +1,8 @@
 { lib, config, ... }: with lib; {
-  network.nodes.mabon = {
-    imports = lib.hostImport "mabon";
+  network.nodes.dummy = {
+    imports = lib.hostImport "dummy";
     networking = {
-      hostName = "mabon";
+      hostName = "dummy";
     };
   };
 }
