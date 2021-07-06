@@ -9,6 +9,9 @@
     }];
   };
 
+  users.users.vaultwarden.name = "bitwarden_rs";
+  users.groups.vaultwarden.name = "bitwarden_rs";
+
   services.vaultwarden = {
     enable = true;
     dbBackend = "postgresql";
