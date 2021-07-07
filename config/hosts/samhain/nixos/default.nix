@@ -96,7 +96,7 @@ in
   # graphics tablet
   services.xserver.wacom.enable = true;
 
-  environment.systemPackages = [ pkgs.stepmania pkgs.screenstub ];
+  environment.systemPackages = [ pkgs.screenstub pkgs.razergenie ];
 
   # other stuffs
   boot.loader.systemd-boot.enable = true;

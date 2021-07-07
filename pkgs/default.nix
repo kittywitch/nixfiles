@@ -94,9 +94,6 @@ let
     ];
     config = {
       allowUnfree = true;
-      permittedInsecurePackages = [
-        "ffmpeg-2.8.17"
-      ];
     };
   };
 in pkgs
