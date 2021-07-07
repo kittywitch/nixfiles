@@ -20,4 +20,8 @@
     fsType = "nfs";
     options = [ "x-systemd.automount" "noauto" ];
   };
+
+  systemd.services.nfs-mountd = {
+    wants = [ "network-online.target" "yggdrassil.service" ];
+  };
 }

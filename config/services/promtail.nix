@@ -31,6 +31,7 @@ in
   systemd.services.promtail = {
     description = "Promtail service for Loki";
     wantedBy = [ "multi-user.target" ];
+    wants = [ "yggdrassil.service" ];
 
     serviceConfig = {
       ExecStart = ''
