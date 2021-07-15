@@ -88,14 +88,14 @@ let
 
       } // super.lib.optionalAttrs (builtins.pathExists ../config/trusted/pkgs)
       (import ../config/trusted/pkgs { inherit super self; });
-    pkgs = import sources.nixpkgs {
-      overlays = [
-      (import (sources.nixexprs + "/overlay.nix"))
-      overlay
-      liboverlay
-    ];
-    config = {
-      allowUnfree = true;
-    };
-  };
+      pkgs = import sources.nixpkgs {
+        overlays = [
+          (import (sources.nixexprs + "/overlay.nix"))
+          overlay
+          liboverlay
+        ];
+        config = {
+          allowUnfree = true;
+        };
+      };
 in pkgs
