@@ -30,9 +30,9 @@
             };
           in
           {
-            "DP-1" = left;
+            "DP-1" = right;
             "DVI-D-1" = middle;
-            "HDMI-A-1" = right;
+            "HDMI-A-1" = left;
           };
 
         keybindings = {
