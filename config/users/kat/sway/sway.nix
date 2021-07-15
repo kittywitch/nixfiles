@@ -87,8 +87,7 @@ in
           input = {
             "*" = {
               xkb_layout = "gb";
-              # xkb_variant = "nodeadkeys";
-              #   xkb_options = "ctrl:nocaps";
+              xkb_options = "compose:rctrl,ctrl:nocaps";
             };
           };
 
