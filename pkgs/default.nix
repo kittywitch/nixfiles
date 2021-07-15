@@ -58,6 +58,8 @@ let
           zfsUnstable = ksuper.zfsUnstable.overrideAttrs (old: { meta = old.meta // { broken = false; }; });
         });
 
+        yggdrasil = self.callPackage ./yggdrasil { };
+
         obs-studio = super.obs-studio.override { pipewireSupport = true; };
 
         libreelec-dvb-firmware = self.callPackage ./libreelec-dvb-firmware { };
