@@ -16,6 +16,33 @@ with lib;
   services.matrix-synapse = {
     enable = true;
     max_upload_size = "512M";
+    logConfig = ''
+version: 1
+
+# In systemd's journal, loglevel is implicitly stored, so let's omit it
+# from the message text.
+formatters:
+    journal_fmt:
+        format: '%(name)s: [%(request)s] %(message)s'
+
+filters:
+    context:
+        (): synapse.util.logcontext.LoggingContextFilter
+        request: ""
+
+handlers:
+    journal:
+        class: systemd.journal.JournalHandler
+        formatter: journal_fmt
+        filters: [context]
+        SYSLOG_IDENTIFIER: synapse
+
+root:
+    level: WARNING
+    handlers: [journal]
+
+disable_existing_loggers: False
+    '';
     server_name = "kittywit.ch";
     app_service_config_files = [
       "/var/lib/matrix-synapse/telegram-registration.yaml"
