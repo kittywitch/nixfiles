@@ -29,6 +29,7 @@ let
 in
 {
   systemd.services.promtail = {
+    enable = false;
     description = "Promtail service for Loki";
     wantedBy = [ "multi-user.target" ];
     wants = [ "yggdrassil.service" ];

@@ -1,9 +1,9 @@
 { config, pkgs, ... }:
 
 {
-  kw.fw.private.tcp.ports = [ 3100 ];
+  #kw.fw.private.tcp.ports = [ 3100 ];
   services.loki = {
-    enable = true;
+    enable = false;
     configuration = {
       auth_enabled = false;
       chunk_store_config = { max_look_back_period = "0s"; };
