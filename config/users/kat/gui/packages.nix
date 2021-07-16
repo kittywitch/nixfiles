@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     _1password
+    bpytop
     bitwarden
     wire-desktop
     element-desktop
