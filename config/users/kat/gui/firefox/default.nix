@@ -25,6 +25,14 @@ in
     package = pkgs.firefox-wayland;
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       sponsorblock
+      floccus
+      link-cleaner
+      octotree
+      betterttv
+      canvasblocker
+      view-image
+      pkgs.nur.repos.crazazy.firefox-addons.new-tab-override
+      wappalyzer
       auto-tab-discard
       bitwarden
       darkreader
