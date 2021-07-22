@@ -82,11 +82,11 @@
           no-input-default-bindings = "";
           profile = "gpu-hq";
           gpu-context = "wayland";
+          hwdec = "auto";
           vo = "gpu";
           volume-max = 200;
           keep-open = true;
           opengl-waitvsync = true;
-          hwdec = "auto";
           demuxer-max-bytes = "2000MiB";
           demuxer-max-back-bytes = "250MiB";
           osd-scale-by-window = false;

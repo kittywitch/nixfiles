@@ -15,7 +15,7 @@
     ./sound.nix
   ];
 
-  hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl ];
+  hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
   services.tumbler.enable = true;
   environment.systemPackages = with pkgs; [ ntfs3g exfat-utils ];
   
