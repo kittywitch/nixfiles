@@ -40,7 +40,6 @@ in
       foxyproxy-standard
       clearurls
       df-youtube
-      https-everywhere
       old-reddit-redirect
       privacy-badger
       reddit-enhancement-suite
