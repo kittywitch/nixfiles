@@ -39,7 +39,6 @@ in
       decentraleyes
       foxyproxy-standard
       clearurls
-      bypass-paywalls
       df-youtube
       https-everywhere
       old-reddit-redirect
