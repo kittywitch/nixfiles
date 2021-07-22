@@ -4,6 +4,7 @@
 with lib;
 
 {
+/*
   kw.fw.public.tcp.ports = [ 5160 5060 ];
   kw.fw.public.udp.ports = [ 5160 5060 ];
 
@@ -16,6 +17,7 @@ with lib;
     from = 10000;
     to = 20000;
   }];
+  */
 
   services.fail2ban.jails = {
     asterisk = ''
@@ -41,6 +43,8 @@ with lib;
   };
 
   systemd.services.asterisk = {
+    enable = false;
+
     description = "Asterisk PBX Server";
 
     wantedBy = [ "multi-user.target" ];
