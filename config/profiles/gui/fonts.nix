@@ -17,6 +17,7 @@
   fonts.fonts = with pkgs; [
       font-awesome
       nerdfonts
+      vegur
       emacs-all-the-icons-fonts
       twitter-color-emoji
   ];

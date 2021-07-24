@@ -5,7 +5,6 @@
     _1password
     bpytop
     bitwarden
-    wire-desktop
     element-desktop
     exiftool
     thunderbird
@@ -22,8 +21,6 @@
     discord
     tdesktop
     yubikey-manager
-    vegur
-    gparted
     cryptsetup
   ];
 }
