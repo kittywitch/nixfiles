@@ -29,6 +29,9 @@ in {
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
+    initExtra = ''
+        echo ""; akiflags -rb;
+    '';
     shellAliases = {
       nixdirfmt = "fd --color=never .nix | xargs nixpkgs-fmt";
       exa = "exa --time-style long-iso";
