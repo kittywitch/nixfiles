@@ -58,6 +58,7 @@ let
           zfsUnstable = ksuper.zfsUnstable.overrideAttrs (old: { meta = old.meta // { broken = false; }; });
         });
 
+        akiflags = self.callPackage ./akiflags { };
 
         konawall-toggle = self.callPackage ./konawall-toggle { };
 

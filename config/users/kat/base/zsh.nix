@@ -25,7 +25,7 @@ in {
     grep = "rg";
   };
   xdg.dataFile = { "z/.keep".text = ""; };
-  home.packages = with pkgs; [ fzf fd ];
+  home.packages = with pkgs; [ fzf fd akiflags ];
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
