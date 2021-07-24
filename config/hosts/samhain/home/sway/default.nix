@@ -54,6 +54,10 @@
         };
 
         input = {
+          "5426:103:Razer_Razer_Naga_Trinity" = {
+            accel_profile = "adaptive";
+            pointer_accel = "0";
+          };
           "5824:1503:screenstub-tablet" = { events = "disabled"; };
           "5824:1503:screenstub-mouse" = { events = "disabled"; };
           "5824:1503:screenstub-kbd" = { events = "disabled"; };
