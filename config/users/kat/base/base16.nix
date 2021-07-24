@@ -3,7 +3,7 @@
 {
   base16 = {
     shell.enable = true;
-    schemes = [ "rebecca.rebecca" ];
+    schemes = [ "tomorrow.tomorrow-night-eighties" ];
   };
   #  home.base16-shell = {
   #    enable = true;

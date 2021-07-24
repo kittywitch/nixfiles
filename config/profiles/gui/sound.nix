@@ -8,7 +8,7 @@
     '';
   };
 
-  environment.systemPackages = with pkgs; [ pavucontrol ];
+  environment.systemPackages = with pkgs; [ pulsemixer ];
 
   security.rtkit.enable = true;
 

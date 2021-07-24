@@ -6,16 +6,59 @@ let
   font = {
     name = "Iosevka Term";
     size = 9.0;
-    size_css = "14px";
+    size_css = "12px";
   };
+  footwrap = pkgs.writeShellScriptBin "footwrap" ''
+    exec foot "$2"
+  '';
 in
 {
   home.sessionVariables = {
     XDG_CURRENT_DESKTOP = "sway";
     XDG_SESSION_TYPE = "wayland";
+    WLR_DRM_DEVICES="/dev/dri/card0";
   };
 
-  home.packages = with pkgs; [ grim slurp wl-clipboard jq ];
+
+  xdg.configFile."wofi/wofi.css".text = ''
+    #scroll, #input {
+      background: ${base16.base01};
+    }
+
+    window {
+      font-family: ${font.name};
+      background: ${lib.hextorgba base16.base00 0.75};
+      border-radius: 1em;
+      font-size: ${font.size_css};
+      color: ${base16.base07};
+    }
+
+    #outer-box {
+      margin: 1em;
+    }
+
+    #scroll {
+      border: 1px solid ${base16.base03};
+    }
+
+    #input {
+      border: 1px solid ${base16.base0C};
+      margin: 1em;
+      background: ${base16.base02};
+      color: ${base16.base04};
+    }
+
+    #entry {
+      border-bottom: 1px dashed ${base16.base04};
+      padding: .75em;
+    }
+
+    #entry:selected {
+      background-color: ${base16.base0D};
+    }
+  '';
+
+  home.packages = with pkgs; [ grim slurp wl-clipboard jq quintom-cursor-theme gsettings-desktop-schemas glib wofi ];
 
   services.i3gopher = { enable = true; };
 
@@ -78,8 +121,7 @@ in
       enable = true;
       config =
         let
-          dmenu =
-            "${pkgs.bemenu}/bin/bemenu --fn '${font.name} ${toString font.size}' --nb '${base16.base00}' --nf '${base16.base07}' --sb '${base16.base01}' --sf '${base16.base07}' -l 5 -m -1 -i";
+          dmenu = "${pkgs.wofi}/bin/wofi -idbt ${footwrap}/bin/footwrap -s ~/.config/wofi/wofi.css -p '' -W 25%";
         in
         {
           bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
@@ -90,8 +132,7 @@ in
               xkb_options = "compose:rctrl,ctrl:nocaps";
             };
           };
-
-          fonts = { 
+          fonts = {
             names = [ font.name ];
             style = "Medium";
             size = font.size;
@@ -99,16 +140,18 @@ in
           terminal = "${pkgs.foot}/bin/foot";
           # TODO: replace with wofi
           menu =
-            "${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --dmenu=\"${dmenu}\" --term='${cfg.terminal}'";
+            "${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --no-generic --dmenu=\"${dmenu}\" --term='${footwrap}/bin/footwrap'";
           modifier = "Mod4";
 
           assigns = { "12:F2" = [{ class = "screenstub"; }]; };
           startup = [
             {
+              command = "gsettings set org.gnome.desktop.interface cursor-theme 'Quintom_Snow'";
+            }
+            {
               command = "systemctl --user restart mako";
               always = true;
             }
-            { command = "mkchromecast -t"; }
             {
               command = "systemctl --user restart konawall.service";
               always = true;
@@ -196,32 +239,32 @@ in
 
           colors = {
             focused = {
-              border = base16.base08;
-              background = base16.base0A;
-              text = base16.base00;
-              indicator = base16.base0F;
-              childBorder = base16.base0A;
+              border = base16.base0D;
+              background = base16.base0D;
+              text = base16.base07;
+              indicator = base16.base0D;
+              childBorder = base16.base0D;
             };
             focusedInactive = {
-              border = base16.base00;
-              background = base16.base07;
-              text = base16.base0A;
-              indicator = base16.base07;
-              childBorder = base16.base07;
+              border = base16.base04;
+              background = base16.base04;
+              text = base16.base00;
+              indicator = base16.base04;
+              childBorder = base16.base04;
             };
             unfocused = {
-              border = base16.base00;
-              background = base16.base01;
-              text = base16.base04;
-              indicator = base16.base08;
-              childBorder = base16.base01;
+              border = base16.base02;
+              background = base16.base02;
+              text = base16.base06;
+              indicator = base16.base02;
+              childBorder = base16.base02;
             };
             urgent = {
-              border = base16.base00;
-              background = base16.base09;
+              border = base16.base08;
+              background = base16.base08;
               text = base16.base00;
-              indicator = base16.base09;
-              childBorder = base16.base09;
+              indicator = base16.base08;
+              childBorder = base16.base08;
             };
           };
         };
@@ -230,7 +273,7 @@ in
         hide_edge_borders smart_no_gaps
         smart_borders no_gaps
         title_align center
-        seat seat0 xcursor_theme breeze_cursors 20
+        seat seat0 xcursor_theme Quintom_Snow 20
         workspace_auto_back_and_forth yes
         set $mode_gaps Gaps: (o) outer, (i) inner
         set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)

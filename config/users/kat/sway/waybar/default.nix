@@ -31,6 +31,7 @@ in
           "network"
           #"custom/weather"
           "idle_inhibitor"
+          "custom/konawall"
           "custom/gpg-status"
           "tray"
         ];
@@ -51,7 +52,16 @@ in
           "custom/gpg-status" = {
             format = "{}";
             interval = 300;
+            return-type = "json";
             exec = "${pkgs.kat-gpg-status}/bin/kat-gpg-status";
+          };
+          "custom/konawall" = {
+            format = "{}";
+            interval = "once";
+            return-type = "json";
+            exec = "${pkgs.konawall-toggle}/bin/konawall-status";
+            exec-on-event = true;
+            on-click = "${pkgs.konawall-toggle}/bin/konawall-toggle";
           };
           cpu = { format = "CPU {usage}%"; };
           #mpd = { 
@@ -61,7 +71,10 @@ in
           #  title-len = 16;
           #};
           memory = { format = "MEM {percentage}%"; };
-          temperature = { format = "TMP {temperatureC}°C"; };
+          temperature = {
+            format = "TMP {temperatureC}°C";
+            hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp2_input";
+          };
           idle_inhibitor = {
             format = "{icon}";
             format-icons = {
@@ -89,7 +102,7 @@ in
           };
           pulseaudio = {
             format = "VOL {volume}%";
-            on-click = "pavucontrol";
+            on-click = "foot pulsemixer";
           };
           network = {
             format-wifi = "WIFI";
@@ -106,7 +119,6 @@ in
             timezones = [
               "Europe/London"
               "America/Vancouver"
-              "America/Chicago"
               "Europe/Berlin"
               "Pacific/Auckland"
             ];

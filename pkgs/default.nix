@@ -58,6 +58,9 @@ let
           zfsUnstable = ksuper.zfsUnstable.overrideAttrs (old: { meta = old.meta // { broken = false; }; });
         });
 
+
+        konawall-toggle = self.callPackage ./konawall-toggle { };
+
         yggdrasil = self.callPackage ./yggdrasil { };
 
         obs-studio = super.obs-studio.override { pipewireSupport = true; };

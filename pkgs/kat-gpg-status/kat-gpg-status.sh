@@ -3,9 +3,10 @@ set -eu
 set -o pipefail
 
 if gpg --card-status &> /dev/null; then
-	user="PGP $(gpg --card-status | grep 'Login data' | awk '{print $NF}')";
+	user="$(gpg --card-status | grep 'Login data' | awk '{print $NF}')";
+	status='{"text": "PGP +", "alt": "User: '"$user"'", "class": "enabled"}'
 else
-	user="PGP DC"
+	status='{"text": "PGP -", "alt": "No card is connected.", "class": "disabled"}'
 fi
 
-echo $user
+echo $status
