@@ -28,7 +28,7 @@ in
   programs.mako = {
     enable = true;
     defaultTimeout = 3000;
-    borderColor = base16.base0A;
+    borderColor = base16.base08;
     backgroundColor = "${base16.base00}70";
     textColor = base16.base05;
   };
