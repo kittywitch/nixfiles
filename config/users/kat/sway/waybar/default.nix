@@ -62,6 +62,7 @@ in
             exec = "${pkgs.konawall-toggle}/bin/konawall-status";
             exec-on-event = true;
             on-click = "${pkgs.konawall-toggle}/bin/konawall-toggle";
+            on-click-right = "systemctl --user restart konawall";
           };
           cpu = { format = "CPU {usage}%"; };
           #mpd = { 
