@@ -29,7 +29,7 @@ in
     enable = true;
     defaultTimeout = 3000;
     borderColor = base16.base08;
-    backgroundColor = "${base16.base00}70";
+    backgroundColor = "${base16.base00}CC";
     textColor = base16.base05;
   };
 }
