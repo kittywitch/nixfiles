@@ -29,7 +29,7 @@ with lib;
             set -g status-position bottom
             set -g status-justify left
             set -g status-style 'bg=${base00} fg=${base06}'
-            set -g status-left '''
+            set -g status-left '#[fg=${base06} bg=${base01}] #S '
             set -g status-right '#[fg=${base07},bg=${base01}] %F #[fg=${base07},bg=${base02}] %H:%M:%S %Z '
             set -g status-right-length 50
             set -g status-left-length 20
