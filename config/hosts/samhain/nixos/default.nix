@@ -5,7 +5,7 @@ with lib;
 let
   hexchen = (import sources.hexchen) { };
   hexYgg = filterAttrs (_: c: c.enable)
-    (mapAttrs (_: host: host.config.hexchen.network) hexchen.hosts);
+    (mapAttrs (_: host: host.config.network.yggdrasil) hexchen.hosts);
 in
 {
   imports = [
@@ -75,7 +75,7 @@ in
   #  package = pkgs.ckb-next;
   #};
 
-  kw.fw.private.interfaces = singleton "hexnet";
+  kw.fw.private.interfaces = singleton "yggdrasil";
   kw.fw.public.interfaces = singleton "br";
 
   hardware.openrazer = {
@@ -129,7 +129,7 @@ in
 
   services.avahi.enable = true;
 
-  hexchen.network = {
+  network.yggdrasil = {
     enable = true;
     pubkey = "a7110d0a1dc9ec963d6eb37bb6922838b8088b53932eae727a9136482ce45d47";
     # if server, enable this and set endpoint:

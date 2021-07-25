@@ -57,7 +57,7 @@ with lib;
   };
 
   kw.fw.public.interfaces = singleton "enp1s0";
-  kw.fw.private.interfaces = singleton "hexnet";
+  kw.fw.private.interfaces = singleton "yggdrasil";
 
   kw.fw.public.tcp.ports = singleton 52969;
 
@@ -68,7 +68,7 @@ with lib;
       (lib.head config.networking.interfaces.enp1s0.ipv6.addresses).address;
   };
 
-  hexchen.network = {
+  network.yggdrasil = {
     enable = true;
     pubkey = "55e3f29c252d16e73ac849a6039824f94df1dee670c030b9e29f90584f935575";
     listen.enable = true;

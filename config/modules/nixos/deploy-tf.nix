@@ -67,10 +67,10 @@ in
           };
 
         dns.records."kittywitch_net_${config.networking.hostName}" =
-          mkIf (config.hexchen.network.enable) {
+          mkIf (config.network.yggdrasil.enable) {
             tld = "kittywit.ch.";
             domain = "${config.networking.hostName}.net";
-            aaaa.address = config.hexchen.network.address;
+            aaaa.address = config.network.yggdrasil.address;
           };
 
       } ++ mapAttrsToList
@@ -79,7 +79,7 @@ in
       config.home-manager.users);
 
     security.acme.certs."${config.networking.hostName}.net.kittywit.ch" =
-      mkIf (config.services.nginx.enable && config.hexchen.network.enable) {
+      mkIf (config.services.nginx.enable && config.network.yggdrasil.enable) {
         domain = "${config.networking.hostName}.net.kittywit.ch";
         dnsProvider = "rfc2136";
         credentialsFile = config.secrets.files.dns_creds.path;

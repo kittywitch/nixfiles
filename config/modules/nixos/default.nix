@@ -7,7 +7,7 @@
     ./deploy-tf.nix
     (sources.tf-nix + "/modules/nixos/secrets.nix")
     (sources.tf-nix + "/modules/nixos/secrets-users.nix")
-    (sources.hexchen + "/modules/hexnet")
+    (sources.hexchen + "/modules/network/yggdrasil")
   ];
 
   # stubs for hexchens modules, until more generalized

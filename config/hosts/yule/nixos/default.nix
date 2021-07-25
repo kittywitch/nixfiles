@@ -29,7 +29,7 @@ with lib;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
 
-  kw.fw.private.interfaces = singleton "hexnet";
+  kw.fw.private.interfaces = singleton "yggdrasil";
   kw.fw.public.interfaces = [ "enp1s0" "wlp2s0" ];
 
   networking.hostId = "dddbb888";
@@ -39,7 +39,7 @@ with lib;
   networking.interfaces.enp1s0.useDHCP = true;
   networking.interfaces.wlp2s0.useDHCP = true;
 
-  hexchen.network = {
+  network.yggdrasil = {
     enable = true;
     pubkey = "9779fd6b5bdba6b9e0f53c96e141f4b11ce5ef749d1b9e77a759a3fdbd33a653";
     # if server, enable this and set endpoint:
