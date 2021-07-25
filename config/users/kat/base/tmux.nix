@@ -1,45 +1,43 @@
 { config, lib, pkgs, ... }:
 
+with lib;
+
 {
   programs.zsh.shellAliases = {
     tt = "tmux new -AD -s";
   };
   programs.tmux = {
     enable = true;
-    extraConfig = ''
-            # start from 1
-            set -g base-index 1
-            setw -g pane-base-index 1
-
+    terminal = "screen-256color";
+    baseIndex = 1;
+    extraConfig = with mapAttrs (_: v: "colour${toString v}") pkgs.base16.shell.shell256; ''
             # proper title handling
             set -g set-titles on
             set -g set-titles-string "#T"
-
-      # 256 color
-      set -g default-terminal "screen-256color"
+            set -ga terminal-overrides ",xterm-256color:Tc"
 
             #  modes
-            setw -g clock-mode-colour colour5
-            setw -g mode-style 'fg=colour1 bg=colour18 bold'
+            setw -g clock-mode-colour colour8
+            setw -g mode-style 'fg=${base07} bg=${base02} bold'
 
             # panes
-            set -g pane-border-style 'fg=colour19 bg=colour0'
-            set -g pane-active-border-style 'bg=colour0 fg=colour9'
+            set -g pane-border-style 'fg=${base06} bg=${base02}'
+            set -g pane-active-border-style 'bg=${base0D} fg=${base07}'
 
             # statusbar
             set -g status-position bottom
             set -g status-justify left
-            set -g status-style 'bg=colour18 fg=colour137 dim'
+            set -g status-style 'bg=${base00} fg=${base06}'
             set -g status-left '''
-            set -g status-right '#[fg=colour233,bg=colour19] %F #[fg=colour233,bg=colour8] %H:%M:%S %Z'
+            set -g status-right '#[fg=${base07},bg=${base01}] %F #[fg=${base07},bg=${base02}] %H:%M:%S %Z '
             set -g status-right-length 50
             set -g status-left-length 20
 
-            setw -g window-status-current-style 'fg=colour1 bg=colour19 bold'
-            setw -g window-status-current-format ' #I#[fg=colour249]:#[fg=colour255]#W#[fg=colour249]#F '
+            setw -g window-status-current-style 'fg=${base07} bg=${base0D} bold'
+            setw -g window-status-current-format ' #I#[fg=${base07}]:#[fg=${base07}]#W#[fg=${base07}]#F '
 
-            setw -g window-status-style 'fg=colour9 bg=colour18'
-            setw -g window-status-format ' #I#[fg=colour237]:#[fg=colour250]#W#[fg=colour244]#F '
+            setw -g window-status-style 'fg=${base06} bg=${base03}'
+            setw -g window-status-format ' #I#[fg=${base07}]:#[fg=${base06}]#W#[${base06}]#F '
 
             setw -g window-status-bell-style 'fg=colour255 bg=colour1 bold'
 
