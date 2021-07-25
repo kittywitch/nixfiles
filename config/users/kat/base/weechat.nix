@@ -46,19 +46,19 @@ with lib;
     config = with mapAttrs (_: toString) pkgs.base16.shell.shell256; {
       logger.level.irc = 0;
       logger.level.python.matrix = 0;
-      logger.level.core.weechat = 0;
+      logger.level.core.weechat = 9;
       buflist = {
         format = {
           indent = "\${if:\${merged}?\${if:\${buffer.prev_buffer.number}!=\${buffer.number}?│┌:\${if:\${buffer.next_buffer.number}==\${buffer.number}?│├:\${if:\${buffer.next_buffer.name}=~^server||\${buffer.next_buffer.number}<0?└┴:├┴}}}:\${if:\${buffer.active}>0?\${if:\${buffer.next_buffer.name}=~^server?└:\${if:\${buffer.next_buffer.number}>0?├:└}}:\${if:\${buffer.next_buffer.name}=~^server? :│}}}─";
-          buffer_current = "\${color:,${base01}}\${format_buffer}";
+          buffer_current = "\${color:,${base0D}}\${format_buffer}";
           hotlist = " \${color:${base0B}}(\${hotlist}\${color:${base0B}})";
-          hotlist_highlight = "\${color:${base0F}}";
+          hotlist_highlight = "\${color:${base08}}";
           hotlist_low = "\${color:${base06}}";
-          hotlist_message = "\${color:${base0E}}";
-          hotlist_none = "\${color:${base05}}";
-          hotlist_private = "\${color:${base0A}}";
+          hotlist_message = "\${color:${base0C}}";
+          hotlist_none = "\${color:${base06}}";
+          hotlist_private = "\${color:${base09}}";
           hotlist_separator = "\${color:${base04}},";
-          number = "\${color:${base0A}}\${number}\${if:\${number_displayed}?.: }";
+          number = "\${color:${base07}}\${number}\${if:\${number_displayed}?.: }";
         };
       };
       weechat = {
@@ -69,36 +69,36 @@ with lib;
           prefix_same_nick = "↳";
         };
         color = {
-          chat_nick_self = base0F;
-          separator = base0A;
-          chat_read_marker = base0D;
+          chat_nick_self = base0E;
+          separator = base06;
+          chat_read_marker = base0B;
           chat_read_marker_bg = base03;
         };
         bar = {
           buflist = {
             size_max = 24;
-            color_delim = base0A;
+            color_delim = base0E;
           };
           input = {
             items = "[input_prompt]+(away),[input_search],[input_paste],input_text,[vi_buffer]";
-            color_delim = base0A;
+            color_delim = base0E;
             conditions = "\${window.buffer.full_name} != perl.highmon";
           };
           nicklist = {
             size_max = 18;
-            color_delim = base0A;
+            color_delim = base0E;
           };
           status = {
-            color_bg = base01;
-            color_fg = base05;
-            color_delim = base0A;
+            color_bg = base02;
+            color_fg = base06;
+            color_delim = base0E;
             items = "[time],mode_indicator,[buffer_last_number],[buffer_plugin],buffer_number+:+buffer_name+(buffer_modes)+{buffer_nicklist_count}+matrix_typing_notice+buffer_zoom+buffer_filter,scroll,[lag],[hotlist],completion,cmd_completion";
             conditions = "\${window.buffer.full_name} != perl.highmon";
           };
           title = {
-            color_bg = base01;
-            color_fg = base05;
-            color_delim = base0A;
+            color_bg = base02;
+            color_fg = base06;
+            color_delim = base0E;
             conditions = "\${window.buffer.full_name} != perl.highmon";
           };
         };
@@ -145,7 +145,7 @@ with lib;
             mode_indicator_normal_color = base04;
             mode_indicator_replace_color_bg = base01;
             mode_indicator_replace_color = base0E;
-            mode_indicator_search_color_bg = base0A;
+            mode_indicator_search_color_bg = base0E;
             mode_indicator_search_color = base04;
             no_warn = true;
           };
