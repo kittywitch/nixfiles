@@ -30,6 +30,7 @@ in {
     enable = true;
     enableAutosuggestions = true;
     initExtra = ''
+        source ${./zshrc-vimode}
         echo ""; akiflags -rb;
     '';
     shellAliases = {

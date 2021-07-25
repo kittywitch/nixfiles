@@ -1,0 +1,114 @@
+zle-keymap-select() {
+	zle reset-prompt
+	zle -R
+}
+
+TRAPWINCH() {
+	zle && { zle reset-prompt; zle -R }
+}
+
+zle -N zle-keymap-select
+zle -N edit-command-line
+
+bindkey -v
+
+autoload -Uz edit-command-line
+
+bindkey "^?" backward-delete-char
+bindkey -M vicmd 'V' edit-command-line
+
+# tab completion menu
+bindkey -M menuselect "k" up-line-or-history
+bindkey -M menuselect "j" down-line-or-history
+bindkey -M menuselect "l" forward-char
+bindkey -M menuselect "h" backward-char
+bindkey -M menuselect "^[" undo
+
+# silence bell when pressing escape too much
+bindkey -M vicmd -s "\e" ''
+
+# make W/B/E/dW/dB/dE move over entire shell arguments, customize w/b/e with wordchars
+autoload -U forward-word-match # TODO: acts weirdly when moving between words, like "a/b", 'w' command should move cursor to the "/", not the "b"
+autoload -U backward-word-match
+autoload -U match-words-by-style
+
+forward-blank-word-end-match() {
+	local curcontext=":zle:$WIDGET" start=$CURSOR offset=1
+	local -A matched_words
+
+	integer count=${NUMERIC:-1}
+
+	if (( count < 0 )); then
+		(( NUMERIC = -count ))
+		zle ${WIDGET/forward/backward}
+		return
+	fi
+
+
+	if zstyle -t "$curcontext" virangeflag; then
+		offset=0
+	fi
+
+	while (( count-- )); do
+		# weird behaviour if not called from the beginning of a word, so go backwards first
+		match-words-by-style
+		if (( ${#matched_words[word-before-cursor]} > 0 && ${#matched_words[ws-before-cursor]} == 0 )); then
+			(( CURSOR -= ${#matched_words[word-before-cursor]} ))
+		fi
+
+		match-words-by-style
+		if (( ${#matched_words[ws-after-cursor]} > 0 )); then
+			(( CURSOR += ${#matched_words[ws-after-cursor]} ))
+		fi
+		if (( ${#matched_words[word-after-cursor]} > 0 )); then
+			(( CURSOR += ${#matched_words[word-after-cursor]} - offset ))
+		fi
+		if (( CURSOR <= start )); then
+			if (( ${#matched_words[ws-after-word]} > 0 )); then
+				(( CURSOR += ${#matched_words[ws-after-word]} + 1 ))
+			fi
+
+			match-words-by-style
+			if (( ${#matched_words[word-after-cursor]} > 0 )); then
+				(( CURSOR += ${#matched_words[word-after-cursor]} - offset ))
+			else
+				return 1
+			fi
+		fi
+	done
+
+	return 0
+}
+
+zle -N forward-end-word-parameter forward-blank-word-end-match
+zle -N forward-end-word-normal forward-blank-word-end-match
+zle -N forward-end-viopp-word-parameter forward-blank-word-end-match
+zle -N forward-end-viopp-word-normal forward-blank-word-end-match
+
+zle -N forward-word-parameter forward-word-match
+zle -N forward-word-normal forward-word-match
+
+zle -N backward-word-parameter backward-word-match
+zle -N backward-word-normal backward-word-match
+
+zle -N forward-word-normal forward-word-match
+zle -N backward-word-normal backward-word-match
+
+bindkey -M vicmd "W" forward-word-parameter
+bindkey -M vicmd "B" backward-word-parameter
+bindkey -M vicmd "E" forward-end-word-parameter
+
+bindkey -M vicmd "e" forward-end-word-normal
+bindkey -M vicmd "w" forward-word-normal
+bindkey -M vicmd "b" backward-word-normal
+
+bindkey -M viopp "e" forward-end-viopp-word-normal
+bindkey -M viopp "E" forward-end-viopp-word-parameter
+
+zstyle ':zle:*-viopp-*' virangeflag 1
+zstyle ':zle:*-word-parameter' word-style shell
+
+zstyle ':zle:*-word-normal' word-style normal
+zstyle ':zle:*-word-normal' word-chars "$WORDCHARS"
+# zstyle ':zle:*' skip-whitespace-first false
+
