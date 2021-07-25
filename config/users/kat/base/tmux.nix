@@ -8,7 +8,8 @@ with lib;
   };
   programs.tmux = {
     enable = true;
-    terminal = "screen-256color";
+    terminal = "tmux-256color";
+    keyMode = "vi";
     baseIndex = 1;
     extraConfig = with mapAttrs (_: v: "colour${toString v}") pkgs.base16.shell.shell256; ''
             # proper title handling
