@@ -19,6 +19,18 @@ in
     WLR_DRM_DEVICES="/dev/dri/card0";
   };
 
+  home.file = {
+    ".xkb/symbols/us_gbp_map".text = ''
+default partial alphanumeric_keys
+xkb_symbols "basic" {
+	include "us(altgr-intl)"
+	include "level3(caps_switch)"
+	name[Group1] = "English (US, international with pound sign)";
+        key <AD03> { [ e, E, EuroSign, cent ] };
+        key <AE03> { [ 3, numbersign, sterling] };
+};
+    '';
+  };
 
   xdg.configFile."wofi/wofi.css".text = ''
     #scroll, #input {
@@ -128,7 +140,7 @@ in
 
           input = {
             "*" = {
-              xkb_layout = "gb";
+              xkb_layout = "us_gbp_map";
               xkb_options = "compose:rctrl,ctrl:nocaps";
             };
           };
