@@ -4,7 +4,7 @@ let
   base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}")
     config.lib.arc.base16.schemeForAlias.default;
   font = {
-    name = "Iosevka Nerd Font";
+    name = "Cozette";
     size = "10";
     size_css = "12px";
   };

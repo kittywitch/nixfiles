@@ -13,10 +13,10 @@ in {
     settings = {
       main = {
         term = "xterm-256color";
-        font = "Iosevka Term:size=9, Twitter Color Emoji:size=8";
-        font-bold = "Iosevka Term:size=9:style=Bold";
-        font-italic = "Iosevka Term:size=9:style=Italic";
-        font-bold-italic = "Iosevka Term:size=9:style=Bold Italic";
+        font = "Cozette:size=9, Twitter Color Emoji:size=8";
+        font-bold = "Cozette:size=9:style=Bold";
+        font-italic = "Cozette:size=9:style=Italic";
+        font-bold-italic = "Cozette:size=9:style=Bold Italic";
         dpi-aware = "no";
       };
       colors = {

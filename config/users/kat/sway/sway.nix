@@ -4,7 +4,7 @@ let
   base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}")
     config.lib.arc.base16.schemeForAlias.default;
   font = {
-    name = "Iosevka Term";
+    name = "Cozette";
     size = 9.0;
     size_css = "12px";
   };
@@ -148,7 +148,7 @@ xkb_symbols "basic" {
             names = [ font.name ];
             style = "Medium";
             size = font.size;
-          };
+            };
           terminal = "${pkgs.foot}/bin/foot";
           # TODO: replace with wofi
           menu =
