@@ -32,6 +32,7 @@ let
       ./config/modules/meta/default.nix
       ./config/hosts/dummy/meta.nix
       ./config/hosts/athame/meta.nix
+      ./config/hosts/beltane/meta.nix
       ./config/hosts/samhain/meta.nix
       ./config/hosts/yule/meta.nix
       ./config/hosts/mabon/meta.nix
