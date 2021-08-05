@@ -8,9 +8,9 @@
 }@args: let
   colorHelpers = import ./color-helpers.nix { inherit lib; };
   lib = before // katlib // self; 
-  katlib = with before; with katlib; with self; 
+  katlib = with before; with katlib; with self;
 {
   inherit (colorHelpers) hextorgba;
   hostImport = import ./host-import.nix { inherit lib; };
-  modList = import ./module-list.nix;
+  modList = import ./module-list.nix { inherit lib; };
 }; in katlib

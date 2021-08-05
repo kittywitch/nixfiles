@@ -18,12 +18,6 @@ with lib;
     ../../services/nginx.nix
   ];
 
-  home-manager.users.kat = {
-    imports = [
-      ./home.nix
-    ];
-  };
-
   # File Systems and Swap
 
   boot.supportedFilesystems = singleton "zfs";

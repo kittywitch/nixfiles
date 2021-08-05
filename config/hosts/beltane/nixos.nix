@@ -19,12 +19,6 @@ with lib;
     ../../services/zfs.nix
   ];
 
-  home-manager.users.kat = {
-    imports = [
-      ./home.nix
-    ];
-  };
-
   # File Systems and Swap
 
   boot.supportedFilesystems = singleton "zfs";

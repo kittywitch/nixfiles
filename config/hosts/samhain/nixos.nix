@@ -23,12 +23,6 @@ in {
     ./nixos/virtualhosts.nix
   ];
 
-  home-manager.users.kat = {
-    imports = [
-      ./home.nix
-    ];
-  };
-
   # File Systems and Swap
 
   boot.supportedFilesystems = [ "zfs" "xfs" ];

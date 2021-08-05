@@ -1,8 +1,9 @@
-{ modulesDir, defaultFile ? "default.nix", importAll ? false }:
+{ lib }: { modulesDir, defaultFile ? "default.nix", importAll ? false }:
 
 with builtins;
 
 let
+  isModule = m: lib.isFunction m && (m.isModule or true);
   filterAttrNamesToList = filter: set:
     foldl' (a: b: a ++ b) [ ]
       (map (e: if (filter e set.${e}) then [ e ] else [ ]) (attrNames set));
@@ -20,7 +21,7 @@ let
       in
       {
         inherit name;
-        value = if (isFunction m) && !importAll then value else m;
+        value = if lib.isFunction m && ! isModule m then m { inherit lib; } else if isModule m && !importAll then value else m;
       })
     files;
 in
