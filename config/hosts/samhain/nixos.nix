@@ -77,7 +77,7 @@ in {
     vfio-pci = let
       vfio-pci-ids = [
         "1002:67df" "1002:aaf0" # RX 580
-        "1921:0014" # Renesas USB 3
+        "1912:0014" # Renesas USB 3
         "1022:149c" # CPU USB 3
       ];
     in mkIf (vfio-pci-ids != [ ]) {
