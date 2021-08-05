@@ -12,6 +12,7 @@ in {
   imports = [
     profiles.hardware.ms-7b86
     profiles.gui
+    profiles.vfio
     users.kat.guiFull
     ../../services/zfs.nix
     ../../services/restic.nix
