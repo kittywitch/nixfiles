@@ -15,17 +15,17 @@ with lib;
   users.users.kat.extraGroups = [ "vfio" "input" "uinput" ];
   users.groups = { uinput = { }; vfio = { }; };
 
-  boot = {
-    initrd.kernelModules = ["vfio" "vfio_iommu_type1" "vfio_pci" "vfio_virqfd"];
+  boot = lib.mkMerge [ {
+    initrd.kernelModules = mkBefore ["vfio" "vfio_iommu_type1" "vfio_pci" "vfio_virqfd"];
     kernelModules = [ "i2c-dev" ]; # i2c-dev is required for DDC/CI for screenstub
-  } //  mkIf (config.deploy.profile.hardware.amdgpu) {
+  } (mkIf (config.deploy.profile.hardware.amdgpu) {
     kernelParams = [
       "video=efifb:off"
     ];
     extraModulePackages = [
     (pkgs.linuxPackagesFor config.boot.kernelPackages.kernel).vendor-reset
     ];
-  } // mkIf (config.deploy.profile.hardware.acs-override) {
+  }) ( mkIf (config.deploy.profile.hardware.acs-override) {
     kernelPatches = [
       {
         name = "acs-patch.patch";
@@ -40,7 +40,7 @@ with lib;
       "pci=noats"
       "pcie_acs_override=downstream,multifunction"
     ];
-  };
+  }) ];
 
   environment.etc."qemu/bridge.conf".text = "allow br";
 

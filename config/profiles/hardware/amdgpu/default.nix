@@ -1,4 +1,6 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
+
+with lib;
 
 {
   deploy.profile.hardware.amdgpu = true;
