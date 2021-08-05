@@ -11,26 +11,22 @@ with lib;
     ddcutil
   ];
 
-  boot.extraModulePackages = [
-    (pkgs.linuxPackagesFor config.boot.kernelPackages.kernel).vendor-reset
-  ];
 
   users.users.kat.extraGroups = [ "vfio" "input" "uinput" ];
   users.groups = { uinput = { }; vfio = { }; };
 
   boot = {
-    modprobe.modules = mkIf (config.deploy.profile.hardware.ms-7b86) {
-      vfio-pci = let
-        vfio-pci-ids = [
-          "1002:67df" "1002:aaf0" # RX 580
-          "1921:0014" # Renesas USB 3
-          "1022:149c" # CPU USB 3
-        ];
-      in mkIf (vfio-pci-ids != [ ]) {
-        options.ids = concatStringsSep "," vfio-pci-ids;
-      };
-    };
-    kernelPatches = mkIf (config.deploy.profile.hardware.ms-7b86) [
+    initrd.kernelModules = ["vfio" "vfio_iommu_type1" "vfio_pci" "vfio_virqfd"];
+    kernelModules = [ "i2c-dev" ]; # i2c-dev is required for DDC/CI for screenstub
+  } //  mkIf (config.deploy.profile.hardware.amdgpu) {
+    kernelParams = [
+      "video=efifb:off"
+    ];
+    extraModulePackages = [
+    (pkgs.linuxPackagesFor config.boot.kernelPackages.kernel).vendor-reset
+    ];
+  } // mkIf (config.deploy.profile.hardware.acs-override) {
+    kernelPatches = [
       {
         name = "acs-patch.patch";
         patch = (pkgs.fetchpatch {
@@ -40,12 +36,8 @@ with lib;
         });
       }
     ];
-    initrd.kernelModules = ["vfio" "vfio_iommu_type1" "vfio_pci" "vfio_virqfd"];
-    kernelModules = [ "i2c-dev" ]; # i2c-dev is required for DDC/CI for screenstub
     kernelParams = [
-      "amd_iommu=on"
       "pci=noats"
-      "video=efifb:off"
       "pcie_acs_override=downstream,multifunction"
     ];
   };
@@ -77,8 +69,4 @@ with lib;
   }];
 
   systemd.extraConfig = "DefaultLimitMEMLOCK=infinity";
-  services.xserver.deviceSection = lib.mkDefault ''
-    Option "TearFree" "true"
-    BusID "PCI:37:0:0"
-  '';
 }

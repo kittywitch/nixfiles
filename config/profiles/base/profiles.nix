@@ -10,6 +10,7 @@ with lib;
       vfio = mkEnableOption "VFIO";
       trusted = mkEnableOption "Trusted Submodule";
       hardware = {
+        acs-override = mkEnableOption "ACS IOMMU Override";
         amdgpu = mkEnableOption "AMD GPU";
         hcloud-imperative = mkEnableOption "Imperative Hetzner Cloud Setup";
         intel = mkEnableOption "Intel CPU";
@@ -29,6 +30,7 @@ with lib;
               vfio = mkEnableOption "VFIO";
               trusted = mkEnableOption "Trusted Submodule";
               hardware = {
+                acs-override = mkEnableOption "ACS IOMMU Override";
                 amdgpu = mkEnableOption "AMD GPU";
                 hcloud-imperative = mkEnableOption "Imperative Hetzner Cloud Setup";
                 intel = mkEnableOption "Intel CPU";
