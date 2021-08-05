@@ -88,6 +88,8 @@ let
 
         kat-tw-export = self.callPackage ./kat-tw-export { };
 
+        kat-vm = self.callPackage ./kat-vm { } ;
+
         kat-scrot = self.callPackage ./kat-scrot { };
 
       } // super.lib.optionalAttrs (builtins.pathExists ../config/trusted/pkgs)

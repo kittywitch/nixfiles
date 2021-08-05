@@ -1,7 +1,7 @@
 { meta, sources, lib, ... }:
 
 {
-  imports = with (import (sources.nixexprs + "/modules")).nixos; [ base16 base16-shared ] ++ [
+  imports = with (import (sources.nixexprs + "/modules")).nixos; [ base16 base16-shared modprobe ] ++ [
     ./nftables.nix
     ./firewall.nix
     ./deploy.nix
