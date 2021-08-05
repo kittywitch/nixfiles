@@ -36,8 +36,8 @@
       name = "gitea";
       user = "gitea";
     };
+    mailerPasswordFile = config.secrets.files.gitea_mail.path;
     settings = {
-      mailerPasswordFile = config.secrets.files.gitea_mail.path;
       security = { DISABLE_GIT_HOOKS = false; };
       api = { ENABLE_SWAGGER = true; };
       mailer = {
