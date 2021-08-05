@@ -55,4 +55,4 @@ let
     all = attrValues local; #++ attrValues hexchen;
     allStr = toString all;
   };
-in config // { inherit pkgs sourceCache sources profiles; }
+in config // { inherit pkgs sourceCache sources; }
