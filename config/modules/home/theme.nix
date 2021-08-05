@@ -10,7 +10,8 @@ with lib;
 let cfg = config.kw; in {
   options.kw = {
     wallpapers = mkOption {
-      type = types.listOf types.path;
+      type = types.nullOr (types.listOf types.path);
+      default = [ ../../users/kat/sway/wallpapers/left.jpg ../../users/kat/sway/wallpapers/main.png ../../users/kat/sway/wallpapers/right.jpg ];
     };
 
     font = {
