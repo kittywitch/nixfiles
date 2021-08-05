@@ -16,4 +16,6 @@
     ./rink.nix
     ./secrets.nix
   ];
+
+  home.stateVersion = "20.09";
 }

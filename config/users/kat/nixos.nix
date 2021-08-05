@@ -1,11 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
-  home-manager.users.kat = {
-    imports = lib.optional (builtins.pathExists ../../trusted/users/kat) (import ../../trusted/users/kat);
-    home.stateVersion = "20.09";
-  };
-
   users.users.kat = {
     uid = 1000;
     isNormalUser = true;
