@@ -43,7 +43,7 @@ root:
 
 disable_existing_loggers: False
     '';
-    server_name = "kittywit.ch";
+    server_name = config.kw.dns.domain;
     app_service_config_files = [
       "/var/lib/matrix-synapse/telegram-registration.yaml"
       "/var/lib/matrix-synapse/discord-registration.yaml"
@@ -78,7 +78,7 @@ disable_existing_loggers: False
     settings = {
       homeserver = {
         address = "http://localhost:8008";
-        domain = "kittywit.ch";
+        domain = config.kw.dns.domain;
       };
       appservice = {
         provisioning.enabled = false;
@@ -86,14 +86,14 @@ disable_existing_loggers: False
         public = {
           enabled = false;
           prefix = "/public";
-          external = "https://kittywit.ch/public";
+          external = "https://${config.kw.dns.domain}/public";
         };
       };
       bridge = {
         relaybot.authless_portals = false;
         permissions = {
-          "@kat:kittywit.ch" = "admin";
-          "kittywit.ch" = "full";
+          "@kat:${config.kw.dns.domain}" = "admin";
+          "${config.kw.dns.domain}" = "full";
         };
       };
     };
@@ -143,7 +143,7 @@ disable_existing_loggers: False
     after = [ "network.target" ];
   };
 
-  services.nginx.virtualHosts."kittywit.ch" = {
+  services.nginx.virtualHosts."${config.kw.dns.domain}" = {
     # allegedly fixes https://github.com/poljar/weechat-matrix/issues/240
     extraConfig = ''
       keepalive_requests 100000;
@@ -152,7 +152,7 @@ disable_existing_loggers: False
     locations = {
       "/_matrix" = { proxyPass = "http://[::1]:8008"; };
       "= /.well-known/matrix/server".extraConfig =
-        let server = { "m.server" = "kittywit.ch:443"; };
+        let server = { "m.server" = "${config.kw.dns.domain}:443"; };
         in
         ''
           add_header Content-Type application/json;
@@ -161,7 +161,7 @@ disable_existing_loggers: False
       "= /.well-known/matrix/client".extraConfig =
         let
           client = {
-            "m.homeserver" = { "base_url" = "https://kittywit.ch"; };
+            "m.homeserver" = { "base_url" = "https://${config.kw.dns.domain}"; };
             "m.identity_server" = { "base_url" = "https://vector.im"; };
           };
         in

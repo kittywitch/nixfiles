@@ -197,7 +197,7 @@
   " Resume latest coc list.
   nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-'' + (if config.deploy.profile.sway then ''
+'' + (if config.wayland.windowManager.sway.enable then ''
   noremap "+y y:call system("wl-copy", @")<CR>
   nnoremap "+p :let @"=substitute(system("wl-paste --no-newline"), '<C-v><C-m>', ''', 'g')<CR>p
   nnoremap "*p :let @"=substitute(system("wl-paste --no-newline --primary"), '<C-v><C-m>', ''', 'g')<CR>p

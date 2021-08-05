@@ -1,14 +1,15 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 {
   boot.supportedFilesystems = [ "nfs" ];
 
-  fileSystems."/mnt/kat-nas" = {
-    device = "samhain.net.kittywit.ch:/mnt/zraw/media";
+  fileSystems."/mnt/kat-nas" = lib.mkIf (config.networking.hostName != "beltane") {
+    device = "192.168.1.223:/mnt/zraw/media";
     fsType = "nfs";
-    options = [ "x-systemd.automount" "noauto" ];
+    options = [ "x-systemd.automount" "noauto" "nfsvers=4" "soft" "retrans=2" "timeo=60"];
   };
 
+  /*
   fileSystems."/mnt/hex-corn" = {
     device = "storah.net.lilwit.ch:/data/cornbox";
     fsType = "nfs";
@@ -19,7 +20,8 @@
     device = "storah.net.lilwit.ch:/data/torrents";
     fsType = "nfs";
     options = [ "x-systemd.automount" "noauto" ];
-  };
+    };
+  */
 
   systemd.services.nfs-mountd = {
     wants = [ "network-online.target" "yggdrassil.service" ];

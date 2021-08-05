@@ -1,6 +1,6 @@
 { lib }: hostName: lib.filter builtins.pathExists [
-  (../../config/hosts + "/${hostName}/nixos")
-  (../../config/trusted/hosts + "/${hostName}/nixos")
+  (../../config/hosts + "/${hostName}/nixos.nix")
+  (../../config/trusted/hosts + "/${hostName}/nixos.nix")
   ../../config/trusted/profile
-  ../../config/nixos.nix
+  ../../config/profiles/base
 ]

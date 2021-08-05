@@ -37,7 +37,7 @@ with lib;
   };
 
   security.acme = {
-    email = "acme@kittywit.ch";
+    email = config.kw.dns.email;
     acceptTerms = true;
   };
 }

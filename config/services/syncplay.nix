@@ -6,19 +6,27 @@ with lib;
   users.users.syncplay = { isSystemUser = true; };
 
   users.groups."sync-cert".members = [ "nginx" "syncplay" ];
-  security.acme = { certs."sync.kittywit.ch" = { group = "sync-cert"; }; };
+  security.acme = {
+    certs."sync.${config.kw.dns.domain}" = {
+      group = "sync-cert";
+      postRun = ''
+        cp key.pem privkey.pem
+        chown acme:voice-cert privkey.pem
+      '';
+    };
+  };
 
   kw.fw.public.tcp.ports = singleton 8999;
 
-  services.nginx.virtualHosts."sync.kittywit.ch" = {
+  services.nginx.virtualHosts."sync.${config.kw.dns.domain}" = {
     enableACME = true;
     forceSSL = true;
   };
 
-  deploy.tf.dns.records.kittywitch_sync = {
-    tld = "kittywit.ch.";
+  deploy.tf.dns.records.services_syncplay = {
+    tld = config.kw.dns.tld;
     domain = "sync";
-    cname.target = "athame.kittywit.ch.";
+    cname.target = "${config.networking.hostName}.${config.kw.dns.tld}";
   };
 
   deploy.tf.variables.syncplay_pass = {
@@ -48,13 +56,9 @@ with lib;
     serviceConfig = {
       EnvironmentFile = config.secrets.files.syncplay-env.path;
       ExecStart =
-        "${pkgs.syncplay}/bin/syncplay-server --port 8999 --tls /var/lib/acme/sync.kittywit.ch/ --disable-ready";
+        "${pkgs.syncplay}/bin/syncplay-server --port 8999 --tls /var/lib/acme/sync.${config.kw.dns.domain}/ --disable-ready";
       User = "syncplay";
       Group = "sync-cert";
     };
   };
-
-  security.acme.certs."sync.kittywit.ch".postRun = ''
-    cp key.pem privkey.pem
-    chown acme:voice-cert privkey.pem'';
 }

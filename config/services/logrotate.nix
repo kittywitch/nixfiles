@@ -13,13 +13,6 @@ with lib;
         frequency = "weekly";
         keep = 2;
       };
-      asterisk = mkIf config.systemd.services.asterisk.enable {
-        path = "/var/log/asterisk/messages";
-        user = "asterisk";
-        group = "asterisk";
-        frequency = "daily";
-        keep = 2;
-      };
     };
   };
 }

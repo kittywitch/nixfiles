@@ -3,11 +3,6 @@
 let
   base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}")
     config.lib.arc.base16.schemeForAlias.default;
-  font = {
-    name = "Cozette";
-    size = 9.0;
-    size_css = "12px";
-  };
   footwrap = pkgs.writeShellScriptBin "footwrap" ''
     exec foot "$2"
   '';
@@ -38,10 +33,10 @@ xkb_symbols "basic" {
     }
 
     window {
-      font-family: ${font.name};
+      font-family: ${config.kw.font.name};
       background: ${lib.hextorgba base16.base00 0.75};
       border-radius: 1em;
-      font-size: ${font.size_css};
+      font-size: ${config.kw.font.size_css};
       color: ${base16.base07};
     }
 
@@ -69,6 +64,8 @@ xkb_symbols "basic" {
       background-color: ${base16.base0D};
     }
   '';
+
+  kw.wallpapers = [ ./wallpapers/left.jpg ./wallpapers/main.png ./wallpapers/right.jpg ];
 
   home.packages = with pkgs; [ grim slurp wl-clipboard jq quintom-cursor-theme gsettings-desktop-schemas glib wofi ];
 
@@ -145,9 +142,9 @@ xkb_symbols "basic" {
             };
           };
           fonts = {
-            names = [ font.name ];
+            names = [ config.kw.font.name ];
             style = "Medium";
-            size = font.size;
+            size = config.kw.font.size;
             };
           terminal = "${pkgs.foot}/bin/foot";
           # TODO: replace with wofi

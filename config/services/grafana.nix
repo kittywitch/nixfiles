@@ -12,8 +12,8 @@
   services.grafana = {
     enable = true;
     port = 3001;
-    domain = "graph.kittywit.ch";
-    rootUrl = "https://graph.kittywit.ch/";
+    domain = "graph.${config.kw.dns.domain}";
+    rootUrl = "https://graph.${config.kw.dns.domain}/";
     database = {
       type = "postgres";
       host = "/run/postgresql/";
@@ -22,15 +22,15 @@
     };
   };
 
-  services.nginx.virtualHosts."graph.kittywit.ch" = {
+  services.nginx.virtualHosts."graph.${config.kw.dns.domain}" = {
     enableACME = true;
     forceSSL = true;
     locations = { "/".proxyPass = "http://127.0.0.1:3001"; };
   };
 
   deploy.tf.dns.records.kittywitch_graph = {
-    tld = "kittywit.ch.";
+    tld = config.kw.dns.tld;
     domain = "graph";
-    cname.target = "athame.kittywit.ch.";
+    cname.target = "${config.networking.hostName}.${config.kw.dns.tld}";
   };
 }

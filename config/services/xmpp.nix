@@ -13,12 +13,11 @@ with lib;
     }];
   };
 
-
   services.prosody = {
     enable = true;
     ssl.cert = "/var/lib/acme/prosody/fullchain.pem";
     ssl.key = "/var/lib/acme/prosody/key.pem";
-    admins = [ "kat@kittywit.ch" ];
+    admins = singleton "kat@kittywit.ch";
     package =
       let
         package = pkgs.prosody.override (old: {
@@ -36,54 +35,53 @@ with lib;
         }
     '';
     virtualHosts = {
-      "xmpp.kittywit.ch" = {
-        domain = "kittywit.ch";
+      "xmpp.${config.kw.dns.domain}" = {
+        domain = config.kw.dns.domain;
         enabled = true;
         ssl.cert = "/var/lib/acme/prosody/fullchain.pem";
         ssl.key = "/var/lib/acme/prosody/key.pem";
       };
     };
-    muc = [{ domain = "conference.kittywit.ch"; }];
-    uploadHttp = { domain = "upload.kittywit.ch"; };
+    muc = [{ domain = "conference.${config.kw.dns.domain}"; }];
+    uploadHttp = { domain = "upload.${config.kw.dns.domain}"; };
   };
 
   security.acme.certs.prosody = {
-    domain = "xmpp.kittywit.ch";
+    domain = "xmpp.${config.kw.dns.domain}";
     group = "prosody";
     dnsProvider = "rfc2136";
     credentialsFile = config.secrets.files.dns_creds.path;
     postRun = "systemctl restart prosody";
     extraDomainNames =
-      [ "kittywit.ch" "upload.kittywit.ch" "conference.kittywit.ch" ];
+      [ config.kw.dns.domain "upload.${config.kw.dns.domain}" "conference.${config.kw.dns.domain}" ];
   };
 
-  deploy.tf.dns.records.kittywitch_xmpp = {
-    tld = "kittywit.ch.";
+  deploy.tf.dns.records.services_prosody_xmpp = {
+    tld = config.kw.dns.tld;
     domain = "xmpp";
-    a.address = "168.119.126.111";
+    a.address = config.kw.dns.ipv4;
   };
 
-  deploy.tf.dns.records.kittywitch_xmpp_v6 = {
-    tld = "kittywit.ch.";
+  deploy.tf.dns.records.services_prosody_xmpp_v6 = {
+    tld = config.kw.dns.tld;
     domain = "xmpp";
-    aaaa.address =
-      (lib.head config.networking.interfaces.enp1s0.ipv6.addresses).address;
+    aaaa.address = config.kw.dns.ipv6;
   };
 
-  deploy.tf.dns.records.kittywitch_upload = {
-    tld = "kittywit.ch.";
+  deploy.tf.dns.records.services_prosody_upload = {
+    tld = config.kw.dns.tld;
     domain = "upload";
-    cname.target = "xmpp.kittywit.ch.";
+    cname.target = "xmpp.${config.kw.dns.tld}";
   };
 
-  deploy.tf.dns.records.kittywitch_conference = {
-    tld = "kittywit.ch.";
+  deploy.tf.dns.records.services_prosody_conference = {
+    tld = config.kw.dns.tld;
     domain = "conference";
-    cname.target = "xmpp.kittywit.ch.";
+    cname.target = "xmpp.${config.kw.dns.tld}";
   };
 
-  deploy.tf.dns.records.kittywitch_xmpp_muc = {
-    tld = "kittywit.ch.";
+  deploy.tf.dns.records.services_prosody_muc = {
+    tld = config.kw.dns.tld;
     domain = "conference";
     srv = {
       service = "xmpp-server";
@@ -91,12 +89,12 @@ with lib;
       priority = 0;
       weight = 5;
       port = 5269;
-      target = "xmpp.kittywit.ch.";
+      target = "xmpp.${config.kw.dns.tld}";
     };
   };
 
-  deploy.tf.dns.records.kittywitch_xmpp_client = {
-    tld = "kittywit.ch.";
+  deploy.tf.dns.records.services_prosody_client_srv = {
+    tld = config.kw.dns.tld;
     domain = "@";
     srv = {
       service = "xmpp-client";
@@ -104,12 +102,12 @@ with lib;
       priority = 0;
       weight = 5;
       port = 5222;
-      target = "xmpp.kittywit.ch.";
+      target = "xmpp.${config.kw.dns.tld}";
     };
   };
 
-  deploy.tf.dns.records.kittywitch_xmpps_client = {
-    tld = "kittywit.ch.";
+  deploy.tf.dns.records.services_prosody_secure_client_srv = {
+    tld = config.kw.dns.tld;
     domain = "@";
     srv = {
       service = "xmpps-client";
@@ -117,12 +115,12 @@ with lib;
       priority = 0;
       weight = 5;
       port = 5223;
-      target = "xmpp.kittywit.ch.";
+      target = "xmpp.${config.kw.dns.tld}";
     };
   };
 
-  deploy.tf.dns.records.kittywitch_xmpp_server = {
-    tld = "kittywit.ch.";
+  deploy.tf.dns.records.services_prosody_server_srv = {
+    tld = config.kw.dns.tld;
     domain = "@";
     srv = {
       service = "xmpp-server";
@@ -130,20 +128,21 @@ with lib;
       priority = 0;
       weight = 5;
       port = 5269;
-      target = "xmpp.kittywit.ch.";
+      target = "xmpp.${config.kw.dns.tld}";
     };
   };
 
   services.nginx.virtualHosts = {
-    "upload.kittywit.ch" = {
+    "upload.${config.kw.dns.domain}" = {
       useACMEHost = "prosody";
       forceSSL = true;
     };
 
-    "conference.kittywit.ch" = {
+    "conference.${config.kw.dns.domain}" = {
       useACMEHost = "prosody";
       forceSSL = true;
     };
   };
+
   users.users.nginx.extraGroups = [ "prosody" ];
 }

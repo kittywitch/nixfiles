@@ -1,4 +1,16 @@
-{ sources, config, pkgs, lib, ... }: with lib; let
+{ sources, config, pkgs, lib, ... }:
+
+/*
+This module:
+  * makes tf-nix a part of the meta config
+  * handles the trusted import for tf-nix
+  * provides the target interface
+  * imports the per-host TF config for each target
+*/
+
+with lib;
+
+let
   cfg = config.deploy;
   meta = config;
   tfModule = { lib, ... }: with lib; {

@@ -1,4 +1,13 @@
-{ pkgs, sources, users, profiles, lib, config, ... }: with lib; 
+{ pkgs, sources, users, profiles, hardware, lib, config, ... }:
+
+/*
+This module:
+  * Makes hosts nixosModules.
+  * Manages module imports and specialArgs.
+  * Builds network.nodes.
+*/
+
+with lib;
 
 {
   options.network = {
@@ -22,7 +31,6 @@
           nixpkgs = {
             system = mkDefault pkgs.system;
             pkgs = mkDefault pkgs;
-            #inherit (pkgs) config;
           };
         };
       };

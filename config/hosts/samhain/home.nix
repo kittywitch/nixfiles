@@ -1,0 +1,1 @@
+{ ... }: { imports = [ ./home/sway.nix ]; }

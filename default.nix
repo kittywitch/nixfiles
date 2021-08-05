@@ -35,8 +35,8 @@ let
       ./config/hosts/beltane/meta.nix
       ./config/hosts/samhain/meta.nix
       ./config/hosts/yule/meta.nix
-      ./config/hosts/mabon/meta.nix
-      ./config/hosts/ostara/meta.nix
+#      ./config/hosts/mabon/meta.nix
+#      ./config/hosts/ostara/meta.nix
     ];
     specialArgs = {
       inherit sources profiles users;
@@ -55,4 +55,4 @@ let
     all = attrValues local; #++ attrValues hexchen;
     allStr = toString all;
   };
-in config // { inherit pkgs sourceCache sources; }
+in config // { inherit pkgs sourceCache sources profiles; }

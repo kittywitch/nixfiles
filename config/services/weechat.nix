@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  services.nginx.virtualHosts."irc.kittywit.ch" = {
+  services.nginx.virtualHosts."irc.${config.kw.dns.domain}" = {
     enableACME = true;
     forceSSL = true;
     locations = {
@@ -13,9 +13,9 @@
     };
   };
 
-  deploy.tf.dns.records.kittywitch_irc = {
-    tld = "kittywit.ch.";
+  deploy.tf.dns.records.services_weechat = {
+    tld = config.kw.dns.tld;
     domain = "irc";
-    cname.target = "athame.kittywit.ch.";
+    cname.target = "${config.networking.hostName}.${config.kw.dns.tld}";
   };
 }

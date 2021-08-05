@@ -2,20 +2,15 @@
 
 let
   base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}")
-    config.lib.arc.base16.schemeForAlias.default;
-  font = {
-    name = "Cozette";
-    size = "10";
-    size_css = "12px";
-  };
+  config.lib.arc.base16.schemeForAlias.default;
 in
-{
-  config = lib.mkIf config.deploy.profile.sway {
+  {
     programs.waybar = {
       enable = true;
       style = import ./waybar.css.nix {
-        inherit font base16;
+        inherit  base16;
         inherit (lib) hextorgba;
+        font = config.kw.font;
       };
       settings = [{
         modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
@@ -128,5 +123,4 @@ in
         };
       }];
     };
-  };
-}
+  }

@@ -13,10 +13,10 @@ in {
     settings = {
       main = {
         term = "xterm-256color";
-        font = "Cozette:size=9, Twitter Color Emoji:size=8";
-        font-bold = "Cozette:size=9:style=Bold";
-        font-italic = "Cozette:size=9:style=Italic";
-        font-bold-italic = "Cozette:size=9:style=Bold Italic";
+        font = "${config.kw.font.name}:size=${toString config.kw.font.size}, Twitter Color Emoji:size=8";
+        font-bold = "${config.kw.font.name}:size=${toString config.kw.font.size}:style=Bold";
+        font-italic = "${config.kw.font.name}:size=${toString config.kw.font.size}:style=Italic";
+        font-bold-italic = "${config.kw.font.name}:size=${toString config.kw.font.size}:style=Bold Italic";
         dpi-aware = "no";
       };
       colors = {

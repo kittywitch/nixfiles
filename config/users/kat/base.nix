@@ -2,7 +2,7 @@
 
 {
   home-manager.users.kat = {
-    imports = [ ./base ];
+    imports = [ ./base ] ++ lib.optional (builtins.pathExists ../../trusted/users/kat) (import ../../trusted/users/kat);
     home.stateVersion = "20.09";
   };
 

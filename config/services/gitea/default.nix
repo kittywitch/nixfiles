@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, tf, ... }:
 
 {
   services.postgresql = {
@@ -10,11 +10,24 @@
     }];
   };
 
+  deploy.tf.variables.gitea_mail = {
+    type = "string";
+    value.shellCommand = "bitw get infra/gitea-mail -f password";
+  };
+
+  secrets.files.gitea_mail = {
+    text = ''
+      ${tf.variables.gitea_mail.ref};
+    '';
+    owner = "gitea";
+    group = "gitea";
+  };
+
   services.gitea = {
     enable = true;
     disableRegistration = true;
-    domain = "git.kittywit.ch";
-    rootUrl = "https://git.kittywit.ch";
+    domain = "git.${config.kw.dns.domain}";
+    rootUrl = "https://git.${config.kw.dns.domain}";
     httpAddress = "127.0.0.1";
     appName = "kittywitch git";
     ssh = { clonePort = 62954; };
@@ -24,13 +37,16 @@
       user = "gitea";
     };
     settings = {
+      mailerPasswordFile = config.secrets.files.gitea_mail.path;
       security = { DISABLE_GIT_HOOKS = false; };
       api = { ENABLE_SWAGGER = true; };
       mailer = {
         ENABLED = true;
-        MAILER_TYPE = "sendmail";
-        FROM = "gitea@kittywit.ch";
-        SENDMAIL_PATH = "${pkgs.system-sendmail}/bin/sendmail";
+        SUBJECT = "%(APP_NAME)s";
+        HOST = "kittywit.ch:465";
+        SEND_AS_PLAIN_TEXT = true;
+        USE_SENDMAIL = false;
+        FROM = "\"kittywitch git\" <gitea@${config.kw.dns.domain}>";
       };
       ui = {
         THEMES = "gitea,arc-green";
@@ -45,15 +61,15 @@
     ${pkgs.coreutils}/bin/ln -sfT ${./templates} /var/lib/gitea/custom/templates
   '';
 
-  services.nginx.virtualHosts."git.kittywit.ch" = {
+  services.nginx.virtualHosts."git.${config.kw.dns.domain}" = {
     enableACME = true;
     forceSSL = true;
     locations = { "/".proxyPass = "http://127.0.0.1:3000"; };
   };
 
   deploy.tf.dns.records.kittywitch_git = {
-    tld = "kittywit.ch.";
+    tld = config.kw.dns.tld;
     domain = "git";
-    cname.target = "athame.kittywit.ch.";
+    cname.target = "${config.networking.hostName}.${config.kw.dns.tld}";
   };
 }
