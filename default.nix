@@ -8,6 +8,9 @@ let
   profiles = lib.modList {
     modulesDir = ./config/profiles;
   };
+  targets = lib.removeAttrs (lib.modList {
+    modulesDir = ./config/targets;
+  }) ["common"];
   users = lib.modList {
     modulesDir = ./config/users;
   };
@@ -26,7 +29,8 @@ let
   eval = lib.evalModules {
     modules = [
       metaConfig
-      ./config/targets
+      targets.personal
+      targets.infra
       ./config/modules/meta/default.nix
     ] ++ map (hostName: ./config/hosts + "/${hostName}/meta.nix") hostNames;
     specialArgs = {
