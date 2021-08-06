@@ -9,4 +9,4 @@ in recurseIntoAttrs rec {
     #hexchen = sources2drvs (import sources.hexchen {}).sources;
     all = attrValues local; #++ attrValues hexchen;
     allStr = toString all;
-  };
+  }
