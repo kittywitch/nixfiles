@@ -38,12 +38,12 @@ let
 
   # This is where the meta config is evaluated.
   eval = lib.evalModules {
-    modules = [
-      metaConfig
-      ./config/modules/meta/default.nix
-    ] ++ (lib.attrValues hosts)
+    modules = lib.singleton metaConfig
     ++ (lib.attrValues (removeAttrs argGen.targets ["common"]))
-    ++ (lib.optional (builtins.pathExists ./config/trusted/meta.nix) ./config/trusted/meta.nix);
+    ++ (lib.attrValues hosts)
+    ++ (lib.optional (builtins.pathExists ./config/trusted/meta.nix) ./config/trusted/meta.nix)
+    ++ lib.singleton ./config/modules/meta/default.nix;
+
     specialArgs = {
       inherit sources;
       inherit (argGen) profiles users services;

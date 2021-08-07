@@ -48,6 +48,7 @@ in {
       targets = let
         type = types.submodule ({ config, name, ... }: {
           options = {
+            enable = mkEnableOption "Enable the target" // { default = true; };
             name = mkOption {
               type = types.str;
               default = name;
@@ -99,13 +100,22 @@ in {
     };
   };
   config = {
+    deploy.targets = let
+      nodeNames = attrNames config.network.nodes;
+      targets = config.deploy.targets;
+      explicitlyDefinedHosts = concatLists (mapAttrsToList (targetName: target: remove targetName target.nodeNames) config.deploy.targets);
+    in genAttrs nodeNames ( nodeName: {
+      enable = mkDefault (! elem nodeName explicitlyDefinedHosts);
+      nodeNames = singleton nodeName;
+    });
+
     runners = {
       run = mkMerge (mapAttrsToList (targetName: target: mapAttrs' (k: run:
       nameValuePair run.name run.set
-      ) target.tf.runners.run) cfg.targets);
+      ) target.tf.runners.run) (filterAttrs (_: v: v.enable) cfg.targets));
       lazy.run = mkMerge (mapAttrsToList (targetName: target: mapAttrs' (k: run:
       nameValuePair run.name run.set
-      ) target.tf.runners.lazy.run) cfg.targets);
+      ) target.tf.runners.lazy.run) (filterAttrs (_: v: v.enable) cfg.targets));
     };
   };
 }
