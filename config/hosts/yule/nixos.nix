@@ -1,4 +1,4 @@
-{ config, users, pkgs, lib, profiles, ... }:
+{ config, users, pkgs, lib, profiles, services, ... }:
 
 with lib;
 
@@ -10,12 +10,12 @@ with lib;
     profiles.gui
     profiles.laptop
     users.kat.guiFull
-    ../../services/zfs.nix
-    ../../services/restic.nix
-    ../../services/node-exporter.nix
-    ../../services/promtail.nix
-    ../../services/netdata.nix
-    ../../services/nginx.nix
+    services.netdata
+    services.nginx
+    services.node-exporter
+    services.promtail
+    services.restic
+    services.zfs
   ];
 
   # File Systems and Swap

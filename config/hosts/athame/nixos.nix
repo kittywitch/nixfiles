@@ -1,4 +1,4 @@
-{ config, users, lib, pkgs, profiles, ... }:
+{ config, users, lib, pkgs, profiles, services, ... }:
 
 with lib;
 
@@ -6,35 +6,31 @@ with lib;
   # Imports
 
   imports = [
-    # profiles
     profiles.hardware.hcloud-imperative
     users.kat.server
-    # host-specific services 
+    services.asterisk
+    services.fail2ban
+    services.grafana
+    services.logrotate
+    services.loki
+    services.mail
+    services.matrix
+    services.murmur
+    services.netdata
+    services.nginx
+    services.node-exporter
+    services.postgres
+    services.prometheus
+    services.promtail
+    services.radicale
+    services.restic
+    services.syncplay
+    services.taskserver
+    services.vaultwarden
+    services.weechat
+    services.xmpp
+    services.znc
     ./nixos/virtualhosts.nix
-    # services
-    ../../services/fail2ban.nix
-    ../../services/logrotate.nix
-    ../../services/postgres.nix
-    ../../services/nginx.nix
-    ../../services/mail.nix
-    ../../services/radicale.nix
-    ../../services/xmpp.nix
-    ../../services/gitea
-    ../../services/syncplay.nix
-    ../../services/weechat.nix
-    ../../services/vaultwarden.nix
-    ../../services/taskserver.nix
-    ../../services/murmur.nix
-    ../../services/matrix.nix
-    ../../services/restic.nix
-    ../../services/grafana.nix
-    ../../services/prometheus.nix
-    ../../services/loki.nix
-    ../../services/node-exporter.nix
-    ../../services/promtail.nix
-    ../../services/netdata.nix
-    ../../services/znc.nix
-    ../../services/asterisk.nix
   ];
 
   # File Systems and Swap

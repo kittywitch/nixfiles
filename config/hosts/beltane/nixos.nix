@@ -1,4 +1,4 @@
-{ config, lib, pkgs, profiles, users, tf, ... }:
+{ config, lib, pkgs, profiles, services, users, tf, ... }:
 
 with lib;
 
@@ -9,14 +9,14 @@ with lib;
     profiles.hardware.rm-310
     profiles.gui
     users.kat.guiFull
+    services.node-exporter
+    services.promtail
+    services.netdata
+    services.nginx
+    services.zfs
     ./nixos/jellyfin.nix
     ./nixos/virtualhosts.nix
     ./nixos/transmission.nix
-    ../../services/node-exporter.nix
-    ../../services/promtail.nix
-    ../../services/netdata.nix
-    ../../services/nginx.nix
-    ../../services/zfs.nix
   ];
 
   # File Systems and Swap

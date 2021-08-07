@@ -1,4 +1,4 @@
-{ tf, config, users, pkgs, lib, profiles, sources, ... }:
+{ tf, config, users, pkgs, lib, profiles, sources, services, ... }:
 
 with lib;
 
@@ -14,12 +14,12 @@ in {
     profiles.gui
     profiles.vfio
     users.kat.guiFull
-    ../../services/zfs.nix
-    ../../services/restic.nix
-    ../../services/nginx.nix
-    ../../services/node-exporter.nix
-    ../../services/promtail.nix
-    ../../services/netdata.nix
+    services.netdata
+    services.nginx
+    services.node-exporter
+    services.promtail
+    services.restic
+    services.zfs
     ./nixos/virtualhosts.nix
   ];
 
