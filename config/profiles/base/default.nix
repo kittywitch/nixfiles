@@ -9,6 +9,7 @@
     ./system.nix
     ./home.nix
     ./profiles.nix
+    ./shell.nix
     ./base16.nix
     ./net.nix
     ./access.nix

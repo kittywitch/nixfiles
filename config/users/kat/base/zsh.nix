@@ -25,11 +25,25 @@ in {
     grep = "rg";
   };
   xdg.dataFile = { "z/.keep".text = ""; };
-  home.packages = with pkgs; [ fzf fd akiflags ];
+  home.packages = with pkgs; [ fzf fd zsh-completions akiflags ];
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
-    initExtra = ''
+    initExtra = let
+      zshOpts= [
+    "auto_pushd" "pushd_ignore_dups" "pushdminus"
+    "rmstarsilent" "nonomatch" "long_list_jobs" "interactivecomments"
+    "append_history" "hist_ignore_space" "hist_verify" "inc_append_history" "nosharehistory"
+    "nomenu_complete" "auto_menu" "no_auto_remove_slash" "complete_in_word" "always_to_end" "nolistbeep" "autolist" "listrowsfirst"
+  ]; in ''
+    zmodload -i zsh/complist
+    zstyle ':completion:*' list-colors ""
+    zstyle ':completion:*:*:*:*:*' menu select
+    zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
+    zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+    zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
+    zstyle ':completion:*:complete:pass:*:*' matcher 'r:|[./_-]=** r:|=*' 'l:|=* r:|=*'
+        ${lib.concatStringsSep "\n" (map (opt: "setopt ${opt}") zshOpts)}
         source ${./zshrc-vimode}
         echo ""; akiflags -rb;
     '';
@@ -75,10 +89,6 @@ in {
         };
       }
     ];
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" "sudo" "adb" "cargo" "emoji" ];
-    };
   };
   programs.starship = {
     enable = true;
