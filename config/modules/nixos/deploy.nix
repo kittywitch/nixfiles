@@ -53,10 +53,11 @@ in
   config = {
     deploy = {
       system = config.system.build.toplevel;
-      targetName = if (meta.deploy.targets ? ${name}) then 
-      (mkDefault name)
-      else
-      head (attrNames ((filterAttrs(targetName: target: elem config.networking.hostName target.nodeNames) meta.deploy.targets)));
+      targetName = let
+        explicitlyDefinedHosts = concatLists (mapAttrsToList (targetName: target: remove targetName target.nodeNames) meta.deploy.targets);
+      in if (meta.deploy.targets.${config.networking.hostName}.enable) then
+        config.networking.hostName
+      else (head (attrNames (filterAttrs (n: v: n != config.networking.hostName && (elem config.networking.hostName v.nodeNames)) meta.deploy.targets)));
     };
     deploy.tf = mkMerge (singleton
       {
