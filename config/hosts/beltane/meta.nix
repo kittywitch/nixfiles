@@ -1,7 +1,6 @@
 { lib, config, ... }: with lib; {
   config = {
     deploy.targets.beltane = {
-      nodeNames = lib.singleton "beltane";
       tf = {
         resources.beltane = {
           provider = "null";
