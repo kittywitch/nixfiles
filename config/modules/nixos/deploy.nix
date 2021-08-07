@@ -52,15 +52,12 @@ in
 
   config = {
     deploy = {
-      system = config.system.build.toplevel;
-      targetName = let
-        explicitlyDefinedHosts = concatLists (mapAttrsToList (targetName: target: remove targetName target.nodeNames) meta.deploy.targets);
-      in if (meta.deploy.targets.${config.networking.hostName}.enable) then
-        config.networking.hostName
-      else (head (attrNames (filterAttrs (n: v: n != config.networking.hostName && (elem config.networking.hostName v.nodeNames)) meta.deploy.targets)));
-    };
-    deploy.tf = mkMerge (singleton
-      {
+        system = config.system.build.toplevel;
+        targetName = let targetsList = attrNames ( filterAttrs (_: target: target.enable && elem name target.nodeNames) meta.deploy.targets ); in
+        if (builtins.length targetsList == 0) then null
+        else lib.warnIf (builtins.length targetsList > 1) "The host ${name} is assigned to several targets: ${concatMapStrings (x: "${x},") targetsList}." (head targetsList);
+      };
+      deploy.tf = mkMerge (singleton (lib.mkIf (config.deploy.targetName != null) {
         attrs = [ "import" "imports" "out" "attrs" ];
         import = genAttrs cfg.tf.imports (target: meta.deploy.targets.${target}.tf);
         out.set = removeAttrs cfg.tf cfg.tf.attrs;
@@ -75,7 +72,7 @@ in
             triggers.secrets.${config.networking.hostName} =
               tf.resources.${config.networking.hostName}.refAttr "id";
           };
-      } ++ mapAttrsToList
+      }) ++ mapAttrsToList
       (_: user:
         mapAttrs (_: mkMerge) user.deploy.tf.out.set)
       config.home-manager.users);
