@@ -1,7 +1,7 @@
 let katUser = { lib }: let
   trustedImport = {
     config.home-manager.users.kat = {
-      imports = lib.optional (builtins.pathExists ../../trusted/users/kat) (import ../../trusted/users/kat);
+      imports = lib.optional (builtins.pathExists ../../trusted/users/kat) (import ../../trusted/users/kat/home.nix);
     };
   }; userImport = profile: { config, ... }: {
   config.home-manager.users.kat = {

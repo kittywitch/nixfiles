@@ -12,7 +12,7 @@ let
   directories =
     filterAttrNamesToList (_: type: type == "directory") (readDir modulesDir);
   files = map (dir: nameValuePair dir (modulesDir + "/${dir}/${defaultFile}"))
-    directories;
+  (filter (f: builtins.pathExists (modulesDir + "/${f}/${defaultFile}")) directories);
   modules = map
     ({ name, value }:
       # if the file contains a function, assume it to be a module and pass the path
