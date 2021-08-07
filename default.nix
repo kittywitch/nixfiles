@@ -20,7 +20,8 @@ let
 
   /*
   This produces an attrSet of hosts based upon:
-    * hosts being located within config/hosts/<hostname>/
+    * hosts being located within config/hosts/<hostname>
+    * hosts having an entrypoint of meta.nix
   */
   hosts = lib.domainMerge {
     folder = "hosts";
