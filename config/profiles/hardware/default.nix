@@ -1,12 +1,7 @@
-rec {
-  ms-7b86-base = ./ms-7b86;
-  v330-14arr-base = ./v330-14arr;
-  rm-310-base = ./rm-310;
-  hcloud-imperative = ./hcloud-imperative;
-  ryzen = ./ryzen;
-  intel = ./intel;
-  amdgpu = ./amdgpu;
-
+let hardwareProfiles = { lib }:
+let profiles = with profiles; lib.modList {
+  modulesDir = ./.;
+} // {
   ms-7b86 = {
     imports = [
       ms-7b86-base
@@ -27,4 +22,5 @@ rec {
       intel
     ];
   };
-}
+}; in profiles;
+in { __functor = self: hardwareProfiles; isModule = false; }
