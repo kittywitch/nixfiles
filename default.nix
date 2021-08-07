@@ -40,15 +40,10 @@ let
   eval = lib.evalModules {
     modules = [
       metaConfig
-      argGen.targets.personal
-      argGen.targets.infra
-      hosts.dummy
-      hosts.athame
-      hosts.beltane
-      hosts.samhain
-      hosts.yule
       ./config/modules/meta/default.nix
-    ] ++ (lib.optional (builtins.pathExists ./config/trusted/meta.nix) ./config/trusted/meta.nix);
+    ] ++ (lib.attrValues hosts)
+    ++ (lib.attrValues (removeAttrs argGen.targets ["common"]))
+    ++ (lib.optional (builtins.pathExists ./config/trusted/meta.nix) ./config/trusted/meta.nix);
     specialArgs = {
       inherit sources;
       inherit (argGen) profiles users services;
