@@ -25,6 +25,7 @@ with lib;
       type = types.nullOr types.str;
       default = "";
     };
+    isPublic = mkEnableOption "Provide DNS for the public primary IP addresses of the host";
     ipv4 = mkOption {
       type = types.str;
     };

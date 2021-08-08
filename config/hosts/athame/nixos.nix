@@ -85,12 +85,7 @@ with lib;
 
   kw.dns.ipv4 = "168.119.126.111";
   kw.dns.ipv6 = (lib.head config.networking.interfaces.enp1s0.ipv6.addresses).address;
-
-  deploy.tf.dns.records.kittywitch_athame_v6 = {
-    tld = "kittywit.ch.";
-    domain = "athame";
-    aaaa.address = config.kw.dns.ipv6;
-  };
+  kw.dns.isPublic = true;
 
   # Yggdrasil
 

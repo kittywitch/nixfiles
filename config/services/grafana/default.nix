@@ -28,7 +28,7 @@
     locations = { "/".proxyPass = "http://127.0.0.1:3001"; };
   };
 
-  deploy.tf.dns.records.kittywitch_graph = {
+  deploy.tf.dns.records.services_grafana = {
     tld = config.kw.dns.tld;
     domain = "graph";
     cname.target = "${config.networking.hostName}.${config.kw.dns.tld}";
