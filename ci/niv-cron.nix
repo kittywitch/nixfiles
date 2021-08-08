@@ -75,7 +75,7 @@ with lib; {
                 fi
               '';
               auto = "${update} || true";
-            in if isGit then git else auto) channels.nixfiles.sources)}
+            in if isGit then git else auto) (removeAttrs [ "__functor" ] channels.nixfiles.sources))}
 
             if git status --porcelain | grep -qF nix/sources.json; then
               git -P diff nix/sources.json
