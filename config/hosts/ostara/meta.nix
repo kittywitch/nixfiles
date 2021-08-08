@@ -1,24 +1,24 @@
 { lib, config, profiles, ... }: with lib; {
   config = {
-    deploy.targets.personal = {
+    deploy.targets.ostara = {
       tf = {
-        resources.samhain = {
+        resources.ostara = {
           provider = "null";
           type = "resource";
           connection = {
             port = 62954;
-            host = "192.168.1.135";
+            host = "192.168.1.245";
           };
         };
       };
     };
-    network.nodes.samhain = {
+    network.nodes.ostara = {
       imports = lib.hostImport {
-        hostName = "samhain";
+        hostName = "ostara";
         inherit profiles;
       };
       networking = {
-        hostName = "samhain";
+        hostName = "ostara";
       };
     };
   };
