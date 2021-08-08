@@ -9,13 +9,21 @@ with lib;
         options.externalSecret = mkEnableOption "Is ths secret to be templated into a command provided?";
         config = mkIf config.externalSecret {
           type = "string";
-          value.shellCommand = "${tf.commandPrefix} ${escapeShellArg name}";
+          value.shellCommand = "${tf.commandPrefix} ${tf.folderPrefix}${tf.folderDivider}${escapeShellArg name}";
         };
       }));
     };
     commandPrefix = mkOption {
       type = types.nullOr types.str;
       default = null;
+    };
+    folderPrefix = mkOption {
+      type = types.str;
+      default = "";
+    };
+    folderDivider = mkOption {
+      type = types.str;
+      default = "";
     };
   };
 }

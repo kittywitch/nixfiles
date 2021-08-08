@@ -2,6 +2,8 @@
 
 {
   commandPrefix = "pass";
+  folderPrefix = "secrets";
+  folderDivider = "/";
 
   variables.hcloud_token = {
     type = "string";
