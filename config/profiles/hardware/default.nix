@@ -9,6 +9,12 @@ let profiles = with profiles; lib.modList {
       amdgpu
     ];
   };
+  rm-310 = {
+    imports = [
+      rm-310-base
+      intel
+    ];
+  };
   v330-14arr = {
     imports = [
       v330-14arr-base
@@ -16,11 +22,11 @@ let profiles = with profiles; lib.modList {
       amdgpu
     ];
   };
-  rm-310 = {
+  eeepc-1015pem = {
     imports = [
-      rm-310-base
-      intel
-    ];
-  };
-}; in profiles;
+        eeepc-1015pem-base
+        intel
+      ];
+    };
+  }; in profiles;
 in { __functor = self: hardwareProfiles; isModule = false; }

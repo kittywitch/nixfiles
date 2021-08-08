@@ -72,13 +72,17 @@ let
 
         konawall = super.konawall.overide { swaySupport = true; };
 
+        wezterm-terminfo = self.callPackage ./wezterm-terminfo { inherit (self) ncurses; };
+
         imv = super.imv.override {
           withBackends = [ "freeimage" "libjpeg" "libpng" "librsvg" "libnsgif" "libheif" "libtiff" ];
         };
 
         kat-glauca-dns = self.callPackage ./kat-glauca-dns { };
 
-        wezterm-terminfo = self.callPackage ./wezterm-terminfo { inherit (self) ncurses; };
+        kat-tv = import ./kat-tv { pkgs = self; lib = self.lib; };
+
+        kat-tv-ingest = import ./kat-tv-ingest { pkgs = self; lib = self.lib; };
 
         kat-website = self.callPackage ./kat-website { };
 
@@ -102,6 +106,9 @@ let
         ];
         config = {
           allowUnfree = true;
+          permittedInsecurePackages = [
+            "ffmpeg-3.4.8"
+          ];
         };
       };
 in pkgs
