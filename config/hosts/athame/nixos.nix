@@ -10,6 +10,7 @@ with lib;
     users.kat.server
     services.asterisk
     services.fail2ban
+    services.gitea
     services.grafana
     services.logrotate
     services.loki
@@ -25,6 +26,7 @@ with lib;
     services.radicale
     services.restic
     services.syncplay
+    services.taskwarrior
     services.taskserver
     services.vaultwarden
     services.weechat

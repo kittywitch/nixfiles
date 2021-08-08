@@ -9,10 +9,12 @@ with lib;
     profiles.hardware.rm-310
     profiles.gui
     users.kat.guiFull
-    services.node-exporter
+    services.kattv-ingest
     services.promtail
     services.netdata
     services.nginx
+    services.node-exporter
+    services.tvheadend
     services.zfs
     ./nixos/jellyfin.nix
     ./nixos/virtualhosts.nix
