@@ -14,7 +14,7 @@
     '';
   };
 
-  jobs = let hostnames = [ "samhain" "yule" "athame" ];
+  jobs = let hostnames = remove "dummy" (lib.attrNames (import ../.).hosts);
   in mapAttrs' (k: nameValuePair "host-${k}") (genAttrs hostnames (host: {
       tasks.${host}.inputs = channels.nixfiles.network.nodes.${host}.deploy.system;
   }));
