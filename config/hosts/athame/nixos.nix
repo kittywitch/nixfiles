@@ -26,7 +26,6 @@ with lib;
     services.radicale
     services.restic
     services.syncplay
-    services.taskwarrior
     services.taskserver
     services.vaultwarden
     services.weechat
