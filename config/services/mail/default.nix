@@ -50,6 +50,8 @@ with lib;
     enablePop3 = true;
     enableImapSsl = true;
     enablePop3Ssl = true;
+    enableSubmission = false;
+    enableSubmissionSsl = true;
 
     # Enable the ManageSieve protocol
     enableManageSieve = true;
