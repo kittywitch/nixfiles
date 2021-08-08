@@ -14,8 +14,12 @@
     '';
   };
 
-  jobs = let hostnames = remove "dummy" (lib.attrNames (import ../.).hosts);
-  in mapAttrs' (k: nameValuePair "host-${k}") (genAttrs hostnames (host: {
+  jobs = let main = (import ../.);
+  hosts = main.network.nodes;
+  targets = main.deploy.targets;
+  enabledTargets = filterAttrs (_: v: v.enable) main.deploy.targets;
+  enabledHosts = concatLists (mapAttrsToList (targetName: target: target.nodeNames) enabledTargets);
+  in mapAttrs' (k: nameValuePair "host-${k}") (genAttrs enabledHosts (host: {
       tasks.${host}.inputs = channels.nixfiles.network.nodes.${host}.deploy.system;
   }));
 

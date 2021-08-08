@@ -46,8 +46,13 @@ with lib; {
           };
           displayName = "niv update build";
           environment = [ "OPENSSH_PRIVATE_KEY" "CACHIX_SIGNING_KEY" "GITHUB_REF" ];
-          command = let hostnames = remove "dummy" (lib.attrNames (import ../.).hosts);
-          hostBuildString = concatMapStrings (host: "nix build -Lf . network.nodes.${host}.deploy.system && nix-collect-garbage -d && " ) hostnames; in ''
+          command = let main = (import ../.);
+            hosts = main.network.nodes;
+            targets = main.deploy.targets;
+            enabledTargets = filterAttrs (_: v: v.enable) main.deploy.targets;
+            enabledHosts = concatLists (mapAttrsToList (targetName: target: target.nodeNames) enabledTargets);
+            hostBuildString = concatMapStrings (host: "nix build -Lf . network.nodes.${host}.deploy.system && nix-collect-garbage -d && " ) enabledHosts;
+            in ''
             # ${toString builtins.currentTime}
             if [[ -n $OPENSSH_PRIVATE_KEY ]]; then
               mkdir ~/.ssh
