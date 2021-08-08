@@ -11,11 +11,11 @@
 
   services.nginx.virtualHosts = {
     "${config.networking.hostName}.${config.kw.dns.ygg_prefix}.${config.kw.dns.domain}".locations."/tvheadend" = {
-      proxyPass = "http://[::1]:9981";
+      proxyPass = "http://127.0.0.1:9981";
       extraConfig = "proxy_pass_header  X-Transmission-Session-Id;";
     };
     ${config.kw.dns.ipv4}.locations."/tvheadend" = {
-      proxyPass = "http://[::1]:9981";
+      proxyPass = "http://127.0.0.1:9981";
       extraConfig = "proxy_pass_header  X-Transmission-Session-Id;";
     };
   };
