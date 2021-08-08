@@ -44,9 +44,15 @@
         ENABLED = true;
         SUBJECT = "%(APP_NAME)s";
         HOST = "kittywit.ch:465";
+        USER = "gitea@kittywit.ch";
         SEND_AS_PLAIN_TEXT = true;
         USE_SENDMAIL = false;
         FROM = "\"kittywitch git\" <gitea@${config.kw.dns.domain}>";
+      };
+      service = {
+        NO_REPLY_ADDRESS = "kittywit.ch";
+        REGISTER_EMAIL_CONFIRM = true;
+        ENABLE_NOTIFY_MAIL = true;
       };
       ui = {
         THEMES = "gitea,arc-green";
