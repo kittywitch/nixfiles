@@ -1,10 +1,124 @@
 env:
   CI_ALLOW_ROOT: '1'
-  CI_CONFIG: ./ci/hosts.nix
+  CI_CONFIG: ./ci/nodes.nix
   CI_PLATFORM: gh-actions
 jobs:
+  athame:
+    name: nodes-athame
+    runs-on: ubuntu-latest
+    steps:
+    - id: checkout
+      name: git clone
+      uses: actions/checkout@v1
+      with:
+        submodules: false
+    - id: nix-install
+      name: nix install
+      uses: arcnmx/ci/actions/nix/install@master
+    - id: ci-setup
+      name: nix setup
+      uses: arcnmx/ci/actions/nix/run@master
+      with:
+        attrs: ci.job.athame.run.bootstrap
+        quiet: false
+    - id: ci-dirty
+      name: nix test dirty
+      uses: arcnmx/ci/actions/nix/run@master
+      with:
+        attrs: ci.job.athame.run.test
+        command: ci-build-dirty
+        quiet: false
+        stdout: ${{ runner.temp }}/ci.build.dirty
+    - id: ci-test
+      name: nix test build
+      uses: arcnmx/ci/actions/nix/run@master
+      with:
+        attrs: ci.job.athame.run.test
+        command: ci-build-realise
+        ignore-exit-code: true
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.dirty
+    - env:
+        CI_EXIT_CODE: ${{ steps.ci-test.outputs.exit-code }}
+      id: ci-summary
+      name: nix test results
+      uses: arcnmx/ci/actions/nix/run@master
+      with:
+        attrs: ci.job.athame.run.test
+        command: ci-build-summarise
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.dirty
+        stdout: ${{ runner.temp }}/ci.build.cache
+    - env:
+        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+      id: ci-cache
+      if: always()
+      name: nix test cache
+      uses: arcnmx/ci/actions/nix/run@master
+      with:
+        attrs: ci.job.athame.run.test
+        command: ci-build-cache
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.cache
+  beltane:
+    name: nodes-beltane
+    runs-on: ubuntu-latest
+    steps:
+    - id: checkout
+      name: git clone
+      uses: actions/checkout@v1
+      with:
+        submodules: false
+    - id: nix-install
+      name: nix install
+      uses: arcnmx/ci/actions/nix/install@master
+    - id: ci-setup
+      name: nix setup
+      uses: arcnmx/ci/actions/nix/run@master
+      with:
+        attrs: ci.job.beltane.run.bootstrap
+        quiet: false
+    - id: ci-dirty
+      name: nix test dirty
+      uses: arcnmx/ci/actions/nix/run@master
+      with:
+        attrs: ci.job.beltane.run.test
+        command: ci-build-dirty
+        quiet: false
+        stdout: ${{ runner.temp }}/ci.build.dirty
+    - id: ci-test
+      name: nix test build
+      uses: arcnmx/ci/actions/nix/run@master
+      with:
+        attrs: ci.job.beltane.run.test
+        command: ci-build-realise
+        ignore-exit-code: true
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.dirty
+    - env:
+        CI_EXIT_CODE: ${{ steps.ci-test.outputs.exit-code }}
+      id: ci-summary
+      name: nix test results
+      uses: arcnmx/ci/actions/nix/run@master
+      with:
+        attrs: ci.job.beltane.run.test
+        command: ci-build-summarise
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.dirty
+        stdout: ${{ runner.temp }}/ci.build.cache
+    - env:
+        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+      id: ci-cache
+      if: always()
+      name: nix test cache
+      uses: arcnmx/ci/actions/nix/run@master
+      with:
+        attrs: ci.job.beltane.run.test
+        command: ci-build-cache
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.cache
   ci-check:
-    name: hosts check
+    name: nodes check
     runs-on: ubuntu-latest
     steps:
     - id: checkout
@@ -25,11 +139,11 @@ jobs:
       name: gh-actions compare
       uses: arcnmx/ci/actions/nix/run@master
       with:
-        args: -u .github/workflows/hosts.yml .ci/workflow.yml
+        args: -u .github/workflows/nodes.yml .ci/workflow.yml
         attrs: nixpkgs.diffutils
         command: diff
-  host-athame:
-    name: hosts-host-athame
+  ostara:
+    name: nodes-ostara
     runs-on: ubuntu-latest
     steps:
     - id: checkout
@@ -44,13 +158,13 @@ jobs:
       name: nix setup
       uses: arcnmx/ci/actions/nix/run@master
       with:
-        attrs: ci.job.host-athame.run.bootstrap
+        attrs: ci.job.ostara.run.bootstrap
         quiet: false
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@master
       with:
-        attrs: ci.job.host-athame.run.test
+        attrs: ci.job.ostara.run.test
         command: ci-build-dirty
         quiet: false
         stdout: ${{ runner.temp }}/ci.build.dirty
@@ -58,7 +172,7 @@ jobs:
       name: nix test build
       uses: arcnmx/ci/actions/nix/run@master
       with:
-        attrs: ci.job.host-athame.run.test
+        attrs: ci.job.ostara.run.test
         command: ci-build-realise
         ignore-exit-code: true
         quiet: false
@@ -69,7 +183,7 @@ jobs:
       name: nix test results
       uses: arcnmx/ci/actions/nix/run@master
       with:
-        attrs: ci.job.host-athame.run.test
+        attrs: ci.job.ostara.run.test
         command: ci-build-summarise
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.dirty
@@ -81,12 +195,12 @@ jobs:
       name: nix test cache
       uses: arcnmx/ci/actions/nix/run@master
       with:
-        attrs: ci.job.host-athame.run.test
+        attrs: ci.job.ostara.run.test
         command: ci-build-cache
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.cache
-  host-beltane:
-    name: hosts-host-beltane
+  samhain:
+    name: nodes-samhain
     runs-on: ubuntu-latest
     steps:
     - id: checkout
@@ -101,13 +215,13 @@ jobs:
       name: nix setup
       uses: arcnmx/ci/actions/nix/run@master
       with:
-        attrs: ci.job.host-beltane.run.bootstrap
+        attrs: ci.job.samhain.run.bootstrap
         quiet: false
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@master
       with:
-        attrs: ci.job.host-beltane.run.test
+        attrs: ci.job.samhain.run.test
         command: ci-build-dirty
         quiet: false
         stdout: ${{ runner.temp }}/ci.build.dirty
@@ -115,7 +229,7 @@ jobs:
       name: nix test build
       uses: arcnmx/ci/actions/nix/run@master
       with:
-        attrs: ci.job.host-beltane.run.test
+        attrs: ci.job.samhain.run.test
         command: ci-build-realise
         ignore-exit-code: true
         quiet: false
@@ -126,7 +240,7 @@ jobs:
       name: nix test results
       uses: arcnmx/ci/actions/nix/run@master
       with:
-        attrs: ci.job.host-beltane.run.test
+        attrs: ci.job.samhain.run.test
         command: ci-build-summarise
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.dirty
@@ -138,12 +252,12 @@ jobs:
       name: nix test cache
       uses: arcnmx/ci/actions/nix/run@master
       with:
-        attrs: ci.job.host-beltane.run.test
+        attrs: ci.job.samhain.run.test
         command: ci-build-cache
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.cache
-  host-ostara:
-    name: hosts-host-ostara
+  yule:
+    name: nodes-yule
     runs-on: ubuntu-latest
     steps:
     - id: checkout
@@ -158,13 +272,13 @@ jobs:
       name: nix setup
       uses: arcnmx/ci/actions/nix/run@master
       with:
-        attrs: ci.job.host-ostara.run.bootstrap
+        attrs: ci.job.yule.run.bootstrap
         quiet: false
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@master
       with:
-        attrs: ci.job.host-ostara.run.test
+        attrs: ci.job.yule.run.test
         command: ci-build-dirty
         quiet: false
         stdout: ${{ runner.temp }}/ci.build.dirty
@@ -172,7 +286,7 @@ jobs:
       name: nix test build
       uses: arcnmx/ci/actions/nix/run@master
       with:
-        attrs: ci.job.host-ostara.run.test
+        attrs: ci.job.yule.run.test
         command: ci-build-realise
         ignore-exit-code: true
         quiet: false
@@ -183,7 +297,7 @@ jobs:
       name: nix test results
       uses: arcnmx/ci/actions/nix/run@master
       with:
-        attrs: ci.job.host-ostara.run.test
+        attrs: ci.job.yule.run.test
         command: ci-build-summarise
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.dirty
@@ -195,125 +309,11 @@ jobs:
       name: nix test cache
       uses: arcnmx/ci/actions/nix/run@master
       with:
-        attrs: ci.job.host-ostara.run.test
+        attrs: ci.job.yule.run.test
         command: ci-build-cache
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.cache
-  host-samhain:
-    name: hosts-host-samhain
-    runs-on: ubuntu-latest
-    steps:
-    - id: checkout
-      name: git clone
-      uses: actions/checkout@v1
-      with:
-        submodules: false
-    - id: nix-install
-      name: nix install
-      uses: arcnmx/ci/actions/nix/install@master
-    - id: ci-setup
-      name: nix setup
-      uses: arcnmx/ci/actions/nix/run@master
-      with:
-        attrs: ci.job.host-samhain.run.bootstrap
-        quiet: false
-    - id: ci-dirty
-      name: nix test dirty
-      uses: arcnmx/ci/actions/nix/run@master
-      with:
-        attrs: ci.job.host-samhain.run.test
-        command: ci-build-dirty
-        quiet: false
-        stdout: ${{ runner.temp }}/ci.build.dirty
-    - id: ci-test
-      name: nix test build
-      uses: arcnmx/ci/actions/nix/run@master
-      with:
-        attrs: ci.job.host-samhain.run.test
-        command: ci-build-realise
-        ignore-exit-code: true
-        quiet: false
-        stdin: ${{ runner.temp }}/ci.build.dirty
-    - env:
-        CI_EXIT_CODE: ${{ steps.ci-test.outputs.exit-code }}
-      id: ci-summary
-      name: nix test results
-      uses: arcnmx/ci/actions/nix/run@master
-      with:
-        attrs: ci.job.host-samhain.run.test
-        command: ci-build-summarise
-        quiet: false
-        stdin: ${{ runner.temp }}/ci.build.dirty
-        stdout: ${{ runner.temp }}/ci.build.cache
-    - env:
-        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
-      id: ci-cache
-      if: always()
-      name: nix test cache
-      uses: arcnmx/ci/actions/nix/run@master
-      with:
-        attrs: ci.job.host-samhain.run.test
-        command: ci-build-cache
-        quiet: false
-        stdin: ${{ runner.temp }}/ci.build.cache
-  host-yule:
-    name: hosts-host-yule
-    runs-on: ubuntu-latest
-    steps:
-    - id: checkout
-      name: git clone
-      uses: actions/checkout@v1
-      with:
-        submodules: false
-    - id: nix-install
-      name: nix install
-      uses: arcnmx/ci/actions/nix/install@master
-    - id: ci-setup
-      name: nix setup
-      uses: arcnmx/ci/actions/nix/run@master
-      with:
-        attrs: ci.job.host-yule.run.bootstrap
-        quiet: false
-    - id: ci-dirty
-      name: nix test dirty
-      uses: arcnmx/ci/actions/nix/run@master
-      with:
-        attrs: ci.job.host-yule.run.test
-        command: ci-build-dirty
-        quiet: false
-        stdout: ${{ runner.temp }}/ci.build.dirty
-    - id: ci-test
-      name: nix test build
-      uses: arcnmx/ci/actions/nix/run@master
-      with:
-        attrs: ci.job.host-yule.run.test
-        command: ci-build-realise
-        ignore-exit-code: true
-        quiet: false
-        stdin: ${{ runner.temp }}/ci.build.dirty
-    - env:
-        CI_EXIT_CODE: ${{ steps.ci-test.outputs.exit-code }}
-      id: ci-summary
-      name: nix test results
-      uses: arcnmx/ci/actions/nix/run@master
-      with:
-        attrs: ci.job.host-yule.run.test
-        command: ci-build-summarise
-        quiet: false
-        stdin: ${{ runner.temp }}/ci.build.dirty
-        stdout: ${{ runner.temp }}/ci.build.cache
-    - env:
-        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
-      id: ci-cache
-      if: always()
-      name: nix test cache
-      uses: arcnmx/ci/actions/nix/run@master
-      with:
-        attrs: ci.job.host-yule.run.test
-        command: ci-build-cache
-        quiet: false
-        stdin: ${{ runner.temp }}/ci.build.cache
-name: hosts
+name: nodes
 'on':
 - push
 - pull_request

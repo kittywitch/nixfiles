@@ -1,5 +1,5 @@
 { lib, channels, env, ... }: with lib; {
-  name = "hosts";
+  name = "nodes";
   ci.gh-actions.enable = true;
   ci.gh-actions.export = true;
   channels.nixfiles.path = ../.;
@@ -19,7 +19,7 @@
   targets = main.deploy.targets;
   enabledTargets = filterAttrs (_: v: v.enable) main.deploy.targets;
   enabledHosts = concatLists (mapAttrsToList (targetName: target: target.nodeNames) enabledTargets);
-  in mapAttrs' (k: nameValuePair "host-${k}") (genAttrs enabledHosts (host: {
+  in mapAttrs' (k: nameValuePair "${k}") (genAttrs enabledHosts (host: {
       tasks.${host}.inputs = channels.nixfiles.network.nodes.${host}.deploy.system;
   }));
 

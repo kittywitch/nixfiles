@@ -26,14 +26,14 @@
     export START_DIR="$PWD"
     cd ${toString ./.}
     export NF_CONFIG_ROOT=${toString ./.}/ci
-    NF_CONFIG_FILES=($NF_CONFIG_ROOT/{hosts,niv-cron}.nix)
+    NF_CONFIG_FILES=($NF_CONFIG_ROOT/{nodes,niv-cron}.nix)
     for f in "''${NF_CONFIG_FILES[@]}"; do
       echo $f
       nix run --arg config $f ci.run.gh-actions-generate
     done
     cd ${toString ./config/trusted}
     export TRUSTED_CONFIG_ROOT=${toString ./config/trusted}/ci
-    TRUSTED_CONFIG_FILES=($TRUSTED_CONFIG_ROOT/hosts.nix)
+    TRUSTED_CONFIG_FILES=($TRUSTED_CONFIG_ROOT/nodes.nix)
     for f in "''${TRUSTED_CONFIG_FILES[@]}"; do
       echo $f
       nix run --arg config $f ci.run.gh-actions-generate
@@ -44,14 +44,14 @@
     export START_DIR="$PWD"
     cd ${toString ./.}
     export NF_CONFIG_ROOT=${toString ./.}/ci
-    NF_CONFIG_FILES=($NF_CONFIG_ROOT/{hosts,niv-cron}.nix)
+    NF_CONFIG_FILES=($NF_CONFIG_ROOT/{nodes,niv-cron}.nix)
     for f in "''${NF_CONFIG_FILES[@]}"; do
       echo $f
       nix run --arg config $f ci.test
     done
     cd ${toString ./config/trusted}
     export TRUSTED_CONFIG_ROOT=${toString ./config/trusted}/ci
-    TRUSTED_CONFIG_FILES=($TRUSTED_CONFIG_ROOT/hosts.nix)
+    TRUSTED_CONFIG_FILES=($TRUSTED_CONFIG_ROOT/nodes.nix)
     for f in "''${TRUSTED_CONFIG_FILES[@]}"; do
       echo $f
       nix run --arg config $f ci.test
