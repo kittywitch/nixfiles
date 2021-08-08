@@ -43,9 +43,9 @@
       mailer = {
         ENABLED = true;
         SUBJECT = "%(APP_NAME)s";
-        HOST = "kittywit.ch:465";
+        HOST = "athame.kittywit.ch:465";
         USER = "gitea@kittywit.ch";
-        SEND_AS_PLAIN_TEXT = true;
+        #SEND_AS_PLAIN_TEXT = true;
         USE_SENDMAIL = false;
         FROM = "\"kittywitch git\" <gitea@${config.kw.dns.domain}>";
       };
