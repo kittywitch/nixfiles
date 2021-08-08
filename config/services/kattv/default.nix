@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
-
   services.udev.extraRules = ''
     KERNEL=="video[0-9]*", SUBSYSTEM=="video4linux", SUBSYSTEMS=="usb", ATTR{index}=="0", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="0779", SYMLINK+="videomew", TAG+="systemd"
   '';

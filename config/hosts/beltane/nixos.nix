@@ -9,16 +9,16 @@ with lib;
     profiles.hardware.rm-310
     profiles.gui
     users.kat.guiFull
+    services.jellyfin
     services.kattv-ingest
     services.promtail
     services.netdata
+    services.nfs
     services.nginx
     services.node-exporter
+    services.transmission
     services.tvheadend
     services.zfs
-    ./nixos/jellyfin.nix
-    ./nixos/virtualhosts.nix
-    ./nixos/transmission.nix
   ];
 
   # File Systems and Swap

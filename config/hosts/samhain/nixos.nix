@@ -20,7 +20,6 @@ in {
     services.promtail
     services.restic
     services.zfs
-    ./nixos/virtualhosts.nix
   ];
 
   # File Systems and Swap

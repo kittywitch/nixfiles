@@ -10,6 +10,7 @@ with lib;
     users.kat.server
     services.asterisk
     services.fail2ban
+    services.filehost
     services.gitea
     services.grafana
     services.logrotate
@@ -28,10 +29,10 @@ with lib;
     services.syncplay
     services.taskserver
     services.vaultwarden
+    services.website
     services.weechat
     services.xmpp
     services.znc
-    ./nixos/virtualhosts.nix
   ];
 
   # File Systems and Swap
