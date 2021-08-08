@@ -3,6 +3,11 @@
 with lib;
 
 {
+  kw.secrets = [
+    "syncplay-pass"
+    "syncplay-salt"
+  ];
+
   users.users.syncplay = { isSystemUser = true; };
 
   users.groups."sync-cert".members = [ "nginx" "syncplay" ];
@@ -29,20 +34,10 @@ with lib;
     cname.target = "${config.networking.hostName}.${config.kw.dns.tld}";
   };
 
-  deploy.tf.variables.syncplay_pass = {
-    type = "string";
-    value.shellCommand = "bitw get infra/syncplay-server -f password";
-  };
-
-  deploy.tf.variables.syncplay_salt = {
-    type = "string";
-    value.shellCommand = "bitw get infra/syncplay-salt -f password";
-  };
-
   secrets.files.syncplay-env = {
     text = ''
-      SYNCPLAY_PASSWORD=${tf.variables.syncplay_pass.ref}
-      SYNCPLAY_SALT=${tf.variables.syncplay_salt.ref}
+      SYNCPLAY_PASSWORD=${tf.variables.syncplay-pass.ref}
+      SYNCPLAY_SALT=${tf.variables.syncplay-salt.ref}
     '';
     owner = "syncplay";
     group = "sync-cert";

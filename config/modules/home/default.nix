@@ -7,6 +7,7 @@
     ./fvwm.nix
     ./deploy.nix
     ./theme.nix
+    ./secrets.nix
     (sources.tf-nix + "/modules/home/secrets.nix")
   ];
 }

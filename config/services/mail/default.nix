@@ -5,10 +5,9 @@ with lib;
 {
   imports = [ sources.nixos-mailserver.outPath ];
 
-  deploy.tf.variables.domainkey_kitty = {
-    type = "string";
-    value.shellCommand = "bitw get infra/domainkey-kitty";
-  };
+  kw.secrets = [
+    "mail-domainkey-kitty"
+  ];
 
   deploy.tf.dns.records.services_mail_mx = {
     tld = config.kw.dns.tld;
@@ -34,7 +33,7 @@ with lib;
   deploy.tf.dns.records.services_mail_domainkey = {
     tld = config.kw.dns.tld;
     domain = "mail._domainkey";
-    txt.value = tf.variables.domainkey_kitty.ref;
+    txt.value = tf.variables.mail-domainkey-kitty.ref;
   };
 
   mailserver = {

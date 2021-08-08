@@ -1,6 +1,18 @@
 { config, pkgs, tf, ... }:
 
 {
+  kw.secrets = [
+    "gitea-mail-pass"
+  ];
+
+  secrets.files.gitea-mail-passfile = {
+    text = ''
+      ${tf.variables.gitea-mail-pass.ref};
+    '';
+    owner = "gitea";
+    group = "gitea";
+  };
+
   services.postgresql = {
     enable = true;
     ensureDatabases = [ "gitea" ];
@@ -8,19 +20,6 @@
       name = "gitea";
       ensurePermissions."DATABASE gitea" = "ALL PRIVILEGES";
     }];
-  };
-
-  deploy.tf.variables.gitea_mail = {
-    type = "string";
-    value.shellCommand = "bitw get infra/gitea-mail -f password";
-  };
-
-  secrets.files.gitea_mail = {
-    text = ''
-      ${tf.variables.gitea_mail.ref};
-    '';
-    owner = "gitea";
-    group = "gitea";
   };
 
   services.gitea = {
@@ -36,7 +35,7 @@
       name = "gitea";
       user = "gitea";
     };
-    mailerPasswordFile = config.secrets.files.gitea_mail.path;
+    mailerPasswordFile = config.secrets.files.gitea-mail-passfile.path;
     settings = {
       security = { DISABLE_GIT_HOOKS = false; };
       api = { ENABLE_SWAGGER = true; };
@@ -73,7 +72,7 @@
     locations = { "/".proxyPass = "http://127.0.0.1:3000"; };
   };
 
-  deploy.tf.dns.records.kittywitch_git = {
+  deploy.tf.dns.records.services_gitea = {
     tld = config.kw.dns.tld;
     domain = "git";
     cname.target = "${config.networking.hostName}.${config.kw.dns.tld}";

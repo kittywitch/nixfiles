@@ -8,7 +8,6 @@ with lib;
   imports = [
     profiles.hardware.hcloud-imperative
     users.kat.server
-    services.asterisk
     services.fail2ban
     services.filehost
     services.gitea

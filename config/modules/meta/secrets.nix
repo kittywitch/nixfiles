@@ -10,6 +10,7 @@ with lib;
         config = mkIf config.externalSecret {
           type = "string";
           value.shellCommand = "${tf.commandPrefix} ${tf.folderPrefix}${tf.folderDivider}${escapeShellArg name}";
+          sensitive = true;
         };
       }));
     };

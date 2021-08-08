@@ -5,30 +5,25 @@
   folderPrefix = "secrets";
   folderDivider = "/";
 
-  variables.hcloud_token = {
-    type = "string";
-    value.shellCommand = "bitw get infra/hcloud_token";
+  variables.rfc2136-key = {
+    externalSecret = true;
+  };
+  variables.rfc2136-secret = {
+    externalSecret = true;
+  };
+  variables.hcloud-token = {
+    externalSecret = true;
   };
 
-  variables.glauca_key = {
-    type = "string";
-    value.shellCommand = "bitw get infra/rfc2136 -f username";
-  };
-
-  variables.glauca_secret = {
-    type = "string";
-    value.shellCommand = "bitw get infra/rfc2136 -f password";
-  };
+  providers.hcloud = { inputs.token = config.variables.hcloud-token.ref; };
 
   dns.zones."kittywit.ch." = { provider = "dns"; };
-
-  providers.hcloud = { inputs.token = config.variables.hcloud_token.ref; };
 
   providers.dns = {
     inputs.update = {
       server = "ns1.as207960.net";
-      key_name = config.variables.glauca_key.ref;
-      key_secret = config.variables.glauca_secret.ref;
+      key_name = config.variables.rfc2136-key.ref;
+      key_secret = config.variables.rfc2136-secret.ref;
       key_algorithm = "hmac-sha512";
     };
   };

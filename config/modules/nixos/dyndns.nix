@@ -8,26 +8,17 @@ with lib;
   };
 
   config = mkIf (config.kw.dns.dynamic) {
-    deploy.tf.variables.dyn_username = {
-      type = "string";
-      value.shellCommand = "bitw get infra/hexdns-dynamic -f username";
-    };
-
-    deploy.tf.variables.dyn_password = {
-      type = "string";
-      value.shellCommand = "bitw get infra/hexdns-dynamic -f password";
-    };
-
-    deploy.tf.variables.dyn_hostname = {
-      type = "string";
-      value.shellCommand = "bitw get infra/hexdns-dynamic -f hostname";
-    };
+    kw.secrets = [
+      "hexdns-key"
+      "hexdns-secret"
+      "hexdns-host"
+    ];
 
     secrets.files.kat-glauca-dns = {
       text = ''
-        user="${tf.variables.dyn_username.ref}"
-        pass="${tf.variables.dyn_password.ref}"
-        hostname="${tf.variables.dyn_hostname.ref}"
+        user="${tf.variables.hexdns-key.ref}"
+        pass="${tf.variables.hexdns-secret.ref}"
+        hostname="${tf.variables.hexdns-host.ref}"
       '';
     };
 

@@ -4,29 +4,16 @@
   deploy.targets.personal = {
     nodeNames = [ "samhain" "yule"];
     tf = { config, ... }: {
-      # phone (android)
-      variables.phone_ygg = {
-        type = "string";
-        value.shellCommand = "bitw get infra/phone-ygg";
-      };
-
       dns.records.kittywitch_net_grimoire = {
         tld = "kittywit.ch.";
         domain = "grimoire.net";
-        aaaa.address = config.variables.phone_ygg.ref;
-      };
-
-      # pi (sensors)
-
-      variables.pi_ygg = {
-        type = "string";
-        value.shellCommand = "bitw get infra/pi-ygg";
+        aaaa.address = "200:c87d:7960:916:bf0e:a0e1:3da7:4fc6";
       };
 
       dns.records.kittywitch_net_boline = {
         tld = "kittywit.ch.";
         domain = "boline.net";
-        aaaa.address = config.variables.pi_ygg.ref;
+        aaaa.address = "200:474d:14f7:1d21:f171:4e85:a3fa:9393";
       };
     };
   };
