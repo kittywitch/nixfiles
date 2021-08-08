@@ -5,7 +5,7 @@ with lib;
 {
   options.home-manager.users = mkOption {
     type = types.attrsOf (types.submoduleWith {
-      modules = [ ../../modules/home ];
+      modules = singleton ../../modules/home;
       specialArgs = {
         inherit sources tf;
         superConfig = config;
