@@ -40,8 +40,8 @@ with lib;
     kw.dns.ygg_prefix = "net";
 
     # This should be set in host config if it needs to be set for a host. Otherwise, they're retrieved from terraform.
-    kw.dns.ipv4 = mkIf (tf.resources ? config.networking.hostName) (mkOptionDefault (config.deploy.tf.resources."${config.networking.hostName}".refAttr "ipv4_address"));
-    kw.dns.ipv6 = mkIf (tf.resources ? config.networking.hostName) (mkOptionDefault (config.deploy.tf.resources."${config.networking.hostName}".refAttr "ipv6_address"));
+    kw.dns.ipv4 = mkDefault (mkIf (tf.resources ? config.networking.hostName) (mkOptionDefault (config.deploy.tf.resources."${config.networking.hostName}".refAttr "ipv4_address")));
+    kw.dns.ipv6 = mkDefault (mkIf (tf.resources ? config.networking.hostName) (mkOptionDefault (config.deploy.tf.resources."${config.networking.hostName}".refAttr "ipv6_address")));
 
     # This is derived.
     kw.dns.domain = builtins.substring 0 ((builtins.stringLength config.kw.dns.tld) - 1) config.kw.dns.tld;

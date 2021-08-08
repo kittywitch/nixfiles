@@ -119,9 +119,12 @@ in {
 
   # Firewall
 
-  kw.fw.private.interfaces = singleton "yggdrasil";
-  kw.fw.public.interfaces = singleton "br";
-  kw.fw.private.tcp.ports = [ 10445 ]; # VM Prometheus
+  kw.fw = {
+    public.interfaces = singleton "br";
+    private = {
+      interfaces = singleton "yggdrasil";
+    };
+  };
 
   # Host-specific DNS Config
 

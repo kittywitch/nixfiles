@@ -79,10 +79,14 @@ with lib;
     interfaces.eno1.useDHCP = true;
   };
 
+  kw.dns.ipv4 = "192.168.1.223";
+
   # Firewall
 
-  kw.fw.private.interfaces = singleton "yggdrasil";
-  kw.fw.public.interfaces = singleton "eno1";
+  kw.fw = {
+    private.interfaces = singleton "yggdrasil";
+    public.interfaces = singleton "eno1";
+  };
 
   # Yggdrasil
 

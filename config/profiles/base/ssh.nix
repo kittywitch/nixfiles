@@ -1,17 +1,24 @@
 { config, lib, pkgs, ... }:
 
-{
-  kw.fw.public.udp.ranges = [{
-    from = 60000;
-    to = 61000;
-  }];
-  kw.fw.private.udp.ranges = [{
-    from = 60000;
-    to = 61000;
-  }];
+with lib;
 
-  kw.fw.public.tcp.ports = [ 62954 ];
-  kw.fw.private.tcp.ports = [ 62954 ];
+{
+  kw.fw = {
+    public = {
+      tcp.ports = singleton 62954;
+      udp.ranges = [{
+        from = 60000;
+        to = 61000;
+      }];
+    };
+    private = {
+      tcp.ports = singleton 62954;
+      udp.ranges = [{
+        from = 60000;
+        to = 61000;
+      }];
+    };
+  };
 
   services.openssh = {
     enable = true;

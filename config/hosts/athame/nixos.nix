@@ -77,8 +77,10 @@ with lib;
 
   # Firewall
 
-  kw.fw.public.interfaces = singleton "enp1s0";
-  kw.fw.private.interfaces = singleton "yggdrasil";
+  kw.fw = {
+    public.interfaces = singleton "enp1s0";
+    private.interfaces = singleton "yggdrasil";
+  };
 
   # Host-specific DNS Config
 

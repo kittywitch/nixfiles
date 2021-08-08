@@ -65,8 +65,10 @@ with lib;
 
   # Firewall
 
-  kw.fw.private.interfaces = singleton "yggdrasil";
-  kw.fw.public.interfaces = [ "enp1s0" "wlp2s0" ];
+  kw.fw = {
+    public.interfaces = [ "enp1s0" "wlp2s0" ];
+    private.interfaces = singleton "yggdrasil";
+  };
 
   # Yggdrasil
 

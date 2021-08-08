@@ -12,8 +12,10 @@ with lib;
     '';
   };
 
-  kw.fw.public.tcp.ports = [ 443 80 ];
-  kw.fw.private.tcp.ports = [ 443 80 ];
+  kw.fw = {
+    public.tcp.ports = [ 443 80 ];
+    private.tcp.ports = [ 443 80 ];
+  };
 
   services.nginx = {
     enable = true;
