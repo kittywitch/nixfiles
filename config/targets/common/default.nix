@@ -1,6 +1,8 @@
 { config, ... }:
 
 {
+  commandPrefix = "pass";
+
   variables.hcloud_token = {
     type = "string";
     value.shellCommand = "bitw get infra/hcloud_token";

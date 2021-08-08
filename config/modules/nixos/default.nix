@@ -8,6 +8,7 @@
     ./dns.nix
     ./dyndns.nix
     ./yggdrasil.nix
+    ./secrets.nix
     (sources.tf-nix + "/modules/nixos/secrets.nix")
     (sources.tf-nix + "/modules/nixos/secrets-users.nix")
     (sources.hexchen + "/modules/network/yggdrasil")

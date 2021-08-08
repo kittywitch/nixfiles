@@ -22,6 +22,7 @@ let
     modules = [
       tfModule
       "${toString sources.tf-nix}/modules"
+      ./secrets.nix
     ];
   };
 in {
