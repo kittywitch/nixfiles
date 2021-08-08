@@ -11,11 +11,6 @@
   variables.rfc2136-secret = {
     externalSecret = true;
   };
-  variables.hcloud-token = {
-    externalSecret = true;
-  };
-
-  providers.hcloud = { inputs.token = config.variables.hcloud-token.ref; };
 
   dns.zones."kittywit.ch." = { provider = "dns"; };
 
