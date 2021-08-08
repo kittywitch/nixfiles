@@ -39,9 +39,9 @@ let
   # This is where the meta config is evaluated.
   eval = lib.evalModules {
     modules = lib.singleton metaConfig
-    ++ (lib.attrValues (removeAttrs argGen.targets ["common"]))
-    ++ (lib.attrValues hosts)
-    ++ (lib.optional (builtins.pathExists ./config/trusted/meta.nix) ./config/trusted/meta.nix)
+    ++ lib.attrValues (removeAttrs argGen.targets ["common"])
+    ++ lib.attrValues hosts
+    ++ lib.optional (builtins.pathExists ./config/trusted/meta.nix) ./config/trusted/meta.nix
     ++ lib.singleton ./config/modules/meta/default.nix;
 
     specialArgs = {
