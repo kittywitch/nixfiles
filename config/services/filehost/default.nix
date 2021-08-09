@@ -2,7 +2,7 @@
 
 {
   services.nginx.virtualHosts = {
-    "files.kittywit.ch" = {
+    "files.${config.kw.dns.domain}" = {
       root = "/var/www/files";
       enableACME = true;
       forceSSL = true;

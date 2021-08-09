@@ -38,9 +38,9 @@ with lib;
 
   config = {
     # Set these.
-    kw.dns.email = "kat@kittywit.ch";
-    kw.dns.tld = "kittywit.ch.";
-    kw.dns.ygg_prefix = "net";
+    kw.dns.email = mkDefault "kat@kittywit.ch";
+    kw.dns.tld = mkDefault "kittywit.ch.";
+    kw.dns.ygg_prefix = mkDefault "net";
 
     # This should be set in host config if it needs to be set for a host. Otherwise, they're retrieved from terraform.
     kw.dns.ipv4 = mkDefault (mkIf (tf.resources ? config.networking.hostName) (mkOptionDefault (config.deploy.tf.resources."${config.networking.hostName}".refAttr "ipv4_address")));
