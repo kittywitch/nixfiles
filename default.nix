@@ -18,7 +18,7 @@ let
   filterAttrNamesToList = filter: set:
     lib.foldl' (a: b: a ++ b) [ ]
       (map (e: if (filter e set.${e}) then [ e ] else [ ]) (lib.attrNames set));
-  depotNames = lib.unique ((lib.folderList ./depot ["trusted"]) ++ (lib.folderList ./depot/trusted ["pkgs"]));
+  depotNames = lib.unique (lib.folderList ./depot ["trusted"] ++ lib.folderList ./depot/trusted ["pkgs"]);
   depot = lib.mapListToAttrs (folder: lib.nameValuePair folder (lib.domainMerge { inherit folder; })) depotNames;
 
   /*
