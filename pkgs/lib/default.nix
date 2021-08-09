@@ -15,4 +15,5 @@
   domainMerge = import ./domain-merge.nix { inherit lib; };
   modListMerge = import ./intersect-merge.nix { inherit lib; };
   modList = import ./module-list.nix { inherit lib; };
+  folderList = import ./folder-list.nix { inherit lib; };
 }; in katlib

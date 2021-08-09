@@ -9,10 +9,7 @@ let katUser = { lib }: let
       (./. + "/${profile}")
     ];
   };
-}; filterAttrNamesToList = filter: set:
-    lib.foldl' (a: b: a ++ b) [ ]
-      (map (e: if (filter e set.${e}) then [ e ] else [ ]) (lib.attrNames set));
-profileNames = (filterAttrNamesToList (name: type: name != "base" && type == "directory") (builtins.readDir ./.));
+}; profileNames = lib.folderList ./. ["base"];
 userProfiles = with userProfiles;
   lib.genAttrs profileNames userImport // {
   base = { imports = [ ./nixos.nix (userImport "base") trustedImport ]; };
