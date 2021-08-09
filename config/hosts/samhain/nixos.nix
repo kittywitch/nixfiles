@@ -1,4 +1,4 @@
-{ tf, config, users, pkgs, lib, profiles, sources, services, ... }:
+{ depot, tf, config, pkgs, lib, sources, ... }:
 
 with lib;
 
@@ -9,7 +9,7 @@ let
 in {
   # Imports
 
-  imports = [
+  imports = with depot; [
     profiles.hardware.ms-7b86
     profiles.gui
     profiles.vfio

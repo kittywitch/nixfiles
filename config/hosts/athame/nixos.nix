@@ -1,11 +1,11 @@
-{ config, users, lib, pkgs, profiles, services, ... }:
+{ depot, config, lib, pkgs,  ... }:
 
 with lib;
 
 {
   # Imports
 
-  imports = [
+  imports = with depot; [
     profiles.hardware.hcloud-imperative
     users.kat.server
     services.fail2ban

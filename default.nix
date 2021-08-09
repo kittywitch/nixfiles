@@ -10,23 +10,16 @@ let
 
   /*
   This is used to generate specialArgs + the like. It works as such:
-    * A <argGenName> can exist at config/<argGenName>.
-    * A <argGenName> can exist at config/trusted/<argGenName>.
+    * A <depotName> can exist at config/<depotName>.
+    * A <depotName> can exist at config/trusted/<depotName>.
   If only one exists, the path for that one is returned.
   Otherwise a module is generated which contains both import paths.
   */
-  argGenNames = [ "profiles" "users" "targets" "services" ];
-  argGen = lib.mapListToAttrs (folder: lib.nameValuePair folder (lib.domainMerge { inherit folder; })) argGenNames;
-
-  /*
-  This produces an attrSet of hosts based upon:
-    * hosts being located within config/hosts/<hostname>
-    * hosts having an entrypoint of meta.nix
-  */
-  hosts = lib.domainMerge {
-    folder = "hosts";
-    defaultFile = "meta.nix";
-  };
+  filterAttrNamesToList = filter: set:
+    lib.foldl' (a: b: a ++ b) [ ]
+      (map (e: if (filter e set.${e}) then [ e ] else [ ]) (lib.attrNames set));
+  depotNames = lib.unique ((filterAttrNamesToList (name: type: name != "trusted" && type == "directory") (builtins.readDir ./config)) ++ (filterAttrNamesToList (name: type: name != "trusted" && name != "pkgs" && type == "directory") (builtins.readDir ./config/trusted)));
+  depot = lib.mapListToAttrs (folder: lib.nameValuePair folder (lib.domainMerge { inherit folder; })) depotNames;
 
   /*
   We use this to make the meta runner use this file and to use `--show-trace` on nix-builds.
@@ -39,14 +32,14 @@ let
   # This is where the meta config is evaluated.
   eval = lib.evalModules {
     modules = lib.singleton metaConfig
-    ++ lib.attrValues (removeAttrs argGen.targets ["common"])
-    ++ lib.attrValues hosts
+    ++ lib.attrValues (removeAttrs depot.targets ["common"])
+    ++ lib.attrValues depot.hosts
     ++ lib.optional (builtins.pathExists ./config/trusted/meta.nix) ./config/trusted/meta.nix
     ++ lib.singleton ./config/modules/meta/default.nix;
 
     specialArgs = {
       inherit sources;
-      inherit (argGen) profiles users services;
+      inherit depot;
     };
   };
 
@@ -55,7 +48,7 @@ let
 
 /*
   Please note all specialArg generated specifications use the folder common to both import paths.
-  Those import paths are as mentioned above next to `argGenNames`.
+  Those import paths are as mentioned above next to `depotNames`.
 
   This provides us with a ./. that contains (most relevantly):
     * deploy.targets -> a mapping of target name to host names
@@ -66,4 +59,4 @@ let
       * do not use common, it is tf-nix specific config ingested at line 66 of config/modules/meta/deploy.nix for every target.
     * services -> the specialArg generated from services/
 */
-in config // { inherit pkgs hosts sourceCache sources; } // argGen
+in config // { inherit pkgs lib sourceCache sources; } // depot

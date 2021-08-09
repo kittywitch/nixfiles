@@ -1,4 +1,4 @@
-{ lib, config, profiles, ... }: with lib; {
+{ lib, config, depot, ... }: with lib; {
   config = {
     deploy.targets.ostara = {
       tf = {
@@ -15,7 +15,7 @@
     network.nodes.ostara = {
       imports = lib.hostImport {
         hostName = "ostara";
-        inherit profiles;
+        inherit (depot) profiles;
       };
       networking = {
         hostName = "ostara";

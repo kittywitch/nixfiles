@@ -1,7 +1,7 @@
-{ config, users, lib, pkgs, ... }:
+{ config, depot, lib, pkgs, ... }:
 
 {
-  imports = [
+  imports = with depot; [
     users.kat.base
 #    users.kairi.base TODO
     users.arc

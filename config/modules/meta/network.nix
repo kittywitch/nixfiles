@@ -1,4 +1,4 @@
-{ pkgs, sources, users, profiles, services, lib, config, ... }:
+{ pkgs, sources, depot, lib, config, ... }:
 
 /*
 This module:
@@ -59,7 +59,7 @@ with lib;
       ];
       specialArgs = {
         inherit (config.network) nodes;
-        inherit sources profiles users services;
+        inherit sources depot;
         meta = config;
       };
     };

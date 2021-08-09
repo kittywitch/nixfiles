@@ -1,11 +1,11 @@
-{ config, users, pkgs, lib, profiles, services, ... }:
+{ depot, config, pkgs, lib, ... }:
 
 with lib;
 
 {
   # Imports
 
-  imports = [
+  imports = with depot; [
     profiles.hardware.v330-14arr
     profiles.gui
     profiles.laptop
