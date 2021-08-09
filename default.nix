@@ -26,7 +26,7 @@ let
   We also pass through pkgs to meta this way.
   */
   metaConfig = import ./meta-base.nix {
-    inherit pkgs lib;
+    inherit pkgs lib depot;
   };
 
   # This is where the meta config is evaluated.
@@ -39,6 +39,7 @@ let
 
     specialArgs = {
       inherit sources;
+      meta = self;
     } // depot;
   };
 
@@ -58,4 +59,5 @@ let
       * do not use common, it is tf-nix specific config ingested at line 66 of config/modules/meta/deploy.nix for every target.
     * services -> the specialArg generated from services/
 */
-in config // { inherit pkgs lib sourceCache sources; } // depot
+  self = config // { inherit pkgs lib sourceCache sources; } // depot;
+in self

@@ -1,4 +1,4 @@
-{ meta, config, profiles, ... }: with lib; {
+{ lib, config, profiles, ... }: with lib; {
   config = {
     deploy.targets.personal = {
       tf = {
