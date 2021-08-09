@@ -1,11 +1,11 @@
-{ depot, tf, config, pkgs, lib, ... }:
+{ meta, tf, config, pkgs, lib, ... }:
 
 with lib;
 
 {
   # Imports
 
-  imports = with depot; [
+  imports = with meta; [
     profiles.hardware.rm-310
     profiles.gui
     users.kat.guiFull

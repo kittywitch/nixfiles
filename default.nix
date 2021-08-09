@@ -39,8 +39,7 @@ let
 
     specialArgs = {
       inherit sources;
-      inherit depot;
-    };
+    } // depot;
   };
 
   # The evaluated meta config.

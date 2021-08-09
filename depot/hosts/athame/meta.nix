@@ -1,4 +1,4 @@
-{ depot, lib, config, ... }: with lib; {
+{ profiles, lib, config, ... }: with lib; {
 config = {
     deploy.targets.infra = {
       tf = {
@@ -15,7 +15,7 @@ config = {
     network.nodes.athame = {
       imports = lib.hostImport {
         hostName = "athame";
-        inherit (depot) profiles;
+        inherit profiles;
       };
       networking = {
         hostName = "athame";

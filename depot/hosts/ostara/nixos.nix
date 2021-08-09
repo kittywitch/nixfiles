@@ -1,11 +1,11 @@
-{ depot, config, pkgs, lib, ... }:
+{ meta, config, pkgs, lib, ... }:
 
 with lib;
 
 {
   # Imports
 
-  imports = with depot; [
+  imports = with meta; [
     profiles.hardware.eeepc-1015pem
     profiles.laptop
     services.kattv

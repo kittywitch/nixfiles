@@ -1,4 +1,4 @@
-{ lib, config, depot, ... }: with lib; {
+{ profiles, config, lib, ... }: with lib; {
   config = {
     deploy.targets.beltane = {
       tf = {
@@ -15,7 +15,7 @@
     network.nodes.beltane = {
       imports = lib.hostImport {
         hostName = "beltane";
-        inherit (depot) profiles;
+        inherit profiles;
       };
       networking = {
         hostName = "beltane";
