@@ -9,13 +9,11 @@ let katUser = { lib }: let
       (./. + "/${profile}")
     ];
   };
-}; profileNames = [
-  "gui"
-  "sway"
-  "dev"
-  "media"
-  "personal"
-]; userProfiles = with userProfiles;
+}; filterAttrNamesToList = filter: set:
+    lib.foldl' (a: b: a ++ b) [ ]
+      (map (e: if (filter e set.${e}) then [ e ] else [ ]) (lib.attrNames set));
+profileNames = (filterAttrNamesToList (name: type: name != "base" && type == "directory") (builtins.readDir ./.));
+userProfiles = with userProfiles;
   lib.genAttrs profileNames userImport // {
   base = { imports = [ ./nixos.nix (userImport "base") trustedImport ]; };
   server = { imports = [ personal ]; };
