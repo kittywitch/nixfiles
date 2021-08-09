@@ -18,7 +18,7 @@ let
   filterAttrNamesToList = filter: set:
     lib.foldl' (a: b: a ++ b) [ ]
       (map (e: if (filter e set.${e}) then [ e ] else [ ]) (lib.attrNames set));
-  depotNames = lib.unique ((filterAttrNamesToList (name: type: name != "trusted" && type == "directory") (builtins.readDir ./config)) ++ (filterAttrNamesToList (name: type: name != "pkgs" && type == "directory") (builtins.readDir ./config/trusted)));
+  depotNames = lib.unique ((filterAttrNamesToList (name: type: name != "trusted" && type == "directory") (builtins.readDir ./depot)) ++ (filterAttrNamesToList (name: type: name != "pkgs" && type == "directory") (builtins.readDir ./depot/trusted)));
   depot = lib.mapListToAttrs (folder: lib.nameValuePair folder (lib.domainMerge { inherit folder; })) depotNames;
 
   /*
@@ -34,8 +34,8 @@ let
     modules = lib.singleton metaConfig
     ++ lib.attrValues (removeAttrs depot.targets ["common"])
     ++ lib.attrValues depot.hosts
-    ++ lib.optional (builtins.pathExists ./config/trusted/meta.nix) ./config/trusted/meta.nix
-    ++ lib.singleton ./config/modules/meta/default.nix;
+    ++ lib.optional (builtins.pathExists ./depot/trusted/meta.nix) ./depot/trusted/meta.nix
+    ++ lib.singleton ./depot/modules/meta/default.nix;
 
     specialArgs = {
       inherit sources;

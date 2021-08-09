@@ -1,5 +1,5 @@
-[submodule "config/trusted"]
-	path = config/trusted
+[submodule "depot/trusted"]
+	path = depot/trusted
 	branch = main
 	url = "https://git.kittywit.ch/kat/nixfiles-trusted.git"
 [submodule "wiki"]
