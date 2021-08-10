@@ -114,6 +114,7 @@
   videosink = "autovideosink";
   pipeline = v4l2src ++ [
     #filesrc
+    "jpegtrunc"
     { element.matroskamux.streamable = true; }
     {
       element.tcpclientsink = {
@@ -132,6 +133,7 @@
       gst-plugins-good
       gst-plugins-bad
       gst-plugins-ugly
+      pkgs.gst-jpegtrunc
     ];
   };
   shell = pkgs.mkShell (env // {

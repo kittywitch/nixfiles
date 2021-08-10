@@ -12,6 +12,8 @@
     extraModulePackages = [ ];
     kernelParams = [
       "usbcore.autosuspend=-1"
+      "acpi_osi=Linux"
+      "acpi_enforce_resources=lax"
     ];
   };
 }
