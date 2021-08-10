@@ -51,7 +51,7 @@ with lib; {
             targets = main.deploy.targets;
             enabledTargets = filterAttrs (_: v: v.enable) main.deploy.targets;
             enabledHosts = concatLists (mapAttrsToList (targetName: target: target.nodeNames) enabledTargets);
-            hostBuildString = concatMapStringsSep " && " (host: "nix build -Lf . network.nodes.${host}.deploy.system && nix-collect-garbage -d") enabledHosts;
+            hostBuildString = concatMapStringsSep " && " (host: "nix build -Lf . network.nodes.${host}.deploy.system -o result-${host} && nix-collect-garbage -d") enabledHosts;
             in ''
             # ${toString builtins.currentTime}
             if [[ -n $OPENSSH_PRIVATE_KEY ]]; then
