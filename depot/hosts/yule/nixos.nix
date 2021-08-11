@@ -8,7 +8,6 @@ with lib;
   imports = with meta; [
     profiles.hardware.v330-14arr
     profiles.gui
-    profiles.laptop
     users.kat.guiFull
     services.netdata
     services.nginx

@@ -1,6 +1,10 @@
 let hardwareProfiles = { lib }:
-let profiles = with profiles; lib.modList {
-  modulesDir = ./.;
+let profiles = with profiles; lib.domainMerge {
+  folder = ""; # not used in this usage
+  folderPaths = [
+    ./.
+    ../../trusted/profiles/hardware
+  ];
 } // {
   ms-7b86 = {
     imports = [
@@ -20,12 +24,15 @@ let profiles = with profiles; lib.modList {
       v330-14arr-base
       ryzen
       amdgpu
+      laptop
+      wifi
     ];
   };
   eeepc-1015pem = {
     imports = [
         eeepc-1015pem-base
         intel
+        laptop
       ];
     };
   }; in profiles;

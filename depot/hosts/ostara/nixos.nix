@@ -7,7 +7,6 @@ with lib;
 
   imports = with meta; [
     profiles.hardware.eeepc-1015pem
-    profiles.laptop
     services.kattv
   ];
 
@@ -39,10 +38,8 @@ with lib;
   networking = {
     hostId = "9f89b327";
     useDHCP = false;
-    wireless.interfaces = [ "wlp2s0" ];
     interfaces = {
       enp1s0.useDHCP = true;
-      wlp2s0.useDHCP = true;
     };
   };
 
@@ -50,7 +47,7 @@ with lib;
 
   kw.fw = {
     public = {
-      interfaces = singleton "wlp2s0";
+      interfaces = singleton "enp1s0";
       tcp.ports = [ 9981 9982 ];
     };
   };

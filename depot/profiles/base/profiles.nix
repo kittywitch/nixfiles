@@ -6,7 +6,6 @@ with lib;
   options = {
     deploy.profile = {
       gui = mkEnableOption "Graphical System";
-      laptop = mkEnableOption "Laptop (Implies WiFi)";
       vfio = mkEnableOption "VFIO";
       trusted = mkEnableOption "Trusted Submodule";
       hardware = {
@@ -14,6 +13,8 @@ with lib;
         amdgpu = mkEnableOption "AMD GPU";
         hcloud-imperative = mkEnableOption "Imperative Hetzner Cloud Setup";
         intel = mkEnableOption "Intel CPU";
+        laptop = mkEnableOption "Laptop";
+        wifi = mkEnableOption "WiFi, home network";
         ryzen = mkEnableOption "AMD Ryzen CPU";
         ms-7b86 = mkEnableOption "MSI B450-A Pro Max";
         rm-310 = mkEnableOption "Intel DQ67OW";
@@ -27,7 +28,6 @@ with lib;
           ({ superConfig, ... }: {
             options.deploy.profile = {
               gui = mkEnableOption "Graphical System";
-              laptop = mkEnableOption "Laptop (Implies WiFi)";
               vfio = mkEnableOption "VFIO";
               trusted = mkEnableOption "Trusted Submodule";
               hardware = {
@@ -35,6 +35,8 @@ with lib;
                 amdgpu = mkEnableOption "AMD GPU";
                 hcloud-imperative = mkEnableOption "Imperative Hetzner Cloud Setup";
                 intel = mkEnableOption "Intel CPU";
+                laptop = mkEnableOption "Laptop";
+                wifi = mkEnableOption "WiFi, home network";
                 ryzen = mkEnableOption "AMD Ryzen CPU";
                 ms-7b86 = mkEnableOption "MSI B450-A Pro Max";
                 rm-310 = mkEnableOption "Intel DQ67OW";

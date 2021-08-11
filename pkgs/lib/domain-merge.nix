@@ -1,10 +1,9 @@
-{ lib }: { folder, defaultFile ? "default.nix" }: with lib; let
-  folderNames = [ (../../depot + "/${folder}") (../../depot/trusted + "/${folder}") ];
+{ lib }: { folder, defaultFile ? "default.nix", folderPaths ? [ (../../depot + "/${folder}") (../../depot/trusted + "/${folder}") ] }: with lib; let
   defaultFileFinal = if (defaultFile == "default.nix" && folder == "hosts") then
     "meta.nix"
   else defaultFile;
-  folderModLists = map (folderName: modList {
-    modulesDir = folderName;
+  folderModLists = map (folderPath: modList {
+    modulesDir = folderPath;
     defaultFile = defaultFileFinal;
-  }) (filter builtins.pathExists folderNames);
+  }) (filter builtins.pathExists folderPaths);
 in foldl modListMerge { } folderModLists
