@@ -69,6 +69,7 @@ in {
       };
     };
     dns = {
+      isRoot = mkEnableOption "Is this system supposed to be the @ for the domain?"; # TODO
       email = mkOption {
         type = types.nullOr types.str;
       };
