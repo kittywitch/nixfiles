@@ -57,10 +57,6 @@ with lib;
     useDHCP = false;
     wireless.interfaces = singleton "wlp2s0";
     interfaces = {
-      enp1s0.ipv4.addresses = singleton {
-        inherit (config.network.addresses.private.ipv4) address;
-        prefixLength = 24;
-      };
       wlp2s0.ipv4.addresses = singleton {
         inherit (config.network.addresses.private.ipv4) address;
         prefixLength = 24;

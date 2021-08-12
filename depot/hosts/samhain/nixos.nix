@@ -16,6 +16,7 @@ in {
     users.kat.guiFull
     services.netdata
     services.nginx
+    services.katsplash
     services.node-exporter
     services.promtail
     services.restic

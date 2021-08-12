@@ -78,6 +78,8 @@ let
           withBackends = [ "freeimage" "libjpeg" "libpng" "librsvg" "libnsgif" "libheif" "libtiff" ];
         };
 
+        kat-splash = self.callPackage ./kat-splash { };
+
         kat-glauca-dns = self.callPackage ./kat-glauca-dns { };
 
         kat-gpg-status = self.callPackage ./kat-gpg-status { };
