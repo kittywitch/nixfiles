@@ -83,7 +83,7 @@ in {
 
   config = let
     networks = cfg.addresses;
-    networksWithDomains = filterAttrs (_: v: v.subdomain != null) networks;
+    networksWithDomains = filterAttrs (_: v: v.subdomain != null && v.enable) networks;
   in {
     lib.kw.virtualHostGen = args: virtualHostGen ({ inherit config; } // args);
 
