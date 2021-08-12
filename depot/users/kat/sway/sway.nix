@@ -274,7 +274,7 @@ in
             "XF86MonBrightnessDown" = "exec ${pkgs.light}/bin/light -U 5";
             "XF86MonBrightnessUp" = "exec ${pkgs.light}/bin/light -A 5";
 
-            # dmmenu
+            # dmenu
             "${cfg.modifier}+r" = "exec ${cfg.menu}";
 
             # screenshots - upload
