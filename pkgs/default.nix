@@ -80,7 +80,7 @@ let
 
         kat-splash = self.callPackage ./kat-splash { };
 
-        kat-glauca-dns = self.callPackage ./kat-glauca-dns { };
+        kat-website = self.callPackage ./kat-website { };
 
         kat-gpg-status = self.callPackage ./kat-gpg-status { };
 

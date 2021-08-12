@@ -42,7 +42,9 @@ with lib;
     domains = [ "kittywit.ch" "dork.dev" ];
     # Use Let's Encrypt certificates. Note that this needs to set up a stripped
     # down nginx and opens port 80.
-    certificateScheme = 3;
+    certificateScheme = 1;
+    certificateFile = "/var/lib/acme/${config.mailserver.fqdn}/cert.pem";
+    keyFile = "/var/lib/acme/${config.mailserver.fqdn}/key.pem";
 
     # Enable IMAP and POP3
     enableImap = true;

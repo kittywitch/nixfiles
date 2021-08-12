@@ -17,12 +17,12 @@ in
     scrapeConfigs = [
       {
         job_name = "boline";
-        static_configs = [{ targets = [ "boline.${config.network.dns.ygg_prefix}.${config.network.dns.domain}:8002" ]; }];
+        static_configs = [{ targets = [ "boline.${config.network.addresses.yggdrasil.prefix}.${config.network.dns.domain}:8002" ]; }];
       }
       {
         job_name = "samhain-vm";
         metrics_path = "/metrics";
-        static_configs = [{ targets = [ "samhain.${config.network.dns.ygg_prefix}.${config.network.dns.domain}:10445" ]; }];
+        static_configs = [{ targets = [ "samhain.${config.network.addresses.yggdrasil.prefix}.${config.network.dns.domain}:10445" ]; }];
       }
     ] ++ mapAttrsToList
       (hostName: prom: {
@@ -30,13 +30,13 @@ in
         metrics_path = "/api/v1/allmetrics";
         honor_labels = true;
         params = { format = [ "prometheus" ]; };
-        static_configs = [{ targets = [ "${hostName}.${config.network.dns.ygg_prefix}.${config.network.dns.domain}:19999" ]; }];
+        static_configs = [{ targets = [ "${hostName}.${config.network.addresses.yggdrasil.prefix}.${config.network.dns.domain}:19999" ]; }];
       })
       nd_configs ++ mapAttrsToList
       (hostName: prom: {
         job_name = hostName;
         static_configs = [{
-          targets = [ "${hostName}.${config.network.dns.ygg_prefix}.${config.network.dns.domain}:${toString prom.port}" ];
+          targets = [ "${hostName}.${config.network.addresses.yggdrasil.prefix}.${config.network.dns.domain}:${toString prom.port}" ];
         }];
       })
       prom_configs;
