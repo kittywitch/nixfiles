@@ -80,14 +80,6 @@ let
 
         kat-glauca-dns = self.callPackage ./kat-glauca-dns { };
 
-        kat-tv = import ./kat-tv { pkgs = self; lib = self.lib; };
-
-        kat-tv-ingest = import ./kat-tv-ingest { pkgs = self; lib = self.lib; };
-
-        kat-website = self.callPackage ./kat-website { };
-
-        kat-weather = self.callPackage ./kat-weather { };
-
         kat-gpg-status = self.callPackage ./kat-gpg-status { };
 
         kat-tw-export = self.callPackage ./kat-tw-export { };

@@ -2,7 +2,100 @@
 
 with lib;
 
-{
+let
+  env = {
+    FREI0R_PATH = "${pkgs.frei0r}/lib/frei0r-1";
+    GST_PLUGIN_SYSTEM_PATH_1_0 = with pkgs.gst_all_1; lib.makeSearchPath "lib/gstreamer-1.0" [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+      gst-plugins-ugly
+    ];
+  };
+  queue_frame = {
+    element."queue" = {
+      leaky = "downstream";
+      flush-on-eos = true;
+      max-size-buffers = 3;
+    };
+  };
+  queue_data = {
+    element.queue = {
+      leaky = "downstream";
+    };
+  };
+  videoconvert_cpu = {
+    element.videoconvert = {
+      n-threads = 4;
+      dither = 0;
+      chroma-resampler = 0;
+      chroma-mode = 3;
+    };
+  };
+  videoconvert_gpu = [
+    # TODO: vulkancolorconvert?
+    "glupload"
+    "glcolorconvert"
+    "gldownload"
+  ];
+  encodeopts = {
+    speed-preset = "ultrafast";
+    tune = "zerolatency";
+    pass = "qual";
+    #psy-tune = "film";
+    #noise-reduction=0;
+    quantizer = 27;
+    bitrate = 8192;
+    rc-lookahead = 6;
+  };
+  denoise = {
+    element.frei0r-filter-hqdn3d = {
+      spatial = 0.175; #0.325;
+      temporal = 0.06; #0.11;
+    };
+  };
+  encode_high = [
+    {
+      element.x264enc = {
+        key-int-max = 150;
+      } // encodeopts;
+    }
+    {
+      caps."video/x-h264" = {
+        profile = "high";
+      };
+    }
+    "h264parse"
+  ];
+  rtmpsink = [
+    queue_data
+    "flvmux"
+    {
+      element.rtmp2sink = {
+        location = "rtmp://localhost:1935/stream/kattv";
+      };
+    }
+  ];
+  pipeline = [
+    {
+      element.fdsrc = {
+        fd = 3;
+      };
+    }
+    "matroskademux"
+    "jpegdec"
+    queue_frame
+
+    videoconvert_cpu
+    denoise
+
+    videoconvert_cpu
+    encode_high
+
+    rtmpsink
+  ];
+in {
   services.nginx.appendConfig = ''
       rtmp {
         server {
@@ -33,8 +126,8 @@ with lib;
   };
 
   systemd.services."kattv@" = {
-    environment = pkgs.kat-tv-ingest.env;
-    script = "exec ${pkgs.gst_all_1.gstreamer.dev}/bin/gst-launch-1.0 -e --no-position ${pkgs.lib.gst.pipelineShellString pkgs.kat-tv-ingest.pipeline}";
+    environment = env;
+    script = "exec ${pkgs.gst_all_1.gstreamer.dev}/bin/gst-launch-1.0 -e --no-position ${pkgs.lib.gst.pipelineShellString pipeline}";
     after = [ "nginx.service" ];
     description = "RTMP stream of kat cam";
     serviceConfig = {
