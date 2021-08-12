@@ -14,7 +14,7 @@ with lib;
     domain = "@";
     mx = {
       priority = 10;
-      target = config.network.addresses.public.domain;
+      target = "${config.network.addresses.public.domain}.";
     };
   };
 
