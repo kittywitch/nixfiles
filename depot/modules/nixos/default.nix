@@ -5,9 +5,8 @@
     ./nftables.nix
     ./firewall.nix
     ./deploy.nix
-    ./dns.nix
     ./dyndns.nix
-    ./yggdrasil.nix
+    ./network.nix
     ./secrets.nix
     (sources.tf-nix + "/modules/nixos/secrets.nix")
     (sources.tf-nix + "/modules/nixos/secrets-users.nix")

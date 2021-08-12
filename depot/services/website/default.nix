@@ -2,7 +2,7 @@
 
 {
   services.nginx.virtualHosts = {
-    "${config.kw.dns.domain}" = {
+    "${config.network.dns.domain}" = {
       root = pkgs.kat-website;
       enableACME = true;
       forceSSL = true;

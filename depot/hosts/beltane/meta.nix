@@ -8,6 +8,7 @@
           connection = {
             port = 62954;
             host = "192.168.1.223";
+            #host = network.nodes.beltane.network.addresses.private.ipv4.address;
           };
         };
       };

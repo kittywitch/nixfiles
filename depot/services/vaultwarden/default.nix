@@ -19,12 +19,12 @@
       rocketPort = 4000;
       websocketEnabled = true;
       signupsAllowed = false;
-      domain = "https://vault.${config.kw.dns.domain}";
+      domain = "https://vault.${config.network.dns.domain}";
       databaseUrl = "postgresql://bitwarden_rs@/bitwarden_rs";
     };
   };
 
-  services.nginx.virtualHosts."vault.${config.kw.dns.domain}" = {
+  services.nginx.virtualHosts."vault.${config.network.dns.domain}" = {
     enableACME = true;
     forceSSL = true;
     locations = {
@@ -35,8 +35,8 @@
   };
 
   deploy.tf.dns.records.services_vaultwarden = {
-    tld = config.kw.dns.tld;
+    tld = config.network.dns.tld;
     domain = "vault";
-    cname.target = "${config.networking.hostName}.${config.kw.dns.tld}";
+    cname.target = "${config.networking.hostName}.${config.network.dns.tld}";
   };
 }

@@ -21,7 +21,7 @@ in
   };
 
   services.nginx.virtualHosts = {
-    "cal.${config.kw.dns.domain}" = {
+    "cal.${config.network.dns.domain}" = {
       forceSSL = true;
       enableACME = true;
       locations."/" = {
@@ -36,8 +36,8 @@ in
   };
 
   deploy.tf.dns.records.services_radicale = {
-    tld = config.kw.dns.tld;
+    tld = config.network.dns.tld;
     domain = "cal";
-    cname.target = "${config.networking.hostName}.${config.kw.dns.tld}";
+    cname.target = "${config.networking.hostName}.${config.network.dns.tld}";
   };
 }

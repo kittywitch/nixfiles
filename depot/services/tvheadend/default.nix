@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, kw, ... }:
 
 {
   hardware.firmware = [ pkgs.libreelec-dvb-firmware ];
@@ -9,14 +9,13 @@
     tcp.ports = [ 9981 9982 ];
   };
 
-  services.nginx.virtualHosts = {
-    "${config.networking.hostName}.${config.kw.dns.ygg_prefix}.${config.kw.dns.domain}".locations."/tvheadend" = {
-      proxyPass = "http://127.0.0.1:9981";
-      extraConfig = "proxy_pass_header  X-Transmission-Session-Id;";
-    };
-    ${config.kw.dns.ipv4}.locations."/tvheadend" = {
-      proxyPass = "http://127.0.0.1:9981";
-      extraConfig = "proxy_pass_header  X-Transmission-Session-Id;";
+  services.nginx.virtualHosts = kw.virtualHostGen {
+    networkFilter = [ "private" "yggdrasil" ];
+    block = {
+      locations."/tvheadend" = {
+        proxyPass = "http://127.0.0.1:9981";
+        extraConfig = "proxy_pass_header  X-Transmission-Session-Id;";
+      };
     };
   };
 

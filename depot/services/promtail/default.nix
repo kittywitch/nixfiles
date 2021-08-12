@@ -5,7 +5,7 @@ with lib;
 let
   promtail_config = pkgs.writeText "prom-config.json" (builtins.toJSON {
     clients =
-      [{ url = "http://${config.networking.hostName}.${config.kw.dns.ygg_prefix}.${config.kw.dns.domain}:3100/loki/api/v1/push"; }];
+      [{ url = "http://${config.network.addresses.yggdrasil.domain}:3100/loki/api/v1/push"; }];
     positions = { filename = "/tmp/positions.yaml"; };
     scrape_configs = [{
       job_name = "journal";

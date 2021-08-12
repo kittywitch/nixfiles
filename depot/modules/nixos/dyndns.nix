@@ -4,10 +4,10 @@ with lib;
 
 {
   options = {
-    kw.dns.dynamic = mkEnableOption "Enable Glauca Dynamic DNS Updater";
+    network.dns.dynamic = mkEnableOption "Enable Glauca Dynamic DNS Updater";
   };
 
-  config = mkIf (config.kw.dns.dynamic) {
+  config = mkIf (config.network.dns.dynamic) {
     kw.secrets = [
       "hexdns-key"
       "hexdns-secret"

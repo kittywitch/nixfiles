@@ -12,6 +12,7 @@
 {
   inherit (colorHelpers) hextorgba;
   hostImport = import ./host-import.nix { inherit lib; };
+  virtualHostGen = import ./virtual-host-gen.nix { inherit lib; };
   domainMerge = import ./domain-merge.nix { inherit lib; };
   modListMerge = import ./intersect-merge.nix { inherit lib; };
   modList = import ./module-list.nix { inherit lib; };

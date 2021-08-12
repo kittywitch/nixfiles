@@ -1,14 +1,13 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, kw, ... }:
 
 {
-  services.nginx.virtualHosts = {
-    "${config.networking.hostName}.${config.kw.dns.ygg_prefix}.${config.kw.dns.domain}".locations."/transmission" = {
-      proxyPass = "http://[::1]:9091";
-      extraConfig = "proxy_pass_header  X-Transmission-Session-Id;";
-    };
-    ${config.kw.dns.ipv4}.locations."/transmission" = {
-      proxyPass = "http://[::1]:9091";
-      extraConfig = "proxy_pass_header  X-Transmission-Session-Id;";
+  services.nginx.virtualHosts = kw.virtualHostGen {
+    networkFilter = [ "private" "yggdrasil" ];
+    block = {
+      locations."/transmission" = {
+        proxyPass = "http://[::1]:9091";
+        extraConfig = "proxy_pass_header  X-Transmission-Session-Id;";
+      };
     };
   };
 

@@ -10,35 +10,35 @@ with lib;
   ];
 
   deploy.tf.dns.records.services_mail_mx = {
-    tld = config.kw.dns.tld;
+    tld = config.network.dns.tld;
     domain = "@";
     mx = {
       priority = 10;
-      target = "${config.networking.hostName}.${config.kw.dns.tld}";
+      target = config.network.addresses.public.domain;
     };
   };
 
   deploy.tf.dns.records.services_mail_spf = {
-    tld = config.kw.dns.tld;
+    tld = config.network.dns.tld;
     domain = "@";
-    txt.value = "v=spf1 ip4:${config.kw.dns.ipv4} ip6:${config.kw.dns.ipv6} -all";
+    txt.value = "v=spf1 ip4:${config.network.addresses.public.ipv4.address} ip6:${config.network.addresses.public.ipv6.address} -all";
   };
 
   deploy.tf.dns.records.services_mail_dmarc = {
-    tld = config.kw.dns.tld;
+    tld = config.network.dns.tld;
     domain = "_dmarc";
     txt.value = "v=DMARC1; p=none";
   };
 
   deploy.tf.dns.records.services_mail_domainkey = {
-    tld = config.kw.dns.tld;
+    tld = config.network.dns.tld;
     domain = "mail._domainkey";
     txt.value = tf.variables.mail-domainkey-kitty.ref;
   };
 
   mailserver = {
     enable = true;
-    fqdn = "${config.networking.hostName}.${config.kw.dns.domain}";
+    fqdn = config.network.addresses.public.domain;
     domains = [ "kittywit.ch" "dork.dev" ];
     # Use Let's Encrypt certificates. Note that this needs to set up a stripped
     # down nginx and opens port 80.

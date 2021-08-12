@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  services.nginx.virtualHosts."irc.${config.kw.dns.domain}" = {
+  services.nginx.virtualHosts."irc.${config.network.dns.domain}" = {
     enableACME = true;
     forceSSL = true;
     locations = {
@@ -14,8 +14,8 @@
   };
 
   deploy.tf.dns.records.services_weechat = {
-    tld = config.kw.dns.tld;
+    tld = config.network.dns.tld;
     domain = "irc";
-    cname.target = "${config.networking.hostName}.${config.kw.dns.tld}";
+    cname.target = "${config.networking.hostName}.${config.network.dns.tld}";
   };
 }

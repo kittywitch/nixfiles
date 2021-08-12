@@ -12,7 +12,7 @@ with lib;
 
   users.groups."sync-cert".members = [ "nginx" "syncplay" ];
   security.acme = {
-    certs."sync.${config.kw.dns.domain}" = {
+    certs."sync.${config.network.dns.domain}" = {
       group = "sync-cert";
       postRun = ''
         cp key.pem privkey.pem
@@ -23,15 +23,15 @@ with lib;
 
   kw.fw.public.tcp.ports = singleton 8999;
 
-  services.nginx.virtualHosts."sync.${config.kw.dns.domain}" = {
+  services.nginx.virtualHosts."sync.${config.network.dns.domain}" = {
     enableACME = true;
     forceSSL = true;
   };
 
   deploy.tf.dns.records.services_syncplay = {
-    tld = config.kw.dns.tld;
+    tld = config.network.dns.tld;
     domain = "sync";
-    cname.target = "${config.networking.hostName}.${config.kw.dns.tld}";
+    cname.target = "${config.networking.hostName}.${config.network.dns.tld}";
   };
 
   secrets.files.syncplay-env = {
@@ -51,7 +51,7 @@ with lib;
     serviceConfig = {
       EnvironmentFile = config.secrets.files.syncplay-env.path;
       ExecStart =
-        "${pkgs.syncplay}/bin/syncplay-server --port 8999 --tls /var/lib/acme/sync.${config.kw.dns.domain}/ --disable-ready";
+        "${pkgs.syncplay}/bin/syncplay-server --port 8999 --tls /var/lib/acme/sync.${config.network.dns.domain}/ --disable-ready";
       User = "syncplay";
       Group = "sync-cert";
     };

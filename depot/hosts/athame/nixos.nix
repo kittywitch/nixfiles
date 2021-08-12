@@ -63,7 +63,7 @@ with lib;
       enp1s0 = {
         useDHCP = true;
         ipv6.addresses = [{
-          address = "2a01:4f8:c2c:b7a8::1";
+          address = config.network.addresses.public.ipv6.address;
           prefixLength = 64;
         }];
       };
@@ -74,26 +74,27 @@ with lib;
     };
   };
 
+  network = {
+    addresses = {
+      public = {
+        enable = true;
+        ipv4.address = "168.119.126.111";
+        ipv6.address = "2a01:4f8:c2c:b7a8::1";
+      };
+    };
+    yggdrasil = {
+      enable = true;
+      pubkey = "55e3f29c252d16e73ac849a6039824f94df1dee670c030b9e29f90584f935575";
+      listen.enable = true;
+      listen.endpoints = [ "tcp://${config.network.addresses.public.ipv4.address}:52969" "tcp://${config.network.addresses.public.ipv6.address}:52969" ];
+    };
+  };
+
   # Firewall
 
   kw.fw = {
     public.interfaces = singleton "enp1s0";
     private.interfaces = singleton "yggdrasil";
-  };
-
-  # Host-specific DNS Config
-
-  kw.dns.ipv4 = "168.119.126.111";
-  kw.dns.ipv6 = (lib.head config.networking.interfaces.enp1s0.ipv6.addresses).address;
-  kw.dns.isPublic = true;
-
-  # Yggdrasil
-
-  network.yggdrasil = {
-    enable = true;
-    pubkey = "55e3f29c252d16e73ac849a6039824f94df1dee670c030b9e29f90584f935575";
-    listen.enable = true;
-    listen.endpoints = [ "tcp://${config.kw.dns.ipv4}:52969" ];
   };
 
   # State

@@ -39,7 +39,7 @@ with lib;
   };
 
   security.acme = {
-    email = config.kw.dns.email;
+    email = config.network.dns.email;
     acceptTerms = true;
   };
 }

@@ -76,10 +76,27 @@ with lib;
     hostName = "beltane";
     hostId = "3ef9a419";
     useDHCP = false;
-    interfaces.eno1.useDHCP = true;
+    interfaces.eno1.ipv4.addresses = singleton {
+      inherit (config.network.addresses.private.ipv4) address;
+      prefixLength = 24;
+    };
+    defaultGateway = config.network.privateGateway;
   };
 
-  kw.dns.ipv4 = "192.168.1.223";
+  network = {
+    addresses = {
+      private = {
+        ipv4.address = "10.1.2.2";
+        # TODO ipv6.address
+      };
+    };
+    yggdrasil = {
+      enable = true;
+      pubkey = "d3e488574367056d3ae809b678f799c29ebfd5c7151bb1f4051775b3953e5f52";
+      listen.enable = false;
+      listen.endpoints = [ "tcp://0.0.0.0:0" ];
+    };
+  };
 
   # Firewall
 
@@ -90,13 +107,6 @@ with lib;
 
   # Yggdrasil
 
-  network.yggdrasil = {
-    enable = true;
-    pubkey = "d3e488574367056d3ae809b678f799c29ebfd5c7151bb1f4051775b3953e5f52";
-    # if server, enable this and set endpoint:
-    listen.enable = false;
-    listen.endpoints = [ "tcp://0.0.0.0:0" ];
-  };
 
   # State
 

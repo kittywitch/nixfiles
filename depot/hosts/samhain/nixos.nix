@@ -103,8 +103,8 @@ in {
     };
     networks.br = {
       matchConfig.Name = "br";
-      address = [ "192.168.1.135/24" ];
-      gateway = [ "192.168.1.254" ];
+      address = singleton "${config.network.addresses.private.ipv4.address}/24" ;
+      gateway = singleton config.network.privateGateway;
     };
     netdevs.br = {
       netdevConfig = {
@@ -117,6 +117,21 @@ in {
 
   services.avahi.enable = true;
 
+  network = {
+    addresses = {
+      private = {
+        ipv4.address = "10.1.2.3";
+      };
+    };
+    dns.dynamic = true;
+    yggdrasil = {
+      enable = true;
+      pubkey = "a7110d0a1dc9ec963d6eb37bb6922838b8088b53932eae727a9136482ce45d47";
+      listen.enable = false;
+      listen.endpoints = [ "tcp://0.0.0.0:0" ];
+    };
+  };
+
   # Firewall
 
   kw.fw = {
@@ -124,20 +139,6 @@ in {
     private = {
       interfaces = singleton "yggdrasil";
     };
-  };
-
-  # Host-specific DNS Config
-
-  kw.dns.dynamic = true;
-
-  # Yggdrasil
-
-  network.yggdrasil = {
-    enable = true;
-    pubkey = "a7110d0a1dc9ec963d6eb37bb6922838b8088b53932eae727a9136482ce45d47";
-    # if server, enable this and set endpoint:
-    listen.enable = false;
-    listen.endpoints = [ "tcp://0.0.0.0:0" ];
   };
 
   # State

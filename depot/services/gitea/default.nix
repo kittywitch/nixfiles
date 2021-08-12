@@ -25,8 +25,8 @@
   services.gitea = {
     enable = true;
     disableRegistration = true;
-    domain = "git.${config.kw.dns.domain}";
-    rootUrl = "https://git.${config.kw.dns.domain}";
+    domain = "git.${config.network.dns.domain}";
+    rootUrl = "https://git.${config.network.dns.domain}";
     httpAddress = "127.0.0.1";
     appName = "kittywitch git";
     ssh = { clonePort = 62954; };
@@ -46,7 +46,7 @@
         USER = "gitea@kittywit.ch";
         #SEND_AS_PLAIN_TEXT = true;
         USE_SENDMAIL = false;
-        FROM = "\"kittywitch git\" <gitea@${config.kw.dns.domain}>";
+        FROM = "\"kittywitch git\" <gitea@${config.network.dns.domain}>";
       };
       service = {
         NO_REPLY_ADDRESS = "kittywit.ch";
@@ -66,15 +66,15 @@
     ${pkgs.coreutils}/bin/ln -sfT ${./templates} /var/lib/gitea/custom/templates
   '';
 
-  services.nginx.virtualHosts."git.${config.kw.dns.domain}" = {
+  services.nginx.virtualHosts."git.${config.network.dns.domain}" = {
     enableACME = true;
     forceSSL = true;
     locations = { "/".proxyPass = "http://127.0.0.1:3000"; };
   };
 
   deploy.tf.dns.records.services_gitea = {
-    tld = config.kw.dns.tld;
+    tld = config.network.dns.tld;
     domain = "git";
-    cname.target = "${config.networking.hostName}.${config.kw.dns.tld}";
+    cname.target = "${config.networking.hostName}.${config.network.dns.tld}";
   };
 }
