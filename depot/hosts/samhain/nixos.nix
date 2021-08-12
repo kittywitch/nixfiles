@@ -120,7 +120,7 @@ in {
   network = {
     addresses = {
       private = {
-        ipv4.address = "10.1.2.3";
+        ipv4.address = "192.168.1.1";
       };
     };
     dns.dynamic = true;

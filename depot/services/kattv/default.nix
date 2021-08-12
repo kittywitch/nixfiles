@@ -35,7 +35,7 @@ let
     { element.matroskamux.streamable = true; }
     {
       element.tcpclientsink = {
-        host = meta.network.nodes.beltane.network.private.ipv4.address;
+        host = meta.network.nodes.beltane.network.addresses.private.ipv4.address;
         port = "4953";
         sync = false;
       };
@@ -52,7 +52,7 @@ in {
     description = "RTMP stream of kat cam";
     bindsTo = [ "dev-videomew.device" ];
     environment = env;
-    script = "exec ${pkgs.gst_all_1.gstreamer.dev}/bin/gst-launch-1.0 -e --no-position ${pipeline}";
+    script = "exec ${pkgs.gst_all_1.gstreamer.dev}/bin/gst-launch-1.0 -e --no-position ${pkgs.lib.gst.pipelineShellString pipeline}";
     serviceConfig = {
       Restart = "on-failure";
       RestartSec = "10s";

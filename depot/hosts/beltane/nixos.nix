@@ -46,6 +46,14 @@ with lib;
       device = "/dev/disk/by-uuid/4520-4E5F";
       fsType = "vfat";
     };
+    "/mnt/zraw" = {
+      device = "zstore/raw";
+      fsType = "zfs";
+    };
+    "/mnt/zenc" = {
+      device = "zstore/enc";
+      fsType = "zfs";
+    };
   };
 
   swapDevices = [
@@ -86,7 +94,7 @@ with lib;
   network = {
     addresses = {
       private = {
-        ipv4.address = "10.1.2.2";
+        ipv4.address = "192.168.1.2";
         # TODO ipv6.address
       };
     };

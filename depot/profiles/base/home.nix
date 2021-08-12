@@ -1,4 +1,4 @@
-{ config, lib, sources, tf, ... }:
+{ meta, config, lib, sources, tf, ... }:
 
 with lib;
 
@@ -7,7 +7,7 @@ with lib;
     type = types.attrsOf (types.submoduleWith {
       modules = singleton ../../modules/home;
       specialArgs = {
-        inherit sources tf;
+        inherit sources tf meta;
         superConfig = config;
         modulesPath = sources.home-manager + "/modules";
       };

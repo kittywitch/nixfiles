@@ -40,15 +40,22 @@ in {
             type = types.nullOr types.str;
             default = "${config.subdomain}.${cfg.dns.domain}";
           };
-          out.addressList = mkOption {
-            default = singleton config.domain ++ concatMap (i: optional i.enable i.address) [ config.ipv4 config.ipv6 ];
+          out = {
+            identifierList = mkOption {
+              type = types.listOf types.str;
+              default = if config.enable then singleton config.domain ++ config.out.addressList else [ ];
+            };
+            addressList = mkOption {
+              type = types.listOf types.str;
+              default = if config.enable then concatMap (i: optional i.enable i.address) [ config.ipv4 config.ipv6 ] else [ ];
+            };
           };
         };
       }));
     };
     privateGateway = mkOption {
       type = types.str;
-      default = "10.1.2.1";
+      default = "192.168.1.254";
     };
     tf = {
       enable = mkEnableOption "Was the system provisioned by terraform?";
@@ -87,7 +94,7 @@ in {
         domain = builtins.substring 0 ((builtins.stringLength cfg.dns.tld) - 1) cfg.dns.tld;
       };
       addresses = {
-        private = {
+        private =  {
           prefix = "int";
           subdomain = "${config.networking.hostName}.${cfg.addresses.private.prefix}";
         };
@@ -109,6 +116,7 @@ in {
     };
 
     networking = mkIf cfg.addresses.private.enable {
+      inherit (config.network.dns) domain;
       defaultGateway = cfg.privateGateway;
     };
 
@@ -129,19 +137,19 @@ in {
       }) networksWithDomains;
     in recordsV4 // recordsV6;
 
-    security.acme.certs = mapAttrs' (n: v:
+    security.acme.certs = mkIf config.services.nginx.enable (mapAttrs' (n: v:
     nameValuePair "cert_${n}_${config.networking.hostName}" {
       inherit (v) domain;
       dnsProvider = "rfc2136";
       credentialsFile = config.secrets.files.dns_creds.path;
       group = "nginx";
-    }) networksWithDomains;
+    }) networksWithDomains);
 
-    services.nginx.virtualHosts = mapAttrs' (n: v:
+    services.nginx.virtualHosts = mkIf config.services.nginx.enable (mapAttrs' (n: v:
     nameValuePair v.domain {
       useACMEHost = "cert_${n}_${config.networking.hostName}";
       forceSSL = true;
-    }) networksWithDomains;
+    }) networksWithDomains);
 
     _module.args = { inherit (config.lib) kw; };
   };

@@ -57,8 +57,29 @@ with lib;
     useDHCP = false;
     wireless.interfaces = singleton "wlp2s0";
     interfaces = {
-      enp1s0.useDHCP = true;
-      wlp2s0.useDHCP = true;
+      enp1s0.ipv4.addresses = singleton {
+        inherit (config.network.addresses.private.ipv4) address;
+        prefixLength = 24;
+      };
+      wlp2s0.ipv4.addresses = singleton {
+        inherit (config.network.addresses.private.ipv4) address;
+        prefixLength = 24;
+      };
+    };
+    defaultGateway = config.network.privateGateway;
+  };
+
+  network = {
+    addresses = {
+      private = {
+        ipv4.address = "192.168.1.3";
+      };
+    };
+    yggdrasil = {
+      enable = true;
+      pubkey = "9779fd6b5bdba6b9e0f53c96e141f4b11ce5ef749d1b9e77a759a3fdbd33a653";
+      listen.enable = false;
+      listen.endpoints = [ "tcp://0.0.0.0:0" ];
     };
   };
 
@@ -67,16 +88,6 @@ with lib;
   kw.fw = {
     public.interfaces = [ "enp1s0" "wlp2s0" ];
     private.interfaces = singleton "yggdrasil";
-  };
-
-  # Yggdrasil
-
-  network.yggdrasil = {
-    enable = true;
-    pubkey = "9779fd6b5bdba6b9e0f53c96e141f4b11ce5ef749d1b9e77a759a3fdbd33a653";
-    # if server, enable this and set endpoint:
-    listen.enable = false;
-    listen.endpoints = [ "tcp://0.0.0.0:0" ];
   };
 
   # State

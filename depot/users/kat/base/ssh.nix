@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ meta, config, pkgs, lib, ... }:
 
 {
   programs.ssh = {
@@ -17,11 +17,8 @@
           port = 62954;
         };
       in
-      {
-        "athame" = { hostname = "athame.kittywit.ch"; } // common;
-        "samhain" = { hostname = "192.168.1.135"; } // common;
-        "yule" = { hostname = "192.168.1.92"; } // common;
-        "ostara" = { hostname = "192.168.1.245"; } // common;
-      };
+      (lib.foldAttrList (map (network:
+        lib.mapAttrs (n: v: { hostname = v.address; } // common) (lib.filterAttrs (n: v: v.enable ) (lib.mapAttrs (n: v: v.network.addresses.${network}.ipv4) meta.network.nodes))
+      ) ["private" "public"]));
   };
 }

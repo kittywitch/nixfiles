@@ -7,7 +7,7 @@ config = {
           type = "resource";
           connection = {
             port = 62954;
-            host = "athame.kittywit.ch";
+            host = config.network.nodes.athame.network.addresses.public.ipv4.address;
           };
         };
       };

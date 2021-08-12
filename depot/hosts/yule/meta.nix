@@ -1,4 +1,4 @@
-{ profiles, config, lib, ... }: with lib; {
+{ meta, profiles, config, lib, ... }: with lib; {
   config = {
     deploy.targets.personal = {
       tf = {
@@ -7,7 +7,7 @@
           type = "resource";
           connection = {
             port = 62954;
-            host = "192.168.1.92";
+            host = meta.network.nodes.yule.network.addresses.private.ipv4.address;
           };
         };
       };
