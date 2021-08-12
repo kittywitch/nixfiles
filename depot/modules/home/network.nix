@@ -30,6 +30,16 @@ with lib;
           domain = mkOption {
             type = types.nullOr types.str;
           };
+          out = {
+            identifierList = mkOption {
+              type = types.listOf types.str;
+              default = if config.enable then singleton config.domain ++ config.out.addressList else [ ];
+            };
+            addressList = mkOption {
+              type = types.listOf types.str;
+              default = if config.enable then concatMap (i: optional i.enable i.address) [ config.ipv4 config.ipv6 ] else [ ];
+            };
+          };
         };
       }));
     };
@@ -46,6 +56,7 @@ with lib;
       };
     };
     dns = {
+      isRoot = mkEnableOption "Is this system supposed to be the @ for the domain?";
       email = mkOption {
         type = types.nullOr types.str;
       };

@@ -136,7 +136,24 @@ in {
         domain = v.subdomain;
         aaaa.address = v.ipv6.address;
       }) networksWithDomains;
-    in recordsV4 // recordsV6;
+    in mkMerge [
+      recordsV4
+      recordsV6
+      (mkIf cfg.dns.isRoot {
+        "node_root_${config.networking.hostName}_v4" = {
+          enable = cfg.addresses.public.enable;
+          tld = cfg.dns.tld;
+          domain = "@";
+          a.address = cfg.addresses.public.ipv4.address;
+        };
+        "node_root_${config.networking.hostName}_v6" = {
+          enable = cfg.addresses.public.enable;
+          tld = cfg.dns.tld;
+          domain = "@";
+          aaaa.address = cfg.addresses.public.ipv6.address;
+        };
+      })
+    ];
 
     security.acme.certs = mkIf config.services.nginx.enable (mapAttrs' (n: v:
     nameValuePair "cert_${n}_${config.networking.hostName}" {
