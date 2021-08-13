@@ -2,7 +2,7 @@
 
 let
   fwcfg = config.networking.firewall;
-  cfg = config.kw.nftables;
+  cfg = config.network.nftables;
 
   doDocker = config.virtualisation.docker.enable && cfg.generateDockerRules;
 
@@ -82,7 +82,7 @@ let
 
 in {
   options = with lib; {
-    kw.nftables = {
+    network.nftables = {
       enable = mkEnableOption "nftables firewall";
 
       extraConfig = mkOption {

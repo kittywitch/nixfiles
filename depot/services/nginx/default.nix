@@ -12,7 +12,7 @@ with lib;
     '';
   };
 
-  kw.fw = {
+  network.firewall = {
     public.tcp.ports = [ 443 80 ];
     private.tcp.ports = [ 443 80 ];
   };

@@ -135,7 +135,7 @@ in {
 
   # Firewall
 
-  kw.fw = {
+  network.firewall = {
     public.interfaces = singleton "br";
     private = {
       interfaces = singleton "yggdrasil";

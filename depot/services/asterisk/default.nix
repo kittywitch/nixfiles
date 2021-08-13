@@ -5,15 +5,15 @@ with lib;
 
 {
 /*
-  kw.fw.public.tcp.ports = [ 5160 5060 ];
-  kw.fw.public.udp.ports = [ 5160 5060 ];
+  network.firewall.public.tcp.ports = [ 5160 5060 ];
+  network.firewall.public.udp.ports = [ 5160 5060 ];
 
-  kw.fw.public.tcp.ranges = [{
+  network.firewall.public.tcp.ranges = [{
     from = 10000;
     to = 20000;
   }];
 
-  kw.fw.public.udp.ranges = [{
+  network.firewall.public.udp.ranges = [{
     from = 10000;
     to = 20000;
   }];

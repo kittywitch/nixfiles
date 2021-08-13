@@ -3,7 +3,7 @@
 with lib;
 
 {
-  kw.fw.public.tcp.ports = [ 5000 5222 5223 5269 580 5281 5347 5582 ];
+  network.firewall.public.tcp.ports = [ 5000 5222 5223 5269 580 5281 5347 5582 ];
 
   services.postgresql = {
     ensureDatabases = [ "prosody" ];

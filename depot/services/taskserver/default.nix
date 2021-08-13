@@ -3,7 +3,7 @@
 with lib;
 
 {
-  kw.fw.public.tcp.ports = singleton 53589;
+  network.firewall.public.tcp.ports = singleton 53589;
 
   services.taskserver = {
     enable = true;

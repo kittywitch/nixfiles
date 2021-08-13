@@ -110,7 +110,7 @@ in {
       }
   '';
 
-  kw.fw = {
+  network.firewall = {
     private.tcp.ports = singleton 1935;
     public.tcp.ports = [ 4953 1935 ];
   };

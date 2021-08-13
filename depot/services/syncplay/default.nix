@@ -21,7 +21,7 @@ with lib;
     };
   };
 
-  kw.fw.public.tcp.ports = singleton 8999;
+  network.firewall.public.tcp.ports = singleton 8999;
 
   services.nginx.virtualHosts."sync.${config.network.dns.domain}" = {
     enableACME = true;

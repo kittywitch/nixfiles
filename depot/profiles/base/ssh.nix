@@ -3,7 +3,7 @@
 with lib;
 
 {
-  kw.fw = {
+  network.firewall = {
     public = {
       tcp.ports = singleton 62954;
       udp.ranges = [{

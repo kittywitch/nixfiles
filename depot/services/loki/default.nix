@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  #kw.fw.private.tcp.ports = [ 3100 ];
+  #network.firewall.private.tcp.ports = [ 3100 ];
   services.loki = {
     enable = false;
     configuration = {

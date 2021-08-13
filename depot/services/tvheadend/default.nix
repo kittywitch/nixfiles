@@ -5,7 +5,7 @@
   services.tvheadend.enable = true;
   systemd.services.tvheadend.enable = lib.mkForce false;
 
-  kw.fw.public = {
+  network.firewall.public = {
     tcp.ports = [ 9981 9982 ];
   };
 

@@ -7,7 +7,7 @@
 , isOverlayLib ? false
 }@args: let
   colorHelpers = import ./color-helpers.nix { inherit lib; };
-  lib = before // katlib // self; 
+  lib = before // katlib // self;
   katlib = with before; with katlib; with self;
 {
   inherit (colorHelpers) hextorgba;

@@ -1,7 +1,7 @@
 { config, kw, ... }:
 
 {
-  kw.fw.private.tcp.ports = [ 19999 ];
+  network.firewall.private.tcp.ports = [ 19999 ];
 
   services.netdata = { enable = true; };
 

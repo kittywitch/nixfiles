@@ -15,7 +15,7 @@
     };
   };
 
-  kw.fw = {
+  network.firewall = {
     public.tcp.ranges = [{
       from = 32768;
       to = 60999;

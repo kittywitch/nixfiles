@@ -2,10 +2,10 @@
 
 with lib;
 
-let cfg = config.kw.fw;
+let cfg = config.network.firewall;
 in
 {
-  options.kw.fw = {
+  options.network.firewall = {
     public.tcp.ports = mkOption {
       type = types.listOf types.port;
       default = [ ];

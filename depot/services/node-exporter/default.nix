@@ -1,7 +1,7 @@
 { config, ... }:
 
 {
-  kw.fw.private.tcp.ports = [ 9002 ];
+  network.firewall.private.tcp.ports = [ 9002 ];
 
   services.prometheus = {
     exporters = {

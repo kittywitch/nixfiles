@@ -1,4 +1,4 @@
-{ lib }: { folder, defaultFile ? "default.nix", folderPaths ? [ (../../depot + "/${folder}") (../../depot/trusted + "/${folder}") ] }: with lib; let
+{ lib }: { folder, defaultFile ? "default.nix", folderPaths ? [ (../depot + "/${folder}") (../depot/trusted + "/${folder}") ] }: with lib; let
   defaultFileFinal = if (defaultFile == "default.nix" && folder == "hosts") then
     "meta.nix"
   else defaultFile;
