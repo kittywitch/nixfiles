@@ -1,5 +1,5 @@
 { config, ... }:
 
 {
-  base16.alias.default = "tomorrow.tomorrow";
+  base16.alias.default = "atelier.atelier-cave-light";
 }

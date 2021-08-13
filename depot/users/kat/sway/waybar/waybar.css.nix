@@ -35,7 +35,7 @@ in ''
 
   .modules-left, .modules-center, .modules-right {
     margin: 2px 8px;
-    background: ${hextorgba base16.base00 0.75};
+    background: ${hextorgba base16.base00 0.85};
     border-radius: 6px;
   }
 
@@ -49,7 +49,7 @@ in ''
 
   tooltip {
     padding: 2px;
-    background: ${hextorgba base16.base00 0.75};
+    background: ${hextorgba base16.base00 0.85};
     border-radius: 6px;
   }
 
@@ -97,9 +97,9 @@ in ''
     color: ${base16.base0D};
   }
 
-  #clock.arc { ${bcolor base16.base0D} }
+  #clock.arc { ${bcolor base16.base0B} }
   #clock.miku { ${bcolor base16.base0C} }
-  #clock.hex { ${bcolor base16.base0E} }
+  #clock.hex { ${bcolor base16.base0F} }
   #custom-konawall.enabled { ${bcolor base16.base0E} }
   #custom-konawall.disabled { ${bcolor base16.base0D} }
   #idle_inhibitor.activated { ${bcolor base16.base0E} }

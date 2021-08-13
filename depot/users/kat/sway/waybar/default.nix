@@ -34,7 +34,7 @@ in
         modules = {
           "sway/workspaces" = { format = "{name}"; };
           "sway/window" = {
-            format = " {}";
+           format = " {}";
             max-length = 50;
           };
           #"custom/weather" = {
@@ -49,13 +49,13 @@ in
             spacing = 2;
           };
           "custom/gpg-status" = {
-            format = " {}";
+            format = "{}";
             interval = 300;
             return-type = "json";
             exec = "${pkgs.kat-gpg-status}/bin/kat-gpg-status";
           };
           "custom/konawall" = {
-            format = "  {}";
+            format = "{}";
             interval = "once";
             return-type = "json";
             exec = "${pkgs.konawall-toggle}/bin/konawall-status";
@@ -83,7 +83,7 @@ in
             };
           };
           backlight = {
-            format = "BL {percent}%";
+            format = "{icon} {percent}%";
             format-icons = [ "" "" ];
             on-scroll-up = "${pkgs.light}/bin/light -A 1";
             on-scroll-down = "${pkgs.light}/bin/light -U 1";
@@ -114,7 +114,7 @@ in
           };
           network = {
             format-wifi = "直";
-            format-ethernet = " {ifname}";
+            format-ethernet = "";
             format-linked = " {ifname} (NO IP)";
             format-disconnected = " DC";
             format-alt = "{ifname}: {ipaddr}/{cidr}";
@@ -133,19 +133,19 @@ in
             interval = 1;
           };
           "clock#arc" = {
-            format = "♡-{:%H}";
+            format = "♥-{:%H}";
             tooltip = true;
             timezone = "America/Vancouver";
             tooltip-format = "{:%A, %F %R %z (%Z)}";
           };
           "clock#miku" = {
-            format = "♡+{:%H}";
+            format = "♥+{:%H}";
             tooltip = true;
             timezone = "Pacific/Auckland";
             tooltip-format = "{:%A, %F %R %z (%Z)}";
           };
           "clock#hex" = {
-            format = "♡+{:%H}";
+            format = "♥+{:%H}";
             tooltip = true;
             timezone = "Europe/Berlin";
             tooltip-format = "{:%A, %F %R %z (%Z)}";

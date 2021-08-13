@@ -3,9 +3,9 @@
 {
   base16 = {
     shell.enable = true;
-    schemes = [ "tomorrow.tomorrow-night-eighties" "tomorrow.tomorrow" ];
-    alias.light = "tomorrow.tomorrow";
-    alias.dark = "tomorrow.tomorrow-night-eighties";
+    schemes = [ "atelier.atelier-cave" "atelier.atelier-cave-light" "tomorrow.tomorrow-night-eighties" "tomorrow.tomorrow" ];
+    alias.light = "atelier.atelier-cave-light";
+    alias.dark = "atelier.atelier-cave";
   };
   #  home.base16-shell = {
   #    enable = true;
