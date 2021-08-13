@@ -14,7 +14,7 @@ in
       };
       settings = [{
         modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
-        modules-center = ["clock" ]; # "clock" "custom/weather"
+        modules-center = ["clock" "clock#arc" "clock#miku" "clock#hex" ]; # "clock" "custom/weather"
         modules-right = [
           "pulseaudio"
           "cpu"
@@ -34,7 +34,7 @@ in
         modules = {
           "sway/workspaces" = { format = "{name}"; };
           "sway/window" = {
-            format = "{}";
+            format = " {}";
             max-length = 50;
           };
           #"custom/weather" = {
@@ -44,14 +44,18 @@ in
           #  exec =
           #    "${pkgs.kat-weather}/bin/kat-weather ${witch.secrets.profiles.sway.city} ${witch.secrets.profiles.sway.api_key}";
           #};
+          tray = {
+            icon-size = 12;
+            spacing = 2;
+          };
           "custom/gpg-status" = {
-            format = "{}";
+            format = " {}";
             interval = 300;
             return-type = "json";
             exec = "${pkgs.kat-gpg-status}/bin/kat-gpg-status";
           };
           "custom/konawall" = {
-            format = "{}";
+            format = "  {}";
             interval = "once";
             return-type = "json";
             exec = "${pkgs.konawall-toggle}/bin/konawall-status";
@@ -59,23 +63,23 @@ in
             on-click = "${pkgs.konawall-toggle}/bin/konawall-toggle";
             on-click-right = "systemctl --user restart konawall";
           };
-          cpu = { format = "CPU {usage}%"; };
+          cpu = { format = " {usage}%"; };
           #mpd = { 
           #  format = "  {albumArtist} - {title}"; 
           #  format-stopped = "ﱙ";
           #  format-paused = "  Paused";
           #  title-len = 16;
           #};
-          memory = { format = "MEM {percentage}%"; };
+          memory = { format = " {percentage}%"; };
           temperature = {
-            format = "TMP {temperatureC}°C";
+            format = " {temperatureC}°C";
             hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp2_input";
           };
           idle_inhibitor = {
             format = "{icon}";
             format-icons = {
-              activated = "CAF";
-              deactivated = "SLP";
+              activated = "";
+              deactivated = "";
             };
           };
           backlight = {
@@ -90,26 +94,34 @@ in
               warning = 30;
               critical = 15;
             };
-            format = "BAT {capacity}%";
-            format-charging = "CHRG  {capacity}%";
-            format-plugged = "PI  {capacity}%";
-            format-alt = "BAT {time}";
+            format = "{icon} {capacity}%";
+            format-charging = " {capacity}%";
+            format-plugged = " {capacity}%";
+            format-alt = "{icon} {time}";
             format-icons = [ "" "" "" "" "" ];
           };
           pulseaudio = {
-            format = "VOL {volume}%";
+            format = "{icon} {volume}%";
+            format-muted = "婢";
             on-click = "foot pulsemixer";
+            format-icons = {
+              default = [
+                ""
+                ""
+                ""
+              ];
+            };
           };
           network = {
-            format-wifi = "WIFI";
-            format-ethernet = "NET {ifname}";
-            format-linked = "NET {ifname} (NO IP)";
-            format-disconnected = "NET DC";
+            format-wifi = "直";
+            format-ethernet = " {ifname}";
+            format-linked = " {ifname} (NO IP)";
+            format-disconnected = " DC";
             format-alt = "{ifname}: {ipaddr}/{cidr}";
             tooltip-format-wifi = "{essid} ({signalStrength}%)";
           };
           clock = {
-            format = "{:%a, %F %T %Z}";
+            format = "{:%a, %F %T}";
             tooltip = true;
             tooltip-format = "{:%A, %F %T %z (%Z)}";
             timezones = [
@@ -119,6 +131,24 @@ in
               "Pacific/Auckland"
             ];
             interval = 1;
+          };
+          "clock#arc" = {
+            format = "♡-{:%H}";
+            tooltip = true;
+            timezone = "America/Vancouver";
+            tooltip-format = "{:%A, %F %R %z (%Z)}";
+          };
+          "clock#miku" = {
+            format = "♡+{:%H}";
+            tooltip = true;
+            timezone = "Pacific/Auckland";
+            tooltip-format = "{:%A, %F %R %z (%Z)}";
+          };
+          "clock#hex" = {
+            format = "♡+{:%H}";
+            tooltip = true;
+            timezone = "Europe/Berlin";
+            tooltip-format = "{:%A, %F %R %z (%Z)}";
           };
         };
       }];
