@@ -45,6 +45,14 @@ in {
     zstyle ':completion:*:complete:pass:*:*' matcher 'r:|[./_-]=** r:|=*' 'l:|=* r:|=*'
         ${lib.concatStringsSep "\n" (map (opt: "setopt ${opt}") zshOpts)}
         source ${./zshrc-vimode}
+	bindkey '^ ' autosuggest-accept
+	autoload -Uz history-search-end
+zle -N history-beginning-search-backward-end \
+                history-search-end
+zle -N history-beginning-search-forward-end \
+                history-search-end
+bindkey "\e[5~" history-beginning-search-backward-end
+bindkey "\e[6~" history-beginning-search-forward-end
         echo ""; akiflags -rb;
     '';
     shellAliases = {
