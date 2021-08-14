@@ -316,28 +316,28 @@ in
 
             colors = {
             focused = {
-            border = base16.base0D;
+            border = base16.base01;
             background = base16.base0D;
             text = base16.base07;
             indicator = base16.base0D;
             childBorder = base16.base0D;
             };
             focusedInactive = {
-            border = base16.base04;
+            border = base16.base02;
             background = base16.base04;
             text = base16.base00;
             indicator = base16.base04;
             childBorder = base16.base04;
             };
             unfocused = {
-            border = base16.base02;
+            border = base16.base01;
             background = base16.base02;
             text = base16.base06;
             indicator = base16.base02;
             childBorder = base16.base02;
             };
             urgent = {
-            border = base16.base08;
+            border = base16.base03;
             background = base16.base08;
             text = base16.base00;
             indicator = base16.base08;

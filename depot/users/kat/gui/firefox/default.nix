@@ -34,7 +34,6 @@ in
 
 /* Hide .twisty and adjust margins so favicons have 7px on left. */
 .tab .twisty {
-    visibility: hidden;
     margin-left: -16px;
 }
 
@@ -70,19 +69,13 @@ in
 }
 @keyframes pulse {
     0% {
-        width: 0px;
-        height: 0px;
-        opacity: 1;
+        opacity: 0.75;
     }
     100% {
-        width: 350px;
-        height: 350px;
-        opacity: 0;
-        top: calc(50% - 175px);
-        left: calc(50% - 175px);
+        opacity: 0.25;
     }
-    }
-    * {
+}
+* {
     font-family: "Cozette", monospace !important;
 }
 :root {
@@ -97,9 +90,16 @@ in
     background-color: ${base16.base01};
     color: ${base16.base05} !important;
     box-shadow: none !important;
-    padding: 0.25em;
     margin: 0.125em;
     border-radius: 0.125em;
+    }
+
+.tab .favicon {
+    margin-left: 0.25em;
+}
+
+.tab .label {
+  margin: 0.25em;
 }
 .tab:hover {
     background-color: ${base16.base0C}FF !important;
@@ -125,19 +125,25 @@ in
     background-color: ${base16.base0D}FF !important;
 }
 
+@keyframes rainbow_animation {
+    0% {
+        background-position: 0 0;
+    }
 
-/* Adjust style for tab that has sound playing. */
-.tab.sound-playing .favicon::after {
-    content: ''';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    border-radius: 50%;
-    background: #FFFFFF;
-    animation: pulse 2s ease-out 0s infinite;
-    z-index: -1;
-    opacity: 0;
+    100% {
+        background-position: 100% 0;
+    }
 }
+/* Adjust style for tab that has sound playing. */
+    .tab.sound-playing .label {
+        background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow_animation 3s linear infinite;
+    animation-direction: alternate-reverse;
+    background-size: 400% 100%;
+    }
 
 /* Adjust style for tab that is muted. */
 .tab.muted {
