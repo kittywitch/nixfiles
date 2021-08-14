@@ -47,12 +47,15 @@ in {
         source ${./zshrc-vimode}
 	bindkey '^ ' autosuggest-accept
 	autoload -Uz history-search-end
+	autoload -Uz history-beginning-search-menu
+zle -N history-beginning-search-menu
 zle -N history-beginning-search-backward-end \
                 history-search-end
 zle -N history-beginning-search-forward-end \
                 history-search-end
 bindkey "\e[5~" history-beginning-search-backward-end
 bindkey "\e[6~" history-beginning-search-forward-end
+bindkey "^p" history-beginning-search-menu
         echo ""; akiflags -rb;
     '';
     shellAliases = {
@@ -66,6 +69,7 @@ bindkey "\e[6~" history-beginning-search-forward-end
       log = "journalctl";
       dmesg = "dmesg -HP";
       lg = "log --no-pager | grep";
+      hg  = "history 0 | grep";
     };
     localVariables = {
       _Z_DATA = "${config.xdg.dataHome}/z/data";
