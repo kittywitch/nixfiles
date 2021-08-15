@@ -159,12 +159,6 @@ in {
           name = "fusionpbx";
           ensurePermissions = {
             "DATABASE fusionpbx" = "ALL PRIVILEGES";
-          };
-        }
-        {
-          name = "freeswitch";
-          ensurePermissions = {
-            "DATABASE fusionpbx" = "ALL PRIVILEGES";
             "DATABASE freeswitch" = "ALL PRIVILEGES";
           };
         }
@@ -173,11 +167,24 @@ in {
     };
 
     # ACME
-    security.acme.certs = mkIf cfg.useWebrootACME {
-      ${cfg.domain} = {
-        group = "fusionpbx";
-      };
-    };
+    security.acme.certs = mkMerge [
+      (mkIf cfg.useWebrootACME {
+        ${cfg.domain} = {
+          group = "fusionpbx";
+        };
+      })
+      (mkIf (cfg.useACMEHost != null) {
+        ${cfg.useACMEHost} = {
+          postRun = ''
+            cat {cert,key,chain}.pem >> all.pem
+            ln -s all.pem agent.pem
+            ln -s all.pem dlts-srtp.pem
+            ln -s all.pem tls.pem
+            ln -s all.pem wss.pem
+          '';
+        };
+      })
+    ];
 
     # NGINX
     services.nginx = {
@@ -320,6 +327,8 @@ in {
     # FreeSWITCH
     systemd.tmpfiles.rules = [
       "v /etc/freeswitch 5777 fusionpbx fusionpbx"
+      "v /etc/fusionpbx 5777 fusionpbx fusionpbx"
+      "v /var/cache/fusionpbx 5777 fusionpbx fusionpbx"
     ];
 
     systemd.services.freeswitch = let
@@ -390,7 +399,7 @@ in {
     network.firewall = mkIf cfg.openFirewall {
       public = {
         tcp = {
-          ports = [ 5060 5160 ];
+          ports = [ 5060 5061 ];
           ranges = [
             {
               from = 10000;
@@ -399,7 +408,7 @@ in {
           ];
         };
         udp = {
-          ports = [ 5060 5160 ];
+          ports = [ 5060 5061 ];
           ranges = [
             {
               from = 10000;
