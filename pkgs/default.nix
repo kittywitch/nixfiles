@@ -90,6 +90,8 @@ let
 
         kat-scrot = self.callPackage ./kat-scrot { };
 
+        fusionpbx = self.callPackage ./fusionpbx { };
+
       } // super.lib.optionalAttrs (builtins.pathExists ../config/trusted/pkgs)
       (import ../config/trusted/pkgs { inherit super self; });
       pkgs = import sources.nixpkgs {

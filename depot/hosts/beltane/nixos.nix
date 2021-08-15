@@ -9,9 +9,11 @@ with lib;
     profiles.hardware.rm-310
     profiles.gui
     users.kat.guiFull
+    services.fusionpbx
     services.jellyfin
     services.kattv-ingest
     services.promtail
+    services.postgres
     services.netdata
     services.nfs
     services.nginx

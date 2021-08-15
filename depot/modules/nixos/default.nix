@@ -4,6 +4,7 @@
   imports = with (import (sources.nixexprs + "/modules")).nixos; [ base16 base16-shared modprobe ] ++ [
     ./nftables.nix
     ./firewall.nix
+    ./fusionpbx.nix
     ./deploy.nix
     ./dyndns.nix
     ./network.nix
