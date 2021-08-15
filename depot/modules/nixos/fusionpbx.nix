@@ -58,6 +58,7 @@ user_group_uuid=$(${php} ${cfg.package}/resources/uuid.php);
       xml_cdr_password=$(dd if=/dev/urandom bs=1 count=20 2>/dev/null | base64 | sed 's/[=\+//]//g')
       sed -i /etc/freeswitch/autoload_configs/xml_cdr.conf.xml -e s:"{v_http_protocol}:http:"
       sed -i /etc/freeswitch/autoload_configs/xml_cdr.conf.xml -e s:"{v_project_path}::"
+      sed -i /etc/freeswitch/autoload_configs/xml_cdr.conf.xml -e s:"127.0.0.1:${cfg.domain}"
       sed -i /etc/freeswitch/autoload_configs/xml_cdr.conf.xml -e s:"{v_user}:$xml_cdr_username:"
       sed -i /etc/freeswitch/autoload_configs/xml_cdr.conf.xml -e s:"{v_pass}:$xml_cdr_password:"
 
@@ -399,7 +400,7 @@ in {
     network.firewall = mkIf cfg.openFirewall {
       public = {
         tcp = {
-          ports = [ 5060 5061 ];
+          ports = [ 5060 5061 5080 5081 ];
           ranges = [
             {
               from = 10000;
@@ -408,7 +409,7 @@ in {
           ];
         };
         udp = {
-          ports = [ 5060 5061 ];
+          ports = [ 5060 5061 5080 5081 ];
           ranges = [
             {
               from = 10000;
