@@ -92,6 +92,13 @@ let
 
         fusionpbx = self.callPackage ./fusionpbx { };
 
+        fusionpbx-apps = self.callPackage ./fusionpbx-apps { };
+
+        fusionpbxWithApps = apps: self.symlinkJoin {
+          inherit (self.fusionpbx) version name;
+          paths = [ self.fusionpbx ] ++ apps;
+        };
+
       } // super.lib.optionalAttrs (builtins.pathExists ../config/trusted/pkgs)
       (import ../config/trusted/pkgs { inherit super self; });
       pkgs = import sources.nixpkgs {

@@ -37,7 +37,7 @@
     hardphones = true;
     useACMEHost = "services_fusionpbx";
     domain = "pbx.${config.network.dns.domain}";
-    package = with pkgs; fusionpbx;
+    package = with pkgs; fusionpbxWithApps [ fusionpbx-apps.sms ];
     freeSwitchPackage = with pkgs; freeswitch;
   };
 }

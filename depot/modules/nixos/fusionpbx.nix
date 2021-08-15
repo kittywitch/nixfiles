@@ -14,7 +14,7 @@ let
     else psql_base;
   freeSwitchConfig = pkgs.writeShellScriptBin "copy_config" ''
       set -exu
-      if [ ! -f "${cfg.home}/state/installed" ]; then
+      if [[ ! -f "${cfg.home}/state/installed" ]]; then
         mkdir -p /etc/freeswitch
         cp --no-preserve=mode,ownership -r ${cfg.package}/resources/templates/conf/* /etc/freeswitch
       fi
@@ -22,15 +22,7 @@ let
   installerReplacement = pkgs.writeShellScriptBin "installer_replacement" ''
     set -exu
 
-    if [ -f "${cfg.home}/state/installed" ]; then
-      if [ -f "${cfg.home}/state/lastversion" ]; then
-        lastversion=$(<${cfg.home}/state/lastversion)
-        if [ lastversion != "${cfg.package.version}" ]; then
-          ${php} ${cfg.package}/core/upgrade/upgrade_schema.php
-          echo "${cfg.package.version}" >| ${cfg.home}/state/lastversion
-        fi
-      fi
-    else
+    if [[ ! -f "${cfg.home}/state/installed" ]]; then
       mkdir -p /var/lib/fusionpbx
 
       ${if ! cfg.useLocalPostgreSQL then "PGPASSWORD=${cfg.postgres.db_password}" else ""}
@@ -58,7 +50,7 @@ user_group_uuid=$(${php} ${cfg.package}/resources/uuid.php);
       xml_cdr_password=$(dd if=/dev/urandom bs=1 count=20 2>/dev/null | base64 | sed 's/[=\+//]//g')
       sed -i /etc/freeswitch/autoload_configs/xml_cdr.conf.xml -e s:"{v_http_protocol}:http:"
       sed -i /etc/freeswitch/autoload_configs/xml_cdr.conf.xml -e s:"{v_project_path}::"
-      sed -i /etc/freeswitch/autoload_configs/xml_cdr.conf.xml -e s:"127.0.0.1:${cfg.domain}"
+      sed -i /etc/freeswitch/autoload_configs/xml_cdr.conf.xml -e s:"http:\/\/127.0.0.1:https:\/\/${cfg.domain}"
       sed -i /etc/freeswitch/autoload_configs/xml_cdr.conf.xml -e s:"{v_user}:$xml_cdr_username:"
       sed -i /etc/freeswitch/autoload_configs/xml_cdr.conf.xml -e s:"{v_pass}:$xml_cdr_password:"
 
