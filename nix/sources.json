@@ -53,10 +53,10 @@
         "homepage": null,
         "owner": "kittywitch",
         "repo": "nixexprs",
-        "rev": "20ea8d98164d1b1cfbe3b9fd88d3817556131b4e",
-        "sha256": "1wfk94alx0qq04z104ycmrhqa3ly6s2xjlf4722r3d130711mdb1",
+        "rev": "c6ea4f2270ea2bf06af32a397e8c13a00b59e3d1",
+        "sha256": "0r3nsgbn4s5vjgscmf8rgpyh42aj56zmwmrmissbr7n4p2d0wq54",
         "type": "tarball",
-        "url": "https://github.com/kittywitch/nixexprs/archive/20ea8d98164d1b1cfbe3b9fd88d3817556131b4e.tar.gz",
+        "url": "https://github.com/kittywitch/nixexprs/archive/c6ea4f2270ea2bf06af32a397e8c13a00b59e3d1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
@@ -99,10 +99,10 @@
         "homepage": "https://nur.nix-community.org/",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "011e39ed06852a58fe7485fa00e14b377cf682fd",
-        "sha256": "0g2c8bzrbkl5fp3jfh86hg8raz8ssz2171k2csxwa4ipgnwc0ys5",
+        "rev": "5298d04f01a57b43e00c642304477ede0ab6896c",
+        "sha256": "19v1qvvh9kh09szi0a097l0ig1z2k4f0cf6vlj32ihg8isfx3jni",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/011e39ed06852a58fe7485fa00e14b377cf682fd.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/5298d04f01a57b43e00c642304477ede0ab6896c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tf-nix": {

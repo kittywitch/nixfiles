@@ -1,20 +1,20 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, tf, ... }:
 
 with lib;
 
-let
-  mailAccounts = config.mailserver.loginAccounts;
-  htpasswd = pkgs.writeText "radicale.users" (concatStrings
-    (flip mapAttrsToList mailAccounts
-      (mail: user: mail + ":" + user.hashedPassword + "\n")));
-in
 {
+  secrets.files.radicale_htpasswd = {
+    text = ''
+      kat@kittywit.ch:${tf.variables.mail-kat-hash.ref}
+    '';
+  };
+
   services.radicale = {
     enable = true;
     settings = {
       auth = {
         type = "htpasswd";
-        htpasswd_filename = toString htpasswd;
+        htpasswd_filename = config.secrets.files.radicale_htpasswd.path;
         htpasswd_encryption = "bcrypt";
       };
     };

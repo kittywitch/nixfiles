@@ -7,6 +7,8 @@ with lib;
 
   kw.secrets = [
     "mail-domainkey-kitty"
+    "mail-kat-hash"
+    "mail-gitea-hash"
   ];
 
   deploy.tf.dns.records.services_mail_mx = {
@@ -36,29 +38,45 @@ with lib;
     txt.value = tf.variables.mail-domainkey-kitty.ref;
   };
 
+  secrets.files = {
+    mail-kat-hash = {
+      text = ''
+        ${tf.variables.mail-kat-hash.ref}
+      '';
+    };
+    mail-gitea-hash = {
+      text = ''
+        ${tf.variables.mail-gitea-hash.ref}
+      '';
+    };
+  };
+
   mailserver = {
     enable = true;
     fqdn = config.network.addresses.public.domain;
     domains = [ "kittywit.ch" "dork.dev" ];
-    # Use Let's Encrypt certificates. Note that this needs to set up a stripped
-    # down nginx and opens port 80.
     certificateScheme = 1;
     certificateFile = "/var/lib/acme/${config.mailserver.fqdn}/cert.pem";
     keyFile = "/var/lib/acme/${config.mailserver.fqdn}/key.pem";
-
-    # Enable IMAP and POP3
     enableImap = true;
     enablePop3 = true;
     enableImapSsl = true;
     enablePop3Ssl = true;
     enableSubmission = false;
     enableSubmissionSsl = true;
-
-    # Enable the ManageSieve protocol
     enableManageSieve = true;
-
-    # whether to scan inbound emails for viruses (note that this requires at least
-    # 1 Gb RAM for the server. Without virus scanning 256 MB RAM should be plenty)
     virusScanning = false;
+
+    # nix run nixpkgs.apacheHttpd -c htpasswd -nbB "" "super secret password" | cut -d: -f2
+    loginAccounts = {
+      "kat@kittywit.ch" = {
+        hashedPasswordFile = config.secrets.files.mail-kat-hash.path;
+        aliases = [ "postmaster@kittywit.ch" ];
+        catchAll = [ "kittywit.ch" "dork.dev" ];
+      };
+      "gitea@kittywit.ch" = {
+        hashedPasswordFile = config.secrets.files.mail-gitea-hash.path;
+      };
+    };
   };
 }
