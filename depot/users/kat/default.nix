@@ -9,11 +9,17 @@ let katUser = { lib }: let
       (./. + "/${profile}")
     ];
   };
+}; serviceImport = profile: { config, ... }: {
+  config.home-manager.users.kat = {
+    imports = [
+      (./services + "/${profile}")
+    ];
+  };
 }; profileNames = lib.folderList ./. ["base" "services"];
 serviceNames = lib.folderList ./services [];
 userProfiles = with userProfiles;
   lib.genAttrs profileNames userImport // {
-  services = lib.genAttrs serviceNames userImport;
+  services = lib.genAttrs serviceNames serviceImport;
   base = { imports = [ ./nixos.nix (userImport "base") trustedImport ]; };
   server = { imports = [ personal ]; };
   guiFull = { imports = [ gui sway dev media personal ]; };
