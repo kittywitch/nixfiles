@@ -17,9 +17,6 @@ let
   If only one exists, the path for that one is returned.
   Otherwise a module is generated which contains both import paths.
   */
-  filterAttrNamesToList = filter: set:
-    lib.foldl' (a: b: a ++ b) [ ]
-      (map (e: if (filter e set.${e}) then [ e ] else [ ]) (lib.attrNames set));
   depotNames = lib.unique (lib.folderList ./depot ["trusted"] ++ lib.folderList ./depot/trusted ["pkgs" "tf"]);
   depot = lib.mapListToAttrs (folder: lib.nameValuePair folder (lib.domainMerge {
     inherit folder;
