@@ -106,11 +106,11 @@ in
     color: ${base16.base07} !important;
 }
 .tab.discarded {
-    background-color: #1d1d1d;
-    color: #383838 !important;
+    background-color: ${base16.base03};
+    color: ${base16.base05} !important;
 }
 .tab.discarded:hover {
-    background-color: #292929 !important;
+    background-color: ${base16.base04} !important;
 }
 
 :root .tab .highlighter::before {
