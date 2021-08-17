@@ -1,25 +1,17 @@
-{ profiles, lib, root, config, ... }: with lib; {
-config = {
-    deploy.targets.infra = {
-      tf = {
-        resources.athame = {
-          provider = "null";
-          type = "resource";
-          connection = {
-            port = 62954;
-            host = config.network.nodes.athame.network.addresses.public.ipv4.address;
-          };
+{ config, lib, kw, ... }: with lib; {
+  deploy.targets.infra = {
+    tf = {
+      resources.athame = {
+        provider = "null";
+        type = "resource";
+        connection = {
+          port = head config.network.nodes.athame.services.openssh.ports;
+          host = config.network.nodes.athame.network.addresses.public.ipv4.address;
         };
       };
     };
-    network.nodes.athame = {
-      imports = lib.hostImport {
-        hostName = "athame";
-        inherit profiles root;
-      };
-      networking = {
-        hostName = "athame";
-      };
-    };
+  };
+  network.nodes.athame = {
+    imports = kw.nodeImport "athame";
   };
 }

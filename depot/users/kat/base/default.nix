@@ -5,7 +5,6 @@
     ./vim
     ./zsh.nix
     ./git.nix
-    ./kitty.nix
     ./tmux.nix
     ./base16.nix
     ./xdg.nix

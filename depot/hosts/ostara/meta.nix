@@ -1,4 +1,4 @@
-{ meta, profiles, root, config, lib, ... }: with lib; {
+{ config, lib, kw, ... }: with lib; {
   config = {
     deploy.targets.ostara = {
       tf = {
@@ -6,20 +6,14 @@
           provider = "null";
           type = "resource";
           connection = {
-            port = 62954;
-            host = meta.network.nodes.ostara.network.addresses.private.ipv4.address;
+            port = head config.network.nodes.ostara.services.openssh.ports;
+            host = config.network.nodes.ostara.network.addresses.private.ipv4.address;
           };
         };
       };
     };
     network.nodes.ostara = {
-      imports = lib.hostImport {
-        hostName = "ostara";
-        inherit profiles root;
-      };
-      networking = {
-        hostName = "ostara";
-      };
+      imports = kw.nodeImport "ostara";
     };
   };
 }

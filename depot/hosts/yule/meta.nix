@@ -1,4 +1,4 @@
-{ meta, profiles, config, root, lib, ... }: with lib; {
+{ config, lib, kw, ... }: with lib; {
   config = {
     deploy.targets.personal = {
       tf = {
@@ -6,20 +6,14 @@
           provider = "null";
           type = "resource";
           connection = {
-            port = 62954;
-            host = meta.network.nodes.yule.network.addresses.private.ipv4.address;
+            port = head config.network.nodes.yule.services.openssh.ports;
+            host = config.network.nodes.yule.network.addresses.private.ipv4.address;
           };
         };
       };
     };
     network.nodes.yule = {
-      imports = lib.hostImport {
-        hostName = "yule";
-        inherit profiles root;
-      };
-      networking = {
-        hostName = "yule";
-      };
+      imports = kw.nodeImport "yule";
     };
   };
 }

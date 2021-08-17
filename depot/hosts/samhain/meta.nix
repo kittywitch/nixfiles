@@ -1,4 +1,4 @@
-{ lib, config, root, profiles, ... }: with lib; {
+{ config, lib, kw, ... }: with lib; {
   config = {
     deploy.targets.personal = {
       tf = {
@@ -6,20 +6,14 @@
           provider = "null";
           type = "resource";
           connection = {
-            port = 62954;
-            host = "192.168.1.135";
+            port = head config.network.nodes.samhain.services.openssh.ports;
+            host = config.network.nodes.samhain.network.addresses.private.ipv4.address;
           };
         };
       };
     };
     network.nodes.samhain = {
-      imports = lib.hostImport {
-        hostName = "samhain";
-        inherit profiles root;
-      };
-      networking = {
-        hostName = "samhain";
-      };
+      imports = kw.nodeImport "samhain";
     };
   };
 }

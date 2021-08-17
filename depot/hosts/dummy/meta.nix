@@ -1,11 +1,7 @@
-{ lib, config, root,  profiles, ... }: with lib; {
+{ config, lib, kw, ... }: with lib; {
   deploy.targets.dummy.enable = false;
   network.nodes.dummy = {
-    imports = lib.hostImport {
-      hostName = "dummy";
-      inherit profiles root;
-    };
-    networking = {
+    imports = kw.nodeImport {
       hostName = "dummy";
     };
   };

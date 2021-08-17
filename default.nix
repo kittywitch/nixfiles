@@ -20,7 +20,7 @@ let
   filterAttrNamesToList = filter: set:
     lib.foldl' (a: b: a ++ b) [ ]
       (map (e: if (filter e set.${e}) then [ e ] else [ ]) (lib.attrNames set));
-  depotNames = lib.unique (lib.folderList ./depot ["trusted"] ++ lib.folderList ./depot/trusted ["pkgs"]);
+  depotNames = lib.unique (lib.folderList ./depot ["trusted"] ++ lib.folderList ./depot/trusted ["pkgs" "tf"]);
   depot = lib.mapListToAttrs (folder: lib.nameValuePair folder (lib.domainMerge {
     inherit folder;
     folderPaths = [ (./depot + "/${folder}") (./depot/trusted + "/${folder}") ];
@@ -64,5 +64,5 @@ let
       * do not use common, it is tf-nix specific config ingested at line 66 of config/modules/meta/deploy.nix for every target.
     * services -> the specialArg generated from services/
 */
-  self = config // { inherit pkgs lib sourceCache sources; } // depot;
+self = config // { inherit pkgs lib sourceCache sources; } // depot;
 in self

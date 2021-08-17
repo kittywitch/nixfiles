@@ -1,4 +1,4 @@
-{ profiles, config, root, lib, ... }: with lib; {
+{ config, lib, kw, ... }: with lib; {
   config = {
     deploy.targets.beltane = {
       tf = {
@@ -6,20 +6,14 @@
           provider = "null";
           type = "resource";
           connection = {
-            port = 62954;
+            port = head config.network.nodes.beltane.services.openssh.ports;
             host = config.network.nodes.beltane.network.addresses.private.ipv4.address;
           };
         };
       };
     };
     network.nodes.beltane = {
-      imports = lib.hostImport {
-        hostName = "beltane";
-        inherit profiles root;
-      };
-      networking = {
-        hostName = "beltane";
-      };
+      imports = kw.nodeImport "beltane";
     };
   };
 }

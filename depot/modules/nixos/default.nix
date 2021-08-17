@@ -2,8 +2,8 @@
 
 {
   imports =
-    with (import (sources.arcexprs + "/modules")).nixos; [ base16 base16-shared modprobe ]
-    ++ [
+    [
+      (import (sources.arcexprs + "/modules")).nixos
       (import (sources.katexprs + "/modules")).nixos
       ./deploy.nix
       ./dyndns.nix
