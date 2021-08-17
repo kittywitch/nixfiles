@@ -9,9 +9,11 @@ let katUser = { lib }: let
       (./. + "/${profile}")
     ];
   };
-}; profileNames = lib.folderList ./. ["base"];
+}; profileNames = lib.folderList ./. ["base" "services"];
+serviceNames = lib.folderList ./services [];
 userProfiles = with userProfiles;
   lib.genAttrs profileNames userImport // {
+  services = lib.genAttrs serviceNames userImport;
   base = { imports = [ ./nixos.nix (userImport "base") trustedImport ]; };
   server = { imports = [ personal ]; };
   guiFull = { imports = [ gui sway dev media personal ]; };

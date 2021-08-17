@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, tf, ... }:
 
 with lib;
 
@@ -13,6 +13,37 @@ with lib;
     LC_CTYPE = "C";
   '';
 
+  kw.secrets = [
+    "matrix-registration"
+    "mautrix-telegram-api-hash"
+    "mautrix-telegram-api-id"
+    "mautrix-telegram-as-token"
+    "mautrix-telegram-hs-token"
+  ];
+
+  secrets.files.mautrix-telegram-env = {
+    text = ''
+      MAUTRIX_TELEGRAM_TELEGRAM_API_ID=${tf.variables.mautrix-telegram-api-id.ref}
+      MAUTRIX_TELEGRAM_TELEGRAM_API_HASH=${tf.variables.mautrix-telegram-api-hash.ref}
+      MAUTRIX_TELEGRAM_APPSERVICE_AS_TOKEN=${tf.variables.mautrix-telegram-as-token.ref}
+      MAUTRIX_TELEGRAM_APPSERVICE_HS_TOKEN=${tf.variables.mautrix-telegram-hs-token.ref}
+    '';
+  };
+
+  secrets.files.matrix-registration-secret = {
+    text = ''
+      registration_shared_secret: ${tf.variables.matrix-registration.ref}
+    '';
+    owner = "matrix-synapse";
+    group = "matrix-synapse";
+  };
+
+  services.matrix-synapse.extraConfigFiles = [
+    config.secrets.files.matrix-registration-secret.path
+  ];
+
+  services.mautrix-telegram.environmentFile =
+    config.secrets.files.mautrix-telegram-env.path;
   services.matrix-synapse = {
     enable = true;
     max_upload_size = "512M";

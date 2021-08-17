@@ -1,7 +1,20 @@
-{ config, ... }:
+{ config, tf, ... }:
 
 {
-  services.postgresql = {
+  kw.secrets = [
+    "grafana-admin-pass"
+  ];
+
+  secrets.files.grafana-admin-pass = {
+    text = "${tf.variables.grafana-admin-pass.ref}";
+    owner = "grafana";
+    group = "grafana";
+  };
+
+  services.grafana.security.adminPasswordFile =
+    config.secrets.files.grafana-admin-pass.path;
+
+    services.postgresql = {
     ensureDatabases = [ "grafana" ];
     ensureUsers = [{
       name = "grafana";

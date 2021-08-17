@@ -1,0 +1,3 @@
+{
+  weechat = import ./weechat;
+}

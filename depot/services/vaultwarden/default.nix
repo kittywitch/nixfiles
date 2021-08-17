@@ -1,6 +1,20 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, tf, ... }:
 
 {
+  kw.secrets = lib.singleton "vaultwarden-admin-token";
+
+  secrets.files.vaultwarden-env = {
+    text = ''
+      ADMIN_TOKEN=${tf.variables.vaultwarden-admin-token.ref}
+    '';
+    owner = "bitwarden_rs";
+    group = "bitwarden_rs";
+  };
+
+  services.vaultwarden = {
+    environmentFile = config.secrets.files.vaultwarden-env.path;
+  };
+
   services.postgresql = {
     ensureDatabases = [ "bitwarden_rs" ];
     ensureUsers = [{

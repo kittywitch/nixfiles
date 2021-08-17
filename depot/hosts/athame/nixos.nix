@@ -8,6 +8,7 @@ with lib;
   imports = with meta; [
     profiles.hardware.hcloud-imperative
     users.kat.server
+    users.kat.services.weechat
     services.fail2ban
     services.filehost
     services.gitea
