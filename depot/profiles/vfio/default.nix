@@ -13,7 +13,7 @@ in {
   deploy.profile.vfio = true;
 
   environment.systemPackages = with pkgs; [
-    screenstub-kat
+    win10-screenstub
     win10-vm
     win10-diskmapper
     ddcutil
