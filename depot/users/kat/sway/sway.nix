@@ -279,22 +279,22 @@ in
 
             # screenshots - upload
             "${cfg.modifier}+Print" =
-              "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify upload screen";
+              "exec ${pkgs.sway-scrot}/bin/sway-scrot --notify upload screen";
               "${cfg.modifier}+Shift+Print" =
-                "exec ${pkgs.kat-scrot}/bin/kat-scrot  --notify upload area";
+                "exec ${pkgs.sway-scrot}/bin/sway-scrot  --notify upload area";
                 "${cfg.modifier}+Mod1+Print" =
-                  "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify upload window";
+                  "exec ${pkgs.sway-scrot}/bin/sway-scrot --notify upload window";
                   "${cfg.modifier}+Control+Print" =
-                    "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify upload output";
+                    "exec ${pkgs.sway-scrot}/bin/sway-scrot --notify upload output";
 
             # screenshots - clipboard
-            "Print" = "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify copys screen";
+            "Print" = "exec ${pkgs.sway-scrot}/bin/sway-scrot --notify copys screen";
             "Shift+Print" =
-            "exec ${pkgs.kat-scrot}/bin/kat-scrot  --notify copys area";
+            "exec ${pkgs.sway-scrot}/bin/sway-scrot  --notify copys area";
             "Mod1+Print" =
-            "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify copys window";
+            "exec ${pkgs.sway-scrot}/bin/sway-scrot --notify copys window";
             "Control+Print" =
-            "exec ${pkgs.kat-scrot}/bin/kat-scrot --notify copys output";
+            "exec ${pkgs.sway-scrot}/bin/sway-scrot --notify copys output";
 
             # layout handling
             "${cfg.modifier}+b" = "splith";

@@ -40,4 +40,12 @@
     package = with pkgs; fusionpbxWithApps [ fusionpbx-apps.sms ];
     freeSwitchPackage = with pkgs; freeswitch;
   };
+
+  services.nginx.virtualHosts."altar.kittywit.ch" = {
+    locations = {
+      "app/sms/hook/" = {
+        proxyPass = "http://pbx.kittywit.ch/app/sms/hook";
+      };
+    };
+  };
 }

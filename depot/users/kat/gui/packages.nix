@@ -9,7 +9,7 @@
     exiftool
     thunderbird
     mumble-develop
-    dino
+    dino-omemo
     transmission-remote-gtk
     scrcpy
     lm_sensors
@@ -18,7 +18,7 @@
     unzip
     nyxt
     baresip
-    discord
+    discord-nssfix
     tdesktop
     yubikey-manager
     cryptsetup

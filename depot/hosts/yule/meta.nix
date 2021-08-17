@@ -1,4 +1,4 @@
-{ meta, profiles, config, lib, ... }: with lib; {
+{ meta, profiles, config, root, lib, ... }: with lib; {
   config = {
     deploy.targets.personal = {
       tf = {
@@ -15,7 +15,7 @@
     network.nodes.yule = {
       imports = lib.hostImport {
         hostName = "yule";
-        inherit profiles;
+        inherit profiles root;
       };
       networking = {
         hostName = "yule";

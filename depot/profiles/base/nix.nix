@@ -4,11 +4,17 @@
   boot.loader.grub.configurationLimit = 8;
   boot.loader.systemd-boot.configurationLimit = 8;
 
+  environment.systemPackages = [
+    (pkgs.writeShellScriptBin "nixFlakes" ''
+      exec ${pkgs.nixUnstable}/bin/nix --experimental-features "nix-command flakes" "$@"
+    '')
+  ];
+
   nix = {
     nixPath = [
       "nixpkgs=${sources.nixpkgs}"
       "nur=${sources.nur}"
-      "arc=${sources.nixexprs}"
+      "arc=${sources.arcexprs}"
       "ci=${sources.ci}"
     ];
     sandboxPaths = [

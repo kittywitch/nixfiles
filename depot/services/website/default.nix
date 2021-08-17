@@ -5,7 +5,7 @@
 
   services.nginx.virtualHosts = {
     "${config.network.dns.domain}" = {
-      root = pkgs.kat-website;
+      root = pkgs.kittywitch-site;
       enableACME = true;
       forceSSL = true;
     };

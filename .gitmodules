@@ -2,6 +2,3 @@
 	path = depot/trusted
 	branch = main
 	url = "https://git.kittywit.ch/kat/nixfiles-trusted.git"
-[submodule "wiki"]
-	path = wiki
-	url = git@github.com:kittywitch/nixfiles.wiki.git

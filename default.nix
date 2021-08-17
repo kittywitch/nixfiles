@@ -2,11 +2,13 @@ let
   # Sources are from niv.
   sources = import ./nix/sources.nix;
   # We pass sources through to pkgs and get our nixpkgs + overlays.
-  pkgs = import ./pkgs { inherit sources; };
+  pkgs = import ./pkgs.nix { inherit sources; };
   # We want our overlaid lib.
   inherit (pkgs) lib;
   # This is used for caching niv sources in CI.
   sourceCache = import ./cache.nix { inherit sources lib; };
+  # This is used for the base path for hostImport.
+  root = ./.;
 
   /*
   This is used to generate specialArgs + the like. It works as such:
@@ -19,13 +21,16 @@ let
     lib.foldl' (a: b: a ++ b) [ ]
       (map (e: if (filter e set.${e}) then [ e ] else [ ]) (lib.attrNames set));
   depotNames = lib.unique (lib.folderList ./depot ["trusted"] ++ lib.folderList ./depot/trusted ["pkgs"]);
-  depot = lib.mapListToAttrs (folder: lib.nameValuePair folder (lib.domainMerge { inherit folder; })) depotNames;
+  depot = lib.mapListToAttrs (folder: lib.nameValuePair folder (lib.domainMerge {
+    inherit folder;
+    folderPaths = [ (./depot + "/${folder}") (./depot/trusted + "/${folder}") ];
+  })) depotNames;
 
   /*
   We use this to make the meta runner use this file and to use `--show-trace` on nix-builds.
   We also pass through pkgs to meta this way.
   */
-  metaConfig = import ./meta-base.nix {
+  metaConfig = import ./meta.nix {
     inherit pkgs lib depot;
   };
 
@@ -38,7 +43,7 @@ let
     ++ lib.singleton ./depot/modules/meta/default.nix;
 
     specialArgs = {
-      inherit sources;
+      inherit sources root;
       meta = self;
     } // depot;
   };

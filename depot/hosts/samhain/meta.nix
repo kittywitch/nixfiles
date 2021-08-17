@@ -1,4 +1,4 @@
-{ lib, config, profiles, ... }: with lib; {
+{ lib, config, root, profiles, ... }: with lib; {
   config = {
     deploy.targets.personal = {
       tf = {
@@ -15,7 +15,7 @@
     network.nodes.samhain = {
       imports = lib.hostImport {
         hostName = "samhain";
-        inherit profiles;
+        inherit profiles root;
       };
       networking = {
         hostName = "samhain";

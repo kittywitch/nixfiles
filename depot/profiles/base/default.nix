@@ -7,6 +7,7 @@
     users.arc
     users.hexchen
     ./system.nix
+    ./dns.nix
     ./home.nix
     ./profiles.nix
     ./shell.nix

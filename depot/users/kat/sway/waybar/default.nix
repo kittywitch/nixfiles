@@ -52,15 +52,15 @@ in
             format = "{}";
             interval = 300;
             return-type = "json";
-            exec = "${pkgs.kat-gpg-status}/bin/kat-gpg-status";
+            exec = "${pkgs.waybar-gpg}/bin/kat-gpg-status";
           };
           "custom/konawall" = {
             format = "{}";
             interval = "once";
             return-type = "json";
-            exec = "${pkgs.konawall-toggle}/bin/konawall-status";
+            exec = "${pkgs.waybar-konawall}/bin/konawall-status";
             exec-on-event = true;
-            on-click = "${pkgs.konawall-toggle}/bin/konawall-toggle";
+            on-click = "${pkgs.waybar-konawall}/bin/konawall-toggle";
             on-click-right = "systemctl --user restart konawall";
           };
           cpu = { format = " {usage}%"; };

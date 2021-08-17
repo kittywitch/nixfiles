@@ -2,10 +2,11 @@
 
 {
   disabledModules = [ "programs/vim.nix" ];
-  imports = with (import (sources.nixexprs + "/modules")).home-manager; [ base16 syncplay konawall i3gopher weechat shell ] ++ [
+  imports = with (import (sources.arcexprs + "/modules")).home-manager; [ base16 syncplay konawall i3gopher weechat shell ]
+  ++ [
+    (import (sources.katexprs + "/modules")).home
     ./vim.nix
     ./fvwm.nix
-    ./network.nix
     ./deploy.nix
     ./theme.nix
     ./secrets.nix

@@ -1,9 +1,10 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   programs.ncmpcpp = {
     enable = true;
     mpdMusicDir = "/home/kat/media-share/music";
+    package = pkgs.ncmpcpp-kat;
     settings = {
       visualizer_data_source = "/tmp/mpd.fifo";
       visualizer_output_name = "my_fifo";

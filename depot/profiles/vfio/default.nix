@@ -2,12 +2,16 @@
 
 with lib;
 
-{
+let
+  win10-screenstub = pkgs.writeShellScriptBin "win10-screenstub" ''
+    ${pkgs.screenstub-kat}/bin/screenstub -c "${./screenstub.yml}" x
+  '';
+in {
   deploy.profile.vfio = true;
 
   environment.systemPackages = with pkgs; [
-    screenstub
-    kat-vm
+    screenstub-kat
+    win10-vm
     ddcutil
   ];
 
