@@ -86,14 +86,17 @@ with lib;
       enable = true;
       pubkey = "55e3f29c252d16e73ac849a6039824f94df1dee670c030b9e29f90584f935575";
       listen.enable = true;
-      listen.endpoints = [ "tcp://${config.network.addresses.public.ipv4.address}:52969" "tcp://${config.network.addresses.public.ipv6.address}:52969" ];
+      listen.endpoints = [ "tcp://${config.network.addresses.public.ipv4.address}:52969" "tcp://[${config.network.addresses.public.ipv6.address}]:52969" ];
     };
   };
 
   # Firewall
 
   network.firewall = {
-    public.interfaces = singleton "enp1s0";
+    public = {
+      interfaces = singleton "enp1s0";
+      tcp.ports = singleton 52969;
+    };
     private.interfaces = singleton "yggdrasil";
   };
 

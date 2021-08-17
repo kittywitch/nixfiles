@@ -1,4 +1,4 @@
-{ config, pkgs, tf, ... }:
+{ config, lib, pkgs, tf, ... }:
 
 {
   kw.secrets = [
@@ -54,17 +54,27 @@
         ENABLE_NOTIFY_MAIL = true;
       };
       ui = {
-        THEMES = "gitea,arc-green";
-        DEFAULT_THEME = "gitea";
+        THEMES = "pitchblack,gitea,arc-green";
+        DEFAULT_THEME = "pitchblack";
         THEME_COLOR_META_TAG = "#222222";
       };
     };
   };
 
-  systemd.services.gitea.preStart = ''
-    ${pkgs.coreutils}/bin/ln -sfT ${./public} /var/lib/gitea/custom/public
-    ${pkgs.coreutils}/bin/ln -sfT ${./templates} /var/lib/gitea/custom/templates
-  '';
+  systemd.services.gitea.serviceConfig.ExecStartPre = [
+    "${pkgs.coreutils}/bin/ln -sfT ${pkgs.runCommand "gitea-public" {
+    } ''
+      ${pkgs.coreutils}/bin/mkdir -p $out/{css,img}
+      ${pkgs.coreutils}/bin/cp ${pkgs.fetchFromGitHub {
+        owner = "iamdoubz";
+        repo = "Gitea-Pitch-Black";
+        rev = "38a10947254e46a0a3c1fb90c617d913d6fe63b9";
+        sha256 = "1zpmjv0h4k9nf52yaj22zyfabhv83n79f6cj6kfm5s685b2s1348";
+      }}/theme-pitchblack.css $out/css
+      ${pkgs.coreutils}/bin/cp -r ${./public}/* $out/
+    ''} /var/lib/gitea/custom/public"
+    "${pkgs.coreutils}/bin/ln -sfT ${./templates} /var/lib/gitea/custom/templates"
+  ];
 
   services.nginx.virtualHosts."git.${config.network.dns.domain}" = {
     enableACME = true;
