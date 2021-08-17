@@ -1,10 +1,10 @@
-{ config, lib, ... }:
+{ config, lib, meta, ... }:
 
 {
   boot.supportedFilesystems = [ "nfs" ];
 
   fileSystems."/mnt/kat-nas" = lib.mkIf (config.networking.hostName != "beltane") {
-    device = "192.168.1.223:/mnt/zraw/media";
+    device = "${meta.network.nodes.beltane.network.addresses.private.domain}:/mnt/zraw/media";
     fsType = "nfs";
     options = [ "x-systemd.automount" "noauto" "nfsvers=4" "soft" "retrans=2" "timeo=60"];
   };

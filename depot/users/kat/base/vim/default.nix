@@ -47,7 +47,7 @@
       "rust-analyzer.procMacro.enable" = true;
       "rust-analyzer.cargo.loadOutDirsFromCheck" = true;
       "rust-analyzer.cargo-watch.enable" =
-        true; # TODO: want some way to toggle this on-demand?
+        true;
       "rust-analyzer.completion.addCallParenthesis" =
         false; # consider using this?
       "rust-analyzer.hoverActions.linksInHover" = true;

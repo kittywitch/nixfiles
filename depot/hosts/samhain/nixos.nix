@@ -44,6 +44,10 @@ in {
       device = "/dev/disk/by-uuid/AED6-D0D1";
       fsType = "vfat";
     };
+    "/mnt/xstore" = {
+      device = "/dev/disk/by-uuid/64269102-a278-4919-9118-34e37f4afdb0";
+      fsType = "xfs";
+    };
   };
 
   swapDevices = [

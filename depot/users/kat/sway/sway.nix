@@ -148,7 +148,6 @@ in
               size = config.kw.font.size;
             };
             terminal = "${pkgs.foot}/bin/foot";
-          # TODO: replace with wofi
           menu =
             "${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --no-generic --dmenu=\"${dmenu}\" --term='${footwrap}/bin/footwrap'";
             modifier = "Mod4";

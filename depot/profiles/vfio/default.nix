@@ -6,12 +6,16 @@ let
   win10-screenstub = pkgs.writeShellScriptBin "win10-screenstub" ''
     ${pkgs.screenstub-kat}/bin/screenstub -c "${./screenstub.yml}" x
   '';
+  win10-diskmapper = pkgs.writeShellScriptBin "win10-diskmapper" ''
+    sudo ${pkgs.disk-mapper}/bin/disk-mapper /dev/disk/by-id/ata-ST2000DM008-2FR102_WK301C3H-part2
+  '';
 in {
   deploy.profile.vfio = true;
 
   environment.systemPackages = with pkgs; [
     screenstub-kat
     win10-vm
+    win10-diskmapper
     ddcutil
   ];
 

@@ -34,7 +34,6 @@ let
     };
   };
   videoconvert_gpu = [
-    # TODO: vulkancolorconvert?
     "glupload"
     "glcolorconvert"
     "gldownload"
