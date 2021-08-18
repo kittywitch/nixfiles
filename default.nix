@@ -12,37 +12,37 @@ let
 
   /*
   This is used to generate specialArgs + the like. It works as such:
-    * A <depotName> can exist at config/<depotName>.
-    * A <depotName> can exist at config/trusted/<depotName>.
+    * A <subconfigName> can exist at config/<subconfigName>.
+    * A <subconfigName> can exist at config/trusted/<subconfigName>.
   If only one exists, the path for that one is returned.
   Otherwise a module is generated which contains both import paths.
   */
-  depotNames = lib.unique (lib.folderList ./depot ["trusted"] ++ lib.folderList ./depot/trusted ["pkgs" "tf"]);
-  depot = lib.mapListToAttrs (folder: lib.nameValuePair folder (lib.domainMerge {
+  subconfigNames = lib.unique (lib.folderList ./config ["trusted"] ++ lib.folderList ./config/trusted ["pkgs" "tf"]);
+  subconfig = lib.mapListToAttrs (folder: lib.nameValuePair folder (lib.domainMerge {
     inherit folder;
-    folderPaths = [ (./depot + "/${folder}") (./depot/trusted + "/${folder}") ];
-  })) depotNames;
+    folderPaths = [ (./config + "/${folder}") (./config/trusted + "/${folder}") ];
+  })) subconfigNames;
 
   /*
   We use this to make the meta runner use this file and to use `--show-trace` on nix-builds.
   We also pass through pkgs to meta this way.
   */
   metaConfig = import ./meta.nix {
-    inherit pkgs lib depot;
+    inherit pkgs lib;
   };
 
   # This is where the meta config is evaluated.
   eval = lib.evalModules {
     modules = lib.singleton metaConfig
-    ++ lib.attrValues (removeAttrs depot.targets ["common"])
-    ++ lib.attrValues depot.hosts
-    ++ lib.optional (builtins.pathExists ./depot/trusted/meta.nix) ./depot/trusted/meta.nix
-    ++ lib.singleton ./depot/modules/meta/default.nix;
+    ++ lib.attrValues (removeAttrs subconfig.targets ["common"])
+    ++ lib.attrValues subconfig.hosts
+    ++ lib.optional (builtins.pathExists ./config/trusted/meta.nix) ./config/trusted/meta.nix
+    ++ lib.singleton ./config/modules/meta/default.nix;
 
     specialArgs = {
       inherit sources root;
       meta = self;
-    } // depot;
+    } // subconfig;
   };
 
   # The evaluated meta config.
@@ -50,7 +50,7 @@ let
 
 /*
   Please note all specialArg generated specifications use the folder common to both import paths.
-  Those import paths are as mentioned above next to `depotNames`.
+  Those import paths are as mentioned above next to `subconfigNames`.
 
   This provides us with a ./. that contains (most relevantly):
     * deploy.targets -> a mapping of target name to host names
@@ -61,5 +61,5 @@ let
       * do not use common, it is tf-nix specific config ingested at line 66 of config/modules/meta/deploy.nix for every target.
     * services -> the specialArg generated from services/
 */
-self = config // { inherit pkgs lib sourceCache sources; } // depot;
+self = config // { inherit pkgs lib sourceCache sources; } // subconfig;
 in self
