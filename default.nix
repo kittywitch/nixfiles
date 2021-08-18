@@ -2,47 +2,56 @@ let
   # Sources are from niv.
   sources = import ./nix/sources.nix;
   # We pass sources through to pkgs and get our nixpkgs + overlays.
-  pkgs = import ./pkgs.nix { inherit sources; };
+  pkgs = import ./overlay.nix { inherit sources; };
   # We want our overlaid lib.
   inherit (pkgs) lib;
   # This is used for caching niv sources in CI.
   sourceCache = import ./cache.nix { inherit sources lib; };
-  # This is used for the base path for hostImport.
+  # This is used for the base path for nodeImport.
   root = ./.;
 
   /*
   This is used to generate specialArgs + the like. It works as such:
-    * A <subconfigName> can exist at config/<subconfigName>.
-    * A <subconfigName> can exist at config/trusted/<subconfigName>.
+    * A <xargName> can exist at config/<subconfigName>.
+    * A <xargName> can exist at config/trusted/<subconfigName>.
   If only one exists, the path for that one is returned.
   Otherwise a module is generated which contains both import paths.
   */
-  subconfigNames = lib.unique (lib.folderList ./config ["trusted"] ++ lib.folderList ./config/trusted ["pkgs" "tf"]);
-  subconfig = lib.mapListToAttrs (folder: lib.nameValuePair folder (lib.domainMerge {
+  xargNames = lib.unique (lib.folderList ./config ["trusted"] ++ lib.folderList ./config/trusted ["pkgs" "tf"]);
+  xarg = lib.mapListToAttrs (folder: lib.nameValuePair folder (lib.domainMerge {
     inherit folder;
     folderPaths = [ (./config + "/${folder}") (./config/trusted + "/${folder}") ];
-  })) subconfigNames;
+  })) xargNames;
 
   /*
-  We use this to make the meta runner use this file and to use `--show-trace` on nix-builds.
-  We also pass through pkgs to meta this way.
+  We provide the runners with this file this way. We also provide our nix args here.
+  This is also where pkgs are passed through to the meta config.
   */
-  metaConfig = import ./meta.nix {
-    inherit pkgs lib;
+  metaConfig = {
+    config = {
+      runners = {
+        lazy = {
+          file = root;
+          args = [ "--show-trace" ];
+        };
+      };
+      _module.args = {
+        pkgs = lib.mkDefault pkgs;
+      };
+    };
   };
 
   # This is where the meta config is evaluated.
   eval = lib.evalModules {
     modules = lib.singleton metaConfig
-    ++ lib.attrValues (removeAttrs subconfig.targets ["common"])
-    ++ lib.attrValues subconfig.hosts
-    ++ lib.optional (builtins.pathExists ./config/trusted/meta.nix) ./config/trusted/meta.nix
+    ++ lib.attrValues (removeAttrs xarg.targets ["common"])
+    ++ lib.attrValues xarg.hosts
     ++ lib.singleton ./config/modules/meta/default.nix;
 
     specialArgs = {
       inherit sources root;
       meta = self;
-    } // subconfig;
+    } // xarg;
   };
 
   # The evaluated meta config.
@@ -50,7 +59,7 @@ let
 
 /*
   Please note all specialArg generated specifications use the folder common to both import paths.
-  Those import paths are as mentioned above next to `subconfigNames`.
+  Those import paths are as mentioned above next to `xargNames`.
 
   This provides us with a ./. that contains (most relevantly):
     * deploy.targets -> a mapping of target name to host names
@@ -61,5 +70,5 @@ let
       * do not use common, it is tf-nix specific config ingested at line 66 of config/modules/meta/deploy.nix for every target.
     * services -> the specialArg generated from services/
 */
-self = config // { inherit pkgs lib sourceCache sources; } // subconfig;
+self = config // { inherit pkgs lib sourceCache sources; } // xarg;
 in self
