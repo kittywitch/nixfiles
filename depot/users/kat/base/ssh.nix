@@ -18,7 +18,7 @@
         };
       in
       (lib.foldAttrList (map (network:
-        lib.mapAttrs (n: v: { hostname = v.address; } // common) (lib.filterAttrs (n: v: v.enable ) (lib.mapAttrs (n: v: v.network.addresses.${network}.ipv4) meta.network.nodes))
+        lib.mapAttrs (_: v: { hostname = v.address; } // common) (lib.filterAttrs (_: v: v.enable ) (lib.mapAttrs (_: v: v.network.addresses.${network}.ipv4) meta.network.nodes))
       ) ["private" "public"]));
   };
 }
