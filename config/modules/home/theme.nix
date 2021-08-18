@@ -13,7 +13,9 @@ let cfg = config.kw; in {
       type = types.nullOr (types.listOf types.path);
       default = [ ../../users/kat/sway/wallpapers/left.jpg ../../users/kat/sway/wallpapers/main.png ../../users/kat/sway/wallpapers/right.jpg ];
     };
-
+    hexColors = mkOption {
+      type = types.attrsOf types.str;
+    };
     font = {
       name = mkOption {
         type = types.str;

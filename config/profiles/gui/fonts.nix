@@ -16,12 +16,7 @@
   };
 
   fonts.fonts = with pkgs; [
-      font-awesome
-      nerdfonts
-      vegur
-      creep
       cozette
-      emacs-all-the-icons-fonts
       twitter-color-emoji
   ];
 }

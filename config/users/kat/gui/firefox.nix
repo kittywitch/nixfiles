@@ -1,0 +1,70 @@
+{ config, lib, pkgs, superConfig, ... }:
+
+let
+  commonSettings = {
+    "app.update.auto" = false;
+    "identity.fxaccounts.account.device.name" = superConfig.networking.hostName;
+    "signon.rememberSignons" = false;
+    "browser.download.lastDir" = "/home/kat/downloads";
+    "browser.urlbar.placeholderName" = "DuckDuckGo";
+    "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+    "svg.context-properties.content.enabled" = true;
+  };
+in
+{
+  programs.zsh.shellAliases = {
+    ff-pm = "firefox --ProfileManager";
+    ff-main = "firefox -P main";
+  };
+
+  programs.browserpass = {
+    enable = true;
+    browsers = [ "firefox" ];
+  };
+
+  home.sessionVariables = {
+    XDG_CURRENT_DESKTOP = "sway";
+  };
+
+  programs.firefox = {
+    enable = true;
+    package = pkgs.firefox-wayland;
+    extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+      sponsorblock
+      floccus
+      link-cleaner
+      octotree
+      betterttv
+      canvasblocker
+      view-image
+      pkgs.nur.repos.crazazy.firefox-addons.new-tab-override
+      wappalyzer
+      auto-tab-discard
+      bitwarden
+      darkreader
+      decentraleyes
+      foxyproxy-standard
+      clearurls
+      df-youtube
+      old-reddit-redirect
+      privacy-badger
+      reddit-enhancement-suite
+      refined-github
+      stylus
+      temporary-containers
+      browserpass
+      tree-style-tab
+      multi-account-containers
+      ublock-origin
+      violentmonkey
+    ];
+    profiles = {
+      main = {
+        id = 0;
+        isDefault = true;
+        settings = commonSettings // { };
+        userChrome = import ./firefox-ucc.nix { profile = "main"; base16 = config.kw.hexColors; };
+      };
+    };
+  };
+}

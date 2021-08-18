@@ -3,16 +3,14 @@
 {
   imports = with meta; [
     users.kat.base
-#    users.kairi.base TODO
     users.arc
     users.hexchen
     ./system.nix
-    ./dns.nix
     ./home.nix
     ./profiles.nix
     ./shell.nix
     ./base16.nix
-    ./net.nix
+    ./network.nix
     ./access.nix
     ./locale.nix
     ./nix.nix

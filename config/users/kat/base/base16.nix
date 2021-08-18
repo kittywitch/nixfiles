@@ -1,14 +1,12 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 {
   base16 = {
     shell.enable = true;
-    schemes = [ "atelier.atelier-cave" "atelier.atelier-cave-light" "tomorrow.tomorrow-night-eighties" "tomorrow.tomorrow" ];
+    schemes = [ "atelier.atelier-cave" "atelier.atelier-cave-light" ];
     alias.light = "atelier.atelier-cave-light";
     alias.dark = "atelier.atelier-cave";
   };
-  #  home.base16-shell = {
-  #    enable = true;
-  #    defaultTheme = "rebecca.rebecca";
-  #  };
+
+  kw.hexColours = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}") config.lib.arc.base16.schemeForAlias.default;
 }

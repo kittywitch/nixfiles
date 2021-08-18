@@ -2,7 +2,8 @@
 
 {
   imports = [
-    ./waybar
+    ./waybar.nix
+    ./wofi.nix
     ./mako.nix
     ./sway.nix
     ./gammastep.nix

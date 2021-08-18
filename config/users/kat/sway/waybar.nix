@@ -14,7 +14,7 @@ in
       };
       settings = [{
         modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
-        modules-center = ["clock" "clock#arc" "clock#miku" "clock#hex" ]; # "clock" "custom/weather"
+        modules-center = ["clock" "clock#arc" "clock#miku" "clock#hex" ];
         modules-right = [
           "pulseaudio"
           "cpu"
@@ -22,9 +22,7 @@ in
           "temperature"
           "backlight"
           "battery"
-          #"mpd"
           "network"
-          #"custom/weather"
           "idle_inhibitor"
           "custom/konawall"
           "custom/gpg-status"
@@ -37,13 +35,6 @@ in
            format = " {}";
             max-length = 50;
           };
-          #"custom/weather" = {
-          #  format = "{}";
-          #  interval = 3600;
-          #  on-click = "xdg-open 'https://google.com/search?q=weather'";
-          #  exec =
-          #    "${pkgs.kat-weather}/bin/kat-weather ${witch.secrets.profiles.sway.city} ${witch.secrets.profiles.sway.api_key}";
-          #};
           tray = {
             icon-size = 12;
             spacing = 2;
@@ -64,12 +55,6 @@ in
             on-click-right = "systemctl --user restart konawall";
           };
           cpu = { format = " {usage}%"; };
-          #mpd = { 
-          #  format = "  {albumArtist} - {title}"; 
-          #  format-stopped = "ﱙ";
-          #  format-paused = "  Paused";
-          #  title-len = 16;
-          #};
           memory = { format = " {percentage}%"; };
           temperature = {
             format = " {temperatureC}°C";

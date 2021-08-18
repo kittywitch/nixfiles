@@ -1,6 +1,5 @@
 { config, lib, pkgs, ... }: {
   networking = {
-    #      networkmanager.enable = true;
     resolvconf.useLocalResolver = true;
     networkmanager.dns = "none";
   };

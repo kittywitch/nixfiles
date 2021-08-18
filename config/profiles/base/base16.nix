@@ -4,7 +4,7 @@
   base16 = {
     console = {
       enable = true;
-      scheme = "rebecca.rebecca";
+      scheme = config.home-manager.users.kat.alias.default;
     };
   };
 }
