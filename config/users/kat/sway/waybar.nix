@@ -1,8 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}")
-  config.lib.arc.base16.schemeForAlias.default;
+  base16 = config.kw.hexColors;
 in
   {
     programs.waybar = {

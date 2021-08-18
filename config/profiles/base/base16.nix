@@ -4,7 +4,7 @@
   base16 = {
     console = {
       enable = true;
-      scheme = config.home-manager.users.kat.alias.default;
+      scheme = config.home-manager.users.kat.base16.alias.default;
     };
   };
 }
