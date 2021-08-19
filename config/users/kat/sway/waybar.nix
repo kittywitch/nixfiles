@@ -31,7 +31,7 @@ in
         modules = {
           "sway/workspaces" = { format = "{name}"; };
           "sway/window" = {
-           format = " {}";
+           format = "♦ {}";
             max-length = 50;
           };
           tray = {
