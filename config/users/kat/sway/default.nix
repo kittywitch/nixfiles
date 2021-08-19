@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./xkb.nix
     ./waybar.nix
     ./wofi.nix
     ./mako.nix
