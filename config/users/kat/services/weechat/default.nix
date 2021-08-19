@@ -8,26 +8,26 @@
 
   secrets.files.weechat-sec = {
     text = ''
-          #
-          # weechat -- sec.conf
-          #
-          # WARNING: It is NOT recommended to edit this file by hand,
-          # especially if WeeChat is running.
-          #
-          # Use /set or similar command to change settings in WeeChat.
-          #
-          # For more info, see: https://weechat.org/doc/quickstart
-          #
+      #
+      # weechat -- sec.conf
+      #
+      # WARNING: It is NOT recommended to edit this file by hand,
+      # especially if WeeChat is running.
+      #
+      # Use /set or similar command to change settings in WeeChat.
+      #
+      # For more info, see: https://weechat.org/doc/quickstart
+      #
 
-          [crypt]
-          cipher = aes256
-          hash_algo = sha512
-          salt = off
+      [crypt]
+      cipher = aes256
+      hash_algo = sha512
+      salt = off
 
-          [data]
-          __passphrase__ = off
-          znc = "${tf.variables.znc-pass.ref}"
-          matrix = "${tf.variables.matrix-pass.ref}"
+      [data]
+      __passphrase__ = off
+      znc = "${tf.variables.znc-pass.ref}"
+      matrix = "${tf.variables.matrix-pass.ref}"
     '';
     owner = "kat";
     group = "users";
@@ -39,30 +39,31 @@
 
   services.weechat.enable = true;
 
-  systemd.user.services.weechat-tmux = let scfg = config.services.weechat; in lib.mkForce {
-    Unit = {
-      Description = "Weechat tmux session";
-      After = [ "network.target" ];
+  systemd.user.services.weechat-tmux = let scfg = config.services.weechat; in
+    lib.mkForce {
+      Unit = {
+        Description = "Weechat tmux session";
+        After = [ "network.target" ];
+      };
+      Service = {
+        Type = "oneshot";
+        Environment = [
+          "TMUX_TMPDIR=%t"
+          "WEECHAT_HOME=${toString config.programs.weechat.homeDirectory}"
+        ];
+        RemainAfterExit = true;
+        X-RestartIfChanged = false;
+        ExecStart = "${scfg.tmuxPackage}/bin/tmux -2 new-session -d -s ${scfg.sessionName} ${scfg.binary}";
+        ExecStop = "${scfg.tmuxPackage}/bin/tmux kill-session -t ${scfg.sessionName}";
+      };
+      Install.WantedBy = [ "default.target" ];
     };
-    Service = {
-      Type = "oneshot";
-      Environment=[
-        "TMUX_TMPDIR=%t"
-        "WEECHAT_HOME=${toString config.programs.weechat.homeDirectory}"
-      ];
-      RemainAfterExit = true;
-      X-RestartIfChanged = false;
-      ExecStart = "${scfg.tmuxPackage}/bin/tmux -2 new-session -d -s ${scfg.sessionName} ${scfg.binary}";
-      ExecStop = "${scfg.tmuxPackage}/bin/tmux kill-session -t ${scfg.sessionName}";
-    };
-    Install.WantedBy = [ "default.target" ];
-  };
 
   programs.weechat = {
     enable = true;
     init = lib.mkBefore ''
-        /server add softnet athame.kittywit.ch/5001 -ssl -autoconnect
-        /server add liberachat athame.kittywit.ch/5001 -ssl -autoconnect
+      /server add softnet athame.kittywit.ch/5001 -ssl -autoconnect
+      /server add liberachat athame.kittywit.ch/5001 -ssl -autoconnect
     '';
     scripts = with pkgs.weechatScripts; [
       weechat-notify-send

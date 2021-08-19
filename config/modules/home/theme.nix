@@ -1,13 +1,14 @@
 { config, lib, ... }:
 
 /*
-This module:
+  This module:
   * provides a central way to change the font my system uses.
 */
 
 with lib;
 
-let cfg = config.kw; in {
+let cfg = config.kw; in
+{
   options.kw = {
     hexColors = mkOption {
       type = types.attrsOf types.str;

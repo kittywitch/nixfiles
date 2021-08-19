@@ -10,5 +10,5 @@
 
 
   kw.hexColors = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}")
-  (lib.filterAttrs (n: _: lib.hasInfix "base" n) config.lib.arc.base16.schemeForAlias.default);
+    (lib.filterAttrs (n: _: lib.hasInfix "base" n) config.lib.arc.base16.schemeForAlias.default);
 }

@@ -1,7 +1,7 @@
 { config, ... }:
 
 /*
-This hardware profile corresponds to any machine which has an Intel processor.
+  This hardware profile corresponds to any machine which has an Intel processor.
 */
 
 {

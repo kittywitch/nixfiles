@@ -5,7 +5,8 @@ let
     color: ${color};
     border-color: ${color};
   '';
-in ''
+in
+''
    * {
     border: none;
     border-radius: 0;

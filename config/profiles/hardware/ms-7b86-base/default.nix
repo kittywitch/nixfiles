@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 /*
-This hardware profile corresponds to the MSI B450-A PRO MAX system.
+  This hardware profile corresponds to the MSI B450-A PRO MAX system.
 */
 
 with lib;

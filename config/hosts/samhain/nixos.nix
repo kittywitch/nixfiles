@@ -6,7 +6,8 @@ let
   hexchen = (import sources.hexchen) { };
   hexYgg = filterAttrs (_: c: c.enable)
     (mapAttrs (_: host: host.config.network.yggdrasil) hexchen.hosts);
-in {
+in
+{
   # Imports
 
   imports = with meta; [
@@ -72,15 +73,18 @@ in {
   environment.systemPackages = [ pkgs.razergenie ];
 
   boot.modprobe.modules = {
-    vfio-pci = let
-      vfio-pci-ids = [
-        "1002:67df" "1002:aaf0" # RX 580
-        "1912:0014" # Renesas USB 3
-        "1022:149c" # CPU USB 3
-      ];
-    in mkIf (vfio-pci-ids != [ ]) {
-      options.ids = concatStringsSep "," vfio-pci-ids;
-    };
+    vfio-pci =
+      let
+        vfio-pci-ids = [
+          "1002:67df"
+          "1002:aaf0" # RX 580
+          "1912:0014" # Renesas USB 3
+          "1022:149c" # CPU USB 3
+        ];
+      in
+      mkIf (vfio-pci-ids != [ ]) {
+        options.ids = concatStringsSep "," vfio-pci-ids;
+      };
   };
 
   services.udev.extraRules = ''
@@ -108,7 +112,7 @@ in {
     };
     networks.br = {
       matchConfig.Name = "br";
-      address = singleton "${config.network.addresses.private.ipv4.address}/24" ;
+      address = singleton "${config.network.addresses.private.ipv4.address}/24";
       gateway = singleton config.network.privateGateway;
     };
     netdevs.br = {

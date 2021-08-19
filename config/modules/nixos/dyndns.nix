@@ -24,23 +24,24 @@ with lib;
 
     systemd.services.kat-glauca-dns =
       let updater = pkgs.writeShellScriptBin "glauca-dyndns" ''
-          #!/usr/bin/env bash
-          set -eu
+        #!/usr/bin/env bash
+        set -eu
 
-          ip4=$(${pkgs.curl}/bin/curl -s --ipv4 https://dns.glauca.digital/checkip)
-          ip6=$(${pkgs.curl}/bin/curl -s --ipv6 https://dns.glauca.digital/checkip)
-          source $passFile
-          echo "$ip4, $ip6"
-            ${pkgs.curl}/bin/curl -u ''${user}:''${pass} --data-urlencode "hostname=''${hostname}" --data-urlencode "myip=''${ip4}" "https://dns.glauca.digital/nic/update"
-          echo ""
-            ${pkgs.curl}/bin/curl -u ''${user}:''${pass} --data-urlencode "hostname=''${hostname}" --data-urlencode "myip=''${ip6}" "https://dns.glauca.digital/nic/update"
-      ''; in {
-      serviceConfig = {
-        ExecStart = "${updater}/bin/glauca-dyndns";
+        ip4=$(${pkgs.curl}/bin/curl -s --ipv4 https://dns.glauca.digital/checkip)
+        ip6=$(${pkgs.curl}/bin/curl -s --ipv6 https://dns.glauca.digital/checkip)
+        source $passFile
+        echo "$ip4, $ip6"
+          ${pkgs.curl}/bin/curl -u ''${user}:''${pass} --data-urlencode "hostname=''${hostname}" --data-urlencode "myip=''${ip4}" "https://dns.glauca.digital/nic/update"
+        echo ""
+          ${pkgs.curl}/bin/curl -u ''${user}:''${pass} --data-urlencode "hostname=''${hostname}" --data-urlencode "myip=''${ip6}" "https://dns.glauca.digital/nic/update"
+      ''; in
+      {
+        serviceConfig = {
+          ExecStart = "${updater}/bin/glauca-dyndns";
+        };
+        environment = { passFile = config.secrets.files.kat-glauca-dns.path; };
+        wantedBy = [ "default.target" ];
       };
-      environment = { passFile = config.secrets.files.kat-glauca-dns.path; };
-      wantedBy = [ "default.target" ];
-    };
 
     systemd.timers.kat-glauca-dns = {
       timerConfig = {

@@ -26,11 +26,11 @@
         imap.host = "athame.kittywit.ch";
         smtp.host = "athame.kittywit.ch";
         passwordCommand = "${pkgs.pass}/bin/pass email/kittywitch";
-          gpg = {
-            signByDefault = true;
-            key = "01F50A29D4AA91175A11BDB17248991EFA8EFBEE";
-          };
+        gpg = {
+          signByDefault = true;
+          key = "01F50A29D4AA91175A11BDB17248991EFA8EFBEE";
         };
       };
     };
+  };
 }

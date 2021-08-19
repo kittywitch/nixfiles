@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 /*
-This module:
+  This module:
   * Provides in-scope TF config for home-manager.
 */
 

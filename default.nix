@@ -10,9 +10,10 @@ let
     getSources = sources: removeAttrs sources [ "__functor" "dorkfiles" ];
     source2drv = value: if isDerivation value.outPath then value.outPath else value;
     sources2drvs = sources: mapAttrs (_: source2drv) (getSources sources);
-  in recurseIntoAttrs rec {
+  in
+  recurseIntoAttrs rec {
     local = sources2drvs sources;
-    hexchen = sources2drvs (import sources.hexchen {}).sources;
+    hexchen = sources2drvs (import sources.hexchen { }).sources;
     all = attrValues local ++ attrValues hexchen;
     allStr = toString all;
   };
@@ -20,21 +21,23 @@ let
   root = ./.;
 
   /*
-  This is used to generate specialArgs + the like. It works as such:
+    This is used to generate specialArgs + the like. It works as such:
     * A <xargName> can exist at config/<subconfigName>.
     * A <xargName> can exist at config/trusted/<subconfigName>.
-  If only one exists, the path for that one is returned.
-  Otherwise a module is generated which contains both import paths.
+    If only one exists, the path for that one is returned.
+    Otherwise a module is generated which contains both import paths.
   */
-  xargNames = lib.unique (lib.folderList ./config ["trusted"] ++ lib.folderList ./config/trusted ["pkgs" "tf"]);
-  xarg = lib.mapListToAttrs (folder: lib.nameValuePair folder (lib.domainMerge {
-    inherit folder;
-    folderPaths = [ (./config + "/${folder}") (./config/trusted + "/${folder}") ];
-  })) xargNames;
+  xargNames = lib.unique (lib.folderList ./config [ "trusted" ] ++ lib.folderList ./config/trusted [ "pkgs" "tf" ]);
+  xarg = lib.mapListToAttrs
+    (folder: lib.nameValuePair folder (lib.domainMerge {
+      inherit folder;
+      folderPaths = [ (./config + "/${folder}") (./config/trusted + "/${folder}") ];
+    }))
+    xargNames;
 
   /*
-  We provide the runners with this file this way. We also provide our nix args here.
-  This is also where pkgs are passed through to the meta config.
+    We provide the runners with this file this way. We also provide our nix args here.
+    This is also where pkgs are passed through to the meta config.
   */
   metaConfig = {
     config = {
@@ -53,9 +56,9 @@ let
   # This is where the meta config is evaluated.
   eval = lib.evalModules {
     modules = lib.singleton metaConfig
-    ++ lib.attrValues (removeAttrs xarg.targets ["common"])
-    ++ lib.attrValues xarg.hosts
-    ++ lib.singleton ./config/modules/meta/default.nix;
+      ++ lib.attrValues (removeAttrs xarg.targets [ "common" ])
+      ++ lib.attrValues xarg.hosts
+      ++ lib.singleton ./config/modules/meta/default.nix;
 
     specialArgs = {
       inherit sources root;
@@ -66,18 +69,19 @@ let
   # The evaluated meta config.
   inherit (eval) config;
 
-/*
-  Please note all specialArg generated specifications use the folder common to both import paths.
-  Those import paths are as mentioned above next to `xargNames`.
+  /*
+    Please note all specialArg generated specifications use the folder common to both import paths.
+    Those import paths are as mentioned above next to `xargNames`.
 
-  This provides us with a ./. that contains (most relevantly):
+    This provides us with a ./. that contains (most relevantly):
     * deploy.targets -> a mapping of target name to host names
     * network.nodes -> host names to host NixOS + home-manager configs
     * profiles -> the specialArg generated from profiles/
     * users -> the specialArg generated from users/
     * targets -> the specialArg generated from targets/
-      * do not use common, it is tf-nix specific config ingested at line 66 of config/modules/meta/deploy.nix for every target.
+    * do not use common, it is tf-nix specific config ingested at line 66 of config/modules/meta/deploy.nix for every target.
     * services -> the specialArg generated from services/
-*/
-self = config // { inherit pkgs lib sourceCache sources; } // xarg;
-in self
+  */
+  self = config // { inherit pkgs lib sourceCache sources; } // xarg;
+in
+self

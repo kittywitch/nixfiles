@@ -1,7 +1,7 @@
 { config, lib, sources, ... }:
 
 /*
-This hardware profile corresponds with the imperatively provisioned hetzner cloud box.
+  This hardware profile corresponds with the imperatively provisioned hetzner cloud box.
 */
 
 with lib;

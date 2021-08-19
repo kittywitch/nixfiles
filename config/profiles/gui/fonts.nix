@@ -16,7 +16,7 @@
   };
 
   fonts.fonts = with pkgs; [
-      cozette
-      twitter-color-emoji
+    cozette
+    twitter-color-emoji
   ];
 }

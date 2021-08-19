@@ -1,7 +1,7 @@
 { config, ... }:
 
 /*
-This hardware profile corresponds to the Lenovo IdeaPad v330-14ARR.
+  This hardware profile corresponds to the Lenovo IdeaPad v330-14ARR.
 */
 
 {

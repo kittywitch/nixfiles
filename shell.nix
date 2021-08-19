@@ -1,4 +1,5 @@
-{ }: let
+{}:
+let
   meta = import ./default.nix;
   config = meta;
   inherit (meta) pkgs;
@@ -58,7 +59,8 @@
     done
     cd $START_DIR
   '';
-in pkgs.mkShell {
+in
+pkgs.mkShell {
   nativeBuildInputs = with pkgs; [
     inetutils
     nf-update

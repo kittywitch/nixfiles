@@ -13,13 +13,13 @@
       (sources.hexchen + "/modules/network/yggdrasil")
     ];
 
-    options.hexchen.dns = lib.mkOption { };
-    options.hexchen.deploy = lib.mkOption { };
+  options.hexchen.dns = lib.mkOption { };
+  options.hexchen.deploy = lib.mkOption { };
 
-    /*
+  /*
     This maps hosts to network.nodes from the meta config. This is required for hexchen's yggdrasil network module.
-    */
-    config = {
-      _module.args.hosts = lib.mapAttrs (_: config: { inherit config; } ) meta.network.nodes;
-    };
-  }
+  */
+  config = {
+    _module.args.hosts = lib.mapAttrs (_: config: { inherit config; }) meta.network.nodes;
+  };
+}

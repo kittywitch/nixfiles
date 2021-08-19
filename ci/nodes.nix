@@ -6,22 +6,26 @@
 
   # ensure sources are fetched and available in the local store before evaluating host configs
   environment.bootstrap = {
-    sourceCache = channels.cipkgs.runCommand "sources" {
-      srcs = attrNames channels.nixfiles.sourceCache.local;
-    } ''
+    sourceCache = channels.cipkgs.runCommand "sources"
+      {
+        srcs = attrNames channels.nixfiles.sourceCache.local;
+      } ''
       mkdir -p $out/share/sources
       ln -s $srcs $out/share/sources/
     '';
   };
 
-  jobs = let main = (import ../.);
-  hosts = main.network.nodes;
-  targets = main.deploy.targets;
-  enabledTargets = filterAttrs (_: v: v.enable) main.deploy.targets;
-  enabledHosts = concatLists (mapAttrsToList (targetName: target: target.nodeNames) enabledTargets);
-  in mapAttrs' (k: nameValuePair "${k}") (genAttrs enabledHosts (host: {
+  jobs =
+    let
+      main = (import ../.);
+      hosts = main.network.nodes;
+      targets = main.deploy.targets;
+      enabledTargets = filterAttrs (_: v: v.enable) main.deploy.targets;
+      enabledHosts = concatLists (mapAttrsToList (targetName: target: target.nodeNames) enabledTargets);
+    in
+    mapAttrs' (k: nameValuePair "${k}") (genAttrs enabledHosts (host: {
       tasks.${host}.inputs = channels.nixfiles.network.nodes.${host}.deploy.system;
-  }));
+    }));
 
   ci.gh-actions.checkoutOptions.submodules = false;
   cache.cachix.arc = {

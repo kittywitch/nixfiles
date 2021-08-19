@@ -1,7 +1,7 @@
 { tf, target, name, meta, config, lib, ... }:
 
 /*
-This module:
+  This module:
   * aliases <hostname>.system.build.toplevel to <hostname>.deploy.system for ease of use.
   * marries meta config to NixOS configs for each host.
   * provides in-scope TF config in NixOS and home-manager, instead of only as a part of meta config.
@@ -52,12 +52,13 @@ in
 
   config = {
     deploy = {
-        system = config.system.build.toplevel;
-        targetName = let targetsList = attrNames ( filterAttrs (_: target: target.enable && elem name target.nodeNames) meta.deploy.targets ); in
+      system = config.system.build.toplevel;
+      targetName = let targetsList = attrNames (filterAttrs (_: target: target.enable && elem name target.nodeNames) meta.deploy.targets); in
         if (builtins.length targetsList == 0) then null
         else lib.warnIf (builtins.length targetsList > 1) "The host ${name} is assigned to several targets: ${concatMapStrings (x: "${x},") targetsList}." (head targetsList);
-      };
-      deploy.tf = mkMerge (singleton (lib.mkIf (config.deploy.targetName != null) {
+    };
+    deploy.tf = mkMerge (singleton
+      (lib.mkIf (config.deploy.targetName != null) {
         attrs = [ "import" "imports" "out" "attrs" ];
         import = genAttrs cfg.tf.imports (target: meta.deploy.targets.${target}.tf);
         out.set = removeAttrs cfg.tf cfg.tf.attrs;

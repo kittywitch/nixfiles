@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 /*
-This hardware profile corresponds to any machine which has an AMD Ryzen processor.
+  This hardware profile corresponds to any machine which has an AMD Ryzen processor.
 */
 
 {

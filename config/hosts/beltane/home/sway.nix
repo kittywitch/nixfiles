@@ -14,5 +14,5 @@ with lib;
       {
         "VGA-1" = middle;
       };
-    };
-  }
+  };
+}

@@ -1,4 +1,4 @@
-{ config, pkgs, lib , ... }:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -94,19 +94,20 @@ let
 
     rtmpsink
   ];
-in {
+in
+{
   services.nginx.appendConfig = ''
-      rtmp {
-        server {
-          listen [::]:1935 ipv6only=off;
-          application stream {
-            live on;
+    rtmp {
+      server {
+        listen [::]:1935 ipv6only=off;
+        application stream {
+          live on;
 
-            allow publish all;
-            allow play all;
-          }
+          allow publish all;
+          allow play all;
         }
       }
+    }
   '';
 
   network.firewall = {

@@ -11,7 +11,8 @@ let
     fi
   '';
   shellFunAliases = mapAttrs shellFunAlias;
-in {
+in
+{
   home.shell.functions = {
     genmac = ''
       nix run nixpkgs.openssl -c openssl rand -hex 6 | sed 's/\(..\)\(..\)\(..\)\(..\)\(..\)\(..\)/\1:\2:\3:\4:\5:\6/'
@@ -29,35 +30,53 @@ in {
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
-    initExtra = let
-      zshOpts= [
-    "auto_pushd" "pushd_ignore_dups" "pushdminus"
-    "rmstarsilent" "nonomatch" "long_list_jobs" "interactivecomments"
-    "append_history" "hist_ignore_space" "hist_verify" "inc_append_history" "nosharehistory"
-    "nomenu_complete" "auto_menu" "no_auto_remove_slash" "complete_in_word" "always_to_end" "nolistbeep" "autolist" "listrowsfirst"
-  ]; in ''
-    zmodload -i zsh/complist
-    zstyle ':completion:*' list-colors ""
-    zstyle ':completion:*:*:*:*:*' menu select
-    zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
-    zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-    zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
-    zstyle ':completion:*:complete:pass:*:*' matcher 'r:|[./_-]=** r:|=*' 'l:|=* r:|=*'
-        ${lib.concatStringsSep "\n" (map (opt: "setopt ${opt}") zshOpts)}
-        source ${./zshrc-vimode}
-	bindkey '^ ' autosuggest-accept
-	autoload -Uz history-search-end
-	autoload -Uz history-beginning-search-menu
-zle -N history-beginning-search-menu
-zle -N history-beginning-search-backward-end \
-                history-search-end
-zle -N history-beginning-search-forward-end \
-                history-search-end
-bindkey "\e[5~" history-beginning-search-backward-end
-bindkey "\e[6~" history-beginning-search-forward-end
-bindkey "^p" history-beginning-search-menu
-        echo ""; akiflags -rb;
-    '';
+    initExtra =
+      let
+        zshOpts = [
+          "auto_pushd"
+          "pushd_ignore_dups"
+          "pushdminus"
+          "rmstarsilent"
+          "nonomatch"
+          "long_list_jobs"
+          "interactivecomments"
+          "append_history"
+          "hist_ignore_space"
+          "hist_verify"
+          "inc_append_history"
+          "nosharehistory"
+          "nomenu_complete"
+          "auto_menu"
+          "no_auto_remove_slash"
+          "complete_in_word"
+          "always_to_end"
+          "nolistbeep"
+          "autolist"
+          "listrowsfirst"
+        ]; in
+      ''
+            zmodload -i zsh/complist
+            zstyle ':completion:*' list-colors ""
+            zstyle ':completion:*:*:*:*:*' menu select
+            zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
+            zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+            zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
+            zstyle ':completion:*:complete:pass:*:*' matcher 'r:|[./_-]=** r:|=*' 'l:|=* r:|=*'
+                ${lib.concatStringsSep "\n" (map (opt: "setopt ${opt}") zshOpts)}
+                source ${./zshrc-vimode}
+          bindkey '^ ' autosuggest-accept
+          autoload -Uz history-search-end
+          autoload -Uz history-beginning-search-menu
+        zle -N history-beginning-search-menu
+        zle -N history-beginning-search-backward-end \
+                        history-search-end
+        zle -N history-beginning-search-forward-end \
+                        history-search-end
+        bindkey "\e[5~" history-beginning-search-backward-end
+        bindkey "\e[6~" history-beginning-search-forward-end
+        bindkey "^p" history-beginning-search-menu
+                echo ""; akiflags -rb;
+      '';
     shellAliases = {
       nixdirfmt = "fd --color=never .nix | xargs nixpkgs-fmt";
       exa = "exa --time-style long-iso";
@@ -69,7 +88,7 @@ bindkey "^p" history-beginning-search-menu
       log = "journalctl";
       dmesg = "dmesg -HP";
       lg = "log --no-pager | grep";
-      hg  = "history 0 | grep";
+      hg = "history 0 | grep";
     };
     localVariables = {
       _Z_DATA = "${config.xdg.dataHome}/z/data";

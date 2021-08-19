@@ -4,13 +4,14 @@ with lib;
 
 {
   wayland.windowManager.sway.config = {
-    output = let
-      laptop = {
-        res = "1920x1080";
-        pos = "0 0";
-      };
-    in
-    { "eDP-1" = laptop; };
+    output =
+      let
+        laptop = {
+          res = "1920x1080";
+          pos = "0 0";
+        };
+      in
+      { "eDP-1" = laptop; };
 
     input = {
       "1739:33362:Synaptics_TM3336-002" = {

@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 /*
-This module:
+  This module:
   * is from an unmerged PR from home-manager.
 
-See: https://github.com/nix-community/home-manager/pull/1745
+  See: https://github.com/nix-community/home-manager/pull/1745
 */
 
 with lib;

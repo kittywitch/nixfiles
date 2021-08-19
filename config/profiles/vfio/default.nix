@@ -9,7 +9,8 @@ let
   win10-diskmapper = pkgs.writeShellScriptBin "win10-diskmapper" ''
     sudo ${pkgs.disk-mapper}/bin/disk-mapper /dev/disk/by-id/ata-ST2000DM008-2FR102_WK301C3H-part2
   '';
-in {
+in
+{
   deploy.profile.vfio = true;
 
   environment.systemPackages = with pkgs; [
@@ -23,25 +24,27 @@ in {
   users.users.kat.extraGroups = [ "vfio" "input" "uinput" ];
   users.groups = { uinput = { }; vfio = { }; };
 
-  boot = lib.mkMerge [ {
-    initrd.kernelModules = mkBefore ["vfio" "vfio_iommu_type1" "vfio_pci" "vfio_virqfd"];
+  boot = lib.mkMerge [{
+    initrd.kernelModules = mkBefore [ "vfio" "vfio_iommu_type1" "vfio_pci" "vfio_virqfd" ];
     kernelModules = [ "i2c-dev" ]; # i2c-dev is required for DDC/CI for screenstub
     kernelPatches = with pkgs.kernelPatches; [
       (mkIf config.deploy.profile.hardware.acs-override acs-override)
     ];
-  } (mkIf (config.deploy.profile.hardware.amdgpu) {
-    kernelParams = [
-      "video=efifb:off"
-    ];
-    extraModulePackages = [
-    (pkgs.linuxPackagesFor config.boot.kernelPackages.kernel).vendor-reset
-    ];
-  }) ( mkIf (config.deploy.profile.hardware.acs-override) {
-    kernelParams = [
-      "pci=noats"
-      "pcie_acs_override=downstream,multifunction"
-    ];
-  }) ];
+  }
+    (mkIf (config.deploy.profile.hardware.amdgpu) {
+      kernelParams = [
+        "video=efifb:off"
+      ];
+      extraModulePackages = [
+        (pkgs.linuxPackagesFor config.boot.kernelPackages.kernel).vendor-reset
+      ];
+    })
+    (mkIf (config.deploy.profile.hardware.acs-override) {
+      kernelParams = [
+        "pci=noats"
+        "pcie_acs_override=downstream,multifunction"
+      ];
+    })];
 
   environment.etc."qemu/bridge.conf".text = "allow br";
 

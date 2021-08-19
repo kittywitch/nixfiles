@@ -1,7 +1,7 @@
 { config, ... }:
 
 /*
-This hardware profile corresponds with the RM DESKTOP 310 system, which is actually just an Intel DQ67OW motherboard.
+  This hardware profile corresponds with the RM DESKTOP 310 system, which is actually just an Intel DQ67OW motherboard.
 */
 
 {

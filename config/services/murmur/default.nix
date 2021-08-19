@@ -5,7 +5,8 @@ with lib;
 let
   cfg = config.services.murmur;
   forking = (cfg.logFile != null);
-in {
+in
+{
   network.firewall = {
     public = {
       tcp.ports = singleton 64738;
@@ -66,40 +67,40 @@ in {
 
   # Service Replacement
   users.users.murmur = {
-    description     = "Murmur Service user";
-    home            = "/var/lib/murmur";
-    createHome      = true;
-    uid             = config.ids.uids.murmur;
-    group           = "murmur";
+    description = "Murmur Service user";
+    home = "/var/lib/murmur";
+    createHome = true;
+    uid = config.ids.uids.murmur;
+    group = "murmur";
   };
   users.groups.murmur = {
-    gid             = config.ids.gids.murmur;
+    gid = config.ids.gids.murmur;
   };
 
   systemd.services.murmur = {
     description = "Murmur Chat Service";
-    wantedBy    = [ "multi-user.target" ];
-    after       = [ "network-online.target "];
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network-online.target " ];
 
     serviceConfig = {
-        # murmurd doesn't fork when logging to the console.
-        Type = if forking then "forking" else "simple";
-        PIDFile = mkIf forking "/run/murmur/murmurd.pid";
-        EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
-        ExecStart = "${cfg.package}/bin/murmurd -ini ${config.secrets.files.murmur-config.path}";
-        Restart = "always";
-        RuntimeDirectory = "murmur";
-        RuntimeDirectoryMode = "0700";
-        User = "murmur";
-        Group = "murmur";
-      };
+      # murmurd doesn't fork when logging to the console.
+      Type = if forking then "forking" else "simple";
+      PIDFile = mkIf forking "/run/murmur/murmurd.pid";
+      EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
+      ExecStart = "${cfg.package}/bin/murmurd -ini ${config.secrets.files.murmur-config.path}";
+      Restart = "always";
+      RuntimeDirectory = "murmur";
+      RuntimeDirectoryMode = "0700";
+      User = "murmur";
+      Group = "murmur";
     };
+  };
 
   # Certs
 
-    network.extraCerts."services_murmur" = "voice.${config.network.dns.domain}";
-    users.groups."voice-cert".members = [ "nginx" "murmur" ];
-    security.acme.certs = { "services_murmur" = { group = "voice-cert"; }; };
+  network.extraCerts."services_murmur" = "voice.${config.network.dns.domain}";
+  users.groups."voice-cert".members = [ "nginx" "murmur" ];
+  security.acme.certs = { "services_murmur" = { group = "voice-cert"; }; };
 
   # DNS
 

@@ -14,7 +14,7 @@
   services.grafana.security.adminPasswordFile =
     config.secrets.files.grafana-admin-pass.path;
 
-    services.postgresql = {
+  services.postgresql = {
     ensureDatabases = [ "grafana" ];
     ensureUsers = [{
       name = "grafana";

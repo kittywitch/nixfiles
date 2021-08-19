@@ -8,22 +8,25 @@ with lib; {
   gh-actions.env.CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
 
   gh-actions = {
-    on = let
-      paths = [
-        "default.nix" # sourceCache
-        "ci/niv-cron.nix" config.ci.gh-actions.path
-      ];
-    in {
-      push = {
-        inherit paths;
+    on =
+      let
+        paths = [
+          "default.nix" # sourceCache
+          "ci/niv-cron.nix"
+          config.ci.gh-actions.path
+        ];
+      in
+      {
+        push = {
+          inherit paths;
+        };
+        pull_request = {
+          inherit paths;
+        };
+        schedule = [{
+          cron = "0 0 * * *";
+        }];
       };
-      pull_request = {
-        inherit paths;
-      };
-      schedule = [ {
-        cron = "0 0 * * *";
-      } ];
-    };
   };
 
   channels = {
@@ -37,22 +40,25 @@ with lib; {
   };
 
   jobs.niv-update = {
-      tasks.niv-build.inputs = with channels.cipkgs;
-        ci.command {
-          name = "niv-update-build";
-          allowSubstitutes = false;
-          cache = {
-            enable = false;
-          };
-          displayName = "niv update build";
-          environment = [ "OPENSSH_PRIVATE_KEY" "CACHIX_SIGNING_KEY" "GITHUB_REF" ];
-          command = let main = (import ../.);
+    tasks.niv-build.inputs = with channels.cipkgs;
+      ci.command {
+        name = "niv-update-build";
+        allowSubstitutes = false;
+        cache = {
+          enable = false;
+        };
+        displayName = "niv update build";
+        environment = [ "OPENSSH_PRIVATE_KEY" "CACHIX_SIGNING_KEY" "GITHUB_REF" ];
+        command =
+          let
+            main = (import ../.);
             hosts = main.network.nodes;
             targets = main.deploy.targets;
             enabledTargets = filterAttrs (_: v: v.enable) main.deploy.targets;
             enabledHosts = concatLists (mapAttrsToList (targetName: target: target.nodeNames) enabledTargets);
             hostBuildString = concatMapStringsSep " && " (host: "nix build -Lf . network.nodes.${host}.deploy.system -o result-${host} && nix-collect-garbage -d") enabledHosts;
-            in ''
+          in
+          ''
             # ${toString builtins.currentTime}
             if [[ -n $OPENSSH_PRIVATE_KEY ]]; then
               mkdir ~/.ssh
@@ -106,9 +112,9 @@ with lib; {
               echo "no source changes" >&2
             fi
           '';
-          impure = true;
-        };
-    };
+        impure = true;
+      };
+  };
 
   ci.gh-actions.checkoutOptions.submodules = false;
 
