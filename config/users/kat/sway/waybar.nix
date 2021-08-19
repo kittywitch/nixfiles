@@ -19,7 +19,6 @@ in
           "cpu"
           "memory"
           "temperature"
-          "backlight"
           "battery"
           "network"
           "idle_inhibitor"
@@ -31,7 +30,7 @@ in
         modules = {
           "sway/workspaces" = { format = "{name}"; };
           "sway/window" = {
-           format = "♦ {}";
+           format = " {}";
             max-length = 50;
           };
           tray = {
@@ -53,7 +52,7 @@ in
             on-click = "${pkgs.waybar-konawall}/bin/konawall-toggle";
             on-click-right = "systemctl --user restart konawall";
           };
-          cpu = { format = " {usage}%"; };
+          cpu = { format = " {usage}%"; };
           memory = { format = " {percentage}%"; };
           temperature = {
             format = " {temperatureC}°C";
@@ -65,12 +64,6 @@ in
               activated = "";
               deactivated = "";
             };
-          };
-          backlight = {
-            format = "{icon} {percent}%";
-            format-icons = [ "" "" ];
-            on-scroll-up = "${pkgs.light}/bin/light -A 1";
-            on-scroll-down = "${pkgs.light}/bin/light -U 1";
           };
           battery = {
             states = {
