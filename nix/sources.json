@@ -48,8 +48,16 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "katexprs": {
-        "path": "/home/kat/projects/@kittywitch/nixexprs",
-        "type": "local"
+        "branch": "main",
+        "description": null,
+        "homepage": null,
+        "owner": "kittywitch",
+        "repo": "nixexprs",
+        "rev": "5e736e81c17cc84a0a2da599940377e197b56c79",
+        "sha256": "0hgkxblhra9hv4wm9060dlwlbj2bf34v8inv8fk3kcmcl4w2305h",
+        "type": "tarball",
+        "url": "https://github.com/kittywitch/nixexprs/archive/5e736e81c17cc84a0a2da599940377e197b56c79.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
         "branch": "master",
