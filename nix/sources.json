@@ -23,6 +23,18 @@
         "url": "https://github.com/arcnmx/ci/archive/67fcb4a7d74b2f722b35155cc0cf3725f1e231ff.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "emacs-overlay": {
+        "branch": "master",
+        "description": "Bleeding edge emacs overlay [maintainer=@adisbladis] ",
+        "homepage": "",
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "rev": "31faed68033c6aff73002a57db29c8235ddfd112",
+        "sha256": "1v4rdx04fmk5qwapkgisasrkidnc17ns7qm7rpr910jwn9ri9s2q",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/emacs-overlay/archive/31faed68033c6aff73002a57db29c8235ddfd112.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "hexchen": {
         "branch": "main",
         "description": "A cutie's nixfiles",
