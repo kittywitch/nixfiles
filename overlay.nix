@@ -14,6 +14,7 @@ let
     overlays = [
       (import (sources.arcexprs + "/overlay.nix"))
       (import (sources.katexprs + "/overlay.nix"))
+      (import sources.emacs-overlay)
       overlay
     ];
     config = {

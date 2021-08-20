@@ -4,7 +4,7 @@ let
   footwrap = pkgs.writeShellScriptBin "footwrap" ''
     exec foot "$2"
   '';
-  lockCommand = "${pkgs.swaylock-fancy}/bin/swaylock-fancy -d -t ''";
+  lockCommand = ''${pkgs.swaylock-fancy}/bin/swaylock-fancy -d -t ""'';
 in
 {
   home.sessionVariables = {
@@ -28,7 +28,7 @@ in
       Type = "simple";
       ExecStart = ''
         ${pkgs.swayidle}/bin/swayidle -w \
-        timeout 300 '${lockCommand} \
+        timeout 300 '${lockCommand}' \
         timeout 600 'swaymsg "output * dpms off"' \
           resume 'swaymsg "output * dpms on"' \
         before-sleep '${lockCommand}'

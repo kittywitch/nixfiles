@@ -132,7 +132,6 @@ in
         ipv4.address = "192.168.1.1";
       };
     };
-    dns.dynamic = true;
     yggdrasil = {
       enable = true;
       pubkey = "a7110d0a1dc9ec963d6eb37bb6922838b8088b53932eae727a9136482ce45d47";

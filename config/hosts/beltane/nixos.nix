@@ -94,9 +94,7 @@ with lib;
   };
 
   network = {
-    extraCerts = {
-      "private_root" = "altar.kittywit.ch";
-    };
+    dns.dynamic = true;
     addresses = {
       private = {
         ipv4.address = "192.168.1.2";

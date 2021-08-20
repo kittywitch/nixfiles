@@ -16,6 +16,7 @@
   };
 
   fonts.fonts = with pkgs; [
+    emacs-all-the-icons-fonts
     cozette
     twitter-color-emoji
   ];
