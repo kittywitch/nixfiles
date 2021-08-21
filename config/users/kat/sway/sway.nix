@@ -260,13 +260,15 @@ in
             # screenshots - upload
             "${cfg.modifier}+Print" = "exec ${pkgs.sway-scrot}/bin/sway-scrot --notify upload screen";
             "${cfg.modifier}+Shift+Print" = "exec ${pkgs.sway-scrot}/bin/sway-scrot  --notify upload area";
-            "${cfg.modifier}+Mod1+Print" = "exec ${pkgs.sway-scrot}/bin/sway-scrot --notify upload window";
+            "${cfg.modifier}+Mod1+Print" = "exec ${pkgs.sway-scrot}/bin/sway-scrot --notify upload active";
+            "${cfg.modifier}+Mod1+Control+Print" = "exec ${pkgs.sway-scrot}/bin/sway-scrot --notify upload window";
             "${cfg.modifier}+Control+Print" = "exec ${pkgs.sway-scrot}/bin/sway-scrot --notify upload output";
 
             # screenshots - clipboard
             "Print" = "exec ${pkgs.sway-scrot}/bin/sway-scrot --notify copys screen";
             "Shift+Print" = "exec ${pkgs.sway-scrot}/bin/sway-scrot  --notify copys area";
-            "Mod1+Print" = "exec ${pkgs.sway-scrot}/bin/sway-scrot --notify copys window";
+            "Mod1+Print" = "exec ${pkgs.sway-scrot}/bin/sway-scrot --notify copys active";
+            "Mod1+Control+Print" = "exec ${pkgs.sway-scrot}/bin/sway-scrot --notify copys window";
             "Control+Print" = "exec ${pkgs.sway-scrot}/bin/sway-scrot --notify copys output";
 
             # layout handling
