@@ -2,7 +2,7 @@ let
   # Sources are from niv.
   sources = import ./nix/sources.nix;
   # We pass sources through to pkgs and get our nixpkgs + overlays.
-  pkgs = import ./overlay.nix { inherit sources; };
+  pkgs = import ./overlays { inherit sources; };
   # We want our overlaid lib.
   inherit (pkgs) lib;
   # This is used for caching niv sources in CI.

@@ -1,0 +1,446 @@
+From 179af0e572c1f5e9e124fea96bf8597e3212967d Mon Sep 17 00:00:00 2001
+SPDX-FileCopyrightText: Yusuke Tanaka <yusuktan@maguro.dev>
+SPDX-License-Identifier: Apache-2.0
+From: Yusuke Tanaka <yusuktan@maguro.dev>
+Date: Sat, 30 Jan 2021 14:50:28 +0900
+Subject: [PATCH] Implement `One` option for imports_granularity (#4669)
+
+This option merges all imports into a single `use` statement as long as
+they have the same visibility.
+---
+ src/tools/rustfmt/Configurations.md           |  19 ++-
+ src/tools/rustfmt/src/config/options.rs       |   2 +
+ src/tools/rustfmt/src/imports.rs              | 146 +++++++++++++++---
+ src/tools/rustfmt/src/reorder.rs              |   1 +
+ .../tests/source/imports_granularity_one.rs   |  60 +++++++
+ .../tests/target/imports_granularity_one.rs   |  79 ++++++++++
+ 6 files changed, 288 insertions(+), 19 deletions(-)
+ create mode 100644 src/tools/rustfmt/tests/source/imports_granularity_one.rs
+ create mode 100644 src/tools/rustfmt/tests/target/imports_granularity_one.rs
+
+diff --git a/src/tools/rustfmt/Configurations.md b/src/tools/rustfmt/Configurations.md
+index 37cb7474130..601f6eeb9bd 100644
+--- a/src/tools/rustfmt/Configurations.md
++++ b/src/tools/rustfmt/Configurations.md
+@@ -1665,7 +1665,7 @@ pub enum Foo {}
+ How imports should be grouped into `use` statements. Imports will be merged or split to the configured level of granularity.
+ 
+ - **Default value**: `Preserve`
+-- **Possible values**: `Preserve`, `Crate`, `Module`, `Item`
++- **Possible values**: `Preserve`, `Crate`, `Module`, `Item`, `One`
+ - **Stable**: No
+ 
+ #### `Preserve` (default):
+@@ -1719,6 +1719,23 @@ use qux::h;
+ use qux::i;
+ ```
+ 
++#### `One`:
++
++Merge all imports into a single `use` statement as long as they have the same visibility.
++
++```rust
++pub use foo::{x, y};
++use {
++    bar::{
++        a,
++        b::{self, f, g},
++        c,
++        d::e,
++    },
++    qux::{h, i},
++};
++```
++
+ ## `merge_imports`
+ 
+ This option is deprecated. Use `imports_granularity = "Crate"` instead.
+diff --git a/src/tools/rustfmt/src/config/options.rs b/src/tools/rustfmt/src/config/options.rs
+index 3b91021813c..db15ee97a40 100644
+--- a/src/tools/rustfmt/src/config/options.rs
++++ b/src/tools/rustfmt/src/config/options.rs
+@@ -125,6 +125,8 @@ pub enum ImportGranularity {
+     Module,
+     /// Use one `use` statement per imported item.
+     Item,
++    /// Use one `use` statement including all items.
++    One,
+ }
+ 
+ #[config_type]
+diff --git a/src/tools/rustfmt/src/imports.rs b/src/tools/rustfmt/src/imports.rs
+index 0f635fe1ccb..f5e780eb1ec 100644
+--- a/src/tools/rustfmt/src/imports.rs
++++ b/src/tools/rustfmt/src/imports.rs
+@@ -138,6 +138,29 @@ fn remove_alias(&self) -> UseSegment {
+         }
+     }
+ 
++    // Check if self == other with their aliases removed.
++    fn equal_except_alias(&self, other: &Self) -> bool {
++        match (self, other) {
++            (UseSegment::Ident(ref s1, _), UseSegment::Ident(ref s2, _)) => s1 == s2,
++            (UseSegment::Slf(_), UseSegment::Slf(_))
++            | (UseSegment::Super(_), UseSegment::Super(_))
++            | (UseSegment::Crate(_), UseSegment::Crate(_))
++            | (UseSegment::Glob, UseSegment::Glob) => true,
++            (UseSegment::List(ref list1), UseSegment::List(ref list2)) => list1 == list2,
++            _ => false,
++        }
++    }
++
++    fn get_alias(&self) -> Option<&str> {
++        match self {
++            UseSegment::Ident(_, a)
++            | UseSegment::Slf(a)
++            | UseSegment::Super(a)
++            | UseSegment::Crate(a) => a.as_deref(),
++            _ => None,
++        }
++    }
++
+     fn from_path_segment(
+         context: &RewriteContext<'_>,
+         path_seg: &ast::PathSegment,
+@@ -561,6 +584,7 @@ fn share_prefix(&self, other: &UseTree, shared_prefix: SharedPrefix) -> bool {
+                 SharedPrefix::Module => {
+                     self.path[..self.path.len() - 1] == other.path[..other.path.len() - 1]
+                 }
++                SharedPrefix::One => true,
+             }
+         }
+     }
+@@ -602,7 +626,7 @@ fn flatten(self) -> Vec<UseTree> {
+     fn merge(&mut self, other: &UseTree, merge_by: SharedPrefix) {
+         let mut prefix = 0;
+         for (a, b) in self.path.iter().zip(other.path.iter()) {
+-            if *a == *b {
++            if a.equal_except_alias(b) {
+                 prefix += 1;
+             } else {
+                 break;
+@@ -637,14 +661,20 @@ fn merge_rest(
+             return Some(new_path);
+         }
+     } else if len == 1 {
+-        let rest = if a.len() == len { &b[1..] } else { &a[1..] };
+-        return Some(vec![
+-            b[0].clone(),
+-            UseSegment::List(vec![
+-                UseTree::from_path(vec![UseSegment::Slf(None)], DUMMY_SP),
+-                UseTree::from_path(rest.to_vec(), DUMMY_SP),
+-            ]),
+-        ]);
++        let (common, rest) = if a.len() == len {
++            (&a[0], &b[1..])
++        } else {
++            (&b[0], &a[1..])
++        };
++        let mut list = vec![UseTree::from_path(
++            vec![UseSegment::Slf(common.get_alias().map(ToString::to_string))],
++            DUMMY_SP,
++        )];
++        match rest {
++            [UseSegment::List(rest_list)] => list.extend(rest_list.clone()),
++            _ => list.push(UseTree::from_path(rest.to_vec(), DUMMY_SP)),
++        }
++        return Some(vec![b[0].clone(), UseSegment::List(list)]);
+     } else {
+         len -= 1;
+     }
+@@ -659,18 +689,54 @@ fn merge_rest(
+ }
+ 
+ fn merge_use_trees_inner(trees: &mut Vec<UseTree>, use_tree: UseTree, merge_by: SharedPrefix) {
+-    let similar_trees = trees
+-        .iter_mut()
+-        .filter(|tree| tree.share_prefix(&use_tree, merge_by));
++    struct SimilarTree<'a> {
++        similarity: usize,
++        path_len: usize,
++        tree: &'a mut UseTree,
++    }
++
++    let similar_trees = trees.iter_mut().filter_map(|tree| {
++        if tree.share_prefix(&use_tree, merge_by) {
++            // In the case of `SharedPrefix::One`, `similarity` is used for deciding with which
++            // tree `use_tree` should be merge.
++            // In other cases `similarity` won't be used, so set it to `0` as a dummy value.
++            let similarity = if merge_by == SharedPrefix::One {
++                tree.path
++                    .iter()
++                    .zip(&use_tree.path)
++                    .take_while(|(a, b)| a.equal_except_alias(b))
++                    .count()
++            } else {
++                0
++            };
++
++            let path_len = tree.path.len();
++            Some(SimilarTree {
++                similarity,
++                tree,
++                path_len,
++            })
++        } else {
++            None
++        }
++    });
++
+     if use_tree.path.len() == 1 && merge_by == SharedPrefix::Crate {
+-        if let Some(tree) = similar_trees.min_by_key(|tree| tree.path.len()) {
+-            if tree.path.len() == 1 {
++        if let Some(tree) = similar_trees.min_by_key(|tree| tree.path_len) {
++            if tree.path_len == 1 {
+                 return;
+             }
+         }
+-    } else if let Some(tree) = similar_trees.max_by_key(|tree| tree.path.len()) {
+-        if tree.path.len() > 1 {
+-            tree.merge(&use_tree, merge_by);
++    } else if merge_by == SharedPrefix::One {
++        if let Some(sim_tree) = similar_trees.max_by_key(|tree| tree.similarity) {
++            if sim_tree.similarity > 0 {
++                sim_tree.tree.merge(&use_tree, merge_by);
++                return;
++            }
++        }
++    } else if let Some(sim_tree) = similar_trees.max_by_key(|tree| tree.path_len) {
++        if sim_tree.path_len > 1 {
++            sim_tree.tree.merge(&use_tree, merge_by);
+             return;
+         }
+     }
+@@ -888,6 +954,7 @@ fn rewrite(&self, context: &RewriteContext<'_>, mut shape: Shape) -> Option<Stri
+ pub(crate) enum SharedPrefix {
+     Crate,
+     Module,
++    One,
+ }
+ 
+ #[cfg(test)]
+@@ -912,7 +979,7 @@ fn bump(&mut self) {
+             }
+ 
+             fn eat(&mut self, c: char) {
+-                assert!(self.input.next().unwrap() == c);
++                assert_eq!(self.input.next().unwrap(), c);
+             }
+ 
+             fn push_segment(
+@@ -1102,6 +1169,49 @@ fn test_use_tree_merge_module() {
+         );
+     }
+ 
++    #[test]
++    fn test_use_tree_merge_one() {
++        test_merge!(One, ["a", "b"], ["{a, b}"]);
++
++        test_merge!(One, ["a::{aa, ab}", "b", "a"], ["{a::{self, aa, ab}, b}"]);
++
++        test_merge!(One, ["a as x", "b as y"], ["{a as x, b as y}"]);
++
++        test_merge!(
++            One,
++            ["a::{aa as xa, ab}", "b", "a"],
++            ["{a::{self, aa as xa, ab}, b}"]
++        );
++
++        test_merge!(
++            One,
++            ["a", "a::{aa, ab::{aba, abb}}"],
++            ["a::{self, aa, ab::{aba, abb}}"]
++        );
++
++        test_merge!(One, ["a", "b::{ba, *}"], ["{a, b::{ba, *}}"]);
++
++        test_merge!(One, ["a", "b", "a::aa"], ["{a::{self, aa}, b}"]);
++
++        test_merge!(
++            One,
++            ["a::aa::aaa", "a::ac::aca", "a::aa::*"],
++            ["a::{aa::{aaa, *}, ac::aca}"]
++        );
++
++        test_merge!(
++            One,
++            ["a", "b::{ba, bb}", "a::{aa::*, ab::aba}"],
++            ["{a::{self, aa::*, ab::aba}, b::{ba, bb}}"]
++        );
++
++        test_merge!(
++            One,
++            ["b", "a::ac::{aca, acb}", "a::{aa::*, ab}"],
++            ["{a::{aa::*, ab, ac::{aca, acb}}, b}"]
++        );
++    }
++
+     #[test]
+     fn test_flatten_use_trees() {
+         assert_eq!(
+diff --git a/src/tools/rustfmt/src/reorder.rs b/src/tools/rustfmt/src/reorder.rs
+index ac65ff2c108..2c58350d4fe 100644
+--- a/src/tools/rustfmt/src/reorder.rs
++++ b/src/tools/rustfmt/src/reorder.rs
+@@ -113,6 +113,7 @@ fn rewrite_reorderable_or_regroupable_items(
+                     merge_use_trees(normalized_items, SharedPrefix::Module)
+                 }
+                 ImportGranularity::Item => flatten_use_trees(normalized_items),
++                ImportGranularity::One => merge_use_trees(normalized_items, SharedPrefix::One),
+                 ImportGranularity::Preserve => normalized_items,
+             };
+ 
+diff --git a/src/tools/rustfmt/tests/source/imports_granularity_one.rs b/src/tools/rustfmt/tests/source/imports_granularity_one.rs
+new file mode 100644
+index 00000000000..c21707df395
+--- /dev/null
++++ b/src/tools/rustfmt/tests/source/imports_granularity_one.rs
+@@ -0,0 +1,60 @@
++// rustfmt-imports_granularity: One
++
++use b;
++use a::ac::{aca, acb};
++use a::{aa::*, ab};
++
++use a as x;
++use b::ba;
++use a::{aa, ab};
++
++use a::aa::aaa;
++use a::ab::aba as x;
++use a::aa::*;
++
++use a::aa;
++use a::ad::ada;
++#[cfg(test)]
++use a::{ab, ac::aca};
++use b;
++#[cfg(test)]
++use b::{
++    ba, bb,
++    bc::bca::{bcaa, bcab},
++};
++
++pub use a::aa;
++pub use a::ae;
++use a::{ab, ac, ad};
++use b::ba;
++pub use b::{bb, bc::bca};
++
++use a::aa::aaa;
++use a::ac::{aca, acb};
++use a::{aa::*, ab};
++use b::{
++    ba,
++    bb::{self, bba},
++};
++
++use crate::a;
++use crate::b::ba;
++use c::ca;
++
++use super::a;
++use c::ca;
++use super::b::ba;
++
++use crate::a;
++use super::b;
++use c::{self, ca};
++
++use a::{
++    // some comment
++    aa::{aaa, aab},
++    ab,
++    // another comment
++    ac::aca,
++};
++use b as x;
++use a::ad::ada;
+diff --git a/src/tools/rustfmt/tests/target/imports_granularity_one.rs b/src/tools/rustfmt/tests/target/imports_granularity_one.rs
+new file mode 100644
+index 00000000000..78ec5e7325c
+--- /dev/null
++++ b/src/tools/rustfmt/tests/target/imports_granularity_one.rs
+@@ -0,0 +1,79 @@
++// rustfmt-imports_granularity: One
++
++use {
++    a::{
++        aa::*,
++        ab,
++        ac::{aca, acb},
++    },
++    b,
++};
++
++use {
++    a::{self as x, aa, ab},
++    b::ba,
++};
++
++use a::{
++    aa::{aaa, *},
++    ab::aba as x,
++};
++
++#[cfg(test)]
++use a::{ab, ac::aca};
++#[cfg(test)]
++use b::{
++    ba, bb,
++    bc::bca::{bcaa, bcab},
++};
++use {
++    a::{aa, ad::ada},
++    b,
++};
++
++pub use {
++    a::{aa, ae},
++    b::{bb, bc::bca},
++};
++use {
++    a::{ab, ac, ad},
++    b::ba,
++};
++
++use {
++    a::{
++        aa::{aaa, *},
++        ab,
++        ac::{aca, acb},
++    },
++    b::{
++        ba,
++        bb::{self, bba},
++    },
++};
++
++use {
++    crate::{a, b::ba},
++    c::ca,
++};
++
++use {
++    super::{a, b::ba},
++    c::ca,
++};
++
++use {
++    super::b,
++    crate::a,
++    c::{self, ca},
++};
++
++use {
++    a::{
++        aa::{aaa, aab},
++        ab,
++        ac::aca,
++        ad::ada,
++    },
++    b as x,
++};
+-- 
+2.32.0
+
