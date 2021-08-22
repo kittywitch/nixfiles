@@ -5,10 +5,10 @@
         "homepage": null,
         "owner": "arcnmx",
         "repo": "nixexprs",
-        "rev": "36030e4a634792f9a9f3b029151148f3153839ab",
-        "sha256": "0hgfl2k03gs1rzippkmvqaw7knp87p9yplr9ivn7l25a2nb42g7s",
+        "rev": "d321fb6c1675545007d6f5486a50f67d8a5a8836",
+        "sha256": "194w6cs5qwv6xfslni013afdc3jyawg8h7mqywg82qxwmvipngjp",
         "type": "tarball",
-        "url": "https://github.com/arcnmx/nixexprs/archive/36030e4a634792f9a9f3b029151148f3153839ab.tar.gz",
+        "url": "https://github.com/arcnmx/nixexprs/archive/d321fb6c1675545007d6f5486a50f67d8a5a8836.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "ci": {
