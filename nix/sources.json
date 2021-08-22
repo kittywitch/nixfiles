@@ -83,6 +83,18 @@
         "url": "https://github.com/nmattia/niv/archive/e0ca65c81a2d7a4d82a189f1e23a48d59ad42070.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "nix-doom-emacs": {
+        "branch": "develop",
+        "description": "doom-emacs packaged for Nix",
+        "homepage": "",
+        "owner": "vlaci",
+        "repo": "nix-doom-emacs",
+        "rev": "1020f27f1fab123f0ce3ed5f6e9c0637d888c884",
+        "sha256": "1fgrxzmkbh699ah1sqr0937bysfx0v1q805k6kpjjfwbrfn6113h",
+        "type": "tarball",
+        "url": "https://github.com/vlaci/nix-doom-emacs/archive/1020f27f1fab123f0ce3ed5f6e9c0637d888c884.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nixos-mailserver": {
         "branch": "master",
         "ref": "master",
