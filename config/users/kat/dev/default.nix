@@ -5,6 +5,5 @@
     ./rustfmt.nix
     ./packages.nix
     ./cookiecutter.nix
-    #./emacs.nix
   ];
 }

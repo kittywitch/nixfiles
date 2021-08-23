@@ -17,6 +17,8 @@
       coc-yank
       coc-python
       coc-json
+      coc-fzf
+      fzf-vim
       coc-yaml
       coc-git
       coc-css

@@ -29,6 +29,7 @@ in
   home.packages = with pkgs; [ fzf fd zsh-completions akiflags ];
   programs.zsh = {
     enable = true;
+    enableSyntaxHighlighting = true;
     enableAutosuggestions = true;
     initExtra =
       let
@@ -85,34 +86,26 @@ in
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=3,bold";
       ZSH_AUTOSUGGEST_USE_ASYNC = 1;
     };
-    plugins = with pkgs.zsh-plugins; [
-      (with pkgs.zsh-syntax-highlighting; {
-        name = "zsh-syntax-highlighting";
+    plugins = with pkgs.zsh-plugins; (map (plugin: plugin.zshPlugin) [
+      tab-title
+      vim-mode
+      evil-registers
+    ]) ++ (map
+      (plugin: (with pkgs.${plugin}; {
+        name = pname;
+        inherit src;
+      })) [
+      "zsh-z"
+    ]) ++ [
+      (with pkgs.zsh-fzf-tab; {
+        name = "fzf-tab";
         inherit src;
       })
-      tab-title.zshPlugin
-      vim-mode.zshPlugin
-      evil-registers.zshPlugin
-      {
-        name = "z";
-        file = "z.sh";
-        src = pkgs.fetchFromGitHub {
-          owner = "rupa";
-          repo = "z";
-          rev = "9d5a3fe0407101e2443499e4b95bca33f7a9a9ca";
-          sha256 = "0aghw6zmd3851xpzgy0jkh25wzs9a255gxlbdr3zw81948qd9wb1";
-        };
-      }
-      {
-        name = "fzf-z";
-        src = pkgs.fetchFromGitHub {
-          owner = "andrewferrier";
-          repo = "fzf-z";
-          rev = "089ba6cacd3876c349cfb6b65dc2c3e68b478fd0";
-          sha256 = "1lvvkz0v4xibq6z3y8lgfkl9ibcx0spr4qzni0n925ar38s20q81";
-        };
-      }
     ];
+  };
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
   };
   programs.starship = {
     enable = true;
