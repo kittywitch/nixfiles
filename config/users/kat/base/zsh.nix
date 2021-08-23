@@ -55,15 +55,17 @@ in
           "listrowsfirst"
         ]; in
       ''
-            zmodload -i zsh/complist
-            zstyle ':completion:*' list-colors ""
-            zstyle ':completion:*:*:*:*:*' menu select
-            zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
-            zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-            zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
-            zstyle ':completion:*:complete:pass:*:*' matcher 'r:|[./_-]=** r:|=*' 'l:|=* r:|=*'
-                ${lib.concatStringsSep "\n" (map (opt: "setopt ${opt}") zshOpts)}
-          bindkey '^ ' autosuggest-accept
+              ZSH_TAB_TITLE_ADDITIONAL_TERMS='foot'
+        ZSH_TAB_TITLE_ENABLE_FULL_COMMAND=true
+              zmodload -i zsh/complist
+              zstyle ':completion:*' list-colors ""
+              zstyle ':completion:*:*:*:*:*' menu select
+              zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
+              zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+              zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
+              zstyle ':completion:*:complete:pass:*:*' matcher 'r:|[./_-]=** r:|=*' 'l:|=* r:|=*'
+                  ${lib.concatStringsSep "\n" (map (opt: "setopt ${opt}") zshOpts)}
+            bindkey '^ ' autosuggest-accept
       '';
     shellAliases = {
       nixdirfmt = "fd --color=never .nix | xargs nixpkgs-fmt";
@@ -83,19 +85,14 @@ in
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=3,bold";
       ZSH_AUTOSUGGEST_USE_ASYNC = 1;
     };
-    plugins = [
+    plugins = with pkgs.zsh-plugins; [
       (with pkgs.zsh-syntax-highlighting; {
         name = "zsh-syntax-highlighting";
         inherit src;
       })
-      (with pkgs.zsh-plugins.vim-mode; {
-        name = "zsh-vim-mode";
-        inherit src;
-      })
-      (with pkgs.zsh-plugins.evil-registers; {
-        name = "evil-registers";
-        inherit src;
-      })
+      tab-title.zshPlugin
+      vim-mode.zshPlugin
+      evil-registers.zshPlugin
       {
         name = "z";
         file = "z.sh";

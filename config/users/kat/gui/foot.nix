@@ -8,6 +8,7 @@ with lib;
     settings = {
       main = {
         term = "foot";
+        locked-title = false;
         font = "${config.kw.font.name}:size=${toString config.kw.font.size}, Twitter Color Emoji:size=8";
         font-bold = "${config.kw.font.name}:size=${toString config.kw.font.size}:style=Bold";
         font-italic = "${config.kw.font.name}:size=${toString config.kw.font.size}:style=Italic";
