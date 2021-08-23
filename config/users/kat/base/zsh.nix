@@ -63,19 +63,7 @@ in
             zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
             zstyle ':completion:*:complete:pass:*:*' matcher 'r:|[./_-]=** r:|=*' 'l:|=* r:|=*'
                 ${lib.concatStringsSep "\n" (map (opt: "setopt ${opt}") zshOpts)}
-                source ${./zshrc-vimode}
           bindkey '^ ' autosuggest-accept
-          autoload -Uz history-search-end
-          autoload -Uz history-beginning-search-menu
-        zle -N history-beginning-search-menu
-        zle -N history-beginning-search-backward-end \
-                        history-search-end
-        zle -N history-beginning-search-forward-end \
-                        history-search-end
-        bindkey "\e[5~" history-beginning-search-backward-end
-        bindkey "\e[6~" history-beginning-search-forward-end
-        bindkey "^p" history-beginning-search-menu
-                echo ""; akiflags -rb;
       '';
     shellAliases = {
       nixdirfmt = "fd --color=never .nix | xargs nixpkgs-fmt";
@@ -98,6 +86,14 @@ in
     plugins = [
       (with pkgs.zsh-syntax-highlighting; {
         name = "zsh-syntax-highlighting";
+        inherit src;
+      })
+      (with pkgs.zsh-plugins.vim-mode; {
+        name = "zsh-vim-mode";
+        inherit src;
+      })
+      (with pkgs.zsh-plugins.evil-registers; {
+        name = "evil-registers";
         inherit src;
       })
       {

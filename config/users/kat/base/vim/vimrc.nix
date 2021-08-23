@@ -46,7 +46,7 @@
     set hidden
     set nobackup
     set nowritebackup
-    set cmdheight=2
+    set cmdheight=1
     set updatetime=300
     set cursorline
     set colorcolumn=100

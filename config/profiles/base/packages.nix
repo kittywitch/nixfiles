@@ -8,5 +8,6 @@
     cachix
     pinentry-curses
     gnupg
+    foot.terminfo
   ];
 }
