@@ -8,7 +8,7 @@ with lib;
       modules = singleton ../../modules/home;
       specialArgs = {
         inherit sources tf meta;
-        superConfig = config;
+        nixos = config;
         modulesPath = sources.home-manager + "/modules";
       };
     });

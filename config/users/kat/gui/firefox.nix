@@ -1,9 +1,9 @@
-{ config, lib, pkgs, superConfig, ... }:
+{ config, lib, pkgs, nixos, ... }:
 
 let
   commonSettings = {
     "app.update.auto" = false;
-    "identity.fxaccounts.account.device.name" = superConfig.networking.hostName;
+    "identity.fxaccounts.account.device.name" = nixos.networking.hostName;
     "signon.rememberSignons" = false;
     "browser.download.lastDir" = "/home/kat/downloads";
     "browser.urlbar.placeholderName" = "DuckDuckGo";

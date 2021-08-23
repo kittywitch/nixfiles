@@ -25,7 +25,7 @@ with lib;
     home-manager.users = mkOption {
       type = types.attrsOf (types.submoduleWith {
         modules = [
-          ({ superConfig, ... }: {
+          ({ nixos, ... }: {
             options.deploy.profile = {
               gui = mkEnableOption "Graphical System";
               vfio = mkEnableOption "VFIO";
@@ -45,7 +45,7 @@ with lib;
               };
             };
             config = {
-              deploy.profile = superConfig.deploy.profile;
+              deploy.profile = nixos.deploy.profile;
             };
           })
         ];

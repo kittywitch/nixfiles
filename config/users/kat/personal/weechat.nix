@@ -1,4 +1,4 @@
-{ config, superConfig, pkgs, lib, ... }:
+{ config, nixos, pkgs, lib, ... }:
 
 {
   home.file = {
@@ -41,21 +41,21 @@
         server = {
           softnet = {
             address = "athame.kittywit.ch/5001";
-            password = "kat@${superConfig.networking.hostName}/softnet:\${sec.data.znc}";
+            password = "kat@${nixos.networking.hostName}/softnet:\${sec.data.znc}";
             ssl = true;
             ssl_verify = false;
             autoconnect = true;
           };
           liberachat = {
             address = "athame.kittywit.ch/5001";
-            password = "kat@${superConfig.networking.hostName}/liberachat:\${sec.data.znc}";
+            password = "kat@${nixos.networking.hostName}/liberachat:\${sec.data.znc}";
             ssl = true;
             ssl_verify = false;
             autoconnect = true;
           };
           espernet = {
             address = "athame.kittywit.ch/5001";
-            password = "kat@${superConfig.networking.hostName}/espernet:\${sec.data.znc}";
+            password = "kat@${nixos.networking.hostName}/espernet:\${sec.data.znc}";
             ssl = true;
             ssl_verify = false;
             autoconnect = true;
@@ -65,7 +65,7 @@
       matrix = {
         server.kittywitch = {
           address = "kittywit.ch";
-          device_name = "${superConfig.networking.hostName}/weechat";
+          device_name = "${nixos.networking.hostName}/weechat";
           username = "kat";
           password = "\${sec.data.matrix}";
         };
