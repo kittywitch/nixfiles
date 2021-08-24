@@ -5,6 +5,7 @@
     [
       (import (sources.arcexprs + "/modules")).nixos
       (import (sources.katexprs + "/modules")).nixos
+      (import (sources.impermanence  + "/nixos.nix"))
       ./deploy.nix
       ./dyndns.nix
       ./secrets.nix

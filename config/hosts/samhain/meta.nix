@@ -1,6 +1,6 @@
 { config, lib, kw, ... }: with lib; {
   config = {
-    deploy.targets.personal = {
+    deploy.targets.samhain = {
       tf = {
         resources.samhain = {
           provider = "null";

@@ -68,8 +68,6 @@ pkgs.mkShell {
     nf-actions-test
   ] ++ config.runners.lazy.nativeBuildInputs;
 
-  HISTFILE = toString (config.deploy.dataDir + "/.history");
-
   shellHook = ''
     export HOME_HOSTNAME=$(hostname -s)
     export HOME_UID=$(id -u)

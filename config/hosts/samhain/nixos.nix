@@ -30,7 +30,7 @@ in
 
   fileSystems = {
     "/" = {
-      device = "rpool/safe/root";
+      device = "rpool/ephemeral/root";
       fsType = "zfs";
     };
     "/nix" = {
@@ -38,8 +38,18 @@ in
       fsType = "zfs";
     };
     "/home" = {
-      device = "rpool/safe/home";
+      device = "rpool/ephemeral/home";
       fsType = "zfs";
+    };
+    "/persist/root" = {
+      device = "rpool/persist/root";
+      fsType = "zfs";
+      neededForBoot = true;
+    };
+    "/persist/home" = {
+      device = "rpool/persist/home";
+      fsType = "zfs";
+      neededForBoot = true;
     };
     "/boot" = {
       device = "/dev/disk/by-uuid/AED6-D0D1";
@@ -48,6 +58,54 @@ in
     "/mnt/xstore" = {
       device = "/dev/disk/by-uuid/64269102-a278-4919-9118-34e37f4afdb0";
       fsType = "xfs";
+    };
+  };
+
+
+  boot.initrd.postDeviceCommands = mkIf (config.fileSystems."/".fsType == "zfs") (mkAfter ''
+    zfs rollback -r ${config.fileSystems."/".device}@blank
+    zfs rollback -r ${config.fileSystems."/home".device}@blank
+  '');
+
+  programs.fuse.userAllowOther = true;
+
+  environment.persistence."/persist/root" = {
+    directories = [
+      "/var/log"
+      "/var/lib/systemd/coredump"
+      "/var/lib/acme"
+      "/var/lib/yggdrasil"
+      "/var/lib/kat/secrets"
+    ];
+    files = [
+      "/etc/machine-id"
+      "/etc/nix/id_rsa"
+      "/etc/ssh/ssh_host_rsa_key"
+      "/etc/ssh/ssh_host_rsa_key.pub"
+      "/etc/ssh/ssh_host_ed25519_key"
+      "/etc/ssh/ssh_host_ed25519_key.pub"
+    ];
+  };
+
+  home-manager.users.kat = {
+    home.persistence."/persist/home" = {
+      allowOther = true;
+      directories = [
+        ".local/share/weechat"
+        ".local/share/Mumble"
+        ".config/Mumble"
+        ".password-store"
+        ".gnupg"
+        ".mozilla"
+        "docs"
+        "media"
+        "mail"
+        "projects"
+        "shared"
+      ];
+      files = [
+        ".zsh_history"
+      ];
     };
   };
 

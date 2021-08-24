@@ -5,6 +5,7 @@
   imports = [
     (import (sources.arcexprs + "/modules")).home-manager
     (import (sources.katexprs + "/modules")).home
+    (import (sources.impermanence  + "/home-manager.nix"))
     ./vim.nix
     ./fvwm.nix
     ./deploy.nix
