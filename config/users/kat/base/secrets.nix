@@ -2,7 +2,7 @@
 
 {
   secrets = {
-    persistentRoot = config.xdg.cacheHome + "/kat/secrets";
+    persistentRoot = lib.mkDefault "${config.xdg.cacheHome}/kat/secrets";
     external = true;
   };
 }

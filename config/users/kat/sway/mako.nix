@@ -24,7 +24,7 @@ in
     font = "${config.kw.font.name} ${toString config.kw.font.size}";
     defaultTimeout = 3000;
     borderColor = base16.base08;
-    backgroundColor = lib.hextorgba base16.base00 0.75;
+    backgroundColor = "${base16.base00}BF";
     textColor = base16.base05;
   };
 }
