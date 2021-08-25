@@ -2,8 +2,7 @@
 
 let
   bcolor = color: ''
-    color: ${color};
-    border-color: ${color};
+    background: ${hextorgba color 0.75};
   '';
 in
 ''
@@ -20,84 +19,93 @@ in
 
    #mode {
     color: ${base16.base06};
-     padding-left: 4px;
-     padding-right: 4px;
+    padding: 0 4px;
    }
 
-  #clock, #memory, #cpu, #temperature, #pulseaudio, #network, #mpd, #backlight, #battery, #custom-weather, #custom-konawall, #custom-gpg-status, #idle_inhibitor {
-    margin-left: 8px;
-    margin-right: 8px;
-    padding-left: 8px;
-    padding-right: 8px;
+  #clock, #memory, #cpu, #temperature, #pulseaudio, #network, #mpd, #backlight, #battery, #custom-weather, #custom-konawall, #custom-gpg-status, #idle_inhibitor, #tray {
+    padding: 0 8px;
     transition: none;
-    border-bottom: 2px solid transparent;
-    color: ${base16.base07};
+    color: ${base16.base00};
   }
 
   .modules-left, .modules-center, .modules-right {
-    margin: 2px 8px;
-    background: ${hextorgba base16.base00 0.85};
-    border-radius: 6px;
+    margin: 2px 4px;
+    border-radius: 1em;
   }
 
-  .modules-left {
+  .modules-left widget label {
+    margin: 0 4px;
+    border-radius: 1em;
+  }
+
+  .modules-left widget:first-child {
+    margin-left: 0px;
+  }
+
+  .modules-left widget:last-child {
+    margin-right: 0px;
+  }
+
+  #workspaces, #window, #clock, #tray {
+    background: ${hextorgba base16.base00 0.75};
+  }
+
+  #workspaces {
+    padding: 0px;
+    border-radius: 1em;
+  }
+
+  #window {
     padding: 0 8px;
   }
 
-  .modules-center, .modules-right {
-    padding: 0 4px;
+  .modules-center widget:first-child label, .modules-right widget:first-child label, #workspaces button:first-child {
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
   }
 
-  tooltip {
-    padding: 2px;
-    background: ${hextorgba base16.base00 0.85};
-    border-radius: 6px;
+  .modules-center widget:last-child label, .modules-right widget:last-child label, #workspaces button:last-child, #tray {
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+  }
+
+  tooltip, #tray menu {
+    background: ${hextorgba base16.base00 0.75};
+    border-radius: 1em;
   }
 
   tooltip label {
     color: ${base16.base07};
   }
 
-  #tray {
-    margin: 0 8px;
-  }
-
   #window {
     color: ${base16.base06};
+    border-bottom: 2px solid transparent;
   }
 
-  #workspaces button:first-child {
-    margin-left: 0;
-  }
-
-  #window {
-    margin-left: 8px;
-  }
-
-  window#waybar.empty {
-    margin-left: 0px;
+  window#waybar.empty #window {
+    opacity: 0;
   }
 
   #workspaces button {
     color: ${base16.base06};
-    font-size: 16px;
-    border-bottom: 2px solid ${base16.base06};
-    margin: 0 2px;
   }
 
   #workspaces button.focused {
-      color: ${base16.base0D};
-      border-bottom: 2px solid ${base16.base0D};
+      color: ${base16.base07};
+      background: ${base16.base0D};
   }
 
   #workspaces button:hover {
     transition: none;
     box-shadow: inherit;
     text-shadow: inherit;
-    background: ${base16.base07};
-    color: ${base16.base0D};
+    background: ${base16.base06};
+    color: ${base16.base0C};
   }
 
+  #tray { padding: 0 10px 0 8px }
+  #clock { color: ${base16.base07} }
   #clock.arc { ${bcolor base16.base0B} }
   #clock.miku { ${bcolor base16.base0C} }
   #clock.hex { ${bcolor base16.base0F} }
@@ -116,5 +124,4 @@ in
   #backlight { ${bcolor base16.base0D} }
   #cpu { ${bcolor base16.base08} }
   #memory { ${bcolor base16.base09} }
-  #clock { ${bcolor base16.base07} }
 ''
