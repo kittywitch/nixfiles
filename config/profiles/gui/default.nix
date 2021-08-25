@@ -5,6 +5,7 @@
     ./fonts.nix
     ./sway.nix
     ./filesystems.nix
+    ./qt.nix
     ./gpg.nix
     ./xdg-portals.nix
     ./dns.nix

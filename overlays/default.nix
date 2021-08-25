@@ -6,6 +6,7 @@ let
       nurpkgs = self;
       pkgs = self;
     };
+    anicca = self.callPackage sources.anicca {};
     rustfmt = super.rustfmt.overrideAttrs ({ patches ? [ ], ... }: {
       patches = patches ++ [
         # Adds an option variant that merges all use statements into a single block.

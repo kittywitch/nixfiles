@@ -33,7 +33,6 @@ in
       sponsorblock
       floccus
       link-cleaner
-      octotree
       betterttv
       canvasblocker
       view-image

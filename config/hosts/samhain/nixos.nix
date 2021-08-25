@@ -95,9 +95,11 @@ in
     home.persistence."/persist/home" = {
       allowOther = true;
       directories = [
+        ".local/share/z"
         ".local/share/dino"
         ".local/share/weechat"
         ".local/share/Mumble"
+        ".local/share/direnv"
         ".config/Mumble"
         ".config/Element"
         ".password-store"
@@ -110,6 +112,7 @@ in
         "shared"
       ];
       files = [
+        ".ssh/known_hosts"
         ".zsh_history"
       ];
     };
@@ -130,6 +133,8 @@ in
   # Hardware
 
   deploy.profile.hardware.acs-override = true;
+
+  users.users.kat.extraGroups = singleton "openrazer";
 
   hardware.openrazer = {
     enable = true;

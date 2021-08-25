@@ -1,4 +1,16 @@
 {
+    "anicca": {
+        "branch": "main",
+        "description": "A helper for transitioning to impermanence",
+        "homepage": "",
+        "owner": "kittywitch",
+        "repo": "anicca",
+        "rev": "d4ef7f09558ce9f80e198ebe364d60d05eea97f9",
+        "sha256": "05sciibf2ylmlj34rqb2cyr6djwh6q7caqi0ahrkypmzgcnch2v4",
+        "type": "tarball",
+        "url": "https://github.com/kittywitch/anicca/archive/d4ef7f09558ce9f80e198ebe364d60d05eea97f9.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "arcexprs": {
         "branch": "master",
         "description": "nix stuff",
