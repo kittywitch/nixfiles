@@ -5,7 +5,7 @@
     _1password
     bpytop
     bitwarden
-    element-desktop
+    element-wayland
     exiftool
     thunderbird
     mumble-develop
@@ -18,8 +18,6 @@
     unzip
     nyxt
     baresip
-    discord-nssfix
-    tdesktop
     yubikey-manager
     cryptsetup
   ];
