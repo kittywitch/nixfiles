@@ -1,6 +1,6 @@
 { config, lib, kw, ... }: with lib; {
   config = {
-    deploy.targets.personal = {
+    deploy.targets.yule = {
       tf = {
         resources.yule = {
           provider = "null";

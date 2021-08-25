@@ -1,8 +1,7 @@
 { config, ... }:
 
 {
-  deploy.targets.personal = {
-    nodeNames = [ "yule" ];
+  deploy.targets.home = {
     tf = { config, ... }: {
       dns.records.ygg_grimoire = {
         tld = "kittywit.ch.";
