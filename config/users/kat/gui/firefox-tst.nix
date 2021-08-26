@@ -3,16 +3,22 @@
 {
   home.file.".mozilla/tst.css".text = let base16 = config.kw.hexColors; in
     ''
-          /* Hide border on tab bar, force its state to 'scroll', adjust margin-left for width of scrollbar. */ 
-          #tabbar { border: 0; overflow-y: scroll !important; }
+      /* Hide border on tab bar, force its state to 'scroll', adjust margin-left for width of scrollbar. */
+      #tabbar {
+        margin-top: calc(var(--pinned-tabs-area-size) - .15em);
+        position: absolute;
+        border: none !important;
+        overflow-y: scroll !important;
+        margin-left: -.5em;
+      }
 
       /* Hide .twisty and adjust margins so favicons have 7px on left. */
-      .tab .twisty {
+      .tab .twisty, .tab.pinned .twisty {
           margin-left: -16px;
       }
 
       /* Push tab labels slightly to the right so they're completely hidden in collapsed state */
-      .tab .label {
+      .tab .label, .tab.pinned .label {
           margin-left: 7px;
       }
       /* Hide close buttons on tabs. */
@@ -55,7 +61,7 @@
       :root {
           background-color: ${base16.base00} !important;
       }
-      #tabbar {
+      #tabbar, #tabbar-container {
           background-color: ${base16.base00} !important;
           border-right: 1px solid ${base16.base01};
           box-shadow: none !important;
@@ -66,7 +72,11 @@
           box-shadow: none !important;
           margin: 0.125em;
           border-radius: 0.125em;
-          }
+      }
+      .tab.pinned {
+        background-color: ${base16.base0D};
+        color: ${base16.base07} !important;
+      }
 
       .tab .favicon {
           margin-left: 0.25em;
