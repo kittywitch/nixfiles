@@ -9,6 +9,7 @@ let
     "browser.urlbar.placeholderName" = "DuckDuckGo";
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     "svg.context-properties.content.enabled" = true;
+    "extensions.pocket.enabled" = false;
   };
 in
 {
@@ -63,8 +64,8 @@ in
       main = {
         id = 0;
         isDefault = true;
-        settings = commonSettings // { };
-        userChrome = import ./firefox-ucc.nix { profile = "main"; base16 = config.kw.hexColors; };
+        settings = commonSettings;
+        userChrome = builtins.readFile (pkgs.firefox-uc { base16 = config.kw.hexColors; });
       };
     };
   };

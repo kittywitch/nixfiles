@@ -6,7 +6,13 @@ let
       (import ./nur { inherit sources; })
       (import sources.emacs-overlay)
       (import ./rustfmt)
-      (import ./firefox-tst)
+      (import ./ff-tst-style)
+      (import ./ff-uc-style)
+    /* # TODO: implement these
+      (import ./waybar-style)
+      (import ./wofi-style)
+      (import ./vimrc)
+    */
     ] ++ (map (path: import "${path}/overlay.nix") [
       sources.arcexprs
       sources.katexprs

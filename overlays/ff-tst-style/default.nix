@@ -2,7 +2,7 @@ final: prev: {
   firefox-tst = final.callPackage ({ stdenv, sass }: { base16 }:
 
   stdenv.mkDerivation ({
-    pname = "firefox-tst-css";
+    pname = "ff-tst-style";
     version = "0.0.1";
 
     phases = [ "buildPhase" ];
@@ -14,8 +14,8 @@ final: prev: {
     ];
 
     buildPhase = ''
-      substituteAll $src firefox-tst-substituted.sass
-      sass firefox-tst-substituted.sass $out --sourcemap=none --style expanded
+      substituteAll $src tst-sub.sass
+      sass tst-sub.sass $out --sourcemap=none --style expanded
     '';
   } // base16)) {};
 }
