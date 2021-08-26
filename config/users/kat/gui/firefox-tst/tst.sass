@@ -19,12 +19,20 @@ $base0F: @base0F@
 $font_0: "Cozette"
 $font_1: "monospace !important"
 
+*
+  font-family: $font_0, $font_1
+
 #tabbar
   margin-top: calc(var(--pinned-tabs-area-size) - .15em)
   position: absolute
   border: none !important
   overflow-y: scroll !important
   margin-left: -.5em
+  background-color: $base00 !important
+  border-right: 1px solid $base01
+    box-shadow: none !important
+
+#tabbar-container
   background-color: $base00 !important
   border-right: 1px solid $base01
     box-shadow: none !important
@@ -90,20 +98,12 @@ $font_1: "monospace !important"
     animation-direction: alternate-reverse
     background-size: 400% 100%
 
-
 .sound-button::before
   display: none !important
 
 .newtab-button
   display: none
 
-*
-  font-family: $font_0, $font_1
-
-#tabbar-container
-  background-color: $base00 !important
-  border-right: 1px solid $base01
-    box-shadow: none !important
 
 @keyframes rainbow_animation
   0%
@@ -111,19 +111,5 @@ $font_1: "monospace !important"
 
   100%
     background-position: 100% 0
-@keyframes spin
-  0%
-        transform: rotate(0deg)
-
-  100%
-        transform: rotate(360deg)
-
-
-@keyframes pulse
-  0%
-    opacity: 0.75
-
-  100%
-    opacity: 0.25
 
 
