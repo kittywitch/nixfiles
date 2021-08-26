@@ -1,16 +1,10 @@
 { config, lib, pkgs, ... }:
 
-let
-  base16 = config.kw.hexColors;
-in
 {
+  xdg.configFile."waybar/style.css".source = pkgs.waybar-style { inherit (config.kw.theme) base16; };
+
   programs.waybar = {
     enable = true;
-    style = import ./waybar.css.nix {
-      inherit base16;
-      inherit (lib) hextorgba;
-      font = config.kw.font;
-    };
     settings = [{
       modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
       modules-center = [ "clock" "clock#arc" "clock#miku" "clock#hex" ];

@@ -13,7 +13,7 @@ let
   };
 in
 {
-  home.file.".mozilla/tst.css".source = pkgs.firefox-tst { base16 = config.kw.hexColors; };
+  home.file.".mozilla/tst.css".source = pkgs.firefox-tst { inherit (config.kw.theme) base16; };
 
   programs.zsh.shellAliases = {
     ff-pm = "firefox --ProfileManager";
@@ -65,7 +65,7 @@ in
         id = 0;
         isDefault = true;
         settings = commonSettings;
-        userChrome = builtins.readFile (pkgs.firefox-uc { base16 = config.kw.hexColors; });
+        userChrome = builtins.readFile (pkgs.firefox-uc { inherit (config.kw.theme) base16; });
       };
     };
   };

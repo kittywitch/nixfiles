@@ -124,9 +124,9 @@ in
             };
           };
           fonts = {
-            names = [ config.kw.font.name ];
+            names = [ config.kw.theme.font.name ];
             style = "Medium";
-            size = config.kw.font.size;
+            size = config.kw.theme.font.size;
           };
           terminal = "${pkgs.foot}/bin/foot";
           menu = "${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --no-generic --dmenu=\"${dmenu}\" --term='${footwrap}/bin/footwrap'";
@@ -288,7 +288,7 @@ in
             "${cfg.modifier}+Delete" = ''mode "System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown"'';
           };
 
-          colors = let base16 = config.kw.hexColors; in
+          colors = let inherit (config.kw.theme) base16; in
             {
               focused = {
                 border = base16.base01;

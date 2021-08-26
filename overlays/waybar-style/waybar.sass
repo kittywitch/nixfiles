@@ -1,0 +1,200 @@
+$base00: @base00@
+$base01: @base01@
+$base02: @base02@
+$base03: @base03@
+$base04: @base04@
+$base05: @base05@
+$base06: @base06@
+$base07: @base07@
+$base08: @base08@
+$base09: @base09@
+$base0A: @base0A@
+$base0B: @base0B@
+$base0C: @base0C@
+$base0D: @base0D@
+$base0E: @base0E@
+$base0F: @base0F@
+$alpha: @alpha@
+$font: "Cozette"
+$font_size: 12px
+
+%extend_1
+  padding: 0 8px
+  transition: none
+  color: $base00
+
+*
+  border: none
+  border-radius: 0
+  background: none
+  font-family: $font
+  font-size: $font_size
+  min-height: 12px
+  text-shadow: none
+  box-shadow: none
+
+#mode
+  color: $base06
+  padding: 0 4px
+
+#clock
+  @extend %extend_1
+  background: $base00$alpha
+  color: $base07$alpha
+  &.arc
+    background: $base0B$alpha
+
+  &.miku
+    background: $base0C$alpha
+
+  &.hex
+    background: $base0F$alpha
+
+#memory
+  @extend %extend_1
+  background: $base09$alpha
+
+#cpu
+  @extend %extend_1
+  background: $base08$alpha
+
+#temperature
+  @extend %extend_1
+  background: $base0B$alpha
+
+#pulseaudio
+  @extend %extend_1
+  background: $base06$alpha
+  &.muted
+    background: $base03$alpha
+
+#network
+  @extend %extend_1
+  background: $base0C$alpha
+
+#mpd
+  @extend %extend_1
+
+#backlight
+  @extend %extend_1
+  background: $base0D$alpha
+
+#battery
+  @extend %extend_1
+  background: $base0C$alpha
+
+#custom-weather
+  @extend %extend_1
+  background: $base00$alpha
+
+#custom-konawall
+  @extend %extend_1
+  &.enabled
+    background: $base0E$alpha
+
+  &.disabled
+    background: $base0D$alpha
+
+#custom-gpg-status
+  @extend %extend_1
+  &.enabled
+    background: $base0B$alpha
+
+  &.disabled
+    background: $base08$alpha
+
+#idle_inhibitor
+  @extend %extend_1
+  &.activated
+    background: $base0E$alpha
+
+  &.deactivated
+    background: $base0D$alpha
+
+#tray
+  @extend %extend_1
+  background: $base00$alpha
+  border-top-right-radius: 1em
+  border-bottom-right-radius: 1em
+  padding: 0 10px 0 8px
+  menu
+    background: $base00$alpha
+    border-radius: 1em
+
+.modules-left
+  margin: 2px 4px
+  border-radius: 1em
+  widget
+    label
+      margin: 0 4px
+      border-radius: 1em
+
+    &:first-child
+      margin-left: 0
+
+    &:last-child
+      margin-right: 0
+
+.modules-center
+  margin: 2px 4px
+  border-radius: 1em
+  widget
+    &:first-child label
+      border-top-left-radius: 1em
+      border-bottom-left-radius: 1em
+
+    &:last-child label
+      border-top-right-radius: 1em
+      border-bottom-right-radius: 1em
+
+.modules-right
+  margin: 2px 4px
+  border-radius: 1em
+  widget
+    &:first-child *
+      border-top-left-radius: 1em
+      border-bottom-left-radius: 1em
+
+    &:last-child *
+      border-top-right-radius: 1em
+      border-bottom-right-radius: 1em
+
+#workspaces
+  background: $base00$alpha
+  padding: 0
+  border-radius: 1em
+  button
+    color: $base06
+    &:first-child
+      border-top-left-radius: 1em
+      border-bottom-left-radius: 1em
+
+    &:last-child
+      border-top-right-radius: 1em
+      border-bottom-right-radius: 1em
+
+    &.focused
+      color: $base07
+      background: $base0D
+
+    &:hover
+      transition: none
+      box-shadow: inherit
+      text-shadow: inherit
+      background: $base06
+      color: $base0C
+
+#window
+  background: $base00$alpha
+  padding: 0 8px
+  color: $base06
+  border-bottom: 2px solid transparent
+
+tooltip
+  background: $base00$alpha
+  border-radius: 1em
+  label
+    color: $base07
+
+window#waybar.empty #window
+  opacity: 0
