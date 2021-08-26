@@ -10,8 +10,12 @@ let
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     "svg.context-properties.content.enabled" = true;
   };
+  firefox-tst = pkgs.callPackage ./firefox-tst { base16 = config.kw.hexColors; };
 in
 {
+
+  home.file.".mozilla/tst.css".source = firefox-tst;
+
   programs.zsh.shellAliases = {
     ff-pm = "firefox --ProfileManager";
     ff-main = "firefox -P main";
