@@ -9,7 +9,7 @@ final: prev: {
 
     src = ./tst.sass;
 
-    buildInputs = [
+    nativeBuildInputs = [
       sass
     ];
 

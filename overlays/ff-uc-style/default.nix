@@ -9,7 +9,7 @@ final: prev: {
 
     src = ./userChrome.sass;
 
-    buildInputs = [
+    nativeBuildInputs = [
       sass
     ];
 
