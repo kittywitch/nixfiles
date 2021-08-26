@@ -35,6 +35,14 @@ let cfg = config.kw.theme; in
         default = "${toString (cfg.font.size + 3)}px";
       };
     };
+    variables = mkOption {
+      type = types.attrsOf types.str;
+      default = (cfg.base16 // {
+        font = cfg.font.name;
+        font_size = cfg.font.size_css;
+        inherit (cfg) alpha;
+      });
+    };
   };
   config = mkIf (cfg.enable) {
     kw.theme = {
@@ -43,19 +51,22 @@ let cfg = config.kw.theme; in
       alpha = "80";
     };
 
-    lib.kw.sassTemplate = pkgs.callPackage ({ sass, stdenv }: { name, src }: stdenv.mkDerivation ({
-      inherit name src;
-      nativeBuildInputs = lib.singleton sass;
-      phases = [ "buildPhase" ];
-      buildPhase = ''
-        substituteAll $src sub.sass
-        sass sub.sass $out --sourcemap=none --style=${cfg.css_style}
+    lib.kw.sassTemplate = { name, src }: let
+      variables = pkgs.writeText "base-variables.sass" ''
+        ${(concatStringsSep "\n" (mapAttrsToList(var: con: "\$${var}: ${con}") cfg.variables))}
       '';
-    } // cfg.base16 // {
-      font = cfg.font.name;
-      font_size = cfg.font.size_css;
-      inherit (cfg) alpha;
-    })) {};
+      source = pkgs.callPackage ({ sass, stdenv }: stdenv.mkDerivation ({
+        inherit name src variables;
+        nativeBuildInputs = lib.singleton sass;
+        phases = [ "buildPhase" ];
+        buildPhase = ''
+          cat $variables $src > src-mut.sass
+          sass src-mut.sass $out --sourcemap=none --style=${cfg.css_style}
+        '';
+      } // cfg.variables)) {}; in {
+        inherit source;
+        text = builtins.readFile source;
+    };
     _module.args = { inherit (config.lib) kw; };
   };
 }

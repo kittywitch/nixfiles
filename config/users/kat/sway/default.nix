@@ -3,8 +3,8 @@
 {
   imports = [
     ./xkb.nix
-    ./waybar.nix
-    ./wofi.nix
+    ./waybar
+    ./wofi
     ./mako.nix
     ./sway.nix
     ./gammastep.nix

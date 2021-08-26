@@ -6,10 +6,6 @@ let
       (import ./nur { inherit sources; })
       (import sources.emacs-overlay)
       (import ./rustfmt)
-      (import ./ff-tst-style)
-      (import ./ff-uc-style)
-      (import ./waybar-style)
-      (import ./wofi-style)
     /* # TODO: implement these
       (import ./vimrc)
     */

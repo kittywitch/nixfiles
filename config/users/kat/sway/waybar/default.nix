@@ -1,7 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, kw, ... }:
 
 {
-  xdg.configFile."waybar/style.css".source = pkgs.waybar-style { inherit (config.kw.theme) base16; };
+  xdg.configFile."waybar/style.css" = { inherit (kw.sassTemplate { name = "waybar-style"; src = ./waybar.sass; }) source; };
 
   programs.waybar = {
     enable = true;

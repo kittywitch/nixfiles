@@ -1,22 +1,3 @@
-$base00: @base00@
-$base01: @base01@
-$base02: @base02@
-$base03: @base03@
-$base04: @base04@
-$base05: @base05@
-$base06: @base06@
-$base07: @base07@
-$base08: @base08@
-$base09: @base09@
-$base0A: @base0A@
-$base0B: @base0B@
-$base0C: @base0C@
-$base0D: @base0D@
-$base0E: @base0E@
-$base0F: @base0F@
-$font_0: "Cozette"
-$font_1: "monospace !important"
-
 $animations: "toolbarbutton", ".toolbarbutton-icon", ".subviewbutton", "#urlbar-background", ".urlbar-icon", "#userContext-indicator", "#userContext-label", ".urlbar-input-box", "#identity-box", "#tracking-protection-icon-container", "[anonid=urlbar-go-button]", ".urlbar-icon-wrapper", "#tracking-protection-icon", "#identity-box image", "stack", "vbox", "tab:not(:active) .tab-background", "tab:not([beforeselected-visible])::after", "tab[visuallyselected] .tab-background::before", "tab[visuallyselected] .tab-background::before", ".tab-close-button"
 $base00_backgrounds: "#nav-bar", "toolbar-menubar", "#menubar-items", "#main-menubar"
 $extendables: ".urlbar-icon", "#userContext-indicator", "#userContext-label"
@@ -34,7 +15,7 @@ $extendables: ".urlbar-icon", "#userContext-indicator", "#userContext-label"
   --animationSpeed: 0.15s
 
 *
-  font-family: $font_0, $font_1
+  font-family: $font !important
 
 #TabsToolbar
   visibility: collapse
@@ -62,7 +43,7 @@ $extendables: ".urlbar-icon", "#userContext-indicator", "#userContext-label"
 
   &:not(:hover):not([breakout][breakout-extend]) > #urlbar-background
     box-shadow: none !important
-    background: @base01@ !important
+    background: $base01 !important
 
   &:hover .urlbar-icon
     fill: var(--toolbar-color) !important
@@ -72,10 +53,10 @@ $extendables: ".urlbar-icon", "#userContext-indicator", "#userContext-label"
 
 @each $selector in $base00_backgrounds
   #{$selector}
-    background: @base00@ !important
+    background: $base00 !important
 
 #urlbar-background
-  background: @base01@ !important
+  background: $base01 !important
 
 #star-button
   display: none

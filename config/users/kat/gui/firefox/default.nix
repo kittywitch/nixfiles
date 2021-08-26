@@ -1,4 +1,4 @@
-{ config, lib, pkgs, nixos, ... }:
+{ config, lib, pkgs, nixos, kw, ... }:
 
 let
   commonSettings = {
@@ -13,7 +13,7 @@ let
   };
 in
 {
-  home.file.".mozilla/tst.css".source = pkgs.firefox-tst { inherit (config.kw.theme) base16; };
+  home.file.".mozilla/tst.css" = { inherit (kw.sassTemplate { name = "tst"; src = ./tst.sass; }) source; };
 
   programs.zsh.shellAliases = {
     ff-pm = "firefox --ProfileManager";
@@ -65,7 +65,7 @@ in
         id = 0;
         isDefault = true;
         settings = commonSettings;
-        userChrome = builtins.readFile (pkgs.firefox-uc { inherit (config.kw.theme) base16; });
+        userChrome = (kw.sassTemplate { name = "userChrome"; src = ./userChrome.sass; }).text;
       };
     };
   };
