@@ -18,8 +18,11 @@ let cfg = config.kw.theme; in
     base16 = mkOption {
       type = types.attrsOf types.str;
     };
+    base16t = mkOption {
+      type = types.attrsOf types.str;
+    };
     alpha = mkOption {
-      type = types.str;
+      type = types.float;
     };
     font = {
       name = mkOption {
@@ -37,10 +40,9 @@ let cfg = config.kw.theme; in
     };
     variables = mkOption {
       type = types.attrsOf types.str;
-      default = (cfg.base16 // {
+      default = (cfg.base16 // cfg.base16t // {
         font = cfg.font.name;
         font_size = cfg.font.size_css;
-        inherit (cfg) alpha;
       });
     };
   };
@@ -48,7 +50,9 @@ let cfg = config.kw.theme; in
     kw.theme = {
       base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}")
       (lib.filterAttrs (n: _: lib.hasInfix "base" n) config.lib.arc.base16.schemeForAlias.default);
-      alpha = "80";
+      base16t = lib.mapAttrs' (k: v: lib.nameValuePair "${k}t" "rgba(${toString v.rgb.r}, ${toString v.rgb.g}, ${toString v.rgb.b}, ${toString cfg.alpha})")
+      (lib.filterAttrs (n: _: lib.hasInfix "base" n) config.lib.arc.base16.schemeForAlias.default);
+      alpha = 0.5;
     };
 
     lib.kw.sassTemplate = { name, src }: let
