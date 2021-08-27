@@ -25,37 +25,37 @@ let
   '';
   nf-actions = pkgs.writeShellScriptBin "nf-actions" ''
     export START_DIR="$PWD"
-    cd ${toString ./.}
+    cd "${toString ./.}"
     export NF_CONFIG_ROOT=${toString ./.}/ci
     NF_CONFIG_FILES=($NF_CONFIG_ROOT/{nodes,niv-cron}.nix)
     for f in "''${NF_CONFIG_FILES[@]}"; do
       echo $f
-      nix run --arg config $f ci.run.gh-actions-generate
+      nix run --argstr config "$f" ci.run.gh-actions-generate
     done
-    cd ${toString ./config/trusted}
+    cd "${toString ./config/trusted}"
     export TRUSTED_CONFIG_ROOT=${toString ./config/trusted}/ci
     TRUSTED_CONFIG_FILES=($TRUSTED_CONFIG_ROOT/nodes.nix)
     for f in "''${TRUSTED_CONFIG_FILES[@]}"; do
       echo $f
-      nix run --arg config $f ci.run.gh-actions-generate
+      nix run --argstr config "$f" ci.run.gh-actions-generate
     done
     cd $START_DIR
   '';
   nf-actions-test = pkgs.writeShellScriptBin "nf-actions-test" ''
     export START_DIR="$PWD"
-    cd ${toString ./.}
+    cd "${toString ./.}"
     export NF_CONFIG_ROOT=${toString ./.}/ci
     NF_CONFIG_FILES=($NF_CONFIG_ROOT/{nodes,niv-cron}.nix)
     for f in "''${NF_CONFIG_FILES[@]}"; do
       echo $f
-      nix run --arg config $f ci.test
+      nix run --argstr config "$f" ci.test
     done
-    cd ${toString ./config/trusted}
+    cd "${toString ./config/trusted}"
     export TRUSTED_CONFIG_ROOT=${toString ./config/trusted}/ci
     TRUSTED_CONFIG_FILES=($TRUSTED_CONFIG_ROOT/nodes.nix)
     for f in "''${TRUSTED_CONFIG_FILES[@]}"; do
       echo $f
-      nix run --arg config $f ci.test
+      nix run --argstr config "$f" ci.test
     done
     cd $START_DIR
   '';
