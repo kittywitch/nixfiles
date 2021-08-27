@@ -1,6 +1,5 @@
 { config, tf, meta, kw, pkgs, lib, sources, ... }: with lib; let
   oci-root = meta.deploy.targets.oci-root.tf;
-  lustrateHost = "ubuntu";
 in {
   imports = (with (import (sources.tf-nix + "/modules")); [
     nixos.ubuntu-linux
