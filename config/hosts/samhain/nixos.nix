@@ -24,6 +24,19 @@ in
     services.zfs
   ];
 
+  # Terraform
+
+  deploy.tf = {
+    resources.samhain = {
+      provider = "null";
+      type = "resource";
+      connection = {
+        port = head config.services.openssh.ports;
+        host = config.network.addresses.private.ipv4.address;
+      };
+    };
+  };
+
   # File Systems and Swap
 
   boot.supportedFilesystems = [ "zfs" "xfs" ];

@@ -50,6 +50,8 @@ let
       _module.args = {
         pkgs = lib.mkDefault pkgs;
       };
+
+      deploy.targets.dummy.enable = false;
     };
   };
 
@@ -57,7 +59,11 @@ let
   eval = lib.evalModules {
     modules = lib.singleton metaConfig
       ++ lib.attrValues (removeAttrs xarg.targets [ "common" ])
-      ++ lib.attrValues xarg.hosts
+      ++ (map (host: {
+        network.nodes.${host} = {
+          imports = config.lib.kw.nodeImport host;
+        };
+      }) (lib.attrNames xarg.hosts))
       ++ lib.singleton ./config/modules/meta/default.nix;
 
     specialArgs = {

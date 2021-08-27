@@ -34,6 +34,19 @@ with lib;
     services.znc
   ];
 
+  # Terraform
+
+  deploy.tf = {
+    resources.athame = {
+      provider = "null";
+      type = "resource";
+      connection = {
+        port = head config.services.openssh.ports;
+        host = config.network.addresses.public.ipv4.address;
+      };
+    };
+  };
+
   # File Systems and Swap
 
   fileSystems = {
