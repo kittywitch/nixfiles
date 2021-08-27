@@ -34,6 +34,7 @@ in
     deploy = {
       dataDir = mkOption {
         type = types.path;
+        default = ../../../tf;
       };
       local = {
         isRoot = mkOption {
