@@ -19,7 +19,7 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 | --- | --- |
 | [athame](config/hosts/athame) | Currently the main server. Ad-hoc hetzner cloud box. |
 | [rinnosuke](config/hosts/rinnosuke) | Intended to be a nameserver. Provisioned OCI EPYC box. |
-| [beltane](config/hosts/beltane) | Home server. |
+| [beltane](config/hosts/beltane) | Home server. NAS + HTPC, does DVB stuff. |
 | [samhain](config/hosts/samhain) | Beloved workstation. Does VFIO. |
 | [yule](config/hosts/yule) | Main laptop. |
 | [ostara](config/hosts/ostara) | CCTV netbook. |
@@ -43,7 +43,7 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 | [media](config/users/kat/media) | mpv, obs, packages and syncplay configuration. |
 | [personal](config/users/kat/personal) | email (notmuch), home-manager-side GPG, weechat and zsh configuration. |
 | [services](config/users/kat/services) | User services. weechat and mpd are provided. |
-| [sway](config/users/kat/sway) | sway, i3gopher, swayidle, swaylock-effects, screenshot tool, konawall, mako, wofi, waybar and xkb (custom layout o:) configuration. |
+| [sway](config/users/kat/sway) | sway, i3gopher, swayidle, swaylock-effects, screenshot tool, [kittywitch/konawall-rs](https://github.com/kittywitch/konawall-rs), mako, wofi, waybar and xkb (custom layout o:) configuration. |
 
 ## CI
 
@@ -51,7 +51,7 @@ CI for this repository uses [arcnmx/ci](https://github.com/arcnmx/ci) and aims t
 
 | Action | Purpose |
 | --- | --- |
-| [nodes](ci/nodes.nix) | Build and cache host closures, show state of host evaluability/buildability |
+| [nodes](ci/nodes.nix) | Build and cache host closures, show state of host evaluability/buildability. |
 | [niv-cron](ci/niv-cron.nix) | Automatically update the dependencies used by the repository, cache them and host closure build results with them.  |
 
 ## Dependencies
