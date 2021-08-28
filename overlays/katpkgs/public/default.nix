@@ -9,7 +9,5 @@
     paths = [ fusionpbx ] ++ apps;
   };
 
-  libreelec-dvb-firmware = import ./libreelec-dvb-firmware/default.nix;
-
   yggdrasil-held = import ./yggdrasil;
 }
