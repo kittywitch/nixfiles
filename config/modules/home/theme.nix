@@ -49,28 +49,33 @@ let cfg = config.kw.theme; in
   config = mkIf (cfg.enable) {
     kw.theme = {
       base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}")
-      (lib.filterAttrs (n: _: lib.hasInfix "base" n) config.lib.arc.base16.schemeForAlias.default);
+        (lib.filterAttrs (n: _: lib.hasInfix "base" n) config.lib.arc.base16.schemeForAlias.default);
       base16t = lib.mapAttrs' (k: v: lib.nameValuePair "${k}t" "rgba(${toString v.rgb.r}, ${toString v.rgb.g}, ${toString v.rgb.b}, ${toString cfg.alpha})")
-      (lib.filterAttrs (n: _: lib.hasInfix "base" n) config.lib.arc.base16.schemeForAlias.default);
+        (lib.filterAttrs (n: _: lib.hasInfix "base" n) config.lib.arc.base16.schemeForAlias.default);
       alpha = 0.5;
     };
 
-    lib.kw.sassTemplate = { name, src }: let
-      variables = pkgs.writeText "base-variables.sass" ''
-        ${(concatStringsSep "\n" (mapAttrsToList(var: con: "\$${var}: ${con}") cfg.variables))}
-      '';
-      source = pkgs.callPackage ({ sass, stdenv }: stdenv.mkDerivation ({
-        inherit name src variables;
-        nativeBuildInputs = lib.singleton sass;
-        phases = [ "buildPhase" ];
-        buildPhase = ''
-          cat $variables $src > src-mut.sass
-          sass src-mut.sass $out --sourcemap=none --style=${cfg.css_style}
+    lib.kw.sassTemplate = { name, src }:
+      let
+        variables = pkgs.writeText "base-variables.sass" ''
+          ${(concatStringsSep "\n" (mapAttrsToList(var: con: "\$${var}: ${con}") cfg.variables))}
         '';
-      } // cfg.variables)) {}; in {
+        source = pkgs.callPackage
+          ({ sass, stdenv }: stdenv.mkDerivation ({
+            inherit name src variables;
+            nativeBuildInputs = lib.singleton sass;
+            phases = [ "buildPhase" ];
+            buildPhase = ''
+              cat $variables $src > src-mut.sass
+              sass src-mut.sass $out --sourcemap=none --style=${cfg.css_style}
+            '';
+          } // cfg.variables))
+          { };
+      in
+      {
         inherit source;
         text = builtins.readFile source;
-    };
+      };
     _module.args = { inherit (config.lib) kw; };
   };
 }

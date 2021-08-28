@@ -59,11 +59,13 @@ let
   eval = lib.evalModules {
     modules = lib.singleton metaConfig
       ++ lib.attrValues (removeAttrs xarg.targets [ "common" ])
-      ++ (map (host: {
+      ++ (map
+      (host: {
         network.nodes.${host} = {
           imports = config.lib.kw.nodeImport host;
         };
-      }) (lib.attrNames xarg.hosts))
+      })
+      (lib.attrNames xarg.hosts))
       ++ lib.singleton ./config/modules/meta/default.nix;
 
     specialArgs = {

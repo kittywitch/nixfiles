@@ -1,5 +1,5 @@
 { ... }:
 
 {
-  imports = [ ./gpg.nix ./packages.nix ./weechat.nix ./email.nix ./zsh.nix ];
+  imports = [ ./gpg.nix ./weechat.nix ./email.nix ./zsh.nix ];
 }

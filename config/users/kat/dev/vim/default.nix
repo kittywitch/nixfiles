@@ -1,18 +1,21 @@
 { config, pkgs, ... }:
 
-let cocvim = pkgs.callPackage ({ stdenv, elinks, nodejs }: stdenv.mkDerivation {
-  name = "coc.vim";
-  src = ./coc.vim;
-  inherit nodejs;
-  buildInputs = [
-    nodejs
-  ];
-  phases = [ "buildPhase" ];
-  buildPhase = ''
-    substituteAll $src $out
-  '';
-}) {};
-in {
+let cocvim = pkgs.callPackage
+  ({ stdenv, elinks, nodejs }: stdenv.mkDerivation {
+    name = "coc.vim";
+    src = ./coc.vim;
+    inherit nodejs;
+    buildInputs = [
+      nodejs
+    ];
+    phases = [ "buildPhase" ];
+    buildPhase = ''
+      substituteAll $src $out
+    '';
+  })
+  { };
+in
+{
   programs.neovim = {
     extraConfig = ''
       source ${cocvim}

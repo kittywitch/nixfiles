@@ -4,7 +4,47 @@ let
   footwrap = pkgs.writeShellScriptBin "footwrap" ''
     exec foot "$2"
   '';
-  lockCommand = ''${pkgs.swaylock-fancy}/bin/swaylock-fancy -d -t ""'';
+  lockCommand =
+    let
+      base16 = lib.mapAttrs' (k: v: lib.nameValuePair k (lib.removePrefix "#" v)) config.kw.theme.base16;
+      # TODO: integrate into /config/modules/home/theme.nix
+      # thank you to @u1f408 💜
+    in
+    ''
+      ${pkgs.swaylock-effects}/bin/swaylock \
+        --screenshots \
+        --indicator \
+        --indicator-radius 110 \
+        --indicator-thickness 8 \
+        --clock --timestr '%H:%M:%S' --datestr '%Y-%m-%d' \
+        --effect-scale 0.5 \
+        --effect-vignette 0.5:0.5 \
+        --effect-blur 12x4 \
+        --effect-scale 2 \
+        --fade-in 0.2 \
+        --key-hl-color ${base16.base0C} \
+        --separator-color ${base16.base01} \
+        --line-color ${base16.base01} \
+        --line-clear-color ${base16.base01} \
+        --line-caps-lock-color ${base16.base01} \
+        --line-ver-color ${base16.base01} \
+        --line-wrong-color ${base16.base01} \
+        --ring-color ${base16.base00} \
+        --ring-clear-color ${base16.base0B} \
+        --ring-caps-lock-color ${base16.base09} \
+        --ring-ver-color ${base16.base0D} \
+        --ring-wrong-color ${base16.base08} \
+        --inside-color ${base16.base00} \
+        --inside-clear-color ${base16.base00} \
+        --inside-caps-lock-color ${base16.base00} \
+        --inside-ver-color ${base16.base00} \
+        --inside-wrong-color ${base16.base00} \
+        --text-color ${base16.base05} \
+        --text-clear-color ${base16.base05} \
+        --text-caps-lock-color ${base16.base05} \
+        --text-ver-color ${base16.base05} \
+        --text-wrong-color ${base16.base05} \
+    '';
 in
 {
   home.sessionVariables = {
@@ -16,7 +56,6 @@ in
   home.packages = with pkgs; [ grim slurp swaylock-fancy wl-clipboard jq quintom-cursor-theme gsettings-desktop-schemas glib wofi wmctrl ];
 
   services.i3gopher = { enable = true; };
-
 
   systemd.user.services.swayidle = {
     Unit = {
@@ -30,7 +69,7 @@ in
         ${pkgs.swayidle}/bin/swayidle -w \
         timeout 300 '${lockCommand}' \
         timeout 600 'swaymsg "output * dpms off"' \
-          resume 'swaymsg "output * dpms on"' \
+        resume 'swaymsg "output * dpms on"' \
         before-sleep '${lockCommand}'
       '';
       RestartSec = 3;

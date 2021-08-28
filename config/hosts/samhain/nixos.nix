@@ -5,9 +5,9 @@ with lib;
 let
   hexchen = (import sources.hexchen) { };
   hexYgg = filterAttrs (_: c: c.enable)
-  (mapAttrs (_: host: host.config.network.yggdrasil) hexchen.hosts);
+    (mapAttrs (_: host: host.config.network.yggdrasil) hexchen.hosts);
 in
-  {
+{
   # Imports
 
   imports = with meta; [
@@ -167,12 +167,12 @@ in
       mkIf (vfio-pci-ids != [ ]) {
         options.ids = concatStringsSep "," vfio-pci-ids;
       };
-    };
+  };
 
-    services.udev.extraRules = ''
-      SUBSYSTEM=="usb", ACTION=="add", ATTRS{idVendor}=="1532", ATTRS{idProduct}=="0067", GROUP="vfio"
-      SUBSYSTEM=="block", ACTION=="add", ATTRS{model}=="HFS256G32TNF-N3A", ATTRS{wwid}=="t10.ATA     HFS256G32TNF-N3A0A                      MJ8BN15091150BM1Z   ", OWNER="kat"
-    '';
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ACTION=="add", ATTRS{idVendor}=="1532", ATTRS{idProduct}=="0067", GROUP="vfio"
+    SUBSYSTEM=="block", ACTION=="add", ATTRS{model}=="HFS256G32TNF-N3A", ATTRS{wwid}=="t10.ATA     HFS256G32TNF-N3A0A                      MJ8BN15091150BM1Z   ", OWNER="kat"
+  '';
 
   # TODO: Replace this drive forward with one half of the 1.82TiB drive.
   # SUBSYSTEM=="block", ACTION=="add", ATTR{partition}=="2", ATTR{size}=="1953503232", ATTRS{wwid}=="naa.5000039fe6e8614e", OWNER="kat"

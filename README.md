@@ -2,7 +2,48 @@
 
 [![nodes](https://github.com/kittywitch/nixfiles/actions/workflows/nodes.yml/badge.svg)](https://github.com/kittywitch/nixfiles/actions/workflows/nodes.yml)
 
-These are the NixOS configurations for my systems. I run nothing but NixOS on my hardware, aside from virtual machines.
+These are the NixOS configurations for my systems. I run nothing other than NixOS on my hardware, aside from virtual machines.
+
+## Contents
+
+* [Nodes](#nodes)
+* [Profiles](#profiles)
+* [User Profiles](#user-profiles)
+* [CI](#ci)
+* [Dependencies](#dependencies)
+* [Commands](#commands)
+
+## Nodes
+
+| Node | Purpose |
+| --- | --- |
+| [athame](config/hosts/athame) | Currently the main server. Ad-hoc hetzner cloud box. |
+| [rinnosuke](config/hosts/rinnosuke) | Intended to be a nameserver. Provisioned OCI EPYC box. |
+| [beltane](config/hosts/beltane) | Home server. |
+| [samhain](config/hosts/samhain) | Beloved workstation. Does VFIO. |
+| [yule](config/hosts/yule) | Main laptop. |
+| [ostara](config/hosts/ostara) | CCTV netbook. |
+
+## Profiles
+
+| Profile | Purpose |
+| --- | --- |
+| [base](config/profiles/base) | Base profile, always used. Root access, base16, home-manager, locale, network module, nix, packages, profiles, secrets, shell and sysctl configuration. |
+| [gui](config/profiles/gui) | GUI profile. Provides window managers, [DNSCrypt/dnscrypt-proxy](https://github.com/DNSCrypt/dnscrypt-proxy), filesystem packages, font, NixOS-side GPG, mingetty, NFS, QT, sound (pipewire) and XDG portal configuration. |
+| [vfio](config/profiles/vfio) | Provides host-unspecific VFIO. Fancy patched QEMU from [arcnmx/nixexprs](https://github.com/arcnmx/nixexprs), [arcnmx/screenstub](https://github.com/arcnmx/screenstub) (however, patched in-repo for Q35), AMDGPU vendor-reset and ACS override. |
+| [hardware](config/profiles/hardware) | Sub-profiles for my hardware are provided here. Some are reusable. |
+
+## User Profiles
+
+| Profile | Purpose |
+| --- | --- |
+| [base](config/users/kat/base) | base16, git, inputrc, packages, pass, rink, secrets, SSH, tmux, weechat, vim, xdg and zsh configuration. |
+| [dev](config/users/kat/dev) | cookiecutters, doom-emacs (although unused, forced to use PgtkGcc all fancily :3c), packages, rustfmt and (heavier on the node) vim configuration. |
+| [gui](config/users/kat/gui) | firefox+userChrome+tst, font, [dnkl/foot](https://codeberg.org/dnkl/foot) terminal, GTK, packages, QT, ranger and xdg configuration. |
+| [media](config/users/kat/media) | mpv, obs, packages and syncplay configuration. |
+| [personal](config/users/kat/personal) | email (notmuch), home-manager-side GPG, weechat and zsh configuration. |
+| [services](config/users/kat/services) | User services. weechat and mpd are provided. |
+| [sway](config/users/kat/sway) | sway, i3gopher, swayidle, swaylock-effects, screenshot tool, konawall, mako, wofi, waybar and xkb (custom layout o:) configuration. |
 
 ## CI
 
