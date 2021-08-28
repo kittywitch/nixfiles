@@ -11,6 +11,7 @@ let
   '';
 in
 {
+  # TODO: move to upstream screenstub with config options, move screenstub.yml into specific host
   deploy.profile.vfio = true;
 
   environment.systemPackages = with pkgs; [
