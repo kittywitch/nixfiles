@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./vim
     ./rustfmt.nix
     ./packages.nix
     ./cookiecutter.nix
