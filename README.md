@@ -6,6 +6,7 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 
 ## Contents
 
+* [To-do](#to-do)
 * [Nodes](#nodes)
 * [Profiles](#profiles)
 * [User Profiles](#user-profiles)
@@ -14,6 +15,16 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 * [CI](#ci)
 * [Dependencies](#dependencies)
 * [Commands](#commands)
+
+## To-do
+
+* Expand [kittywitch/anicca](https://github.com/kittywitch/anicca) to be a module that helps with impermanence, too.
+* Move to using [arcnmx/screenstub](https://github.com/arcnmx/screenstub) without any patches.
+* Add swaylock-effects to our theme module.
+* Set up [rinnosuke](config/hosts/rinnosuke) as a nameserver. Either using Knot DNS or BIND. (Need RFC2136.)
+* Migrate [athame](config/hosts/athame) to OCI.
+* Look into alternatives to Yggdrasil and move to them.
+* Set up IPv6 network handling for our hosts.
 
 ## Nodes
 

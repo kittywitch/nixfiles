@@ -8,9 +8,6 @@ let
       (import ./rustfmt)
       (import ./katlib)
       (import ./katpkgs)
-      /* # TODO: implement these
-        (import ./vimrc)
-      */
     ] ++ (map (path: import "${path}/overlay.nix") [
       sources.arcexprs
       sources.anicca

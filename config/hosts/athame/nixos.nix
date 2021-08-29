@@ -12,7 +12,6 @@ with lib;
     services.filehost
     services.gitea
     services.logrotate
-    services.loki
     services.mail
     services.matrix
     services.murmur
