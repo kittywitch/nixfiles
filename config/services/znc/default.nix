@@ -165,7 +165,7 @@ in {
           };
         };
       })
-      (import config.kw.repoSecrets.znc.source)
+      (mkIf config.deploy.profile.trusted (import config.kw.repoSecrets.znc.source))
     ];
     configFile = config.secrets.files.znc-config.path;
   };
