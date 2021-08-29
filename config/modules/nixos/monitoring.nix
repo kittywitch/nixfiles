@@ -89,6 +89,8 @@ in
       };
     })
     (mkIf cfg.server.enable {
+      network.firewall.private.tcp.ports = [ 9002 ];
+
       kw.secrets = [
         "grafana-admin-pass"
       ];
@@ -156,7 +158,7 @@ in
       };
     })
     (mkIf cfg.client.enable {
-      network.firewall.private.tcp.ports = [ 9002 19999 ];
+      network.firewall.private.tcp.ports = [ 19999 ];
 
       services.netdata.enable = true;
 
