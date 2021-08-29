@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./adb.nix
     ./fonts.nix
     ./sway.nix
     ./filesystems.nix
