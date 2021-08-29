@@ -8,6 +8,7 @@ let
       (import ./rustfmt)
       (import ./katlib)
       (import ./katpkgs)
+      (import ./dns { inherit sources; })
     ] ++ (map (path: import "${path}/overlay.nix") [
       sources.arcexprs
       sources.anicca

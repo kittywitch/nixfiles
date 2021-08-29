@@ -107,6 +107,18 @@
         "url": "https://github.com/nmattia/niv/archive/e0ca65c81a2d7a4d82a189f1e23a48d59ad42070.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "nix-dns": {
+        "branch": "master",
+        "description": "A Nix DSL for DNS zone files",
+        "homepage": "",
+        "owner": "kirelagin",
+        "repo": "nix-dns",
+        "rev": "c27914e527b79912ddc86a0f0f1ae5bd6a325519",
+        "sha256": "0zvg92fjrfmdylk8ic3b2srsrqc8ii94a1ir0v5sknjyxvy5f3rf",
+        "type": "tarball",
+        "url": "https://github.com/kirelagin/nix-dns/archive/c27914e527b79912ddc86a0f0f1ae5bd6a325519.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nix-doom-emacs": {
         "branch": "develop",
         "description": "doom-emacs packaged for Nix",
