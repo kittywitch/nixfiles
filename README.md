@@ -2,6 +2,8 @@
 
 [![nodes][]][1]
 
+[This repository on our self hosted git.][7]
+
 These are the NixOS configurations for my systems. I run nothing other than NixOS on my hardware, aside from virtual machines.
 
 ## Contents
@@ -231,3 +233,4 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [vlaci/nix-doom-emacs]: https://github.com/vlaci/nix-doom-emacs
   [direnv/direnv]: https://github.com/direnv/direnv
   [nix-community/nix-direnv]: https://github.com/nix-community/nix-direnv
+  [7]: https://git.kittywit.ch/kat/nixfiles

@@ -16,11 +16,10 @@ let
         --indicator \
         --indicator-radius 110 \
         --indicator-thickness 8 \
+        --font ${config.kw.theme.font.name} \
+        --font-size ${toString config.kw.theme.font.size} \
         --clock --timestr '%H:%M:%S' --datestr '%Y-%m-%d' \
-        --effect-scale 0.5 \
-        --effect-vignette 0.5:0.5 \
-        --effect-blur 12x4 \
-        --effect-scale 2 \
+        --effect-blur 3x2 \
         --fade-in 0.2 \
         --key-hl-color ${base16.base0C} \
         --separator-color ${base16.base01} \
