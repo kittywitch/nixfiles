@@ -61,6 +61,24 @@ in
             sort_order = "DESC";
           };
         };
+        rinnosuke_vnic = {
+          provider = "oci";
+          type = "core_vnic_attachments";
+          dataSource = true;
+          inputs = {
+            inherit compartment_id;
+            instance_id = tf.resources.rinnosuke.refAttr "id";
+          };
+        };
+        rinnosuke_ipv6 = {
+          provider = "oci";
+          type = "core_ipv6";
+          inputs = {
+            vnic_id = tf.resources.rinnosuke_vnic.refAttr "vnic_attachments[0].vnic_id";
+            display_name = config.networking.hostName;
+            ip_address = terraformExpr ''cidrhost("${oci-root.resources.oci_kw_subnet.importAttr "ipv6cidr_block"}", 7)'';
+          };
+        };
         rinnosuke = {
           provider = "oci";
           type = "core_instance";
