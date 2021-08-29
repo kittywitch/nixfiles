@@ -95,8 +95,8 @@ in
           };
           lifecycle.ignoreChanges = [
             "source_details[0].source_id"
-          ];
-          connection = {
+            ];
+            connection = {
             type = "ssh";
             user = "root";
             host = tf.lib.tf.terraformSelf "public_ip";
@@ -113,31 +113,31 @@ in
           };
         };
       }
-        (
-          let
-            protoValues = {
-              TCP = 6;
-              UDP = 17;
-            };
-            inherit (config.networking) firewall;
-            ipv4 = "0.0.0.0/0";
-            ipv6 = "::/0";
-            mapPort = source: protocol: port: {
-              provider = "oci";
-              type = "core_network_security_group_security_rule";
-              inputs = {
-                network_security_group_id = tf.resources.firewall_group.refAttr "id";
-                inherit protocol source;
-                direction = "INGRESS";
-                ${if protocol == protoValues.TCP then "tcp_options" else "udp_options"} = {
-                  destination_port_range =
-                    if isAttrs port then {
-                      min = port.from;
-                      max = port.to;
-                    } else {
-                      min = port;
-                      max = port;
-                    };
+      (
+        let
+          protoValues = {
+            TCP = 6;
+            UDP = 17;
+          };
+          inherit (config.networking) firewall;
+          ipv4 = "0.0.0.0/0";
+          ipv6 = "::/0";
+          mapPort = source: protocol: port: {
+            provider = "oci";
+            type = "core_network_security_group_security_rule";
+            inputs = {
+              network_security_group_id = tf.resources.firewall_group.refAttr "id";
+              inherit protocol source;
+              direction = "INGRESS";
+              ${if protocol == protoValues.TCP then "tcp_options" else "udp_options"} = {
+                destination_port_range =
+                  if isAttrs port then {
+                    min = port.from;
+                    max = port.to;
+                  } else {
+                    min = port;
+                    max = port;
+                  };
                 };
               };
             };
@@ -148,9 +148,10 @@ in
                 types = [ "Ports" "PortRanges" ];
               in
               interface: concatMap (type: concatMap (proto: (concatMap (port: (mapAll protoValues.${proto}) port) interface."allowed${proto}${type}")) protos) types;
-            rules = concatMap mapAllForInterface ([ firewall ] ++ map (interface: firewall.interfaces.${interface}) config.network.firewall.public.interfaces);
-            # TODO: use `count` and index into a fancy json or something?
-          in
-          listToAttrs (imap0 (i: rule: nameValuePair "firewall${toString i}" rule) rules)
+              rules = concatMap mapAllForInterface ([ firewall ] ++ map (interface: firewall.interfaces.${interface}) config.network.firewall.public.interfaces);
+          # TODO: use `count` and index into a fancy json or something?
+        in
+        listToAttrs (imap0 (i: rule: nameValuePair "firewall${toString i}" rule) rules)
         )];
-    };
+      };
+    }
