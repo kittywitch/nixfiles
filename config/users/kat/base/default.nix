@@ -13,7 +13,6 @@
     ./weechat.nix
     ./inputrc.nix
     ./rink.nix
-    ./pass.nix
     ./secrets.nix
   ];
 

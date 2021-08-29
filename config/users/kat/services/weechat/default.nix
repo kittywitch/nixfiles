@@ -39,32 +39,8 @@
 
   services.weechat.enable = true;
 
-  systemd.user.services.weechat-tmux = let scfg = config.services.weechat; in
-    lib.mkForce {
-      Unit = {
-        Description = "Weechat tmux session";
-        After = [ "network.target" ];
-      };
-      Service = {
-        Type = "oneshot";
-        Environment = [
-          "TMUX_TMPDIR=%t"
-          "WEECHAT_HOME=${toString config.programs.weechat.homeDirectory}"
-        ];
-        RemainAfterExit = true;
-        X-RestartIfChanged = false;
-        ExecStart = "${scfg.tmuxPackage}/bin/tmux -2 new-session -d -s ${scfg.sessionName} ${scfg.binary}";
-        ExecStop = "${scfg.tmuxPackage}/bin/tmux kill-session -t ${scfg.sessionName}";
-      };
-      Install.WantedBy = [ "default.target" ];
-    };
-
   programs.weechat = {
     enable = true;
-    init = lib.mkBefore ''
-      /server add softnet athame.kittywit.ch/5001 -ssl -autoconnect
-      /server add liberachat athame.kittywit.ch/5001 -ssl -autoconnect
-    '';
     scripts = with pkgs.weechatScripts; [
       weechat-notify-send
     ];

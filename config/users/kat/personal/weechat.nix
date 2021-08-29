@@ -1,8 +1,9 @@
 { config, nixos, pkgs, lib, ... }:
 
 {
-  home.file = {
-    ".local/share/weechat/sec.conf".text = ''
+  home.file = let
+    bitw = pkgs.writeShellScriptBin "bitw" ''${pkgs.rbw-bitw}/bin/bitw -p gpg://${config.kw.repoSecrets.bitw.source} "$@"'';
+  in { ".local/share/weechat/sec.conf".text = ''
       #
       # weechat -- sec.conf
       #
@@ -17,7 +18,7 @@
       [crypt]
       cipher = aes256
       hash_algo = sha512
-      passphrase_command = "${pkgs.pass}/bin/pass secrets/weechat-pass"
+      passphrase_command = "${bitw}/bin/bitw get comms/weechat"
       salt = on
 
       [data]
@@ -29,10 +30,6 @@
 
   programs.weechat = {
     enable = true;
-    init = lib.mkBefore ''
-      /server add softnet athame.kittywit.ch/5001 -ssl -autoconnect
-      /server add liberachat athame.kittywit.ch/5001 -ssl -autoconnect
-    '';
     scripts = with pkgs.weechatScripts; [
       weechat-notify-send
     ];

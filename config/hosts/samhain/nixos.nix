@@ -108,6 +108,8 @@ in
     home.persistence."/persist/home" = {
       allowOther = true;
       directories = [
+        ".cache/kat/secrets"
+        ".cache/rbw"
         ".local/share/z"
         ".local/share/dino"
         ".local/share/weechat"

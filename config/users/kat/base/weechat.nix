@@ -7,11 +7,13 @@ with lib;
     init = lib.mkMerge [
       (lib.mkBefore ''
         /server add espernet athame.kittywit.ch/5001 -ssl -autoconnect
+        /server add softnet athame.kittywit.ch/5001 -ssl -autoconnect
+        /server add liberachat athame.kittywit.ch/5001 -ssl -autoconnect
         /matrix server add kittywitch kittywit.ch
         /key bind meta-g /go
         /key bind meta-v /input jump_last_buffer_displayed
         /key bind meta-c /buffer close
-        /key bind meta-n /bar toggle nicklist 
+        /key bind meta-n /bar toggle nicklist
         /key bind meta-b /bar toggle buflist
         /relay add weechat 9000
       '')
@@ -42,6 +44,7 @@ with lib;
       weechat-matrix
       title
       highmon
+      zncplayback
     ];
     config = with mapAttrs (_: toString) pkgs.base16.shell.shell256; {
       logger.level.irc = 0;

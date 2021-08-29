@@ -1,6 +1,10 @@
 { config, lib, kw, ... }:
 
 {
+  imports = [
+    config.kw.repoSecrets.nfs.source
+  ];
+
   network.firewall = {
     private.tcp.ports = [ 111 2049 ];
     public.tcp.ports = [ 111 2049 ];

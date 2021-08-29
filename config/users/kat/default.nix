@@ -1,10 +1,5 @@
 let katUser = { lib }:
   let
-    trustedImport = {
-      config.home-manager.users.kat = {
-        imports = lib.optional (builtins.pathExists ../../trusted/users/kat) (import ../../trusted/users/kat/home.nix);
-      };
-    };
     userImport = profile: { config, ... }: {
       config.home-manager.users.kat = {
         imports = [
@@ -24,7 +19,7 @@ let katUser = { lib }:
     userProfiles = with userProfiles;
       lib.genAttrs profileNames userImport // {
         services = lib.genAttrs serviceNames serviceImport;
-        base = { imports = [ ./nixos.nix (userImport "base") trustedImport ]; };
+        base = { imports = [ ./nixos.nix (userImport "base") ]; };
         server = { imports = [ personal ]; };
         guiFull = { imports = [ gui sway dev media personal ]; };
       };
