@@ -1,7 +1,6 @@
 { sources, ... }:
 
 {
-  disabledModules = [ "programs/vim.nix" ];
   imports = [
     (import (sources.arcexprs + "/modules")).home-manager
     (import (sources.katexprs + "/modules")).home
