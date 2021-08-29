@@ -37,11 +37,11 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 
 | Profile | Purpose |
 | --- | --- |
-| [base](config/users/kat/base) | base16, git, inputrc, packages, pass, rink, secrets, SSH, tmux, weechat, vim, xdg and zsh configuration. |
+| [base](config/users/kat/base) | base16, git, inputrc, packages, rink, secrets, SSH, tmux, weechat, vim, xdg and zsh configuration. |
 | [dev](config/users/kat/dev) | cookiecutters, doom-emacs (although unused, forced to use PgtkGcc all fancily :3c), packages, rustfmt and (heavier on the node) vim configuration. |
 | [gui](config/users/kat/gui) | firefox+userChrome+tst, font, [dnkl/foot](https://codeberg.org/dnkl/foot) terminal, GTK, packages, QT, ranger and xdg configuration. |
 | [media](config/users/kat/media) | mpv, obs, packages and syncplay configuration. |
-| [personal](config/users/kat/personal) | email (notmuch), home-manager-side GPG, weechat and zsh configuration. |
+| [personal](config/users/kat/personal) | [arcnmx/rbw](https://github.com/arcnmx/rbw) (fancier rbw), email (notmuch), home-manager-side GPG, pass, weechat and zsh configuration. |
 | [services](config/users/kat/services) | User services. weechat and mpd are provided. |
 | [sway](config/users/kat/sway) | sway, i3gopher, swayidle, swaylock-effects, screenshot tool, [kittywitch/konawall-rs](https://github.com/kittywitch/konawall-rs), mako, wofi, waybar and xkb (custom layout o:) configuration. |
 
