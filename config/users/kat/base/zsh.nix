@@ -78,6 +78,9 @@ in
       ll = "exa -l";
       lla = "exa -lga";
       sys = "systemctl";
+      sysu = "systemctl --user";
+      walls = "journalctl _SYSTEMD_INVOCATION_ID=$(systemctl show -p InvocationID --value konawall.service --user) -o json | jq -r '.MESSAGE'";
+      logu = "journalctl --user";
       log = "journalctl";
       dmesg = "dmesg -HP";
       lg = "log --no-pager | grep";
