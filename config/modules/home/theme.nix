@@ -52,7 +52,7 @@ let cfg = config.kw.theme; in
         (lib.filterAttrs (n: _: lib.hasInfix "base" n) config.lib.arc.base16.schemeForAlias.default);
       base16t = lib.mapAttrs' (k: v: lib.nameValuePair "${k}t" "rgba(${toString v.rgb.r}, ${toString v.rgb.g}, ${toString v.rgb.b}, ${toString cfg.alpha})")
         (lib.filterAttrs (n: _: lib.hasInfix "base" n) config.lib.arc.base16.schemeForAlias.default);
-      alpha = 0.5;
+      alpha = 0.7;
     };
 
     lib.kw.sassTemplate = { name, src }:
