@@ -49,7 +49,7 @@ with lib;
     config = with mapAttrs (_: toString) pkgs.base16.shell.shell256; {
       logger.level.irc = 0;
       logger.level.python.matrix = 0;
-      logger.level.core.weechat = 9;
+      logger.level.core.weechat = 0;
       buflist = {
         format = {
           indent = "\${if:\${merged}?\${if:\${buffer.prev_buffer.number}!=\${buffer.number}?│┌:\${if:\${buffer.next_buffer.number}==\${buffer.number}?│├:\${if:\${buffer.next_buffer.name}=~^server||\${buffer.next_buffer.number}<0?└┴:├┴}}}:\${if:\${buffer.active}>0?\${if:\${buffer.next_buffer.name}=~^server?└:\${if:\${buffer.next_buffer.number}>0?├:└}}:\${if:\${buffer.next_buffer.name}=~^server? :│}}}─";
