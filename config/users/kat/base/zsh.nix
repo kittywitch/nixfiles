@@ -83,8 +83,8 @@ in
       logu = "journalctl --user";
       log = "journalctl";
       dmesg = "dmesg -HP";
-      lg = "log --no-pager | grep";
-      hg = "history 0 | grep";
+      lg = "log --no-pager | rg";
+      hg = "history 0 | rg";
     };
     localVariables = {
       _Z_DATA = "${config.xdg.dataHome}/z/data";
