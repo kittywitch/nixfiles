@@ -27,7 +27,11 @@ let cfg = config.kw.theme; in
     font = {
       name = mkOption {
         type = types.str;
-        default = "Cozette";
+        default = "Fira Code";
+      };
+      termName = mkOption {
+        type = types.str;
+        default = cfg.font.name;
       };
       size = mkOption {
         type = types.float;
@@ -41,6 +45,7 @@ let cfg = config.kw.theme; in
     variables = mkOption {
       type = types.attrsOf types.str;
       default = (cfg.base16 // cfg.base16t // {
+        term_font = cfg.font.termName;
         font = cfg.font.name;
         font_size = cfg.font.size_css;
       });

@@ -103,19 +103,19 @@
           interval = 1;
         };
         "clock#arc" = {
-          format = "♥-{:%H}";
+          format = "-{:%H}";
           tooltip = true;
           timezone = "America/Vancouver";
           tooltip-format = "{:%A, %F %R %z (%Z)}";
         };
         "clock#miku" = {
-          format = "♥+{:%H}";
+          format = "+{:%H}";
           tooltip = true;
           timezone = "Pacific/Auckland";
           tooltip-format = "{:%A, %F %R %z (%Z)}";
         };
         "clock#hex" = {
-          format = "♥+{:%H}";
+          format = "+{:%H}";
           tooltip = true;
           timezone = "Europe/Berlin";
           tooltip-format = "{:%A, %F %R %z (%Z)}";

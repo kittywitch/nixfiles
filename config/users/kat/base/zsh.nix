@@ -18,7 +18,7 @@ in
       nix run nixpkgs.openssl -c openssl rand -hex 6 | sed 's/\(..\)\(..\)\(..\)\(..\)\(..\)\(..\)/\1:\2:\3:\4:\5:\6/'
     '';
     nano = ''
-      ${pkgs.wezterm}/bin/wezterm imgcat ${./nano.png}
+      ${pkgs.kitty}/bin/kitty +kitten icat ${./nano.png}
     '';
   } // shellFunAliases {
     sed = "sd";

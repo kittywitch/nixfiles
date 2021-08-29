@@ -1,9 +1,6 @@
 { config, pkgs, lib, witch, ... }:
 
 let
-  footwrap = pkgs.writeShellScriptBin "footwrap" ''
-    exec foot "$2"
-  '';
   lockCommand =
     let
       base16 = lib.mapAttrs' (k: v: lib.nameValuePair k (lib.removePrefix "#" v)) config.kw.theme.base16;
@@ -18,7 +15,7 @@ let
         --indicator-radius 110 \
         --indicator-thickness 8 \
         --font ${config.kw.theme.font.name} \
-        --font-size ${toString config.kw.theme.font.size} \
+        --font-size ${config.kw.theme.font.size_css} \
         --clock --timestr '%H:%M:%S' --datestr '%Y-%m-%d' \
         --effect-blur 5x2 \
         --fade-in 0.2 \
@@ -137,7 +134,7 @@ in
       config =
         let
           pactl = "${config.home.nixosConfig.hardware.pulseaudio.package or pkgs.pulseaudio}/bin/pactl";
-          dmenu = "${pkgs.wofi}/bin/wofi -idbt ${footwrap}/bin/footwrap -s ~/.config/wofi/wofi.css -p '' -W 25%";
+          dmenu = "${pkgs.wofi}/bin/wofi -idbt ${pkgs.kitty}/bin/kitty -s ~/.config/wofi/wofi.css -p '' -W 25%";
         in
         {
 
@@ -164,11 +161,11 @@ in
           };
           fonts = {
             names = [ config.kw.theme.font.name ];
-            style = "Medium";
+            style = "Regular";
             size = config.kw.theme.font.size;
           };
-          terminal = "${pkgs.foot}/bin/foot";
-          menu = "${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --no-generic --dmenu=\"${dmenu}\" --term='${footwrap}/bin/footwrap'";
+          terminal = "${pkgs.kitty}/bin/kitty";
+          menu = "${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --no-generic --dmenu=\"${dmenu}\" --term='${pkgs.kitty}/bin/kitty'";
           modifier = "Mod4";
 
           assigns = { "12:F2" = [{ class = "screenstub"; }]; };

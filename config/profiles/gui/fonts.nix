@@ -16,7 +16,8 @@
   };
 
   fonts.fonts = with pkgs; [
-    emacs-all-the-icons-fonts
+    fira-code
+    font-awesome
     cozette
     twitter-color-emoji
   ];

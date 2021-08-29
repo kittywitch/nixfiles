@@ -6,6 +6,7 @@
     users.arc
     users.hexchen
     ./system.nix
+    ./kitty.nix
     ./home.nix
     ./profiles.nix
     ./shell.nix

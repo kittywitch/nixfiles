@@ -5,6 +5,7 @@
 , ninja
 , pkg-config
 , scdoc
+, fetchpatch
 , wayland
 , wayland-protocols
 , libxkbcommon
@@ -31,6 +32,13 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ meson ninja pkg-config scdoc ];
   buildInputs = [ wayland wayland-protocols libxkbcommon cairo gdk-pixbuf pam ];
 
+  patches = [
+    (fetchpatch {
+      name = "use-font-size-for-date-if-present";
+      url = "https://patch-diff.githubusercontent.com/raw/gavinbeatty/swaylock-effects/pull/1.patch";
+      sha256 = "1m42mb2gawkjf9svbhbdh7r1mfnyy8rxaaw19qns6i428aa4ykzx";
+    })
+  ];
   mesonFlags = [
     "-Dpam=enabled"
     "-Dgdk-pixbuf=enabled"
