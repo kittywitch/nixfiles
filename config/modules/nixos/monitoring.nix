@@ -4,12 +4,13 @@ let
   cfg = config.kw.monitoring;
   prom_configs =
     (mapAttrs (hostName: host: host.services.prometheus.exporters.node)
-    (filterAttrs
-    (_: host: host.services.prometheus.exporters.node.enable)
-    meta.network.nodes));
-    nd_configs = (mapAttrs (hostName: host: host.services.netdata)
+      (filterAttrs
+        (_: host: host.services.prometheus.exporters.node.enable)
+        meta.network.nodes));
+  nd_configs = (mapAttrs (hostName: host: host.services.netdata)
     (filterAttrs (_: host: host.services.netdata.enable) meta.network.nodes));
-in {
+in
+{
   options.kw.monitoring = {
     server = {
       enable = mkEnableOption "Monitoring Stack Server";
@@ -90,9 +91,9 @@ in {
     (mkIf cfg.server.enable {
       kw.secrets = [
         "grafana-admin-pass"
-        ];
+      ];
 
-        secrets.files.grafana-admin-pass = {
+      secrets.files.grafana-admin-pass = {
         text = "${tf.variables.grafana-admin-pass.ref}";
         owner = "grafana";
         group = "grafana";
@@ -101,42 +102,42 @@ in {
       services.grafana.security.adminPasswordFile =
         config.secrets.files.grafana-admin-pass.path;
 
-        services.postgresql = {
-          ensureDatabases = [ "grafana" ];
-          ensureUsers = [{
-            name = "grafana";
-            ensurePermissions."DATABASE grafana" = "ALL PRIVILEGES";
-          }];
-        };
+      services.postgresql = {
+        ensureDatabases = [ "grafana" ];
+        ensureUsers = [{
+          name = "grafana";
+          ensurePermissions."DATABASE grafana" = "ALL PRIVILEGES";
+        }];
+      };
 
-        services.grafana = {
-          enable = true;
-          port = 3001;
-          domain = "graph.${config.network.dns.domain}";
-          rootUrl = "https://graph.${config.network.dns.domain}/";
-          database = {
-            type = "postgres";
-            host = "/run/postgresql/";
-            user = "grafana";
-            name = "grafana";
-          };
+      services.grafana = {
+        enable = true;
+        port = 3001;
+        domain = "graph.${config.network.dns.domain}";
+        rootUrl = "https://graph.${config.network.dns.domain}/";
+        database = {
+          type = "postgres";
+          host = "/run/postgresql/";
+          user = "grafana";
+          name = "grafana";
         };
+      };
 
-        services.nginx.virtualHosts."graph.${config.network.dns.domain}" = {
-          enableACME = true;
-          forceSSL = true;
-          locations = { "/".proxyPass = "http://127.0.0.1:3001"; };
-        };
+      services.nginx.virtualHosts."graph.${config.network.dns.domain}" = {
+        enableACME = true;
+        forceSSL = true;
+        locations = { "/".proxyPass = "http://127.0.0.1:3001"; };
+      };
 
-        deploy.tf.dns.records.services_grafana = {
-          tld = config.network.dns.tld;
-          domain = "graph";
-          cname.target = "${config.networking.hostName}.${config.network.dns.tld}";
-        };
+      deploy.tf.dns.records.services_grafana = {
+        tld = config.network.dns.tld;
+        domain = "graph";
+        cname.target = "${config.networking.hostName}.${config.network.dns.tld}";
+      };
 
-        services.prometheus = {
-          enable = true;
-          scrapeConfigs = mapAttrsToList
+      services.prometheus = {
+        enable = true;
+        scrapeConfigs = mapAttrsToList
           (hostName: prom: {
             job_name = "${hostName}-nd";
             metrics_path = "/api/v1/allmetrics";
@@ -152,69 +153,71 @@ in {
             };
           })
           prom_configs;
-        };
-      })
-      (mkIf cfg.client.enable {
-        network.firewall.private.tcp.ports = [ 9002 19999 ];
+      };
+    })
+    (mkIf cfg.client.enable {
+      network.firewall.private.tcp.ports = [ 9002 19999 ];
 
-        services.netdata.enable = true;
+      services.netdata.enable = true;
 
-        services.nginx.virtualHosts = kw.virtualHostGen {
-          networkFilter = singleton "yggdrasil";
-          block = {
-            locations."/netdata" = {
-              proxyPass = "http://[::1]:19999/";
-            };
+      services.nginx.virtualHosts = kw.virtualHostGen {
+        networkFilter = singleton "yggdrasil";
+        block = {
+          locations."/netdata" = {
+            proxyPass = "http://[::1]:19999/";
           };
         };
+      };
 
-        systemd.services.promtail = {
-          enable = any id (attrValues (mapAttrs (node: conf: conf.kw.monitoring.server.loki ) meta.network.nodes));
-          description = "Promtail service for Loki";
-          wantedBy = [ "multi-user.target" ];
-          wants = [ "yggdrassil.service" ];
+      systemd.services.promtail = {
+        enable = any id (attrValues (mapAttrs (node: conf: conf.kw.monitoring.server.loki) meta.network.nodes));
+        description = "Promtail service for Loki";
+        wantedBy = [ "multi-user.target" ];
+        wants = [ "yggdrassil.service" ];
 
-          serviceConfig = mkIf (any id (attrValues (mapAttrs (node: conf: conf.kw.monitoring.server.loki ) meta.network.nodes))) {
-            ExecStart = let
+        serviceConfig = mkIf (any id (attrValues (mapAttrs (node: conf: conf.kw.monitoring.server.loki) meta.network.nodes))) {
+          ExecStart =
+            let
               serverNode = head (attrNames (filterAttrs (node: enabled: enabled == true) (mapAttrs (node: conf: conf.kw.monitoring.server.loki) meta.network.nodes)));
               promtailConfig = pkgs.writeText "prom-config.json" (builtins.toJSON {
                 clients =
                   [{ url = "http://${serverNode}${cfg.server.domainPrefix}:3100/loki/api/v1/push"; }];
-                  positions = { filename = "/tmp/positions.yaml"; };
-                  scrape_configs = [{
-                    job_name = "journal";
-                    journal = {
-                      labels = {
-                        host = config.networking.hostName;
-                        job = "systemd-journal";
-                      };
-                      max_age = "12h";
+                positions = { filename = "/tmp/positions.yaml"; };
+                scrape_configs = [{
+                  job_name = "journal";
+                  journal = {
+                    labels = {
+                      host = config.networking.hostName;
+                      job = "systemd-journal";
                     };
-                    relabel_configs = [{
-                      source_labels = [ "__journal__systemd_unit" ];
-                      target_label = "unit";
-                    }];
-                  }];
-                  server = {
-                    grpc_listen_port = 0;
-                    http_listen_port = 28183;
+                    max_age = "12h";
                   };
-                });
-            in ''
+                  relabel_configs = [{
+                    source_labels = [ "__journal__systemd_unit" ];
+                    target_label = "unit";
+                  }];
+                }];
+                server = {
+                  grpc_listen_port = 0;
+                  http_listen_port = 28183;
+                };
+              });
+            in
+            ''
               ${pkgs.grafana-loki}/bin/promtail --config.file ${promtailConfig}
             '';
-          };
         };
+      };
 
-        services.prometheus = {
-          exporters = {
-            node = {
-              enable = true;
-              enabledCollectors = [ "systemd" ];
-              port = 9002;
-            };
+      services.prometheus = {
+        exporters = {
+          node = {
+            enable = true;
+            enabledCollectors = [ "systemd" ];
+            port = 9002;
           };
         };
-      })
-    ];
-  }
+      };
+    })
+  ];
+}

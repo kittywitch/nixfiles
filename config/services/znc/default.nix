@@ -4,15 +4,15 @@ with lib;
 
 let
   sortedAttrs = set: sort
-  (l: r:
-  if l == "extraConfig" then false # Always put extraConfig last
-  else if isAttrs set.${l} == isAttrs set.${r} then l < r
-  else isAttrs set.${r} # Attrsets should be last, makes for a nice config
+    (l: r:
+      if l == "extraConfig" then false # Always put extraConfig last
+      else if isAttrs set.${l} == isAttrs set.${r} then l < r
+      else isAttrs set.${r} # Attrsets should be last, makes for a nice config
       # This last case occurs when any side (but not both) is an attrset
       # The order of these is correct when the attrset is on the right
       # which we're just returning
-      )
-      (attrNames set);
+    )
+    (attrNames set);
 
   # Specifies an attrset that encodes the value according to its type
   encode = name: value: {
@@ -34,19 +34,20 @@ let
     #     Qux=qux
     #   </Foo>
     set = concatMap
-    (subname: optionals (value.${subname} != null) ([
-      "<${name} ${subname}>"
-    ] ++ map (line: "\t${line}") (toLines value.${subname}) ++ [
-    "</${name}>"
-    ]))
-    (filter (v: v != null) (attrNames value));
+      (subname: optionals (value.${subname} != null) ([
+        "<${name} ${subname}>"
+      ] ++ map (line: "\t${line}") (toLines value.${subname}) ++ [
+        "</${name}>"
+      ]))
+      (filter (v: v != null) (attrNames value));
 
   }.${builtins.typeOf value};
 
   # One level "above" encode, acts upon a set and uses encode on each name,value pair
   toLines = set: concatMap (name: encode name set.${name}) (sortedAttrs set);
 
-in {
+in
+{
   network.firewall.public.tcp.ports = singleton 5001;
 
   kw.secrets = [ "znc-softnet-address" "znc-espernet-pass" "znc-liberachat-pass" "znc-savebuff-pass" "znc-espernet-cert" "znc-liberachat-cert" "znc-softnet-cert" ];
@@ -72,20 +73,20 @@ in {
   system.activationScripts = {
     softnet-cert-deploy = {
       text = ''
-          mkdir -p /var/lib/znc/users/kat/networks/softnet/moddata/cert
-          ln -fs ${config.secrets.files.softnet-cert.path} /var/lib/znc/users/kat/networks/softnet/moddata/cert/user.pem
+        mkdir -p /var/lib/znc/users/kat/networks/softnet/moddata/cert
+        ln -fs ${config.secrets.files.softnet-cert.path} /var/lib/znc/users/kat/networks/softnet/moddata/cert/user.pem
       '';
     };
     esperrnet-cert-deploy = {
       text = ''
-          mkdir -p /var/lib/znc/users/kat/networks/espernet/moddata/cert
-          ln -fs ${config.secrets.files.espernet-cert.path} /var/lib/znc/users/kat/networks/espernet/moddata/cert/user.pem
+        mkdir -p /var/lib/znc/users/kat/networks/espernet/moddata/cert
+        ln -fs ${config.secrets.files.espernet-cert.path} /var/lib/znc/users/kat/networks/espernet/moddata/cert/user.pem
       '';
     };
     liberachat-cert-deploy = {
       text = ''
-          mkdir -p /var/lib/znc/users/kat/networks/liberachat/moddata/cert
-          ln -fs ${config.secrets.files.liberachat-cert.path} /var/lib/znc/users/kat/networks/liberachat/moddata/cert/user.pem
+        mkdir -p /var/lib/znc/users/kat/networks/liberachat/moddata/cert
+        ln -fs ${config.secrets.files.liberachat-cert.path} /var/lib/znc/users/kat/networks/liberachat/moddata/cert/user.pem
       '';
     };
   };
