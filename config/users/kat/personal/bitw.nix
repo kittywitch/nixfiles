@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }: with lib; {
   programs.rbw = {
     enable = true;
     package = mkIf config.deploy.profile.trusted (pkgs.writeShellScriptBin "bitw" ''${pkgs.rbw-bitw}/bin/bitw -p gpg://${config.kw.repoSecrets.bitw.source} "$@"'');
