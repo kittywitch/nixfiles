@@ -25,7 +25,6 @@
         "sway/workspaces" = { format = "{name}"; };
         "sway/window" = {
           format = " {}";
-          max-length = 50;
         };
         tray = {
           icon-size = 12;
