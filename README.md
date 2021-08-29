@@ -2,7 +2,7 @@
 
 [![nodes][]][1]
 
-[This repository on our self hosted git.][7]
+[This repository on our self hosted git.][]
 
 These are the NixOS configurations for my systems. I run nothing other than NixOS on my hardware, aside from virtual machines.
 
@@ -53,9 +53,9 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 
 | Profile       | Purpose                                                                                                                                               |
 |---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [base][3]     | base16, git, inputrc, packages, rink, secrets, SSH, tmux, weechat, vim, xdg and zsh configuration.                                                    |
+| [base][3]     | base16, git, inputrc, packages, rink, secrets, kitty terminfo, SSH, tmux, weechat, vim, xdg and zsh configuration.                                    |
 | [dev][]       | cookiecutters, doom-emacs (although unused, forced to use PgtkGcc all fancily :3c), packages, rustfmt and (heavier on the node) vim configuration.    |
-| [gui][4]      | firefox+userChrome+tst, font, [dnkl/foot][] terminal, GTK, packages, QT, ranger and xdg configuration.                                                |
+| [gui][4]      | firefox+userChrome+tst, font, kitty terminal, [dnkl/foot][] terminal, GTK, packages, QT, ranger and xdg configuration.                                |
 | [media][]     | mpv, obs, packages and syncplay configuration.                                                                                                        |
 | [personal][]  | [arcnmx/rbw][] (fancier rbw), email via [arcnmx/notmuch-vim][], home-manager-side GPG, pass, weechat and zsh configuration.                           |
 | [services][5] | User services. weechat and mpd are provided.                                                                                                          |
@@ -132,6 +132,7 @@ CI for this repository uses [arcnmx/ci][] and aims to achieve two goals:
 | [arcnmx/ci][]                   | The CI integration system used.                                                                        |
 | [arcnmx/nixexprs][]             | Packages and modules I heavily make use of.                                                            |
 | [nix-community/impermanence][]  | Impermanence! Erase your darlings.                                                                     |
+| [kirelagin/nix-dns][]           | A Nix DSL for zone files. For the WIP nameserver.                                                      |
 | [kittywitch/anicca][]           | A helper for moving to impermanence.                                                                   |
 | [kittywitch/nixexprs][]         | Packages and modules I have made.                                                                      |
 | [nixos-mailserver][]            | The mail server module I use.                                                                          |
@@ -157,6 +158,7 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
 
   [nodes]: https://github.com/kittywitch/nixfiles/actions/workflows/nodes.yml/badge.svg
   [1]: https://github.com/kittywitch/nixfiles/actions/workflows/nodes.yml
+  [This repository on our self hosted git.]: https://git.kittywit.ch/kat/nixfiles
   [To-do]: #to-do
   [2]: #nodes
   [Profiles]: #profiles
@@ -228,9 +230,9 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [nmattia/niv]: https://github.com/nmattia/niv
   [nix-community/home-manager]: https://github.com/nix-community/home-manager
   [nix-community/NUR]: https://github.com/nix-community/NUR
+  [kirelagin/nix-dns]: https://github.com/kirelagin/nix-dns
   [hexchen/nixfiles]: https://gitlab.com/hexchen/nixfiles
   [nix-community/emacs-overlay]: https://github.com/nix-community/emacs-overlay
   [vlaci/nix-doom-emacs]: https://github.com/vlaci/nix-doom-emacs
   [direnv/direnv]: https://github.com/direnv/direnv
   [nix-community/nix-direnv]: https://github.com/nix-community/nix-direnv
-  [7]: https://git.kittywit.ch/kat/nixfiles
