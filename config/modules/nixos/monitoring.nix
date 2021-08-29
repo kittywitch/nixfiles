@@ -27,7 +27,7 @@ in
   };
   config = mkMerge [
     ({
-      kw.monitoring.server.domainPrefix = ".${config.network.addresses.yggdrasil.prefix}.${config.network.dns.domain}:19999";
+      kw.monitoring.server.domainPrefix = ".${config.network.addresses.yggdrasil.prefix}.${config.network.dns.domain}";
     })
     (mkIf cfg.server.loki {
       network.firewall.private.tcp.ports = [ 3100 ];
@@ -89,7 +89,7 @@ in
       };
     })
     (mkIf cfg.server.enable {
-      network.firewall.private.tcp.ports = [ 9002 ];
+      network.firewall.private.tcp.ports = [ 9090 ];
 
       kw.secrets = [
         "grafana-admin-pass"
@@ -145,20 +145,20 @@ in
             metrics_path = "/api/v1/allmetrics";
             honor_labels = true;
             params = { format = [ "prometheus" ]; };
-            static_configs = singleton { targets = singleton "${hostName}.${cfg.server.domainPrefix}:19999"; };
+            static_configs = singleton { targets = singleton "${hostName}${cfg.server.domainPrefix}:19999"; };
           })
           nd_configs ++ mapAttrsToList
           (hostName: prom: {
             job_name = hostName;
             static_configs = singleton {
-              targets = [ "${hostName}.${cfg.server.domainPrefix}:${toString prom.port}" ];
+              targets = [ "${hostName}${cfg.server.domainPrefix}:${toString prom.port}" ];
             };
           })
           prom_configs;
       };
     })
     (mkIf cfg.client.enable {
-      network.firewall.private.tcp.ports = [ 19999 ];
+      network.firewall.private.tcp.ports = [ 19999 9002 ];
 
       services.netdata.enable = true;
 

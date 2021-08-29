@@ -33,6 +33,15 @@ with lib;
     server.enable = true;
   };
 
+  services.prometheus = {
+    scrapeConfigs = [
+      {
+        job_name = "boline";
+        static_configs = [{ targets = [ "boline.${config.network.addresses.yggdrasil.prefix}.${config.network.dns.domain}:8002" ]; }];
+      }
+    ];
+  };
+
   # Terraform
 
   deploy.tf = {

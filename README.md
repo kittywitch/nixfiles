@@ -9,6 +9,8 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 * [Nodes](#nodes)
 * [Profiles](#profiles)
 * [User Profiles](#user-profiles)
+* [Services](#services)
+* [Modules](#modules)
 * [CI](#ci)
 * [Dependencies](#dependencies)
 * [Commands](#commands)
@@ -44,6 +46,57 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 | [personal](config/users/kat/personal) | [arcnmx/rbw](https://github.com/arcnmx/rbw) (fancier rbw), email via [arcnmx/notmuch-vim](https://github.com/arcnmx/notmuch-vim), home-manager-side GPG, pass, weechat and zsh configuration. |
 | [services](config/users/kat/services) | User services. weechat and mpd are provided. |
 | [sway](config/users/kat/sway) | sway, i3gopher, swayidle, swaylock-effects, screenshot tool, [kittywitch/konawall-rs](https://github.com/kittywitch/konawall-rs), mako, wofi, waybar and xkb (custom layout o:) configuration. |
+
+## Services
+
+| Service | Description |
+| --- | --- |
+| [filehost](config/services/filehost/default.nix) | I sling things in here via SSH/SCP. |
+| [fusionpbx](config/services/fusionpbx/default.nix) | FusionPBX. Fancy PBX. |
+| [gitea](config/services/gitea/default.nix) | Self-hosted git with mail support. |
+| [jellyfin](config/services/jellyfin/default.nix) | HTPC/NAS stuff. |
+| [katsplash](config/services/katsplash/default.nix) | A splash screen for some hosts. |
+| [kattv-ingest](config/services/kattv-ingest/default.nix) | Takes data from kattv, slings to RTMP. |
+| [kattv](config/services/kattv/default.nix) | Takes data from a webcam, slings to kattv-ingest. |
+| [logrotate](config/services/logrotate/default.nix) | Rotates logs! |
+| [mail](config/services/mail/default.nix) | [nixos-mailserver](https://gitlab.com/simple-nixos-mailserver/nixos-mailserver). |
+| [matrix](config/services/matrix/default.nix) | Synapse and some appservices. Need to migrate the appservice configs in. |
+| [murmur](config/services/murmur/default.nix) | Mumble! |
+| [nfs](config/services/nfs/default.nix) | Network filesy stuff. |
+| [nginx](config/services/nginx/default.nix) | Our NGINX preset configs. |
+| [postgres](config/services/postgres/default.nix) | Database of choice. |
+| [radicale](config/services/radicale/default.nix) | CalDAV, integrated with the mail service. |
+| [restic](config/services/restic/default.nix) | Backups! |
+| [syncplay](config/services/syncplay/default.nix) | Watching videos with friends and lovers. Usually, lovers. |
+| [taskserver](config/services/taskserver/default.nix) | Taskwarrior server. |
+| [transmission](config/services/transmission/default.nix) | Linux distros, I swear. |
+| [tvheadend](config/services/tvheadend/default.nix) | DVB-T ingest for Jellyfin and so on! |
+| [vaultwarden](config/services/vaultwarden/default.nix) | Passwords! |
+| [website](config/services/website/default.nix) | Our personal website. |
+| [xmpp](config/services/xmpp/default.nix) | Prosody. |
+| [zfs](config/services/zfs/default.nix) | ZFS snapshot settings. |
+| [znc](config/services/znc/default.nix) | IRC bouncer! |
+
+## Modules
+
+This list will include the modules provided by [kittywitch/nixexprs](https://github.com/kittywitch/nixexprs) as "katexprs".
+
+| Module | Domain | Description |
+| --- | --- | --- |
+| [arcnmx/nixexprs](https://github.com/arcnmx/nixexprs) | NixOS + home-manager | We use... a lot of these. Syncplay, modprobe, base16, i3gopher, weechat, konawall, shell and probably more. |
+| [arcnmx/tf-nix](https://github.com/arcnmx/tf-nix) | Meta + NixOS + home-manager | Deployment, secrets and terraform. |
+| [nix-community/impermanence](https://github.com/nix-community/impermanence) | NixOS + home-manager | Erase your darlings. |
+| katexprs/nftables | NixOS | Uses nftables for the NixOS firewall module. |
+| katexprs/firewall | NixOS + home-manager | Per-"domain" (private, public) -> interface abstractions for the firewall. Easier to remember. |
+| katexprs/network (WIP) | NixOS + home-manager | Network abstractions. Handles DNS + certs, among virtualHosts. |
+| katexprs/fusionpbx (WIP) | NixOS | FusionPBX. |
+| nixfiles/secrets | Meta + NixOS + home-manager | Helper for tf-nix's secrets. |
+| nixfiles/deploy | Meta + NixOS + home-manager | tf-nix deployment integration |
+| nixfiles/network | Meta | Enables node to host config assignment & NixOS module. |
+| nixfiles/dyndns | NixOS | Dynamic DNS using [glauca.digital](https://glauca.digital). |
+| nixfiles/monitoring | NixOS | Grafana, Prometheus, Loki, node-exporter, netdata, promtail, ... |
+| nixfiles/theme | home-manager | Abstractions for themes. SASS templating. |
+| hexchen/yggdrasil | NixOS | Yggdrasil ease of use module. |
 
 ## CI
 
