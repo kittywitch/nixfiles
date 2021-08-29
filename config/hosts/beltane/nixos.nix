@@ -12,12 +12,9 @@ with lib;
     services.fusionpbx
     services.jellyfin
     services.kattv-ingest
-    services.promtail
     services.postgres
-    services.netdata
     services.nfs
     services.nginx
-    services.node-exporter
     services.transmission
     services.tvheadend
     services.zfs

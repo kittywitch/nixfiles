@@ -11,18 +11,13 @@ with lib;
     users.kat.services.weechat
     services.filehost
     services.gitea
-    services.grafana
     services.logrotate
     services.loki
     services.mail
     services.matrix
     services.murmur
-    services.netdata
     services.nginx
-    services.node-exporter
     services.postgres
-    services.prometheus
-    services.promtail
     services.radicale
     services.restic
     services.syncplay
@@ -33,6 +28,10 @@ with lib;
     services.xmpp
     services.znc
   ];
+
+  kw.monitoring = {
+    server.enable = true;
+  };
 
   # Terraform
 

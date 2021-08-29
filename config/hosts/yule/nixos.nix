@@ -9,10 +9,7 @@ with lib;
     profiles.hardware.v330-14arr
     profiles.gui
     users.kat.guiFull
-    services.netdata
     services.nginx
-    services.node-exporter
-    services.promtail
     services.restic
     services.zfs
   ];

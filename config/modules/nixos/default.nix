@@ -7,6 +7,7 @@
       (import (sources.katexprs + "/modules")).nixos
       (import (sources.impermanence + "/nixos.nix"))
       ./deploy.nix
+      ./monitoring.nix
       ./dyndns.nix
       ./secrets.nix
       (sources.tf-nix + "/modules/nixos/secrets.nix")
