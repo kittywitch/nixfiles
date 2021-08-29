@@ -1,7 +1,7 @@
 { config, nixos, pkgs, lib, ... }:
 
 {
-  home.file = mkIf config.deploy.profile.trusted (let
+  home.file = lib.mkIf config.deploy.profile.trusted (let
     bitw = pkgs.writeShellScriptBin "bitw" ''${pkgs.rbw-bitw}/bin/bitw -p gpg://${config.kw.repoSecrets.bitw.source} "$@"'';
   in { ".local/share/weechat/sec.conf".text = ''
       #
