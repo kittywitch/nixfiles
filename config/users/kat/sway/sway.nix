@@ -10,7 +10,7 @@ let
       # TODO: integrate into /config/modules/home/theme.nix
       # thank you to @u1f408 💜
     in
-    ''
+    pkgs.writeShellScriptBin "fancylock" ''
       ${pkgs.swaylock-effects}/bin/swaylock \
         --screenshots \
         --indicator \
@@ -19,7 +19,7 @@ let
         --font ${config.kw.theme.font.name} \
         --font-size ${toString config.kw.theme.font.size} \
         --clock --timestr '%H:%M:%S' --datestr '%Y-%m-%d' \
-        --effect-blur 3x2 \
+        --effect-blur 5x2 \
         --fade-in 0.2 \
         --key-hl-color ${base16.base0C} \
         --separator-color ${base16.base01} \
@@ -66,10 +66,10 @@ in
       Type = "simple";
       ExecStart = ''
         ${pkgs.swayidle}/bin/swayidle -w \
-        timeout 300 '${lockCommand}' \
+        timeout 300 '${lockCommand}/bin/fancylock' \
         timeout 600 'swaymsg "output * dpms off"' \
         resume 'swaymsg "output * dpms on"' \
-        before-sleep '${lockCommand}'
+        before-sleep '${lockCommand}/bin/fancylock'
       '';
       RestartSec = 3;
       Restart = "always";
@@ -143,7 +143,7 @@ in
           modes = {
             "System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown" =
               {
-                "l" = "exec ${lockCommand}, mode default";
+                "l" = "exec ${lockCommand}/bin/fancylock, mode default";
                 "e" = "exec swaymsg exit, mode default";
                 "s" = "exec systemctl suspend, mode default";
                 "h" = "exec systemctl hibernate, mode default";
@@ -210,7 +210,7 @@ in
 
           keybindings = {
             "${cfg.modifier}+Return" = "exec ${cfg.terminal}";
-            "${cfg.modifier}+x" = "exec ${lockCommand}";
+            "${cfg.modifier}+x" = "exec ${lockCommand}/bin/fancylock";
 
             # focus windows - regular
             "${cfg.modifier}+Left" = "focus left";
