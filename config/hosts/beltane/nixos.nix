@@ -107,6 +107,7 @@ with lib;
     dns.dynamic = true;
     addresses = {
       private = {
+        enable = true;
         ipv4.address = "192.168.1.2";
         # TODO ipv6.address
       };

@@ -78,6 +78,7 @@ with lib;
   network = {
     addresses = {
       private = {
+        enable = true;
         ipv4.address = "192.168.1.3";
       };
     };
