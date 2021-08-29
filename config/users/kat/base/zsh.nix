@@ -71,7 +71,7 @@ in
         bindkey '^ ' autosuggest-accept
       '';
     shellAliases = {
-      nixdirfmt = "fd --color=never .nix | xargs nixpkgs-fmt";
+      nixdirfmt = "nixpkgs-fmt $(fd -e nix)";
       exa = "exa --time-style long-iso";
       ls = "exa -G";
       la = "exa -Ga";

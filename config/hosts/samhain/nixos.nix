@@ -15,6 +15,7 @@ in
     profiles.gui
     profiles.vfio
     users.kat.guiFull
+    users.kat.services.weechat
     services.nginx
     services.katsplash
     services.restic
