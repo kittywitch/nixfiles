@@ -27,13 +27,12 @@ in
     vimAlias = true;
     viAlias = true;
     plugins = with pkgs.vimPlugins; [
-      vim-nix
       vim-cool
       vim-lastplace
       vim-hexokinase
       vim-easymotion
       notmuch-vim
-      rust-vim
+      vim-nix
       fzf-vim
       vim-fugitive
       vim-startify

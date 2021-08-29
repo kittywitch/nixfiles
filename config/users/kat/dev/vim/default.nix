@@ -1,6 +1,21 @@
 { config, pkgs, ... }:
 
-let cocvim = pkgs.callPackage
+let initvim = pkgs.callPackage
+  ({ stdenv, elinks, nodejs }: stdenv.mkDerivation {
+    name = "init.vim";
+    src = ./init.vim;
+    inherit nodejs elinks;
+    buildInputs = [
+      elinks
+      nodejs
+    ];
+    phases = [ "buildPhase" ];
+    buildPhase = ''
+      substituteAll $src $out
+    '';
+  })
+  { };
+  cocvim = pkgs.callPackage
   ({ stdenv, elinks, nodejs }: stdenv.mkDerivation {
     name = "coc.vim";
     src = ./coc.vim;
@@ -18,9 +33,11 @@ in
 {
   programs.neovim = {
     extraConfig = ''
+      source ${initvim}
       source ${cocvim}
     '';
     plugins = with pkgs.vimPlugins; [
+      nvim-treesitter
       coc-yaml
       coc-git
       coc-css
