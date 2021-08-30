@@ -11,7 +11,7 @@ let
       ${pkgs.swaylock-effects}/bin/swaylock \
         --screenshots \
         --indicator \
-        -f \
+        -fF \
         --indicator-radius 110 \
         --indicator-thickness 8 \
         --font ${config.kw.theme.font.name} \

@@ -92,6 +92,7 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 | [katsplash][]    | A splash screen for some hosts.                                          |
 | [kattv-ingest][] | Takes data from kattv, slings to RTMP.                                   |
 | [kattv][]        | Takes data from a webcam, slings to kattv-ingest.                        |
+| [knot][]         | Knot DNS, authoritative DNS server.                                      |
 | [logrotate][]    | Rotates logs!                                                            |
 | [mail][]         | [nixos-mailserver][].                                                    |
 | [matrix][]       | Synapse and some appservices. Need to migrate the appservice configs in. |
@@ -114,12 +115,14 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 ## Modules
 
 This list will include the modules provided by [kittywitch/nixexprs][] as “katexprs”.
+They are available within this repo as [exprs][].
 
 | Module                         | Domain                      | Description                                                                                               |
 |--------------------------------|-----------------------------|-----------------------------------------------------------------------------------------------------------|
 | [arcnmx/nixexprs][]            | NixOS + home-manager        | We use… a lot of these. Syncplay, modprobe, base16, i3gopher, weechat, konawall, shell and probably more. |
 | [arcnmx/tf-nix][]              | Meta + NixOS + home-manager | Deployment, secrets and terraform.                                                                        |
 | [nix-community/impermanence][] | NixOS + home-manager        | Erase your darlings.                                                                                      |
+| [kittywitch/anicca][]          | NixOS + home-manager        | WIP Helpful modules for impermanence.                                                                     |
 | katexprs/nftables              | NixOS                       | Uses nftables for the NixOS firewall module.                                                              |
 | katexprs/firewall              | NixOS + home-manager        | Per-“domain” (private, public) -> interface abstractions for the firewall. Easier to remember.            |
 | katexprs/network (WIP)         | NixOS + home-manager        | Network abstractions. Handles DNS + certs, among virtualHosts.                                            |
@@ -224,6 +227,7 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [katsplash]: config/services/katsplash/default.nix
   [kattv-ingest]: config/services/kattv-ingest/default.nix
   [kattv]: config/services/kattv/default.nix
+  [knot]: config/services/knot/default.nix
   [logrotate]: config/services/logrotate/default.nix
   [mail]: config/services/mail/default.nix
   [nixos-mailserver]: https://gitlab.com/simple-nixos-mailserver/nixos-mailserver
