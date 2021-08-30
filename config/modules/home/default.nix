@@ -8,7 +8,6 @@
     (import sources.anicca).modules.home
     ./deploy.nix
     ./theme.nix
-    ./swaylock.nix
     ./secrets.nix
     (sources.tf-nix + "/modules/home/secrets.nix")
   ];

@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 
-let lockCommand = config.programs.swaylock.script; in {
+let lockCommand = config.programs.swaylock.script; in
+{
   home.sessionVariables = {
     XDG_CURRENT_DESKTOP = "sway";
     XDG_SESSION_TYPE = "wayland";
