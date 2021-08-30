@@ -7,7 +7,7 @@ with lib;
     network.dns.dynamic = mkEnableOption "Enable Glauca Dynamic DNS Updater";
   };
 
-  config = mkIf (config.network.dns.dynamic) {
+  config = mkIf (false) {
     kw.secrets = [
       "hexdns-key"
       "hexdns-secret"

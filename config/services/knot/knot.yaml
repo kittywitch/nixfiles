@@ -6,14 +6,14 @@ remote:
   - id: benjojo
     address: 185.230.223.84
     address: 2a0c:2f07:4896:666:216:3eff:fedb:c742
+    address: 185.236.240.26
+    address: 185.230.223.7
 
 acl:
-  - id: update_acl
-    key: dnsupdate
-    address: 0.0.0.0/0
-    address: ::/0
+  - id: dnsupdate
+    key: dnsupdate.kittywit.ch.
     action: update
-  - id: benjojo_acl
+  - id: benjojo
     remote: benjojo
     action: transfer
 
@@ -24,7 +24,8 @@ zone:
     file: kittywit.ch.zone
     dnssec-signing: on
     notify: benjojo
-    acl: [ benjojo_acl, update_acl ]
+    zonefile-load: difference
+    acl: [ benjojo, dnsupdate ]
 
 log:
   - target: syslog

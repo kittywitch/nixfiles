@@ -12,10 +12,12 @@
     externalSecret = true;
   };
 
+  variables.katdns-addr = {
+    externalSecret = true;
+  };
   variables.katdns-name = {
     externalSecret = true;
   };
-
   variables.katdns-key = {
     externalSecret = true;
   };
@@ -23,8 +25,8 @@
   providers.katdns = {
     type = "dns";
     inputs.update = {
-      server = "ns1.kittywit.ch";
-      key_name = "kittywit.ch.";
+      server = config.variables.katdns-addr.ref;
+      key_name = config.variables.katdns-name.ref;
       key_secret = config.variables.katdns-key.ref;
       key_algorithm = "hmac-sha512";
     };
