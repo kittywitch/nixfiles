@@ -42,7 +42,15 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
     -   [x] RFC2136 + DNSSEC config.
     -   [ ] Zone file generation (including serial).
     -   [ ] glauca.digital migration.
+-   [ ] Migrate boline to NixOS.
+    -   [ ] Look into ARM cross-compilation w/ nixpkgs.
+    -   [ ] Look into existing binary caches.
+    -   [ ] Write packages & services for DHT22 exporter + the socat.
 -   [ ] Migrate [athame][] to OCI.
+    -   [ ] Look into ARM cross-compilation w/ nixpkgs.
+    -   [ ] Look into existing binary caches.
+    -   [ ] Do backups, figure out per-service backup system for state.
+    -   [ ] Create a replacement box before any migration on OCI.
 -   [ ] Look into alternatives to Yggdrasil and move to them.
 -   [ ] Set up IPv6 network handling for my hosts.
     -   [x] Fix network module tf-nix integrations.

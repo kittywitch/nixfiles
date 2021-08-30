@@ -109,6 +109,7 @@ in
         ".cache/kat/secrets"
         ".cache/rbw"
         ".local/share/z"
+        ".local/share/task"
         ".local/share/dino"
         ".local/share/weechat"
         ".local/share/Mumble"
