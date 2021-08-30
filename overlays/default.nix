@@ -6,11 +6,10 @@ let
       (import ./nur { inherit sources; })
       (import sources.emacs-overlay)
       (import ./rustfmt)
-      (import ./katlib)
-      (import ./katpkgs)
       (import ./dns { inherit sources; })
     ] ++ (map (path: import "${path}/overlay.nix") [
       sources.arcexprs
+      sources.katexprs
       sources.anicca
     ]);
     config = {

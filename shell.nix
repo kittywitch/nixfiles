@@ -67,7 +67,6 @@ pkgs.mkShell {
     nf-actions
     nf-actions-test
   ] ++ config.runners.lazy.nativeBuildInputs;
-
   shellHook = ''
     export HOME_HOSTNAME=$(hostname -s)
     export HOME_UID=$(id -u)
