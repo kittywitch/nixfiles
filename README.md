@@ -3,6 +3,7 @@
 [![nodes][]][1]
 
 [This repository on our self hosted git.][]
+[This repository on GitHub.][]
 
 These are the NixOS configurations for my systems. I run nothing other than NixOS on my hardware, aside from virtual machines.
 
@@ -20,14 +21,32 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 
 ## To-do
 
--   Consider reworking [kittywitch/nixexprs][] and [kittywitch/nixfiles-base][].
--   Expand [kittywitch/anicca][] to be a module that helps with impermanence, too.
--   Move to using [arcnmx/screenstub][] without any patches.
--   Add swaylock-effects to our theme module.
--   Set up [rinnosuke][] as a nameserver. Either using Knot DNS or BIND. (Need RFC2136.)
--   Migrate [athame][] to OCI.
--   Look into alternatives to Yggdrasil and move to them.
--   Set up IPv6 network handling for our hosts.
+-   [ ] Consider reworking [kittywitch/nixexprs][] and [kittywitch/nixfiles-base][].
+    -   [x] In-housed [kittywitch/nixexprs][] as [exprs][].
+    -   [x] Merged our local changes with [exprs][].
+    -   [ ] Prioritise modules reusability.
+-   [ ] Expand [kittywitch/anicca][] to be a module that helps with impermanence, too.
+    -   [x] Host impermanence enablement check.
+    -   [ ] Break anicca-migrator into interface modules.
+    -   [ ] Bind mount status list.
+    -   [ ] Bind mount start/enabler script.
+-   [ ] Move to using [arcnmx/screenstub][] without any patches.
+    -   [ ] Check new config options, port current patch to new config options.
+-   [ ] Add swaylock-effects to our theme module.
+    -   [x] Patched swaylock-effects.
+    -   [x] Working with swayidle + …
+    -   [ ] Add to module.
+-   [ ] Set up [rinnosuke][] as a nameserver. Either using Knot DNS or BIND. (Need RFC2136.)
+    -   [x] Knot DNS service.
+    -   [x] RFC2136 + DNSSEC config.
+    -   [ ] Zone file generation (including serial).
+    -   [ ] glauca.digital migration.
+-   [ ] Migrate [athame][] to OCI.
+-   [ ] Look into alternatives to Yggdrasil and move to them.
+-   [ ] Set up IPv6 network handling for our hosts.
+    -   [x] Fix network module tf-nix integrations.
+    -   [x] Rinnosuke IPv6.
+    -   [ ] Local node IPv6 configuration.
 
 ## Nodes
 
@@ -159,6 +178,7 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [nodes]: https://github.com/kittywitch/nixfiles/actions/workflows/nodes.yml/badge.svg
   [1]: https://github.com/kittywitch/nixfiles/actions/workflows/nodes.yml
   [This repository on our self hosted git.]: https://git.kittywit.ch/kat/nixfiles
+  [This repository on GitHub.]: https://github.com/kittywitch/nixfiles
   [To-do]: #to-do
   [2]: #nodes
   [Profiles]: #profiles
@@ -170,6 +190,7 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [Commands]: #commands
   [kittywitch/nixexprs]: https://github.com/kittywitch/nixexprs
   [kittywitch/nixfiles-base]: https://github.com/kittywitch/nixfiles-base
+  [exprs]: overlays/exprs
   [kittywitch/anicca]: https://github.com/kittywitch/anicca
   [arcnmx/screenstub]: https://github.com/arcnmx/screenstub
   [rinnosuke]: config/hosts/rinnosuke
