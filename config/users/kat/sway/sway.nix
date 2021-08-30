@@ -1,49 +1,6 @@
-{ config, pkgs, lib, witch, ... }:
+{ config, pkgs, lib, ... }:
 
-let
-  lockCommand =
-    let
-      base16 = lib.mapAttrs' (k: v: lib.nameValuePair k (lib.removePrefix "#" v)) config.kw.theme.base16;
-      # TODO: integrate into /config/modules/home/theme.nix
-      # thank you to @u1f408 💜
-    in
-    pkgs.writeShellScriptBin "fancylock" ''
-      ${pkgs.swaylock-effects}/bin/swaylock \
-        --screenshots \
-        --indicator \
-        -fF \
-        --indicator-radius 110 \
-        --indicator-thickness 8 \
-        --font ${config.kw.theme.font.name} \
-        --font-size ${config.kw.theme.font.size_css} \
-        --clock --timestr '%H:%M:%S' --datestr '%Y-%m-%d' \
-        --effect-blur 5x2 \
-        --fade-in 0.2 \
-        --key-hl-color ${base16.base0C} \
-        --separator-color ${base16.base01} \
-        --line-color ${base16.base01} \
-        --line-clear-color ${base16.base01} \
-        --line-caps-lock-color ${base16.base01} \
-        --line-ver-color ${base16.base01} \
-        --line-wrong-color ${base16.base01} \
-        --ring-color ${base16.base00} \
-        --ring-clear-color ${base16.base0B} \
-        --ring-caps-lock-color ${base16.base09} \
-        --ring-ver-color ${base16.base0D} \
-        --ring-wrong-color ${base16.base08} \
-        --inside-color ${base16.base00} \
-        --inside-clear-color ${base16.base00} \
-        --inside-caps-lock-color ${base16.base00} \
-        --inside-ver-color ${base16.base00} \
-        --inside-wrong-color ${base16.base00} \
-        --text-color ${base16.base05} \
-        --text-clear-color ${base16.base05} \
-        --text-caps-lock-color ${base16.base05} \
-        --text-ver-color ${base16.base05} \
-        --text-wrong-color ${base16.base05} \
-    '';
-in
-{
+let lockCommand = config.programs.swaylock.script; in {
   home.sessionVariables = {
     XDG_CURRENT_DESKTOP = "sway";
     XDG_SESSION_TYPE = "wayland";
@@ -54,26 +11,7 @@ in
 
   services.i3gopher = { enable = true; };
 
-  systemd.user.services.swayidle = {
-    Unit = {
-      Description = "swayidle";
-      Documentation = [ "man:swayidle(1)" ];
-      PartOf = [ "graphical-session.target" ];
-    };
-    Service = {
-      Type = "simple";
-      ExecStart = ''
-        ${pkgs.swayidle}/bin/swayidle -w \
-        timeout 300 '${lockCommand}/bin/fancylock' \
-        timeout 600 'swaymsg "output * dpms off"' \
-        resume 'swaymsg "output * dpms on"' \
-        before-sleep '${lockCommand}/bin/fancylock'
-      '';
-      RestartSec = 3;
-      Restart = "always";
-    };
-    Install = { WantedBy = [ "sway-session.target" ]; };
-  };
+  kw.theme.swaylock = true;
 
   programs.zsh.profileExtra = ''
     # If running from tty1 start sway
@@ -141,7 +79,7 @@ in
           modes = {
             "System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown" =
               {
-                "l" = "exec ${lockCommand}/bin/fancylock, mode default";
+                "l" = "exec ${lockCommand}, mode default";
                 "e" = "exec swaymsg exit, mode default";
                 "s" = "exec systemctl suspend, mode default";
                 "h" = "exec systemctl hibernate, mode default";
@@ -208,7 +146,7 @@ in
 
           keybindings = {
             "${cfg.modifier}+Return" = "exec ${cfg.terminal}";
-            "${cfg.modifier}+x" = "exec ${lockCommand}/bin/fancylock";
+            "${cfg.modifier}+x" = "exec ${lockCommand}";
 
             # focus windows - regular
             "${cfg.modifier}+Left" = "focus left";
