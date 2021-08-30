@@ -33,10 +33,6 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
     -   [ ] Bind mount start/enabler script.
 -   [ ] Move to using [arcnmx/screenstub][] without any patches.
     -   [ ] Check new config options, port current patch to new config options.
--   [ ] Add swaylock-effects to my theme module.
-    -   [x] Patched swaylock-effects.
-    -   [x] Working with swayidle + …
-    -   [ ] Add to module.
 -   [ ] Set up [rinnosuke][] as a nameserver. Either using Knot DNS or BIND. (Need RFC2136.)
     -   [x] Knot DNS service.
     -   [x] RFC2136 + DNSSEC config.
@@ -136,6 +132,7 @@ They are available within this repo as [exprs][].
 | katexprs/firewall              | NixOS + home-manager        | Per-“domain” (private, public) -> interface abstractions for the firewall. Easier to remember.            |
 | katexprs/network (WIP)         | NixOS + home-manager        | Network abstractions. Handles DNS + certs, among virtualHosts.                                            |
 | katexprs/fusionpbx (WIP)       | NixOS                       | FusionPBX.                                                                                                |
+| katexprs/swaylock              | home-manager                | Easier abstractions for using swaylock-effects.                                                           |
 | nixfiles/secrets               | Meta + NixOS + home-manager | Helper for tf-nix’s secrets.                                                                              |
 | nixfiles/deploy                | Meta + NixOS + home-manager | tf-nix deployment integration                                                                             |
 | nixfiles/network               | Meta                        | Enables node to host config assignment & NixOS module.                                                    |
