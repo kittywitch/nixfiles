@@ -70,8 +70,16 @@
         sha256 = "1axqivwkmw6rq0ffwi1mm209bfkvv4lyld2hgyq2zmnl7mj3fifc";
       };
       binder = pkgs.writeText "styles.css" ''
-        @import url("/assets/css/gitea-base.css");
-        @import url("/assets/css/overseerr.css");
+      @import url("/assets/css/gitea-base.css");
+      @import url("/assets/css/overseerr.css");
+      :root {
+        --color-code-bg: transparent;
+      }
+      .markup input[type="checkbox"] {
+        appearance: auto !important;
+        -moz-appearance: auto !important;
+        -webkit-appearance: auto !important;
+      }
       '';
     in
     [
