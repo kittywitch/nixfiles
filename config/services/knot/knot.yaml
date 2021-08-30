@@ -1,0 +1,22 @@
+server:
+    listen: 0.0.0.0@53
+    listen: ::@53
+
+acl:
+  - id: update_acl
+    key: dnsupdate
+    address: 0.0.0.0/0
+    address: ::/0
+    action: update
+
+zone:
+  - domain: kittywit.ch
+    semantic-checks: on
+    storage: /etc/katdns/zones/
+    file: kittywit.ch.zone
+    dnssec-signing: on
+    acl: update_acl
+
+log:
+  - target: syslog
+    any: info
