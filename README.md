@@ -33,6 +33,8 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
     -   [ ] Bind mount start/enabler script.
 -   [ ] Move to using [arcnmx/screenstub][] without any patches.
     -   [ ] Check new config options, port current patch to new config options.
+-   [ ] Move waybar modules to using signals.
+-   [ ] Make waybar module for gammastep toggle.
 -   [ ] Set up [rinnosuke][] as a nameserver. Either using Knot DNS or BIND. (Need RFC2136.)
     -   [x] Knot DNS service.
     -   [x] RFC2136 + DNSSEC config.
