@@ -42,6 +42,7 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
     -   [x] RFC2136 + DNSSEC config.
     -   [ ] Zone file generation (including serial).
     -   [ ] glauca.digital migration.
+-   [ ] Investigate how to fix Yule’s PCI-E issues.
 -   [ ] Migrate boline to NixOS.
     -   [ ] Look into ARM cross-compilation w/ nixpkgs.
     -   [ ] Look into existing binary caches.
