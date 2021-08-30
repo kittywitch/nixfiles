@@ -29,8 +29,8 @@ in
         interfaces.ens3 = {
           useDHCP = true;
           ipv6 = {
-            addresses = [{
-              address = mkIf (config.network.addresses.public.ipv6.enable) config.network.addresses.public.ipv6.address;
+            addresses = mkIf (config.network.addresses.public.ipv6.enable) [{
+              address =  config.network.addresses.public.ipv6.address;
               prefixLength = 64;
             }];
             routes = [{
