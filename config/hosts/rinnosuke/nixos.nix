@@ -30,7 +30,7 @@ in
           useDHCP = true;
           ipv6 = {
             addresses = [{
-              address = addr_ipv6_nix;
+              address = config.network.addresses.public.ipv6.address;
               prefixLength = 64;
             }];
             routes = [{
@@ -45,7 +45,7 @@ in
         addresses = {
           public = {
             enable = true;
-            ipv6.address = addr_ipv6_nix;
+            ipv6.address = mkIf (tf.state.resources ? ${tf.resources.${config.networking.hostName}.out.reference}) addr_ipv6_nix;
           };
         };
         firewall.public.interfaces = singleton "ens3";
