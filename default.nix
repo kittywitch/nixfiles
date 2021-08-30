@@ -1,6 +1,6 @@
 let
   # we don't have lib without sources, so we need optionalAttrs
-  optionalAttrs = cond: as: if cond then as else {};
+  optionalAttrs = cond: as: if cond then as else { };
   # Sources are from niv.
   sources = import ./nix/sources.nix // optionalAttrs (builtins.pathExists ./overlays/exprs/default.nix) {
     katexprs = ./overlays/exprs;

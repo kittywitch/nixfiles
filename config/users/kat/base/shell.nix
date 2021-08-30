@@ -20,6 +20,9 @@ in
     nano = ''
       ${pkgs.kitty}/bin/kitty +kitten icat ${./nano.png}
     '';
+    getAlias = ''
+      printf '%s\n' $aliases[$1]
+    '';
   } // shellFunAliases {
     sed = "sd";
     find = "fd";
@@ -55,7 +58,7 @@ in
           "autolist"
           "listrowsfirst"
         ]; in
-        ''
+      ''
         ${if config.anicca.enabled then ''
           HISTFILE=/persist/home/.zsh_history
         '' else ''

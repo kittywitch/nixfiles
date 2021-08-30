@@ -2,7 +2,7 @@
 
 {
   wayland.windowManager.sway.extraSessionCommands = ''
-      export KITTY_CACHE_DIRECTORY="/tmp/kitty";
+    export KITTY_CACHE_DIRECTORY="/tmp/kitty";
   '';
   programs.kitty = {
     enable = true;
