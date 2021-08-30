@@ -133,7 +133,7 @@ in
           SSL = true;
           AllowWeb = false;
         };
-        modules = [ "webadmin" "adminlog" "cert" "clientbuffer" "clientaway" "savebuff" "playback" "privmsg" ];
+        LoadModule = [ "webadmin" "adminlog" "playback" "privmsg" ];
         User = {
           kat = {
             Admin = true;
