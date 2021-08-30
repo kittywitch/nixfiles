@@ -19,7 +19,7 @@
       in
       (lib.foldAttrList (map
         (network:
-          lib.mapAttrs (_: v: { hostname = v.address; } // common) (lib.filterAttrs (_: v: v.enable) (lib.mapAttrs (_: v: v.network.addresses.${network}.ipv4) meta.network.nodes))
+          lib.mapAttrs (_: v: { hostname = v.domain; } // common) (lib.filterAttrs (_: v: v.enable) (lib.mapAttrs (_: v: v.network.addresses.${network}) meta.network.nodes))
         ) [ "private" "public" ]));
   };
 }

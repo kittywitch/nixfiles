@@ -18,7 +18,7 @@ with lib;
       type = "resource";
       connection = {
         port = head config.services.openssh.ports;
-        host = config.network.addresses.private.ipv4.address;
+        host = config.network.addresses.private.nixos.ipv4.address;
       };
     };
   };
@@ -53,7 +53,7 @@ with lib;
     hostId = "9f89b327";
     useDHCP = false;
     interfaces.enp1s0.ipv4.addresses = singleton {
-      inherit (config.network.addresses.private.ipv4) address;
+      inherit (config.network.addresses.private.nixos.ipv4) address;
       prefixLength = 24;
     };
     defaultGateway = config.network.privateGateway;
@@ -62,7 +62,10 @@ with lib;
   network = {
     addresses = {
       private = {
-        ipv4.address = "192.168.1.32";
+        enable = true;
+        nixos = {
+          ipv4.address = "192.168.1.32";
+        };
       };
     };
   };

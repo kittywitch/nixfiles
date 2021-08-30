@@ -30,7 +30,7 @@ in
       type = "resource";
       connection = {
         port = head config.services.openssh.ports;
-        host = config.network.addresses.private.ipv4.address;
+        host = config.network.addresses.private.nixos.ipv4.address;
       };
     };
   };
@@ -192,7 +192,7 @@ in
     };
     networks.br = {
       matchConfig.Name = "br";
-      address = singleton "${config.network.addresses.private.ipv4.address}/24";
+      address = singleton "${config.network.addresses.private.nixos.ipv4.address}/24";
       gateway = singleton config.network.privateGateway;
     };
     netdevs.br = {
@@ -210,7 +210,9 @@ in
     addresses = {
       private = {
         enable = true;
-        ipv4.address = "192.168.1.1";
+        nixos = {
+          ipv4.address = "192.168.1.1";
+        };
       };
     };
     yggdrasil = {

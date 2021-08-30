@@ -23,7 +23,7 @@ with lib;
   deploy.tf.dns.records.services_mail_spf = {
     tld = config.network.dns.tld;
     domain = "@";
-    txt.value = "v=spf1 ip4:${config.network.addresses.public.ipv4.address} ip6:${config.network.addresses.public.ipv6.address} -all";
+    txt.value = "v=spf1 ip4:${config.network.addresses.public.nixos.ipv4.address} ip6:${config.network.addresses.public.nixos.ipv6.address} -all";
   };
 
   deploy.tf.dns.records.services_mail_dmarc = {

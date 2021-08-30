@@ -49,7 +49,7 @@ with lib;
       type = "resource";
       connection = {
         port = head config.services.openssh.ports;
-        host = config.network.addresses.public.ipv4.address;
+        host = config.network.addresses.public.nixos.ipv4.address;
       };
     };
   };
@@ -83,7 +83,7 @@ with lib;
       enp1s0 = {
         useDHCP = true;
         ipv6.addresses = [{
-          address = config.network.addresses.public.ipv6.address;
+          address = config.network.addresses.public.nixos.ipv6.address;
           prefixLength = 64;
         }];
       };
@@ -98,15 +98,17 @@ with lib;
     addresses = {
       public = {
         enable = true;
-        ipv4.address = "168.119.126.111";
-        ipv6.address = "2a01:4f8:c2c:b7a8::1";
+        nixos = {
+          ipv4.address = "168.119.126.111";
+          ipv6.address = "2a01:4f8:c2c:b7a8::1";
+        };
       };
     };
     yggdrasil = {
       enable = true;
       pubkey = "55e3f29c252d16e73ac849a6039824f94df1dee670c030b9e29f90584f935575";
       listen.enable = true;
-      listen.endpoints = [ "tcp://${config.network.addresses.public.ipv4.address}:52969" "tcp://[${config.network.addresses.public.ipv6.address}]:52969" ];
+      listen.endpoints = [ "tcp://${config.network.addresses.public.nixos.ipv4.address}:52969" "tcp://[${config.network.addresses.public.nixos.ipv6.address}]:52969" ];
     };
   };
 

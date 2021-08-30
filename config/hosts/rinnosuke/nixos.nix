@@ -31,8 +31,8 @@ in
     interfaces.ens3 = {
       useDHCP = true;
       ipv6 = {
-        addresses = mkIf (config.network.addresses.public.ipv6.enable) [{
-          address = config.network.addresses.public.ipv6.address;
+        addresses = mkIf (config.network.addresses.public.nixos.ipv6.enable) [{
+          address = config.network.addresses.public.nixos.ipv6.address;
           prefixLength = 64;
         }];
         routes = [{
@@ -47,7 +47,8 @@ in
     addresses = {
       public = {
         enable = true;
-        ipv6.address = mkIf (tf.state.resources ? ${tf.resources.${config.networking.hostName}.out.reference}) addr_ipv6_nix;
+        nixos.ipv6.address = mkIf (tf.state.resources ? ${tf.resources.${config.networking.hostName}.out.reference}) addr_ipv6_nix;
+        tf.ipv6.address = tf.resources.rinnosuke_ipv6.refAttr "ip_address";
       };
     };
     firewall.public.interfaces = singleton "ens3";

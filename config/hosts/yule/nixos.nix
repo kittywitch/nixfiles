@@ -22,7 +22,7 @@ with lib;
       type = "resource";
       connection = {
         port = head config.services.openssh.ports;
-        host = config.network.addresses.private.ipv4.address;
+        host = config.network.addresses.private.nixos.ipv4.address;
       };
     };
   };
@@ -68,7 +68,7 @@ with lib;
     wireless.interfaces = singleton "wlp2s0";
     interfaces = {
       wlp2s0.ipv4.addresses = singleton {
-        inherit (config.network.addresses.private.ipv4) address;
+        inherit (config.network.addresses.private.nixos.ipv4) address;
         prefixLength = 24;
       };
     };
@@ -79,7 +79,9 @@ with lib;
     addresses = {
       private = {
         enable = true;
-        ipv4.address = "192.168.1.3";
+        nixos = {
+          ipv4.address = "192.168.1.3";
+        };
       };
     };
     yggdrasil = {

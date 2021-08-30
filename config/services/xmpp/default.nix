@@ -59,13 +59,13 @@ with lib;
   deploy.tf.dns.records.services_prosody_xmpp = {
     tld = config.network.dns.tld;
     domain = "xmpp";
-    a.address = config.network.addresses.public.ipv4.address;
+    a.address = config.network.addresses.public.nixos.ipv4.address;
   };
 
   deploy.tf.dns.records.services_prosody_xmpp_v6 = {
     tld = config.network.dns.tld;
     domain = "xmpp";
-    aaaa.address = config.network.addresses.public.ipv6.address;
+    aaaa.address = config.network.addresses.public.nixos.ipv6.address;
   };
 
   deploy.tf.dns.records.services_prosody_upload = {
