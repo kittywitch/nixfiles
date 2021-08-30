@@ -55,7 +55,12 @@ in
           "autolist"
           "listrowsfirst"
         ]; in
-      ''
+        ''
+        ${if config.anicca.enabled then ''
+          HISTFILE=/persist/home/.zsh_history
+        '' else ''
+        ''}
+        eval $(dircolors)
         ZSH_TAB_TITLE_ADDITIONAL_TERMS='foot'
         ZSH_TAB_TITLE_ENABLE_FULL_COMMAND=true
         zmodload -i zsh/complist
@@ -113,9 +118,9 @@ in
       })) [
       "zsh-z"
     ]) ++ [
-      (with pkgs.zsh-fzf-tab; {
+      ({
         name = "fzf-tab";
-        inherit src;
+        src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
       })
     ];
   };

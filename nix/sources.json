@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "kittywitch",
         "repo": "anicca",
-        "rev": "d4ef7f09558ce9f80e198ebe364d60d05eea97f9",
-        "sha256": "05sciibf2ylmlj34rqb2cyr6djwh6q7caqi0ahrkypmzgcnch2v4",
+        "rev": "c890bd08f4e34a655ef5ff7561aa74cdc8d85a0a",
+        "sha256": "16n6z9m1v6wf0ihddp9lqq5g3jzj3d25cgnkf9n08kqhx5x07ag2",
         "type": "tarball",
-        "url": "https://github.com/kittywitch/anicca/archive/d4ef7f09558ce9f80e198ebe364d60d05eea97f9.tar.gz",
+        "url": "https://github.com/kittywitch/anicca/archive/c890bd08f4e34a655ef5ff7561aa74cdc8d85a0a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "arcexprs": {
