@@ -67,6 +67,10 @@ in
           zstyle ':completion:*:ssh:*' hosts $h
           zstyle ':completion:*:slogin:*' hosts $h
         fi
+        unset h
+        u=(root ${config.home.username})
+        zstyle ':completion:*:ssh:*' users $u
+        unset u
         zstyle ':completion:*:*:*:*:*' menu select
         zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
         zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
