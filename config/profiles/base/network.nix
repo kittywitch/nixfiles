@@ -6,7 +6,7 @@
     nftables.enable = true;
     dns = {
       enable = true;
-      email = "kat@kittywit.ch";
+      email = "acme@kittywit.ch";
       tld = "kittywit.ch.";
     };
   };

@@ -1,4 +1,4 @@
-{ config, tf, pkgs, ... }:
+{ config, lib, tf, pkgs, ... }:
 
 {
   kw.secrets = [ "knot-dnsupdate" ];
@@ -14,9 +14,9 @@
     group = "knot";
   };
 
-  /*  environment.etc."katdns/zones/kittywit.ch.zone".text = let
+/*  environment.etc."katdns/zones/kittywit.ch.zone".text = let
     dns = pkgs.dns;
-    in dns.lib.toString "kittywit.ch." (import ./kittywit.ch.nix {inherit dns; }); */
+    in dns.lib.toString "kittywit.ch" (import ./kittywit.ch.nix { inherit dns lib; }); */
 
   services.knot = {
     enable = true;

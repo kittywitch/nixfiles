@@ -12,7 +12,25 @@
     externalSecret = true;
   };
 
-  dns.zones."kittywit.ch." = { provider = "dns"; };
+  variables.katdns-name = {
+    externalSecret = true;
+  };
+
+  variables.katdns-key = {
+    externalSecret = true;
+  };
+
+  providers.katdns = {
+    type = "dns";
+    inputs.update = {
+      server = "ns1.kittywit.ch";
+      key_name = "kittywit.ch.";
+      key_secret = config.variables.katdns-key.ref;
+      key_algorithm = "hmac-sha512";
+    };
+  };
+
+  dns.zones."kittywit.ch." = { provider = "dns.katdns"; };
 
   providers.dns = {
     inputs.update = {
