@@ -30,7 +30,7 @@ in
           useDHCP = true;
           ipv6 = {
             addresses = [{
-              address = config.network.addresses.public.ipv6.address;
+              address = mkIf (config.network.addresses.public.ipv6.enable) config.network.addresses.public.ipv6.address;
               prefixLength = 64;
             }];
             routes = [{
