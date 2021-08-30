@@ -2,7 +2,8 @@
 
 [![nodes][]][1]
 
-[This repository on our self hosted git.][]
+[This repository on my self hosted git.][]
+
 [This repository on GitHub.][]
 
 These are the NixOS configurations for my systems. I run nothing other than NixOS on my hardware, aside from virtual machines.
@@ -23,7 +24,7 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 
 -   [ ] Consider reworking [kittywitch/nixexprs][] and [kittywitch/nixfiles-base][].
     -   [x] In-housed [kittywitch/nixexprs][] as [exprs][].
-    -   [x] Merged our local changes with [exprs][].
+    -   [x] Merged my local changes with [exprs][].
     -   [ ] Prioritise modules reusability.
 -   [ ] Expand [kittywitch/anicca][] to be a module that helps with impermanence, too.
     -   [x] Host impermanence enablement check.
@@ -32,7 +33,7 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
     -   [ ] Bind mount start/enabler script.
 -   [ ] Move to using [arcnmx/screenstub][] without any patches.
     -   [ ] Check new config options, port current patch to new config options.
--   [ ] Add swaylock-effects to our theme module.
+-   [ ] Add swaylock-effects to my theme module.
     -   [x] Patched swaylock-effects.
     -   [x] Working with swayidle + …
     -   [ ] Add to module.
@@ -43,7 +44,7 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
     -   [ ] glauca.digital migration.
 -   [ ] Migrate [athame][] to OCI.
 -   [ ] Look into alternatives to Yggdrasil and move to them.
--   [ ] Set up IPv6 network handling for our hosts.
+-   [ ] Set up IPv6 network handling for my hosts.
     -   [x] Fix network module tf-nix integrations.
     -   [x] Rinnosuke IPv6.
     -   [ ] Local node IPv6 configuration.
@@ -177,7 +178,7 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
 
   [nodes]: https://github.com/kittywitch/nixfiles/actions/workflows/nodes.yml/badge.svg
   [1]: https://github.com/kittywitch/nixfiles/actions/workflows/nodes.yml
-  [This repository on our self hosted git.]: https://git.kittywit.ch/kat/nixfiles
+  [This repository on my self hosted git.]: https://git.kittywit.ch/kat/nixfiles
   [This repository on GitHub.]: https://github.com/kittywitch/nixfiles
   [To-do]: #to-do
   [2]: #nodes
