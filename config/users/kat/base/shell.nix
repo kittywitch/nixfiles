@@ -59,7 +59,17 @@ in
         ZSH_TAB_TITLE_ADDITIONAL_TERMS='foot'
         ZSH_TAB_TITLE_ENABLE_FULL_COMMAND=true
         zmodload -i zsh/complist
-        zstyle ':completion:*' list-colors ""
+        h=()
+        if [[ -r ~/.ssh/config ]]; then
+          h=($h ''${''${''${(@M)''${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
+        fi
+        if [[ -r ~/.ssh/known_hosts ]]; then
+          h=($h ''${''${''${(f)"$(cat ~/.ssh/known_hosts{,2} || true)"}%%\ *}%%,*}) 2>/dev/null
+        fi
+        if [[ $#h -gt 0 ]]; then
+          zstyle ':completion:*:ssh:*' hosts $h
+          zstyle ':completion:*:slogin:*' hosts $h
+        fi
         zstyle ':completion:*:*:*:*:*' menu select
         zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
         zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
