@@ -23,6 +23,7 @@ zone:
     storage: /var/lib/knot/zones/
     file: kittywit.ch.zone
     dnssec-signing: on
+    module: mod-stats
     notify: [ benjojo-1, benjojo-2, benjojo-3 ]
     zonefile-load: difference
     acl: [ benjojo, dnsupdate ]
