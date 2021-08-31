@@ -44,6 +44,7 @@ in
   };
 
   network = {
+    dns.enable = false;
     addresses = {
       public = {
         enable = true;

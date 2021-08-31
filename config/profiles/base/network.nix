@@ -1,11 +1,11 @@
-{ config, lib, ... }:
+{ config, lib, ... }: with lib;
 
 {
   network = {
     enable = true;
     nftables.enable = true;
     dns = {
-      enable = true;
+      enable = mkDefault true;
       email = "acme@kittywit.ch";
       tld = "kittywit.ch.";
     };
