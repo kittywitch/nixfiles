@@ -53,14 +53,14 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 
 ## Nodes
 
-| Node          | Purpose                                                |
-|---------------|--------------------------------------------------------|
-| [athame][]    | Currently the main server. Ad-hoc hetzner cloud box.   |
-| [rinnosuke][] | Intended to be a nameserver. Provisioned OCI EPYC box. |
-| [beltane][]   | Home server. NAS + HTPC, does DVB stuff.               |
-| [samhain][]   | Beloved workstation. Does VFIO.                        |
-| [yule][]      | Main laptop.                                           |
-| [ostara][]    | CCTV netbook.                                          |
+| Node          | Purpose                                              |
+|---------------|------------------------------------------------------|
+| [athame][]    | Currently the main server. Ad-hoc hetzner cloud box. |
+| [rinnosuke][] | My primary nameserver. Provisioned OCI EPYC box.     |
+| [beltane][]   | Home server. NAS + HTPC, does DVB stuff.             |
+| [samhain][]   | Beloved workstation. Does VFIO.                      |
+| [yule][]      | Main laptop.                                         |
+| [ostara][]    | CCTV netbook.                                        |
 
 ## Profiles
 
@@ -120,24 +120,24 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 This list will include the modules provided by [kittywitch/nixexprs][] as “katexprs”.
 They are available within this repo as [exprs][].
 
-| Module                         | Domain                      | Description                                                                                               |
-|--------------------------------|-----------------------------|-----------------------------------------------------------------------------------------------------------|
-| [arcnmx/nixexprs][]            | NixOS + home-manager        | We use… a lot of these. Syncplay, modprobe, base16, i3gopher, weechat, konawall, shell and probably more. |
-| [arcnmx/tf-nix][]              | Meta + NixOS + home-manager | Deployment, secrets and terraform.                                                                        |
-| [nix-community/impermanence][] | NixOS + home-manager        | Erase your darlings.                                                                                      |
-| [kittywitch/anicca][]          | NixOS + home-manager        | WIP Helpful modules for impermanence.                                                                     |
-| katexprs/nftables              | NixOS                       | Uses nftables for the NixOS firewall module.                                                              |
-| katexprs/firewall              | NixOS + home-manager        | Per-“domain” (private, public) -> interface abstractions for the firewall. Easier to remember.            |
-| katexprs/network (WIP)         | NixOS + home-manager        | Network abstractions. Handles DNS + certs, among virtualHosts.                                            |
-| katexprs/fusionpbx (WIP)       | NixOS                       | FusionPBX.                                                                                                |
-| katexprs/swaylock              | home-manager                | Easier abstractions for using swaylock-effects.                                                           |
-| nixfiles/secrets               | Meta + NixOS + home-manager | Helper for tf-nix’s secrets.                                                                              |
-| nixfiles/deploy                | Meta + NixOS + home-manager | tf-nix deployment integration                                                                             |
-| nixfiles/network               | Meta                        | Enables node to host config assignment & NixOS module.                                                    |
-| nixfiles/dyndns                | NixOS                       | Dynamic DNS using [glauca.digital][].                                                                     |
-| nixfiles/monitoring            | NixOS                       | Grafana, Prometheus, Loki, node-exporter, netdata, promtail, …                                            |
-| nixfiles/theme                 | home-manager                | Abstractions for themes. SASS templating.                                                                 |
-| hexchen/yggdrasil              | NixOS                       | Yggdrasil ease of use module.                                                                             |
+| Module                         | Domain                      | Description                                                                                              |
+|--------------------------------|-----------------------------|----------------------------------------------------------------------------------------------------------|
+| [arcnmx/nixexprs][]            | NixOS + home-manager        | I use… a lot of these. Syncplay, modprobe, base16, i3gopher, weechat, konawall, shell and probably more. |
+| [arcnmx/tf-nix][]              | Meta + NixOS + home-manager | Deployment, secrets and terraform.                                                                       |
+| [nix-community/impermanence][] | NixOS + home-manager        | Erase your darlings.                                                                                     |
+| [kittywitch/anicca][]          | NixOS + home-manager        | WIP Helpful modules for impermanence.                                                                    |
+| katexprs/nftables              | NixOS                       | Uses nftables for the NixOS firewall module.                                                             |
+| katexprs/firewall              | NixOS + home-manager        | Per-“domain” (private, public) -> interface abstractions for the firewall. Easier to remember.           |
+| katexprs/network (WIP)         | NixOS + home-manager        | Network abstractions. Handles DNS + certs, among virtualHosts.                                           |
+| katexprs/fusionpbx (WIP)       | NixOS                       | FusionPBX.                                                                                               |
+| katexprs/swaylock              | home-manager                | Easier abstractions for using swaylock-effects.                                                          |
+| nixfiles/secrets               | Meta + NixOS + home-manager | Helper for tf-nix’s secrets.                                                                             |
+| nixfiles/deploy                | Meta + NixOS + home-manager | tf-nix deployment integration                                                                            |
+| nixfiles/network               | Meta                        | Enables node to host config assignment & NixOS module.                                                   |
+| nixfiles/dyndns                | NixOS                       | Dynamic DNS using [glauca.digital][].                                                                    |
+| nixfiles/monitoring            | NixOS                       | Grafana, Prometheus, Loki, node-exporter, netdata, promtail, …                                           |
+| nixfiles/theme                 | home-manager                | Abstractions for themes. SASS templating.                                                                |
+| hexchen/yggdrasil              | NixOS                       | Yggdrasil ease of use module.                                                                            |
 
 ## CI
 
