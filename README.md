@@ -64,12 +64,12 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 
 ## Profiles
 
-| Profile      | Purpose                                                                                                                                                                          |
-|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [base][]     | Base profile, always used. Root access, base16, home-manager, locale, network module, nix, packages, profiles, secrets, shell and sysctl configuration.                          |
-| [gui][]      | GUI profile. Provides window managers, [DNSCrypt/dnscrypt-proxy][], filesystem packages, font, NixOS-side GPG, mingetty, NFS, QT, sound (pipewire) and XDG portal configuration. |
-| [vfio][]     | Provides host-unspecific VFIO. Fancy patched QEMU from [arcnmx/nixexprs][], [arcnmx/screenstub][] (however, patched in-repo for Q35), AMDGPU vendor-reset and ACS override.      |
-| [hardware][] | Sub-profiles for my hardware are provided here. Some are reusable.                                                                                                               |
+| Profile      | Purpose                                                                                                                                                                                           |
+|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [base][]     | Base profile, always used. Root access, base16, home-manager, locale, network module, nix, packages, profiles, secrets, shell and sysctl configuration.                                           |
+| [gui][]      | GUI profile. Provides window managers, includes [DNSCrypt/dnscrypt-proxy][] service, filesystem packages, font, NixOS-side GPG, mingetty, NFS, QT, sound (pipewire) and XDG portal configuration. |
+| [vfio][]     | Provides host-unspecific VFIO. Fancy patched QEMU from [arcnmx/nixexprs][], [arcnmx/screenstub][] (however, patched in-repo for Q35), AMDGPU vendor-reset and ACS override.                       |
+| [hardware][] | Sub-profiles for my hardware are provided here. Some are reusable.                                                                                                                                |
 
 ## User Profiles
 
@@ -85,34 +85,35 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 
 ## Services
 
-| Service          | Description                                                              |
-|------------------|--------------------------------------------------------------------------|
-| [filehost][]     | I sling things in here via SSH/SCP.                                      |
-| [fusionpbx][]    | FusionPBX. Fancy PBX.                                                    |
-| [gitea][]        | Self-hosted git with mail support.                                       |
-| [jellyfin][]     | HTPC/NAS stuff.                                                          |
-| [katsplash][]    | A splash screen for some hosts.                                          |
-| [kattv-ingest][] | Takes data from kattv, slings to RTMP.                                   |
-| [kattv][]        | Takes data from a webcam, slings to kattv-ingest.                        |
-| [knot][]         | Knot DNS, authoritative DNS server.                                      |
-| [logrotate][]    | Rotates logs!                                                            |
-| [mail][]         | [nixos-mailserver][].                                                    |
-| [matrix][]       | Synapse and some appservices. Need to migrate the appservice configs in. |
-| [murmur][]       | Mumble!                                                                  |
-| [nfs][]          | Network filesy stuff.                                                    |
-| [nginx][]        | Our NGINX preset configs.                                                |
-| [postgres][]     | Database of choice.                                                      |
-| [radicale][]     | CalDAV, integrated with the mail service.                                |
-| [restic][]       | Backups!                                                                 |
-| [syncplay][]     | Watching videos with friends and lovers. Usually, lovers.                |
-| [taskserver][]   | Taskwarrior server.                                                      |
-| [transmission][] | Linux distros, I swear.                                                  |
-| [tvheadend][]    | DVB-T ingest for Jellyfin and so on!                                     |
-| [vaultwarden][]  | Passwords!                                                               |
-| [website][]      | Our personal website.                                                    |
-| [xmpp][]         | Prosody.                                                                 |
-| [zfs][]          | ZFS snapshot settings.                                                   |
-| [znc][]          | IRC bouncer!                                                             |
+| Service            | Description                                                              |
+|--------------------|--------------------------------------------------------------------------|
+| [dnscrypt-proxy][] | DNSCrypt Proxy v2, fancy DNS stuffs.                                     |
+| [filehost][]       | I sling things in here via SSH/SCP.                                      |
+| [fusionpbx][]      | FusionPBX. Fancy PBX.                                                    |
+| [gitea][]          | Self-hosted git with mail support.                                       |
+| [jellyfin][]       | HTPC/NAS stuff.                                                          |
+| [katsplash][]      | A splash screen for some hosts.                                          |
+| [kattv-ingest][]   | Takes data from kattv, slings to RTMP.                                   |
+| [kattv][]          | Takes data from a webcam, slings to kattv-ingest.                        |
+| [knot][]           | Knot DNS, authoritative DNS server.                                      |
+| [logrotate][]      | Rotates logs!                                                            |
+| [mail][]           | [nixos-mailserver][].                                                    |
+| [matrix][]         | Synapse and some appservices. Need to migrate the appservice configs in. |
+| [murmur][]         | Mumble!                                                                  |
+| [nfs][]            | Network filesy stuff.                                                    |
+| [nginx][]          | Our NGINX preset configs.                                                |
+| [postgres][]       | Database of choice.                                                      |
+| [radicale][]       | CalDAV, integrated with the mail service.                                |
+| [restic][]         | Backups!                                                                 |
+| [syncplay][]       | Watching videos with friends and lovers. Usually, lovers.                |
+| [taskserver][]     | Taskwarrior server.                                                      |
+| [transmission][]   | Linux distros, I swear.                                                  |
+| [tvheadend][]      | DVB-T ingest for Jellyfin and so on!                                     |
+| [vaultwarden][]    | Passwords!                                                               |
+| [website][]        | Our personal website.                                                    |
+| [xmpp][]           | Prosody.                                                                 |
+| [zfs][]            | ZFS snapshot settings.                                                   |
+| [znc][]            | IRC bouncer!                                                             |
 
 ## Modules
 
@@ -200,8 +201,8 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [exprs]: overlays/exprs
   [kittywitch/anicca]: https://github.com/kittywitch/anicca
   [arcnmx/screenstub]: https://github.com/arcnmx/screenstub
-  [rinnosuke]: config/hosts/rinnosuke
   [athame]: config/hosts/athame
+  [rinnosuke]: config/hosts/rinnosuke
   [beltane]: config/hosts/beltane
   [samhain]: config/hosts/samhain
   [yule]: config/hosts/yule
@@ -223,6 +224,7 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [5]: config/users/kat/services
   [sway]: config/users/kat/sway
   [kittywitch/konawall-rs]: https://github.com/kittywitch/konawall-rs
+  [dnscrypt-proxy]: config/services/dnscrypt-proxy/default.nix
   [filehost]: config/services/filehost/default.nix
   [fusionpbx]: config/services/fusionpbx/default.nix
   [gitea]: config/services/gitea/default.nix
