@@ -38,7 +38,10 @@ in
       source ${cocvim}
     '';
     plugins = with pkgs.vimPlugins; [
+      neorg
+      nvim-base16
       nvim-treesitter
+      nvim-ts-rainbow
       coc-yaml
       coc-git
       coc-css
