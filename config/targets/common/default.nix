@@ -1,31 +1,26 @@
 { config, ... }:
 
 {
-  commandPrefix = "pass";
-  folderPrefix = "secrets";
-  folderDivider = "/";
-
-  variables.rfc2136-key = {
-    externalSecret = true;
-  };
-  variables.rfc2136-secret = {
-    externalSecret = true;
-  };
-
-  variables.katdns-addr = {
-    externalSecret = true;
+  variables.katdns-address = {
+    value.shellCommand = "bitw get secrets/katdns -f address";
+    type = "string";
+    sensitive = true;
   };
   variables.katdns-name = {
-    externalSecret = true;
+    value.shellCommand = "bitw get secrets/katdns -f username";
+    type = "string";
+    sensitive = true;
   };
   variables.katdns-key = {
-    externalSecret = true;
+    value.shellCommand = "bitw get secrets/katdns -f password";
+    type = "string";
+    sensitive = true;
   };
 
   providers.katdns = {
     type = "dns";
     inputs.update = {
-      server = config.variables.katdns-addr.ref;
+      server = config.variables.katdns-address.ref;
       key_name = config.variables.katdns-name.ref;
       key_secret = config.variables.katdns-key.ref;
       key_algorithm = "hmac-sha512";
@@ -33,13 +28,4 @@
   };
 
   dns.zones."kittywit.ch." = { provider = "dns.katdns"; };
-
-  providers.dns = {
-    inputs.update = {
-      server = "ns1.as207960.net";
-      key_name = config.variables.rfc2136-key.ref;
-      key_secret = config.variables.rfc2136-secret.ref;
-      key_algorithm = "hmac-sha512";
-    };
-  };
 }

@@ -104,7 +104,6 @@ with lib;
   };
 
   network = {
-    dns.dynamic = true;
     addresses = {
       private = {
         enable = true;

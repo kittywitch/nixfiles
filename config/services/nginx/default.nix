@@ -5,7 +5,7 @@ with lib;
 {
   secrets.files.dns_creds = {
     text = ''
-      RFC2136_NAMESERVER='${tf.variables.katdns-addr.ref}'
+      RFC2136_NAMESERVER='${tf.variables.katdns-address.ref}'
       RFC2136_TSIG_ALGORITHM='hmac-sha512.'
       RFC2136_TSIG_KEY='${tf.variables.katdns-name.ref}'
       RFC2136_TSIG_SECRET='${tf.variables.katdns-key.ref}'

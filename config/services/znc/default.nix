@@ -50,7 +50,25 @@ in
 {
   network.firewall.public.tcp.ports = singleton 5001;
 
-  kw.secrets = [ "znc-softnet-address" "znc-espernet-pass" "znc-liberachat-pass" "znc-savebuff-pass" "znc-espernet-cert" "znc-liberachat-cert" "znc-softnet-cert" ];
+  kw.secrets.variables = let
+    fieldAdapt = field: if field == "cert" then "notes" else if field == "pass" then "password" else field;
+  in listToAttrs (concatMap (network:
+    map (field:
+      nameValuePair "znc-${network}-${field}" {
+        path = "social/irc/${network}";
+        field = fieldAdapt field;
+    }) ["cert" "pass"]
+  ) ["liberachat" "espernet"]
+  ++ map (field:
+      nameValuePair "znc-softnet-${field}" {
+        path = "social/irc/softnet";
+        field = fieldAdapt field;
+    }) ["cert" "address"]
+   ++ singleton (nameValuePair "znc-savebuff-pass" {
+      path = "social/irc/znc";
+      field = "savebuff";
+    })
+  );
 
   secrets.files.softnet-cert = {
     text = tf.variables.znc-softnet-cert.ref;
@@ -141,7 +159,7 @@ in
             AltNick = "katrin";
             AutoClearChanBuffer = false;
             AutoClearQueryBuffer = false;
-            LoadModule = [ "clientbuffer autoadd" "clientaway" "savebuff ${tf.variables.znc-savebuff-pass.ref}" ];
+            LoadModule = [ "clientbuffer autoadd" "buffextras" "clientaway" "savebuff ${tf.variables.znc-savebuff-pass.ref}" ];
             Network.softnet = {
               Server = "${tf.variables.znc-softnet-address.ref}";
               Nick = "kat";
@@ -166,7 +184,7 @@ in
           };
         };
       })
-      (mkIf config.deploy.profile.trusted (import config.kw.repoSecrets.znc.source))
+      (mkIf config.deploy.profile.trusted (import config.kw.secrets.repo.znc.source))
     ];
     configFile = config.secrets.files.znc-config.path;
   };

@@ -22,6 +22,7 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 
 ## To-do
 
+-   [ ] Write my own Dynamic DNS updater to replace the removed Glauca one using [knsupdate][].
 -   [ ] Consider reworking [kittywitch/nixexprs][] and [kittywitch/nixfiles-base][].
     -   [x] In-housed [kittywitch/nixexprs][] as [exprs][].
     -   [x] Merged my local changes with [exprs][].
@@ -134,7 +135,6 @@ They are available within this repo as [exprs][].
 | nixfiles/secrets               | Meta + NixOS + home-manager | Helper for tf-nix’s secrets.                                                                             |
 | nixfiles/deploy                | Meta + NixOS + home-manager | tf-nix deployment integration                                                                            |
 | nixfiles/network               | Meta                        | Enables node to host config assignment & NixOS module.                                                   |
-| nixfiles/dyndns                | NixOS                       | Dynamic DNS using [glauca.digital][].                                                                    |
 | nixfiles/monitoring            | NixOS                       | Grafana, Prometheus, Loki, node-exporter, netdata, promtail, …                                           |
 | nixfiles/theme                 | home-manager                | Abstractions for themes. SASS templating.                                                                |
 | hexchen/yggdrasil              | NixOS                       | Yggdrasil ease of use module.                                                                            |
@@ -196,6 +196,7 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [CI]: #ci
   [Dependencies]: #dependencies
   [Commands]: #commands
+  [knsupdate]: https://www.knot-dns.cz/docs/2.4/html/man_knsupdate.html
   [kittywitch/nixexprs]: https://github.com/kittywitch/nixexprs
   [kittywitch/nixfiles-base]: https://github.com/kittywitch/nixfiles-base
   [exprs]: overlays/exprs
@@ -254,7 +255,6 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [znc]: config/services/znc/default.nix
   [arcnmx/tf-nix]: https://github.com/arcnmx/tf-nix
   [nix-community/impermanence]: https://github.com/nix-community/impermanence
-  [glauca.digital]: https://glauca.digital
   [arcnmx/ci]: https://github.com/arcnmx/ci
   [6]: ci/nodes.nix
   [niv-cron]: ci/niv-cron.nix

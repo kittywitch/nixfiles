@@ -1,4 +1,4 @@
-{ config, pkgs, tf, ... }:
+{ config, pkgs, tf, lib, ... }: with lib;
 
 {
   deploy.tf.dns.records.services_fusionpbx = {
@@ -7,10 +7,11 @@
     cname.target = "${config.network.addresses.private.domain}.";
   };
 
-  kw.secrets = [
-    "fusionpbx-username"
-    "fusionpbx-password"
-  ];
+  kw.secrets.variables = mapListToAttrs (field:
+  nameValuePair "fusionpbx-${field}" {
+      path = "services/fusionpbx";
+      inherit field;
+  }) ["username" "password"];
 
   secrets.files.fusionpbx_env = {
     text = ''

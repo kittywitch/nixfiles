@@ -3,10 +3,14 @@
 with lib;
 
 {
-  kw.secrets = [
-    "syncplay-pass"
-    "syncplay-salt"
-  ];
+
+  kw.secrets.variables = let
+    fieldAdapt = field: if field == "pass" then "password" else field;
+  in mapListToAttrs (field:
+    nameValuePair "syncplay-${field}" {
+      path = "services/media/syncplay";
+      field = fieldAdapt field;
+    }) ["pass" "salt"];
 
   users.users.syncplay = { isSystemUser = true; };
 

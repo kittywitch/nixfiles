@@ -14,9 +14,12 @@ in
     };
   };
 
-  kw.secrets = [
-    "murmur-password"
-  ];
+  kw.secrets.variables = {
+    murmur-password = {
+      path = "social/mumble";
+      field = "password";
+    };
+  };
 
   secrets.files.murmur-config = {
     text = ''

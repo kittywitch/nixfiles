@@ -91,9 +91,12 @@ in
     (mkIf cfg.server.enable {
       network.firewall.private.tcp.ports = [ 9090 ];
 
-      kw.secrets = [
-        "grafana-admin-pass"
-      ];
+      kw.secrets.variables = {
+        grafana-admin-pass = {
+          path = "services/grafana";
+          field = "admin";
+        };
+      };
 
       secrets.files.grafana-admin-pass = {
         text = "${tf.variables.grafana-admin-pass.ref}";

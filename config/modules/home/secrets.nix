@@ -1,10 +1,18 @@
-{ config, lib, nixos, ... }:
+{ config, nixos, lib, ... }:
 
 with lib;
 
-
 let
   secretType = types.submodule ({ name, ... }: {
+    options = {
+      path = mkOption { type = types.str; };
+      field = mkOption {
+        type = types.str;
+        default = "";
+      };
+    };
+  });
+  repoSecretType = types.submodule ({ name, ... }: {
     options = {
       source = mkOption {
         type = types.path;
@@ -14,20 +22,22 @@ let
       };
     };
   });
+  cfg = config.kw.secrets;
 in
 {
   options.kw = {
-    secrets = mkOption {
-      type = types.nullOr (types.listOf types.str);
-      default = null;
-    };
-    repoSecrets = mkOption {
-      type = types.nullOr (types.attrsOf secretType);
-      default = null;
+    secrets = {
+      variables = mkOption {
+        type = types.attrsOf secretType;
+        default = {};
+      };
+      repo = mkOption {
+        type = types.attrsOf repoSecretType;
+        default = {};
+      };
     };
   };
-  config = mkIf (config.kw.secrets != null) {
-    deploy.tf.variables = genAttrs config.kw.secrets (n: { externalSecret = true; });
-    kw.repoSecrets = nixos.kw.repoSecrets;
+  config = {
+    kw.secrets.repo = nixos.kw.secrets.repo;
   };
 }

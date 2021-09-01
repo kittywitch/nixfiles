@@ -1,7 +1,11 @@
 { config, pkgs, lib, tf, ... }:
 
 {
-  kw.secrets = lib.singleton "vaultwarden-admin-token";
+  kw.secrets.variables = {
+    vaultwarden-admin-token = {
+      path = "secrets/vaultwarden";
+    };
+  };
 
   secrets.files.vaultwarden-env = {
     text = ''

@@ -1,10 +1,16 @@
 { config, lib, nixos, pkgs, tf, ... }:
 
 {
-  kw.secrets = [
-    "matrix-pass"
-    "znc-pass"
-  ];
+  kw.secrets.variables = {
+    matrix-pass = {
+      path = "social/matrix";
+      field = "password";
+    };
+    znc-pass = {
+      path = "social/irc/znc";
+      field = "password";
+    };
+  };
 
   secrets.files.weechat-sec = {
     text = ''

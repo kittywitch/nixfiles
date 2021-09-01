@@ -3,9 +3,12 @@
 with lib;
 
 {
-  kw.secrets = [
-    "syncplay-pass"
-  ];
+  kw.secrets.variables = {
+    syncplay-pass = {
+      path = "services/media/syncplay";
+      field = "password";
+    };
+  };
 
   programs.syncplay = {
     enable = true;

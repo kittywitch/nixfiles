@@ -1,7 +1,15 @@
 { config, pkgs, tf, lib, ... }:
 
+with lib;
+
 {
-  kw.secrets = [ "taskwarrior-key" "taskwarrior-creds" ];
+  kw.secrets.variables = let
+    fieldAdapt = field: if field == "key" then "notes" else field;
+  in mapListToAttrs (field:
+  nameValuePair "taskwarrior-${field}" {
+    path = "services/taskwarrior";
+    field = fieldAdapt field;
+  }) ["key" "credentials"];
 
   secrets.files = {
     taskw_key = {
@@ -11,7 +19,7 @@
     };
     taskw_config = {
       text = ''
-        taskd.credentials=${tf.variables.taskwarrior-creds.ref}
+        taskd.credentials=${tf.variables.taskwarrior-credentials.ref}
       '';
       owner = "kat";
       group = "users";

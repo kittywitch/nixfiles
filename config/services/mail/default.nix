@@ -5,11 +5,17 @@ with lib;
 {
   imports = [ sources.nixos-mailserver.outPath ];
 
-  kw.secrets = [
-    "mail-domainkey-kitty"
-    "mail-kat-hash"
-    "mail-gitea-hash"
-  ];
+  kw.secrets.variables = (mapListToAttrs (field:
+    nameValuePair "mail-${field}-hash" {
+      path = "secrets/mail-kittywitch";
+      field = "${field}-hash";
+    }) ["gitea" "kat"]
+    // {
+      mail-domainkey-kitty = {
+        path = "secrets/mail-kittywitch";
+        field = "notes";
+      };
+    });
 
   deploy.tf.dns.records.services_mail_mx = {
     tld = config.network.dns.tld;

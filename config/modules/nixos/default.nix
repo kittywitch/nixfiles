@@ -9,7 +9,6 @@
       (import sources.anicca).modules.nixos
       ./deploy.nix
       ./monitoring.nix
-      ./dyndns.nix
       ./secrets.nix
       (sources.tf-nix + "/modules/nixos/secrets.nix")
       (sources.tf-nix + "/modules/nixos/secrets-users.nix")
