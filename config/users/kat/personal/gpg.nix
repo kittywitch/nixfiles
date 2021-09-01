@@ -2,10 +2,6 @@
 
 {
   home.packages = with pkgs; [ pinentry.gtk2 ];
-  home.sessionVariables = {
-    SSH_AUTH_SOCK =
-      "\${SSH_AUTH_SOCK:-$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)}";
-  };
   services.gpg-agent = {
     enable = true;
     enableExtraSocket = true;
