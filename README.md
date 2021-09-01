@@ -32,6 +32,10 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
     -   [ ] Break anicca-migrator into interface modules.
     -   [ ] Bind mount status list.
     -   [ ] Bind mount start/enabler script.
+-   [ ] Migrate any nodes that can be impermanent to impermanence.
+    -   [ ] yule
+    -   [ ] beltane
+    -   [ ] athame’s successor
 -   [ ] Move to using [arcnmx/screenstub][] without any patches.
     -   [ ] Check new config options, port current patch to new config options.
 -   [ ] Move waybar modules to using signals.
