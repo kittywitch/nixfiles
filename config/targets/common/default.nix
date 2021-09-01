@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }: with lib;
 
 {
   variables.katdns-address = {
@@ -27,5 +27,7 @@
     };
   };
 
-  dns.zones."kittywit.ch." = { provider = "dns.katdns"; };
+  dns.zones = genAttrs ["kittywit.ch." "dork.dev."] (_: {
+    provider = "dns.katdns";
+  });
 }

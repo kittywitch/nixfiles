@@ -122,9 +122,9 @@ in
   };
 
   deploy.tf.dns.records.services_znc = {
-    tld = config.network.dns.tld;
+    inherit (config.network.dns) zone;
     domain = "znc";
-    cname.target = "${config.networking.hostName}.${config.network.dns.tld}";
+    cname = { inherit (config.network.addresses.public) target; };
   };
 
   services.znc = {

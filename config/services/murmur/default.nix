@@ -107,35 +107,37 @@ in
 
   # DNS
 
-  deploy.tf.dns.records.services_murmur = {
-    tld = config.network.dns.tld;
-    domain = "voice";
-    cname.target = "${config.networking.hostName}.${config.network.dns.tld}";
-  };
-
-  deploy.tf.dns.records.services_murmur_tcp_srv = {
-    tld = config.network.dns.tld;
-    domain = "@";
-    srv = {
-      service = "mumble";
-      proto = "tcp";
-      priority = 0;
-      weight = 5;
-      port = 64738;
-      target = "voice.${config.network.dns.tld}";
+  deploy.tf.dns.records = {
+    services_murmur = {
+      inherit (config.network.dns) zone;
+      domain = "voice";
+      cname = { inherit (config.network.addresses.public) target; };
     };
-  };
 
-  deploy.tf.dns.records.services_murmur_udp_srv = {
-    tld = config.network.dns.tld;
-    domain = "@";
-    srv = {
-      service = "mumble";
-      proto = "udp";
-      priority = 0;
-      weight = 5;
-      port = 64738;
-      target = "voice.${config.network.dns.tld}";
+    services_murmur_tcp_srv = {
+      inherit (config.network.dns) zone;
+      domain = "@";
+      srv = {
+        service = "mumble";
+        proto = "tcp";
+        priority = 0;
+        weight = 5;
+        port = 64738;
+        target = "voice.${config.network.dns.zone}";
+      };
+    };
+
+    services_murmur_udp_srv = {
+      inherit (config.network.dns) zone;
+      domain = "@";
+      srv = {
+        service = "mumble";
+        proto = "udp";
+        priority = 0;
+        weight = 5;
+        port = 64738;
+        target = "voice.${config.network.dns.zone}";
+      };
     };
   };
 }

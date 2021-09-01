@@ -36,8 +36,8 @@ with lib;
   };
 
   deploy.tf.dns.records.services_radicale = {
-    tld = config.network.dns.tld;
+    inherit (config.network.dns) zone;
     domain = "cal";
-    cname.target = "${config.networking.hostName}.${config.network.dns.tld}";
+    cname = { inherit (config.network.addresses.public) target; };
   };
 }

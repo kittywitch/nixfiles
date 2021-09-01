@@ -135,9 +135,9 @@ in
       };
 
       deploy.tf.dns.records.services_grafana = {
-        tld = config.network.dns.tld;
+        inherit (config.network.dns) zone;
         domain = "graph";
-        cname.target = "${config.networking.hostName}.${config.network.dns.tld}";
+        cname = { inherit (config.network.addresses.public) target; };
       };
 
       services.prometheus = {

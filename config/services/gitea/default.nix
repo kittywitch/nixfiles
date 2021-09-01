@@ -104,8 +104,8 @@
   };
 
   deploy.tf.dns.records.services_gitea = {
-    tld = config.network.dns.tld;
+    inherit (config.network.dns) zone;
     domain = "git";
-    cname.target = "${config.networking.hostName}.${config.network.dns.tld}";
+    cname = { inherit (config.network.addresses.public) target; };
   };
 }

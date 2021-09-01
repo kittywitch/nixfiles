@@ -2,9 +2,9 @@
 
 {
   deploy.tf.dns.records.services_fusionpbx = {
-    tld = config.network.dns.tld;
+    inherit (config.network.dns) zone;
     domain = "pbx";
-    cname.target = "${config.network.addresses.private.domain}.";
+    cname = { inherit (config.network.addresses.private) target; };
   };
 
   kw.secrets.variables = mapListToAttrs (field:

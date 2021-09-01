@@ -10,8 +10,8 @@
   };
 
   deploy.tf.dns.records.services_filehost = {
-    tld = config.network.dns.tld;
+    inherit (config.network.dns) zone;
     domain = "files";
-    cname.target = "${config.networking.hostName}.${config.network.dns.tld}";
+    cname = { inherit (config.network.addresses.public) target; };
   };
 }

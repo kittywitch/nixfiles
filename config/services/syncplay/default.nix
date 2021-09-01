@@ -33,9 +33,9 @@ with lib;
   };
 
   deploy.tf.dns.records.services_syncplay = {
-    tld = config.network.dns.tld;
+    inherit (config.network.dns) zone;
     domain = "sync";
-    cname.target = "${config.networking.hostName}.${config.network.dns.tld}";
+    cname = { inherit (config.network.addresses.public) target; };
   };
 
   secrets.files.syncplay-env = {

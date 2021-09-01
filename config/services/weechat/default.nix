@@ -14,8 +14,8 @@
   };
 
   deploy.tf.dns.records.services_weechat = {
-    tld = config.network.dns.tld;
+    inherit (config.network.dns) zone;
     domain = "irc";
-    cname.target = "${config.networking.hostName}.${config.network.dns.tld}";
+    cname = { inherit (config.network.addresses.public) target; };
   };
 }

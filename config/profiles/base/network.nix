@@ -7,7 +7,7 @@
     dns = {
       enable = mkDefault true;
       email = "acme@kittywit.ch";
-      tld = "kittywit.ch.";
+      zone = "kittywit.ch.";
     };
   };
 }
