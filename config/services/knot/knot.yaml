@@ -28,6 +28,17 @@ zone:
     zonefile-load: difference
     acl: [ benjojo, dnsupdate ]
 
+zone:
+  - domain: dork.dev
+    semantic-checks: on
+    storage: /var/lib/knot/zones/
+    file: dork.dev.zone
+    dnssec-signing: on
+    module: mod-stats
+    notify: [ benjojo-1, benjojo-2, benjojo-3 ]
+    zonefile-load: difference
+    acl: [ benjojo, dnsupdate ]
+
 log:
   - target: syslog
     any: info
