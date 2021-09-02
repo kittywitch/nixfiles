@@ -49,7 +49,6 @@ with lib;
   # Networking
 
   networking = {
-    hostName = "ostara";
     hostId = "9f89b327";
     useDHCP = false;
     interfaces.enp1s0.ipv4.addresses = singleton {

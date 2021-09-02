@@ -93,7 +93,6 @@ with lib;
   # Networking
 
   networking = {
-    hostName = "beltane";
     hostId = "3ef9a419";
     useDHCP = false;
     interfaces.eno1.ipv4.addresses = singleton {

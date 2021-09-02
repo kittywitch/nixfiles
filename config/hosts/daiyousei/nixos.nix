@@ -9,23 +9,28 @@ in
 {
   imports = with meta; [
     profiles.hardware.oracle.ubuntu
-    services.knot
     services.nginx
   ];
+
+  deploy.tf.providers.local = {};
+
+  nixpkgs.localSystem = systems.examples.aarch64-multiplatform // {
+    system = "aarch64-linux";
+  };
 
   kw.oci = {
     enable = true;
     base = "Canonical Ubuntu";
     specs = {
-      shape = "VM.Standard.E2.1.Micro";
-      cores = 1;
-      ram = 1;
-      space = 50;
+      shape = "VM.Standard.A1.Flex";
+      cores = 4;
+      ram = 24;
+      space = 100;
     };
-    ad = 2;
+    ad = 1;
     network = {
-      publicV6 = 7;
-      privateV4 = 3;
+      publicV6 = 6;
+      privateV4 = 5;
     };
   };
 
@@ -56,12 +61,12 @@ in
   };
 
   network = {
-    dns.enable = false;
     addresses = {
       public = {
         enable = true;
+        # TODO: move into module
         nixos.ipv6.address = mkIf (tf.state.resources ? ${tf.resources.${config.networking.hostName}.out.reference}) addr_ipv6_nix;
-        tf.ipv6.address = tf.resources.rinnosuke_ipv6.refAttr "ip_address";
+        tf.ipv6.address = tf.resources."${config.networking.hostName}_ipv6".refAttr "ip_address";
       };
     };
     firewall.public.interfaces = singleton "ens3";

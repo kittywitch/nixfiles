@@ -75,8 +75,6 @@ with lib;
   # Networking
 
   networking = {
-    hostName = "athame";
-    domain = "kittywit.ch";
     hostId = "7b0ac74e";
     useDHCP = false;
     interfaces = {

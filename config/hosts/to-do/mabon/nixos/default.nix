@@ -19,7 +19,6 @@
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 
   networking.hostId = "d199ad70";
-  networking.hostName = "mabon";
 
   networking.useDHCP = false;
   networking.interfaces.enp1s0.useDHCP = false;

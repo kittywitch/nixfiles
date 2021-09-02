@@ -69,6 +69,9 @@ let
       (host: {
         network.nodes.${host} = {
           imports = config.lib.kw.nodeImport host;
+          networking = {
+            hostName = host;
+          };
         };
       })
       (lib.attrNames xarg.hosts));

@@ -63,7 +63,6 @@ with lib;
 
   networking = {
     hostId = "dddbb888";
-    hostName = "yule";
     useDHCP = false;
     wireless.interfaces = singleton "wlp2s0";
     interfaces = {

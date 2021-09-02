@@ -14,6 +14,9 @@ in
     profiles.hardware.ms-7b86
     profiles.gui
     profiles.vfio
+    profiles.cross.aarch64
+    profiles.cross.armv7l
+    profiles.cross.armv6l
     users.kat.guiFull
     users.kat.services.weechat
     services.nginx
@@ -178,7 +181,6 @@ in
   # Networking
 
   networking = {
-    hostName = "samhain";
     hostId = "617050fc";
     useDHCP = false;
     useNetworkd = true;
