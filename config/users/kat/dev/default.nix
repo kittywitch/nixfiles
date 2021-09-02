@@ -3,6 +3,7 @@
 {
   imports = [
     ./vim
+    ./rink.nix
     ./zsh.nix
     ./rustfmt.nix
     ./packages.nix

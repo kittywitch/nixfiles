@@ -12,7 +12,6 @@
     ./packages.nix
     ./weechat.nix
     ./inputrc.nix
-    ./rink.nix
     ./secrets.nix
   ];
 

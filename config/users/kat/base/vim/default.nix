@@ -31,7 +31,6 @@ in
       vim-lastplace
       vim-hexokinase
       vim-easymotion
-      notmuch-vim
       vim-nix
       fzf-vim
       vim-fugitive
