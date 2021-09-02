@@ -21,6 +21,11 @@ jobs:
       with:
         attrs: ci.job.athame.run.bootstrap
         quiet: false
+    - id: aarch64
+      name: prepare for aarch64 builds
+      run: 'sudo $(which aarch64binfmt)
+
+        '
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@master
@@ -78,6 +83,11 @@ jobs:
       with:
         attrs: ci.job.beltane.run.bootstrap
         quiet: false
+    - id: aarch64
+      name: prepare for aarch64 builds
+      run: 'sudo $(which aarch64binfmt)
+
+        '
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@master
@@ -117,15 +127,6 @@ jobs:
         command: ci-build-cache
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.cache
-  ci:
-    name: ci
-    runs-on: ubuntu-latest
-    steps:
-    - id: aarch64
-      name: prepare for aarch64 builds
-      run: 'sudo aarch64binfmt
-
-        '
   ci-check:
     name: nodes check
     runs-on: ubuntu-latest
@@ -169,6 +170,11 @@ jobs:
       with:
         attrs: ci.job.daiyousei.run.bootstrap
         quiet: false
+    - id: aarch64
+      name: prepare for aarch64 builds
+      run: 'sudo $(which aarch64binfmt)
+
+        '
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@master
@@ -226,6 +232,11 @@ jobs:
       with:
         attrs: ci.job.ostara.run.bootstrap
         quiet: false
+    - id: aarch64
+      name: prepare for aarch64 builds
+      run: 'sudo $(which aarch64binfmt)
+
+        '
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@master
@@ -283,6 +294,11 @@ jobs:
       with:
         attrs: ci.job.rinnosuke.run.bootstrap
         quiet: false
+    - id: aarch64
+      name: prepare for aarch64 builds
+      run: 'sudo $(which aarch64binfmt)
+
+        '
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@master
@@ -340,6 +356,11 @@ jobs:
       with:
         attrs: ci.job.samhain.run.bootstrap
         quiet: false
+    - id: aarch64
+      name: prepare for aarch64 builds
+      run: 'sudo $(which aarch64binfmt)
+
+        '
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@master
@@ -397,6 +418,11 @@ jobs:
       with:
         attrs: ci.job.yule.run.bootstrap
         quiet: false
+    - id: aarch64
+      name: prepare for aarch64 builds
+      run: 'sudo $(which aarch64binfmt)
+
+        '
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@master

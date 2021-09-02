@@ -4,7 +4,11 @@ with lib; {
   ci.gh-actions.enable = true;
   ci.gh-actions.export = true;
 
-  nix.config.extraPlatforms = "aarch64-linux";
+
+  nix.config = {
+    extra-platforms = "aarch64-linux";
+    #extra-sandbox-paths = with channels.cipkgs; map (package: builtins.unsafeDiscardStringContext package) [bash qemu "/run/binfmt"];
+  };
 
   gh-actions.env.OPENSSH_PRIVATE_KEY = "\${{ secrets.OPENSSH_PRIVATE_KEY }}";
   gh-actions.env.CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
@@ -24,7 +28,7 @@ with lib; {
         ''; in
       channels.cipkgs.writeShellScriptBin "aarch64binfmt" ''
         ${makeQemuWrapper "aarch64"}
-        mount binfmt_misc -t binfmt_misc /proc/sys/fs/binfmt_misc
+        echo 'extra-sandbox-paths = ${channels.cipkgs.bash} ${channels.cipkgs.qemu} /run/binfmt' >> /etc/nix/nix.conf
         echo ':aarch64-linux:M::\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\xb7\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\x00\xff\xfe\xff\xff\xff:/run/binfmt/aarch64:' > /proc/sys/fs/binfmt_misc/register
       '';
   };
@@ -49,12 +53,14 @@ with lib; {
           cron = "0 0 * * *";
         }];
       };
-    jobs.ci.step.aarch64 = {
-      order = 201;
-      name = "prepare for aarch64 builds";
-      run = ''
-        sudo aarch64binfmt
-      '';
+    jobs = mkIf (config.id != "ci") {
+      ${config.id}.step.aarch64 = {
+        order = 201;
+        name = "prepare for aarch64 builds";
+        run = ''
+          sudo $(which aarch64binfmt)
+        '';
+      };
     };
   };
 

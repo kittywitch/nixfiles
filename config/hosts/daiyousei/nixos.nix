@@ -48,7 +48,7 @@ in
     interfaces.enp0s3 = {
       useDHCP = true;
       ipv6 = {
-        addresses = [{
+        addresses = mkIf (tf.state.resources ? ${tf.resources.${config.networking.hostName}.out.reference}) [{
           address = addr_ipv6_nix;
           prefixLength = 64;
         }];
