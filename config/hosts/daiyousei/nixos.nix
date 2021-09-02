@@ -45,11 +45,11 @@ in
 
   networking = {
     useDHCP = false;
-    interfaces.ens3 = {
+    interfaces.enp0s3 = {
       useDHCP = true;
       ipv6 = {
-        addresses = mkIf (config.network.addresses.public.nixos.ipv6.enable) [{
-          address = config.network.addresses.public.nixos.ipv6.address;
+        addresses = [{
+          address = addr_ipv6_nix;
           prefixLength = 64;
         }];
         routes = [{
@@ -69,7 +69,7 @@ in
         tf.ipv6.address = tf.resources."${config.networking.hostName}_ipv6".refAttr "ip_address";
       };
     };
-    firewall.public.interfaces = singleton "ens3";
+    firewall.public.interfaces = singleton "enp0s3";
     tf = {
       enable = true;
       ipv4_attr = "public_ip";

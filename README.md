@@ -58,14 +58,15 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 
 ## Nodes
 
-| Node          | Purpose                                              |
-|---------------|------------------------------------------------------|
-| [athame][]    | Currently the main server. Ad-hoc hetzner cloud box. |
-| [rinnosuke][] | My primary nameserver. Provisioned OCI EPYC box.     |
-| [beltane][]   | Home server. NAS + HTPC, does DVB stuff.             |
-| [samhain][]   | Beloved workstation. Does VFIO.                      |
-| [yule][]      | Main laptop.                                         |
-| [ostara][]    | CCTV netbook.                                        |
+| Node          | Purpose                                                  |
+|---------------|----------------------------------------------------------|
+| [athame][]    | Currently the main server. Ad-hoc hetzner cloud box.     |
+| [daiyousei][] | Intended athame replacement. Provisioned OCI Ampere box. |
+| [rinnosuke][] | My primary nameserver. Provisioned OCI EPYC box.         |
+| [beltane][]   | Home server. NAS + HTPC, does DVB stuff.                 |
+| [samhain][]   | Beloved workstation. Does VFIO.                          |
+| [yule][]      | Main laptop.                                             |
+| [ostara][]    | CCTV netbook.                                            |
 
 ## Profiles
 
@@ -74,19 +75,20 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 | [base][]     | Base profile, always used. Root access, base16, home-manager, locale, network module, nix, packages, profiles, secrets, shell and sysctl configuration.                                           |
 | [gui][]      | GUI profile. Provides window managers, includes [DNSCrypt/dnscrypt-proxy][] service, filesystem packages, font, NixOS-side GPG, mingetty, NFS, QT, sound (pipewire) and XDG portal configuration. |
 | [vfio][]     | Provides host-unspecific VFIO. Fancy patched QEMU from [arcnmx/nixexprs][], [arcnmx/screenstub][] (however, patched in-repo for Q35), AMDGPU vendor-reset and ACS override.                       |
-| [hardware][] | Sub-profiles for my hardware are provided here. Some are reusable.                                                                                                                                |
+| [hardware][] | Sub-profiles for my hardware are provided here. Some are reusable. Of note is the Oracle sub-profiles.                                                                                            |
+| [cross][]    | Sub-profiles are provided for emulated compiling and build caching.                                                                                                                               |
 
 ## User Profiles
 
-| Profile       | Purpose                                                                                                                                               |
-|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [base][3]     | base16, git, inputrc, packages, rink, secrets, kitty terminfo, SSH, tmux, weechat, vim, xdg and zsh configuration.                                    |
-| [dev][]       | cookiecutters, doom-emacs (although unused, forced to use PgtkGcc all fancily :3c), packages, rustfmt and (heavier on the node) vim configuration.    |
-| [gui][4]      | firefox+userChrome+tst, font, kitty terminal, [dnkl/foot][] terminal, GTK, packages, QT, ranger and xdg configuration.                                |
-| [media][]     | mpv, obs, packages and syncplay configuration.                                                                                                        |
-| [personal][]  | [arcnmx/rbw][] (fancier rbw), email via [arcnmx/notmuch-vim][], home-manager-side GPG, pass, weechat and zsh configuration.                           |
-| [services][5] | User services. weechat and mpd are provided.                                                                                                          |
-| [sway][]      | sway, i3gopher, swayidle, swaylock-effects, screenshot tool, [kittywitch/konawall-rs][], mako, wofi, waybar and xkb (custom layout o:) configuration. |
+| Profile       | Purpose                                                                                                                                                  |
+|---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [base][3]     | base16, git, inputrc, packages, secrets, kitty terminfo, SSH, tmux, weechat, vim, xdg and zsh configuration.                                             |
+| [dev][]       | cookiecutters, rink, doom-emacs (although unused, forced to use PgtkGcc all fancily :3c), packages, rustfmt and (heavier on the node) vim configuration. |
+| [gui][4]      | firefox+userChrome+tst, font, kitty terminal, [dnkl/foot][] terminal, GTK, packages, QT, ranger and xdg configuration.                                   |
+| [media][]     | mpv, obs, packages and syncplay configuration.                                                                                                           |
+| [personal][]  | [arcnmx/rbw][] (fancier rbw), email via [arcnmx/notmuch-vim][], home-manager-side GPG, pass, weechat and zsh configuration.                              |
+| [services][5] | User services. weechat and mpd are provided.                                                                                                             |
+| [sway][]      | sway, i3gopher, swayidle, swaylock-effects, screenshot tool, [kittywitch/konawall-rs][], mako, wofi, waybar and xkb (custom layout o:) configuration.    |
 
 ## Services
 
@@ -207,6 +209,7 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [kittywitch/anicca]: https://github.com/kittywitch/anicca
   [arcnmx/screenstub]: https://github.com/arcnmx/screenstub
   [athame]: config/hosts/athame
+  [daiyousei]: config/hosts/daiyousei
   [rinnosuke]: config/hosts/rinnosuke
   [beltane]: config/hosts/beltane
   [samhain]: config/hosts/samhain
@@ -218,6 +221,7 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [vfio]: config/profiles/vfio
   [arcnmx/nixexprs]: https://github.com/arcnmx/nixexprs
   [hardware]: config/profiles/hardware
+  [cross]: config/profiles/cross
   [3]: config/users/kat/base
   [dev]: config/users/kat/dev
   [4]: config/users/kat/gui
