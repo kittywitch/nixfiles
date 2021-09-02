@@ -5,8 +5,6 @@
     smartmontools
     hddtemp
     lm_sensors
-    pinentry-curses
     gnupg
-    foot.terminfo
-  ];
+  ] ++ (lib.optional config.programs.gnupg.agent.enable pinentry-curses);
 }

@@ -1,5 +1,5 @@
 { config, pkgs, ... }:
 
 {
-  environment.systemPackages = [ pkgs.kitty.terminfo ];
+  environment.systemPackages = [ pkgs.buildPackages.buildPackages.kitty.terminfo ];
 }

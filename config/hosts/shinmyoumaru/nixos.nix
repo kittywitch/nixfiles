@@ -3,15 +3,27 @@
 {
   # Imports
 
-  imports = [
+  imports = with meta; [
+    profiles.base
     ./image.nix
   ];
 
+  home-manager.users.kat.programs.neovim.enable = mkForce false;
+
   # Weird Shit
 
-  nixpkgs.localSystem = systems.examples.raspberryPi // {
+  nixpkgs.crossSystem = systems.examples.raspberryPi // {
     system = "armv6l-linux";
   };
+
+  environment.noXlibs = true;
+  documentation.info.enable = false;
+  documentation.man.enable = false;
+  programs.command-not-found.enable = false;
+  security.polkit.enable = false;
+  security.audit.enable = false;
+  services.udisks2.enable = false;
+  boot.enableContainers = false;
 
   nix = {
     binaryCaches = lib.mkForce [ "https://app.cachix.org/cache/thefloweringash-armv7" ];

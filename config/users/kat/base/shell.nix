@@ -17,9 +17,6 @@ in
     genmac = ''
       nix run nixpkgs.openssl -c openssl rand -hex 6 | sed 's/\(..\)\(..\)\(..\)\(..\)\(..\)\(..\)/\1:\2:\3:\4:\5:\6/'
     '';
-    nano = ''
-      ${pkgs.kitty}/bin/kitty +kitten icat ${./nano.png}
-    '';
     getAlias = ''
       printf '%s\n' $aliases[$1]
     '';
