@@ -32,13 +32,13 @@ let
     If only one exists, the path for that one is returned.
     Otherwise a module is generated which contains both import paths.
   */
-  xargNames = lib.unique (lib.folderList ./config [ "trusted" ] ++ lib.folderList ./config/trusted [ "pkgs" "tf" ]);
-  xarg = lib.mapListToAttrs
+  xargNames = lib.unique (lib.folderList ./config [ "trusted modules" ] ++ lib.folderList ./config/trusted [ "pkgs" "tf" ]);
+  xarg = (lib.mapListToAttrs
     (folder: lib.nameValuePair folder (lib.domainMerge {
       inherit folder;
       folderPaths = [ (./config + "/${folder}") (./config/trusted + "/${folder}") ];
     }))
-    xargNames;
+    xargNames) // { modules = lib.recursiveMod { folder = ./config/modules; inherit sources; }; };
 
   /*
     We provide the runners with this file this way. We also provide our nix args here.
@@ -63,6 +63,7 @@ let
   # This is where the meta config is evaluated.
   eval = lib.evalModules {
     modules = lib.singleton metaConfig
+      ++ lib.singleton xarg.modules.meta
       ++ lib.attrValues (removeAttrs xarg.targets [ "common" ])
       ++ (map
       (host: {
@@ -70,8 +71,7 @@ let
           imports = config.lib.kw.nodeImport host;
         };
       })
-      (lib.attrNames xarg.hosts))
-      ++ lib.singleton ./config/modules/meta/default.nix;
+      (lib.attrNames xarg.hosts));
 
     specialArgs = {
       inherit sources root;

@@ -59,8 +59,7 @@ with lib;
     nixos = {
       extraModules = [
         "${toString sources.home-manager}/nixos"
-        ../../modules/nixos
-      ];
+      ] ++ singleton meta.modules.nixos;
       specialArgs = {
         inherit (config.network) nodes;
         inherit sources meta;

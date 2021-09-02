@@ -5,7 +5,7 @@ with lib;
 {
   options.home-manager.users = mkOption {
     type = types.attrsOf (types.submoduleWith {
-      modules = singleton ../../modules/home;
+      modules = singleton meta.modules.home;
       specialArgs = {
         inherit sources tf meta;
         nixos = config;
