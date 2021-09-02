@@ -5,7 +5,7 @@
     ./gpg.nix
     ./weechat.nix
     ./email.nix
-    ./zsh.nix
+    ./shell.nix
     ./pass.nix
     ./taskwarrior.nix
     ./bitw.nix

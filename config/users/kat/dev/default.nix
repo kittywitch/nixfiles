@@ -4,7 +4,7 @@
   imports = [
     ./vim
     ./rink.nix
-    ./zsh.nix
+    ./shell.nix
     ./rustfmt.nix
     ./packages.nix
     ./cookiecutter.nix

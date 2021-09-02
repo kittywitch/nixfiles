@@ -64,6 +64,7 @@ in
         '' else ''
         ''}
         eval $(dircolors)
+        PROMPT_EOL_MARK='''
         ZSH_TAB_TITLE_ADDITIONAL_TERMS='foot'
         ZSH_TAB_TITLE_ENABLE_FULL_COMMAND=true
         zmodload -i zsh/complist
