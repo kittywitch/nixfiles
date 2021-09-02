@@ -7,6 +7,4 @@
     alias.light = "atelier.atelier-cave-light";
     alias.dark = "atelier.atelier-cave";
   };
-
-  kw.theme.enable = true;
 }

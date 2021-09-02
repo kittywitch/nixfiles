@@ -6,7 +6,7 @@
     htop
     fd
     sd
-    duc
+    duc-cli
     bat
     exa-noman
     socat
@@ -20,7 +20,6 @@
     file
     whois
     dnsutils
-    borgbackup
     neofetch
   ];
 }

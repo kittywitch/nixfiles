@@ -5,6 +5,7 @@
     ./firefox
     ./packages.nix
     ./gtk.nix
+    ./base16.nix
     ./foot.nix
     ./kitty.nix
     ./xdg.nix

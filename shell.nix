@@ -3,6 +3,7 @@ let
   meta = import ./default.nix;
   config = meta;
   inherit (meta) pkgs;
+  inherit (pkgs) lib;
   fixedSources = removeAttrs config.sources [ "__functor" ];
   nf-update = pkgs.writeShellScriptBin "nf-update" ''
     TEMP=$(mktemp -d)
@@ -60,13 +61,16 @@ let
     cd $START_DIR
   '';
 in
-pkgs.mkShell {
+with lib; pkgs.mkShell {
   nativeBuildInputs = with pkgs; [
     inetutils
     nf-update
     nf-actions
     nf-actions-test
-  ] ++ config.runners.lazy.nativeBuildInputs;
+  ] ++ config.runners.lazy.nativeBuildInputs
+  ++ (map (node: writeShellScriptBin "${node.networking.hostName}-img" ''
+      nix build -f . network.nodes.${node.networking.hostName}.system.build.sdImage --show-trace
+  '') (filter (node: node.system.build ? sdImage) (attrValues meta.network.nodes)));
   shellHook = ''
     export HOME_HOSTNAME=$(hostname -s)
     export HOME_UID=$(id -u)

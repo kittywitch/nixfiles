@@ -1,10 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }: with lib;
 
 {
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
   hardware.enableRedistributableFirmware = lib.mkDefault true;
   boot.tmpOnTmpfs = true;
-  boot.zfs.enableUnstable = true;
+  boot.zfs.enableUnstable = mkIf (elem "zfs" config.boot.supportedFilesystems) true;
   boot.kernel.sysctl = {
     "fs.inotify.max_user_watches" = "524288";
     "net.core.rmem_max" = "16777216";

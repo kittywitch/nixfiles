@@ -28,13 +28,19 @@ with lib;
     nodes =
       let
         nixosModule = { name, config, meta, modulesPath, lib, ... }: with lib; {
+          options = {
+            nixpkgs.crossOverlays = mkOption {
+              type = types.listOf types.unspecified;
+              default = [];
+            };
+          };
           config = {
             nixpkgs = {
               system = mkDefault pkgs.system;
               pkgs =
                 let
                   pkgsReval = import pkgs.path {
-                    inherit (config.nixpkgs) localSystem crossSystem;
+                    inherit (config.nixpkgs) localSystem crossSystem crossOverlays;
                     inherit (pkgs) overlays config;
                   };
                 in

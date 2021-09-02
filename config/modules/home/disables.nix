@@ -1,0 +1,5 @@
+{ ... }: {
+  disabledModules = [
+    "programs/vim.nix"
+  ];
+}

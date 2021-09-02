@@ -8,7 +8,27 @@
     ./image.nix
   ];
 
+  nixpkgs.crossOverlays = [
+    (import ../../../overlays/pi)
+  ];
+
+  boot = {
+    kernelModules = mkForce ["loop" "atkbd"];
+    initrd = {
+      includeDefaultModules = false;
+      availableKernelModules = mkForce [
+        "mmc_block"
+        "usbhid"
+        "ext4"
+        "hid_generic" "hid_lenovo" "hid_apple" "hid_roccat"
+        "hid_logitech_hidpp" "hid_logitech_dj" "hid_microsoft"
+      ];
+    };
+  };
+
   home-manager.users.kat.programs.neovim.enable = mkForce false;
+  home-manager.users.hexchen.programs.vim.enable = mkForce false;
+  programs.mosh.enable = mkForce false;
 
   # Weird Shit
 

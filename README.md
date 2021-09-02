@@ -59,18 +59,23 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
     -   [x] aarch64 specific implementation
     -   [ ] ARMv6 specific implementation
     -   [ ] Generalised emulated compiles.
+-   [ ] Imports structure refactor.
+    -   [ ] Work on the readTree-like modList replacement.
+    -   [ ] Create a “lite” base profile for devices like shinmyoumaru.
+    -   [ ] Add a shared profile that adds user imports.
 
 ## Nodes
 
-| Node          | Purpose                                                  |
-|---------------|----------------------------------------------------------|
-| [athame][]    | Currently the main server. Ad-hoc hetzner cloud box.     |
-| [daiyousei][] | Intended athame replacement. Provisioned OCI Ampere box. |
-| [rinnosuke][] | My primary nameserver. Provisioned OCI EPYC box.         |
-| [beltane][]   | Home server. NAS + HTPC, does DVB stuff.                 |
-| [samhain][]   | Beloved workstation. Does VFIO.                          |
-| [yule][]      | Main laptop.                                             |
-| [ostara][]    | CCTV netbook.                                            |
+| Node             | Purpose                                                  |
+|------------------|----------------------------------------------------------|
+| [athame][]       | Currently the main server. Ad-hoc hetzner cloud box.     |
+| [daiyousei][]    | Intended athame replacement. Provisioned OCI Ampere box. |
+| [rinnosuke][]    | My primary nameserver. Provisioned OCI EPYC box.         |
+| [shinmyoumaru][] | My Raspberry Pi 1 Model B+. DHT22 sensors box.           |
+| [beltane][]      | Home server. NAS + HTPC, does DVB stuff.                 |
+| [samhain][]      | Beloved workstation. Does VFIO.                          |
+| [yule][]         | Main laptop.                                             |
+| [ostara][]       | CCTV netbook.                                            |
 
 ## Profiles
 
@@ -215,6 +220,7 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [athame]: config/hosts/athame
   [daiyousei]: config/hosts/daiyousei
   [rinnosuke]: config/hosts/rinnosuke
+  [shinmyoumaru]: config/hosts/shinmyoumaru
   [beltane]: config/hosts/beltane
   [samhain]: config/hosts/samhain
   [yule]: config/hosts/yule
