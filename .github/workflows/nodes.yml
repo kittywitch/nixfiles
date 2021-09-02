@@ -21,7 +21,7 @@ jobs:
       with:
         attrs: ci.job.athame.run.bootstrap
         quiet: false
-    - id: aarch64
+    - id: architectures
       name: prepare for emulated builds
       run: 'sudo $(which archbinfmt)
 
@@ -83,7 +83,7 @@ jobs:
       with:
         attrs: ci.job.beltane.run.bootstrap
         quiet: false
-    - id: aarch64
+    - id: architectures
       name: prepare for emulated builds
       run: 'sudo $(which archbinfmt)
 
@@ -170,7 +170,7 @@ jobs:
       with:
         attrs: ci.job.daiyousei.run.bootstrap
         quiet: false
-    - id: aarch64
+    - id: architectures
       name: prepare for emulated builds
       run: 'sudo $(which archbinfmt)
 
@@ -232,7 +232,7 @@ jobs:
       with:
         attrs: ci.job.ostara.run.bootstrap
         quiet: false
-    - id: aarch64
+    - id: architectures
       name: prepare for emulated builds
       run: 'sudo $(which archbinfmt)
 
@@ -294,7 +294,7 @@ jobs:
       with:
         attrs: ci.job.rinnosuke.run.bootstrap
         quiet: false
-    - id: aarch64
+    - id: architectures
       name: prepare for emulated builds
       run: 'sudo $(which archbinfmt)
 
@@ -356,7 +356,7 @@ jobs:
       with:
         attrs: ci.job.samhain.run.bootstrap
         quiet: false
-    - id: aarch64
+    - id: architectures
       name: prepare for emulated builds
       run: 'sudo $(which archbinfmt)
 
@@ -418,7 +418,7 @@ jobs:
       with:
         attrs: ci.job.shinmyoumaru.run.bootstrap
         quiet: false
-    - id: aarch64
+    - id: architectures
       name: prepare for emulated builds
       run: 'sudo $(which archbinfmt)
 
@@ -480,7 +480,7 @@ jobs:
       with:
         attrs: ci.job.yule.run.bootstrap
         quiet: false
-    - id: aarch64
+    - id: architectures
       name: prepare for emulated builds
       run: 'sudo $(which archbinfmt)
 

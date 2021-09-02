@@ -48,9 +48,9 @@ jobs:
       with:
         attrs: ci.job.niv-update.run.bootstrap
         quiet: false
-    - id: aarch64
-      name: prepare for aarch64 builds
-      run: 'sudo $(which aarch64binfmt)
+    - id: architectures
+      name: prepare for emulated builds
+      run: 'sudo $(which archbinfmt)
 
         '
     - id: ci-dirty
