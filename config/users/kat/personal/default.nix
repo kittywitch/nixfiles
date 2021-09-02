@@ -3,6 +3,8 @@
 {
   imports = [
     ./gpg.nix
+    ./git.nix
+    ./packages.nix
     ./weechat.nix
     ./email.nix
     ./shell.nix

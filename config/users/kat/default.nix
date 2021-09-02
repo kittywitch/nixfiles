@@ -20,7 +20,7 @@ let katUser = { lib }:
       lib.genAttrs profileNames userImport // {
         services = lib.genAttrs serviceNames serviceImport;
         base = { imports = [ ./nixos.nix (userImport "base") ]; };
-        server = { imports = [ personal ]; };
+        server = { };
         guiFull = { imports = [ gui sway dev media personal ]; };
       };
   in

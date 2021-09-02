@@ -1,17 +1,8 @@
 { config, pkgs, lib, ... }:
 
 {
-  home.packages = with pkgs; [
-    git-crypt
-    gitAndTools.gitRemoteGcrypt
-    gitAndTools.gitAnnex
-    git-revise
-    gitAndTools.git-annex-remote-b2
-  ];
-
   programs.git = {
     enable = true;
-    package = pkgs.gitAndTools.gitFull;
     userName = "kat witch";
     userEmail = "kat@kittywit.ch";
     extraConfig = {

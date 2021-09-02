@@ -2,3 +2,7 @@
 	path = config/trusted
 	branch = main
 	url = "https://git.kittywit.ch/kat/nixfiles-trusted.git"
+[submodule "overlay/exprs"]
+	path = overlay/exprs
+	branch = main
+	url = "https://github.com/kittywitch/nixexprs"

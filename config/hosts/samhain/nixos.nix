@@ -15,8 +15,8 @@ in
     profiles.gui
     profiles.vfio
     profiles.cross.aarch64
-    profiles.cross.armv7l
     profiles.cross.armv6l
+    profiles.cross.armv7l
     users.kat.guiFull
     users.kat.services.weechat
     services.nginx

@@ -2,8 +2,6 @@
 
 {
   programs.zsh = {
-    shellAliases = genAttrs ["radio" "tv"] (attr: {
-      "abby${attr}" = "mpv $(bitw get secrets/abby -f ${attr})";
-    });
+    shellAliases = mapListToAttrs (attr: nameValuePair "abby${attr}" "mpv $(bitw get secrets/abby -f ${attr})") ["radio" "tv"];
   };
 }

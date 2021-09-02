@@ -39,7 +39,6 @@ let
       folderPaths = [ (./config + "/${folder}") (./config/trusted + "/${folder}") ];
     }))
     xargNames) // { modules = lib.recursiveMod { folder = ./config/modules; inherit sources; }; };
-
   /*
     We provide the runners with this file this way. We also provide our nix args here.
     This is also where pkgs are passed through to the meta config.

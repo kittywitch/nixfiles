@@ -1,6 +1,7 @@
 rec {
   common = ./armvcommon.nix;
   armv7-base = ./armv7.nix;
+  armv6-base = ./armv6.nix;
   aarch64-base = ./aarch64.nix;
 
 
@@ -30,6 +31,7 @@ rec {
     };
     imports = [
       common
+      armv6-base
     ];
   };
 }

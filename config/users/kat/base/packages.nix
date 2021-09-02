@@ -8,7 +8,7 @@
     sd
     duc
     bat
-    exa
+    exa-noman
     socat
     rsync
     wget
@@ -19,7 +19,6 @@
     zstd
     file
     whois
-    niv
     dnsutils
     borgbackup
     neofetch

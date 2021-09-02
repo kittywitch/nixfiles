@@ -5,7 +5,6 @@
     smartmontools
     hddtemp
     lm_sensors
-    cachix
     pinentry-curses
     gnupg
     foot.terminfo
