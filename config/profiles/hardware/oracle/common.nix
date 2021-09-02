@@ -4,7 +4,6 @@
 in
 {
   options.kw.oci = {
-    enable = mkEnableOption "oracle server";
     base = mkOption {
       description = ''
         Canonical Ubuntu provides an EXT4 root filesystem.

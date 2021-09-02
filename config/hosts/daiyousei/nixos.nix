@@ -19,7 +19,6 @@ in
   };
 
   kw.oci = {
-    enable = true;
     base = "Canonical Ubuntu";
     specs = {
       shape = "VM.Standard.A1.Flex";

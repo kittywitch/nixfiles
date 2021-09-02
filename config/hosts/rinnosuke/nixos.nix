@@ -14,7 +14,6 @@ in
   ];
 
   kw.oci = {
-    enable = true;
     base = "Canonical Ubuntu";
     specs = {
       shape = "VM.Standard.E2.1.Micro";

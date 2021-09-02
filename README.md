@@ -42,19 +42,23 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 -   [ ] Make waybar module for gammastep toggle.
 -   [ ] Investigate how to fix Yule’s PCI-E issues.
 -   [ ] Migrate boline to NixOS.
-    -   [ ] Look into ARM cross-compilation w/ nixpkgs.
-    -   [ ] Look into existing binary caches.
+    -   [x] Look into ARM cross-compilation w/ nixpkgs.
+    -   [x] Look into existing binary caches.
     -   [ ] Write packages & services for DHT22 exporter + the socat.
 -   [ ] Migrate [athame][] to OCI.
-    -   [ ] Look into ARM cross-compilation w/ nixpkgs.
-    -   [ ] Look into existing binary caches.
+    -   [x] Look into ARM cross-compilation w/ nixpkgs.
+    -   [x] Look into existing binary caches.
     -   [ ] Do backups, figure out per-service backup system for state.
-    -   [ ] Create a replacement box before any migration on OCI.
+    -   [x] Create a replacement box before any migration on OCI.
 -   [ ] Look into alternatives to Yggdrasil and move to them.
 -   [ ] Set up IPv6 network handling for my hosts.
     -   [x] Fix network module tf-nix integrations.
     -   [x] Rinnosuke IPv6.
     -   [ ] Local node IPv6 configuration.
+-   [ ] Add CI building and caching for required architectures.
+    -   [x] aarch64 specific implementation
+    -   [ ] ARMv6 specific implementation
+    -   [ ] Generalised emulated compiles.
 
 ## Nodes
 
@@ -147,7 +151,7 @@ They are available within this repo as [exprs][].
 
 ## CI
 
-CI for this repository uses [arcnmx/ci][] and aims to achieve two goals:
+CI for this repository uses [arcnmx/ci][], is aarch64 emulated build enabled and aims to achieve two goals:
 
 | Action       | Purpose                                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------------------------------|
