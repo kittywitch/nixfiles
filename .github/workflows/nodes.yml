@@ -22,8 +22,8 @@ jobs:
         attrs: ci.job.athame.run.bootstrap
         quiet: false
     - id: aarch64
-      name: prepare for aarch64 builds
-      run: 'sudo $(which aarch64binfmt)
+      name: prepare for emulated builds
+      run: 'sudo $(which archbinfmt)
 
         '
     - id: ci-dirty
@@ -84,8 +84,8 @@ jobs:
         attrs: ci.job.beltane.run.bootstrap
         quiet: false
     - id: aarch64
-      name: prepare for aarch64 builds
-      run: 'sudo $(which aarch64binfmt)
+      name: prepare for emulated builds
+      run: 'sudo $(which archbinfmt)
 
         '
     - id: ci-dirty
@@ -171,8 +171,8 @@ jobs:
         attrs: ci.job.daiyousei.run.bootstrap
         quiet: false
     - id: aarch64
-      name: prepare for aarch64 builds
-      run: 'sudo $(which aarch64binfmt)
+      name: prepare for emulated builds
+      run: 'sudo $(which archbinfmt)
 
         '
     - id: ci-dirty
@@ -233,8 +233,8 @@ jobs:
         attrs: ci.job.ostara.run.bootstrap
         quiet: false
     - id: aarch64
-      name: prepare for aarch64 builds
-      run: 'sudo $(which aarch64binfmt)
+      name: prepare for emulated builds
+      run: 'sudo $(which archbinfmt)
 
         '
     - id: ci-dirty
@@ -295,8 +295,8 @@ jobs:
         attrs: ci.job.rinnosuke.run.bootstrap
         quiet: false
     - id: aarch64
-      name: prepare for aarch64 builds
-      run: 'sudo $(which aarch64binfmt)
+      name: prepare for emulated builds
+      run: 'sudo $(which archbinfmt)
 
         '
     - id: ci-dirty
@@ -357,8 +357,8 @@ jobs:
         attrs: ci.job.samhain.run.bootstrap
         quiet: false
     - id: aarch64
-      name: prepare for aarch64 builds
-      run: 'sudo $(which aarch64binfmt)
+      name: prepare for emulated builds
+      run: 'sudo $(which archbinfmt)
 
         '
     - id: ci-dirty
@@ -400,6 +400,68 @@ jobs:
         command: ci-build-cache
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.cache
+  shinmyoumaru:
+    name: nodes-shinmyoumaru
+    runs-on: ubuntu-latest
+    steps:
+    - id: checkout
+      name: git clone
+      uses: actions/checkout@v1
+      with:
+        submodules: false
+    - id: nix-install
+      name: nix install
+      uses: arcnmx/ci/actions/nix/install@master
+    - id: ci-setup
+      name: nix setup
+      uses: arcnmx/ci/actions/nix/run@master
+      with:
+        attrs: ci.job.shinmyoumaru.run.bootstrap
+        quiet: false
+    - id: aarch64
+      name: prepare for emulated builds
+      run: 'sudo $(which archbinfmt)
+
+        '
+    - id: ci-dirty
+      name: nix test dirty
+      uses: arcnmx/ci/actions/nix/run@master
+      with:
+        attrs: ci.job.shinmyoumaru.run.test
+        command: ci-build-dirty
+        quiet: false
+        stdout: ${{ runner.temp }}/ci.build.dirty
+    - id: ci-test
+      name: nix test build
+      uses: arcnmx/ci/actions/nix/run@master
+      with:
+        attrs: ci.job.shinmyoumaru.run.test
+        command: ci-build-realise
+        ignore-exit-code: true
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.dirty
+    - env:
+        CI_EXIT_CODE: ${{ steps.ci-test.outputs.exit-code }}
+      id: ci-summary
+      name: nix test results
+      uses: arcnmx/ci/actions/nix/run@master
+      with:
+        attrs: ci.job.shinmyoumaru.run.test
+        command: ci-build-summarise
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.dirty
+        stdout: ${{ runner.temp }}/ci.build.cache
+    - env:
+        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+      id: ci-cache
+      if: always()
+      name: nix test cache
+      uses: arcnmx/ci/actions/nix/run@master
+      with:
+        attrs: ci.job.shinmyoumaru.run.test
+        command: ci-build-cache
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.cache
   yule:
     name: nodes-yule
     runs-on: ubuntu-latest
@@ -419,8 +481,8 @@ jobs:
         attrs: ci.job.yule.run.bootstrap
         quiet: false
     - id: aarch64
-      name: prepare for aarch64 builds
-      run: 'sudo $(which aarch64binfmt)
+      name: prepare for emulated builds
+      run: 'sudo $(which archbinfmt)
 
         '
     - id: ci-dirty
