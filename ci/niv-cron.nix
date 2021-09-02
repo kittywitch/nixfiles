@@ -7,7 +7,7 @@ with lib; {
 
   nix.config = {
     extra-platforms = "aarch64-linux";
-    extra-sandbox-paths = with channels.cipkgs; map (package: builtins.unsafeDiscardStringContext "${package}?") [bash qemu "/run/binfmt"];
+    #extra-sandbox-paths = with channels.cipkgs; map (package: builtins.unsafeDiscardStringContext "${package}?") [bash qemu "/run/binfmt"];
   };
 
   gh-actions.env.OPENSSH_PRIVATE_KEY = "\${{ secrets.OPENSSH_PRIVATE_KEY }}";
@@ -18,7 +18,7 @@ with lib; {
     aarch64binfmt =
       let
         makeQemuWrapper = name: ''
-          mkdir -f /run/binfmt
+          mkdir -p /run/binfmt
           rm -f /run/binfmt/${name}
           cat > /run/binfmt/${name} << 'EOF'
           #!${channels.cipkgs.bash}/bin/sh
@@ -28,6 +28,7 @@ with lib; {
         ''; in
       channels.cipkgs.writeShellScriptBin "aarch64binfmt" ''
         ${makeQemuWrapper "aarch64"}
+        echo 'extra-sandbox-paths = ${channels.cipkgs.bash} ${channels.cipkgs.qemu} /run/binfmt' >> /etc/nix/nix.conf
         echo ':aarch64-linux:M::\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\xb7\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\x00\xff\xfe\xff\xff\xff:/run/binfmt/aarch64:' > /proc/sys/fs/binfmt_misc/register
       '';
   };
