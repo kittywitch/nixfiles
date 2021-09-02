@@ -31,12 +31,14 @@ with lib;
           config = {
             nixpkgs = {
               system = mkDefault pkgs.system;
-              pkgs = let
-                pkgsReval = import pkgs.path {
-                  inherit (config.nixpkgs) localSystem crossSystem;
-                  inherit (pkgs) overlays config;
-                };
-              in mkDefault (if config.nixpkgs.config == pkgs.config && config.nixpkgs.localSystem.system == pkgs.targetPlatform.system then pkgs else pkgsReval);
+              pkgs =
+                let
+                  pkgsReval = import pkgs.path {
+                    inherit (config.nixpkgs) localSystem crossSystem;
+                    inherit (pkgs) overlays config;
+                  };
+                in
+                mkDefault (if config.nixpkgs.config == pkgs.config && config.nixpkgs.localSystem.system == pkgs.targetPlatform.system then pkgs else pkgsReval);
             };
           };
         };

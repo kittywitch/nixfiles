@@ -12,7 +12,7 @@ in
     services.nginx
   ];
 
-  deploy.tf.providers.local = {};
+  deploy.tf.providers.local = { };
 
   nixpkgs.localSystem = systems.examples.aarch64-multiplatform // {
     system = "aarch64-linux";

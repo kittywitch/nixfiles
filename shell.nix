@@ -70,6 +70,7 @@ pkgs.mkShell {
   shellHook = ''
     export HOME_HOSTNAME=$(hostname -s)
     export HOME_UID=$(id -u)
+    export CI_PLATFORM="impure"
     export NIX_PATH="$NIX_PATH:home=${toString ./.}"
   '';
 }

@@ -13,7 +13,7 @@
     udp.ports = [ 53 ];
   };
 
-/*  environment.etc."katdns/zones/dork.dev.zone".text = let
+  /*  environment.etc."katdns/zones/dork.dev.zone".text = let
     dns = pkgs.dns;
     in dns.lib.toString "dork.dev" (import ./dork.dev.nix { inherit dns lib; }); */
 

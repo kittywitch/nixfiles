@@ -5,6 +5,15 @@ env:
   CI_PLATFORM: gh-actions
   OPENSSH_PRIVATE_KEY: ${{ secrets.OPENSSH_PRIVATE_KEY }}
 jobs:
+  ci:
+    name: ci
+    runs-on: ubuntu-latest
+    steps:
+    - id: aarch64
+      name: prepare for aarch64 builds
+      run: 'sudo aarch64binfmt
+
+        '
   ci-check:
     name: niv-update check
     runs-on: ubuntu-latest

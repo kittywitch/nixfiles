@@ -27,7 +27,7 @@
     };
   };
 
-  dns.zones = genAttrs ["kittywit.ch." "dork.dev."] (_: {
+  dns.zones = genAttrs [ "kittywit.ch." "dork.dev." ] (_: {
     provider = "dns.katdns";
   });
 }

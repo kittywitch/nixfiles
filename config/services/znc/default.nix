@@ -50,25 +50,30 @@ in
 {
   network.firewall.public.tcp.ports = singleton 5001;
 
-  kw.secrets.variables = let
-    fieldAdapt = field: if field == "cert" then "notes" else if field == "pass" then "password" else field;
-  in listToAttrs (concatMap (network:
-    map (field:
-      nameValuePair "znc-${network}-${field}" {
-        path = "social/irc/${network}";
-        field = fieldAdapt field;
-    }) ["cert" "pass"]
-  ) ["liberachat" "espernet"]
-  ++ map (field:
-      nameValuePair "znc-softnet-${field}" {
-        path = "social/irc/softnet";
-        field = fieldAdapt field;
-    }) ["cert" "address"]
-   ++ singleton (nameValuePair "znc-savebuff-pass" {
+  kw.secrets.variables =
+    let
+      fieldAdapt = field: if field == "cert" then "notes" else if field == "pass" then "password" else field;
+    in
+    listToAttrs (concatMap
+      (network:
+        map
+          (field:
+            nameValuePair "znc-${network}-${field}" {
+              path = "social/irc/${network}";
+              field = fieldAdapt field;
+            }) [ "cert" "pass" ]
+      ) [ "liberachat" "espernet" ]
+    ++ map
+      (field:
+        nameValuePair "znc-softnet-${field}" {
+          path = "social/irc/softnet";
+          field = fieldAdapt field;
+        }) [ "cert" "address" ]
+    ++ singleton (nameValuePair "znc-savebuff-pass" {
       path = "social/irc/znc";
       field = "savebuff";
     })
-  );
+    );
 
   secrets.files.softnet-cert = {
     text = tf.variables.znc-softnet-cert.ref;

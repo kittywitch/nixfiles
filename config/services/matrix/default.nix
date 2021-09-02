@@ -13,14 +13,17 @@ with lib;
     LC_CTYPE = "C";
   '';
 
-  kw.secrets.variables = (mapListToAttrs (field:
-    nameValuePair "mautrix-telegram-${field}" {
-      path = "secrets/mautrix-telegram";
-      inherit field;
-    }) ["api-hash" "api-id" "as-token" "hs-token"]
-    // { matrix-registration = {
+  kw.secrets.variables = (mapListToAttrs
+    (field:
+      nameValuePair "mautrix-telegram-${field}" {
+        path = "secrets/mautrix-telegram";
+        inherit field;
+      }) [ "api-hash" "api-id" "as-token" "hs-token" ]
+  // {
+    matrix-registration = {
       path = "secrets/matrix-registration";
-    }; });
+    };
+  });
 
   secrets.files.mautrix-telegram-env = {
     text = ''

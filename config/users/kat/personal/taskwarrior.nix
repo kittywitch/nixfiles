@@ -3,13 +3,16 @@
 with lib;
 
 {
-  kw.secrets.variables = let
-    fieldAdapt = field: if field == "key" then "notes" else field;
-  in mapListToAttrs (field:
-  nameValuePair "taskwarrior-${field}" {
-    path = "services/taskwarrior";
-    field = fieldAdapt field;
-  }) ["key" "credentials"];
+  kw.secrets.variables =
+    let
+      fieldAdapt = field: if field == "key" then "notes" else field;
+    in
+    mapListToAttrs
+      (field:
+        nameValuePair "taskwarrior-${field}" {
+          path = "services/taskwarrior";
+          field = fieldAdapt field;
+        }) [ "key" "credentials" ];
 
   secrets.files = {
     taskw_key = {

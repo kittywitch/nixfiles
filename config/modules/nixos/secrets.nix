@@ -32,11 +32,11 @@ in
       };
       variables = mkOption {
         type = types.attrsOf secretType;
-        default = {};
+        default = { };
       };
       repo = mkOption {
         type = types.attrsOf repoSecretType;
-        default = {};
+        default = { };
       };
     };
   };
@@ -44,14 +44,16 @@ in
     {
       kw.secrets.variables = lib.mkMerge (mapAttrsToList (username: user: user.kw.secrets.variables) config.home-manager.users);
     }
-    (mkIf (cfg.variables != {}) {
-      deploy.tf.variables = mapAttrs' (name: content:
-        nameValuePair name ({
-          value.shellCommand = "${cfg.command} ${content.path}" + optionalString (content.field != "") " -f ${content.field}";
-          type = "string";
-          sensitive = true;
-        })
-      ) cfg.variables;
+    (mkIf (cfg.variables != { }) {
+      deploy.tf.variables = mapAttrs'
+        (name: content:
+          nameValuePair name ({
+            value.shellCommand = "${cfg.command} ${content.path}" + optionalString (content.field != "") " -f ${content.field}";
+            type = "string";
+            sensitive = true;
+          })
+        )
+        cfg.variables;
     })
   ];
 }

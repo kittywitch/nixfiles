@@ -29,11 +29,11 @@ in
     secrets = {
       variables = mkOption {
         type = types.attrsOf secretType;
-        default = {};
+        default = { };
       };
       repo = mkOption {
         type = types.attrsOf repoSecretType;
-        default = {};
+        default = { };
       };
     };
   };

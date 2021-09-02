@@ -7,11 +7,12 @@
     cname = { inherit (config.network.addresses.private) target; };
   };
 
-  kw.secrets.variables = mapListToAttrs (field:
-  nameValuePair "fusionpbx-${field}" {
-      path = "services/fusionpbx";
-      inherit field;
-  }) ["username" "password"];
+  kw.secrets.variables = mapListToAttrs
+    (field:
+      nameValuePair "fusionpbx-${field}" {
+        path = "services/fusionpbx";
+        inherit field;
+      }) [ "username" "password" ];
 
   secrets.files.fusionpbx_env = {
     text = ''
