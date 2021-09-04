@@ -2,15 +2,19 @@
 
 {
   config = {
-    programs.notmuch = {
-      enable = true;
-      hooks = { preNew = "mbsync --all"; };
+    programs = {
+      notmuch = {
+        enable = true;
+        hooks = { preNew = "mbsync --all"; };
+      };
+
+      mbsync.enable = true;
+      msmtp.enable = true;
+      vim.plugins = [ pkgs.vimPlugins.notmuch-vim ];
+      neovim.plugins = [ pkgs.vimPlugins.notmuch-vim ];
     };
 
-    programs.mbsync.enable = true;
-    programs.msmtp.enable = true;
-
-    programs.vim.plugins = [ pkgs.vimPlugins.notmuch-vim ];
+    services.imapnotify.enable = true;
 
     accounts.email = {
       maildirBasePath = "${config.home.homeDirectory}/mail";
@@ -20,12 +24,19 @@
         realName = "kat witch";
         userName = "kat@kittywit.ch";
         msmtp.enable = true;
-        mbsync.enable = true;
-        mbsync.create = "maildir";
+        mbsync = {
+          enable = true;
+          create = "maildir";
+        };
         notmuch.enable = true;
+        imapnotify = {
+          enable = true;
+          boxes = [ "Inbox" ];
+          onNotifyPost = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.libnotify}/bin/notify-send 'New mail arrived'";
+        };
         imap.host = "athame.kittywit.ch";
         smtp.host = "athame.kittywit.ch";
-        passwordCommand = "${pkgs.pass}/bin/pass email/kittywitch";
+        passwordCommand = "bitw get services/email/kittywitch -f password";
         gpg = {
           signByDefault = true;
           key = "01F50A29D4AA91175A11BDB17248991EFA8EFBEE";
