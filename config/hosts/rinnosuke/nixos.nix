@@ -27,4 +27,6 @@
       networkFilter = [ "public" ];
       block.locations."/" = { root = splashy; };
     };
+
+  system.stateVersion = "21.11";
 }

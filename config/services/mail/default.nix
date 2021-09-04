@@ -4,6 +4,7 @@ with lib;
 
 let
   domains = [ "kittywitch" "dork" ];
+  users = [ "gitea" "kat" "keycloak" ];
 in
 {
   imports = [ sources.nixos-mailserver.outPath ];
@@ -13,7 +14,8 @@ in
       nameValuePair "mail-${field}-hash" {
         path = "secrets/mail-kittywitch";
         field = "${field}-hash";
-      }) [ "gitea" "kat" ]
+      })
+    users
   ++ map
     (domain:
       nameValuePair "mail-domainkey-${domain}" {
@@ -22,7 +24,7 @@ in
       })
     domains);
 
-  deploy.tf.dns.records = lib.mkMerge (map
+  deploy.tf.dns.records = mkMerge (map
     (domain:
       let
         zoneGet = domain: if domain == "dork" then "dork.dev." else config.network.dns.zone;
@@ -55,18 +57,14 @@ in
       })
     domains);
 
-  secrets.files = {
-    mail-kat-hash = {
-      text = ''
-        ${tf.variables.mail-kat-hash.ref}
-      '';
-    };
-    mail-gitea-hash = {
-      text = ''
-        ${tf.variables.mail-gitea-hash.ref}
-      '';
-    };
-  };
+  secrets.files = listToAttrs (map
+    (user:
+      nameValuePair "mail-${user}-hash" {
+        text = ''
+          ${tf.variables.mail-kat-hash.ref}
+        '';
+      })
+    users);
 
   mailserver = {
     enable = true;
@@ -85,15 +83,19 @@ in
     virusScanning = false;
 
     # nix run nixpkgs.apacheHttpd -c htpasswd -nbB "" "super secret password" | cut -d: -f2
-    loginAccounts = {
-      "kat@kittywit.ch" = {
-        hashedPasswordFile = config.secrets.files.mail-kat-hash.path;
-        aliases = [ "postmaster@kittywit.ch" ];
-        catchAll = [ "kittywit.ch" "dork.dev" ];
-      };
-      "gitea@kittywit.ch" = {
-        hashedPasswordFile = config.secrets.files.mail-gitea-hash.path;
-      };
-    };
+    loginAccounts = mkMerge [
+      (listToAttrs (map
+        (user:
+          nameValuePair "${user}@kittywit.ch" {
+            hashedPasswordFile = config.secrets.files."mail-${user}-hash".path;
+          })
+        users))
+      {
+        "kat@kittywit.ch" = {
+          aliases = [ "postmaster@kittywit.ch" ];
+          catchAll = [ "kittywit.ch" "dork.dev" ];
+        };
+      }
+    ];
   };
 }

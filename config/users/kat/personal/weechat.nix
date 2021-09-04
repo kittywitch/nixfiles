@@ -3,7 +3,8 @@
   home.file = lib.mkIf config.deploy.profile.trusted (
     let
       bitw = pkgs.writeShellScriptBin "bitw" ''${pkgs.rbw-bitw}/bin/bitw -p gpg://${config.kw.secrets.repo.bitw.source} "$@"'';
-    in {
+    in
+    {
       ".local/share/weechat/sec.conf".text = ''
         #
         # weechat -- sec.conf

@@ -3,6 +3,7 @@
     profiles.hardware.aarch64
     profiles.hardware.oracle.ubuntu
     services.nginx
+    services.keycloak
   ];
 
   kw.oci = {
@@ -27,4 +28,6 @@
       networkFilter = [ "public" ];
       block.locations."/" = { root = splashy; };
     };
+
+  system.stateVersion = "21.11";
 }
