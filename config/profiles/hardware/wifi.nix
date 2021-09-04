@@ -6,13 +6,27 @@
       nameValuePair "wireless-${field}" {
         path = "secrets/wifi";
         inherit field;
-      }) [ "ssid" "password" ];
+      }) [ "ssid" "psk" ];
+
+  deploy.tf.resources = {
+    wireless-credentials = {
+      provider = "null";
+      type = "data_source";
+      dataSource = true;
+      inputs.inputs = {
+        ssid = tf.variables.wireless-ssid.ref;
+        psk = tf.variables.wireless-psk.ref;
+      };
+    };
+  };
 
   deploy.profile.hardware.wifi = true;
   networking.wireless = {
     enable = true;
-    networks.${builtins.unsafeDiscardStringContext tf.variables.wireless-ssid.get} = {
-      pskRaw = tf.variables.wireless-password.get;
+    networks = mkIf (builtins.getEnv "TF_IN_AUTOMATION" != "" || tf.state.resources ? ${tf.resources.wireless-credentials.out.reference}) {
+      ${builtins.unsafeDiscardStringContext tf.resources.wireless-credentials.getAttr "outputs.ssid"} = {
+       pskRaw = tf.resources.wireless-credentials.getAttr "outputs.psk";
+     };
     };
   };
 }
