@@ -4,6 +4,7 @@
     configFile = config.secrets.files.glauth-config-file.path;
     database = {
       enable = true;
+      local = true;
       type = "postgres";
       passwordFile = config.secrets.files.glauth-postgres-file.path;
     };

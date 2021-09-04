@@ -21,7 +21,7 @@ in
     };
     database = {
       enable = mkEnableOption "use a database";
-      local = mkEnableOption "local database creation";
+      local = mkEnableOption "local database creation" // { default = true; };
       type = mkOption {
         type = types.enum [
           "postgres"
@@ -77,7 +77,7 @@ in
   };
   config =
     let
-      localCheck = dbcfg.local && dbcfg.host != "localhost";
+      localCheck = dbcfg.local && dbcfg.enable && dbcfg.host == "localhost";
       postgresCheck = localCheck && dbcfg.type == "postgres";
       mysqlCheck = localCheck && dbcfg.type == "mysql";
     in
@@ -173,4 +173,6 @@ in
       };
     };
   };
+
+  meta.maintainers = with maintainers; [ kittywitch ];
 }
