@@ -153,11 +153,12 @@ in
               set -o errexit -o pipefail -o nounset -o errtrace
               shopt -s inherit_errexit
               umask u=rwx,g=,o=
+              mkdir -p /run/glauth/secrets
               install -T -m 0400 -o glauth -g glauth '${dbcfg.passwordFile}' /run/glauth/secrets/db_password
             '';
             startPre = ''
               install -T -m 0600 ${cfg.configFile} /run/glauth/config.cfg
-              replace-secret '@db-password@' /run/glauth/config.cfg
+              replace-secret '@db-password@' '/run/glauth/secrets/db_password' /run/glauth/config.cfg
             '';
           in
           [
