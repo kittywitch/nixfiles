@@ -11,7 +11,7 @@
   deploy.profile.hardware.wifi = true;
   networking.wireless = {
     enable = true;
-    networks.${builtins.unsafeDiscardStringsContext tf.variables.wireless-ssid.get} = {
+    networks.${builtins.unsafeDiscardStringContext tf.variables.wireless-ssid.get} = {
       pskRaw = tf.variables.wireless-password.get;
     };
   };
