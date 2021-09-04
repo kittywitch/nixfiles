@@ -19,6 +19,7 @@ with lib;
     services.postgres
     services.radicale
     services.restic
+    services.roundcube
     services.syncplay
     services.taskserver
     services.vaultwarden
