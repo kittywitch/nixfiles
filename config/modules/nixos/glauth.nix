@@ -154,6 +154,7 @@ in
               shopt -s inherit_errexit
               umask u=rwx,g=,o=
               mkdir -p /run/glauth/secrets
+              chown -R glauth:glauth /run/glauth/
               install -T -m 0400 -o glauth -g glauth '${dbcfg.passwordFile}' /run/glauth/secrets/db_password
             '';
             startPre = ''

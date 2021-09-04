@@ -29,7 +29,7 @@
   };
 
   services.nginx.virtualHosts."auth.${config.network.dns.domain}" = {
-    enableACME = true;
+    useACMEHost = "domain-auth";
     forceSSL = true;
     locations = { "/".proxyPass = "http://127.0.0.1:8089"; };
   };

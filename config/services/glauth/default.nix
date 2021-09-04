@@ -1,6 +1,10 @@
 { config, tf, lib, ... }: with lib; {
   network.firewall.public.tcp.ports = singleton 3984;
 
+  network.extraCerts.domain-auth = "auth.${config.network.dns.domain}";
+  users.groups.domain-auth.members = [ "nginx" "glauth" ];
+  security.acme.certs.domain-auth.group = "domain-auth";
+
   services.glauth = {
     enable = true;
     configFile = config.secrets.files.glauth-config-file.path;
@@ -19,8 +23,8 @@
       ldaps = {
         enabled = true;
         listen = "0.0.0.0:3894";
-        cert = "/var/lib/acme/auth.kittywit.ch/fullchain.pem";
-        key = "/var/lib/acme/auth.kittywit.ch/key.pem";
+        cert = "/var/lib/acme/domain-auth/fullchain.pem";
+        key = "/var/lib/acme/domain-auth/key.pem";
       };
       backend = {
         baseDN = "dc=kittywitch,dc=com";

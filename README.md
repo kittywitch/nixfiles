@@ -113,10 +113,12 @@ See [here][] for additional information on profiles.
 | [filehost][]       | I sling things in here via SSH/SCP.                                      |
 | [fusionpbx][]      | FusionPBX. Fancy PBX.                                                    |
 | [gitea][]          | Self-hosted git with mail support.                                       |
+| [glauth][]         | LDAP server.                                                             |
 | [jellyfin][]       | HTPC/NAS stuff.                                                          |
 | [katsplash][]      | A splash screen for some hosts.                                          |
 | [kattv-ingest][]   | Takes data from kattv, slings to RTMP.                                   |
 | [kattv][]          | Takes data from a webcam, slings to kattv-ingest.                        |
+| [keycloak][]       | Fancy identity stuffs.                                                   |
 | [knot][]           | Knot DNS, authoritative DNS server.                                      |
 | [logrotate][]      | Rotates logs!                                                            |
 | [mail][]           | [nixos-mailserver][].                                                    |
@@ -255,10 +257,12 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [filehost]: config/services/filehost/default.nix
   [fusionpbx]: config/services/fusionpbx/default.nix
   [gitea]: config/services/gitea/default.nix
+  [glauth]: config/services/glauth
   [jellyfin]: config/services/jellyfin/default.nix
   [katsplash]: config/services/katsplash/default.nix
   [kattv-ingest]: config/services/kattv-ingest/default.nix
   [kattv]: config/services/kattv/default.nix
+  [keycloak]: config/services/keycloak
   [knot]: config/services/knot/default.nix
   [logrotate]: config/services/logrotate/default.nix
   [mail]: config/services/mail/default.nix
