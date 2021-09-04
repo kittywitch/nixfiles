@@ -91,7 +91,7 @@ in
         tf.ipv6.address = tf.resources.rinnosuke_ipv6.refAttr "ip_address";
         };
       };
-      firewall.public.interfaces singleton interface;
+      firewall.public.interfaces = singleton interface;
       tf = {
         enable = true;
         ipv4_attr = "public_ip";

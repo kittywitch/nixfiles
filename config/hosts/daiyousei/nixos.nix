@@ -6,7 +6,6 @@
   ];
 
   kw.oci = {
-    base = "Canonical Ubuntu";
     specs = {
       shape = "VM.Standard.A1.Flex";
       cores = 4;
