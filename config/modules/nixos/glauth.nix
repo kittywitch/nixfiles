@@ -63,14 +63,14 @@ in
             datastore = "plugin";
             plugin = "bin/${cfg.database.type}.so";
             pluginhandler = pluginHandlers.${dbcfg.type};
-            database = builtins.replaceStrings (singleton "\n") (singleton " ") ''
+            database = if dbcfg.type != "sqlite" then (builtins.replaceStrings (singleton "\n") (singleton " ") ''
               host=${dbcfg.host}
               port=${dbcfg.port}
               dbname=glauth
               username=${dbcfg.username}
               password=@db-password@
               sslmode=${if dbcfg.ssl then "enable" else "disable"}
-            '';
+            '') else "database = \"gl.db\"";
           };
       };
     };
