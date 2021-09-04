@@ -1,28 +1,25 @@
-let hardwareProfiles = { lib }:
-  let profiles = with profiles; lib.domainMerge
-    {
-      folder = ""; # not used in this usage
-      folderPaths = [
-        ./.
-        ../../trusted/profiles/hardware
-      ];
-    } // {
+{ lib, tree, ... }: with lib; let
+  profiles = (filterAttrs (n: v: v ? "default") tree.dirs)
+    // tree.defaultDirs
+    // (mapAttrs (n: v: removeAttrs v [ "default" ]) (filterAttrs (n: v: v ? "default") tree.dirs))
+    // tree.files;
+  appendedProfiles = with profiles; {
     ms-7b86 = {
       imports = [
-        ms-7b86-base
+        ms-7b86
         ryzen
         amdgpu
       ];
     };
     rm-310 = {
       imports = [
-        rm-310-base
+        rm-310
         intel
       ];
     };
     v330-14arr = {
       imports = [
-        v330-14arr-base
+        v330-14arr
         ryzen
         amdgpu
         laptop
@@ -31,10 +28,11 @@ let hardwareProfiles = { lib }:
     };
     eeepc-1015pem = {
       imports = [
-        eeepc-1015pem-base
+        eeepc-1015pem
         intel
         laptop
       ];
     };
-  }; in profiles;
-in { __functor = self: hardwareProfiles; isModule = false; }
+  };
+in
+profiles // appendedProfiles

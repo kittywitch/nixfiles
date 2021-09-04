@@ -70,7 +70,7 @@ in
             config.tf = mkMerge (singleton
               {
                 imports = [
-                  ../../targets/common
+                  ../../targets/common.nix
                 ];
                 deps = {
                   select.allProviders = true;

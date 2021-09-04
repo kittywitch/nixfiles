@@ -68,9 +68,11 @@ with lib; pkgs.mkShell {
     nf-actions
     nf-actions-test
   ] ++ config.runners.lazy.nativeBuildInputs
-  ++ (map (node: writeShellScriptBin "${node.networking.hostName}-img" ''
+  ++ (map
+    (node: writeShellScriptBin "${node.networking.hostName}-img" ''
       nix build -f . network.nodes.${node.networking.hostName}.system.build.sdImage --show-trace
-  '') (filter (node: node.system.build ? sdImage) (attrValues meta.network.nodes)));
+    '')
+    (filter (node: node.system.build ? sdImage) (attrValues meta.network.nodes)));
   shellHook = ''
     export HOME_HOSTNAME=$(hostname -s)
     export HOME_UID=$(id -u)

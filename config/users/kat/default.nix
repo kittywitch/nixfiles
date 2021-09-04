@@ -1,28 +1,30 @@
-let katUser = { lib }:
-  let
-    userImport = profile: { config, ... }: {
+{ lib, tree, ... }: with lib; let
+  wrapImports = imports: mapAttrs
+    (name: paths: { config, ... }: {
       config.home-manager.users.kat = {
-        imports = [
-          (./. + "/${profile}")
-        ];
+        imports = if isAttrs paths then attrValues paths else singleton paths;
       };
-    };
-    serviceImport = profile: { config, ... }: {
-      config.home-manager.users.kat = {
-        imports = [
-          (./services + "/${profile}")
-        ];
-      };
-    };
-    profileNames = lib.folderList ./. [ "base" "services" ];
-    serviceNames = lib.folderList ./services [ ];
-    userProfiles = with userProfiles;
-      lib.genAttrs profileNames userImport // {
-        services = lib.genAttrs serviceNames serviceImport;
-        base = { imports = [ ./nixos.nix (userImport "base") ]; };
-        server = {};
-        guiFull = { imports = [ gui sway dev media personal ]; };
-      };
-  in
-  userProfiles;
-in { __functor = self: katUser; isModule = false; }
+    })
+    imports;
+  dirImports = wrapImports tree.dirs;
+  serviceImports = wrapImports tree.dirs.services;
+in
+(removeAttrs dirImports (singleton "base")) // {
+  base = {
+    imports = [
+      dirImports.base
+      tree.files.nixos
+    ];
+  };
+  server = { };
+  guiFull = {
+    imports = with dirImports; [
+      gui
+      sway
+      dev
+      media
+      personal
+    ];
+  };
+  services = serviceImports;
+}

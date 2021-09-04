@@ -13,15 +13,20 @@
   ];
 
   boot = {
-    kernelModules = mkForce ["loop" "atkbd"];
+    kernelModules = mkForce [ "loop" "atkbd" ];
     initrd = {
       includeDefaultModules = false;
       availableKernelModules = mkForce [
         "mmc_block"
         "usbhid"
         "ext4"
-        "hid_generic" "hid_lenovo" "hid_apple" "hid_roccat"
-        "hid_logitech_hidpp" "hid_logitech_dj" "hid_microsoft"
+        "hid_generic"
+        "hid_lenovo"
+        "hid_apple"
+        "hid_roccat"
+        "hid_logitech_hidpp"
+        "hid_logitech_dj"
+        "hid_microsoft"
       ];
     };
   };

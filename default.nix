@@ -32,13 +32,7 @@ let
     If only one exists, the path for that one is returned.
     Otherwise a module is generated which contains both import paths.
   */
-  xargNames = lib.unique (lib.folderList ./config [ "trusted modules" ] ++ lib.folderList ./config/trusted [ "pkgs" "tf" ]);
-  xarg = (lib.mapListToAttrs
-    (folder: lib.nameValuePair folder (lib.domainMerge {
-      inherit folder;
-      folderPaths = [ (./config + "/${folder}") (./config/trusted + "/${folder}") ];
-    }))
-    xargNames) // { modules = lib.recursiveMod { folder = ./config/modules; inherit sources; }; };
+  xarg = lib.recursiveMod { folder = ./config; inherit sources lib; };
   /*
     We provide the runners with this file this way. We also provide our nix args here.
     This is also where pkgs are passed through to the meta config.

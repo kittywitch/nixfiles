@@ -31,7 +31,7 @@ with lib;
           options = {
             nixpkgs.crossOverlays = mkOption {
               type = types.listOf types.unspecified;
-              default = [];
+              default = [ ];
             };
           };
           config = {
@@ -72,7 +72,7 @@ with lib;
     nixos = {
       extraModules = [
         "${toString sources.home-manager}/nixos"
-      ] ++ singleton meta.modules.nixos;
+      ] ++ lib.singleton meta.modules.nixos;
       specialArgs = {
         inherit (config.network) nodes;
         inherit sources meta;

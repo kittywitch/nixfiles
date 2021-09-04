@@ -1,26 +1,26 @@
-rec {
-  common = ./common.nix;
-  ubuntu-base = ./ubuntu.nix;
-  oracle-base = ./oracle.nix;
-
-  ubuntu = {
-    deploy.profile.hardware.oracle = {
-      common = true;
-      ubuntu = true;
+{ lib, sources, tree, ... }: with lib; let
+  profiles = tree.dirs // tree.files;
+  appendedProfiles = with profiles; {
+    ubuntu = { config, ... }: {
+      deploy.profile.hardware.oracle = {
+        ubuntu = true;
+        common = true;
+      };
+      imports = with import (sources.tf-nix + "/modules"); [
+        nixos.ubuntu-linux
+        common
+      ];
     };
-    imports = [
-      common
-      ubuntu-base
-    ];
-  };
-  oracle = {
-    deploy.profile.hardware.oracle = {
-      common = true;
-      oracle = true;
+    oracle = { config, ... }: {
+      deploy.profile.hardware.oracle = {
+        oracle = true;
+        common = true;
+      };
+      imports = with import (sources.tf-nix + "/modules"); [
+        nixos.oracle-linux
+        common
+      ];
     };
-    imports = [
-      common
-      oracle-base
-    ];
   };
-}
+in
+profiles // appendedProfiles

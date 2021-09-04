@@ -1,37 +1,35 @@
-rec {
-  common = ./armvcommon.nix;
-  armv7-base = ./armv7.nix;
-  armv6-base = ./armv6.nix;
-  aarch64-base = ./aarch64.nix;
-
-
-  aarch64 = {
-    deploy.profile.cross = {
-      enable = true;
-      aarch64 = true;
+{ lib, tree, ... }: with lib; let
+  profiles = tree.dirs // tree.files;
+  appendedProfiles = with profiles; {
+    aarch64 = {
+      deploy.profile.cross = {
+        enable = true;
+        aarch64 = true;
+      };
+      imports = [
+        aarch64
+      ];
     };
-    imports = [
-      aarch64-base
-    ];
-  };
-  armv7l = {
-    deploy.profile.cross = {
-      enable = true;
-      armv7l = true;
+    armv7l = {
+      deploy.profile.cross = {
+        enable = true;
+        armv7l = true;
+      };
+      imports = [
+        arm-common
+        armv7
+      ];
     };
-    imports = [
-      common
-      armv7-base
-    ];
-  };
-  armv6l = {
-    deploy.profile.cross = {
-      enable = true;
-      armv6l = true;
+    armv6l = {
+      deploy.profile.cross = {
+        enable = true;
+        armv6l = true;
+      };
+      imports = [
+        arm-common
+        armv6
+      ];
     };
-    imports = [
-      common
-      armv6-base
-    ];
   };
-}
+in
+profiles // appendedProfiles

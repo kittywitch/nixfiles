@@ -39,7 +39,7 @@ let
           visible = false;
         };
       in
-        mapAttrs opt knownSettings;
+      mapAttrs opt knownSettings;
   };
 
   setExpr = name: value:
@@ -47,13 +47,13 @@ let
       v =
         if isBool value then (if value then "" else "no") + name
         else
-          "${name}=${
+        "${name}=${
             if isList value
             then concatStringsSep "," value
             else toString value
           }";
     in
-      optionalString (value != null) ("set " + v);
+    optionalString (value != null) ("set " + v);
 
 in
 
@@ -74,7 +74,7 @@ in
 
       settings = mkOption {
         type = vimSettingsType;
-        default = {};
+        default = { };
         example = literalExample ''
           {
             expandtab = true;
@@ -149,7 +149,8 @@ in
         ];
       };
 
-    in mkIf cfg.enable {
+    in
+    mkIf cfg.enable {
       programs.vim.package = vim;
       home.packages = [ cfg.package ];
     }

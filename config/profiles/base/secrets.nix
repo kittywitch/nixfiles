@@ -1,6 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, meta, lib, pkgs, ... }:
 
 {
+  imports = lib.optional (meta ? trusted) meta.trusted.secrets;
+
   secrets = {
     root = "/var/lib/kat/secrets";
     persistentRoot = "/var/lib/kat/secrets";
