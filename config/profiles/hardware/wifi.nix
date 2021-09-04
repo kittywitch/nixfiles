@@ -25,8 +25,8 @@
     enable = true;
     networks = mkIf (builtins.getEnv "TF_IN_AUTOMATION" != "" || tf.state.resources ? ${tf.resources.wireless-credentials.out.reference}) {
       ${builtins.unsafeDiscardStringContext tf.resources.wireless-credentials.getAttr "outputs.ssid"} = {
-       pskRaw = tf.resources.wireless-credentials.getAttr "outputs.psk";
-     };
+        pskRaw = tf.resources.wireless-credentials.getAttr "outputs.psk";
+      };
     };
   };
 }

@@ -13,7 +13,7 @@
   home-manager.users.hexchen.programs.vim.enable = mkForce false;
   programs.mosh.enable = mkForce false;
 
-# Terraform
+  # Terraform
 
   deploy.tf = {
     resources.shinmyoumaru = {

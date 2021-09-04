@@ -6,4 +6,6 @@ let
     })
     (base);
 in
-(wrappedBase (filterAttrs (n: v: ! v ? "default") tree.dirs)) // (mapAttrs (n: v: removeAttrs v [ "default" ]) (filterAttrs (n: v: v ? "default") tree.dirs)) // (removeAttrs tree.files [ "default" ])
+(wrappedBase (filterAttrs (n: v: ! v ? "default") tree.dirs))
+// (mapAttrs (n: v: removeAttrs v [ "default" ]) (filterAttrs (n: v: v ? "default") tree.dirs))
+  // (removeAttrs tree.files [ "default" ])
