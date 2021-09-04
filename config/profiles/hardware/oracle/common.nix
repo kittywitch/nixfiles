@@ -93,7 +93,7 @@ in
             {
               enable = true;
               nixos.ipv6.address = mkIf (tf.state.resources ? ${tf.resources.${config.networking.hostName}.out.reference}) addr_ipv6_nix;
-              tf.ipv6.address = tf.resources.rinnosuke_ipv6.refAttr "ip_address";
+              tf.ipv6.address = tf.resources."${config.networking.hostName}_ipv6".refAttr "ip_address";
             };
         };
         firewall.public.interfaces = singleton interface;
