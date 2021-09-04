@@ -142,7 +142,7 @@ in
         after = databaseServices;
         bindsTo = databaseServices;
         wantedBy = singleton "multi-user.target";
-        path = [
+        path = with pkgs; [
           cfg.package
           replace-secret
         ];

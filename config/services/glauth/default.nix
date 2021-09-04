@@ -5,7 +5,7 @@
     database = {
       enable = true;
       type = "postgres";
-      passwordFile = config.secrets.files.glauth-password-file.path;
+      passwordFile = config.secrets.files.glauth-postgres-file.path;
     };
     settings = {
       syslog = true;
@@ -24,7 +24,7 @@
       };
       users = [{
         name = "kat";
-        passsha256 = tf.variables.glauth-password.ref;
+        passsha256 = tf.variables.glauth-password-hash.ref;
         uidnumber = 1000;
         primarygroup = 1500;
       }];
@@ -43,7 +43,7 @@
 
   secrets.files = {
     glauth-postgres-file = {
-      text = "${tf.variables.glauth-postgres.ref}";
+      text = tf.variables.glauth-postgres.ref;
       owner = "glauth";
       group = "glauth";
     };
