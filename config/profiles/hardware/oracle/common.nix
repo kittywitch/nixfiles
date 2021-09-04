@@ -56,6 +56,48 @@ in
     nixos.oracle
   ];
   config = {
+    networking.interfaces = let
+      interface = attrByPath [cfg.specs.shape] (throw "Unsupported shape") {
+        "VM.Standard.A1.Flex" = "enp0s3";
+        "VM.Standard.E2.1.Micro" = "ens3";
+      };
+    in {
+      ${interface} = {
+        useDHCP = true;
+        ipv6 = {
+          addresses = mkIf (config.network.addresses.public.nixos.ipv6.enable) [{
+            address = config.network.addresses.public.nixos.ipv6.address;
+            prefixLength = 64;
+          }];
+          routes = [{
+            address = "::";
+            prefixLength = 0;
+          }];
+        };
+      };
+    };
+
+    network = {
+      addresses = {
+        public = let
+          addr_ipv6_nix =
+            let
+              prefix = head (splitString "/" (oci-root.resources.oci_kw_subnet.importAttr "ipv6cidr_block"));
+            in
+            assert hasSuffix "::" prefix; prefix + toString config.kw.oci.network.publicV6;
+        in {
+          enable = true;
+        nixos.ipv6.address = mkIf (tf.state.resources ? ${tf.resources.${config.networking.hostName}.out.reference}) addr_ipv6_nix;
+        tf.ipv6.address = tf.resources.rinnosuke_ipv6.refAttr "ip_address";
+        };
+      };
+      firewall.public.interfaces singleton interface;
+      tf = {
+        enable = true;
+        ipv4_attr = "public_ip";
+      };
+    };
+
     deploy.tf =
       let
         compartment_id = oci-root.resources.oci_kw_compartment.importAttr "id";

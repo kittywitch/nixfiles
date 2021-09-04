@@ -64,7 +64,7 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
     -   [ ] Eventually refactor recursiveMod to be sane.
     -   [ ] Extend recursiveMod to allow for merging of structures.
     -   [ ] Create a “lite” base profile for devices like shinmyoumaru.
-    -   [ ] Add a shared profile that adds user imports.
+    -   [x] Add a shared profile that adds user imports.
     -   [ ] Migrate some of shinmyoumaru’s configuration into profiles.hardware.raspi
 
 ## Nodes

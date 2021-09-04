@@ -4,58 +4,16 @@
   # Imports
 
   imports = with meta; [
+    profiles.hardware.raspi
     profiles.base
     ./image.nix
   ];
-
-  nixpkgs.crossOverlays = [
-    (import ../../../overlays/pi)
-  ];
-
-  boot = {
-    kernelModules = mkForce [ "loop" "atkbd" ];
-    initrd = {
-      includeDefaultModules = false;
-      availableKernelModules = mkForce [
-        "mmc_block"
-        "usbhid"
-        "ext4"
-        "hid_generic"
-        "hid_lenovo"
-        "hid_apple"
-        "hid_roccat"
-        "hid_logitech_hidpp"
-        "hid_logitech_dj"
-        "hid_microsoft"
-      ];
-    };
-  };
 
   home-manager.users.kat.programs.neovim.enable = mkForce false;
   home-manager.users.hexchen.programs.vim.enable = mkForce false;
   programs.mosh.enable = mkForce false;
 
-  # Weird Shit
-
-  nixpkgs.crossSystem = systems.examples.raspberryPi // {
-    system = "armv6l-linux";
-  };
-
-  environment.noXlibs = true;
-  documentation.info.enable = false;
-  documentation.man.enable = false;
-  programs.command-not-found.enable = false;
-  security.polkit.enable = false;
-  security.audit.enable = false;
-  services.udisks2.enable = false;
-  boot.enableContainers = false;
-
-  nix = {
-    binaryCaches = lib.mkForce [ "https://app.cachix.org/cache/thefloweringash-armv7" ];
-    binaryCachePublicKeys = [ "thefloweringash-armv7.cachix.org-1:v+5yzBD2odFKeXbmC+OPWVqx4WVoIVO6UXgnSAWFtso=" ];
-  };
-
-  # Terraform
+# Terraform
 
   deploy.tf = {
     resources.shinmyoumaru = {
@@ -65,26 +23,6 @@
         port = head config.services.openssh.ports;
         host = config.network.addresses.private.nixos.ipv4.address;
       };
-    };
-  };
-
-  # Bootloader
-
-  boot = {
-    loader = {
-      grub.enable = false;
-      generic-extlinux-compatible.enable = true;
-    };
-    consoleLogLevel = lib.mkDefault 7;
-    kernelPackages = pkgs.linuxPackages_rpi1;
-  };
-
-  # File Systems and Swap
-
-  fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-label/NIXOS_SD";
-      fsType = "ext4";
     };
   };
 

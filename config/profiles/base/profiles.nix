@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, meta, ... }:
 
 with lib;
 
@@ -7,6 +7,7 @@ with lib;
     deploy.profile = {
       gui = mkEnableOption "Graphical System";
       vfio = mkEnableOption "VFIO";
+      shared = mkEnableOption "Shared System";
       trusted = mkEnableOption "Trusted Submodule";
       cross = {
         enable = mkEnableOption "cross/emulated compilation";
@@ -33,6 +34,7 @@ with lib;
         ryzen = mkEnableOption "AMD Ryzen CPU";
         ms-7b86 = mkEnableOption "MSI B450-A Pro Max";
         rm-310 = mkEnableOption "Intel DQ67OW";
+        raspi = mkEnableOption "Raspberry Pi 1 Model B+";
         oracle = {
           common = mkEnableOption "OCI";
           ubuntu = mkEnableOption "Canonical Ubuntu Base Image";
@@ -49,7 +51,10 @@ with lib;
             options.deploy.profile = {
               gui = mkEnableOption "Graphical System";
               vfio = mkEnableOption "VFIO";
-              trusted = mkEnableOption "Trusted Submodule";
+              shared = mkEnableOption "Shared System";
+              trusted = mkEnableOption "Trusted Submodule" // {
+                default = meta.trusted ? secrets;
+              };
               cross = {
                 enable = mkEnableOption "cross/emulated compilation";
                 aarch64 = mkOption {
@@ -75,6 +80,7 @@ with lib;
                 ryzen = mkEnableOption "AMD Ryzen CPU";
                 ms-7b86 = mkEnableOption "MSI B450-A Pro Max";
                 rm-310 = mkEnableOption "Intel DQ67OW";
+                raspi = mkEnableOption "Raspberry Pi 1 Model B+";
                 oracle = {
                   common = mkEnableOption "OCI";
                   ubuntu = mkEnableOption "Canonical Ubuntu Base Image";

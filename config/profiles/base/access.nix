@@ -1,7 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, meta, ... }:
 
 {
   security.sudo.wheelNeedsPassword = lib.mkForce false;
+
+  imports = with meta; [
+    users.kat.base
+  ];
 
   users.users.root = {
     hashedPassword =
