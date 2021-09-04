@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ config, lib, ... }: with lib; {
   deploy.profil.hardware.raspi = true;
 
   nixpkgs.crossOverlays = [
