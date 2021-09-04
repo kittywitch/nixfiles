@@ -1,5 +1,5 @@
-{ config, lib, ... }: with lib; {
-  deploy.profil.hardware.raspi = true;
+{ config, lib, pkgs, ... }: with lib; {
+  deploy.profile.hardware.raspi = true;
 
   nixpkgs.crossOverlays = [
     (import ../../../overlays/pi)

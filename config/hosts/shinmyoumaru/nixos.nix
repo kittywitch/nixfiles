@@ -10,7 +10,6 @@
   ];
 
   home-manager.users.kat.programs.neovim.enable = mkForce false;
-  home-manager.users.hexchen.programs.vim.enable = mkForce false;
   programs.mosh.enable = mkForce false;
 
   # Terraform
