@@ -22,40 +22,14 @@ let
     all = attrValues local ++ attrValues hexchen;
     allStr = toString all;
   };
-  # This is used for the base path for nodeImport.
+
   root = ./.;
-
-  /*
-    This is used to generate specialArgs + the like. It works as such:
-    * A <xargName> can exist at config/<subconfigName>.
-    * A <xargName> can exist at config/trusted/<subconfigName>.
-    If only one exists, the path for that one is returned.
-    Otherwise a module is generated which contains both import paths.
-  */
   xarg = lib.recursiveMod { folder = ./config; inherit sources lib; };
-  /*
-    We provide the runners with this file this way. We also provide our nix args here.
-    This is also where pkgs are passed through to the meta config.
-  */
-  metaConfig = {
-    config = {
-      runners = {
-        lazy = {
-          file = root;
-          args = [ "--show-trace" ];
-        };
-      };
-      _module.args = {
-        pkgs = lib.mkDefault pkgs;
-      };
 
-      deploy.targets.dummy.enable = false;
-    };
-  };
+  metaBase = import ./meta.nix { inherit config lib pkgs root; };
 
-  # This is where the meta config is evaluated.
   eval = lib.evalModules {
-    modules = lib.singleton metaConfig
+    modules = lib.singleton metaBase
       ++ lib.singleton xarg.modules.meta
       ++ lib.attrValues (removeAttrs xarg.targets [ "common" ])
       ++ (map
@@ -75,22 +49,8 @@ let
     } // xarg;
   };
 
-  # The evaluated meta config.
   inherit (eval) config;
 
-  /*
-    Please note all specialArg generated specifications use the folder common to both import paths.
-    Those import paths are as mentioned above next to `xargNames`.
-
-    This provides us with a ./. that contains (most relevantly):
-    * deploy.targets -> a mapping of target name to host names
-    * network.nodes -> host names to host NixOS + home-manager configs
-    * profiles -> the specialArg generated from profiles/
-    * users -> the specialArg generated from users/
-    * targets -> the specialArg generated from targets/
-    * do not use common, it is tf-nix specific config ingested at line 66 of config/modules/meta/deploy.nix for every target.
-    * services -> the specialArg generated from services/
-  */
   self = config // { inherit pkgs lib sourceCache sources; } // xarg;
 in
 self

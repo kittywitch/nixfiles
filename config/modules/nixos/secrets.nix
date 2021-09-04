@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, meta, ... }:
 
 with lib;
 
@@ -22,14 +22,12 @@ let
       };
     };
   });
+  mcfg = meta.kw.secrets;
   cfg = config.kw.secrets;
 in
 {
   options.kw = {
     secrets = {
-      command = mkOption {
-        type = types.str;
-      };
       variables = mkOption {
         type = types.attrsOf secretType;
         default = { };
@@ -48,7 +46,7 @@ in
       deploy.tf.variables = mapAttrs'
         (name: content:
           nameValuePair name ({
-            value.shellCommand = "${cfg.command} ${content.path}" + optionalString (content.field != "") " -f ${content.field}";
+            value.shellCommand = "${mcfg.command} ${content.path}" + optionalString (content.field != "") " -f ${content.field}";
             type = "string";
             sensitive = true;
           })
