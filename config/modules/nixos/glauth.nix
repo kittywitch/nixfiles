@@ -17,7 +17,7 @@ in
     configFile = {
       description = "The config path that GLAuth uses";
       type = types.path;
-      default = pkgs.writeText "glauth-config" outTOML;
+      default = pkgs.writeText "glauth-config" cfg.outTOML;
     };
     database = {
       enable = mkEnableOption "use a database";
