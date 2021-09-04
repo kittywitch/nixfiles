@@ -57,7 +57,7 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
     -   [ ] Local node IPv6 configuration.
 -   [ ] Add CI building and caching for required architectures.
     -   [x] aarch64 specific implementation
-    -   [ ] ARMv6 specific implementation
+    -   [x] ARMv6 specific implementation
     -   [ ] Generalised emulated compiles.
 -   [ ] Imports structure refactor.
     -   [x] Work on the readTree-like modList replacement.
@@ -65,7 +65,7 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
     -   [ ] Extend recursiveMod to allow for merging of structures.
     -   [ ] Create a “lite” base profile for devices like shinmyoumaru.
     -   [x] Add a shared profile that adds user imports.
-    -   [ ] Migrate some of shinmyoumaru’s configuration into profiles.hardware.raspi
+    -   [x] Migrate some of shinmyoumaru’s configuration into profiles.hardware.raspi
 
 ## Nodes
 
@@ -82,10 +82,13 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 
 ## Profiles
 
+See [here][] for additional information on profiles.
+
 | Profile      | Purpose                                                                                                                                                                                           |
 |--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [base][]     | Base profile, always used. Root access, base16, home-manager, locale, network module, nix, packages, profiles, secrets, shell and sysctl configuration.                                           |
+| [base][]     | Base profile, always used. Root access, base16, home-manager, locale, network module, nix, packages, {,neo}vim profiles, secrets, shell and sysctl configuration.                                 |
 | [gui][]      | GUI profile. Provides window managers, includes [DNSCrypt/dnscrypt-proxy][] service, filesystem packages, font, NixOS-side GPG, mingetty, NFS, QT, sound (pipewire) and XDG portal configuration. |
+| [shared][]   | Shared systems. Provides hexchen and arc users.                                                                                                                                                   |
 | [vfio][]     | Provides host-unspecific VFIO. Fancy patched QEMU from [arcnmx/nixexprs][], [arcnmx/screenstub][] (however, patched in-repo for Q35), AMDGPU vendor-reset and ACS override.                       |
 | [hardware][] | Sub-profiles for my hardware are provided here. Some are reusable. Of note is the Oracle sub-profiles.                                                                                            |
 | [cross][]    | Sub-profiles are provided for emulated compiling and build caching.                                                                                                                               |
@@ -228,9 +231,11 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [samhain]: config/hosts/samhain
   [yule]: config/hosts/yule
   [ostara]: config/hosts/ostara
+  [here]: config/profiles/base/profiles.nix
   [base]: config/profiles/base
   [gui]: config/profiles/gui
   [DNSCrypt/dnscrypt-proxy]: https://github.com/DNSCrypt/dnscrypt-proxy
+  [shared]: config/profiles/shared.nix
   [vfio]: config/profiles/vfio
   [arcnmx/nixexprs]: https://github.com/arcnmx/nixexprs
   [hardware]: config/profiles/hardware
