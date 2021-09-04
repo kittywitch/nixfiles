@@ -1,11 +1,9 @@
 { config, nixos, pkgs, lib, ... }:
-
 {
   home.file = lib.mkIf config.deploy.profile.trusted (
     let
       bitw = pkgs.writeShellScriptBin "bitw" ''${pkgs.rbw-bitw}/bin/bitw -p gpg://${config.kw.secrets.repo.bitw.source} "$@"'';
-    in
-    {
+    in {
       ".local/share/weechat/sec.conf".text = ''
         #
         # weechat -- sec.conf
@@ -21,7 +19,7 @@
         [crypt]
         cipher = aes256
         hash_algo = sha512
-        passphrase_command = "${bitw}/bin/bitw get comms/weechat"
+        passphrase_command = "bitw get social/irc/weechat -f password"
         salt = on
 
         [data]
@@ -34,9 +32,6 @@
 
   programs.weechat = {
     enable = true;
-    scripts = with pkgs.weechatScripts; [
-      weechat-notify-send
-    ];
     config = {
       irc = {
         server = {
