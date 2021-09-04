@@ -60,7 +60,8 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
     -   [ ] ARMv6 specific implementation
     -   [ ] Generalised emulated compiles.
 -   [ ] Imports structure refactor.
-    -   [ ] Work on the readTree-like modList replacement.
+    -   [x] Work on the readTree-like modList replacement.
+    -   [ ] Eventually refactor recursiveMod to be sane.
     -   [ ] Create a “lite” base profile for devices like shinmyoumaru.
     -   [ ] Add a shared profile that adds user imports.
     -   [ ] Migrate some of shinmyoumaru’s configuration into profiles.hardware.raspi
