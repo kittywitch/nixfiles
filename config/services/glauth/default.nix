@@ -1,4 +1,6 @@
 { config, tf, lib, ... }: with lib; {
+  network.firewall.public.tcp.ports = singleton 3984;
+
   services.glauth = {
     enable = true;
     configFile = config.secrets.files.glauth-config-file.path;
