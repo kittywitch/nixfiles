@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }: with lib; let
-  cfg = options.services.glauth;
-  dbcfg = options.services.glauth.database;
+  cfg = config.services.glauth;
+  dbcfg = config.services.glauth.database;
 in
 {
   options.services.glauth = {
@@ -9,12 +9,12 @@ in
       type = types.package;
       default = pkgs.glauth;
     };
-    outTOML = {
+    outTOML = mkOption {
       description = "The TOML produced from cfg.settings";
-      type = type.str;
+      type = types.str;
       default = toTOML cfg.settings;
     };
-    configFile = {
+    configFile = mkOption {
       description = "The config path that GLAuth uses";
       type = types.path;
       default = pkgs.writeText "glauth-config" cfg.outTOML;
@@ -63,7 +63,7 @@ in
             datastore = "plugin";
             plugin = "bin/${cfg.database.type}.so";
             pluginhandler = pluginHandlers.${dbcfg.type};
-            database = if dbcfg.type != "sqlite" then (builtins.replaceStrings (singleton "\n") (singleton " ") ''
+            database = if (dbcfg.type != "sqlite") then (builtins.replaceStrings (singleton "\n") (singleton " ") ''
               host=${dbcfg.host}
               port=${dbcfg.port}
               dbname=glauth

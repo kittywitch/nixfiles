@@ -36,7 +36,7 @@
   };
 
   kw.secrets.variables = mapListToAttrs (field:
-    nameValuePair = "glauth-${field}" {
+    nameValuePair "glauth-${field}" {
       path = "services/glauth";
       inherit field;
     }) ["password-hash" "postgres"];
@@ -48,9 +48,9 @@
       group = "glauth";
     };
     glauth-config-file = {
-      text = services.glauth.outTOML;
+      text = config.services.glauth.outTOML;
       owner = "glauth";
       group = "glauth";
     };
   };
-};
+}

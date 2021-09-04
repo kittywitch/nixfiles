@@ -4,6 +4,7 @@
     profiles.hardware.oracle.ubuntu
     services.nginx
     services.keycloak
+    services.glauth
   ];
 
   kw.oci = {
