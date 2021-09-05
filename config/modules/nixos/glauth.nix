@@ -12,7 +12,7 @@ in
     configFile = mkOption {
       description = "The config path that GLAuth uses";
       type = types.path;
-      default = pkgs.writeText "glauth-config" toTOML cfg.settings;
+      default = pkgs.writeText "glauth-config" (toTOML cfg.settings);
     };
     database = {
       enable = mkEnableOption "use a database";

@@ -20,7 +20,7 @@
       type = "resource";
       connection = {
         port = head config.services.openssh.ports;
-        host = config.network.addresses.private.nixos.ipv4.address;
+        host = "192.168.1.145"; #config.network.addresses.private.nixos.ipv4.address;
       };
     };
   };
@@ -29,7 +29,7 @@
 
   networking = {
     useDHCP = true;
-    interfaces.eno1.ipv4.addresses = singleton {
+    interfaces.eth0.ipv4.addresses = singleton {
       inherit (config.network.addresses.private.nixos.ipv4) address;
       prefixLength = 24;
     };
@@ -48,7 +48,7 @@
     };
     yggdrasil = {
       enable = true;
-      pubkey = "0000000000000000000000000000000000000000000000000000";
+      pubkey = "5ba8c9f8627b6e5da938e6dec6e0a66287490e28084e58125330b7a8812cc22e";
       listen.enable = false;
       listen.endpoints = [ "tcp://0.0.0.0:0" ];
     };
@@ -58,7 +58,7 @@
 
   network.firewall = {
     private.interfaces = singleton "yggdrasil";
-    public.interfaces = singleton "eno1";
+    public.interfaces = singleton "eth0";
   };
 
   # State

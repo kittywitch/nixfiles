@@ -2,6 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
+    neofetch
     smartmontools
     hddtemp
     lm_sensors
