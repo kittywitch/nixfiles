@@ -8,17 +8,6 @@
 
 These are the NixOS configurations for my systems. I run nothing other than NixOS on my hardware, aside from virtual machines.
 
-## Contents
-
--   [Nodes][2]
--   [Profiles][]
--   [User Profiles][]
--   [Services][]
--   [Modules][]
--   [CI][]
--   [Dependencies][]
--   [Commands][]
-
 ## Nodes
 
 | Node             | Purpose                                                  |
@@ -47,15 +36,15 @@ See [here][] for additional information on profiles.
 
 ## User Profiles
 
-| Profile       | Purpose                                                                                                                                                  |
-|---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [base][3]     | base16, git, inputrc, packages, secrets, kitty terminfo, SSH, tmux, weechat, vim, xdg and zsh configuration.                                             |
-| [dev][]       | cookiecutters, rink, doom-emacs (although unused, forced to use PgtkGcc all fancily :3c), packages, rustfmt and (heavier on the node) vim configuration. |
-| [gui][4]      | firefox+userChrome+tst, font, kitty terminal, [dnkl/foot][] terminal, GTK, packages, QT, ranger and xdg configuration.                                   |
-| [media][]     | mpv, obs, packages and syncplay configuration.                                                                                                           |
-| [personal][]  | [arcnmx/rbw][] (fancier rbw), email via [arcnmx/notmuch-vim][], home-manager-side GPG, pass, weechat and zsh configuration.                              |
-| [services][5] | User services. weechat and mpd are provided.                                                                                                             |
-| [sway][]      | sway, i3gopher, swayidle, swaylock-effects, screenshot tool, [kittywitch/konawall-rs][], mako, wofi, waybar and xkb (custom layout o:) configuration.    |
+| Profile      | Purpose                                                                                                                                                  |
+|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [base][2]    | base16, git, inputrc, packages, secrets, kitty terminfo, SSH, tmux, weechat, vim, xdg and zsh configuration.                                             |
+| [dev][]      | cookiecutters, rink, doom-emacs (although unused, forced to use PgtkGcc all fancily :3c), packages, rustfmt and (heavier on the node) vim configuration. |
+| [gui][3]     | firefox+userChrome+tst, font, kitty terminal, [dnkl/foot][] terminal, GTK, packages, QT, ranger and xdg configuration.                                   |
+| [media][]    | mpv, obs, packages and syncplay configuration.                                                                                                           |
+| [personal][] | [arcnmx/rbw][] (fancier rbw), email via [arcnmx/notmuch-vim][], home-manager-side GPG, pass, weechat and zsh configuration.                              |
+| [services][] | User services. weechat and mpd are provided.                                                                                                             |
+| [sway][]     | sway, i3gopher, swayidle, swaylock-effects, screenshot tool, [kittywitch/konawall-rs][], mako, wofi, waybar and xkb (custom layout o:) configuration.    |
 
 ## Services
 
@@ -120,7 +109,7 @@ CI for this repository uses [arcnmx/ci][], is aarch64 emulated build enabled and
 
 | Action       | Purpose                                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------------------------------|
-| [nodes][6]   | Build and cache host closures, show state of host evaluability/buildability.                                       |
+| [nodes][4]   | Build and cache host closures, show state of host evaluability/buildability.                                       |
 | [niv-cron][] | Automatically update the dependencies used by the repository, cache them and host closure build results with them. |
 
 ## Dependencies
@@ -162,14 +151,6 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [1]: https://github.com/kittywitch/nixfiles/actions/workflows/nodes.yml
   [This repository on my self hosted git.]: https://git.kittywit.ch/kat/nixfiles
   [This repository on GitHub.]: https://github.com/kittywitch/nixfiles
-  [2]: #nodes
-  [Profiles]: #profiles
-  [User Profiles]: #user-profiles
-  [Services]: #services
-  [Modules]: #modules
-  [CI]: #ci
-  [Dependencies]: #dependencies
-  [Commands]: #commands
   [athame]: config/hosts/athame
   [daiyousei]: config/hosts/daiyousei
   [rinnosuke]: config/hosts/rinnosuke
@@ -188,15 +169,15 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [arcnmx/screenstub]: https://github.com/arcnmx/screenstub
   [hardware]: config/profiles/hardware
   [cross]: config/profiles/cross
-  [3]: config/users/kat/base
+  [2]: config/users/kat/base
   [dev]: config/users/kat/dev
-  [4]: config/users/kat/gui
+  [3]: config/users/kat/gui
   [dnkl/foot]: https://codeberg.org/dnkl/foot
   [media]: config/users/kat/media
   [personal]: config/users/kat/personal
   [arcnmx/rbw]: https://github.com/arcnmx/rbw
   [arcnmx/notmuch-vim]: https://github.com/arcnmx/notmuch-vim
-  [5]: config/users/kat/services
+  [services]: config/users/kat/services
   [sway]: config/users/kat/sway
   [kittywitch/konawall-rs]: https://github.com/kittywitch/konawall-rs
   [dnscrypt-proxy]: config/services/dnscrypt-proxy/default.nix
@@ -235,7 +216,7 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [nix-community/impermanence]: https://github.com/nix-community/impermanence
   [kittywitch/anicca]: https://github.com/kittywitch/anicca
   [arcnmx/ci]: https://github.com/arcnmx/ci
-  [6]: ci/nodes.nix
+  [4]: ci/nodes.nix
   [niv-cron]: ci/niv-cron.nix
   [nmattia/niv]: https://github.com/nmattia/niv
   [nix-community/home-manager]: https://github.com/nix-community/home-manager

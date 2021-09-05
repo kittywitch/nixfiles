@@ -71,7 +71,7 @@ in
           in
           {
             datastore = "plugin";
-            plugin = "${cfg.package}/bin/plugin_${dbcfg.type}";
+            plugin = "${cfg.package}/bin/${dbcfg.type}.so";
             pluginhandler = pluginHandlers.${dbcfg.type};
             database = if (dbcfg.type != "sqlite") then (builtins.replaceStrings (singleton "\n") (singleton " ") ''
               host=${dbcfg.host}
