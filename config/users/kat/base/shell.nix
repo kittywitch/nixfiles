@@ -118,12 +118,10 @@ in
         inherit src;
       })) [
       "zsh-z"
-    ]) ++ [
-      ({
+    ]) ++ lib.optional (pkgs.hostPlatform == pkgs.buildPlatform) ({
         name = "fzf-tab";
         src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
-      })
-    ];
+      });
   };
   programs.fzf = {
     enable = true;
