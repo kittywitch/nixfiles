@@ -1,5 +1,5 @@
 { config, tf, lib, ... }: with lib; {
-  network.firewall.public.tcp.ports = [ 3983 3984 ];
+  network.firewall.public.tcp.ports = [ 3984 ];
 
   network.extraCerts.domain-auth = "auth.${config.network.dns.domain}";
   users.groups.domain-auth.members = [ "nginx" "glauth" ];
@@ -17,7 +17,7 @@
     settings = {
       syslog = true;
       ldap = {
-        enabled = true;
+        enabled = false;
         listen = "0.0.0.0:3893";
       };
       ldaps = {
