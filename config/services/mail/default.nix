@@ -61,7 +61,7 @@ in
     (user:
       nameValuePair "mail-${user}-hash" {
         text = ''
-          ${tf.variables.mail-kat-hash.ref}
+          ${tf.variables."mail-${user}-hash".ref}
         '';
       })
     users);

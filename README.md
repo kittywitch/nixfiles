@@ -10,7 +10,6 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 
 ## Contents
 
--   [To-do][]
 -   [Nodes][2]
 -   [Profiles][]
 -   [User Profiles][]
@@ -19,53 +18,6 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 -   [CI][]
 -   [Dependencies][]
 -   [Commands][]
-
-## To-do
-
--   [ ] Write my own Dynamic DNS updater to replace the removed Glauca one using [knsupdate][].
--   [ ] Consider reworking [kittywitch/nixexprs][] and [kittywitch/nixfiles-base][].
-    -   [x] In-housed [kittywitch/nixexprs][] as [exprs][].
-    -   [x] Merged my local changes with [exprs][].
-    -   [ ] Prioritise modules reusability.
--   [ ] Expand [kittywitch/anicca][] to be a module that helps with impermanence, too.
-    -   [x] Host impermanence enablement check.
-    -   [ ] Break anicca-migrator into interface modules.
-    -   [ ] Bind mount status list.
-    -   [ ] Bind mount start/enabler script.
--   [ ] Migrate any nodes that can be impermanent to impermanence.
-    -   [ ] yule
-    -   [ ] beltane
-    -   [ ] athame’s successor
--   [ ] Move to using [arcnmx/screenstub][] without any patches.
-    -   [ ] Check new config options, port current patch to new config options.
--   [ ] Move waybar modules to using signals.
--   [ ] Make waybar module for gammastep toggle.
--   [ ] Investigate how to fix Yule’s PCI-E issues.
--   [ ] Migrate boline to NixOS.
-    -   [x] Look into ARM cross-compilation w/ nixpkgs.
-    -   [x] Look into existing binary caches.
-    -   [ ] Write packages & services for DHT22 exporter + the socat.
--   [ ] Migrate [athame][] to OCI.
-    -   [x] Look into ARM cross-compilation w/ nixpkgs.
-    -   [x] Look into existing binary caches.
-    -   [ ] Do backups, figure out per-service backup system for state.
-    -   [x] Create a replacement box before any migration on OCI.
--   [ ] Look into alternatives to Yggdrasil and move to them.
--   [ ] Set up IPv6 network handling for my hosts.
-    -   [x] Fix network module tf-nix integrations.
-    -   [x] Rinnosuke IPv6.
-    -   [ ] Local node IPv6 configuration.
--   [ ] Add CI building and caching for required architectures.
-    -   [x] aarch64 specific implementation
-    -   [x] ARMv6 specific implementation
-    -   [ ] Generalised emulated compiles.
--   [ ] Imports structure refactor.
-    -   [x] Work on the readTree-like modList replacement.
-    -   [ ] Eventually refactor recursiveMod to be sane.
-    -   [ ] Extend recursiveMod to allow for merging of structures.
-    -   [ ] Create a “lite” base profile for devices like shinmyoumaru.
-    -   [x] Add a shared profile that adds user imports.
-    -   [x] Migrate some of shinmyoumaru’s configuration into profiles.hardware.raspi
 
 ## Nodes
 
@@ -210,7 +162,6 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [1]: https://github.com/kittywitch/nixfiles/actions/workflows/nodes.yml
   [This repository on my self hosted git.]: https://git.kittywit.ch/kat/nixfiles
   [This repository on GitHub.]: https://github.com/kittywitch/nixfiles
-  [To-do]: #to-do
   [2]: #nodes
   [Profiles]: #profiles
   [User Profiles]: #user-profiles
@@ -219,12 +170,6 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [CI]: #ci
   [Dependencies]: #dependencies
   [Commands]: #commands
-  [knsupdate]: https://www.knot-dns.cz/docs/2.4/html/man_knsupdate.html
-  [kittywitch/nixexprs]: https://github.com/kittywitch/nixexprs
-  [kittywitch/nixfiles-base]: https://github.com/kittywitch/nixfiles-base
-  [exprs]: overlays/exprs
-  [kittywitch/anicca]: https://github.com/kittywitch/anicca
-  [arcnmx/screenstub]: https://github.com/arcnmx/screenstub
   [athame]: config/hosts/athame
   [daiyousei]: config/hosts/daiyousei
   [rinnosuke]: config/hosts/rinnosuke
@@ -240,6 +185,7 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [shared]: config/profiles/shared.nix
   [vfio]: config/profiles/vfio
   [arcnmx/nixexprs]: https://github.com/arcnmx/nixexprs
+  [arcnmx/screenstub]: https://github.com/arcnmx/screenstub
   [hardware]: config/profiles/hardware
   [cross]: config/profiles/cross
   [3]: config/users/kat/base
@@ -283,8 +229,11 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [xmpp]: config/services/xmpp/default.nix
   [zfs]: config/services/zfs/default.nix
   [znc]: config/services/znc/default.nix
+  [kittywitch/nixexprs]: https://github.com/kittywitch/nixexprs
+  [exprs]: overlays/exprs
   [arcnmx/tf-nix]: https://github.com/arcnmx/tf-nix
   [nix-community/impermanence]: https://github.com/nix-community/impermanence
+  [kittywitch/anicca]: https://github.com/kittywitch/anicca
   [arcnmx/ci]: https://github.com/arcnmx/ci
   [6]: ci/nodes.nix
   [niv-cron]: ci/niv-cron.nix

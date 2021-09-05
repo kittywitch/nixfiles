@@ -50,7 +50,17 @@ in
     };
     settings = mkOption {
       type = json.types.attrs;
-      default = mkIf cfg.database.enable {
+      default = {};
+    };
+  };
+  config =
+    let
+      localCheck = dbcfg.local && dbcfg.enable && dbcfg.host == "localhost";
+      postgresCheck = localCheck && dbcfg.type == "postgres";
+      mysqlCheck = localCheck && dbcfg.type == "mysql";
+    in
+    mkIf cfg.enable {
+      services.glauth.settings = mkIf cfg.database.enable {
         backend =
           let
             pluginHandlers = {
@@ -61,27 +71,20 @@ in
           in
           {
             datastore = "plugin";
-            plugin = "bin/${cfg.database.type}.so";
+            plugin = "${cfg.package}/bin/plugin_${dbcfg.type}";
             pluginhandler = pluginHandlers.${dbcfg.type};
             database = if (dbcfg.type != "sqlite") then (builtins.replaceStrings (singleton "\n") (singleton " ") ''
               host=${dbcfg.host}
-              port=${dbcfg.port}
+              port=${toString dbcfg.port}
               dbname=glauth
               username=${dbcfg.username}
               password=@db-password@
               sslmode=${if dbcfg.ssl then "enable" else "disable"}
             '') else "database = \"gl.db\"";
           };
-      };
-    };
-  };
-  config =
-    let
-      localCheck = dbcfg.local && dbcfg.enable && dbcfg.host == "localhost";
-      postgresCheck = localCheck && dbcfg.type == "postgres";
-      mysqlCheck = localCheck && dbcfg.type == "mysql";
-    in
-    mkIf cfg.enable {
+        };
+
+
     systemd.services.glauthPostgreSQLInit = lib.mkIf postgresCheck {
       after = [ "postgresql.service" ];
       before = [ "glauth.service" ];

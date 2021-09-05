@@ -1,5 +1,5 @@
 { config, tf, lib, ... }: with lib; {
-  network.firewall.public.tcp.ports = singleton 3984;
+  network.firewall.public.tcp.ports = [ 3983 3984 ];
 
   network.extraCerts.domain-auth = "auth.${config.network.dns.domain}";
   users.groups.domain-auth.members = [ "nginx" "glauth" ];
@@ -17,7 +17,7 @@
     settings = {
       syslog = true;
       ldap = {
-        enable = false;
+        enabled = true;
         listen = "0.0.0.0:3893";
       };
       ldaps = {
@@ -27,14 +27,22 @@
         key = "/var/lib/acme/domain-auth/key.pem";
       };
       backend = {
-        baseDN = "dc=kittywitch,dc=com";
+        baseDN = "dc=kittywitc,dc=ch";
       };
-      users = [{
-        name = "kat";
-        passsha256 = tf.variables.glauth-password-hash.ref;
-        uidnumber = 1000;
-        primarygroup = 1500;
-      }];
+      users = [
+        {
+          name = "kat";
+          passsha256 = tf.variables.glauth-password-hash.ref;
+          uidnumber = 1000;
+          primarygroup = 1500;
+        }
+        {
+          name = "kc";
+          passsha256 = tf.variables.glauth-kc-password-hash.ref;
+          uidnumber = 1001;
+          primarygroup = 1500;
+        }
+      ];
       groups = [{
         name = "admins";
         gidnumber = 1500;
@@ -46,7 +54,7 @@
     nameValuePair "glauth-${field}" {
       path = "services/glauth";
       inherit field;
-    }) ["password-hash" "postgres"];
+    }) ["password-hash" "kc-password-hash" "postgres"];
 
   secrets.files = {
     glauth-postgres-file = {
