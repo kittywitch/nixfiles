@@ -63,7 +63,7 @@
       group = "glauth";
     };
     glauth-config-file = {
-      text = config.services.glauth.outTOML;
+      text = toTOML config.services.glauth.settings;
       owner = "glauth";
       group = "glauth";
     };

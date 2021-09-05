@@ -9,15 +9,10 @@ in
       type = types.package;
       default = pkgs.glauth;
     };
-    outTOML = mkOption {
-      description = "The TOML produced from cfg.settings";
-      type = types.str;
-      default = toTOML cfg.settings;
-    };
     configFile = mkOption {
       description = "The config path that GLAuth uses";
       type = types.path;
-      default = pkgs.writeText "glauth-config" cfg.outTOML;
+      default = pkgs.writeText "glauth-config" toTOML cfg.settings;
     };
     database = {
       enable = mkEnableOption "use a database";
