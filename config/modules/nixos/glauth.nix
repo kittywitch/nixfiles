@@ -77,7 +77,7 @@ in
               host=${dbcfg.host}
               port=${toString dbcfg.port}
               dbname=glauth
-              username=${dbcfg.username}
+              user=${dbcfg.username}
               password=@db-password@
               sslmode=${if dbcfg.ssl then "enable" else "disable"}
             '') else "database = \"gl.db\"";

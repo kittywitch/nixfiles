@@ -59,7 +59,7 @@
   secrets.files = {
     glauth-postgres-file = {
       text = tf.variables.glauth-postgres.ref;
-      owner = "glauth";
+      owner = "postgres";
       group = "glauth";
     };
     glauth-config-file = {
