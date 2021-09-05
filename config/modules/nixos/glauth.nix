@@ -48,36 +48,34 @@ in
       default = {};
     };
   };
-  config =
-    let
-      localCheck = dbcfg.local && dbcfg.enable && dbcfg.host == "localhost";
-      postgresCheck = localCheck && dbcfg.type == "postgres";
-      mysqlCheck = localCheck && dbcfg.type == "mysql";
-    in
-    mkIf cfg.enable {
-      services.glauth.settings = mkIf cfg.database.enable {
-        backend =
-          let
-            pluginHandlers = {
-              "mysql" = "NewMySQLHandler";
-              "postgres" = "NewPostgresHandler";
-              "sqlite" = "NewSQLiteHandler";
-            };
-          in
-          {
-            datastore = "plugin";
-            plugin = "${cfg.package}/bin/${dbcfg.type}.so";
-            pluginhandler = pluginHandlers.${dbcfg.type};
-            database = if (dbcfg.type != "sqlite") then (builtins.replaceStrings (singleton "\n") (singleton " ") ''
-              host=${dbcfg.host}
-              port=${toString dbcfg.port}
-              dbname=glauth
-              user=${dbcfg.username}
-              password=@db-password@
-              sslmode=${if dbcfg.ssl then "enable" else "disable"}
-            '') else "database = \"gl.db\"";
+  config = let
+    localCheck = dbcfg.local && dbcfg.enable && dbcfg.host == "localhost";
+    postgresCheck = localCheck && dbcfg.type == "postgres";
+    mysqlCheck = localCheck && dbcfg.type == "mysql";
+  in mkIf cfg.enable {
+    services.glauth.settings = mkIf cfg.database.enable {
+      backend =
+        let
+          pluginHandlers = {
+            "mysql" = "NewMySQLHandler";
+            "postgres" = "NewPostgresHandler";
+            "sqlite" = "NewSQLiteHandler";
           };
+        in
+        {
+          datastore = "plugin";
+          plugin = "${cfg.package}/bin/${dbcfg.type}.so";
+          pluginhandler = pluginHandlers.${dbcfg.type};
+          database = if (dbcfg.type != "sqlite") then (builtins.replaceStrings (singleton "\n") (singleton " ") ''
+            host=${dbcfg.host}
+            port=${toString dbcfg.port}
+            dbname=glauth
+            user=${dbcfg.username}
+            password=@db-password@
+            sslmode=${if dbcfg.ssl then "enable" else "disable"}
+          '') else "database = \"gl.db\"";
         };
+      };
 
 
     systemd.services.glauthPostgreSQLInit = lib.mkIf postgresCheck {

@@ -20,7 +20,7 @@
       type = "resource";
       connection = {
         port = head config.services.openssh.ports;
-        host = "192.168.1.145"; #config.network.addresses.private.nixos.ipv4.address;
+        host = config.network.addresses.private.nixos.ipv4.address;
       };
     };
   };
