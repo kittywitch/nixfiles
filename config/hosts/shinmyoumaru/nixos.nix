@@ -6,6 +6,8 @@
   imports = with meta; [
     profiles.hardware.raspi
     profiles.base
+    services.dnscrypt-proxy
+    services.dht22-exporter
     ./image.nix
   ];
 
