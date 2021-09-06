@@ -10,16 +10,16 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 
 ## Nodes
 
-| Node             | Purpose                                                  |
-|------------------|----------------------------------------------------------|
-| [athame][]       | Currently the main server. Ad-hoc hetzner cloud box.     |
-| [daiyousei][]    | Intended athame replacement. Provisioned OCI Ampere box. |
-| [rinnosuke][]    | My primary nameserver. Provisioned OCI EPYC box.         |
-| [shinmyoumaru][] | My Raspberry Pi 1 Model B+. DHT22 sensors box.           |
-| [beltane][]      | Home server. NAS + HTPC, does DVB stuff.                 |
-| [samhain][]      | Beloved workstation. Does VFIO.                          |
-| [yule][]         | Main laptop.                                             |
-| [ostara][]       | CCTV netbook.                                            |
+| Node             | Network | Purpose                                                  |
+|------------------|---------|----------------------------------------------------------|
+| [athame][]       | Public  | Currently the main server. Ad-hoc hetzner cloud box.     |
+| [daiyousei][]    | Public  | Intended athame replacement. Provisioned OCI Ampere box. |
+| [rinnosuke][]    | Public  | My primary nameserver. Provisioned OCI EPYC box.         |
+| [shinmyoumaru][] | Public  | My Raspberry Pi 1 Model B+. DHT22 sensors box.           |
+| [beltane][]      | Private | Home server. NAS + HTPC, does DVB stuff.                 |
+| [samhain][]      | Private | Beloved workstation. Does VFIO.                          |
+| [yule][]         | Private | Main laptop.                                             |
+| [ostara][]       | Private | CCTV netbook.                                            |
 
 ## Profiles
 

@@ -17,6 +17,7 @@ with lib;
     services.murmur
     services.nginx
     services.postgres
+    services.prosody
     services.radicale
     services.restic
     services.roundcube
@@ -25,7 +26,6 @@ with lib;
     services.vaultwarden
     services.website
     services.weechat
-    services.xmpp
     services.znc
   ];
 
