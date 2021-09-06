@@ -37,6 +37,7 @@ with lib;
       go
       auto_away
       autosort
+      parse_relayed_msg
       colorize_nicks
       unread_buffer
       urlgrab
@@ -115,8 +116,6 @@ with lib;
             current_buffer_suffix = " [";
             title_suffix = " ]";
           };
-
-
           vimode = {
             copy_clipboard_cmd = "wl-copy";
             paste_clipboard_cmd = "wl-paste --no-newline";
@@ -155,11 +154,17 @@ with lib;
           notify_send.icon = "";
           go.short_name = true;
         };
-        perl.highmon = {
-          short_names = "on";
-          output = "buffer";
-          merge_private = "on";
-          alignment = "nchannel,nick";
+        perl = {
+          highmon = {
+            short_names = "on";
+            output = "buffer";
+            merge_private = "on";
+            alignment = "nchannel,nick";
+          };
+          parse_relayed_msg = {
+            servername = "espernet";
+            supported_bot_names = "cord";
+          };
         };
       };
       irc = {
