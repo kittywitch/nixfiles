@@ -59,6 +59,14 @@ with lib;
     efi.canTouchEfiVariables = true;
   };
 
+  # Hardware
+
+  boot.modprobe.modules = {
+    iwlwifi = {
+      options.wd_disable = 1;
+    };
+  };
+
   # Networking
 
   networking = {
