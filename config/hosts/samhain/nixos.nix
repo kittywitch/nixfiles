@@ -14,6 +14,7 @@ in
     profiles.hardware.ms-7b86
     profiles.gui
     profiles.vfio
+    profiles.network
     profiles.cross.aarch64
     profiles.cross.armv6l
     profiles.cross.armv7l

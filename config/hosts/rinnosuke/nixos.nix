@@ -1,6 +1,7 @@
 { config, tf, meta, kw, pkgs, lib, sources, ... }: with lib; {
   imports = with meta; [
     profiles.hardware.oracle.ubuntu
+    profiles.network
     services.knot
     services.nginx
   ];
@@ -16,6 +17,13 @@
     network = {
       publicV6 = 7;
       privateV4 = 3;
+    };
+  };
+
+  network = {
+    yggdrasil = {
+      enable = true;
+      pubkey = "d3db7b089f3cb2d33e18c77b8f9a5a08185798143822b219dbc938aa37d29310";
     };
   };
 

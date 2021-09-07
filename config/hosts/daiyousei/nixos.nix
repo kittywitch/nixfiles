@@ -2,6 +2,7 @@
   imports = with meta; [
     profiles.hardware.aarch64
     profiles.hardware.oracle.ubuntu
+    profiles.network
     services.nginx
     services.keycloak
     services.glauth
@@ -18,6 +19,13 @@
     network = {
       publicV6 = 6;
       privateV4 = 5;
+    };
+  };
+
+  network = {
+    yggdrasil = {
+      enable = true;
+      pubkey = "89771aa2f15fce6bbc3548f95be360cf59657d299837b10adf53944b54e8f121";
     };
   };
 

@@ -8,6 +8,7 @@ with lib;
   imports = with meta; [
     profiles.hardware.v330-14arr
     profiles.gui
+    profiles.network
     users.kat.guiFull
     services.nginx
     services.restic

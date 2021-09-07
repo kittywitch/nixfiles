@@ -7,6 +7,7 @@ with lib;
 
   imports = with meta; [
     profiles.hardware.hcloud-imperative
+    profiles.network
     users.kat.server
     users.kat.services.weechat
     services.filehost

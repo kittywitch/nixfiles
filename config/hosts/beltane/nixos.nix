@@ -112,6 +112,10 @@ with lib;
         };
       };
     };
+    wireguard = {
+      enable = true;
+      tf.enable = true;
+    };
     yggdrasil = {
       enable = true;
       pubkey = "d3e488574367056d3ae809b678f799c29ebfd5c7151bb1f4051775b3953e5f52";

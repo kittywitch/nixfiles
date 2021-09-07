@@ -7,6 +7,7 @@ with lib;
 
   imports = with meta; [
     profiles.hardware.eeepc-1015pem
+    profiles.network
     services.kattv
   ];
 
