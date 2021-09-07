@@ -4,7 +4,7 @@
   boot.supportedFilesystems = [ "nfs" ];
 
   fileSystems."/mnt/kat-nas" = lib.mkIf (config.networking.hostName != "beltane") {
-    device = "${meta.network.nodes.beltane.network.addresses.private.domain}:/mnt/zraw/media";
+    device = "${meta.network.nodes.beltane.network.addresses.wireguard.domain}:/mnt/zraw/media";
     fsType = "nfs";
     options = [ "x-systemd.automount" "noauto" "nfsvers=4" "soft" "retrans=2" "timeo=60" ];
   };

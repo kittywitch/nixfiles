@@ -7,6 +7,7 @@ with lib;
 
   imports = with meta; [
     profiles.hardware.rm-310
+    profiles.network
     profiles.gui
     users.kat.guiFull
     services.fusionpbx
@@ -111,10 +112,6 @@ with lib;
           # TODO ipv6.address
         };
       };
-    };
-    wireguard = {
-      enable = true;
-      tf.enable = true;
     };
     yggdrasil = {
       enable = true;
