@@ -50,11 +50,12 @@
     };
   };
 
-  kw.secrets.variables = mapListToAttrs (field:
-    nameValuePair "glauth-${field}" {
-      path = "services/glauth";
-      inherit field;
-    }) ["password-hash" "kc-password-hash" "postgres"];
+  kw.secrets.variables = mapListToAttrs
+    (field:
+      nameValuePair "glauth-${field}" {
+        path = "services/glauth";
+        inherit field;
+      }) [ "password-hash" "kc-password-hash" "postgres" ];
 
   secrets.files = {
     glauth-postgres-file = {

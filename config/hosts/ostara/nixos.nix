@@ -9,6 +9,7 @@ with lib;
     profiles.hardware.eeepc-1015pem
     profiles.network
     services.kattv
+    services.dnscrypt-proxy
   ];
 
   # Terraform

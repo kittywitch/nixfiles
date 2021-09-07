@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }: with lib; let
   cfg = config.services.dht22-exporter;
-in {
+in
+{
   options.services.dht22-exporter.socat = {
     enable = mkEnableOption "socat service";
     package = mkOption {
@@ -14,23 +15,27 @@ in {
   };
   config = {
     systemd.services = mkIf cfg.socat.enable {
-      dht22-exporter-socat = let
-        scfg = cfg.socat;
-        service = singleton "dht22-exporter.service";
-      in {
-        after = service;
-        bindsTo = service;
-        serviceConfig = {
-          DynamicUser = true;
+      dht22-exporter-socat =
+        let
+          scfg = cfg.socat;
+          service = singleton "dht22-exporter.service";
+        in
+        {
+          after = service;
+          bindsTo = service;
+          serviceConfig = {
+            DynamicUser = true;
+          };
+          script =
+            let
+              port = toString (if cfg.port == null then 8001 else cfg.port);
+              addresser = addr: "${scfg.package}/bin/socat TCP6-LISTEN:${port},bind=${addr},fork TCP4:localhost:${port}";
+              lines = map addresser scfg.addresses;
+            in
+            ''
+              ${concatStringsSep "\n" lines}
+            '';
         };
-        script = let
-          port = toString (if cfg.port == null then 8001 else cfg.port);
-          addresser = addr: "${scfg.package}/bin/socat TCP6-LISTEN:${port},bind=${addr},fork TCP4:localhost:${port}";
-          lines = map addresser scfg.addresses;
-        in ''
-          ${concatStringsSep "\n" lines}
-        '';
-      };
     };
 
     users.users.dht22-exporter = {

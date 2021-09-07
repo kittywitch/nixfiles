@@ -14,7 +14,7 @@ in
     magicNumber = mkOption { type = types.ints.u8; };
     prefixV4 = mkOption {
       type = types.str;
-      default = "172.23.1";
+      default = "10.42.69";
     };
     prefixV6 = mkOption {
       type = types.str;
