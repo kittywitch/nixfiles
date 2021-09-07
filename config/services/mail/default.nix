@@ -4,7 +4,7 @@ with lib;
 
 let
   domains = [ "kittywitch" "dork" ];
-  users = [ "gitea" "kat" "keycloak" ];
+  users = [ "gitea" "kat" "keycloak" "vaultwarden" ];
 in
 {
   imports = [ sources.nixos-mailserver.outPath ];

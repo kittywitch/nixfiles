@@ -73,7 +73,6 @@ with lib;
     device = "/dev/sda";
   };
 
-
   # Networking
 
   networking = {
