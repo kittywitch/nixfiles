@@ -31,7 +31,7 @@ let
   eval = lib.evalModules {
     modules = lib.singleton metaBase
       ++ lib.singleton xarg.modules.meta
-      ++ lib.attrValues (removeAttrs xarg.targets [ "common" ])
+      ++ lib.attrValues xarg.targets
       ++ (map
       (host: {
         network.nodes.${host} = {

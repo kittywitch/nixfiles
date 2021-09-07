@@ -41,14 +41,6 @@ in {
       pubkey = let
         pubKeyRes = tf.resources."${config.networking.hostName}-wgmesh-public-key";
       in mkIf (tf.state.resources ? ${pubKeyRes.out.reference}) (removeSuffix "\n" (pubKeyRes.importAttr "content"));
-      publicAddress4 = mkDefault (if config.network.addresses.public.nixos.ipv4.enable then
-        config.network.addresses.public.nixos.ipv4.address
-        else if config.network.addresses.private.nixos.ipv4.enable then
-        config.network.addresses.private.nixos.ipv4.address else null);
-      publicAddress6 = mkDefault (if config.network.addresses.public.nixos.ipv6.enable then
-        config.network.addresses.public.nixos.ipv6.address
-        else if config.network.addresses.private.nixos.ipv6.enable then
-        config.network.addresses.private.nixos.ipv6.address else null);
     };
   };
 }

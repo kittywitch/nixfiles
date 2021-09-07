@@ -29,7 +29,7 @@ in
   };
   options.deploy.tf = mkOption {
     type = types.submodule {
-      freeformType = types.attrsOf unmergedValues;
+      inherit (unmerged) freeformType;
 
       options = {
         import = mkOption {

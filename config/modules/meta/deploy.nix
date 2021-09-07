@@ -23,6 +23,7 @@ let
       tfModule
       "${toString sources.tf-nix}/modules"
     ];
+    shorthandOnlyDefinesConfig = true;
   };
 in
 {
@@ -68,10 +69,14 @@ in
               };
             };
             config.tf = mkMerge (singleton
-              {
+              ({ ... }: {
                 imports = [
-                  ../../targets/common.nix
+                  ../../tf-common.nix
                 ];
+                deploy.gcroot = {
+                  name = mkDefault "kw-${config.name}";
+                  user = mkIf (builtins.getEnv "HOME_USER" != "") (mkDefault (builtins.getEnv "HOME_USER"));
+                };
                 deps = {
                   select.allProviders = true;
                   enable = true;
@@ -97,7 +102,7 @@ in
                   };
                 };
                 continue.envVar = "TF_NIX_CONTINUE_${replaceStrings [ "-" ] [ "_" ] config.name}";
-              } ++ map (nodeName: mapAttrs (_: mkMerge) meta.network.nodes.${nodeName}.deploy.tf.out.set) config.nodeNames);
+              }) ++ map (nodeName: mapAttrs (_: mkMerge) meta.network.nodes.${nodeName}.deploy.tf.out.set) config.nodeNames);
           });
         in
         mkOption {

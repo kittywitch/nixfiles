@@ -1,6 +1,8 @@
 { config, lib, ... }: with lib;
 
 {
+  deploy.gcroot.enable = true;
+
   variables.katdns-address = {
     value.shellCommand = "bitw get secrets/katdns -f address";
     type = "string";
