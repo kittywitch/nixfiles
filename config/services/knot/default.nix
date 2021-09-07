@@ -1,6 +1,8 @@
 { config, lib, tf, pkgs, ... }:
 
 {
+  network.dns.enable = false;
+
   kw.secrets.variables = {
     katdns-key-config = {
       path = "secrets/katdns";
