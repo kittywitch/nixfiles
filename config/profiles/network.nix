@@ -14,6 +14,8 @@
       meta l4proto 89 iifname wgmesh-* accept
     '';
 
+    network.firewall.private.interfaces = singleton "wgmesh-*";
+
     networking.policyrouting = {
       enable = true;
       rules = [
