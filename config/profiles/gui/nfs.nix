@@ -3,11 +3,13 @@
 {
   boot.supportedFilesystems = [ "nfs" ];
 
-  fileSystems."/mnt/kat-nas" = lib.mkIf (config.networking.hostName != "beltane") {
-    device = "${meta.network.nodes.beltane.network.addresses.wireguard.domain}:/mnt/zraw/media";
+  /*
+  fileSystems."/mnt/kat-nas" = lib.mkIf (config.networking.hostName != "yukari") {
+    device = "${meta.network.nodes.yukari.network.addresses.wireguard.domain}:/mnt/zraw/media";
     fsType = "nfs";
     options = [ "x-systemd.automount" "noauto" "nfsvers=4" "soft" "retrans=2" "timeo=60" ];
-  };
+    };
+    */
 
   /*
     fileSystems."/mnt/hex-corn" = {

@@ -35,7 +35,7 @@ let
     { element.matroskamux.streamable = true; }
     {
       element.tcpclientsink = {
-        host = meta.network.nodes.beltane.network.addresses.private.nixos.ipv4.address;
+        host = meta.network.nodes.yukari.network.addresses.private.nixos.ipv4.address;
         port = "4953";
         sync = false;
       };

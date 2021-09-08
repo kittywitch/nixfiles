@@ -34,8 +34,8 @@
           boxes = [ "Inbox" ];
           onNotifyPost = "${pkgs.notmuch}/bin/notmuch new && ${pkgs.libnotify}/bin/notify-send 'New mail arrived'";
         };
-        imap.host = "athame.kittywit.ch";
-        smtp.host = "athame.kittywit.ch";
+        imap.host = "kyouko.kittywit.ch";
+        smtp.host = "kyouko.kittywit.ch";
         passwordCommand = "bitw get services/email/kittywitch -f password";
         gpg = {
           signByDefault = true;

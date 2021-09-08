@@ -71,7 +71,7 @@ in
             config.tf = mkMerge (singleton
               ({ ... }: {
                 imports = [
-                  ../../tf-common.nix
+                  ../../tf.nix
                 ];
                 deploy.gcroot = {
                   name = mkDefault "kw-${config.name}";

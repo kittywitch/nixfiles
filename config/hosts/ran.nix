@@ -15,7 +15,7 @@ with lib;
   # Terraform
 
   deploy.tf = {
-    resources.ostara = {
+    resources.ran = {
       provider = "null";
       type = "resource";
       connection = {

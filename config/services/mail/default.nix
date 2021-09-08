@@ -71,8 +71,8 @@ in
     fqdn = config.network.addresses.public.domain;
     domains = [ "kittywit.ch" "dork.dev" ];
     certificateScheme = 1;
-    certificateFile = "/var/lib/acme/${config.mailserver.fqdn}/cert.pem";
-    keyFile = "/var/lib/acme/${config.mailserver.fqdn}/key.pem";
+    certificateFile = "/var/lib/acme/public_${config.networking.hostName}/cert.pem";
+    keyFile = "/var/lib/acme/public_${config.networking.hostName}/key.pem";
     enableImap = true;
     enablePop3 = true;
     enableImapSsl = true;

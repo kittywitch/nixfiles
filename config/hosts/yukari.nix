@@ -1,10 +1,4 @@
-{ meta, tf, config, pkgs, lib, ... }:
-
-with lib;
-
-{
-  # Imports
-
+{ meta, tf, config, pkgs, lib, ... }: with lib; {
   imports = with meta; [
     profiles.hardware.rm-310
     profiles.network
@@ -21,10 +15,8 @@ with lib;
     services.zfs
   ];
 
-  # Terraform
-
   deploy.tf = {
-    resources.beltane = {
+    resources.yukari = {
       provider = "null";
       type = "resource";
       connection = {
@@ -33,8 +25,6 @@ with lib;
       };
     };
   };
-
-  # File Systems and Swap
 
   boot.supportedFilesystems = singleton "zfs";
 
@@ -74,8 +64,6 @@ with lib;
     { device = "/dev/disk/by-uuid/1ee2d322-235c-41de-b272-7ceded4e2624"; }
   ];
 
-  # Bootloader
-
   boot.loader = {
     efi.canTouchEfiVariables = true;
     grub = {
@@ -91,7 +79,10 @@ with lib;
     };
   };
 
-  # Networking
+  hardware.displays."VGA-1" = {
+    res = "1280x1024@75Hz";
+    pos = "1920 0";
+  };
 
   networking = {
     hostId = "3ef9a419";
@@ -119,19 +110,11 @@ with lib;
       listen.enable = false;
       listen.endpoints = [ "tcp://0.0.0.0:0" ];
     };
+    firewall = {
+      private.interfaces = singleton "yggdrasil";
+      public.interfaces = singleton "eno1";
+    };
   };
-
-  # Firewall
-
-  network.firewall = {
-    private.interfaces = singleton "yggdrasil";
-    public.interfaces = singleton "eno1";
-  };
-
-  # Yggdrasil
-
-
-  # State
 
   system.stateVersion = "21.05";
 

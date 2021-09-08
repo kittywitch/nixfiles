@@ -45,7 +45,7 @@
       mailer = {
         ENABLED = true;
         SUBJECT = "%(APP_NAME)s";
-        HOST = "athame.kittywit.ch:465";
+        HOST = "kyouko.kittywit.ch:465";
         USER = "gitea@kittywit.ch";
         #SEND_AS_PLAIN_TEXT = true;
         USE_SENDMAIL = false;

@@ -46,7 +46,7 @@ with lib;
   # Terraform
 
   deploy.tf = {
-    resources.athame = {
+    resources.kyouko = {
       provider = "null";
       type = "resource";
       connection = {

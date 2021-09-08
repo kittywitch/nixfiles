@@ -1,20 +1,14 @@
-{ config, meta, pkgs, lib, ... }: with lib;
-
-{
-  # Imports
-
+{ config, meta, pkgs, lib, modulesPath, ... }: with lib; {
   imports = with meta; [
     profiles.hardware.raspi
     profiles.network
     services.dnscrypt-proxy
     services.dht22-exporter
-    ./image.nix
+    (modulesPath + "/installer/sd-card/sd-image-raspberrypi.nix")
   ];
 
   home-manager.users.kat.programs.neovim.enable = mkForce false;
   programs.mosh.enable = mkForce false;
-
-  # Terraform
 
   deploy.tf = {
     resources.shinmyoumaru = {
@@ -26,8 +20,6 @@
       };
     };
   };
-
-  # Networking
 
   networking = {
     useDHCP = true;
@@ -54,16 +46,11 @@
       listen.enable = false;
       listen.endpoints = [ "tcp://0.0.0.0:0" ];
     };
+    firewall = {
+      private.interfaces = singleton "yggdrasil";
+      public.interfaces = singleton "eth0";
+    };
   };
-
-  # Firewall
-
-  network.firewall = {
-    private.interfaces = singleton "yggdrasil";
-    public.interfaces = singleton "eth0";
-  };
-
-  # State
 
   system.stateVersion = "21.11";
 }

@@ -25,71 +25,75 @@ in
       description = "Open Firewall completely for the network";
       default = false;
     };
-    listen.enable = mkOption {
-      type = types.bool;
-      description = "Allow other hosts in the network to connect directly";
-      default = false;
+    listen = {
+      enable = mkOption {
+        type = types.bool;
+        description = "Allow other hosts in the network to connect directly";
+        default = false;
+      };
+      endpoints = mkOption {
+        type = types.listOf types.str;
+        description = "Endpoints to listen on";
+        default = [ ];
+      };
     };
-    listen.endpoints = mkOption {
-      type = types.listOf types.str;
-      description = "Endpoints to listen on";
-      default = [ ];
+    tunnel = {
+      localV6 = mkOption {
+        type = types.listOf types.str;
+        description = "v6 subnets to expose";
+        default = [ ];
+      };
+      localV4 = mkOption {
+        type = types.listOf types.str;
+        description = "v4 subnets to expose";
+        default = [ ];
+      };
+      remoteV6 = mkOption {
+        type = types.attrsOf types.str;
+        description = "Extra v6 subnets to route";
+        default = { };
+      };
+      remoteV4 = mkOption {
+        type = types.attrsOf types.str;
+        description = "Extra v4 subnets to route";
+        default = { };
+      };
     };
-    dns.enable = mkOption {
-      type = types.bool;
-      description = "enable automatic dns record generation";
-      default = false;
+    extra = {
+      pubkeys = mkOption {
+        type = types.attrsOf types.str;
+        description = "Additional hosts to allow into the network. Keys won't be added to definition host.";
+        default = { };
+        example = { host = "0000000000000000000000000000000000000000000000000000000000000000"; };
+      };
+      addresses = mkOption {
+        type = types.attrsOf types.str;
+        internal = true;
+        default = mapAttrs (_: c: calcAddr c) cfg.extra.pubkeys;
+      };
+      localV6 = mkOption {
+        type = types.listOf types.str;
+        description = "v6 subnets to expose, but not route";
+        default = [ ];
+      };
+      localV4 = mkOption {
+        type = types.listOf types.str;
+        description = "v4 subnets to expose, but not route";
+        default = [ ];
+      };
     };
-    dns.zone = mkOption {
-      type = types.str;
-      description = "Main zone to insert DNS records into";
-      default = "lilwit.ch";
-    };
-    dns.subdomain = mkOption {
-      type = types.str;
-      description = "subdomain to put the records into";
-      default = "net";
-    };
-    tunnel.localV6 = mkOption {
-      type = types.listOf types.str;
-      description = "v6 subnets to expose";
-      default = [ ];
-    };
-    tunnel.localV4 = mkOption {
-      type = types.listOf types.str;
-      description = "v4 subnets to expose";
-      default = [ ];
-    };
-    tunnel.remoteV6 = mkOption {
-      type = types.attrsOf types.str;
-      description = "Extra v6 subnets to route";
-      default = { };
-    };
-    tunnel.remoteV4 = mkOption {
-      type = types.attrsOf types.str;
-      description = "Extra v4 subnets to route";
-      default = { };
-    };
-    extra.pubkeys = mkOption {
-      type = types.attrsOf types.str;
-      description = "Additional hosts to allow into the network. Keys won't be added to definition host.";
-      default = { };
-      example = { host = "0000000000000000000000000000000000000000000000000000000000000000"; };
-    };
-    extra.addresses = mkOption {
-      type = types.attrsOf types.str;
-      internal = true;
-      default = mapAttrs (_: c: calcAddr c) cfg.extra.pubkeys;
-    };
-    extra.localV6 = mkOption {
-      type = types.listOf types.str;
-      description = "v6 subnets to expose, but not route";
-      default = [ ];
-    };
-    extra.localV4 = mkOption {
-      type = types.listOf types.str;
-      description = "v4 subnets to expose, but not route";
-      default = [ ];
+    extern = {
+      pubkeys = mkOption {
+        type = types.attrsOf types.str;
+        description = "Additional hosts to allow into the network. Keys won't be added to definition host.";
+        default = { };
+        example = { host = "0000000000000000000000000000000000000000000000000000000000000000"; };
+      };
+      endpoints = mkOption {
+        type = types.listOf types.str;
+        description = "Endpoints to listen on";
+        default = [ ];
+      };
     };
   };
 
@@ -102,7 +106,7 @@ in
         (
           mapAttrsToList (_: node: node.network.yggdrasil or { enable = false; pubkey = null; }) meta.network.nodes
         );
-      pubkeys = flatten (map (c: [ c.pubkey ] ++ (attrValues c.extra.pubkeys)) yggConfigs);
+      pubkeys = flatten ((filter (n: n != "0000000000000000000000000000000000000000000000000000000000000000") (attrValues cfg.extern.pubkeys)) ++ (map (c: [ c.pubkey ] ++ (attrValues c.extra.pubkeys)) yggConfigs));
     in
     {
       assertions = [
@@ -121,7 +125,7 @@ in
           AllowedEncryptionPublicKeys = pubkeys;
           IfName = "yggdrasil";
           Listen = cfg.listen.endpoints;
-          Peers = lib.flatten (map (c: c.listen.endpoints) (filter (c: c.listen.enable) yggConfigs));
+          Peers = lib.flatten (cfg.extern.endpoints ++ (map (c: c.listen.endpoints) (filter (c: c.listen.enable) yggConfigs)));
           SessionFirewall = {
             Enable = true;
             AllowFromRemote = false;

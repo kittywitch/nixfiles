@@ -12,14 +12,14 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 
 | Node             | Network | Purpose                                                  |
 |------------------|---------|----------------------------------------------------------|
-| [athame][]       | Public  | Currently the main server. Ad-hoc hetzner cloud box.     |
-| [daiyousei][]    | Public  | Intended athame replacement. Provisioned OCI Ampere box. |
+| [kyouko][]       | Public  | Currently the main server. Ad-hoc hetzner cloud box.     |
+| [daiyousei][]    | Public  | Intended kyouko replacement. Provisioned OCI Ampere box. |
 | [rinnosuke][]    | Public  | My primary nameserver. Provisioned OCI EPYC box.         |
 | [shinmyoumaru][] | Public  | My Raspberry Pi 1 Model B+. DHT22 sensors box.           |
-| [beltane][]      | Private | Home server. NAS + HTPC, does DVB stuff.                 |
-| [samhain][]      | Private | Beloved workstation. Does VFIO.                          |
-| [yule][]         | Private | Main laptop.                                             |
-| [ostara][]       | Private | CCTV netbook.                                            |
+| [yukari][]       | Private | Home server. NAS + HTPC, does DVB stuff.                 |
+| [goliath][]       | Private | Beloved workstation. Does VFIO.                          |
+| [koishi][]       | Private | Main laptop.                                             |
+| [ran][]          | Private | CCTV netbook.                                            |
 
 ## Profiles
 
@@ -151,14 +151,14 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [1]: https://github.com/kittywitch/nixfiles/actions/workflows/nodes.yml
   [This repository on my self hosted git.]: https://git.kittywit.ch/kat/nixfiles
   [This repository on GitHub.]: https://github.com/kittywitch/nixfiles
-  [athame]: config/hosts/athame
+  [kyouko]: config/hosts/kyouko
   [daiyousei]: config/hosts/daiyousei
   [rinnosuke]: config/hosts/rinnosuke
   [shinmyoumaru]: config/hosts/shinmyoumaru
-  [beltane]: config/hosts/beltane
-  [samhain]: config/hosts/samhain
-  [yule]: config/hosts/yule
-  [ostara]: config/hosts/ostara
+  [yukari]: config/hosts/yukari
+  [goliath]: config/hosts/goliath
+  [koishi]: config/hosts/koishi
+  [ran]: config/hosts/ran
   [here]: config/profiles/base/profiles.nix
   [base]: config/profiles/base
   [gui]: config/profiles/gui

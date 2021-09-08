@@ -6,9 +6,9 @@ with lib;
   programs.weechat = {
     init = lib.mkMerge [
       (lib.mkBefore ''
-        /server add espernet athame.kittywit.ch/5001 -ssl -autoconnect
-        /server add softnet athame.kittywit.ch/5001 -ssl -autoconnect
-        /server add liberachat athame.kittywit.ch/5001 -ssl -autoconnect
+        /server add espernet kyouko.kittywit.ch/5001 -ssl -autoconnect
+        /server add softnet kyouko.kittywit.ch/5001 -ssl -autoconnect
+        /server add liberachat kyouko.kittywit.ch/5001 -ssl -autoconnect
         /matrix server add kittywitch kittywit.ch
         /key bind meta-g /go
         /key bind meta-v /input jump_last_buffer_displayed

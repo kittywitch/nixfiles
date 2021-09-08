@@ -1,17 +1,9 @@
-{ meta, tf, config, pkgs, lib, sources, ... }:
-
-with lib;
-
-let
-  hexchen = (import sources.hexchen) { };
-  hexYgg = filterAttrs (_: c: c.enable)
-    (mapAttrs (_: host: host.config.network.yggdrasil) hexchen.hosts);
-in
-{
-  # Imports
+{ meta, tf, config, pkgs, lib, sources, ... }: with lib; {
 
   imports = with meta; [
     profiles.hardware.ms-7b86
+    profiles.hardware.razer
+    profiles.hardware.bamboo
     profiles.gui
     profiles.vfio
     profiles.network
@@ -26,10 +18,8 @@ in
     services.zfs
   ];
 
-  # Terraform
-
   deploy.tf = {
-    resources.samhain = {
+    resources.goliath = {
       provider = "null";
       type = "resource";
       connection = {
@@ -38,8 +28,6 @@ in
       };
     };
   };
-
-  # File Systems and Swap
 
   boot.supportedFilesystems = [ "zfs" "xfs" ];
 
@@ -141,22 +129,34 @@ in
     { device = "/dev/disk/by-uuid/8f944315-fe1c-4095-90ce-50af03dd5e3f"; }
   ];
 
-  # Bootloader
-
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
 
-  # Hardware
-
   deploy.profile.hardware.acs-override = true;
 
   users.users.kat.extraGroups = singleton "openrazer";
 
-  hardware.openrazer = {
-    enable = true;
+  hardware = {
+    displays = {
+      "HDMI-A-1" = {
+        res = "1920x1080";
+        pos = "0 0";
+      };
+      "DVI-D-1" = {
+        res = "1920x1200";
+        pos = "1290 0";
+      };
+      "DP-1" = {
+        res = "1920x1080";
+        pos = "3840 0";
+      };
+    };
+    bamboo.display = "HDMI-A-1";
+    openrazer.enable = true;
   };
+
   environment.systemPackages = [ pkgs.razergenie ];
 
   boot.modprobe.modules = {
@@ -178,8 +178,6 @@ in
     SUBSYSTEM=="usb", ACTION=="add", ATTRS{idVendor}=="1532", ATTRS{idProduct}=="0067", GROUP="vfio"
     SUBSYSTEM=="block", ACTION=="add", ATTRS{model}=="HFS256G32TNF-N3A", ATTRS{wwid}=="t10.ATA     HFS256G32TNF-N3A0A                      MJ8BN15091150BM1Z   ", OWNER="kat"
   '';
-
-  # Networking
 
   networking = {
     hostId = "617050fc";
@@ -224,18 +222,13 @@ in
       listen.enable = false;
       listen.endpoints = [ "tcp://0.0.0.0:0" ];
     };
-  };
-
-  # Firewall
-
-  network.firewall = {
-    public.interfaces = singleton "br";
-    private = {
-      interfaces = singleton "yggdrasil";
+    firewall = {
+      public.interfaces = singleton "br";
+      private = {
+        interfaces = singleton "yggdrasil";
+      };
     };
   };
-
-  # State
 
   system.stateVersion = "20.09";
 }

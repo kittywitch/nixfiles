@@ -1,8 +1,4 @@
-{ config, pkgs, lib, ... }:
-
-with lib;
-
-let
+{ config, pkgs, lib, ... }: with lib; let
   win10-screenstub = pkgs.writeShellScriptBin "win10-screenstub" ''
     ${pkgs.screenstub-kat}/bin/screenstub -c "${./screenstub.yml}" x
   '';
@@ -11,62 +7,75 @@ let
   '';
 in
 {
-  # TODO: move to upstream screenstub with config options, move screenstub.yml into specific host
-  deploy.profile.vfio = true;
-
-  environment.systemPackages = with pkgs; [
-    win10-screenstub
-    win10-vm
-    win10-diskmapper
-    ddcutil
-  ];
-
-
-  users.users.kat.extraGroups = [ "vfio" "input" "uinput" ];
-  users.groups = { uinput = { }; vfio = { }; };
-
-  boot = lib.mkMerge [{
-    initrd.kernelModules = mkBefore [ "vfio" "vfio_iommu_type1" "vfio_pci" "vfio_virqfd" ];
-    kernelModules = [ "i2c-dev" ]; # i2c-dev is required for DDC/CI for screenstub
-    kernelPatches = with pkgs.kernelPatches; [
-      (mkIf config.deploy.profile.hardware.acs-override acs-override)
-    ];
-  }
-    (mkIf (config.deploy.profile.hardware.amdgpu) {
-      kernelParams = [
-        "video=efifb:off"
-      ];
-      extraModulePackages = [
-        (pkgs.linuxPackagesFor config.boot.kernelPackages.kernel).vendor-reset
-      ];
-    })
-    (mkIf (config.deploy.profile.hardware.acs-override) {
-      kernelParams = [
-        "pci=noats"
-        "pcie_acs_override=downstream,multifunction"
-      ];
-    })];
-
-  environment.etc."qemu/bridge.conf".text = "allow br";
-
-  security.wrappers = {
-    qemu-bridge-helper = {
-      source = "${pkgs.qemu-vfio}/libexec/qemu-bridge-helper";
-    };
+  options.home-manager.users = let
+      userVFIOExtend = { config, ... }: {
+        config = mkIf config.wayland.windowManager.sway.enable {
+          wayland.windowManager.sway.config.input = genAttrs [ "tablet" "mouse" "kbd" ] (t:
+            nameValuePair "5824:1503:screenstub-${t}" ({ events = "disabled"; })
+          );
+        };
+      };
+    in mkOption {
+    type = types.attrsOf (types.submoduleWith {
+      modules = singleton userVFIOExtend;
+    });
   };
 
-  services.udev.extraRules = ''
-    SUBSYSTEM=="i2c-dev", GROUP="vfio", MODE="0660"
-    SUBSYSTEM=="misc", KERNEL=="uinput", OPTIONS+="static_node=uinput", MODE="0660", GROUP="uinput"
-    SUBSYSTEM=="vfio", OWNER="root", GROUP="vfio"
-  '';
+  config = {
+    deploy.profile.vfio = true;
 
-  security.pam.loginLimits = [{
-    domain = "@vfio";
-    type = "-";
-    item = "memlock";
-    value = "unlimited";
-  }];
+    environment.systemPackages = with pkgs; [
+      win10-screenstub
+      win10-vm
+      win10-diskmapper
+      ddcutil
+    ];
 
-  systemd.extraConfig = "DefaultLimitMEMLOCK=infinity";
+    users.groups = { uinput = { }; vfio = { }; };
+
+    boot = lib.mkMerge [{
+      initrd.kernelModules = mkBefore [ "vfio" "vfio_iommu_type1" "vfio_pci" "vfio_virqfd" ];
+      kernelModules = [ "i2c-dev" ]; # i2c-dev is required for DDC/CI for screenstub
+      kernelPatches = with pkgs.kernelPatches; [
+        (mkIf config.deploy.profile.hardware.acs-override acs-override)
+      ];
+    }
+      (mkIf (config.deploy.profile.hardware.amdgpu) {
+        kernelParams = [
+          "video=efifb:off"
+        ];
+        extraModulePackages = [
+          (pkgs.linuxPackagesFor config.boot.kernelPackages.kernel).vendor-reset
+        ];
+      })
+      (mkIf (config.deploy.profile.hardware.acs-override) {
+        kernelParams = [
+          "pci=noats"
+          "pcie_acs_override=downstream,multifunction"
+        ];
+      })];
+
+    environment.etc."qemu/bridge.conf".text = "allow br";
+
+    security.wrappers = {
+      qemu-bridge-helper = {
+        source = "${pkgs.qemu-vfio}/libexec/qemu-bridge-helper";
+      };
+    };
+
+    services.udev.extraRules = ''
+      SUBSYSTEM=="i2c-dev", GROUP="vfio", MODE="0660"
+      SUBSYSTEM=="misc", KERNEL=="uinput", OPTIONS+="static_node=uinput", MODE="0660", GROUP="uinput"
+      SUBSYSTEM=="vfio", OWNER="root", GROUP="vfio"
+    '';
+
+    security.pam.loginLimits = [{
+      domain = "@vfio";
+      type = "-";
+      item = "memlock";
+      value = "unlimited";
+    }];
+
+    systemd.extraConfig = "DefaultLimitMEMLOCK=infinity";
+  };
 }

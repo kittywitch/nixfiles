@@ -22,6 +22,7 @@ with lib;
   config = {
     network.importing = {
       nixosImports = mkDefault (map (path: toString path) [
+        (root + "/config/hosts/HN.nix")
         (root + "/config/hosts/HN/nixos.nix")
         (root + "/config/trusted/hosts/HN/nixos.nix")
       ]);
