@@ -13,7 +13,7 @@
   };
 
   imports = with meta; [
-    profiles.laptop
+    profiles.hardware.laptop
     profiles.gui
     users.kat.guiFull
     (modulesPath + "/installer/cd-dvd/installation-cd-base.nix")
