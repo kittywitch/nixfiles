@@ -10,9 +10,9 @@ in
   options.home-manager.users = let
       userVFIOExtend = { config, ... }: {
         config = mkIf config.wayland.windowManager.sway.enable {
-          wayland.windowManager.sway.config.input = genAttrs [ "tablet" "mouse" "kbd" ] (t:
+          wayland.windowManager.sway.config.input = mapListToAttrs  (t:
             nameValuePair "5824:1503:screenstub-${t}" ({ events = "disabled"; })
-          );
+          ) [ "tablet" "mouse" "kbd" ];
         };
       };
     in mkOption {
