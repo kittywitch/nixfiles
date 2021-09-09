@@ -9,7 +9,7 @@
     ];
     shell = pkgs.zsh;
     extraGroups = [ "wheel" "video" "systemd-journal" "plugdev" "bird2" "vfio" "input" "uinput" ];
-    hashedPassword = mkIf (config.deploy.profile.trusted) removeSuffix "\n" config.kw.secrets.repo.kat-user.text;
+    hashedPassword = mkIf (config.deploy.profile.trusted) (removeSuffix "\n" config.kw.secrets.repo.kat-user.text);
   };
 
   systemd.tmpfiles.rules = [
