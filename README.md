@@ -153,14 +153,14 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [1]: https://github.com/kittywitch/nixfiles/actions/workflows/nodes.yml
   [This repository on my self hosted git.]: https://git.kittywit.ch/kat/nixfiles
   [This repository on GitHub.]: https://github.com/kittywitch/nixfiles
-  [kyouko]: config/hosts/kyouko
-  [daiyousei]: config/hosts/daiyousei
-  [rinnosuke]: config/hosts/rinnosuke
-  [shinmyoumaru]: config/hosts/shinmyoumaru
-  [yukari]: config/hosts/yukari
-  [goliath]: config/hosts/goliath
-  [koishi]: config/hosts/koishi
-  [ran]: config/hosts/ran
+  [kyouko]: config/hosts/kyouko.nix
+  [daiyousei]: config/hosts/daiyousei.nix
+  [rinnosuke]: config/hosts/rinnosuke.nix
+  [shinmyoumaru]: config/hosts/shinmyoumaru.nix
+  [yukari]: config/hosts/yukari.nix
+  [goliath]: config/hosts/goliath.nix
+  [koishi]: config/hosts/koishi.nix
+  [ran]: config/hosts/ran.nix
   [medicine]: config/hosts/medicine.nix
   [here]: config/profiles/base/profiles.nix
   [base]: config/profiles/base
