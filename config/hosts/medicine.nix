@@ -18,11 +18,14 @@
     (modulesPath + "/installer/cd-dvd/installation-cd-base.nix")
   ];
 
+
   config = {
     networking = {
       networkmanager.enable = true;
       wireless.enable = mkForce false;
     };
+
+    hardware.displays = {};
 
     system.stateVersion = "21.11";
   };
