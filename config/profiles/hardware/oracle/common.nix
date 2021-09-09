@@ -92,8 +92,7 @@ in
             in
             {
               enable = true;
-              #nixos.ipv6.address = mkIf (tf.state.resources ? ${tf.resources.${config.networking.hostName}.out.reference}) addr_ipv6_nix;
-              nixos.ipv6.address = addr_ipv6_nix;
+              nixos.ipv6.address = mkIf (tf.state.resources ? ${tf.resources.${config.networking.hostName}.out.reference}) addr_ipv6_nix;
               tf.ipv6.address = tf.resources."${config.networking.hostName}_ipv6".refAttr "ip_address";
             };
         };
