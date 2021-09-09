@@ -21,6 +21,7 @@
   config = {
     networking = {
       networkmanager.enable = true;
+      wireless.enable = mkForce false;
     };
 
     system.stateVersion = "21.11";
