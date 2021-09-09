@@ -17,7 +17,7 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 | [rinnosuke][]    | Public  | My primary nameserver. Provisioned OCI EPYC box.         |
 | [shinmyoumaru][] | Public  | My Raspberry Pi 1 Model B+. DHT22 sensors box.           |
 | [yukari][]       | Private | Home server. NAS + HTPC, does DVB stuff.                 |
-| [goliath][]       | Private | Beloved workstation. Does VFIO.                          |
+| [goliath][]      | Private | Beloved workstation. Does VFIO.                          |
 | [koishi][]       | Private | Main laptop.                                             |
 | [ran][]          | Private | CCTV netbook.                                            |
 
@@ -29,6 +29,7 @@ See [here][] for additional information on profiles.
 |--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [base][]     | Base profile, always used. Root access, base16, home-manager, locale, network module, nix, packages, {,neo}vim profiles, secrets, shell and sysctl configuration.                                 |
 | [gui][]      | GUI profile. Provides window managers, includes [DNSCrypt/dnscrypt-proxy][] service, filesystem packages, font, NixOS-side GPG, mingetty, NFS, QT, sound (pipewire) and XDG portal configuration. |
+| [network][]  | Manages Wireguard Mesh.                                                                                                                                                                           |
 | [shared][]   | Shared systems. Provides hexchen and arc users.                                                                                                                                                   |
 | [vfio][]     | Provides host-unspecific VFIO. Fancy patched QEMU from [arcnmx/nixexprs][], [arcnmx/screenstub][] (however, patched in-repo for Q35), AMDGPU vendor-reset and ACS override.                       |
 | [hardware][] | Sub-profiles for my hardware are provided here. Some are reusable. Of note is the Oracle sub-profiles.                                                                                            |
@@ -163,6 +164,7 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [base]: config/profiles/base
   [gui]: config/profiles/gui
   [DNSCrypt/dnscrypt-proxy]: https://github.com/DNSCrypt/dnscrypt-proxy
+  [network]: config/profiles/network.nix
   [shared]: config/profiles/shared.nix
   [vfio]: config/profiles/vfio
   [arcnmx/nixexprs]: https://github.com/arcnmx/nixexprs
