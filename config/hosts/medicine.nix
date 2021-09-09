@@ -20,6 +20,8 @@
 
 
   config = {
+    installer.cloneConfig = false;
+
     networking = {
       networkmanager.enable = true;
       wireless.enable = mkForce false;
