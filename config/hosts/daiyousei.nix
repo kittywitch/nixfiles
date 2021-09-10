@@ -5,7 +5,9 @@
     profiles.network
     services.nginx
     services.keycloak
+    services.roundcube
     services.openldap
+    services.mail
     services.hedgedoc
     services.dnscrypt-proxy
   ];

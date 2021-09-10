@@ -18,6 +18,9 @@ in
                 type = types.bool;
                 default = options.nixos.ipv4.address.isDefined;
               };
+              selfaddress = mkOption {
+                type = types.str;
+              };
               address = mkOption {
                 type = types.str;
               };
@@ -26,6 +29,9 @@ in
               enable = mkOption {
                 type = types.bool;
                 default = options.nixos.ipv6.address.isDefined;
+              };
+              selfaddress = mkOption {
+                type = types.str;
               };
               address = mkOption {
                 type = types.str;
@@ -145,6 +151,8 @@ in
                 ipv6.address = mkIf (cfg.tf.ipv6_attr != null) (tf.resources.${config.networking.hostName}.refAttr cfg.tf.ipv6_attr);
               };
               nixos = {
+                ipv4.selfaddress = mkIf (tf.state.enable && cfg.tf.ipv4_attr != null) (tf.resources.${config.networking.hostName}.getAttr cfg.tf.ipv4_attr);
+                ipv6.selfaddress = mkIf (tf.state.enable && cfg.tf.ipv6_attr != null) (tf.resources.${config.networking.hostName}.getAttr cfg.tf.ipv6_attr);
                 ipv4.address = mkIf (tf.state.resources ? ${tf.resources.${config.networking.hostName}.out.reference} && cfg.tf.ipv4_attr != null) (tf.resources.${config.networking.hostName}.importAttr cfg.tf.ipv4_attr);
                 ipv6.address = mkIf (tf.state.resources ? ${tf.resources.${config.networking.hostName}.out.reference} && cfg.tf.ipv6_attr != null) (tf.resources.${config.networking.hostName}.importAttr cfg.tf.ipv6_attr);
               };

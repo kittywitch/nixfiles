@@ -1,0 +1,48 @@
+dn: dc=mail,dc=kittywit,dc=ch
+objectClass: dcObject
+objectClass: organizationalUnit
+objectClass: top
+dc: mail
+ou: mail
+
+dn: cn=dovecot,dc=mail,dc=kittywit,dc=ch
+objectClass: organizationalRole
+objectClass: simpleSecurityObject
+objectClass: top
+cn: dovecot
+userPassword: {SSHA}GenerateYourOwn
+
+dn: dc=aliases,dc=mail,dc=kittywit,dc=ch
+objectClass: dcObject
+objectClass: organizationalUnit
+objectClass: top
+dc: aliases
+ou: aliases
+
+dn: dc=domains,dc=mail,dc=kittywit,dc=ch
+objectClass: dcObject
+objectClass: organizationalUnit
+objectClass: top
+dc: domains
+ou: domains
+
+dn: dc=kittywit.ch,dc=domains,dc=mail,dc=kittywit,dc=ch
+objectClass: mailDomain
+objectClass: top
+dc: kittywit.ch
+postfixTransport: kittywit.ch
+
+dn: dc=dork.dev,dc=domains,dc=mail,dc=kittywit,dc=ch
+objectClass: top
+objectClass: mailDomain
+dc: dork.dev
+postfixTransport: virtual:
+
+dn: mail=kat@kittywit.ch,dc=aliases,dc=mail,dc=kittywit,dc=ch
+objectClass: top
+objectClass: mailAlias
+mailAcceptingGeneralId: kittywit.ch
+mailAcceptingGeneralId: @kittywit.ch
+maildrop: kat@kittywit.ch
+
+

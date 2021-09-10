@@ -13,15 +13,14 @@ with lib;
     services.filehost
     services.gitea
     services.logrotate
-    services.mail
+#    services.nixos-mailserver
     services.matrix
     services.murmur
     services.nginx
     services.postgres
     services.prosody
-    services.radicale
+#    services.radicale
     services.restic
-    services.roundcube
     services.syncplay
     services.taskserver
     services.vaultwarden

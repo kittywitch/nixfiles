@@ -56,17 +56,69 @@
             olcRootDN = "cn=root,dc=kittywit,dc=ch";
             olcRootPW.path = config.secrets.files.openldap-root-password-file.path;
             olcAccess = [
-              "{0}to attrs=userPassword
+              ''{0}to attrs=userPassword
                 by anonymous auth
+                by dn.base="cn=dovecot,dc=mail,dc=kittywit,dc=ch" read
                 by self write
-                by * none"
-              "{1}to *
-                by dn.children=\"ou=users,dc=kittywit,dc=ch\" write
-                by self read by * none"
-              "{2}to dn.subtree=\"dc=kittywit,dc=ch\"
-              by dn.exact=\"cn=root,dc=kittywit,dc=ch\" manage"
+                by * none''
+                ''{1}to dn.subtree="dc=kittywit,dc=ch"
+                  by dn.exact="cn=root,dc=kittywit,dc=ch" manage
+                  by dn.base="cn=dovecot,dc=mail,dc=kittywit,dc=ch" read''
+              ''{2}to dn.subtree="ou=users,dc=kittywit,dc=ch"
+                   by dn.base="cn=dovecot,dc=mail,dc=kittywit,dc=ch" read
+                   by dn.subtree="ou=users,dc=kittywit,dc=ch" read
+                     by * none''
+              ''{3}to * by * read''
             ];
           };
+        };
+        "cn={2}postfix,cn=schema".attrs = {
+          cn = "{2}postfix";
+          objectClass = "olcSchemaConfig";
+          olcAttributeTypes = [
+            ''( 1.3.6.1.4.1.4203.666.1.200 NAME 'mailAcceptingGeneralId'
+              EQUALITY caseIgnoreIA5Match
+              SUBSTR caseIgnoreIA5SubstringsMatch
+              SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256} )''
+            ''(1.3.6.1.4.1.12461.1.1.1 NAME 'postfixTransport'
+               DESC 'A string directing postfix which transport to use'
+               EQUALITY caseExactIA5Match
+               SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{20} SINGLE-VALUE)''
+            ''(1.3.6.1.4.1.12461.1.1.5 NAME 'mailbox'
+               DESC 'The absolute path to the mailbox for a mail account in a non-default location'
+               EQUALITY caseExactIA5Match
+               SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE)''
+            ''(1.3.6.1.4.1.12461.1.1.6 NAME 'quota'
+               DESC 'A string that represents the quota on a mailbox'
+               EQUALITY caseExactIA5Match
+               SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE)''
+            ''(1.3.6.1.4.1.12461.1.1.8 NAME 'maildrop'
+               DESC 'RFC822 Mailbox - mail alias'
+               EQUALITY caseIgnoreIA5Match
+               SUBSTR caseIgnoreIA5SubstringsMatch
+               SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256})''
+          ];
+          olcObjectClasses = [
+            ''(1.3.6.1.4.1.12461.1.2.1 NAME 'mailAccount'
+               SUP top AUXILIARY
+               DESC 'Mail account objects'
+               MUST ( mail $ userPassword )
+               MAY (  cn $ description $ quota))''
+            ''(1.3.6.1.4.1.12461.1.2.2 NAME 'mailAlias'
+               SUP top STRUCTURAL
+               DESC 'Mail aliasing/forwarding entry'
+               MUST ( mail $ mailAcceptingGeneralId $ maildrop )
+               MAY ( cn $ description ))''
+            ''(1.3.6.1.4.1.12461.1.2.3 NAME 'mailDomain'
+               SUP domain STRUCTURAL
+               DESC 'Virtual Domain entry to be used with postfix transport maps'
+               MUST ( dc )
+               MAY ( postfixTransport $ description  ))''
+            ''(1.3.6.1.4.1.12461.1.2.4 NAME 'mailPostmaster'
+               SUP top AUXILIARY
+               DESC 'Added to a mailAlias to create a postmaster entry'
+               MUST roleOccupant)''
+          ];
         };
       };
     };
