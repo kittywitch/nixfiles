@@ -30,6 +30,7 @@ in {
         query_filter = (&(dc=%s)(objectClass=mailDomain))
         result_attribute = postfixTransport
         bind = yes
+        version = 3
         bind_dn = cn=dovecot,dc=mail,dc=kittywit,dc=ch
         bind_pw = ${tf.variables.postfix-ldap-password.ref}
         scope = one
@@ -44,6 +45,7 @@ in {
         search_base = ou=users,dc=kittywit,dc=ch
         query_filter = (&(objectClass=mailAccount)(mail=%s))
         result_attribute = mail
+        version = 3
         bind = yes
         bind_dn = cn=dovecot,dc=mail,dc=kittywit,dc=ch
         bind_pw = ${tf.variables.postfix-ldap-password.ref}
@@ -58,6 +60,7 @@ in {
         search_base = dc=aliases,dc=mail,dc=kittywit,dc=ch
         query_filter = (&(objectClass=mailAlias)(mail=%s))
         result_attribute = maildrop
+        version = 3
         bind = yes
         bind_dn = cn=dovecot,dc=mail,dc=kittywit,dc=ch
         bind_pw = ${tf.variables.postfix-ldap-password.ref}
