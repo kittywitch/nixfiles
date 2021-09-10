@@ -30,6 +30,7 @@ in
     extraDomainNames =
       [
         config.network.dns.domain
+        "mail.${config.network.dns.domain}"
         config.network.addresses.public.domain
         "dork.dev"
       ];

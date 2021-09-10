@@ -8,6 +8,8 @@ let
   virtualRegex = pkgs.writeText "virtual-regex" ''
     /^kat\.[^@.]+@kittywit\.ch$/ kat@kittywit.ch
     /^kat\.[^@.]+@dork\.dev$/ kat@kittywit.ch
+    /^arc\.[^@.]+@kittywit\.ch$/ arc@kittywit.ch
+    /^arc\.[^@.]+@dork\.dev$/ arc@kittywit.ch
   '';
 
   helo_access = pkgs.writeText "helo_access" ''

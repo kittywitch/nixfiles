@@ -18,7 +18,7 @@ in {
              <emailProvider id="kittywit.ch">
                <domain>kittywit.ch</domain>
                <displayName>kittywit.ch Mail</displayName>
-               <displayShortName>em0lar</displayShortName>
+               <displayShortName>kittywitch</displayShortName>
                <incomingServer type="imap">
                  <hostname>${config.network.addresses.public.domain}</hostname>
                  <port>993</port>
