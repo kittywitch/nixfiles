@@ -137,9 +137,9 @@ in
           AUTH_GENERIC_OAUTH_NAME = "Keycloak";
           AUTH_GENERIC_OAUTH_CLIENT_ID = "grafana";
           AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP = "true";
-          AUTH_GENERIC_OAUTH_AUTH_URL = "https://auth.kittywit.ch/auth/realms/kittywitch/protocol/openid-connect/auth";
-          AUTH_GENERIC_OAUTH_TOKEN_URL = "https://auth.kittywit.ch/auth/realms/kittywitch/protocol/openid-connect/token";
-          AUTH_GENERIC_OAUTH_API_URL = "https://auth.kittywit.ch/auth/realms/kittywitch/protocol/openid-connect/userinfo";
+          AUTH_GENERIC_OAUTH_AUTH_URL = "https://auth.${config.network.dns.domain}/auth/realms/kittywitch/protocol/openid-connect/auth";
+          AUTH_GENERIC_OAUTH_TOKEN_URL = "https://auth.${config.network.dns.domain}/auth/realms/kittywitch/protocol/openid-connect/token";
+          AUTH_GENERIC_OAUTH_API_URL = "https://auth.${config.network.dns.domain}/auth/realms/kittywitch/protocol/openid-connect/userinfo";
           AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH = "contains(realm_access.roles[*], 'Admin') && 'Admin' || contains(realm_access.roles[*], 'Editor') && 'Editor' || 'Admin'";
           AUTH_GENERIC_OAUTH_SCOPES = "openid profile email";
           AUTH_GENERIC_OAUTH_EMAIL_ATTRIBUTE_NAMEs = "email:primary";
