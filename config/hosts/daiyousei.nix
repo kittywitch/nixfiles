@@ -5,7 +5,8 @@
     profiles.network
     services.nginx
     services.keycloak
-    services.glauth
+    services.openldap
+    services.dnscrypt-proxy
   ];
 
   kw.oci = {

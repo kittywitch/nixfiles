@@ -137,7 +137,8 @@ in
               ipv4.address = mkIf (cfg.addresses.${network}.nixos.ipv4.enable) cfg.addresses.${network}.nixos.ipv4.address;
               ipv6.address = mkIf (cfg.addresses.${network}.nixos.ipv6.enable) cfg.addresses.${network}.nixos.ipv6.address;
             };
-          })) // {
+          })))
+          (mkIf cfg.tf.enable {
             public = {
               tf = {
                 ipv4.address = mkIf (cfg.tf.ipv4_attr != null) (tf.resources.${config.networking.hostName}.refAttr cfg.tf.ipv4_attr);

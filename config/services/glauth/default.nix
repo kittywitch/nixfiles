@@ -1,8 +1,8 @@
 { config, tf, lib, ... }: with lib; {
-  network.firewall.public.tcp.ports = [ 3984 ];
+  network.firewall.public.tcp.ports = [ 636 ];
 
   network.extraCerts.domain-auth = "auth.${config.network.dns.domain}";
-  users.groups.domain-auth.members = [ "nginx" "glauth" ];
+  users.groups.domain-auth.members = [ "nginx" "glauth" "keycloak" ];
   security.acme.certs.domain-auth.group = "domain-auth";
 
   services.glauth = {
@@ -22,7 +22,7 @@
       };
       ldaps = {
         enabled = true;
-        listen = "0.0.0.0:3894";
+        listen = "0.0.0.0:636";
         cert = "/var/lib/acme/domain-auth/fullchain.pem";
         key = "/var/lib/acme/domain-auth/key.pem";
       };
@@ -32,21 +32,32 @@
       users = [
         {
           name = "kat";
+          mail = "kat@kittywit.ch";
+          loginshell="/usr/bin/env zsh";
+          homedirectory="/home/kat";
           passsha256 = tf.variables.glauth-password-hash.ref;
           uidnumber = 1000;
           primarygroup = 1500;
+          givenname = "kat";
+          sn = "witch";
         }
         {
           name = "kc";
           passsha256 = tf.variables.glauth-kc-password-hash.ref;
-          uidnumber = 1001;
-          primarygroup = 1500;
+          uidnumber = 999;
+          primarygroup = 1499;
         }
       ];
-      groups = [{
-        name = "admins";
-        gidnumber = 1500;
-      }];
+      groups = [
+        {
+          name = "admins";
+          gidnumber = 1499;
+        }
+        {
+          name = "users";
+          gidnumber = 1500;
+        }
+      ];
     };
   };
 

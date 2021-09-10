@@ -76,7 +76,6 @@ with lib;
   network.firewall = {
     public = {
       interfaces = singleton "enp1s0";
-      tcp.ports = [ 9981 9982 ];
     };
   };
 

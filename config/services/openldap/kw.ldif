@@ -1,0 +1,5 @@
+dn: dc=kittywit, dc=ch
+dc: kittywit
+o: kittywitch
+objectclass: organization
+objectclass: dcObject

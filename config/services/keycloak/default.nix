@@ -1,6 +1,11 @@
-{ config, lib, tf, ... }: with lib; {
+{ config, pkgs, lib, tf, ... }: with lib; let
+  keystore-pass = "zZX3eS";
+in {
   services.keycloak = {
     enable = true;
+    package = (pkgs.keycloak.override {
+      jre = pkgs.openjdk11;
+    });
     bindAddress = "127.0.0.1";
     httpPort = "8089";
     httpsPort = "8445";
@@ -8,6 +13,37 @@
     forceBackendUrlToFrontendUrl = true;
     frontendUrl = "https://auth.${config.network.dns.domain}/auth";
     database.passwordFile = config.secrets.files.keycloak-postgres-file.path;
+    extraConfig = {
+    "subsystem=undertow" = {
+      "server=default-server" = {
+        "http-listener=default" = {
+          "proxy-address-forwarding" = true;
+        };
+      };
+    };
+    "subsystem=keycloak-server" = {
+        "spi=truststore" = {
+          "provider=file" = {
+            enabled = true;
+            properties.password = keystore-pass;
+            properties.file = "/var/lib/acme/domain-auth/trust-store.jks";
+            properties.hostname-verification-policy = "WILDCARD";
+            properties.disabled = false;
+          };
+        };
+      };
+    };
+  };
+
+
+  network.extraCerts.domain-auth = "auth.${config.network.dns.domain}";
+  users.groups.domain-auth.members = [ "nginx" "openldap" "keycloak" ];
+  security.acme.certs.domain-auth = {
+    group = "domain-auth";
+    postRun = ''
+      ${pkgs.adoptopenjdk-jre-bin}/bin/keytool -import -alias auth.${config.network.dns.domain} -noprompt -keystore trust-store.jks -keypass ${keystore-pass} -storepass ${keystore-pass} -file cert.pem
+      chown acme:domain-auth ./trust-store.jks
+    '';
   };
 
   users.groups.keycloak = { };
