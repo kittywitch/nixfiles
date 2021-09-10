@@ -63,7 +63,7 @@
               "{1}to *
                 by dn.children=\"ou=users,dc=kittywit,dc=ch\" write
                 by self read by * none"
-              "{2}to dn.subtree=\"dc=example,dc=com\"
+              "{2}to dn.subtree=\"dc=kittywit,dc=ch\"
               by dn.exact=\"cn=root,dc=kittywit,dc=ch\" manage"
             ];
           };
