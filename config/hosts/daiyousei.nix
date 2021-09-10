@@ -6,6 +6,7 @@
     services.nginx
     services.keycloak
     services.openldap
+    services.hedgedoc
     services.dnscrypt-proxy
   ];
 
