@@ -4,7 +4,7 @@
   kw.secrets.variables = (mapListToAttrs
     (field:
       nameValuePair "hedgedoc-${field}" {
-        path = "services/hedgedoc";
+        path = "secrets/hedgedoc";
         inherit field;
       }) [ "secret" ]);
 

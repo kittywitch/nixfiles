@@ -91,15 +91,8 @@ in
     (mkIf cfg.server.enable {
       network.firewall.private.tcp.ports = [ 9090 ];
 
-      kw.secrets.variables = {
-        grafana-admin-pass = {
-          path = "services/grafana";
-          field = "admin";
-        };
-      };
-
       secrets.files.grafana-admin-pass = {
-        text = "${tf.variables.grafana-admin-pass.ref}";
+        text = "${tf.variables.grafana-admin.ref}";
         owner = "grafana";
         group = "grafana";
       };
@@ -115,11 +108,42 @@ in
         }];
       };
 
+      kw.secrets.variables = (mapListToAttrs
+        (field:
+          nameValuePair "grafana-${field}" {
+            path = "secrets/grafana";
+            inherit field;
+          }) [ "secret" "admin" ]);
+
+      secrets.files.grafana-env = {
+        text = ''
+          GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET=${tf.variables.grafana-secret.ref}
+        '';
+        owner = "grafana";
+        group = "grafana";
+      };
+
+      systemd.services.grafana.serviceConfig = {
+        EnvironmentFile = config.secrets.files.grafana-env.path;
+      };
+
       services.grafana = {
         enable = true;
         port = 3001;
         domain = "graph.${config.network.dns.domain}";
         rootUrl = "https://graph.${config.network.dns.domain}/";
+        extraOptions = {
+          AUTH_GENERIC_OAUTH_ENABLED = "true";
+          AUTH_GENERIC_OAUTH_NAME = "Keycloak";
+          AUTH_GENERIC_OAUTH_CLIENT_ID = "grafana";
+          AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP = "true";
+          AUTH_GENERIC_OAUTH_AUTH_URL = "https://auth.kittywit.ch/auth/realms/kittywitch/protocol/openid-connect/auth";
+          AUTH_GENERIC_OAUTH_TOKEN_URL = "https://auth.kittywit.ch/auth/realms/kittywitch/protocol/openid-connect/token";
+          AUTH_GENERIC_OAUTH_API_URL = "https://auth.kittywit.ch/auth/realms/kittywitch/protocol/openid-connect/userinfo";
+          AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH = "contains(realm_access.roles[*], 'Admin') && 'Admin' || contains(realm_access.roles[*], 'Editor') && 'Editor' || 'Admin'";
+          AUTH_GENERIC_OAUTH_SCOPES = "openid profile email";
+          AUTH_GENERIC_OAUTH_EMAIL_ATTRIBUTE_NAMEs = "email:primary";
+        };
         database = {
           type = "postgres";
           host = "/run/postgresql/";
