@@ -100,9 +100,12 @@
       directories = [
         ".cache/kat/secrets"
         ".cache/rbw"
+        ".cache/nix"
         ".local/share/z"
         ".local/share/task"
+        ".local/share/nvim"
         ".local/share/dino"
+        ".local/share/vim"
         ".local/share/weechat"
         ".local/share/Mumble"
         ".local/share/direnv"
@@ -119,7 +122,6 @@
       ];
       files = [
         ".ssh/known_hosts"
-        ".zsh_history"
       ];
     };
   };
