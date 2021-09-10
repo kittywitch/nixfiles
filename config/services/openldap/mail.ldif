@@ -19,6 +19,18 @@ objectClass: top
 dc: aliases
 ou: aliases
 
+dn: mail=@kittywit.ch,dc=aliases,dc=mail,dc=eve
+objectClass: top
+objectClass: mailAlias
+mail: @kittywit.ch
+maildrop: kat@kittywit.ch
+
+dn: mail=@dork.dev,dc=aliases,dc=mail,dc=eve
+objectClass: top
+objectClass: mailAlias
+mail: @dork.dev
+maildrop: kat@kittywit.ch
+
 dn: dc=domains,dc=mail,dc=kittywit,dc=ch
 objectClass: dcObject
 objectClass: organizationalUnit
@@ -37,12 +49,3 @@ objectClass: top
 objectClass: mailDomain
 dc: dork.dev
 postfixTransport: virtual:
-
-dn: mail=kat@kittywit.ch,dc=aliases,dc=mail,dc=kittywit,dc=ch
-objectClass: top
-objectClass: mailAlias
-mailAcceptingGeneralId: kittywit.ch
-mailAcceptingGeneralId: @kittywit.ch
-maildrop: kat@kittywit.ch
-
-

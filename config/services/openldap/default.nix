@@ -107,7 +107,7 @@
             ''(1.3.6.1.4.1.12461.1.2.2 NAME 'mailAlias'
                SUP top STRUCTURAL
                DESC 'Mail aliasing/forwarding entry'
-               MUST ( mail $ mailAcceptingGeneralId $ maildrop )
+               MUST ( mail $ maildrop )
                MAY ( cn $ description ))''
             ''(1.3.6.1.4.1.12461.1.2.3 NAME 'mailDomain'
                SUP domain STRUCTURAL
