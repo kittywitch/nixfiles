@@ -99,8 +99,8 @@ in {
     mapFiles."helo_access" = helo_access;
 
     extraConfig = ''
-      smtp_bind_address = ${if tf.state.enable then tf.resources.${config.networking.hostName}.getAttr "private_ip" else config.network.addresses.public.nixos.ipv4.selfaddress}
-      smtp_bind_address6 = ${config.network.addresses.public.nixos.ipv6.selfaddress}
+      smtp_bind_address = ${if tf.state.enable then tf.resources.${config.networking.hostName}.getAttr "private_ip" else ""}
+      smtp_bind_address6 = ${if tf.state.enable then config.network.addresses.public.nixos.ipv6.selfaddress else ""}
       mailbox_transport = lmtp:unix:private/dovecot-lmtp
       masquerade_domains = ldap:${config.secrets.files.domains-ldap.path}
       virtual_mailbox_domains = ldap:${config.secrets.files.domains-ldap.path}
