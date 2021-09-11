@@ -13,8 +13,8 @@ let
   '';
 
   helo_access = pkgs.writeText "helo_access" ''
-        ${config.network.addresses.public.nixos.ipv4.selfaddress}   REJECT Get lost - you're lying about who you are
-        ${config.network.addresses.public.nixos.ipv6.selfaddress}   REJECT Get lost - you're lying about who you are
+        ${if tf.state.enable then config.network.addresses.public.nixos.ipv4.selfaddress else ""}   REJECT Get lost - you're lying about who you are
+        ${if tf.state.enable then config.network.addresses.public.nixos.ipv6.selfaddress else ""}   REJECT Get lost - you're lying about who you are
         kittywit.ch   REJECT Get lost - you're lying about who you are
         dork.dev   REJECT Get lost - you're lying about who you are
   '';
