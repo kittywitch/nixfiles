@@ -83,6 +83,7 @@ in
                 };
                 terraform = {
                   version = "1.0";
+                  prettyJson = true;
                   logPath = cfg.dataDir + "/terraform-${config.name}.log";
                   dataDir = cfg.dataDir + "/tfdata/${config.name}";
                   environment.TF_CLI_ARGS_apply = "-backup=-";
