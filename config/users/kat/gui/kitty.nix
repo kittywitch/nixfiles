@@ -9,6 +9,9 @@
     font.name = config.kw.theme.font.termName;
     settings = {
       font_size = toString config.kw.theme.font.size;
+      bold_font = "auto";
+      italic_font = "auto";
+      bold_italic_font = "auto";
       background_opacity = "0.9";
       disable_ligatures = "cursor";
     };

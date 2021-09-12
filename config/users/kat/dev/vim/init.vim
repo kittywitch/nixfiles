@@ -1,6 +1,21 @@
 lua << EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  local cmp = require'cmp'
+  cmp.setup({
+    snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+      end,
+    },
+    mapping = {
+      ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+    },
+    sources = {
+      { name = 'neorg' },
+    }
+  })
+
+require('nvim-treesitter.configs').setup {
+ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   ignore_install = { }, -- List of parsers to ignore installing
   highlight = {
     enable = true,
@@ -22,11 +37,17 @@ require'nvim-treesitter.configs'.setup {
             ["core.norg.concealer"] = {}, -- Allows for use of icons
             ["core.norg.dirman"] = { -- Manage your directories with Neorg
                 config = {
+		engine = "nvim-cmp",
                     workspaces = {
-                        my_workspace = "~/neorg"
+                        home = "~/neorg"
                     }
                 }
             }
         },
     }
 EOF
+
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>

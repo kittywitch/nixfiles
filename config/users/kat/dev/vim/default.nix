@@ -39,8 +39,14 @@ in
     '';
     plugins = with pkgs.vimPlugins; [
       neorg
+      nvim-cmp
+      plenary-nvim
       nvim-base16
-      nvim-treesitter
+      nvim-web-devicons
+      telescope-nvim
+      (nvim-treesitter.withPlugins (
+        plugins: with plugins; pkgs.tree-sitter.allGrammars
+      ))
       nvim-ts-rainbow
       coc-yaml
       coc-git

@@ -16,10 +16,12 @@ let
   };
 in
 {
-  home.packages = [ doom-emacs pkgs.sqlite ];
+  config = mkIf ((builtins.getEnv "CI_ENV") != "") {
+    home.packages = [ doom-emacs pkgs.sqlite ];
 
-  home.file.".emacs.d/init.el".text = ''
-    (load "default.el")
-    (load-theme 'base16-${lib.elemAt (lib.splitString "." config.base16.alias.default) 1} t)
-  '';
+    home.file.".emacs.d/init.el".text = ''
+      (load "default.el")
+      (load-theme 'base16-${lib.elemAt (lib.splitString "." config.base16.alias.default) 1} t)
+    '';
+  };
 }

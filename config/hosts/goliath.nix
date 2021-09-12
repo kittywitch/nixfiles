@@ -114,6 +114,7 @@
         ".config/hedgedoc"
         ".gnupg"
         ".mozilla"
+        "neorg"
         "docs"
         "media"
         "mail"

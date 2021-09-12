@@ -16,7 +16,7 @@
   };
 
   fonts.fonts = with pkgs; [
-    fira-code
+    iosevka
     font-awesome
     cozette
     twitter-color-emoji

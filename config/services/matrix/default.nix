@@ -53,30 +53,28 @@ with lib;
     max_upload_size = "512M";
     logConfig = ''
       version: 1
-
-      # In systemd's journal, loglevel is implicitly stored, so let's omit it
-      # from the message text.
       formatters:
-          journal_fmt:
-              format: '%(name)s: [%(request)s] %(message)s'
-
+        precise:
+          format: '%(asctime)s - %(name)s - %(lineno)d - %(levelname)s - %(request)s - %(message)s'
       filters:
-          context:
-              (): synapse.util.logcontext.LoggingContextFilter
-              request: ""
-
+        context:
+          (): synapse.util.logcontext.LoggingContextFilter
+          request: ""
       handlers:
-          journal:
-              class: systemd.journal.JournalHandler
-              formatter: journal_fmt
-              filters: [context]
-              SYSLOG_IDENTIFIER: synapse
-
-      root:
+        console:
+          class: logging.StreamHandler
+          formatter: precise
+          filters: [context]
+      loggers:
+        synapse:
           level: WARNING
-          handlers: [journal]
-
-      disable_existing_loggers: False
+        synapse.storage.SQL:
+          # beware: increasing this to DEBUG will make synapse log sensitive
+          # information such as access tokens.
+          level: WARNING
+      root:
+        level: WARNING
+        handlers: [console]
     '';
     server_name = config.network.dns.domain;
     app_service_config_files = [
