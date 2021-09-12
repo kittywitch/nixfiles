@@ -1,4 +1,4 @@
-{ config, lib, pkgs, sources, ... }:
+{ config, lib, pkgs, sources, ... }: with lib;
 
 let
   doom-emacs = pkgs.callPackage sources.nix-doom-emacs {
@@ -15,13 +15,11 @@ let
     };
   };
 in
-{
-  config = mkIf ((builtins.getEnv "CI_ENV") != "") {
+optionalAttrs ((builtins.getEnv "CI_ENV") != "") {
     home.packages = [ doom-emacs pkgs.sqlite ];
 
     home.file.".emacs.d/init.el".text = ''
       (load "default.el")
-      (load-theme 'base16-${lib.elemAt (lib.splitString "." config.base16.alias.default) 1} t)
+      (load-theme 'base16-${elemAt (splitString "." config.base16.alias.default) 1} t)
     '';
-  };
 }
