@@ -10,6 +10,8 @@
   home-manager.users.kat.programs.neovim.enable = mkForce false;
   programs.mosh.enable = mkForce false;
 
+  boot.supportedFilesystems = mkForce (singleton "ext4");
+
   deploy.tf = {
     resources.shinmyoumaru = {
       provider = "null";
