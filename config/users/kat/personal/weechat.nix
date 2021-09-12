@@ -37,21 +37,21 @@
       irc = {
         server = {
           softnet = {
-            address = "kyouko.kittywit.ch/5001";
+            addresses = "kyouko.kittywit.ch/5001";
             password = "kat@${nixos.networking.hostName}/softnet:\${sec.data.znc}";
             ssl = true;
             ssl_verify = false;
             autoconnect = true;
           };
           liberachat = {
-            address = "kyouko.kittywit.ch/5001";
+            addresses = "kyouko.kittywit.ch/5001";
             password = "kat@${nixos.networking.hostName}/liberachat:\${sec.data.znc}";
             ssl = true;
             ssl_verify = false;
             autoconnect = true;
           };
           espernet = {
-            address = "kyouko.kittywit.ch/5001";
+            addresses = "kyouko.kittywit.ch/5001";
             password = "kat@${nixos.networking.hostName}/espernet:\${sec.data.znc}";
             ssl = true;
             ssl_verify = false;

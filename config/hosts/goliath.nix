@@ -90,10 +90,10 @@
     ];
   };
 
+  secrets.persistentRoot = mkForce "/persist/root/var/lib/kat/secrets";
+
   home-manager.users.kat = {
-    secrets = {
-      persistentRoot = mkForce "/persist/home/.cache/kat/secrets";
-    };
+    secrets.persistentRoot = mkForce "/persist/home/.cache/kat/secrets";
 
     home.persistence."/persist/home" = {
       allowOther = true;
@@ -102,16 +102,16 @@
         ".cache/rbw"
         ".cache/nix"
         ".local/share/z"
-        ".local/share/task"
-        ".local/share/nvim"
-        ".local/share/dino"
         ".local/share/vim"
+        ".local/share/nvim"
+        ".local/share/task"
+        ".local/share/dino"
         ".local/share/weechat"
         ".local/share/Mumble"
         ".local/share/direnv"
         ".config/Mumble"
         ".config/Element"
-        ".password-store"
+        ".config/hedgedoc"
         ".gnupg"
         ".mozilla"
         "docs"
@@ -122,6 +122,7 @@
       ];
       files = [
         ".ssh/known_hosts"
+	".zsh_history"
       ];
     };
   };
@@ -184,11 +185,18 @@
   networking = {
     hostId = "617050fc";
     useDHCP = false;
-    useNetworkd = true;
+    /*useNetworkd = true;*/
+      interfaces = {
+        enp34s0.ipv4.addresses = singleton {
+          inherit (config.network.addresses.private.nixos.ipv4) address;
+          prefixLength = 24;
+        };
+      };
+      defaultGateway = config.network.privateGateway;
     firewall.allowPing = true;
   };
 
-  systemd.network = {
+  /*systemd.network = {
     networks.enp34s0 = {
       matchConfig.Name = "enp34s0";
       bridge = singleton "br";
@@ -205,7 +213,7 @@
         MACAddress = "00:d8:61:c7:f4:9d";
       };
     };
-  };
+  };*/
 
   services.avahi.enable = true;
 
@@ -225,13 +233,13 @@
       listen.endpoints = [ "tcp://0.0.0.0:0" ];
     };
     firewall = {
-      public.interfaces = singleton "br";
+      public.interfaces = [ "br" "enp34s0" ];
       private = {
         interfaces = singleton "yggdrasil";
       };
     };
   };
 
-  system.stateVersion = "20.09";
+  system.stateVersion = "21.11";
 }
 

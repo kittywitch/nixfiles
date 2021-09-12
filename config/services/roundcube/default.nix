@@ -2,6 +2,12 @@
   services.roundcube = {
     enable = true;
     hostName = "mail.${config.network.dns.domain}";
+    extraConfig = ''
+      $config['default_host'] = "ssl://${config.network.addresses.public.domain}";
+      $config['smtp_server'] = "ssl://${config.network.addresses.public.domain}";
+      $config['smtp_port'] = "465";
+      $config['product_name'] = "kittywitch mail";
+    '';
   };
 
   services.nginx.virtualHosts."mail.${config.network.dns.domain}" = {
