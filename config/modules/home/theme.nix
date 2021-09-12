@@ -38,11 +38,11 @@ let cfg = config.kw.theme; in
     font = {
       name = mkOption {
         type = types.str;
-        default = "Iosevka";
+        default = "Iosevka SS10";
       };
       termName = mkOption {
         type = types.str;
-        default = "Iosevka Term";
+        default = "Iosevka Term SS10";
       };
       size = mkOption {
         type = types.float;
