@@ -9,8 +9,8 @@ with lib;
     mode = "shuffle";
     commonTags = [ "width:>=1600" ];
     tagList = map (toList) [
-      "score:>=50"
-      "touhou"
+      ["score:>=50"
+      "touhou"]
     ];
   };
 }
