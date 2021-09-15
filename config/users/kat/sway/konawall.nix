@@ -10,6 +10,7 @@ with lib;
     commonTags = [ "width:>=1600" ];
     tagList = map (toList) [
       "score:>=50"
+      "touhou"
     ];
   };
 }
