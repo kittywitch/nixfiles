@@ -47,10 +47,9 @@ in {
   };
 
   users.groups.keycloak = { };
-  users.users.postgres.extraGroups = singleton "keycloak";
   users.users.keycloak = {
     isSystemUser = true;
-    extraGroups = singleton "keycloak";
+    group = "keycloak";
   };
 
   kw.secrets.variables.keycloak-postgres = {

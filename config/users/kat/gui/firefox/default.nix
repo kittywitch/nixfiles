@@ -37,6 +37,7 @@ in
       floccus
       link-cleaner
       betterttv
+      a11ycss
       canvasblocker
       view-image
       pkgs.nur.repos.crazazy.firefox-addons.new-tab-override

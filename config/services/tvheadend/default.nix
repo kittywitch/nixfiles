@@ -4,6 +4,8 @@
   hardware.firmware = [ pkgs.libreelec-dvb-firmware ];
   services.tvheadend.enable = true;
   systemd.services.tvheadend.enable = lib.mkForce false;
+  users.users.tvheadend.group = "tvheadend";
+  users.groups.tvheadend = {};
 
   network.firewall.public = {
     tcp.ports = [ 9981 9982 ];

@@ -15,7 +15,7 @@ with lib;
           field = fieldAdapt field;
         }) [ "pass" "salt" ];
 
-  users.users.syncplay = { isSystemUser = true; };
+  users.users.syncplay = { isSystemUser = true; group = "sync-cert"; };
 
   users.groups."sync-cert".members = [ "nginx" "syncplay" ];
   security.acme = {

@@ -40,6 +40,7 @@ in
 
     users.users.dht22-exporter = {
       isSystemUser = true;
+      group = "gpio";
     };
 
     services.dht22-exporter = {

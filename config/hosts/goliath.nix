@@ -161,7 +161,9 @@
     openrazer.enable = true;
   };
 
-  environment.systemPackages = [ pkgs.razergenie ];
+  environment.systemPackages = [
+    pkgs.razergenie
+  ];
 
   boot.modprobe.modules = {
     vfio-pci =

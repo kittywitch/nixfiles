@@ -19,6 +19,7 @@
     nyxt
     baresip
     yubikey-manager
+    jmtpfs
     cryptsetup
   ];
 }
