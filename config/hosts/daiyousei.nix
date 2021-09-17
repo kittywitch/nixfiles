@@ -5,6 +5,8 @@
     profiles.network
     services.nginx
     services.keycloak
+    services.vikunja
+    services.tt-rss
     services.roundcube
     services.openldap
     services.mail

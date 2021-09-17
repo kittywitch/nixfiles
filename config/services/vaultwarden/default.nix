@@ -10,7 +10,7 @@
   secrets.files.vaultwarden-env = {
     text = ''
       ADMIN_TOKEN=${tf.variables.vaultwarden-password.ref}
-      SMTP_HOST=kyouko.kittywit.ch
+      SMTP_HOST=daiyousei.kittywit.ch
       SMTP_FROM=vaultwarden@kittywit.ch
       SMTP_FROM_NAME=Vaultwarden
       SMTP_PORT=465

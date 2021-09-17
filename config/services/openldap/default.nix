@@ -68,7 +68,11 @@
                    by dn.base="cn=dovecot,dc=mail,dc=kittywit,dc=ch" read
                    by dn.subtree="ou=users,dc=kittywit,dc=ch" read
                      by * none''
-              ''{3}to * by * read''
+              ''{3}to dn.subtree="ou=services,dc=kittywit,dc=ch"
+                   by dn.base="cn=dovecot,dc=mail,dc=kittywit,dc=ch" read
+                   by dn.subtree="ou=services,dc=kittywit,dc=ch" read
+                     by * none''
+              ''{4}to * by * read''
             ];
           };
         };

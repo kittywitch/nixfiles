@@ -42,10 +42,14 @@
     settings = {
       security = { DISABLE_GIT_HOOKS = false; };
       api = { ENABLE_SWAGGER = true; };
+      openid = {
+        ENABLE_OPENID_SIGNIN = true;
+        ENABLE_OPENID_SIGNUP = true;
+      };
       mailer = {
         ENABLED = true;
         SUBJECT = "%(APP_NAME)s";
-        HOST = "kyouko.kittywit.ch:465";
+        HOST = "daiyousei.kittywit.ch:465";
         USER = "gitea@kittywit.ch";
         #SEND_AS_PLAIN_TEXT = true;
         USE_SENDMAIL = false;

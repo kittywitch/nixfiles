@@ -56,6 +56,21 @@ in {
       group = "postfix";
     };
 
+    accountsmap-services-ldap = {
+      text = ''
+        server_host = ${ldaps}
+        search_base = ou=services,dc=kittywit,dc=ch
+        query_filter = (&(objectClass=mailAccount)(mail=%s))
+        result_attribute = mail
+        version = 3
+        bind = yes
+        bind_dn = cn=dovecot,dc=mail,dc=kittywit,dc=ch
+        bind_pw = ${tf.variables.postfix-ldap-password.ref}
+      '';
+      owner = "postfix";
+      group = "postfix";
+    };
+
     aliases-ldap = {
       text = ''
         server_host = ${ldaps}
@@ -104,7 +119,7 @@ in {
       mailbox_transport = lmtp:unix:private/dovecot-lmtp
       masquerade_domains = ldap:${config.secrets.files.domains-ldap.path}
       virtual_mailbox_domains = ldap:${config.secrets.files.domains-ldap.path}
-      virtual_alias_maps = ldap:${config.secrets.files.accountsmap-ldap.path},ldap:${config.secrets.files.aliases-ldap.path},regexp:/var/lib/postfix/conf/virtual-regex
+      virtual_alias_maps = ldap:${config.secrets.files.accountsmap-ldap.path},ldap:${config.secrets.files.accountsmap-services-ldap.path},ldap:${config.secrets.files.aliases-ldap.path},regexp:/var/lib/postfix/conf/virtual-regex
       virtual_transport = lmtp:unix:private/dovecot-lmtp
       smtpd_milters = unix:/run/opendkim/opendkim.sock,unix:/run/rspamd/rspamd-milter.sock
       non_smtpd_milters = unix:/run/opendkim/opendkim.sock

@@ -19,6 +19,25 @@ let
     scope = subtree
     default_pass_scheme = SSHA
   '';
+  ldapConfig-services = pkgs.writeText "dovecot-ldap.conf" ''
+    uris = ldaps://auth.kittywit.ch:636
+    dn = cn=dovecot,dc=mail,dc=kittywit,dc=ch
+    dnpass = "@ldap-password@"
+    auth_bind = no
+    ldap_version = 3
+    base = ou=services,dc=kittywit,dc=ch
+    user_filter = (&(objectClass=mailAccount)(mail=%u))
+    user_attrs = \
+      quota=quota_rule=*:bytes=%$, \
+      =home=/var/vmail/%d/%n/, \
+      =mail=maildir:/var/vmail/%d/%n/Maildir
+    pass_attrs = mail=user,userPassword=password
+    pass_filter = (&(objectClass=mailAccount)(mail=%u))
+    iterate_attrs = =user=%{ldap:mail}
+    iterate_filter = (objectClass=mailAccount)
+    scope = subtree
+    default_pass_scheme = SSHA
+  '';
 in
 {
   security.acme.certs.dovecot_domains = {
@@ -100,8 +119,16 @@ in
         args = /run/dovecot2/ldap.conf
         driver = ldap
       }
+      userdb {
+        args = /run/dovecot2/ldap-services.conf
+        driver = ldap
+      }
       passdb {
         args = /run/dovecot2/ldap.conf
+        driver = ldap
+      }
+      passdb {
+        args = /run/dovecot2/ldap-services.conf
         driver = ldap
       }
 
@@ -168,6 +195,7 @@ in
 
   systemd.services.dovecot2.preStart = ''
     sed -e "s!@ldap-password@!$(<${config.secrets.files.dovecot-ldap-password.path})!" ${ldapConfig} > /run/dovecot2/ldap.conf
+    sed -e "s!@ldap-password@!$(<${config.secrets.files.dovecot-ldap-password.path})!" ${ldapConfig-services} > /run/dovecot2/ldap-services.conf
   '';
 
   networking.firewall.allowedTCPPorts = [
