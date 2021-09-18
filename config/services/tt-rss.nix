@@ -63,7 +63,7 @@
       define('LDAP_AUTH_LOGIN_ATTRIB', 'mail');
       define('LDAP_AUTH_ANONYMOUSBEFOREBIND', FALSE);
       // ??? will be replaced with the entered username(escaped) at login
-      define('LDAP_AUTH_SEARCHFILTER', '(&(objectClass=inetOrgPerson)(mail=???))');
+      define('LDAP_AUTH_SEARCHFILTER', '(&(objectClass=inetOrgPerson)(|(mail=???)(uid=???))');
       // Optional configuration
       define('LDAP_AUTH_LOG_ATTEMPTS', TRUE);
       // Enable Debug Logging
