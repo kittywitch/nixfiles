@@ -10,16 +10,13 @@ with lib;
     profiles.network
     users.kat.server
     users.kat.services.weechat
-    services.filehost
     services.gitea
     services.logrotate
-#    services.nixos-mailserver
-    services.matrix
+    services.synapse
     services.murmur
     services.nginx
     services.postgres
     services.prosody
-#    services.radicale
     services.restic
     services.syncplay
     services.taskserver

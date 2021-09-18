@@ -4,10 +4,10 @@
     profiles.hardware.oracle.ubuntu
     profiles.network
     services.nginx
+    services.filehost
     services.keycloak
     services.vikunja
     services.tt-rss
-    services.roundcube
     services.openldap
     services.mail
     services.hedgedoc
