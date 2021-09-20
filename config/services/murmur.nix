@@ -19,6 +19,10 @@ in
       path = "social/mumble";
       field = "password";
     };
+    murmur-ice = {
+      path = "social/mumble";
+      field = "ice";
+    };
   };
 
   secrets.files.murmur-config = {
@@ -61,10 +65,14 @@ in
     hostName = "voice.${config.network.dns.domain}";
     bandwidth = 130000;
     welcometext = "mew!";
+    package = pkgs.murmur.override (old: { iceSupport = true; });
     password = tf.variables.murmur-password.ref;
     extraConfig = ''
       sslCert=/var/lib/acme/services_murmur/fullchain.pem
       sslKey=/var/lib/acme/services_murmur/key.pem
+      ice="tcp -h 127.0.0.1 -p 6502"
+      icesecretread=${tf.variables.murmur-ice.ref}
+      icesecretwrite=${tf.variables.murmur-ice.ref}
     '';
   };
 

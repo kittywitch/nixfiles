@@ -14,6 +14,7 @@ with lib;
     services.logrotate
     services.synapse
     services.murmur
+    services.murmur-ldap
     services.nginx
     services.postgres
     services.prosody
