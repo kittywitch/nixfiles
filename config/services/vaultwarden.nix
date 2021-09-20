@@ -54,9 +54,18 @@
     enableACME = true;
     forceSSL = true;
     locations = {
-      "/".proxyPass = "http://127.0.0.1:4000";
-      "/notifications/hub".proxyPass = "http://127.0.0.1:3012";
-      "/notifications/hub/negotiate".proxyPass = "http://127.0.0.1:80";
+        "/" = {
+          proxyPass = "http://localhost:4000";
+          proxyWebsockets = true;
+        };
+        "/notifications/hub" = {
+          proxyPass = "http://localhost:3012";
+          proxyWebsockets = true;
+        };
+        "/notifications/hub/negotiate" = {
+          proxyPass = "http://localhost:4000";
+          proxyWebsockets = true;
+        };
     };
   };
 
