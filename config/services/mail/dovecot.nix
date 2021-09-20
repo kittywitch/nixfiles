@@ -7,7 +7,7 @@ let
     auth_bind = no
     ldap_version = 3
     base = ou=users,dc=kittywit,dc=ch
-    user_filter = (&(objectClass=mailAccount)(mail=%u))
+    user_filter = (&(objectClass=mailAccount)(|(mail=%u)(uid=%u)))
     user_attrs = \
       quota=quota_rule=*:bytes=%$, \
       =home=/var/vmail/%d/%n/, \
@@ -26,7 +26,7 @@ let
     auth_bind = no
     ldap_version = 3
     base = ou=services,dc=kittywit,dc=ch
-    user_filter = (&(objectClass=mailAccount)(mail=%u))
+    user_filter = (&(objectClass=mailAccount)(|(mail=%u)(uid=%u)))
     user_attrs = \
       quota=quota_rule=*:bytes=%$, \
       =home=/var/vmail/%d/%n/, \

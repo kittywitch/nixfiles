@@ -1,20 +1,20 @@
-{ config, lib, ... }: with lib;
+{ config, meta, lib, ... }: with lib;
 
 {
   deploy.gcroot.enable = true;
 
   variables.katdns-address = {
-    value.shellCommand = "bitw get secrets/katdns -f address";
+    value.shellCommand = "${meta.kw.secrets.command} secrets/katdns -f address";
     type = "string";
     sensitive = true;
   };
   variables.katdns-name = {
-    value.shellCommand = "bitw get secrets/katdns -f username";
+    value.shellCommand = "${meta.kw.secrets.command} secrets/katdns -f username";
     type = "string";
     sensitive = true;
   };
   variables.katdns-key = {
-    value.shellCommand = "bitw get secrets/katdns -f password";
+    value.shellCommand = "${meta.kw.secrets.command} secrets/katdns -f password";
     type = "string";
     sensitive = true;
   };

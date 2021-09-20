@@ -6,6 +6,7 @@
     ./dovecot.nix
     ./opendkim.nix
     ./autoconfig.nix
-    ./roundcube.nix
+#    ./roundcube.nix
+    ./sogo.nix
   ];
 }

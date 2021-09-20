@@ -60,17 +60,20 @@
                 by anonymous auth
                 by dn.base="cn=dovecot,dc=mail,dc=kittywit,dc=ch" read
                   by dn.base="cn=xbackbone,ou=services,dc=kittywit,dc=ch" read
+                  by dn.base="cn=sogo,ou=services,dc=kittywit,dc=ch" read
                 by self write
                 by * none''
                 ''{1}to dn.subtree="dc=kittywit,dc=ch"
                   by dn.exact="cn=root,dc=kittywit,dc=ch" manage
                   by dn.base="cn=xbackbone,ou=services,dc=kittywit,dc=ch" read
                   by dn.base="cn=dovecot,dc=mail,dc=kittywit,dc=ch" read
+                  by dn.base="cn=sogo,ou=services,dc=kittywit,dc=ch" read
                   by dn.subtree="ou=users,dc=kittywit,dc=ch" read
                 ''
               ''{2}to dn.subtree="ou=users,dc=kittywit,dc=ch"
                    by dn.base="cn=dovecot,dc=mail,dc=kittywit,dc=ch" read
                     by dn.base="cn=xbackbone,ou=services,dc=kittywit,dc=ch" read
+                    by dn.base="cn=sogo,ou=services,dc=kittywit,dc=ch" read
                    by dn.subtree="ou=users,dc=kittywit,dc=ch" read
                    by dn.subtree="ou=services,dc=kittywit,dc=ch" read
                      by * none''

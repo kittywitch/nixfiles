@@ -23,6 +23,9 @@ let
       tfModule
       "${toString sources.tf-nix}/modules"
     ];
+    specialArgs = {
+      meta = config;
+    };
     shorthandOnlyDefinesConfig = true;
   };
 in

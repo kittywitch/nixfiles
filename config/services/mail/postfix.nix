@@ -45,7 +45,7 @@ in {
       text = ''
         server_host = ${ldaps}
         search_base = ou=users,dc=kittywit,dc=ch
-        query_filter = (&(objectClass=mailAccount)(mail=%s))
+        query_filter = (&(objectClass=mailAccount)(|(uid=%s)(mail=%s)))
         result_attribute = mail
         version = 3
         bind = yes
@@ -60,7 +60,7 @@ in {
       text = ''
         server_host = ${ldaps}
         search_base = ou=services,dc=kittywit,dc=ch
-        query_filter = (&(objectClass=mailAccount)(mail=%s))
+        query_filter = (&(objectClass=mailAccount)(|(uid=%s)(mail=%s)))
         result_attribute = mail
         version = 3
         bind = yes
