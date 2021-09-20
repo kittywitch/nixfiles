@@ -5,6 +5,8 @@ set list listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:✖
 set mouse=a
 
 set viminfo='100000,<100000,s1000,h,n$XDG_DATA_HOME/vim/viminfo'
+set ts=2
+set sw=2
 
 " colors
 let base16colorspace=256
