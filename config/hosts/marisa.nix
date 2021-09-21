@@ -58,10 +58,13 @@
     };
   };
 
-  network.addresses.public = {
-    enable = true;
-    nixos.ipv4.address = "104.244.72.5";
-    nixos.ipv6.address = "2605:6400:30:eed1:6cf7:bbfc:b4e:15c0";
+  network = {
+    addresses.public = {
+      enable = true;
+      nixos.ipv4.address = "104.244.72.5";
+      nixos.ipv6.address = "2605:6400:30:eed1:6cf7:bbfc:b4e:15c0";
+    };
+    firewall.public.interfaces = singleton "ens3";
   };
 
   fileSystems."/" ={
