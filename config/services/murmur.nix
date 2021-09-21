@@ -109,9 +109,13 @@ in
 
   # Certs
 
-  network.extraCerts."services_murmur" = "voice.${config.network.dns.domain}";
+  network.extraCerts.services_murmur = "voice.${config.network.dns.domain}";
   users.groups."voice-cert".members = [ "nginx" "murmur" ];
-  security.acme.certs = { "services_murmur" = { group = "voice-cert"; }; };
+  security.acme.certs.services_murmur = {
+    group = "voice-cert";
+    postRun = "systemctl restart murmur";
+    extraDomainNames = [ config.network.dns.domain ];
+  };
 
   # DNS
 
