@@ -510,7 +510,9 @@ def do_main_program():
                     return (AUTH_REFUSED, None, None)
 
             # Search for the user.
-            username_to_try = name.split(".")[0] if "." in name else name
+            name_split = name.split(".")
+            username_to_try = name_split[0] if "." in name else name
+            device = name_split[1] if "." in name else ""
             res = ldap_conn.search_s(cfg.ldap.users_dn, ldap.SCOPE_SUBTREE, '(%s=%s)' % (cfg.ldap.username_attr, username_to_try), [cfg.ldap.number_attr, cfg.ldap.display_attr])
             if len(res) == 0:
                 warning("User " + username_to_try + " not found, input was " + name)
@@ -561,6 +563,8 @@ def do_main_program():
             # Add the user/id combo to cache, then accept:
             self.name_uid_cache[displayName] = uid
             debug("Login accepted for " + name)
+            if device != "":
+                displayName = f"{displayName} ({device})"
             return (uid + cfg.user.id_offset, displayName, [])
 
         @fortifyIceFu((False, None))
