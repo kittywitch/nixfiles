@@ -10,17 +10,18 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 
 ## Nodes
 
-| Node             | Network | Purpose                                                  |
-|------------------|---------|----------------------------------------------------------|
-| [kyouko][]       | Public  | Currently the main server. Ad-hoc hetzner cloud box.     |
-| [daiyousei][]    | Public  | Intended kyouko replacement. Provisioned OCI Ampere box. |
-| [rinnosuke][]    | Public  | My primary nameserver. Provisioned OCI EPYC box.         |
-| [shinmyoumaru][] | Public  | My Raspberry Pi 1 Model B+. DHT22 sensors box.           |
-| [yukari][]       | Private | Home server. NAS + HTPC, does DVB stuff.                 |
-| [goliath][]      | Private | Beloved workstation. Does VFIO.                          |
-| [koishi][]       | Private | Main laptop.                                             |
-| [ran][]          | Private | CCTV netbook.                                            |
-| [medicine][]     | None    | Work-in-progress Live USB.                               |
+| Node             | Network | Purpose                                                       |
+|------------------|---------|---------------------------------------------------------------|
+| [kyouko][]       | Public  | Currently the main server. Ad-hoc hetzner cloud box.          |
+| [marisa][]       | Public  | Reverse proxier and wireguard interconnect. Ad-hoc BuyVM box. |
+| [daiyousei][]    | Public  | Intended kyouko replacement. Provisioned OCI Ampere box.      |
+| [rinnosuke][]    | Public  | My primary nameserver. Provisioned OCI EPYC box.              |
+| [shinmyoumaru][] | Public  | My Raspberry Pi 1 Model B+. DHT22 sensors box.                |
+| [yukari][]       | Private | Home server. NAS + HTPC, does DVB stuff.                      |
+| [goliath][]      | Private | Beloved workstation. Does VFIO.                               |
+| [koishi][]       | Private | Main laptop.                                                  |
+| [ran][]          | Private | CCTV netbook.                                                 |
+| [medicine][]     | None    | Work-in-progress Live USB.                                    |
 
 ## Profiles
 
@@ -154,6 +155,7 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [This repository on my self hosted git.]: https://git.kittywit.ch/kat/nixfiles
   [This repository on GitHub.]: https://github.com/kittywitch/nixfiles
   [kyouko]: config/hosts/kyouko.nix
+  [marisa]: config/hosts/marisa.nix
   [daiyousei]: config/hosts/daiyousei.nix
   [rinnosuke]: config/hosts/rinnosuke.nix
   [shinmyoumaru]: config/hosts/shinmyoumaru.nix
