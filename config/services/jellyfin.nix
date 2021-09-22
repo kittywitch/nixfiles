@@ -20,10 +20,15 @@
       from = 32768;
       to = 60999;
     }];
-    private.tcp.ranges = [{
-      from = 32768;
-      to = 60999;
-    }];
+    private.tcp = {
+      ports = [
+        8096
+      ];
+      ranges = [{
+        from = 32768;
+        to = 60999;
+      }];
+    };
   };
 
   services.jellyfin.enable = true;

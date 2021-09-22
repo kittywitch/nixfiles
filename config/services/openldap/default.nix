@@ -14,6 +14,12 @@
         olcTLSCertificateKeyFile = "/var/lib/acme/domain-auth/key.pem";
       };
       children = {
+        "cn=module" = {
+          attrs = {
+            objectClass = "olcModuleList";
+            olcModuleLoad = "memberof";
+          };
+        };
         "cn=schema" = {
           attrs = {
             cn = "schema";
@@ -25,6 +31,21 @@
           "${pkgs.openldap}/etc/schema/inetorgperson.ldif"
           "${pkgs.openldap}/etc/schema/nis.ldif"
           ];
+        };
+        "olcOverlay=memberof,olcDatabase={1}mdb" = {
+          attrs = {
+            objectClass = [
+              "olcOverlayConfig"
+              "olcMemberOf"
+              "olcConfig"
+            ];
+            olcOverlay = "memberof";
+            olcMemberOfDangling = "ignore";
+            olcMemberOfGroupOC = "groupOfNames";
+            olcMemberOfMemberAD = "member";
+            olcMemberOfMemberOfAD = "memberOf";
+            olcMemberOfRefint = "TRUE";
+          };
         };
         "olcDatabase={-1}frontend" = {
           attrs = {
@@ -76,9 +97,13 @@
               ''{3}to dn.subtree="ou=services,dc=kittywit,dc=ch"
                    by dn.base="cn=dovecot,dc=mail,dc=kittywit,dc=ch" read
                    by dn.subtree="ou=services,dc=kittywit,dc=ch" read
-                     by * none''
-              ''{4}to attrs=mail by self read''
-              ''{5}to * by * read''
+                       by * none''
+              ''{4}to dn.subtree="ou=groups,dc=kittywit,dc=ch"
+                  by dn.subtree="ou=users,dc=kittywit,dc=ch" read
+                  by dn.subtree="ou=services,dc=kittywit,dc=ch" read
+                       by * none''
+              ''{5}to attrs=mail by self read''
+              ''{6}to * by * read''
             ];
           };
         };

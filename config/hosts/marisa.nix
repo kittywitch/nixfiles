@@ -4,6 +4,7 @@
     services.dnscrypt-proxy
     profiles.network
     services.nginx
+    services.access
     users.kat.server
   ];
 
