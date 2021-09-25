@@ -60,6 +60,9 @@ in
     security.wrappers = {
       qemu-bridge-helper = {
         source = "${pkgs.qemu-vfio}/libexec/qemu-bridge-helper";
+        capabilities = "cap_net_admin+ep";
+        owner = "root";
+        group = "root";
       };
     };
 

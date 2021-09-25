@@ -112,6 +112,7 @@
         ".config/Mumble"
         ".config/Element"
         ".config/hedgedoc"
+        ".ApacheDirectoryStudio"
         ".gnupg"
         ".mozilla"
         "neorg"
@@ -123,7 +124,7 @@
       ];
       files = [
         ".ssh/known_hosts"
-	".zsh_history"
+        ".zsh_history"
       ];
     };
   };

@@ -20,11 +20,6 @@ in
     ff-main = "firefox -P main";
   };
 
-  programs.browserpass = {
-    enable = true;
-    browsers = [ "firefox" ];
-  };
-
   home.sessionVariables = {
     XDG_CURRENT_DESKTOP = "sway";
   };
@@ -40,7 +35,6 @@ in
       a11ycss
       canvasblocker
       view-image
-      pkgs.nur.repos.crazazy.firefox-addons.new-tab-override
       wappalyzer
       auto-tab-discard
       bitwarden

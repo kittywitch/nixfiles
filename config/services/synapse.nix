@@ -19,7 +19,11 @@ with lib;
         path = "secrets/mautrix-telegram";
         inherit field;
       }) [ "api-hash" "api-id" "as-token" "hs-token" ]
-  // {
+      // (mapListToAttrs (field:
+        nameValuePair "synapse-saml2-${field}" {
+          path = "secrets/synapse-saml2-${field}";
+        }) ["cert" "key"])
+      // {
     matrix-registration = {
       path = "secrets/matrix-registration";
     };
@@ -43,13 +47,13 @@ with lib;
   };
 
   secrets.files.saml2-cert = {
-    source = config.kw.secrets.repo.synapse-cert.source;
+    text = tf.variables.synapse-saml2-cert.ref;
     owner = "matrix-synapse";
     group = "matrix-synapse";
   };
 
   secrets.files.saml2-privkey = {
-    source = config.kw.secrets.repo.synapse-key.source;
+    text = tf.variables.synapse-saml2-key.ref;
     owner = "matrix-synapse";
     group = "matrix-synapse";
   };

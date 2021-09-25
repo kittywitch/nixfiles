@@ -7,7 +7,7 @@
     enable = true;
     settings = [{
       modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
-      modules-center = [ "clock" "clock#arc" "clock#miku" "clock#hex" ];
+      modules-center = [ "clock" "clock#s" "clock#arc" "clock#miku" "clock#hex" ];
       modules-right = [
         "pulseaudio"
         "cpu"
@@ -101,6 +101,12 @@
             "Pacific/Auckland"
           ];
           interval = 1;
+        };
+        "clock#s" = {
+          format = "-{:%H}";
+          tooltip = true;
+          timezone = "America/Chicago";
+          tooltip-format = "{:%A, %F %R %z (%Z)}";
         };
         "clock#arc" = {
           format = "-{:%H}";

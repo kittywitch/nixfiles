@@ -3,7 +3,7 @@
 {
   home.packages = with pkgs; [
     _1password
-    bpytop
+    btop
     bitwarden
     element-wayland
     exiftool
