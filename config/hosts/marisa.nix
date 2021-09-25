@@ -65,7 +65,19 @@
       nixos.ipv4.address = "104.244.72.5";
       nixos.ipv6.address = "2605:6400:30:eed1:6cf7:bbfc:b4e:15c0";
     };
-    firewall.public.interfaces = singleton "ens3";
+    yggdrasil = {
+      enable = true;
+      pubkey = "3b171319fbb6be1716c99f36b83a70346ec655d99afde410a50ca61a1c278c7c";
+      listen.enable = true;
+      listen.endpoints = [ "tcp://${config.network.addresses.public.nixos.ipv4.address}:52969" "tcp://[${config.network.addresses.public.nixos.ipv6.address}]:52969" ];
+    };
+    firewall = {
+      public = {
+        interfaces = singleton "ens3";
+        tcp.ports = singleton 62969;
+      };
+      private.interfaces = singleton "yggdrasil";
+    };
   };
 
   fileSystems."/" ={

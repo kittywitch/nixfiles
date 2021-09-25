@@ -28,6 +28,11 @@
     };
   };
 
+  network.yggdrasil = {
+    enable = true;
+    pubkey = "0db7838e7cbab0dc0694f09b683b3a064bf63665415f2af47d1269c2861ffc20";
+  };
+
   services.nginx.virtualHosts =
     let
       splashy = pkgs.host-splash-site config.networking.hostName;
