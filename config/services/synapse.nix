@@ -42,6 +42,106 @@ with lib;
     group = "matrix-synapse";
   };
 
+  secrets.files.saml2-cert = {
+    source = config.kw.secrets.repo.synapse-cert.source;
+    owner = "matrix-synapse";
+    group = "matrix-synapse";
+  };
+
+  secrets.files.saml2-privkey = {
+    source = config.kw.secrets.repo.synapse-key.source;
+    owner = "matrix-synapse";
+    group = "matrix-synapse";
+  };
+
+  secrets.files.saml2-map = {
+    fileName = "map.py";
+    text = ''
+MAP = {
+    "identifier": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+    "fro": {
+        'uid': 'uid',
+        'displayName': 'displayName',
+    },
+    "to": {
+        'uid': 'uid',
+        'displayName': 'displayName',
+    }
+}
+    '';
+    owner = "matrix-synapse";
+    group = "matrix-synapse";
+  };
+
+  secrets.files.saml2-config = {
+    fileName = "saml2-config.py";
+    text = ''
+import saml2
+from saml2.saml import NAME_FORMAT_URI
+
+BASE = "https://kittywit.ch/"
+
+CONFIG = {
+    "entityid": "matrix-kittywit.ch",
+    "description": "Matrix Server",
+    "service": {
+        "sp": {
+            "name": "matrix-login",
+            "endpoints": {
+                "single_sign_on_service": [
+                    (BASE + "_matrix/saml2/authn_response", saml2.BINDING_HTTP_POST),
+                ],
+                "assertion_consumer_service": [
+                    (BASE + "_matrix/saml2/authn_response", saml2.BINDING_HTTP_POST),
+                ],
+                #"single_logout_service": [
+                #    (BASE + "_matrix/saml2/logout", saml2.BINDING_HTTP_POST),
+                #],
+            },
+            "required_attributes": ["uid",],
+            "optional_attributes": ["displayName"],
+            "sign_assertion": True,
+            "sign_response": True,
+        }
+    },
+    "debug": 0,
+    "key_file": "${config.secrets.files.saml2-privkey.path}",
+    "cert_file": "${config.secrets.files.saml2-cert.path}",
+    "encryption_keypairs": [
+        {
+            "key_file": "${config.secrets.files.saml2-privkey.path}",
+            "cert_file": "${config.secrets.files.saml2-cert.path}",
+        }
+    ],
+    "attribute_map_dir": "${builtins.dirOf config.secrets.files.saml2-map.path}",
+    "metadata": {
+        "remote": [
+          {
+          "url": "https://auth.kittywit.ch/auth/realms/kittywitch/protocol/saml/descriptor",
+          },
+        ],
+    },
+    # If you want to have organization and contact_person for the pysaml2 config
+    #"organization": {
+    #    "name": "Example AB",
+    #    "display_name": [("Example AB", "se"), ("Example Co.", "en")],
+    #    "url": "http://example.com/roland",
+    #},
+    #"contact_person": [{
+    #    "given_name": "Example",
+    #    "sur_name": "Example",
+    #    "email_address": ["example@example.com"],
+    #    "contact_type": "technical",
+    #    },
+    #],
+    # Make sure to have xmlsec1 installed on your host(s)!
+    "xmlsec_binary": "${pkgs.xmlsec}/bin/xmlsec1",
+}
+    '';
+    owner = "matrix-synapse";
+    group = "matrix-synapse";
+  };
+
   services.matrix-synapse.extraConfigFiles = [
     config.secrets.files.matrix-registration-secret.path
   ];
@@ -84,6 +184,7 @@ with lib;
     ];
     rc_messages_per_second = mkDefault "0.1";
     rc_message_burst_count = mkDefault "25.0";
+    public_baseurl = "https://${config.network.dns.domain}";
     url_preview_enabled = mkDefault true;
     enable_registration = mkDefault false;
     enable_metrics = mkDefault false;
@@ -92,6 +193,16 @@ with lib;
     allow_guest_access = mkDefault true;
     extraConfig = ''
       suppress_key_server_warning: true
+      saml2_config:
+        sp_config:
+          metadata:
+            remote:
+              - url: https://auth.kittywit.ch/auth/realms/kittywitch/protocol/saml/descriptor
+        config_path: "${config.secrets.files.saml2-config.path}"
+        user_mapping_provider:
+          config:
+        password_config:
+          enabled: false
     '';
     listeners = [{
       port = 8008;
@@ -174,6 +285,28 @@ with lib;
     requisite = [ "matrix-synapse.service" ];
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
+  };
+
+  deploy.tf.dns.records.services_element = {
+    inherit (config.network.dns) zone;
+    domain = "element";
+    cname = { inherit (config.network.addresses.public) target; };
+  };
+
+  services.nginx.virtualHosts."element.${config.network.dns.domain}" = {
+    forceSSL = true;
+    enableACME = true;
+    extraConfig = ''
+      keepalive_requests 100000;
+    '';
+    root = pkgs.element-web.override {
+      conf = {
+        default_server_config."m.homeserver" = {
+          "base_url" = "https://${config.network.dns.domain}:443";
+          "server_name" = "kittywit.ch";
+        };
+      };
+    };
   };
 
   services.nginx.virtualHosts."${config.network.dns.domain}" = {
