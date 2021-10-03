@@ -9,6 +9,7 @@ with lib;
       vfio = mkEnableOption "VFIO";
       shared = mkEnableOption "Shared System";
       trusted = mkEnableOption "Trusted Submodule";
+      light = mkEnableOption "Light mode";
       cross = {
         enable = mkEnableOption "cross/emulated compilation";
         aarch64 = mkOption {
@@ -42,6 +43,7 @@ with lib;
         };
         eeepc-1015pem = mkEnableOption "Asus Eee PC 1015PEM";
         v330-14arr = mkEnableOption "Lenovo Ideapad v330-14ARR";
+        x270 = mkEnableOption "Lenovo Thinkpad x270";
       };
     };
     home-manager.users = mkOption {
@@ -55,6 +57,7 @@ with lib;
               trusted = mkEnableOption "Trusted Submodule" // {
                 default = meta.trusted ? secrets;
               };
+              light = mkEnableOption "Light mode";
               cross = {
                 enable = mkEnableOption "cross/emulated compilation";
                 aarch64 = mkOption {
@@ -88,6 +91,7 @@ with lib;
                 };
                 eeepc-1015pem = mkEnableOption "Asus Eee PC 1015PEM";
                 v330-14arr = mkEnableOption "Lenovo Ideapad v330-14ARR";
+                x270 = mkEnableOption "Lenovo Thinkpad x270";
               };
             };
             config = {

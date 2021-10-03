@@ -4,8 +4,8 @@
   gtk = {
     enable = true;
     iconTheme = {
-      name = "Numix-Square";
-      package = pkgs.numix-icon-theme-square;
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
     };
     theme = {
       name = "Adementary-dark";

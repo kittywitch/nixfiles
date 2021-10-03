@@ -15,7 +15,7 @@ let
     };
   };
 in
-optionalAttrs (builtins.getEnv "CI_PLATFORM" == "") {
+optionalAttrs (builtins.getEnv "CI_PLATFORM" == "impure") {
     home.packages = [ doom-emacs pkgs.sqlite ];
 
     home.file.".emacs.d/init.el".text = ''

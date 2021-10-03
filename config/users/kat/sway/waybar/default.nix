@@ -1,19 +1,24 @@
-{ config, lib, pkgs, kw, ... }:
+{ config, lib, pkgs, kw, ... }: with lib;
 
 {
   xdg.configFile."waybar/style.css" = { inherit (kw.sassTemplate { name = "waybar-style"; src = ./waybar.sass; }) source; };
 
+  systemd.user.services.waybar.Service.Environment = singleton "NOTMUCH_CONFIG=${config.home.sessionVariables.NOTMUCH_CONFIG}";
+
   programs.waybar = {
     enable = true;
+    systemd.enable = true;
     settings = [{
       modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
       modules-center = [ "clock" "clock#s" "clock#arc" "clock#miku" "clock#hex" ];
       modules-right = [
         "pulseaudio"
+        "custom/mail"
         "cpu"
         "memory"
         "temperature"
         "battery"
+        "backlight"
         "network"
         "idle_inhibitor"
         "custom/konawall"
@@ -30,6 +35,10 @@
           icon-size = 12;
           spacing = 2;
         };
+        backlight = {
+          format = "{icon} {percent}%";
+          format-icons = ["" ""];
+        };
         "custom/gpg-status" = {
           format = "{}";
           interval = 300;
@@ -41,20 +50,26 @@
           interval = "once";
           return-type = "json";
           exec = "${pkgs.waybar-konawall}/bin/konawall-status";
-          exec-on-event = true;
           on-click = "${pkgs.waybar-konawall}/bin/konawall-toggle";
           on-click-right = "systemctl --user restart konawall";
+          signal = 8;
+        };
+        "custom/mail" = {
+          format = " {}";
+          interval = 30;
+          exec = "${pkgs.notmuch-arc}/bin/notmuch count tag:flagged OR tag:inbox AND NOT tag:killed";
         };
         cpu = { format = " {usage}%"; };
         memory = { format = " {percentage}%"; };
         temperature = {
-          format = " {temperatureC}°C";
-          hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp2_input";
+          format = "{icon} {temperatureC}°C";
+          format-icons = ["" "" ""];
+          critical-threshold = 80;
         };
         idle_inhibitor = {
           format = "{icon}";
           format-icons = {
-            activated = "";
+            activated = "";
             deactivated = "";
           };
         };
@@ -65,8 +80,8 @@
             critical = 15;
           };
           format = "{icon} {capacity}%";
-          format-charging = " {capacity}%";
-          format-plugged = " {capacity}%";
+          format-charging = " {capacity}%";
+          format-plugged = " {capacity}%";
           format-alt = "{icon} {time}";
           format-icons = [ "" "" "" "" "" ];
         };
@@ -96,9 +111,6 @@
           tooltip-format = "{:%A, %F %T %z (%Z)}";
           timezones = [
             "Europe/London"
-            "America/Vancouver"
-            "Europe/Berlin"
-            "Pacific/Auckland"
           ];
           interval = 1;
         };

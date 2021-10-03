@@ -1,22 +1,11 @@
 { meta, config, pkgs, lib, ... }: with lib; {
-  options.home-manager.users = let
-    userBase16Extend = { config, nixos, ... }: {
-      base16.alias.default = "atelier.atelier-cave-light";
-    };
-  in mkOption {
-    type = types.attrsOf (types.submoduleWith {
-      modules = singleton userBase16Extend;
-    });
-  };
-
   imports = with meta; [
-    profiles.hardware.v330-14arr
+    profiles.hardware.x270
     profiles.gui
+    profiles.light
     profiles.network
     users.kat.guiFull
-    services.nginx
-    services.restic
-    services.zfs
+    services.dnscrypt-proxy
   ];
 
   config = {
@@ -31,40 +20,28 @@
       };
     };
 
-    boot.supportedFilesystems = singleton "zfs";
-
-    fileSystems = {
-      "/" = {
-        device = "rpool/safe/root";
-        fsType = "zfs";
-      };
-      "/home" = {
-        device = "rpool/safe/home";
-        fsType = "zfs";
-      };
-      "/nix" = {
-        device = "rpool/local/nix";
-        fsType = "zfs";
-      };
-      "/boot" = {
-        device = "/dev/disk/by-uuid/2552-18F2";
-        fsType = "vfat";
-      };
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/31bfd91b-bdba-47a9-81bf-c96e0adc88e3";
+      fsType = "xfs";
     };
+    "/boot" = {
+      device = "/dev/disk/by-uuid/89A2-ED28";
+      fsType = "vfat";
+    };
+  };
 
-    swapDevices = [{ device = "/dev/disk/by-uuid/87ff4f68-cc00-494e-8eba-050469c3bf03"; }];
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/96952382-7f56-46b5-8c84-1f0130f68b63"; }
+    ];
 
+    powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
     boot = {
+      supportedFilesystems = singleton "xfs";
+      initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/8dd300d3-c432-47b6-8466-55682cd1c1a1";
       loader = {
         systemd-boot.enable = true;
         efi.canTouchEfiVariables = true;
-      };
-      modprobe.modules = {
-        iwlwifi = {
-          options = {
-            wd_disable = 1;
-          };
-        };
       };
     };
 
@@ -78,9 +55,13 @@
     networking = {
       hostId = "dddbb888";
       useDHCP = false;
-      wireless.interfaces = singleton "wlp2s0";
+      wireless = {
+        enable = true;
+        userControlled.enable = true;
+        interfaces = singleton "wlp3s0";
+      };
       interfaces = {
-        wlp2s0.ipv4.addresses = singleton {
+        wlp3s0.ipv4.addresses = singleton {
           inherit (config.network.addresses.private.nixos.ipv4) address;
           prefixLength = 24;
         };
@@ -104,12 +85,12 @@
         listen.endpoints = [ "tcp://0.0.0.0:0" ];
       };
       firewall = {
-        public.interfaces = [ "enp1s0" "wlp2s0" ];
+        public.interfaces = [ "enp1s0" "wlp3s0" ];
         private.interfaces = singleton "yggdrasil";
       };
     };
 
-    system.stateVersion = "20.09";
+    system.stateVersion = "21.11";
   };
 }
 

@@ -90,7 +90,8 @@ let lockCommand = config.programs.swaylock.script; in
                 "Escape" = "mode default";
               };
           };
-          bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
+          # bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
+          bars = [];
 
           input = {
             "*" = {

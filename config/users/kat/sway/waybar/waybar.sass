@@ -13,6 +13,12 @@
   text-shadow: none
   box-shadow: none
 
+tooltip
+  background: $base00t
+  border-radius: 1em
+  label
+    color: $base07
+
 #mode
   color: $base06
   padding: 0 4px
@@ -66,9 +72,9 @@
   @extend %extend_1
   background: $base0Ct
 
-#custom-weather
+#custom-mail
   @extend %extend_1
-  background: $base00t
+  background: $base0Ft
 
 #custom-konawall
   @extend %extend_1
@@ -103,6 +109,8 @@
   menu
     background: $base00t
     border-radius: 1em
+    color: $base07
+
 
 .modules-left
   margin: 2px 4px
@@ -172,12 +180,6 @@
   padding: 0 8px
   color: $base06
   border-bottom: 2px solid transparent
-
-tooltip
-  background: $base00t
-  border-radius: 1em
-  label
-    color: $base07
 
 window#waybar.empty #window
   opacity: 0

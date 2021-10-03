@@ -26,6 +26,14 @@
         wifi
       ];
     };
+    x270 = {
+      imports = [
+        x270
+        intel
+        laptop
+        wifi
+      ];
+    };
     eeepc-1015pem = {
       imports = [
         eeepc-1015pem
