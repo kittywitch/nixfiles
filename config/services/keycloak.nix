@@ -2,7 +2,7 @@
   keystore-pass = "zZX3eS";
 in {
   services.keycloak = {
-    enable = true;
+    enable = builtins.getEnv "CI_PLATFORM" == "impure";
     package = (pkgs.keycloak.override {
       jre = pkgs.openjdk11;
     });
