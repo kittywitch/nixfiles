@@ -9,7 +9,6 @@ with lib;
       specialArgs = {
         inherit sources tf meta;
         nixos = config;
-        modulesPath = sources.home-manager + "/modules";
       };
     });
   };
