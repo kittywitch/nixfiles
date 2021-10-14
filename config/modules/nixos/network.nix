@@ -178,7 +178,6 @@ in
         ];
       };
 
-      services.yggdrasil.package = pkgs.yggdrasil-held;
 
       networking = mkIf cfg.addresses.private.enable {
         domain = mkDefault (if cfg.addresses.public.enable then cfg.addresses.domain
