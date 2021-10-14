@@ -5,6 +5,7 @@
     _1password
     btop
     bitwarden
+    lutris
     element-wayland
     exiftool
     thunderbird

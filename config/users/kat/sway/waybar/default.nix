@@ -9,9 +9,10 @@
     enable = true;
     systemd.enable = true;
     settings = [{
-      modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
-      modules-center = [ "clock" "clock#s" "clock#arc" "clock#miku" "clock#hex" ];
-      modules-right = [
+      modules-right = [ "clock#s" "clock#arc" "clock#miku" "clock#hex" "clock" ];
+      modules-center = [ "sway/workspaces" "sway/mode" "sway/window" ];
+      modules-left = [
+        "tray"
         "pulseaudio"
         "custom/mail"
         "cpu"
@@ -23,7 +24,6 @@
         "idle_inhibitor"
         "custom/konawall"
         "custom/gpg-status"
-        "tray"
       ];
 
       modules = {

@@ -59,7 +59,7 @@ hotkeys: # Trigger various events on key combinations
   #- shutdown # safely shuts the guest system down
   #- reboot # reboots the guest
   #- exit # quits screenstub
-- triggers: [G]
+- triggers: [Esc]
   modifiers: [LeftMeta]
   events:
   - toggle_grab:

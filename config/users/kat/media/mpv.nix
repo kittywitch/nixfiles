@@ -80,7 +80,7 @@
         };
       in
       vim // other;
-    config = {
+      config = {
       no-input-default-bindings = "";
       profile = "gpu-hq";
       gpu-context = "wayland";
@@ -96,7 +96,8 @@
       osd-border-size = 2; # font border pixels, default 3
       term-osd-bar = true;
       script-opts = lib.concatStringsSep ","
-        (lib.mapAttrsToList (k: v: "${k}=${toString v}") {
+      (lib.mapAttrsToList (k: v: "${k}=${toString v}") {
+          ytdl_hook-ytdl_path = "${pkgs.yt-dlp}/bin/yt-dlp";
           osc-layout = "slimbox";
           osc-vidscale = "no";
           osc-deadzonesize = 0.75;

@@ -10,7 +10,7 @@
     gst_all_1.gst-plugins-ugly
     imv
     ffmpeg-full
-    youtube-dl
+    yt-dlp
     mkchromecast
     v4l-utils
     gimp-with-plugins
