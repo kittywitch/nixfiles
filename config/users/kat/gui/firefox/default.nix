@@ -31,7 +31,6 @@ in
       sponsorblock
       floccus
       link-cleaner
-      betterttv
       a11ycss
       canvasblocker
       view-image
