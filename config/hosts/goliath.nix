@@ -112,6 +112,8 @@
           ".local/share/direnv"
           ".config/Mumble"
           ".config/Element"
+          ".config/discord"
+          ".config/obsidian"
           ".config/hedgedoc"
           ".ApacheDirectoryStudio"
           ".gnupg"

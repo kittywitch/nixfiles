@@ -6,6 +6,8 @@
     btop
     bitwarden
     element-wayland
+    obsidian
+    discord
     exiftool
     thunderbird
     mumble-develop

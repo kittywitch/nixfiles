@@ -14,4 +14,5 @@
   };
   services.journald.extraConfig = "SystemMaxUse=512M";
   users.mutableUsers = false;
+  boot.tmpOnTmpfsSize = "80%";
 }
