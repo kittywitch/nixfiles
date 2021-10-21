@@ -80,6 +80,31 @@
     };
   };
 
+  # Youko WG
+  networking.wireguard.interfaces.wg-youko = {
+    ips = [
+      "10.42.68.1/24"
+    ];
+    listenPort = 51219;
+    peers = [
+      {
+        allowedIPs = [
+          "10.42.68.1/24"
+        ];
+        publicKey = "nc7mpg2tbawWR9xjFsk/loxAMtRhEZ49PCJXNYk/Qm8=";
+      }
+    ];
+    privateKeyFile = config.secrets.files.wg-youko-privkey.file;
+  };
+
+  kw.secrets.variables.wg-youko-privkey = {
+    path = "secrets/wireguard";
+    field = "youko-privkey";
+  };
+  secrets.files.wg-youko-privkey = {
+    text = "${tf.variables.wg-youko-privkey.ref}";
+  };
+
   fileSystems."/" ={
     device = "/dev/disk/by-uuid/6ed3e886-d390-433f-90ac-2b37aed9f15f";
     fsType = "ext4";
