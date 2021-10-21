@@ -25,7 +25,10 @@
       };
     };
 
-    networking.firewall.extraCommands = "ip6tables -A INPUT -p 89 -i wgmesh-+ -j ACCEPT";
+    networking.firewall.extraCommands = ''
+    ip6tables -A INPUT -p 89 -i wgmesh-+ -j ACCEPT
+    ip route replace to 10.42.68.0/24 via ${nodes.marisa.network.addresses.yggdrasil.nixos.ipv4.address}
+    '';
     networking.nftables.extraInput = ''
       meta l4proto 89 iifname wgmesh-* accept
     '';
