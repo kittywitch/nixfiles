@@ -215,6 +215,8 @@ in
               };
               lifecycle.ignoreChanges = [
                 "source_details[0].source_id"
+                "create_vnic_details[0].defined_tags"
+                "defined_tags"
                 "metadata"
               ];
               connection = {
