@@ -13,9 +13,9 @@
     in {
       pubkeys = {
         satorin =
-          "53d99a74a648ff7bd5bc9ba68ef4f472fb4fb8b2e26dfecea33c781f0d5c9525";
+          "cbadeaa973b051cf66e23dcb014ab5be59e55a1c98ef541345520868e3bcf9f7";
         shanghai =
-          "0cc3c26366cbfddfb1534b25c5655733d8f429edc941bcce674c46566fc87027";
+          "5aba9ba2ac7a54ffef19dea9e39881bd977f76032db81a2c82c4674ed475c95b";
         grimoire =
           "2a1567a2848540070328c9e938c58d40f2b1a3f08982c15c7edc5dcabfde3330";
         boline =
