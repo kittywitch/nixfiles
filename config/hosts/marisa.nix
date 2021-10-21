@@ -67,14 +67,15 @@
     };
     yggdrasil = {
       enable = true;
-      pubkey = "3b171319fbb6be1716c99f36b83a70346ec655d99afde410a50ca61a1c278c7c";
+      pubkey = "2134779f3e19e7df46113a814e9a87097839b9d557ebe3856423e148abcfe582";
+      address = "202:f65c:4306:f30:c105:cf76:2bf5:8b2b";
       listen.enable = true;
       listen.endpoints = [ "tcp://${config.network.addresses.public.nixos.ipv4.address}:52969" "tcp://[${config.network.addresses.public.nixos.ipv6.address}]:52969" ];
     };
     firewall = {
       public = {
         interfaces = singleton "ens3";
-        tcp.ports = singleton 62969;
+        tcp.ports = singleton 52969;
       };
       private.interfaces = singleton "yggdrasil";
     };
@@ -83,18 +84,18 @@
   # Youko WG
   networking.wireguard.interfaces.wg-youko = {
     ips = [
-      "10.42.68.1/24"
+      "10.42.68.1/32"
     ];
     listenPort = 51219;
     peers = [
       {
         allowedIPs = [
-          "10.42.68.1/24"
+          "10.42.68.0/24"
         ];
         publicKey = "nc7mpg2tbawWR9xjFsk/loxAMtRhEZ49PCJXNYk/Qm8=";
       }
     ];
-    privateKeyFile = config.secrets.files.wg-youko-privkey.file;
+    privateKeyFile = config.secrets.files.wg-youko-privkey.path;
   };
 
   kw.secrets.variables.wg-youko-privkey = {

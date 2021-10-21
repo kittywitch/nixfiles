@@ -102,7 +102,8 @@ with lib;
     };
     yggdrasil = {
       enable = true;
-      pubkey = "55e3f29c252d16e73ac849a6039824f94df1dee670c030b9e29f90584f935575";
+      pubkey = "0da9fce0b282c63b449a813183e8fa15d1480b344228068f2af860afafa8928d";
+      address = "204:4ac0:63e9:afa7:3897:6caf:d9cf:82e0";
       listen.enable = true;
       listen.endpoints = [ "tcp://${config.network.addresses.public.nixos.ipv4.address}:52969" "tcp://[${config.network.addresses.public.nixos.ipv6.address}]:52969" ];
     };

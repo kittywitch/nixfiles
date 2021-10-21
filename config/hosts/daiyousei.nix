@@ -30,7 +30,8 @@
 
   network.yggdrasil = {
     enable = true;
-    pubkey = "0db7838e7cbab0dc0694f09b683b3a064bf63665415f2af47d1269c2861ffc20";
+    pubkey = "edb7de263e6924b8c9446123979782420e5196317bffc75e9a6ca546551252da";
+    address = "206:d807:a98:309f:3bc0:de7a:411d:9d95";
   };
 
   services.nginx.virtualHosts =

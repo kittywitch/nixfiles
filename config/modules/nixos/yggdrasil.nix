@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.network.yggdrasil;
   calcAddr = pubkey: lib.readFile (pkgs.runCommandNoCC "calcaddr-${pubkey}" { } ''
-    echo '{ EncryptionPublicKey: "${pubkey}" }' | ${config.services.yggdrasil.package}/bin/yggdrasil -useconf -address | tr -d '\n' > $out
+    echo '{ SigningPublicKey: "${pubkey}" }' | ${config.services.yggdrasil.package}/bin/yggdrasil -useconf -address | tr -d '\n' > $out
   '').outPath;
 in
 {
@@ -17,8 +17,9 @@ in
     };
     address = mkOption {
       type = types.str;
-      description = "Main Yggdrasil address. Set automatically";
-      default = calcAddr cfg.pubkey;
+      #description = "Main Yggdrasil address. Set automatically";
+      #default = calcAddr cfg.signingPubkey;
+      default = "";
     };
     trust = mkOption {
       type = types.bool;
@@ -122,46 +123,19 @@ in
         enable = true;
         persistentKeys = true;
         config = {
-          AllowedEncryptionPublicKeys = pubkeys;
+          AllowedPublicKeys = pubkeys;
           IfName = "yggdrasil";
           Listen = cfg.listen.endpoints;
           Peers = lib.flatten (cfg.extern.endpoints ++ (map (c: c.listen.endpoints) (filter (c: c.listen.enable) yggConfigs)));
-          SessionFirewall = {
-            Enable = true;
-            AllowFromRemote = false;
-            WhitelistEncryptionPublicKeys = pubkeys;
-          };
-          TunnelRouting =
-            let
-              subnets = v: (
-                listToAttrs (flatten (map (c: map (net: nameValuePair net c.pubkey) c.tunnel."localV${toString v}") yggConfigs))
-              ) // cfg.tunnel."remoteV${toString v}";
-            in
-            {
-              Enable = true;
-              IPv4LocalSubnets = cfg.tunnel.localV4 ++ cfg.extra.localV4;
-              IPv6LocalSubnets = cfg.tunnel.localV6 ++ cfg.extra.localV6;
-              IPv4RemoteSubnets = subnets 4;
-              IPv6RemoteSubnets = subnets 6;
-            };
         };
       };
-
-      systemd.services.yggdrasil.postStart =
-        let
-          yggTun = config.services.yggdrasil.config.TunnelRouting;
-          addNets = v: nets: concatMapStringsSep "\n" (net: "${pkgs.iproute}/bin/ip -${toString v} route add ${net} dev yggdrasil") (attrNames nets);
-        in
-        "sleep 1\n" + (concatMapStringsSep "\n" (v: addNets v yggTun."IPv${toString v}RemoteSubnets") [ 4 6 ]);
 
       system.build.yggdrasilTemplate =
         let
           json = builtins.toJSON {
             inherit (config.services.yggdrasil.config) Peers SessionFirewall TunnelRouting;
-            EncryptionPublicKey = "";
-            EncryptionPrivateKey = "";
-            SigningPublicKey = "";
-            SigningPrivateKey = "";
+            PublicKey = "";
+            PrivateKey = "";
           };
         in
         pkgs.runCommandNoCC "yggdrasil-template.json" { }

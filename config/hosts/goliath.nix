@@ -235,7 +235,8 @@
       };
       yggdrasil = {
         enable = true;
-        pubkey = "a7110d0a1dc9ec963d6eb37bb6922838b8088b53932eae727a9136482ce45d47";
+        pubkey = "9604cc51760376fa111e931aad1a71ab91f240517a7d60932c6646104b99db47";
+        address = "200:d3f6:675d:13f9:120b:ddc2:d9ca:a5cb";
         listen.enable = false;
         listen.endpoints = [ "tcp://0.0.0.0:0" ];
       };
