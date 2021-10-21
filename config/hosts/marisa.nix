@@ -84,9 +84,9 @@
   # Youko WG
   networking.wireguard.interfaces.wg-youko = {
     ips = [
-      "10.42.68.1/32"
+      "10.42.68.1/24"
     ];
-    listenPort = 51219;
+    listenPort = 51819;
     peers = [
       {
         allowedIPs = [
@@ -97,6 +97,7 @@
     ];
     privateKeyFile = config.secrets.files.wg-youko-privkey.path;
   };
+  networking.firewall.allowedUDPPorts = [ 51819 ];
 
   kw.secrets.variables.wg-youko-privkey = {
     path = "secrets/wireguard";
