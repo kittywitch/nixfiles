@@ -12,6 +12,7 @@
     thunderbird
     mumble-develop
     dino-omemo
+    tdesktop
     transmission-remote-gtk
     scrcpy
     lm_sensors

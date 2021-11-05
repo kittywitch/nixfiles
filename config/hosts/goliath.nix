@@ -108,6 +108,7 @@
           ".local/share/task"
           ".local/share/dino"
           ".local/share/weechat"
+          ".local/share/TelegramDesktop"
           ".local/share/Mumble"
           ".local/share/direnv"
           ".config/Mumble"

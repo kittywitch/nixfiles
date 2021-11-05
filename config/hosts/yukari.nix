@@ -4,9 +4,9 @@
     profiles.network
     profiles.gui
     users.kat.guiFull
-    services.fusionpbx
     services.jellyfin
     services.kattv-ingest
+    services.kattv2-ingest
     services.postgres
     services.nfs
     services.nginx
