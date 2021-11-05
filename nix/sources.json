@@ -89,10 +89,10 @@
         "homepage": null,
         "owner": "kittywitch",
         "repo": "nixexprs",
-        "rev": "65c3e43c7da5bd6d389a3edfc73b5295a815e8f8",
-        "sha256": "14qpsrlkxnsmm0ssz9k2qwp4h4fxa4wjxkc9mmmkxrai84b1n6mv",
+        "rev": "9c8be5f5cb63744ce5420fd58d282e4045ca24c9",
+        "sha256": "03nm5ai49l4x8z6nlc1jyiv3y74c6nh1yf4l966hp3qplkn88v87",
         "type": "tarball",
-        "url": "https://github.com/kittywitch/nixexprs/archive/65c3e43c7da5bd6d389a3edfc73b5295a815e8f8.tar.gz",
+        "url": "https://github.com/kittywitch/nixexprs/archive/9c8be5f5cb63744ce5420fd58d282e4045ca24c9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
