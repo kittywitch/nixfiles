@@ -143,7 +143,7 @@
       efi.canTouchEfiVariables = true;
     };
 
-    deploy.profile.hardware.acs-override = true;
+    deploy.profile.hardware.acs-override = builtins.getEnv "CI_PLATFORM" == "impure";
 
     users.users.kat.extraGroups = singleton "openrazer";
 
