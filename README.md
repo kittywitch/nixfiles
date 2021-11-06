@@ -21,6 +21,7 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 | [goliath][]      | Private | Beloved workstation. Does VFIO.                               |
 | [koishi][]       | Private | Main laptop.                                                  |
 | [ran][]          | Private | CCTV netbook.                                                 |
+| \[chen\]\[\]     | Private | CCTV netbook.                                                 |
 | [medicine][]     | None    | Work-in-progress Live USB.                                    |
 
 ## Profiles
