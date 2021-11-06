@@ -2,9 +2,8 @@
   imports = with meta; [
     profiles.hardware.oracle.ubuntu
     profiles.network
-    services.knot
     services.nginx
-  ];
+  ] ++ optional (builtins.getEnv "CI_PLATFORM" == "TRUSTED") ../trusted/knot;
 
   kw.oci = {
     specs = {
