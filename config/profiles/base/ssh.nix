@@ -28,6 +28,8 @@ with lib;
     permitRootLogin = lib.mkDefault "prohibit-password";
     kexAlgorithms = [ "curve25519-sha256@libssh.org" ];
     extraConfig = ''
+      HostkeyAlgorithms +ssh-rsa
+      PubkeyAcceptedAlgorithms +ssh-rsa
       StreamLocalBindUnlink yes
       LogLevel VERBOSE 
     '';
