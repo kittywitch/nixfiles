@@ -5,7 +5,20 @@
     cname = { inherit (config.network.addresses.public) target; };
   };
 
+  deploy.tf.dns.records.services_owncast = {
+    inherit (config.network.dns) zone;
+    domain = "cast";
+    cname = { inherit (config.network.addresses.public) target; };
+  };
+
   services.nginx.virtualHosts = {
+    "cast.${config.network.dns.domain}" = {
+      forceSSL = true;
+      enableACME = true;
+      locations = {
+        "/".proxyPass = "http://127.0.0.1:8082";
+      };
+    };
     "media.${config.network.dns.domain}" = {
       forceSSL = true;
       enableACME = true;

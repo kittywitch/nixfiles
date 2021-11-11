@@ -59,6 +59,11 @@
     };
   };
 
+  services.owncast = {
+    enable = true;
+    port = 8082;
+  };
+
   network = {
     addresses.public = {
       enable = true;
@@ -75,7 +80,7 @@
     firewall = {
       public = {
         interfaces = singleton "ens3";
-        tcp.ports = singleton 52969;
+        tcp.ports = [ 1935 52969 ];
       };
       private.interfaces = singleton "yggdrasil";
     };
