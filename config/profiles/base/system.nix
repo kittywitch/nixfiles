@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }: with lib;
 
 {
-  boot.kernelPackages = mkIf (builtins.getEnv "CI_PLATFORM" == "impure") (mkDefault pkgs.linuxPackages_latest);
+  boot.kernelPackages = mkIf (elem "zfs" config.boot.supportedFilesystems) (mkDefault config.boot.zfs.package.latestCompatibleLinuxPackages);
   hardware.enableRedistributableFirmware = lib.mkDefault true;
   boot.tmpOnTmpfs = true;
   boot.zfs.enableUnstable = mkIf (elem "zfs" config.boot.supportedFilesystems) true;
