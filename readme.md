@@ -21,7 +21,7 @@ These are the NixOS configurations for my systems. I run nothing other than NixO
 | [goliath][]      | Private | Beloved workstation. Does VFIO.                               |
 | [koishi][]       | Private | Main laptop.                                                  |
 | [ran][]          | Private | CCTV netbook.                                                 |
-| \[chen\]\[\]     | Private | CCTV netbook.                                                 |
+| [chen][]         | Private | CCTV netbook.                                                 |
 | [medicine][]     | None    | Work-in-progress Live USB.                                    |
 
 ## Profiles
@@ -162,8 +162,9 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [shinmyoumaru]: config/hosts/shinmyoumaru.nix
   [yukari]: config/hosts/yukari.nix
   [goliath]: config/hosts/goliath.nix
-  [koishi]: config/hosts/koishi.nix
+  [koishi]: config/hosts/ishi.nix
   [ran]: config/hosts/ran.nix
+  [chen]: config/hosts/chen.nix
   [medicine]: config/hosts/medicine.nix
   [here]: config/profiles/base/profiles.nix
   [base]: config/profiles/base
