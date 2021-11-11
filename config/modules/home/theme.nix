@@ -65,6 +65,7 @@ let cfg = config.kw.theme; in
 
     programs.swaylock = mkIf (cfg.swaylock) {
       enable = true;
+      package = pkgs.swaylock-effects-develop;
       args = {
         screenshots = true;
         daemonize = true;
