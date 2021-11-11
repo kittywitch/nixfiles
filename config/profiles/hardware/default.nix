@@ -31,7 +31,7 @@
         x270
         intel
         laptop
-        wifi
+        networkmanager
       ];
     };
     eeepc-1015pem = {

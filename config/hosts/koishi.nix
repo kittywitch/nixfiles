@@ -55,7 +55,7 @@
     networking = {
       hostId = "dddbb888";
       useDHCP = false;
-      wireless = {
+      /* wireless = {
         enable = true;
         userControlled.enable = true;
         interfaces = singleton "wlp3s0";
@@ -65,7 +65,7 @@
           inherit (config.network.addresses.private.nixos.ipv4) address;
           prefixLength = 24;
         };
-      };
+      }; */
       defaultGateway = config.network.privateGateway;
     };
 
