@@ -1,8 +1,10 @@
-{ config, ... }:
+{ config, lib, ... }: with lib;
 
 {
   deploy.targets.home = {
     tf = { config, ... }: {
+      imports = optional (builtins.pathExists ../trusted/mail.nix) ../trusted/mail.nix;
+
       dns.records.ygg_grimoire = {
         zone = "kittywit.ch.";
         domain = "grimoire.ygg";
