@@ -32,7 +32,7 @@ in
 {
   imports = [
     (toString (sources.tf-nix + "/modules/run.nix"))
-  ] ++ (optional (builtins.pathExists ../../trusted/tf/tf.nix) (../../trusted/tf/tf.nix));
+  ] ++ (optional (builtins.pathExists ../../tf/tf.nix) (../../tf/tf.nix));
   options = {
     deploy = {
       dataDir = mkOption {
@@ -83,6 +83,15 @@ in
                 deps = {
                   select.allProviders = true;
                   enable = true;
+/*
+                  apply = {
+                    doneCommand = ''
+                      git -C "${cfg.dataDir}" add -A
+                      git -C "${cfg.dataDir}" commit -m "${config.name}: $(date +'%F %T')"
+                      git -C "${cfg.dataDir}" push
+                      '';
+                      };
+*/
                 };
                 terraform = {
                   version = "1.0";
@@ -101,8 +110,21 @@ in
                     attrPrefix = "deploy.targets.${name}.tf.runners.run.";
                   };
                   run = {
-                    apply.name = "${name}-apply";
+                    apply.name = "${name}-apply-uw";
                     terraform.name = "${name}-tf";
+                    myApply = {
+                      name = "${name}-apply";
+                      command = let
+                        path = toString cfg.dataDir;
+                      in ''
+                        set -e
+                        git -C "${path}" pull
+                        ${config.tf.runners.run.apply.package}/bin/${config.tf.runners.run.apply.executable}
+                        git -C "${path}" add -A
+                        git -C "${path}" commit -m "${config.name}: $(date +'%F %T')"
+                        git -C "${path}" push --force
+                      '';
+                    };
                   };
                 };
                 continue.envVar = "TF_NIX_CONTINUE_${replaceStrings [ "-" ] [ "_" ] config.name}";
