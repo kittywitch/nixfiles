@@ -22,6 +22,8 @@
           "89684441745467da0d1bf7f47dc74ec3ca65e05c72f752298ef3c22a22024d43";
         okami =
           "f8fd12c6ed924048e93a7bd7dd63c2464813c9edddfef7415c4574518ecd4757";
+        amaterasu =
+          "ab9a4a78df124a8413c3a6576332d7739a44c036e14b7b0b4ea4558373ddda97";
       };
     };
 
