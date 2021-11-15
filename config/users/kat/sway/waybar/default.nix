@@ -9,9 +9,9 @@
     enable = true;
     systemd.enable = true;
     settings = [{
-      modules-right = [ "clock#s" "clock#arc" "clock#hex" "clock#miku" "clock" ];
-      modules-center = [ "sway/workspaces" "sway/mode" "sway/window" ];
-      modules-left = [
+      modules-center = [ "clock#s" "clock#arc" "clock#hex" "clock#miku" "clock" ];
+      modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
+      modules-right = [
         "tray"
         "pulseaudio"
         "custom/mail"

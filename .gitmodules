@@ -1,7 +1,11 @@
 [submodule "config/trusted"]
 	path = config/trusted
 	branch = main
-	url = "https://git.kittywit.ch/kat/nixfiles-trusted.git"
+	url = "ssh://gitea@git.kittywit.ch:62954/kat/nixfiles-trusted.git"
+[submodule "config/tf"]
+	path = config/tf
+	branch = main
+	url = "gcrypt::ssh://gitea@git.kittywit.ch:62954/kat/nixfiles-sensitive.git#main"
 [submodule "overlay/exprs"]
 	path = overlay/exprs
 	branch = main

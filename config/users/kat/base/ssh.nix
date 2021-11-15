@@ -6,6 +6,7 @@
     controlMaster = "auto";
     controlPersist = "10m";
     hashKnownHosts = true;
+    compression = true;
     matchBlocks =
       let
         common = {

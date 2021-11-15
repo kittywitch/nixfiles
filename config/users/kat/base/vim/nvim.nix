@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: with lib;
+{ config, lib, pkgs, nixos, ... }: with lib;
 
 let initvim = pkgs.callPackage
   ({ stdenv, elinks, nodejs }: stdenv.mkDerivation {
@@ -23,6 +23,7 @@ in
     enable = true;
     extraConfig = ''
       source ${initvim}
+      ${if nixos.networking.hostName == "koishi" then "color-scheme base16-default-light" else "colorscheme base16-default-dark"}
     '';
     vimAlias = true;
     viAlias = true;

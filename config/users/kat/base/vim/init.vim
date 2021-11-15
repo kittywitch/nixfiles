@@ -10,7 +10,6 @@ set sw=2
 
 " colors
 let base16colorspace=256
-colorscheme base16-default-dark
 autocmd vimenter * highlight Normal guibg=NONE ctermbg=NONE
 autocmd SourcePost * highlight Normal     ctermbg=NONE guibg=NONE
 			\ |    highlight LineNr     ctermbg=NONE guibg=NONE

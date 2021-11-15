@@ -19,6 +19,7 @@ in
     packageConfigurable = pkgs.vim_configurable-pynvim;
     extraConfig = ''
       source ${initvim}
+      ${if nixos.networking.hostName == "koishi" then "color-scheme base16-default-light" else "colorscheme base16-default-dark"}
     '';
     plugins = with pkgs.vimPlugins; [
       "vim-cool"
