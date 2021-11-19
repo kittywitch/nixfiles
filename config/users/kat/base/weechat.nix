@@ -41,7 +41,7 @@ with lib;
       colorize_nicks
       unread_buffer
       urlgrab
-      vimode-git
+      vimode-develop
       weechat-matrix
       title
       highmon
