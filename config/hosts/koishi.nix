@@ -5,6 +5,7 @@
     profiles.light
     profiles.network
     users.kat.guiFull
+    services.nginx
     services.dnscrypt-proxy
   ];
 
@@ -37,7 +38,7 @@
 
     powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
     boot = {
-      supportedFilesystems = singleton "xfs";
+      supportedFilesystems = [ "xfs" "zfs" ];
       initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/8dd300d3-c432-47b6-8466-55682cd1c1a1";
       loader = {
         systemd-boot.enable = true;

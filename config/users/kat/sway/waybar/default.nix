@@ -12,7 +12,6 @@
       modules-center = [ "clock#s" "clock#arc" "clock#hex" "clock#miku" "clock" ];
       modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
       modules-right = [
-        "tray"
         "pulseaudio"
         "custom/mail"
         "cpu"
@@ -24,6 +23,7 @@
         "idle_inhibitor"
         "custom/konawall"
         "custom/gpg-status"
+        "tray"
       ];
 
       modules = {
