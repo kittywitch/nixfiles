@@ -39,7 +39,6 @@ in
       vim-airline
       vim-airline-themes
       vim-lastplace
-      base16-vim
     ];
   };
 }
