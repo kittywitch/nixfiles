@@ -1,5 +1,5 @@
 { lib, sources, tree, ... }: with lib; let
-  profiles = tree.dirs // tree.files;
+  profiles = tree.prev;
   appendedProfiles = with profiles; {
     ubuntu = { config, ... }: {
       deploy.profile.hardware.oracle = {

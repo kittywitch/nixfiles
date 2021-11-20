@@ -23,10 +23,54 @@ let
     allStr = toString all;
   };
 
+  tree = import ./tree.nix { inherit lib; } {
+    inherit sources;
+    folder = ./config;
+    config = {
+      "modules/nixos" = {
+        functor = {
+          enable = true;
+          external = [
+            (import (sources.arcexprs + "/modules")).nixos
+            (import (sources.katexprs + "/modules")).nixos
+            (import (sources.impermanence + "/nixos.nix"))
+            (import sources.anicca).modules.nixos
+            (sources.tf-nix + "/modules/nixos/secrets.nix")
+            (sources.tf-nix + "/modules/nixos/secrets-users.nix")
+          ];
+        };
+      };
+      "modules/home" = {
+        functor = {
+          enable = true;
+          external = [
+            (import (sources.arcexprs + "/modules")).home-manager
+            (import (sources.katexprs + "/modules")).home
+            (import (sources.impermanence + "/home-manager.nix"))
+            (import sources.anicca).modules.home
+            (sources.tf-nix + "/modules/home/secrets.nix")
+          ];
+        };
+      };
+      "modules/meta".functor.enable = true;
+      "profiles/*".functor.enable = true;
+      "profiles/hardware".evaluateDefault = true;
+      "profiles/cross".evaluateDefault = true;
+      "profiles/hardware/*".evaluateDefault = true;
+      "services/*".aliasDefault = true;
+      "trusted/secrets".evaluateDefault = true;
+      "trusted".excludes = [ "tf" ];
+      "users/*".evaluateDefault = true;
+      "users/kat/*".functor.enable = true;
+      "users/kat/services/mpd".functor.enable = true;
+    };
+  };
+
   root = ./.;
-  xarg = lib.recursiveMod { folder = ./config; inherit sources lib; };
 
   metaBase = import ./meta.nix { inherit config lib pkgs root; };
+
+  xarg = tree.impure;
 
   eval = lib.evalModules {
     modules = lib.singleton metaBase
@@ -44,13 +88,14 @@ let
       (lib.attrNames xarg.hosts));
 
     specialArgs = {
-      inherit sources root;
+      inherit sources root tree;
       meta = self;
     } // xarg;
   };
 
   inherit (eval) config;
 
-  self = config // { inherit pkgs lib sourceCache sources; } // xarg;
+
+  self = config // { inherit pkgs lib sourceCache sources tree; } // xarg;
 in
 self

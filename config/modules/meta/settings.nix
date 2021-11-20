@@ -1,5 +1,0 @@
-{ sources, ... }: {
-  functor = {
-    enable = true;
-  };
-}

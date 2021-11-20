@@ -1,19 +1,19 @@
 { lib, tree, ... }: with lib; let
   wrapImports = imports: mapAttrs
-    (name: paths: { config, ... }: {
+    (_: paths: { config, ... }: {
       config.home-manager.users.kat = {
-        imports = if isAttrs paths then attrValues paths else singleton paths;
+        imports = singleton paths;
       };
     })
     imports;
-  dirImports = wrapImports tree.dirs;
-  serviceImports = wrapImports tree.dirs.services;
+  dirImports = wrapImports tree.prev;
+  serviceImports = wrapImports tree.prev.services;
 in
-(removeAttrs dirImports (singleton "base")) // {
+dirImports // {
   base = {
     imports = [
       dirImports.base
-      tree.files.nixos
+      tree.prev.nixos
     ];
   };
   server = { };

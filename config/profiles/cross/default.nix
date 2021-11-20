@@ -1,5 +1,5 @@
 { lib, tree, ... }: with lib; let
-  profiles = tree.dirs // tree.files;
+  profiles = tree.prev;
   appendedProfiles = with profiles; {
     aarch64 = {
       deploy.profile.cross = {

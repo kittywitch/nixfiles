@@ -1,8 +1,5 @@
 { lib, tree, ... }: with lib; let
-  profiles = (filterAttrs (n: v: v ? "default") tree.dirs)
-    // tree.defaultDirs
-    // (mapAttrs (n: v: removeAttrs v [ "default" ]) (filterAttrs (n: v: v ? "default") tree.dirs))
-    // tree.files;
+  profiles = tree.prev;
   appendedProfiles = with profiles; {
     ms-7b86 = {
       imports = [
