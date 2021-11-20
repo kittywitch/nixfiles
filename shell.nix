@@ -70,6 +70,7 @@ with lib; pkgs.mkShell {
     export HOME_USER=$(id -un)
     export CI_PLATFORM="impure"
     export NIX_PATH="$NIX_PATH:home=${toString ./.}"
+    git pull
   '';
 }
 

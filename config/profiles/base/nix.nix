@@ -4,13 +4,10 @@
   boot.loader.grub.configurationLimit = 8;
   boot.loader.systemd-boot.configurationLimit = 8;
 
-  environment.systemPackages = [
-    (pkgs.writeShellScriptBin "nixFlakes" ''
-      exec ${pkgs.nixUnstable}/bin/nix --experimental-features "nix-command flakes" "$@"
-    '')
-  ];
-
   nix = {
+    extraOptions = lib.optionalString (lib.versionAtLeast config.nix.package.version "2.4") ''
+        experimental-features = nix-command flakes
+    '';
     nixPath = [
       "nixpkgs=${sources.nixpkgs}"
       "nur=${sources.nur}"
