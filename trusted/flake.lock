@@ -383,6 +383,36 @@
         "type": "github"
       }
     },
+    "nixfiles": {
+      "inputs": {
+        "anicca": "anicca",
+        "arcexprs": "arcexprs",
+        "ci": "ci",
+        "emacs-overlay": "emacs-overlay",
+        "flake-compat": "flake-compat",
+        "flake-utils": "flake-utils",
+        "home-manager": "home-manager",
+        "impermanence": "impermanence",
+        "katexprs": "katexprs",
+        "nix-dns": "nix-dns",
+        "nix-doom-emacs": "nix-doom-emacs",
+        "nixpkgs": "nixpkgs_4",
+        "nur": "nur",
+        "tf-nix": "tf-nix",
+        "trusted": [
+          "trusted"
+        ]
+      },
+      "locked": {
+        "narHash": "sha256-Z68NMWdO7K2nPjE5bibyB6WNDtLsiSsJXq8KiHCrTdg=",
+        "path": "/nix/store/7vz35n7kdr2fidzxjywdp7k70g8agn7j-source",
+        "type": "path"
+      },
+      "original": {
+        "path": "/nix/store/7vz35n7kdr2fidzxjywdp7k70g8agn7j-source",
+        "type": "path"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1637523980,
@@ -573,20 +603,7 @@
     },
     "root": {
       "inputs": {
-        "anicca": "anicca",
-        "arcexprs": "arcexprs",
-        "ci": "ci",
-        "emacs-overlay": "emacs-overlay",
-        "flake-compat": "flake-compat",
-        "flake-utils": "flake-utils",
-        "home-manager": "home-manager",
-        "impermanence": "impermanence",
-        "katexprs": "katexprs",
-        "nix-dns": "nix-dns",
-        "nix-doom-emacs": "nix-doom-emacs",
-        "nixpkgs": "nixpkgs_4",
-        "nur": "nur",
-        "tf-nix": "tf-nix",
+        "nixfiles": "nixfiles",
         "trusted": "trusted"
       }
     },
@@ -642,13 +659,18 @@
     "trusted": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=",
-        "path": "./empty/.",
-        "type": "path"
+        "lastModified": 1637526942,
+        "narHash": "sha256-XzWMFgRPY5sQwUO01kZLRAvfFPekp7jXJIAqNiQ8wxs=",
+        "ref": "main",
+        "rev": "bc613f9528ecf35f0bfbd83ab299f88d7c44f4a0",
+        "revCount": 87,
+        "type": "git",
+        "url": "ssh://git@github.com/kittywitch/nixfiles-trusted"
       },
       "original": {
-        "path": "./empty/.",
-        "type": "path"
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/kittywitch/nixfiles-trusted"
       }
     }
   },
