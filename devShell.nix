@@ -26,6 +26,10 @@ let
     done
     cd $START_DIR
   '';
+  nf-update = pkgs.writeShellScriptBin "nf-update" ''
+    nix flake update
+    nix flake lock ./trusted --update-input trusted
+  '';
 in
 with lib; pkgs.mkShell {
   nativeBuildInputs = with pkgs; [
