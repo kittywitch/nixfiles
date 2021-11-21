@@ -77,6 +77,10 @@ with lib; {
     nixpkgs.path = "${channels.nixfiles.inputs.nixpkgs}";
   };
 
+  environment.test = {
+    inherit (channels.nixpkgs) nix;
+  };
+
   jobs.flake-update = {
     tasks.flake-build.inputs = with channels.cipkgs;
       ci.command {
@@ -105,7 +109,7 @@ with lib; {
               chmod 0600 ~/.ssh/id_rsa
             fi
 
-            ${concatStringsSep "\n" (mapAttrsToList (n: v: "nix flake --update-input ${n}") channels.nixfiles.inputs)}
+            ${concatStringsSep "\n" (mapAttrsToList (n: v: "nix flake lock --update-input ${n}") channels.nixfiles.inputs)}
 
             if git status --porcelain | grep -qF flake.lock; then
               git -P diff flake.lock
