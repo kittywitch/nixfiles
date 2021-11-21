@@ -98,7 +98,7 @@ with lib; {
             targets = main.deploy.targets;
             enabledTargets = filterAttrs (_: v: v.enable) main.deploy.targets;
             enabledHosts = concatLists (mapAttrsToList (targetName: target: target.nodeNames) enabledTargets);
-            filteredHosts = subtractLists enabledHosts [ "daiyousei" "shinmyoumaru" ];
+            filteredHosts = subtractLists [ "daiyousei" "shinmyoumaru" ] enabledHosts;
             hostBuildString = concatMapStringsSep " && " (host: "nix build -Lf . network.nodes.${host}.deploy.system -o result-${host} && nix-collect-garbage -d") filteredHosts;
           in
           ''
