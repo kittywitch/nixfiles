@@ -7,7 +7,7 @@
       flake = false;
     };
     ci = {
-      url = "github:arcnmx/ci/master";
+      url = "github:arcnmx/ci/nix2.4";
       flake = false;
     };
     home-manager.url = "github:nix-community/home-manager/master";

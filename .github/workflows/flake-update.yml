@@ -1,12 +1,12 @@
 env:
   CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
   CI_ALLOW_ROOT: '1'
-  CI_CONFIG: ./ci/niv-cron.nix
+  CI_CONFIG: ./ci/flake-cron.nix
   CI_PLATFORM: gh-actions
   OPENSSH_PRIVATE_KEY: ${{ secrets.OPENSSH_PRIVATE_KEY }}
 jobs:
   ci-check:
-    name: niv-update check
+    name: flake-update check
     runs-on: ubuntu-latest
     steps:
     - id: checkout
@@ -16,22 +16,22 @@ jobs:
         submodules: false
     - id: nix-install
       name: nix install
-      uses: arcnmx/ci/actions/nix/install@master
+      uses: arcnmx/ci/actions/nix/install@nix2.4
     - id: ci-action-build
       name: nix build ci.gh-actions.configFile
-      uses: arcnmx/ci/actions/nix/build@master
+      uses: arcnmx/ci/actions/nix/build@nix2.4
       with:
         attrs: ci.gh-actions.configFile
         out-link: .ci/workflow.yml
     - id: ci-action-compare
       name: gh-actions compare
-      uses: arcnmx/ci/actions/nix/run@master
+      uses: arcnmx/ci/actions/nix/run@nix2.4
       with:
-        args: -u .github/workflows/niv-update.yml .ci/workflow.yml
+        args: -u .github/workflows/flake-update.yml .ci/workflow.yml
         attrs: nixpkgs.diffutils
         command: diff
-  niv-update:
-    name: niv-update
+  flake-update:
+    name: flake-update
     runs-on: ubuntu-latest
     steps:
     - id: checkout
@@ -41,12 +41,12 @@ jobs:
         submodules: false
     - id: nix-install
       name: nix install
-      uses: arcnmx/ci/actions/nix/install@master
+      uses: arcnmx/ci/actions/nix/install@nix2.4
     - id: ci-setup
       name: nix setup
-      uses: arcnmx/ci/actions/nix/run@master
+      uses: arcnmx/ci/actions/nix/run@nix2.4
       with:
-        attrs: ci.job.niv-update.run.bootstrap
+        attrs: ci.job.flake-update.run.bootstrap
         quiet: false
     - id: architectures
       name: prepare for emulated builds
@@ -55,17 +55,17 @@ jobs:
         '
     - id: ci-dirty
       name: nix test dirty
-      uses: arcnmx/ci/actions/nix/run@master
+      uses: arcnmx/ci/actions/nix/run@nix2.4
       with:
-        attrs: ci.job.niv-update.run.test
+        attrs: ci.job.flake-update.run.test
         command: ci-build-dirty
         quiet: false
         stdout: ${{ runner.temp }}/ci.build.dirty
     - id: ci-test
       name: nix test build
-      uses: arcnmx/ci/actions/nix/run@master
+      uses: arcnmx/ci/actions/nix/run@nix2.4
       with:
-        attrs: ci.job.niv-update.run.test
+        attrs: ci.job.flake-update.run.test
         command: ci-build-realise
         ignore-exit-code: true
         quiet: false
@@ -74,9 +74,9 @@ jobs:
         CI_EXIT_CODE: ${{ steps.ci-test.outputs.exit-code }}
       id: ci-summary
       name: nix test results
-      uses: arcnmx/ci/actions/nix/run@master
+      uses: arcnmx/ci/actions/nix/run@nix2.4
       with:
-        attrs: ci.job.niv-update.run.test
+        attrs: ci.job.flake-update.run.test
         command: ci-build-summarise
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.dirty
@@ -86,23 +86,23 @@ jobs:
       id: ci-cache
       if: always()
       name: nix test cache
-      uses: arcnmx/ci/actions/nix/run@master
+      uses: arcnmx/ci/actions/nix/run@nix2.4
       with:
-        attrs: ci.job.niv-update.run.test
+        attrs: ci.job.flake-update.run.test
         command: ci-build-cache
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.cache
-name: niv-update
+name: flake-update
 'on':
   pull_request:
     paths:
     - default.nix
-    - ci/niv-cron.nix
-    - .github/workflows/niv-update.yml
+    - ci/flake-cron.nix
+    - .github/workflows/flake-update.yml
   push:
     paths:
     - default.nix
-    - ci/niv-cron.nix
-    - .github/workflows/niv-update.yml
+    - ci/flake-cron.nix
+    - .github/workflows/flake-update.yml
   schedule:
   - cron: 0 0 * * *
