@@ -1,16 +1,17 @@
-{ sources, system ? builtins.currentSystem, ... }@args:
+{ inputs, system ? builtins.currentSystem, ... }@args:
 
 let
-  pkgs = import sources.nixpkgs {
+  pkgs = import inputs.nixpkgs {
+    inherit system;
     overlays = [
-      (import ./nur { inherit sources; })
-      (import sources.emacs-overlay)
+      (import ./nur { inherit inputs; })
+      (import inputs.emacs-overlay)
       (import ./rustfmt)
-      (import ./dns { inherit sources; })
+      (import ./dns { inherit inputs; })
     ] ++ (map (path: import "${path}/overlay.nix") [
-      sources.arcexprs
-      sources.katexprs
-      sources.anicca
+      inputs.arcexprs
+      inputs.katexprs
+      inputs.anicca
     ]);
     config = {
       allowUnfree = true;

@@ -1,4 +1,4 @@
-{ config, tf, meta, kw, pkgs, lib, sources, ... }: with lib; let
+{ config, tf, meta, kw, pkgs, lib, inputs, ... }: with lib; let
   oci-root = meta.deploy.targets.oci-root.tf;
   cfg = config.kw.oci;
 in
@@ -52,7 +52,7 @@ in
       default = null;
     };
   };
-  imports = with import (sources.tf-nix + "/modules"); [
+  imports = with import (inputs.tf-nix + "/modules"); [
     nixos.oracle
   ];
   config =

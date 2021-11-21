@@ -1,5 +1,5 @@
-{ sources }: final: prev: {
-  nur = import sources.nur {
+{ inputs }: final: prev: {
+  nur = import inputs.nur {
     nurpkgs = final;
     pkgs = final;
   };

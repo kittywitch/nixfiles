@@ -1,4 +1,4 @@
-{ sources, config, pkgs, lib, ... }:
+{ inputs, config, pkgs, lib, ... }:
 
 /*
   This module:
@@ -21,7 +21,7 @@ let
   tfType = types.submoduleWith {
     modules = [
       tfModule
-      "${toString sources.tf-nix}/modules"
+      "${toString inputs.tf-nix}/modules"
     ];
     specialArgs = {
       meta = config;
@@ -31,7 +31,7 @@ let
 in
 {
   imports = [
-    (toString (sources.tf-nix + "/modules/run.nix"))
+    (toString (inputs.tf-nix + "/modules/run.nix"))
   ] ++ (optional (builtins.pathExists ../../tf/tf.nix) (../../tf/tf.nix));
   options = {
     deploy = {

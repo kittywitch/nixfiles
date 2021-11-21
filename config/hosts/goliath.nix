@@ -1,4 +1,4 @@
-{ meta, tf, config, pkgs, lib, sources, ... }: with lib; {
+{ meta, tf, config, pkgs, lib, ... }: with lib; {
   imports = with meta; [
     profiles.hardware.ms-7b86
     profiles.hardware.razer

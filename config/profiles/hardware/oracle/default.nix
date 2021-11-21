@@ -1,4 +1,4 @@
-{ lib, sources, tree, ... }: with lib; let
+{ lib, inputs, tree, ... }: with lib; let
   profiles = tree.prev;
   appendedProfiles = with profiles; {
     ubuntu = { config, ... }: {
@@ -7,7 +7,7 @@
         common = true;
       };
       kw.oci.base = "Canonical Ubuntu";
-      imports = with import (sources.tf-nix + "/modules"); [
+      imports = with import (inputs.tf-nix + "/modules"); [
         nixos.ubuntu-linux
         common
       ];
@@ -18,7 +18,7 @@
         common = true;
       };
       kw.oci.base = "Oracle Linux";
-      imports = with import (sources.tf-nix + "/modules"); [
+      imports = with import (inputs.tf-nix + "/modules"); [
         nixos.oracle-linux
         common
       ];

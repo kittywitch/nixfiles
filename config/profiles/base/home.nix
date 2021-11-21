@@ -1,4 +1,4 @@
-{ meta, config, lib, sources, tf, ... }:
+{ meta, config, lib, inputs, tf, ... }:
 
 with lib;
 
@@ -7,7 +7,7 @@ with lib;
     type = types.attrsOf (types.submoduleWith {
       modules = singleton meta.modules.home;
       specialArgs = {
-        inherit sources tf meta;
+        inherit inputs tf meta;
         nixos = config;
       };
     });
