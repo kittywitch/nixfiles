@@ -109,7 +109,7 @@ with lib; {
               chmod 0600 ~/.ssh/id_rsa
             fi
 
-            ${concatStringsSep "\n" (mapAttrsToList (n: v: "nix flake lock --update-input ${n}") channels.nixfiles.inputs)}
+            nix flake update
 
             if git status --porcelain | grep -qF flake.lock; then
               git -P diff flake.lock
