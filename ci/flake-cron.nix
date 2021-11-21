@@ -120,7 +120,7 @@ with lib; {
                   CACHIX_PUSH=$!
                 fi
                 if [[ -n $OPENSSH_PRIVATE_KEY ]]; then
-                  git add nix/sources.json
+                  git add flake.lock
                   export GIT_{COMMITTER,AUTHOR}_EMAIL=github@kittywit.ch
                   export GIT_{COMMITTER,AUTHOR}_NAME="flake cron job"
                   git commit --message="ci: flake update"
