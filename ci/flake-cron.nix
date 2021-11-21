@@ -77,10 +77,6 @@ with lib; {
     nixpkgs.path = "${channels.nixfiles.inputs.nixpkgs}";
   };
 
-  environment.test = {
-    inherit (channels.cipkgs) cachix;
-  };
-
   jobs.flake-update = {
     tasks.flake-build.inputs = with channels.cipkgs;
       ci.command {
