@@ -1,4 +1,4 @@
-{ config, lib, pkgs, sources, meta, ... }: with lib;
+{ config, lib, pkgs, meta, ... }: with lib;
 
 {
   options.network = with lib; {

@@ -1,4 +1,4 @@
-{ config, tf, meta, kw, pkgs, lib, sources, ... }: with lib; {
+{ config, tf, meta, kw, pkgs, lib, ... }: with lib; {
   imports = with meta; [
     profiles.hardware.oracle.ubuntu
     profiles.network

@@ -1,7 +1,7 @@
-{ config, lib, pkgs, sources, ... }: with lib;
+{ config, lib, pkgs, inputs, ... }: with lib;
 
 let
-  doom-emacs = pkgs.callPackage sources.nix-doom-emacs {
+  doom-emacs = pkgs.callPackage inputs.nix-doom-emacs {
     doomPrivateDir = "${./doom.d}";
     emacsPackages = pkgs.emacsPackagesFor pkgs.emacsPgtkGcc;
     bundledPackages = false;

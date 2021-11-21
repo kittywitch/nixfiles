@@ -1,4 +1,4 @@
-{ lib }: { config, folder, sources, ... }@args: with lib; let
+{ lib }: { config, folder, inputs, ... }@args: with lib; let
   pureTreeGrab = { base, path }: let
     realPath = toString path;
     dirContents = builtins.readDir path;

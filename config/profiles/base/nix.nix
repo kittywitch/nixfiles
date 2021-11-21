@@ -1,4 +1,4 @@
-{ config, lib, pkgs, sources, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   boot.loader.grub.configurationLimit = 8;
@@ -9,10 +9,10 @@
         experimental-features = nix-command flakes
     '';
     nixPath = [
-      "nixpkgs=${sources.nixpkgs}"
-      "nur=${sources.nur}"
-      "arc=${sources.arcexprs}"
-      "ci=${sources.ci}"
+      "nixpkgs=${inputs.nixpkgs}"
+      "nur=${inputs.nur}"
+      "arc=${inputs.arcexprs}"
+      "ci=${inputs.ci}"
     ];
     sandboxPaths = [
       "/var/run/nscd/socket"

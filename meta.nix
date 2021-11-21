@@ -1,7 +1,7 @@
 { config, pkgs, lib, root, ... }: {
   runners = {
     lazy = {
-      file = root;
+      file = ./default.nix;
       args = [ "--show-trace" ];
     };
   };

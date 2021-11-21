@@ -1,3 +1,3 @@
-{ sources, ... }: final: prev: {
-  dns = import sources.nix-dns;
+{ inputs, ... }: final: prev: {
+  dns = import inputs.nix-dns;
 }

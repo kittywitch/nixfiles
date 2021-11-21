@@ -1,4 +1,4 @@
-{ pkgs, sources, lib, meta, config, ... }:
+{ pkgs, inputs, lib, meta, config, ... }:
 
 /*
   This module:
@@ -71,11 +71,11 @@ with lib;
   config.network = {
     nixos = {
       extraModules = [
-        "${toString sources.home-manager}/nixos"
+        "${toString inputs.home-manager}/nixos"
       ] ++ lib.singleton meta.modules.nixos;
       specialArgs = {
         inherit (config.network) nodes;
-        inherit sources meta;
+        inherit inputs meta;
       };
     };
   };
