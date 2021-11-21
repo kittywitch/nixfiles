@@ -98,7 +98,8 @@ with lib; {
             targets = main.deploy.targets;
             enabledTargets = filterAttrs (_: v: v.enable) main.deploy.targets;
             enabledHosts = concatLists (mapAttrsToList (targetName: target: target.nodeNames) enabledTargets);
-            hostBuildString = concatMapStringsSep " && " (host: "nix build -Lf . network.nodes.${host}.deploy.system -o result-${host} && nix-collect-garbage -d") enabledHosts;
+            filteredHosts = subtractLists enabledHosts [ "daiyousei" "shinmyoumaru" ];
+            hostBuildString = concatMapStringsSep " && " (host: "nix build -Lf . network.nodes.${host}.deploy.system -o result-${host} && nix-collect-garbage -d") filteredHosts;
           in
           ''
             # ${toString builtins.currentTime}
