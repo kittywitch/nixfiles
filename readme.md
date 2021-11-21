@@ -99,28 +99,26 @@ They are available within this repo as [exprs][].
 | katexprs/firewall              | NixOS + home-manager        | Per-“domain” (private, public) -> interface abstractions for the firewall. Easier to remember.           |
 | katexprs/network (WIP)         | NixOS + home-manager        | Network abstractions. Handles DNS + certs, among virtualHosts.                                           |
 | katexprs/fusionpbx (WIP)       | NixOS                       | FusionPBX.                                                                                               |
-| katexprs/swaylock              | home-manager                | Easier abstractions for using swaylock-effects.                                                          |
+| arcexprs/swaylock              | home-manager                | Easier abstractions for using swaylock-effects.                                                          |
 | nixfiles/secrets               | Meta + NixOS + home-manager | Helper for tf-nix’s secrets.                                                                             |
 | nixfiles/deploy                | Meta + NixOS + home-manager | tf-nix deployment integration                                                                            |
 | nixfiles/network               | Meta                        | Enables node to host config assignment & NixOS module.                                                   |
 | nixfiles/monitoring            | NixOS                       | Grafana, Prometheus, Loki, node-exporter, netdata, promtail, …                                           |
 | nixfiles/theme                 | home-manager                | Abstractions for themes. SASS templating.                                                                |
-| hexchen/yggdrasil              | NixOS                       | Yggdrasil ease of use module.                                                                            |
 
 ## CI
 
 CI for this repository uses [arcnmx/ci][], is aarch64 emulated build enabled and aims to achieve two goals:
 
-| Action       | Purpose                                                                                                            |
-|--------------|--------------------------------------------------------------------------------------------------------------------|
-| [nodes][4]   | Build and cache host closures, show state of host evaluability/buildability.                                       |
-| [niv-cron][] | Automatically update the dependencies used by the repository, cache them and host closure build results with them. |
+| Action         | Purpose                                                                                                   |
+|----------------|-----------------------------------------------------------------------------------------------------------|
+| [nodes][4]     | Build and cache host closures, show state of host evaluability/buildability.                              |
+| [flake-cron][] | Automatically update the dependencies used by the repository, cache host closure build results with them. |
 
 ## Dependencies
 
 | Dependency                      | Reasoning                                                                                              |
 |---------------------------------|--------------------------------------------------------------------------------------------------------|
-| [nmattia/niv][]                 | Dependency management. Will move to flakes when stable.                                                |
 | [nix-community/home-manager][]  | home-manager. Self-explanatory.                                                                        |
 | [nix-community/NUR][]           | Firefox extensions and such.                                                                           |
 | [arcnmx/tf-nix][]               | The deploy system used, also provides DNS, secrets and node provisioning. (Anything terraform can do.) |
@@ -131,7 +129,6 @@ CI for this repository uses [arcnmx/ci][], is aarch64 emulated build enabled and
 | [kittywitch/anicca][]           | A helper for moving to impermanence.                                                                   |
 | [kittywitch/nixexprs][]         | Packages and modules I have made.                                                                      |
 | [nixos-mailserver][]            | The mail server module I use.                                                                          |
-| [hexchen/nixfiles][]            | Yggdrasil module. Yggdrasil nodes.                                                                     |
 | [nix-community/emacs-overlay][] | An overlay for emacs versions. Currently unused.                                                       |
 | [vlaci/nix-doom-emacs][]        | Nixified DOOM emacs. Currently unused.                                                                 |
 
@@ -143,7 +140,7 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
 
 | Command                                             | Purpose                                                 |
 |-----------------------------------------------------|---------------------------------------------------------|
-| `nf-update`                                         | Fancier `niv update`.                                   |
+| `nf-update`                                         | Wraps `nix flake update`.                               |
 | `nf-actions`                                        | Updates CI integrations.                                |
 | `nf-test`                                           | Tests CI actions.                                       |
 | `<target>-apply`                                    | Deploys to the provided target.                         |
@@ -225,12 +222,10 @@ Please use `nix-shell` or [direnv/direnv][]. The shell is not compatible with [n
   [kittywitch/anicca]: https://github.com/kittywitch/anicca
   [arcnmx/ci]: https://github.com/arcnmx/ci
   [4]: ci/nodes.nix
-  [niv-cron]: ci/niv-cron.nix
-  [nmattia/niv]: https://github.com/nmattia/niv
+  [flake-cron]: ci/flake-cron.nix
   [nix-community/home-manager]: https://github.com/nix-community/home-manager
   [nix-community/NUR]: https://github.com/nix-community/NUR
   [kirelagin/nix-dns]: https://github.com/kirelagin/nix-dns
-  [hexchen/nixfiles]: https://gitlab.com/hexchen/nixfiles
   [nix-community/emacs-overlay]: https://github.com/nix-community/emacs-overlay
   [vlaci/nix-doom-emacs]: https://github.com/vlaci/nix-doom-emacs
   [direnv/direnv]: https://github.com/direnv/direnv
