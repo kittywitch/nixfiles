@@ -1,8 +1,13 @@
 { lib, channels, config, ... }:
 with lib; {
-  name = "niv-update";
-  ci.gh-actions.enable = true;
-  ci.gh-actions.export = true;
+  name = "flake-update";
+  ci = {
+    version = "nix2.4";
+    gh-actions = {
+      enable = true;
+      export = true;
+    };
+  };
 
 
   gh-actions.env.OPENSSH_PRIVATE_KEY = "\${{ secrets.OPENSSH_PRIVATE_KEY }}";
@@ -41,7 +46,7 @@ with lib; {
       let
         paths = [
           "default.nix" # sourceCache
-          "ci/niv-cron.nix"
+          "ci/flake-cron.nix"
           config.ci.gh-actions.path
         ];
       in
@@ -69,23 +74,22 @@ with lib; {
 
   channels = {
     nixfiles.path = ../.;
-    nixpkgs.path = "${channels.nixfiles.sources.nixpkgs}";
+    nixpkgs.path = "${channels.nixfiles.inputs.nixpkgs}";
   };
 
   environment.test = {
     inherit (channels.cipkgs) cachix;
-    inherit (channels.nixpkgs) niv;
   };
 
-  jobs.niv-update = {
-    tasks.niv-build.inputs = with channels.cipkgs;
+  jobs.flake-update = {
+    tasks.flake-build.inputs = with channels.cipkgs;
       ci.command {
-        name = "niv-update-build";
+        name = "flake-update-build";
         allowSubstitutes = false;
         cache = {
           enable = false;
         };
-        displayName = "niv update build";
+        displayName = "flake update build";
         environment = [ "OPENSSH_PRIVATE_KEY" "CACHIX_SIGNING_KEY" "GITHUB_REF" ];
         command =
           let
@@ -104,27 +108,11 @@ with lib; {
               chmod 0600 ~/.ssh/id_rsa
             fi
 
-            git init -q sources
-            ${concatStringsSep "\n" (mapAttrsToList (source: spec: let
-              update = "niv update ${source}";
-              fetch = "timeout 30 git -C sources fetch -q --depth 1 ${spec.repo} ${spec.branch}:source-${source}";
-              revision = "$(git -C sources show-ref -s source-${source})";
-              isGit = hasPrefix "https://" spec.repo or "";
-              git = ''
-                if ${fetch}; then
-                  echo "${source}:${spec.branch} HEAD at ${revision}" >&2
-                  ${update} -r ${revision} || true
-                else
-                  echo "failed to fetch latest revision from ${spec.repo}" >&2
-                fi
-              '';
-              auto = "${update} || true";
-            in if isGit then git else auto) (removeAttrs channels.nixfiles.sources [ "__functor" ]))}
+            ${concatStringsSep "\n" (mapAttrsToList (n: v: "nix flake --update-input ${n}") channels.nixfiles.inputs)}
 
-            if git status --porcelain | grep -qF nix/sources.json; then
-              git -P diff nix/sources.json
-              nix build --no-link -Lf . sourceCache.local
-                echo "checking that network.nodes.still build..." >&2
+            if git status --porcelain | grep -qF flake.lock; then
+              git -P diff flake.lock
+              echo "checking that network.nodes.still build..." >&2
               if ${hostBuildString}; then
                 if [[ -n $CACHIX_SIGNING_KEY ]]; then
                   nix build --no-link -Lf . sourceCache.all
@@ -136,8 +124,8 @@ with lib; {
                 if [[ -n $OPENSSH_PRIVATE_KEY ]]; then
                   git add nix/sources.json
                   export GIT_{COMMITTER,AUTHOR}_EMAIL=github@kittywit.ch
-                  export GIT_{COMMITTER,AUTHOR}_NAME="niv cron job"
-                  git commit --message="ci: niv update"
+                  export GIT_{COMMITTER,AUTHOR}_NAME="flake cron job"
+                  git commit --message="ci: flake update"
                   if [[ $GITHUB_REF = refs/heads/main ]]; then
                     GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
                       git push ssh://gitea@git.kittywit.ch:62954/kat/nixfiles.git HEAD:main

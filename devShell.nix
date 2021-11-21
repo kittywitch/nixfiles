@@ -8,10 +8,10 @@ let
     export START_DIR="$PWD"
     cd "${toString ./.}"
     export NF_CONFIG_ROOT=${toString ./.}/ci
-    NF_CONFIG_FILES=($NF_CONFIG_ROOT/{nodes,niv-cron}.nix)
+    NF_CONFIG_FILES=($NF_CONFIG_ROOT/{nodes,flake-cron}.nix)
     for f in "''${NF_CONFIG_FILES[@]}"; do
       echo $f
-      nix run --argstr config "$f" ci.run.gh-actions-generate
+      nix run --argstr config "$f" -f '${inputs.ci}' run.gh-actions-generate
     done
     cd $START_DIR
   '';
@@ -19,10 +19,10 @@ let
     export START_DIR="$PWD"
     cd "${toString ./.}"
     export NF_CONFIG_ROOT=${toString ./.}/ci
-    NF_CONFIG_FILES=($NF_CONFIG_ROOT/{nodes,niv-cron}.nix)
+    NF_CONFIG_FILES=($NF_CONFIG_ROOT/{nodes,flake-cron}.nix)
     for f in "''${NF_CONFIG_FILES[@]}"; do
       echo $f
-      nix run --argstr config "$f" ci.test
+      nix run --argstr config "$f" -f '${inputs.ci}' test
     done
     cd $START_DIR
   '';
@@ -45,6 +45,7 @@ with lib; pkgs.mkShell {
     (filter (node: node.system.build ? isoImage) (attrValues meta.network.nodes)));
   shellHook = ''
     export HOME_HOSTNAME=$(hostname -s)
+    export NIX_BIN_DIR=${pkgs.nix}/bin
     export HOME_UID=$(id -u)
     export HOME_USER=$(id -un)
     export CI_PLATFORM="impure"

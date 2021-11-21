@@ -1,7 +1,12 @@
 { lib, config, channels, env, ... }: with lib; {
   name = "nodes";
-  ci.gh-actions.enable = true;
-  ci.gh-actions.export = true;
+  ci = {
+    version = "nix2.4";
+    gh-actions = {
+      enable = true;
+      export = true;
+    };
+  };
   channels.nixfiles.path = ../.;
 
   nix.config = {
@@ -21,7 +26,6 @@
     };
   };
 
-  # ensure sources are fetched and available in the local store before evaluating host configs
   environment.bootstrap = {
     archbinfmt =
       let
@@ -42,13 +46,6 @@
         echo ':armv6l-linux:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\x00\xff\xfe\xff\xff\xff:/run/binfmt/arm-linux:' > /proc/sys/fs/binfmt_misc/register
         echo ':armv7l-linux:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\x00\xff\xfe\xff\xff\xff:/run/binfmt/arm-linux:' > /proc/sys/fs/binfmt_misc/register
       '';
-    sourceCache = channels.cipkgs.runCommand "sources"
-      {
-        srcs = attrNames channels.nixfiles.sourceCache.local;
-      } ''
-      mkdir -p $out/share/sources
-      ln -s $srcs $out/share/sources/
-    '';
   };
 
   jobs =
