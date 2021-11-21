@@ -30,7 +30,7 @@
     };
     flake-utils.url = "github:numtide/flake-utils";
     trusted = {
-      url = "git+ssh://git@github.com/kittywitch/nixfiles-trusted?ref=main";
+      url = "path:./empty/.";
       flake = false;
     };
     flake-compat = {
