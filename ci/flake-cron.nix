@@ -116,9 +116,6 @@ with lib; {
               echo "checking that network.nodes.still build..." >&2
               if ${hostBuildString}; then
                 if [[ -n $CACHIX_SIGNING_KEY ]]; then
-                  nix build --no-link -Lf . sourceCache.all
-                  cachix push kittywitch $(nix eval --raw -f . sourceCache.allStr)
-
                   cachix push kittywitch result*/ &
                   CACHIX_PUSH=$!
                 fi
