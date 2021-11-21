@@ -28,7 +28,9 @@ let
   '';
   nf-update = pkgs.writeShellScriptBin "nf-update" ''
     nix flake update
-    nix flake lock ./trusted --update-input trusted
+    if [[ -n $TRUSTED ]]; then
+      nix flake lock ./trusted --update-input trusted
+    fi
   '';
 in
 with lib; pkgs.mkShell {
@@ -36,6 +38,7 @@ with lib; pkgs.mkShell {
     inetutils
     nf-actions
     nf-actions-test
+    nf-update
   ] ++ config.runners.lazy.nativeBuildInputs
   ++ (map
     (node: writeShellScriptBin "${node.networking.hostName}-sd-img" ''
