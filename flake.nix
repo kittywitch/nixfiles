@@ -10,7 +10,10 @@
       url = "github:arcnmx/ci/nix2.4";
       flake = false;
     };
-    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     impermanence.url = "github:nix-community/impermanence/master";
     katexprs = {
       url = "github:kittywitch/nixexprs/main";
@@ -20,10 +23,16 @@
       url = "github:kittywitch/anicca/main";
       flake = false;
     };
-    nix-dns.url = "github:kirelagin/nix-dns/master";
+    nix-dns = {
+      url = "github:kirelagin/nix-dns/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     emacs-overlay.url = "github:nix-community/emacs-overlay/master";
     nur.url = "github:nix-community/nur/master";
-    nix-doom-emacs.url = "github:vlaci/nix-doom-emacs/develop";
+    nix-doom-emacs = {
+      url = "github:vlaci/nix-doom-emacs/develop";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     tf-nix = {
       url = "github:arcnmx/tf-nix/master";
       flake = false;
