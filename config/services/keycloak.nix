@@ -3,9 +3,6 @@
 in {
   services.keycloak = {
     enable = builtins.getEnv "CI_PLATFORM" == "impure";
-    package = (pkgs.keycloak.override {
-      jre = pkgs.openjdk11;
-    });
     bindAddress = "127.0.0.1";
     httpPort = "8089";
     httpsPort = "8445";

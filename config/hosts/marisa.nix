@@ -6,7 +6,7 @@
     services.nginx
     services.access
     users.kat.server
-  ];
+  ] ++ optional (meta.trusted ? services) trusted.service.website;
 
 
   deploy.tf = {
