@@ -15,17 +15,17 @@ let
   cameracapture = {
     element."v4l2src" = {
       device = "/dev/videomew";
-      saturation = 100;
-      brightness = 100;
-      extra-controls = "c,exposure_auto=3";
+      #saturation = 100;
+      #brightness = 100;
+      #extra-controls = "c,exposure_auto=3";
     };
   };
   v4l2src = [
     cameracapture
     {
       caps."image/jpeg" = {
-        width = 1280;
-        height = 720;
+        width = 1920;
+        height = 1080;
         framerate = "30/1"; # "10/1"
       };
     }
@@ -44,7 +44,7 @@ let
 in
 {
   services.udev.extraRules = ''
-    KERNEL=="video[0-9]*", SUBSYSTEM=="video4linux", SUBSYSTEMS=="usb", ATTR{index}=="0", ATTRS{idVendor}=="045e", ATTRS{idProduct}=="0779", SYMLINK+="videomew", TAG+="systemd"
+    KERNEL=="video[0-9]*", SUBSYSTEM=="video4linux", SUBSYSTEMS=="usb", ATTR{index}=="0", ATTRS{idVendor}=="1c3f", ATTRS{idProduct}=="2002", SYMLINK+="videomew", TAG+="systemd"
   '';
 
   systemd.services.kattv = {
