@@ -45,7 +45,7 @@ let
     #psy-tune = "film";
     #noise-reduction=0;
     quantizer = 27;
-    bitrate = 8192;
+    bitrate = 16384;
     rc-lookahead = 6;
   };
   denoise = {
