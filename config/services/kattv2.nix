@@ -20,6 +20,11 @@ let
       extra-controls = "c,exposure_auto=3";
     };
   };
+  queue_data = {
+    element.queue = {
+      leaky = "downstream";
+    };
+  };
   v4l2src = [
     cameracapture
     {
@@ -32,6 +37,7 @@ let
   ];
   pipeline = v4l2src ++ [
     "jpegtrunc"
+    queue_data
     { element.matroskamux.streamable = true; }
     {
       element.tcpclientsink = {

@@ -22,7 +22,7 @@ let
   };
   queue_data = {
     element.queue = {
-      leaky = "downstream";
+      #leaky = "downstream";
     };
   };
   videoconvert_cpu = {
@@ -68,8 +68,8 @@ let
     "h264parse"
   ];
   rtmpsink = [
-    queue_data
     "flvmux"
+    queue_data
     {
       element.rtmp2sink = {
         location = "rtmp://localhost:1935/stream/kattv2";
