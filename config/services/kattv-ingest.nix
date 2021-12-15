@@ -22,7 +22,7 @@ let
   };
   queue_data = {
     element.queue = {
-      leaky = "downstream";
+      #leaky = "downstream";
     };
   };
   videoconvert_cpu = {
@@ -39,19 +39,20 @@ let
     "gldownload"
   ];
   encodeopts = {
-    speed-preset = "ultrafast";
+    speed-preset = "veryfast";
+    ref = 1;
     tune = "zerolatency";
     pass = "qual";
     #psy-tune = "film";
     #noise-reduction=0;
-    quantizer = 27;
-    bitrate = 16384;
+    quantizer = 21;
+    bitrate = 8192;
     rc-lookahead = 6;
   };
   denoise = {
     element.frei0r-filter-hqdn3d = {
-      spatial = 0.175; #0.325;
-      temporal = 0.06; #0.11;
+      spatial = 0.175;
+      temporal = 0.25;
     };
   };
   encode_high = [
@@ -68,8 +69,8 @@ let
     "h264parse"
   ];
   rtmpsink = [
-    queue_data
     "flvmux"
+    queue_data
     {
       element.rtmp2sink = {
         location = "rtmp://localhost:1935/stream/kattv";
