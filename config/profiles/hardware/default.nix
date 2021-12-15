@@ -29,6 +29,7 @@
         intel
         laptop
         networkmanager
+        intel-gpu
       ];
     };
     eeepc-1015pem = {
