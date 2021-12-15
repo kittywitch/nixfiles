@@ -4,7 +4,7 @@
   services.gammastep = {
     enable = true;
     tray = true;
-    latitude = "51.5074";
-    longitude = "0.1278";
+    latitude = "43.6532";
+    longitude = "79.3832";
   };
 }
