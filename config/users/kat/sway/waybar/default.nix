@@ -9,15 +9,35 @@
     enable = true;
     systemd.enable = true;
     settings = [{
-      modules-center = [ "clock#s" "clock#arc" "clock#hex" "clock#miku" "clock" ];
-      modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
+      modules-left = [
+        "sway/workspaces"
+        "sway/mode"
+        "sway/window#icon"
+        "sway/window"
+      ];
+      modules-center = [
+        "custom/arc-h"
+        "clock#arc"
+        "custom/hex-h"
+        "clock#hex"
+        "custom/miku-h"
+        "clock#miku"
+        "clock#original"
+      ];
       modules-right = [
+        "pulseaudio#icon"
         "pulseaudio"
+        "custom/mail-icon"
         "custom/mail"
+        "custom/cpu-icon"
         "cpu"
+        "custom/memory-icon"
         "memory"
+        "temperature#icon"
         "temperature"
+        "battery#icon"
         "battery"
+        "backlight#icon"
         "backlight"
         "network"
         "idle_inhibitor"
@@ -27,10 +47,9 @@
       ];
 
       modules = {
-        "sway/workspaces" = { format = "{name}"; };
-        "sway/window" = {
-          format = " {}";
-        };
+        "sway/workspaces".format = "{name}";
+        "sway/window#icon".format = "";
+        "sway/window".format = "{}";
         tray = {
           icon-size = 12;
           spacing = 2;
@@ -54,16 +73,23 @@
           on-click-right = "systemctl --user restart konawall";
           signal = 8;
         };
+        "custom/mail-icon".format = "";
         "custom/mail" = {
-          format = " {}";
+          format = "{}";
           interval = 30;
           exec = "${pkgs.notmuch-arc}/bin/notmuch count tag:flagged OR tag:inbox AND NOT tag:killed";
         };
-        cpu = { format = " {usage}%"; };
-        memory = { format = " {percentage}%"; };
-        temperature = {
-          format = "{icon} {temperatureC}°C";
+        "custom/cpu-icon".format = "";
+        cpu.format = "{usage}%";
+        "custom/memory-icon".format = "";
+        memory.format = "{percentage}%";
+        "temperature#icon" = {
+          format = "{icon}";
           format-icons = ["" "" ""];
+          critical-threshold = 80;
+        };
+        temperature = {
+          format = "{temperatureC}°C";
           critical-threshold = 80;
         };
         idle_inhibitor = {
@@ -73,20 +99,30 @@
             deactivated = "";
           };
         };
+        "battery#icon" = {
+          states = {
+            good = 90;
+            warning = 30;
+            critical = 15;
+          };
+          format = "{icon}";
+          format-charging = "";
+          format-plugged = "";
+          format-icons = [ "" "" "" "" "" ];
+        };
         battery = {
           states = {
             good = 90;
             warning = 30;
             critical = 15;
           };
-          format = "{icon} {capacity}%";
-          format-charging = " {capacity}%";
-          format-plugged = " {capacity}%";
-          format-alt = "{icon} {time}";
-          format-icons = [ "" "" "" "" "" ];
+          format = "{capacity}%";
+          format-charging = "{capacity}%";
+          format-plugged = "{capacity}%";
+          format-alt = "{time}";
         };
-        pulseaudio = {
-          format = "{icon} {volume}%";
+        "pulseaudio#icon" = {
+          format = "{icon}";
           format-muted = "婢";
           on-click = "foot pulsemixer";
           format-icons = {
@@ -97,6 +133,10 @@
             ];
           };
         };
+        pulseaudio = {
+          format = "{volume}%";
+          on-click = "foot pulsemixer";
+        };
         network = {
           format-wifi = "直";
           format-ethernet = "";
@@ -105,7 +145,7 @@
           format-alt = "{ifname}: {ipaddr}/{cidr}";
           tooltip-format-wifi = "{essid} ({signalStrength}%)";
         };
-        clock = {
+        "clock#original" = {
           format = "{:%a, %F %T}";
           tooltip = true;
           tooltip-format = "{:%A, %F %T %z (%Z)}";
@@ -114,26 +154,29 @@
           ];
           interval = 1;
         };
-        "clock#s" = {
-          format = "-{:%H}";
-          tooltip = true;
-          timezone = "America/Chicago";
-          tooltip-format = "{:%A, %F %R %z (%Z)}";
+        "custom/arc-h" = {
+          format = "";
+        };
+        "custom/hex-h" = {
+          format = "";
+        };
+        "custom/miku-h" = {
+          format = "";
         };
         "clock#arc" = {
-          format = "-{:%H}";
+          format = "-{:%H}";
           tooltip = true;
           timezone = "America/Vancouver";
           tooltip-format = "{:%A, %F %R %z (%Z)}";
         };
         "clock#miku" = {
-          format = "+{:%H}";
+          format = "+{:%H}";
           tooltip = true;
           timezone = "Pacific/Auckland";
           tooltip-format = "{:%A, %F %R %z (%Z)}";
         };
         "clock#hex" = {
-          format = "+{:%H}";
+          format = "+{:%H}";
           tooltip = true;
           timezone = "Europe/Berlin";
           tooltip-format = "{:%A, %F %R %z (%Z)}";
