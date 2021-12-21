@@ -1,5 +1,5 @@
 %extend_1
-  padding: 0 8px
+  padding: 0 6px
   transition: none
   color: $base00
 
@@ -13,112 +13,125 @@
   text-shadow: none
   box-shadow: none
 
+window#waybar
+  background: $base00t
+
 tooltip
   background: $base00t
-  border-radius: 1em
   label
     color: $base07
 
 #mode
+  background: $base01
   color: $base06
   padding: 0 4px
 
 #clock
   @extend %extend_1
-  background: $base00t
+  background: $base01
   color: $base07
-  &.s
-    background: $base0Ft
 
-  &.arc
-    background: $base0Bt
+#custom-arc-h
+    @extend %extend_1
+    background: $base0B
 
-  &.miku
-    background: $base0Ct
+#custom-miku-h
+    @extend %extend_1
+    background: $base0C
 
-  &.hex
-    background: $base0Et
+#custom-hex-h
+    @extend %extend_1
+    background: $base0E
 
-#memory
+#cpu, #memory, #temperature, #pulseaudio, #backlight, #battery, #custom-mail, #clock.arc, #clock.hex, #clock.miku
+  background: $base01
+  padding: 0 6px
+  margin-right: 4px
+
+#network, #custom-gpg-status, #custom-konawall, #idle_inhibitor
+  margin: 0 4px
+
+#temperature.icon, #pulseaudio.icon, #battery.icon, #backlight.icon, #custom-cpu-icon, #custom-memory-icon, #custom-mail-icon, #custom-arc-h, #custom-hex-h, #custom-miku-h, #clock.original, #tray
+  margin-left: 4px
+  margin-right: 0px
+
+#custom-memory-icon
   @extend %extend_1
-  background: $base09t
+  background: $base09
 
-#cpu
+#custom-cpu-icon
   @extend %extend_1
-  background: $base08t
+  background: $base08
 
-#temperature
+#temperature.icon
   @extend %extend_1
-  background: $base0Bt
+  background: $base0B
 
-#pulseaudio
+#pulseaudio.icon
   @extend %extend_1
-  background: $base06t
+  background: $base06
   &.muted
-    background: $base03t
+    background: $base03
 
 #network
   @extend %extend_1
-  background: $base0Ct
+  background: $base0C
 
 #mpd
   @extend %extend_1
 
-#backlight
+#backlight.icon
   @extend %extend_1
-  background: $base0Dt
+  background: $base0D
 
-#battery
+#battery.icon
   @extend %extend_1
-  background: $base0Ct
+  background: $base0C
 
-#custom-mail
+#custom-mail-icon
   @extend %extend_1
-  background: $base0Ft
+  background: $base0F
 
 #custom-konawall
   @extend %extend_1
   &.enabled
-    background: $base0Et
+    background: $base0E
 
   &.disabled
-    background: $base0Dt
+    background: $base0D
 
 #custom-gpg-status
   @extend %extend_1
   &.enabled
-    background: $base0Bt
+    background: $base0B
 
   &.disabled
-    background: $base08t
+    background: $base08
 
 #idle_inhibitor
   @extend %extend_1
   &.activated
-    background: $base0Et
+    background: $base0E
 
   &.deactivated
-    background: $base0Dt
+    background: $base0D
 
 #tray
   @extend %extend_1
-  background: $base00t
-  border-top-right-radius: 1em
-  border-bottom-right-radius: 1em
+  background: $base01
   padding: 0 10px 0 8px
   menu
     background: $base00t
-    border-radius: 1em
     color: $base07
 
 
 .modules-left
-  margin: 2px 4px
-  border-radius: 1em
+  margin: 0 4px
+  #window
+    margin-right: 0px
   widget
     label
-      margin: 0 4px
-      border-radius: 1em
+      margin: 0
 
     &:first-child
       margin-left: 0
@@ -127,43 +140,17 @@ tooltip
       margin-right: 0
 
 .modules-center
-  margin: 2px 4px
-  border-radius: 1em
-  widget
-    &:first-child label
-      border-top-left-radius: 1em
-      border-bottom-left-radius: 1em
-
-    &:last-child label
-      border-top-right-radius: 1em
-      border-bottom-right-radius: 1em
+  margin: 0 4px
 
 .modules-right
-  margin: 2px 4px
-  border-radius: 1em
-  widget
-    &:first-child *
-      border-top-left-radius: 1em
-      border-bottom-left-radius: 1em
-
-    &:last-child *
-      border-top-right-radius: 1em
-      border-bottom-right-radius: 1em
+  margin: 0 4px
 
 #workspaces
-  background: $base00t
+  background: $base01
   padding: 0
-  border-radius: 1em
+  margin-right: 8px
   button
     color: $base06
-    &:first-child
-      border-top-left-radius: 1em
-      border-bottom-left-radius: 1em
-
-    &:last-child
-      border-top-right-radius: 1em
-      border-bottom-right-radius: 1em
-
     &.focused
       color: $base07
       background: $base0D
@@ -176,8 +163,8 @@ tooltip
       color: $base0C
 
 #window
-  background: $base00t
-  padding: 0 8px
+  background: $base01
+  padding: 0 4px
   color: $base06
   border-bottom: 2px solid transparent
 

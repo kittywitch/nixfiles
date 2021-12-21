@@ -13,6 +13,7 @@
     };
     waybarExtend2 = { config, ... }: {
       config = {
+        modules."temperature#icon".hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp2_input";
         modules.temperature.hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp2_input";
       };
     };
