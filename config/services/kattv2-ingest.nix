@@ -39,19 +39,20 @@ let
     "gldownload"
   ];
   encodeopts = {
-    speed-preset = "ultrafast";
+    speed-preset = "veryfast";
+    ref = 1;
     tune = "zerolatency";
     pass = "qual";
     #psy-tune = "film";
     #noise-reduction=0;
-    quantizer = 27;
+    quantizer = 21;
     bitrate = 8192;
     rc-lookahead = 6;
   };
   denoise = {
     element.frei0r-filter-hqdn3d = {
-      spatial = 0.175; #0.325;
-      temporal = 0.06; #0.11;
+      spatial = 0.175;
+      temporal = 0.25;
     };
   };
   encode_high = [
