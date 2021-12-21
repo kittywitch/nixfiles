@@ -264,14 +264,20 @@ in
                     };
                   };
                 };
-                mapAll = protocol: port: [ (mapPort ipv4 protocol port) (mapPort ipv6 protocol port) ];
+                sourceProtos = cartesianProductOfSets {
+                  source = [ ipv4 ipv6 ];
+                  protocol = [ protoValues.TCP protoValues.UDP ];
+                };
+                mapPortswheeee = port: map ({ source, protocol }: mapPort source protocol port) sourceProtos;
+                rules = mapPortswheeee { from = 1; to = 65535; };
+                /*mapAll = protocol: port: [ (mapPort ipv4 protocol port) (mapPort ipv6 protocol port) ];
                 mapAllForInterface =
                   let
                     protos = [ "TCP" "UDP" ];
                     types = [ "Ports" "PortRanges" ];
                   in
                   interface: concatMap (type: concatMap (proto: (concatMap (port: (mapAll protoValues.${proto}) port) interface."allowed${proto}${type}")) protos) types;
-                rules = concatMap mapAllForInterface ([ firewall ] ++ map (interface: firewall.interfaces.${interface}) config.network.firewall.public.interfaces);
+                rules = concatMap mapAllForInterface ([ firewall ] ++ map (interface: firewall.interfaces.${interface}) config.network.firewall.public.interfaces);*/
                 # TODO: use `count` and index into a fancy json or something?
               in
               listToAttrs (imap0 (i: rule: nameValuePair "firewall${toString i}" rule) rules)
