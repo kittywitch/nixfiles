@@ -15,7 +15,7 @@ let
     ]);
     config = {
       allowUnfree = true;
-      allowUnsupportedSystem = true;
+      allowBroken = true;
       permittedInsecurePackages = [
         "ffmpeg-3.4.8"
         "ffmpeg-2.8.17"

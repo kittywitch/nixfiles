@@ -69,13 +69,13 @@ with lib;
     services_prosody_xmpp = {
       inherit (config.network.dns) zone;
       domain = "xmpp";
-      a.address = config.network.addresses.public.nixos.ipv4.address;
+      a.address = config.network.addresses.public.nixos.ipv4.selfaddress;
     };
 
     services_prosody_xmpp_v6 = {
       inherit (config.network.dns) zone;
       domain = "xmpp";
-      aaaa.address = config.network.addresses.public.nixos.ipv6.address;
+      aaaa.address = config.network.addresses.public.nixos.ipv6.selfaddress;
     };
 
     services_prosody_upload = {

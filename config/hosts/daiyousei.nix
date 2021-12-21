@@ -4,6 +4,12 @@
     profiles.hardware.oracle.ubuntu
     profiles.network
     services.nginx
+    services.gitea
+    services.murmur
+    services.murmur-ldap
+    services.prosody
+    services.synapse
+    services.syncplay
     services.filehost
     services.keycloak
     services.vikunja
@@ -11,7 +17,9 @@
     services.openldap
     services.mail
     services.hedgedoc
+    services.website
     services.dnscrypt-proxy
+    services.vaultwarden
   ];
 
   kw.oci = {

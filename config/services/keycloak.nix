@@ -3,6 +3,9 @@
 in {
   services.keycloak = {
     enable = builtins.getEnv "CI_PLATFORM" == "impure";
+    package = (pkgs.keycloak.override {
+      jre = pkgs.openjdk11;
+    });
     bindAddress = "127.0.0.1";
     httpPort = "8089";
     httpsPort = "8445";
@@ -38,6 +41,7 @@ in {
   security.acme.certs.domain-auth = {
     group = "domain-auth";
     postRun = ''
+      ${pkgs.adoptopenjdk-jre-bin}/bin/keytool -delete -alias auth.kittywit.ch -keypass ${keystore-pass} -storepass ${keystore-pass} -keystore ./trust-store.jks
       ${pkgs.adoptopenjdk-jre-bin}/bin/keytool -import -alias auth.${config.network.dns.domain} -noprompt -keystore trust-store.jks -keypass ${keystore-pass} -storepass ${keystore-pass} -file cert.pem
       chown acme:domain-auth ./trust-store.jks
     '';

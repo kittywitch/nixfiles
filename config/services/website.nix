@@ -5,9 +5,10 @@
 
   services.nginx.virtualHosts = {
     "${config.network.dns.domain}" = {
-      root = pkgs.kittywitch-site;
+      #root = pkgs.kittywitch-site;
       enableACME = true;
       forceSSL = true;
     };
+
   };
 }

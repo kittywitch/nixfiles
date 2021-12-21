@@ -151,15 +151,15 @@
       displays = {
         "HDMI-A-1" = {
           res = "1920x1080";
-          pos = "0 0";
+          pos = "1920 0";
         };
         "DVI-D-1" = {
           res = "1920x1200";
-          pos = "1920 0";
+          pos = "3840 0";
         };
         "DP-1" = {
           res = "1920x1080";
-          pos = "3840 0";
+          pos = "0 0";
         };
       };
       bamboo.display = "HDMI-A-1";
