@@ -20,11 +20,15 @@
             };
           in
           mkMerge [
-            (genAttrs (map (value: "oci_root_${value}") [ "region" "tenancy" "user" "privkey" "fingerprint" ]) (attr: {
-              value.shellCommand = "pass secrets/oracle-${head (reverseList (splitString "_" attr))}";
+            (genAttrs (map (value: "oci_root_${value}") [ "region" "tenancy" "user" "fingerprint" ]) (attr: {
+              value.shellCommand = "bitw get services/host/oracleapi -f ${head (reverseList (splitString "_" attr))}";
               type = "string";
             }))
-            { "oci_root_privkey" = { sensitive = true; }; }
+            { "oci_root_privkey" = {
+              value.shellCommand = "bitw get services/host/oracleapi";
+              type = "string";
+              sensitive = true;
+            }; }
           ];
 
         providers.oci-root = {
