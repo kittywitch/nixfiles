@@ -13,6 +13,7 @@
     mumble-develop
     dino-omemo
     tdesktop
+    headsetcontrol
     transmission-remote-gtk
     scrcpy
     lm_sensors
