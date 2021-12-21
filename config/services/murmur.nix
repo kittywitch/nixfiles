@@ -36,7 +36,6 @@ in
       ${optionalString forking "pidfile=/run/murmur/murmurd.pid"}
       welcometext="${cfg.welcometext}"
       port=${toString cfg.port}
-      ${if cfg.hostName == "" then "" else "host="+cfg.hostName}
       ${if cfg.password == "" then "" else "serverpassword="+cfg.password}
       bandwidth=${toString cfg.bandwidth}
       users=${toString cfg.users}

@@ -20,7 +20,7 @@
         ryzen
         amdgpu
         laptop
-        wifi
+        networkmanager
       ];
     };
     x270 = {

@@ -10,19 +10,11 @@ with lib;
     profiles.network
     users.kat.server
     users.kat.services.weechat
-    services.gitea
     services.logrotate
-    services.synapse
-    services.murmur
-    services.murmur-ldap
     services.nginx
     services.postgres
-    services.prosody
     services.restic
-    services.syncplay
     services.taskserver
-    services.vaultwarden
-    services.website
     services.weechat
     services.znc
   ];
