@@ -7,6 +7,8 @@
 {
   deploy.profile.hardware.intel = true;
 
+  hardware.cpu.intel.updateMicrocode = true;
+
   boot = {
     kernelModules = [ "kvm-intel" ];
   };
