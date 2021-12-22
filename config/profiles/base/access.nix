@@ -15,6 +15,10 @@
     users.kat.base
   ];
 
+  users.motd = ''
+    \033[0;35m${config.networking.hostName}.${config.networking.domain}\033[0m
+  '';
+
   users.users.root = {
     shell = pkgs.zsh;
     hashedPassword =
