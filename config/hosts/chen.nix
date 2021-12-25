@@ -67,7 +67,7 @@ with lib;
       userControlled.enable = false;
       interfaces = singleton "wlp1s0";
     };
-    interfaces.enp0s20u2c2.ipv4.addresses = singleton {
+    interfaces.enp0s20u1.ipv4.addresses = singleton {
       inherit (config.network.addresses.private.nixos.ipv4) address;
       prefixLength = 24;
     };
@@ -89,7 +89,7 @@ with lib;
 
   network.firewall = {
     public = {
-      interfaces = singleton "enp0s20u2c2";
+      interfaces = singleton "enp0s20u1";
     };
   };
 
