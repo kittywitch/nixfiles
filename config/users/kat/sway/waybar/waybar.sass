@@ -43,7 +43,7 @@ tooltip
     @extend %extend_1
     background: $base0E
 
-#cpu, #memory, #temperature, #pulseaudio, #backlight, #battery, #custom-mail, #clock.arc, #clock.hex, #clock.miku
+#cpu, #memory, #temperature, #pulseaudio, #backlight, #battery, #custom-mail, #custom-headset, #clock.arc, #clock.hex, #clock.miku
   background: $base01
   padding: 0 6px
   margin-right: 4px
@@ -51,9 +51,13 @@ tooltip
 #network, #custom-gpg-status, #custom-konawall, #idle_inhibitor
   margin: 0 4px
 
-#temperature.icon, #pulseaudio.icon, #battery.icon, #backlight.icon, #custom-cpu-icon, #custom-memory-icon, #custom-mail-icon, #custom-arc-h, #custom-hex-h, #custom-miku-h, #clock.original, #tray
+#temperature.icon, #pulseaudio.icon, #battery.icon, #backlight.icon, #custom-cpu-icon, #custom-memory-icon, #custom-mail-icon, #custom-headset-icon, #custom-arc-h, #custom-hex-h, #custom-miku-h, #clock.original, #tray
   margin-left: 4px
   margin-right: 0px
+
+#custom-headset-icon
+  @extend %extend_1
+  background: $base06
 
 #custom-memory-icon
   @extend %extend_1
