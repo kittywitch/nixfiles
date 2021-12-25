@@ -27,6 +27,8 @@
       modules-right = [
         "pulseaudio#icon"
         "pulseaudio"
+        "custom/headset-icon"
+        "custom/headset"
         "custom/mail-icon"
         "custom/mail"
         "custom/cpu-icon"
@@ -63,6 +65,18 @@
           interval = 300;
           return-type = "json";
           exec = "${pkgs.waybar-gpg}/bin/kat-gpg-status";
+        };
+        "custom/headset-icon" = {
+          format = "";
+          interval = 60;
+          exec-if = "${pkgs.headsetcontrol}/bin/headsetcontrol -c";
+          exec = "echo 'mew'";
+        };
+        "custom/headset" = {
+          format = "{}";
+          interval = 60;
+          exec-if = "${pkgs.headsetcontrol}/bin/headsetcontrol -c";
+          exec = "${pkgs.headsetcontrol}/bin/headsetcontrol -b | ${pkgs.gnugrep}/bin/grep Battery | ${pkgs.coreutils}/bin/cut -d ' ' -f2";
         };
         "custom/konawall" = {
           format = "{}";
