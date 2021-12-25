@@ -16,7 +16,8 @@
   ];
 
   users.motd = ''
-    \033[0;35m${config.networking.hostName}.${config.networking.domain}\033[0m
+    [0m[1;35m${config.networking.hostName}.${config.networking.domain}[0m
+
   '';
 
   users.users.root = {
