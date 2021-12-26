@@ -24,6 +24,7 @@ in
     sed = "sd";
     find = "fd";
     grep = "rg";
+    yes = "me instead";
   };
   xdg.dataFile = { "z/.keep".text = ""; };
   home.packages = with pkgs; [ fzf fd zsh-completions akiflags ];
