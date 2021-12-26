@@ -179,11 +179,14 @@ in
       };
 
 
-      networking = {
+      networking = mkMerge [{
         domain = mkDefault (if cfg.addresses.public.enable then cfg.dns.domain
         else if cfg.addresses.private.enable then "${cfg.addresses.private.prefix}.${cfg.dns.domain}" else "");
+      }
+      (mkIf cfg.addresses.private.enable {
         defaultGateway = mkDefault cfg.privateGateway;
-      };
+      })
+      ];
 
       deploy.tf.dns.records =
         let
