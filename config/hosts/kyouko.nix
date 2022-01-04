@@ -9,14 +9,13 @@ with lib;
     profiles.hardware.hcloud-imperative
     profiles.network
     users.kat.server
-    users.kat.services.weechat
+#    users.kat.services.weechat
     services.logrotate
     services.nginx
     services.postgres
     services.restic
     services.taskserver
-    services.weechat
-    services.znc
+#    services.znc
   ];
 
   kw.monitoring = {
