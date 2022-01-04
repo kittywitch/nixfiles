@@ -14,7 +14,6 @@ screens:
     #guest: [] # disable input switching
     #host: [] # disable input switching
     guest: # configure how to switch to the guest
-    #- guest_wait # wait until guest agent responds, otherwise might get stranded on other input
     - ddc # (default) Use ddc-rs
     #exec: ["ddcutil", "-g", "BNQ", "setvcp", "0x60", "{}"]
     #- exec: [ddccontrol, -r, "0x60", -w, "{}", /dev/i2c-5]
@@ -33,9 +32,15 @@ qemu:
   #driver: ps2 # use PS/2 in the guest for all input devices (absolute mouse mode unsupported)
   #driver: usb # use USB keyboard/mouse/tablet in the guest
   #driver: virtio # Recommended but vioinput drivers must be installed in guest
-  #keyboard_driver: ps2 # (default) can also be set separately per input type, this should rarely be necessary
-  #relative_driver: usb # (default)
-  #absolute_driver: usb # (default)
+  keyboard_driver:
+    virtio:
+      bus: pci.23
+  relative_driver:
+    virtio:
+      bus: pci.22
+  absolute_driver:
+    virtio:
+      bus: pci.21
   #driver: virtio
   #relative_driver: virtio
   qmp_socket: /tmp/vfio-qmp # path to QMP socket

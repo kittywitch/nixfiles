@@ -1,6 +1,62 @@
 { config, pkgs, lib, ... }: with lib; let
+  screenstubConfig = let
+    jsonConfig = builtins.toJSON {
+    exit_events = [ "show_host" ];
+    hotkeys = [
+      {
+        events = [
+          { toggle_grab = { x = { mouse = false; }; }; }
+          {
+            toggle_grab = {
+              evdev = {
+                devices = [
+                  "/dev/input/by-id/usb-Razer_Razer_Naga_Trinity_00000000001A-event-mouse"
+                ];
+                evdev_ignore = [ "button" ];
+                exclusive = false;
+                xcore_ignore = [ "absolute" ];
+              };
+            };
+          }
+          "unstick_host"
+        ];
+        modifiers = [ "LeftMeta" ];
+        triggers = [ "Esc" ];
+      }
+      {
+        events = [ "toggle_show" ];
+        modifiers = [ "LeftMeta" ];
+        on_release = false;
+        triggers = [ "T" ];
+      }
+    ];
+    key_remap = {
+      LeftMeta = "Reserved";
+      RightAlt = "LeftMeta";
+    };
+    qemu = {
+      absolute_driver = { virtio = { bus = "pci.21"; }; };
+      ga_socket = "/tmp/vfio-qga";
+      keyboard_driver = { virtio = { bus = "pci.23"; }; };
+      qmp_socket = "/tmp/vfio-qmp";
+      relative_driver = { virtio = { bus = "pci.22"; }; };
+      routing = "virtio-host";
+    };
+    screens = [{
+      ddc = {
+        guest = [ "ddc" ];
+        host = [ "ddc" ];
+      };
+      guest_source = { name = "HDMI-1"; };
+      host_source = { name = "HDMI-2"; };
+      monitor = {
+        manufacturer = "BNQ";
+        model = "BenQ GW2270";
+      };
+    }];
+  }; in pkgs.writeText "screenstub.json" jsonConfig;
   win10-screenstub = pkgs.writeShellScriptBin "win10-screenstub" ''
-    ${pkgs.screenstub-kat}/bin/screenstub -c "${./screenstub.yml}" x
+    ${pkgs.screenstub}/bin/screenstub -c "${screenstubConfig}" x
   '';
   win10-diskmapper = pkgs.writeShellScriptBin "win10-diskmapper" ''
     sudo ${pkgs.disk-mapper}/bin/disk-mapper /dev/disk/by-id/ata-ST2000DM008-2FR102_WK301C3H-part2

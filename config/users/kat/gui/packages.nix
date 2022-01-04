@@ -5,7 +5,6 @@
     _1password
     btop
     bitwarden
-    element-wayland
     obsidian
     discord
     exiftool
@@ -25,5 +24,6 @@
     yubikey-manager
     jmtpfs
     cryptsetup
-  ];
+  ] ++ lib.optional config.wayland.windowManager.sway.enable element-wayland
+  ++ lib.optional config.xsession.windowManager.i3.enable element-desktop;
 }

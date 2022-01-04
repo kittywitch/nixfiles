@@ -17,6 +17,15 @@ dirImports // {
     ];
   };
   server = { };
+  guiX11Full = {
+    imports = with dirImports; [
+      gui
+      i3
+      dev
+      media
+      personal
+    ];
+  };
   guiFull = {
     imports = with dirImports; [
       gui
