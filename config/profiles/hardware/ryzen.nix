@@ -17,9 +17,19 @@
         modules.temperature.hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp2_input";
       };
     };
+    polybarExtend = { config, ... }: {
+      services.polybar.settings."module/temp".hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp2_input";
+    };
+    /*
+    polybarExtend2 = { config, ... }: {
+      config = {
+        modules."temperature#icon".hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp2_input";
+        modules.temperature.hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp2_input";
+      };
+    };*/
   in mkOption {
     type = types.attrsOf (types.submoduleWith {
-      modules = singleton waybarExtend;
+      modules = [ waybarExtend polybarExtend ];
     });
   };
 

@@ -297,11 +297,11 @@
     "katexprs": {
       "flake": false,
       "locked": {
-        "lastModified": 1640111173,
-        "narHash": "sha256-ZgRM2kb3yDGJCQGZChtPaEwQimllWCc8oYSyyQ2pruA=",
+        "lastModified": 1641325835,
+        "narHash": "sha256-q5T6OBQWdc5QrwWJAcoCbpdWHF75EofHrHrdyoXSqhY=",
         "owner": "kittywitch",
         "repo": "nixexprs",
-        "rev": "b89aabdc5e9bbb57e4dbbea5a950bf97978be500",
+        "rev": "a90f47f9cd9dacd1a878189781ad92887d67025f",
         "type": "github"
       },
       "original": {
@@ -587,11 +587,11 @@
     "tf-nix": {
       "flake": false,
       "locked": {
-        "lastModified": 1638394086,
-        "narHash": "sha256-2Q/Dy0rYNmpIqYrqjkXAI3CbZhuG3I3lhktcE8nFl7U=",
+        "lastModified": 1639529339,
+        "narHash": "sha256-r+nIyHAKUZA3bWOlpNpu2ferhXYx4f3TbtMEJpVfbVg=",
         "owner": "arcnmx",
         "repo": "tf-nix",
-        "rev": "e79ce0838183f1446282650379d920efcb594777",
+        "rev": "932837bbc371389ff3597a2e5b4791b45b5e18bd",
         "type": "github"
       },
       "original": {
