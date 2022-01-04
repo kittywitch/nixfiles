@@ -3,6 +3,7 @@
     profiles.hardware.aarch64
     profiles.hardware.oracle.ubuntu
     profiles.network
+    users.kat.services.weechat
     services.nginx
     services.gitea
     services.murmur
@@ -20,6 +21,8 @@
     services.website
     services.dnscrypt-proxy
     services.vaultwarden
+    services.weechat
+    services.znc
   ];
 
   kw.oci = {
