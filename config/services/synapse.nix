@@ -225,7 +225,7 @@ CONFIG = {
     enable = true;
     settings = {
       homeserver = {
-        address = "http://localhost:8008";
+        address = "https://kittywit.ch";
         domain = config.network.dns.domain;
       };
       appservice = {
