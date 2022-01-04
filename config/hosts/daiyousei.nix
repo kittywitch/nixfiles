@@ -45,14 +45,5 @@
     address = "206:d807:a98:309f:3bc0:de7a:411d:9d95";
   };
 
-  services.nginx.virtualHosts =
-    let
-      splashy = pkgs.host-splash-site config.networking.hostName;
-    in
-    kw.virtualHostGen {
-      networkFilter = [ "public" ];
-      block.locations."/" = { root = splashy; };
-    };
-
   system.stateVersion = "21.11";
 }
