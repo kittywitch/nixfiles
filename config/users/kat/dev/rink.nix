@@ -2,7 +2,8 @@
 
 {
   home.packages = with pkgs; [
-    rink-readline
+    #rink-readline TODO: wait for fix
+    rink
   ];
 
   xdg.configFile."rink/config.toml".text = lib.toTOML {

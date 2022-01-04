@@ -4,7 +4,7 @@
     profiles.hardware.razer
     profiles.hardware.bamboo
     profiles.gui
-    profiles.i3
+    profiles.x11
     profiles.vfio
     profiles.network
     profiles.cross.aarch64
@@ -117,6 +117,7 @@
           ".config/discord"
           ".config/obsidian"
           ".config/hedgedoc"
+          ".config/obs-studio"
           ".ApacheDirectoryStudio"
           ".gnupg"
           ".mozilla"
