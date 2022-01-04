@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }: with lib;
 
 {
   programs.mpv = {
@@ -80,10 +80,13 @@
         };
       in
       vim // other;
-      config = {
+      config = mkMerge [
+        (mkIf config.wayland.windowManager.sway.enable {
+          gpu-context = "wayland";
+        })
+        {
       no-input-default-bindings = "";
       profile = "gpu-hq";
-      gpu-context = "wayland";
       hwdec = "auto";
       vo = "gpu";
       volume-max = 200;
@@ -109,6 +112,6 @@
           osc-seekbarkeyframes = "no";
           osc-seekrangestyle = "slider";
         });
-    };
+    }];
   };
 }

@@ -4,12 +4,13 @@
     profiles.hardware.razer
     profiles.hardware.bamboo
     profiles.gui
+    profiles.i3
     profiles.vfio
     profiles.network
     profiles.cross.aarch64
     profiles.cross.armv6l
     profiles.cross.armv7l
-    users.kat.guiFull
+    users.kat.guiX11Full
     users.kat.services.weechat
     services.nginx
     services.katsplash
@@ -189,6 +190,18 @@
       SUBSYSTEM=="usb", ACTION=="add", ATTRS{idVendor}=="1532", ATTRS{idProduct}=="0067", GROUP="vfio"
       SUBSYSTEM=="block", ACTION=="add", ATTRS{model}=="HFS256G32TNF-N3A", ATTRS{wwid}=="t10.ATA     HFS256G32TNF-N3A0A                      MJ8BN15091150BM1Z   ", OWNER="kat"
     '';
+
+    services.xserver= {
+      xrandrHeads = [
+        {
+          output = "HDMI-A-0";
+          primary = true;
+        }
+      ];
+      deviceSection = ''
+        BusID "PCI:37:0:0"
+      '';
+    };
 
     networking = {
       hostId = "617050fc";
