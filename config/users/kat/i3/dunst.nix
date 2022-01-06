@@ -18,6 +18,7 @@
           mouse_middle_click = "context";
           mouse_left_click = "close_current";
           show_indicators = false;
+          fullscreen = "pushback"; # default is to "show"
           #dmenu = "${config.programs.dmenu.package}/bin/dmenu";
           dmenu = "${config.programs.rofi.package}/bin/rofi";
           browser = "${pkgs.xdg-utils}/bin/xdg-open";

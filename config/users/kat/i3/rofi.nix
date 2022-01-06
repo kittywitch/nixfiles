@@ -1,6 +1,7 @@
 { config, base16, lib, pkgs, ... }: with lib; {
   programs.rofi = {
     enable = true;
+    terminal = "${pkgs.kitty}/bin/kitty";
     font = "${config.kw.theme.font.name} 9";
     theme = let
   # Use `mkLiteral` for string-like values that should show without
