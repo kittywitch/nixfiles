@@ -1,6 +1,12 @@
 { config, base16, pkgs, lib, ... }: with lib;
 
 {
+  programs.zsh.loginExtra = ''
+      if [[ -z "''${TMUX-}" && -z "''${DISPLAY-}" && "''${XDG_VTNR-}" = 1 && $(${pkgs.coreutils}/bin/id -u) != 0 ]]; then
+        ${pkgs.xorg.xinit}/bin/startx
+      fi
+  '';
+
   services.i3gopher = { enable = true; };
 
   home.file.".xinitrc".text = ''
@@ -27,10 +33,10 @@
           "7"
           "8"
           "9"
-          ]
-          ++ [ (bindWorkspace "0" "10:10") ]
-          ++ lib.imap1 (i: v: bindWorkspace v "${toString (10 + i)}:${v}") [
-            "F1"
+        ]
+        ++ [ (bindWorkspace "0" "10:10") ]
+        ++ lib.imap1 (i: v: bindWorkspace v "${toString (10 + i)}:${v}") [
+        "F1"
             "F2"
             "F3"
             "F4"

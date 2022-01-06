@@ -297,11 +297,11 @@
     "katexprs": {
       "flake": false,
       "locked": {
-        "lastModified": 1641325835,
-        "narHash": "sha256-q5T6OBQWdc5QrwWJAcoCbpdWHF75EofHrHrdyoXSqhY=",
+        "lastModified": 1641402064,
+        "narHash": "sha256-YwyYTkZqBgM/SKxu5rLGcL67NqHaTI/mUzvYaYtHN/M=",
         "owner": "kittywitch",
         "repo": "nixexprs",
-        "rev": "a90f47f9cd9dacd1a878189781ad92887d67025f",
+        "rev": "706856839b5d1bbe4b1f9ba32842ce86dd21989c",
         "type": "github"
       },
       "original": {

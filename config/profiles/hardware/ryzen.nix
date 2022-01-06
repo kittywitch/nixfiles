@@ -18,7 +18,7 @@
       };
     };
     polybarExtend = { config, ... }: {
-      services.polybar.settings."module/temp".hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp2_input";
+      services.polybar.settings."module/temp".hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp1_input";
     };
     /*
     polybarExtend2 = { config, ... }: {

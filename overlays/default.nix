@@ -8,7 +8,7 @@ let
       (import inputs.emacs-overlay)
       (import ./rustfmt)
       (import ./dns { inherit inputs; })
-      (import ./local.nix)
+      (import ./local)
     ] ++ (map (path: import "${path}/overlay.nix") [
       inputs.arcexprs
       inputs.katexprs
