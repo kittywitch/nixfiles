@@ -2,7 +2,7 @@
 
 writeShellScriptBin "win10-vm" ''
   cat ${pkgs.OVMF.fd}/FV/OVMF_VARS.fd > /tmp/OVMF_VARS.fd
-  exec chrt -f 1 ${pkgs.qemu-vfio}/bin/qemu-system-x86_64 -name guest=win10,debug-threads=on \
+  exec ${pkgs.qemu-vfio}/bin/qemu-system-x86_64 -name guest=win10,debug-threads=on \
   -blockdev '{"driver":"file","filename":"${pkgs.OVMF.fd}/FV/OVMF_CODE.fd","node-name":"libvirt-pflash0-storage","auto-read-only":true,"discard":"unmap"}' \
   -blockdev '{"node-name":"libvirt-pflash0-format","read-only":true,"driver":"raw","file":"libvirt-pflash0-storage"}' \
   -blockdev '{"driver":"file","filename":"/tmp/OVMF_VARS.fd","node-name":"libvirt-pflash1-storage","auto-read-only":true,"discard":"unmap"}' \

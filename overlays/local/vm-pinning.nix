@@ -50,6 +50,8 @@ cpuset_move . system
 
 echo 1 > $CPUSET/qemu/cpuset.cpu_exclusive
 
+chrt -f -p 1 $QEMU_PID
+
 for task in /proc/$QEMU_PID/task/*; do
 	TASKNAME=$(grep -F "Name:" $task/status | cut -d $'\t' -f2)
 	TASK=$(basename $task)
@@ -62,10 +64,11 @@ for task in /proc/$QEMU_PID/task/*; do
 			regex="CPU ([0-9]*)/KVM"
 			if [[ $TASKNAME =~ $regex ]]; then
 				CPU_ID=''${BASH_REMATCH[1]}
-				echo $TASK > $CPUSET/qemu/tasks
+        echo $TASK > $CPUSET/qemu/tasks
 				CPU_PIN=$((CPU_ID / 2 + (CPU_ID % 2) * 6 + 2))
         #CPU_PIN=$((CPU_ID * 2))
 				taskset -p --cpu-list $CPU_PIN $TASK
+        chrt -f -p 1 $TASK
 			else
 				echo unknown CPU $TASKNAME
 				exit 1

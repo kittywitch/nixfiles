@@ -1,11 +1,13 @@
 { config, pkgs, lib, ... }: with lib; let
   win10-toggler = pkgs.writeShellScriptBin "win10-toggle" ''
-if systemctl --user is-active konawall-rotation.timer --quiet; then
-	systemctl --user stop konawall-rotation.timer
+REQUEST="$0"
+if [[ "REQUEST" = "on" ]]; then
+  sudo win10-vm-pinning $(cat $XDG_RUNTIME_DIR/win10-vm.pid)
+  systemctl --user stop konawall-rotation.timer
 else
+  sudo win10-vm-pinning
 	systemctl --user start konawall-rotation.timer
 fi
-sudo win10-vm-pinning $(cat $XDG_RUNTIME_DIR/win10-vm.pid)
   '';
   win10-start-pane = pkgs.writeShellScriptBin "win10-start-pane" ''
 sudo disk-mapper-part /dev/disk/by-id/ata-ST2000DM008-2FR102_WK301C3H-part2
@@ -122,18 +124,16 @@ in {
         };
         wantedBy = ["sysinit.target"];
       };
-      cpuset = {
-      type = "cgroup";
-      what = "cpuset";
-      where = "/sys/fs/cgroup/cpuset";
-      wantedBy = singleton "multi-user.target";
-      options = "cpuset";
-    };
     in [
-      cpuset
       (hugepages { where = "/dev/hugepages"; options = "mode=0775"; })
       (hugepages { where = "/dev/hugepages1G"; options = "pagesize=1GB,mode=0775"; })
     ];
+
+    fileSystems."/sys/fs/cgroup/cpuset" = {
+      device = "cpuset";
+      fsType = "cgroup";
+      noCheck = true;
+    };
 
     systemd.services.preallocate-huggies = {
       wantedBy = singleton "multi-user.target";
