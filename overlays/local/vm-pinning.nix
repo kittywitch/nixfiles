@@ -59,7 +59,13 @@ for task in /proc/$QEMU_PID/task/*; do
 	case $TASKNAME in
 		worker | qemu-system-*)
 			echo worker is $TASKNAME
-			;;
+      ;;
+    IO*)
+      regex="IO iothread([0-9]*)"
+      if [[ $TASKNAME =~ $regex ]]; then
+        chrt -f -p 1 $TASK
+      fi
+    ;;
 		CPU*)
 			regex="CPU ([0-9]*)/KVM"
 			if [[ $TASKNAME =~ $regex ]]; then
