@@ -9,7 +9,8 @@ writeShellScriptBin "win10-vm" ''
   -blockdev '{"node-name":"libvirt-pflash1-format","read-only":false,"driver":"raw","file":"libvirt-pflash1-storage"}' \
   -machine pc-q35-5.1,accel=kvm,usb=off,vmport=off,dump-guest-core=off,pflash0=libvirt-pflash0-format,pflash1=libvirt-pflash1-format \
    -monitor stdio \
-   -cpu host,migratable=no,+invtsc,topoext=on,hv-time,hv-vpindex,hv-relaxed,hv-vapic,-amd-stibp,hv-synic,hv-spinlocks=0x1fff,host-cache-info=on,l3-cache=off -m 12288 \
+   -cpu host,migratable=no,topoext=on,host-cache-info=on,+invtsc,hv_time,hv_relaxed,hv_vpindex,hv_synic,hv_spinlocks=0x1fff,hv_vendor_id=ab12341234ab$,hv_vapic,-amd-stibp \
+   -m 12288 \
    -mem-path /dev/hugepages1G/qemu-win10-vm -mem-prealloc \
    -smp 8,sockets=1,dies=1,cores=4,threads=2 \
    -object iothread,id=iothread1 \

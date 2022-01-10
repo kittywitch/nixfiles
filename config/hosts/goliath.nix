@@ -185,6 +185,10 @@
         mkIf (vfio-pci-ids != [ ]) {
           options.ids = concatStringsSep "," vfio-pci-ids;
         };
+        kvm_amd.options = {
+          avic = true;
+          npt = true;
+        };
     };
 
     services.udev.extraRules = ''

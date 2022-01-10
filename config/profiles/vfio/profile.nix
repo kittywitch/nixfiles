@@ -129,11 +129,11 @@ in {
       (hugepages { where = "/dev/hugepages1G"; options = "pagesize=1GB,mode=0775"; })
     ];
 
-    fileSystems."/sys/fs/cgroup/cpuset" = {
+  /*  fileSystems."/sys/fs/cgroup/cpuset" = {
       device = "cpuset";
       fsType = "cgroup";
       noCheck = true;
-    };
+    }; */
 
     systemd.services.preallocate-huggies = {
       wantedBy = singleton "multi-user.target";
@@ -149,9 +149,15 @@ in {
 
     boot = lib.mkMerge [{
       initrd.kernelModules = mkBefore [ "vfio" "vfio_iommu_type1" "vfio_pci" "vfio_virqfd" ];
+      kernelParams = [
+      ];
       kernelModules = [ "i2c-dev" ]; # i2c-dev is required for DDC/CI for screenstub
       kernelPatches = with pkgs.kernelPatches; [
         (mkIf config.deploy.profile.hardware.acs-override acs-override)
+        {
+          name = "clocksource-reduce-tsc-tolerance";
+          patch = ./tsc-tolerance.patch;
+        }
       ];
     }
       (mkIf (config.deploy.profile.hardware.amdgpu) {
