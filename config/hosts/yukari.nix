@@ -5,6 +5,7 @@
     profiles.gui
     users.kat.guiFull
     services.jellyfin
+    services.nextcloud
     services.kattv-ingest
     services.kattv2-ingest
     services.postgres

@@ -173,7 +173,7 @@ in
     };
   };
   programs.firefox.tridactyl = let
-      xsel = "${pkgs.wl-clipboard}/bin/wl-copy";
+      xsel = if config.deploy.profile.sway then "${pkgs.wl-clipboard}/bin/wl-copy" else "${pkgs.xsel}/bin/xsel";
       urxvt = "${pkgs.kitty}/bin/kitty";
       mpv = "${config.programs.mpv.finalPackage}/bin/mpv";
       vim = "${config.programs.neovim.package}/bin/nvim";

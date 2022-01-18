@@ -17,7 +17,7 @@ index b8a14d2fb..f8f848d13 100644
   * a lower bound for cs->uncertainty_margin values when registering clocks.
   */
 -#define WATCHDOG_MAX_SKEW (50 * NSEC_PER_USEC)
-+#define WATCHDOG_MAX_SKEW (60 * NSEC_PER_USEC)
++#define WATCHDOG_MAX_SKEW (80 * NSEC_PER_USEC)
  
  #ifdef CONFIG_CLOCKSOURCE_WATCHDOG
  static void clocksource_watchdog_work(struct work_struct *work);

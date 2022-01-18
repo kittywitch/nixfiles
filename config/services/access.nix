@@ -11,6 +11,12 @@
     cname = { inherit (config.network.addresses.public) target; };
   };
 
+  deploy.tf.dns.records.services_cloud = {
+    inherit (config.network.dns) zone;
+    domain = "cloud";
+    cname = { inherit (config.network.addresses.public) target; };
+  };
+
   services.nginx.virtualHosts = mkMerge [
     {
       "cast.${config.network.dns.domain}" = {
@@ -18,6 +24,13 @@
         enableACME = true;
         locations = {
           "/".proxyPass = "http://127.0.0.1:8082";
+        };
+      };
+      "cloud.${config.network.dns.domain}" = {
+        forceSSL = true;
+        enableACME = true;
+        locations = {
+          "/".proxyPass = "http://cloud.int.kittywit.ch:80/";
         };
       };
       "media.${config.network.dns.domain}" = {

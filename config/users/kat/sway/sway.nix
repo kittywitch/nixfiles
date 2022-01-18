@@ -8,6 +8,8 @@ let lockCommand = config.programs.swaylock.script; in
     WLR_DRM_DEVICES = "/dev/dri/card0";
   };
 
+  deploy.profile.sway = true;
+
   home.packages = with pkgs; [ grim slurp swaylock-fancy wl-clipboard jq quintom-cursor-theme gsettings-desktop-schemas glib wofi wmctrl ];
 
   services.i3gopher = { enable = true; };

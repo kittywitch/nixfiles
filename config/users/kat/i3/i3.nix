@@ -13,6 +13,8 @@
     exec ~/.xsession
   '';
 
+  deploy.profile.i3 = true;
+
   xsession = {
     enable = true;
     windowManager.i3 =
