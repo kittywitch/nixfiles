@@ -15,8 +15,7 @@ let
   cameracapture = {
     element."v4l2src" = {
       device = "/dev/videomew";
-      #saturation = 100;
-      #brightness = 100;
+      brightness = 100;
       #extra-controls = "c,exposure_auto=3";
     };
   };

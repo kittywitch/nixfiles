@@ -6,6 +6,8 @@ with lib;
   options = {
     deploy.profile = {
       gui = mkEnableOption "Graphical System";
+      sway = mkEnableOption "Sway WM";
+      i3 = mkEnableOption "i3 WM";
       vfio = mkEnableOption "VFIO";
       shared = mkEnableOption "Shared System";
       trusted = mkEnableOption "Trusted Submodule";
@@ -52,6 +54,8 @@ with lib;
           ({ nixos, ... }: {
             options.deploy.profile = {
               gui = mkEnableOption "Graphical System";
+              sway = mkEnableOption "Sway WM";
+              i3 = mkEnableOption "i3 WM";
               vfio = mkEnableOption "VFIO";
               shared = mkEnableOption "Shared System";
               trusted = mkEnableOption "Trusted Submodule" // {
