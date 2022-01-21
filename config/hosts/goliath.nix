@@ -189,7 +189,9 @@
           avic = true;
           npt = true;
         };
-    };
+      };
+
+      deploy.profile.i3 = true;
 
     services.udev.extraRules = ''
       SUBSYSTEM=="usb", ACTION=="add", ATTRS{idVendor}=="1532", ATTRS{idProduct}=="0067", GROUP="vfio"
