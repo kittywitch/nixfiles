@@ -53,6 +53,8 @@
       };
     };
 
+    deploy.profile.sway = true;
+
     networking = {
       hostId = "dddbb888";
       useDHCP = false;
