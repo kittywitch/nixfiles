@@ -259,7 +259,7 @@
               padding = 1;
               background = background_light;
             };
-            interval = 60;
+            interval = 1;
             date = "%a, %F";
             time = "%T";
           };
@@ -288,7 +288,7 @@ set -eu
 set -o pipefail
 
 if gpg --card-status &> /dev/null; then
-	user="$(gpg --card-status | grep 'Login data' | awk '{print $NF}')";
+  #user="$(gpg --card-status | grep 'Login data' | awk '{print $NF}')";
 	status='%{B${string}}  %{B-}'
 else
 	status='%{B${variable}}  %{B-}'

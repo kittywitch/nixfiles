@@ -6,7 +6,5 @@
       ${pkgs.kitty}/bin/kitty +kitten icat ${./nano.png}
     '';
   };
-  programs.zsh = {
-    shellAliases = mapListToAttrs (attr: nameValuePair "abby${attr}" "mpv $(bitw get secrets/abby -f ${attr})") [ "radio" "tv" ];
-  };
+  home.packages = map (attr: pkgs.writeShellScriptBin "abby${attr}" "mpv $(bitw get secrets/abby -f ${attr})") [ "radio" "tv" ];
 }

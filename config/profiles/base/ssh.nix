@@ -30,7 +30,7 @@ with lib;
     enable = true;
     ports = lib.mkDefault [ 62954 ];
     passwordAuthentication = false;
-    challengeResponseAuthentication = false;
+    kbdInteractiveAuthentication = false;
     permitRootLogin = lib.mkDefault "prohibit-password";
     kexAlgorithms = [ "curve25519-sha256@libssh.org" ];
     extraConfig = ''

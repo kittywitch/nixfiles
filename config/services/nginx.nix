@@ -39,8 +39,8 @@ with lib;
   };
 
   security.acme = {
-    #defaults.email = config.network.dns.email;
-    email = config.network.dns.email;
+    defaults.email = config.network.dns.email;
+    #email = config.network.dns.email;
     acceptTerms = true;
   };
 }
