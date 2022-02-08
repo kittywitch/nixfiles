@@ -53,7 +53,7 @@
       main = (import ../.);
       hosts = main.network.nodes;
       targets = main.deploy.targets;
-      enabledTargets = filterAttrs (_: v: v.enable) main.deploy.targets;
+      enabledTargets = filterAttrs (k: v: v.enable && k != "medicine") main.deploy.targets;
       enabledHosts = concatLists (mapAttrsToList (targetName: target: target.nodeNames) enabledTargets);
     in
     mapAttrs' (k: nameValuePair "${k}") (genAttrs enabledHosts (host: {
