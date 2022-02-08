@@ -23,7 +23,7 @@
     baresip
     yubikey-manager
     jmtpfs
+    element-desktop
     cryptsetup
-  ] ++ lib.optional config.wayland.windowManager.sway.enable element-wayland
-  ++ lib.optional config.xsession.windowManager.i3.enable element-desktop;
+  ];
 }
