@@ -14,7 +14,7 @@ in
               extended_spam_headers = yes;
           ''; };
           "redis.conf" = { text = ''
-              servers = "127.0.0.1:${toString config.services.redis.port}";
+              servers = "127.0.0.1:${toString config.services.redis.servers.rspamd.port}";
           ''; };
           "classifier-bayes.conf" = { text = ''
               cache {
@@ -67,7 +67,7 @@ in
 
     };
 
-    services.redis.enable = true;
+    services.redis.servers.rspamd.enable = true;
 
     systemd.services.rspamd = {
       requires = [ "redis.service" ];

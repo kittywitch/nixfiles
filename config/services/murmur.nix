@@ -90,7 +90,7 @@ in
   systemd.services.murmur = {
     description = "Murmur Chat Service";
     wantedBy = [ "multi-user.target" ];
-    after = [ "network-online.target " ];
+    after = [ "network-online.target" ];
 
     serviceConfig = {
       # murmurd doesn't fork when logging to the console.

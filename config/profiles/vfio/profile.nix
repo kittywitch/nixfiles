@@ -154,10 +154,6 @@ in {
       kernelModules = [ "i2c-dev" ]; # i2c-dev is required for DDC/CI for screenstub
       kernelPatches = with pkgs.kernelPatches; [
         (mkIf config.deploy.profile.hardware.acs-override acs-override)
-        {
-          name = "clocksource-reduce-tsc-tolerance";
-          patch = ./tsc-tolerance.patch;
-        }
       ];
     }
       (mkIf (config.deploy.profile.hardware.amdgpu) {

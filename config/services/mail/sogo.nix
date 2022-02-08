@@ -54,6 +54,7 @@
           "postgresql://sogo@/sogo/sogo_sessions_folder";
       SOGoMailingMechanism = "smtp";
       SOGoForceExternalLoginWithEmail = YES;
+      SOGoSMTPAuthenticationType = PLAIN;
       SOGoSMTPServer = "smtps://${config.network.addresses.public.domain}:465";
       SOGoIMAPServer = "imaps://${config.network.addresses.public.domain}:993";
       SOGoUserSources = (
