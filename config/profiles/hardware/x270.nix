@@ -18,7 +18,7 @@
     waybarExtend = { config, ... }: {
       options = {
         programs.waybar.settings = mkOption {
-          type = with types; listOf (submodule waybarExtend2);
+          type = with types; either (listOf (submodule waybarExtend2)) (attrsOf (submodule waybarExtend2));
         };
       };
     };
