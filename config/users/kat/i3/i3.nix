@@ -7,7 +7,14 @@
       fi
   '';
 
-  services.i3gopher = { enable = true; };
+  services = {
+    i3gopher.enable = true;
+    screen-locker = {
+      enable = true;
+      lockCmd = "${pkgs.i3lock-fancy}/bin/i3lock-fancy -n";
+      xautolock.enable = true;
+    };
+  };
 
   home.file.".xinitrc".text = ''
     exec ~/.xsession
@@ -51,7 +58,7 @@
           ];
           workspaceBindings' = map (lib.mapAttrsToList bindsym) workspaceBindings;
           workspaceBindingsStr = lib.concatStringsSep "\n" (lib.flatten workspaceBindings');
-          lockCommand = "${pkgs.i3lock}/bin/i3lock -e -u -c 111111";
+          lockCommand = "${pkgs.i3lock-blur}/bin/i3lock-color -n";
       in
       {
         enable = true;

@@ -149,6 +149,7 @@
 
     users.users.kat.extraGroups = singleton "openrazer";
 
+
     hardware = {
       displays = {
         "HDMI-A-1" = {
@@ -434,9 +435,20 @@
         listen.endpoints = [ "tcp://0.0.0.0:0" ];
       };
       firewall = {
-        public.interfaces = [ "br" "enp34s0" ];
+        public = {
+          interfaces = [ "br" "enp34s0" ];
+        };
         private = {
           interfaces = singleton "yggdrasil";
+          tcp = {
+            ports = [
+              8096
+            ];
+            ranges = [{
+              from = 32768;
+              to = 60999;
+            }];
+          };
         };
       };
     };

@@ -34,9 +34,9 @@ with lib;
       enable = true;
     };
     scripts = with pkgs.weechatScripts; [
-      go
+      weechat-go
       auto_away
-      autosort
+      weechat-autosort
       parse_relayed_msg
       colorize_nicks
       unread_buffer

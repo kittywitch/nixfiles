@@ -5,7 +5,6 @@
     _1password
     btop
     bitwarden
-    obsidian
     discord
     exiftool
     thunderbird
