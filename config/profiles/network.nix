@@ -24,6 +24,9 @@
           "f8fd12c6ed924048e93a7bd7dd63c2464813c9edddfef7415c4574518ecd4757";
         amaterasu =
           "ab9a4a78df124a8413c3a6576332d7739a44c036e14b7b0b4ea4558373ddda97";
+        duck-powerduck =
+          "9475274dcd43f0f3f397d56168efd436b0db58e58f4c068f75ab93ba3f51e405";
+        
       };
     };
 
