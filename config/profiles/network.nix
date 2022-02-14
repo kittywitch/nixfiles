@@ -26,7 +26,8 @@
           "ab9a4a78df124a8413c3a6576332d7739a44c036e14b7b0b4ea4558373ddda97";
         duck-powerduck =
           "9475274dcd43f0f3f397d56168efd436b0db58e58f4c068f75ab93ba3f51e405";
-        
+        duck-nagoya =
+          "0000001a24b38f4341e356e7efc98dd31e259669242e0a82ba86971317b94954";
       };
     };
 
