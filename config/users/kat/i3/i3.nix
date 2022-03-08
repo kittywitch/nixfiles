@@ -1,6 +1,7 @@
 { config, base16, pkgs, lib, ... }: with lib;
-
-{
+let
+          lockCmd = "${pkgs.i3lock}/bin/i3lock -nc 000000";
+in {
   programs.zsh.loginExtra = ''
       if [[ -z "''${TMUX-}" && -z "''${DISPLAY-}" && "''${XDG_VTNR-}" = 1 && $(${pkgs.coreutils}/bin/id -u) != 0 ]]; then
         ${pkgs.xorg.xinit}/bin/startx
@@ -11,7 +12,7 @@
     i3gopher.enable = true;
     screen-locker = {
       enable = true;
-      lockCmd = "${pkgs.i3lock-fancy}/bin/i3lock-fancy -n";
+      inherit lockCmd;
       xautolock.enable = true;
     };
   };
@@ -58,7 +59,6 @@
           ];
           workspaceBindings' = map (lib.mapAttrsToList bindsym) workspaceBindings;
           workspaceBindingsStr = lib.concatStringsSep "\n" (lib.flatten workspaceBindings');
-          lockCommand = "${pkgs.i3lock-blur}/bin/i3lock-color -n";
       in
       {
         enable = true;
@@ -74,7 +74,7 @@
             modes = {
               "System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown" =
                 {
-                  "l" = "exec ${lockCommand}, mode default";
+                  "l" = "exec ${lockCmd}, mode default";
                   "e" = "exit, mode default";
                   "s" = "exec systemctl suspend, mode default";
                   "h" = "exec systemctl hibernate, mode default";
@@ -141,7 +141,7 @@
 
           keybindings = {
             "${cfg.modifier}+Return" = "exec ${cfg.terminal}";
-            "${cfg.modifier}+x" = "exec ${lockCommand}";
+            "${cfg.modifier}+x" = "exec ${lockCmd}";
 
             # focus windows - regular
             "${cfg.modifier}+Left" = "focus left";

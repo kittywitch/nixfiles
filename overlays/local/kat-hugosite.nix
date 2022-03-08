@@ -3,8 +3,8 @@
   src = fetchFromGitHub {
     owner = "kittywitch";
     repo = "hugosite";
-    rev = "ee2bdd87dd5f6a59234f7102dea8189d22048a4c";
-    sha256 = "sha256-j/fRTm5GIXmtmsdOBF2ILyYFCN+j39Ul5/kB2OoDQt4=";
+    rev = "2dc44e1668d38bb706b2290387a936c26d0dd50b";
+    sha256 = "sha256-HuC8NebVfp7aXciFhaFbUin5g/ChH3g+zpRNJ/6qq7g=";
   };
   buildPhase = ''
     ${hugo}/bin/hugo

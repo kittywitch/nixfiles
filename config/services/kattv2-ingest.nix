@@ -6,7 +6,7 @@ let
   env = {
     FREI0R_PATH = "${pkgs.frei0r}/lib/frei0r-1";
     GST_PLUGIN_SYSTEM_PATH_1_0 = with pkgs.gst_all_1; lib.makeSearchPath "lib/gstreamer-1.0" [
-      gstreamer
+      gstreamer.out
       gst-plugins-base
       gst-plugins-good
       gst-plugins-bad
@@ -114,7 +114,7 @@ in
 
   systemd.services."kattv2@" = {
     environment = env;
-    script = "exec ${pkgs.gst_all_1.gstreamer.dev}/bin/gst-launch-1.0 -e --no-position ${pkgs.lib.gst.pipelineShellString pipeline}";
+    script = "exec ${pkgs.gst_all_1.gstreamer}/bin/gst-launch-1.0 -e --no-position ${pkgs.lib.gst.pipelineShellString pipeline}";
     after = [ "nginx.service" ];
     description = "RTMP stream of kat cam";
     serviceConfig = {

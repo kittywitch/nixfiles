@@ -6,7 +6,6 @@ let
     overlays = [
       (import ./nur { inherit inputs; })
       (import inputs.emacs-overlay)
-      (import ./rustfmt)
       (import ./dns { inherit inputs; })
       (import ./local)
     ] ++ (map (path: import "${path}/overlay.nix") [

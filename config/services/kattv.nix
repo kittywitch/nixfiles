@@ -4,7 +4,7 @@ let
   env = {
     FREI0R_PATH = "${pkgs.frei0r}/lib/frei0r-1";
     GST_PLUGIN_SYSTEM_PATH_1_0 = with pkgs.gst_all_1; lib.makeSearchPath "lib/gstreamer-1.0" [
-      gstreamer
+      gstreamer.out
       gst-plugins-base
       gst-plugins-good
       gst-plugins-bad
@@ -58,7 +58,7 @@ in
     description = "RTMP stream of kat cam";
     bindsTo = [ "dev-videomew.device" ];
     environment = env;
-    script = "exec ${pkgs.gst_all_1.gstreamer.dev}/bin/gst-launch-1.0 -e --no-position ${pkgs.lib.gst.pipelineShellString pipeline}";
+    script = "exec ${pkgs.gst_all_1.gstreamer}/bin/gst-launch-1.0 -e --no-position ${pkgs.lib.gst.pipelineShellString pipeline}";
     serviceConfig = {
       Restart = "on-failure";
       RestartSec = "10s";

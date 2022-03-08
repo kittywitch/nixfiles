@@ -9,7 +9,7 @@
     exiftool
     thunderbird
     mumble-develop
-    dino-omemo
+    dino
     tdesktop
     headsetcontrol
     transmission-remote-gtk
