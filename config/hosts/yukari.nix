@@ -5,6 +5,7 @@
     profiles.gui
     users.kat.guiFull
     services.jellyfin
+    services.ha
     services.nextcloud
     services.kattv-ingest
     services.kattv2-ingest
@@ -88,11 +89,11 @@
   networking = {
     hostId = "3ef9a419";
     useDHCP = false;
-    interfaces.eno1.ipv4.addresses = singleton {
+    interfaces.eno1.useDHCP = true; /*.ipv4.addresses = singleton {
       inherit (config.network.addresses.private.nixos.ipv4) address;
       prefixLength = 24;
     };
-    defaultGateway = config.network.privateGateway;
+    defaultGateway = config.network.privateGateway; */
   };
 
   network = {
@@ -100,7 +101,7 @@
       private = {
         enable = true;
         nixos = {
-          ipv4.address = "192.168.1.2";
+          ipv4.address = "192.168.1.154";
           # TODO ipv6.address
         };
       };

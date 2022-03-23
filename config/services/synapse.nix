@@ -154,7 +154,6 @@ CONFIG = {
     config.secrets.files.mautrix-telegram-env.path;
   services.matrix-synapse = {
     enable = true;
-    max_upload_size = "512M";
     logConfig = ''
       version: 1
       formatters:
@@ -180,21 +179,35 @@ CONFIG = {
         level: WARNING
         handlers: [console]
     '';
-    server_name = config.network.dns.domain;
-    app_service_config_files = [
-      "/var/lib/matrix-synapse/telegram-registration.yaml"
-      "/var/lib/matrix-synapse/discord-registration.yaml"
-      "/var/lib/matrix-synapse/whatsapp-registration.yaml"
-    ];
-    rc_messages_per_second = mkDefault "0.1";
-    rc_message_burst_count = mkDefault "25.0";
-    public_baseurl = "https://${config.network.dns.domain}";
-    url_preview_enabled = mkDefault true;
-    enable_registration = mkDefault false;
-    enable_metrics = mkDefault false;
-    report_stats = mkDefault false;
-    dynamic_thumbnails = mkDefault true;
-    allow_guest_access = mkDefault true;
+    settings = {
+      server_name = config.network.dns.domain;
+      app_service_config_files = [
+        "/var/lib/matrix-synapse/telegram-registration.yaml"
+        "/var/lib/matrix-synapse/discord-registration.yaml"
+        "/var/lib/matrix-synapse/whatsapp-registration.yaml"
+      ];
+      max_upload_size = "512M";
+      rc_messages_per_second = mkDefault "0.1";
+      rc_message_burst_count = mkDefault "25.0";
+      public_baseurl = "https://${config.network.dns.domain}";
+      url_preview_enabled = mkDefault true;
+      enable_registration = mkDefault false;
+      enable_metrics = mkDefault false;
+      report_stats = mkDefault false;
+      dynamic_thumbnails = mkDefault true;
+      allow_guest_access = mkDefault true;
+      listeners = [{
+        port = 8008;
+        bind_address = "::1";
+        type = "http";
+        tls = false;
+        x_forwarded = true;
+        resources = [{
+          names = [ "client" "federation" ];
+          compress = false;
+        }];
+      }];
+    };
     extraConfig = ''
       suppress_key_server_warning: true
       saml2_config:
@@ -208,17 +221,6 @@ CONFIG = {
         password_config:
           enabled: false
     '';
-    listeners = [{
-      port = 8008;
-      bind_address = "::1";
-      type = "http";
-      tls = false;
-      x_forwarded = true;
-      resources = [{
-        names = [ "client" "federation" ];
-        compress = false;
-      }];
-    }];
   };
 
   services.mautrix-telegram = {

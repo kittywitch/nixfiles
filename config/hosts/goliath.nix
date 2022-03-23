@@ -3,6 +3,7 @@
     profiles.hardware.ms-7b86
     profiles.hardware.razer
     profiles.hardware.bamboo
+    profiles.hardware.networkmanager
     profiles.gui
     profiles.x11
     profiles.vfio
@@ -282,13 +283,14 @@
       hostId = "617050fc";
       useDHCP = false;
       /*useNetworkd = true;*/
-        interfaces = {
-          enp34s0.ipv4.addresses = singleton {
+        /*interfaces = {
+          enp34s0 = {
+            /*ipv4.addresses = singleton {
             inherit (config.network.addresses.private.nixos.ipv4) address;
             prefixLength = 24;
           };
         };
-        defaultGateway = config.network.privateGateway;
+        defaultGateway = config.network.privateGateway;*/
       firewall.allowPing = true;
     };
 

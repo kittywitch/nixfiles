@@ -14,7 +14,7 @@ in {
           type = "resource";
           provisioners = singleton {
             local-exec.command = let
-              wg = "${pkgs.buildPackages.wireguard}/bin/wg";
+              wg = "${pkgs.buildPackages.wireguard-tools}/bin/wg";
             in "${wg} genkey | tee ${dataDir + "/wg-private-${terraformSelf "id"}"} | ${wg} pubkey > ${dataDir + "/wg-public-${terraformSelf "id"}"}";
           };
         };
