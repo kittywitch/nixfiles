@@ -97,7 +97,7 @@ in
       Type = if forking then "forking" else "simple";
       PIDFile = mkIf forking "/run/murmur/murmurd.pid";
       EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
-      ExecStart = "${cfg.package}/bin/murmurd -ini ${config.secrets.files.murmur-config.path}";
+      ExecStart = "${cfg.package}/bin/mumble-server -ini ${config.secrets.files.murmur-config.path}";
       Restart = "always";
       RuntimeDirectory = "murmur";
       RuntimeDirectoryMode = "0700";

@@ -2,9 +2,6 @@
   imports = with meta; [
     profiles.hardware.rm-310
     profiles.network
-    profiles.gui
-    users.kat.guiFull
-    services.jellyfin
     services.ha
     services.nextcloud
     services.kattv-ingest
@@ -15,6 +12,9 @@
     services.transmission
     services.tvheadend
     services.zfs
+    services.plex
+    services.kubernetes
+    users.arc
   ];
 
   deploy.tf = {
@@ -89,7 +89,10 @@
   networking = {
     hostId = "3ef9a419";
     useDHCP = false;
-    interfaces.eno1.useDHCP = true; /*.ipv4.addresses = singleton {
+    interfaces.eno1 = {
+      useDHCP = true;
+      tempAddress = "disabled";
+    }; /*.ipv4.addresses = singleton {
       inherit (config.network.addresses.private.nixos.ipv4) address;
       prefixLength = 24;
     };

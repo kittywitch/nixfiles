@@ -59,11 +59,6 @@
     };
   };
 
-  services.owncast = {
-    enable = true;
-    port = 8082;
-  };
-
   network = {
     addresses.public = {
       enable = true;

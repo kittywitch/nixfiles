@@ -17,21 +17,8 @@
     cname = { inherit (config.network.addresses.public) target; };
   };
 
-  deploy.tf.dns.records.services_home = {
-    inherit (config.network.dns) zone;
-    domain = "home";
-    cname = { inherit (config.network.addresses.public) target; };
-  };
-
   services.nginx.virtualHosts = mkMerge [
     {
-      "cast.${config.network.dns.domain}" = {
-        forceSSL = true;
-        enableACME = true;
-        locations = {
-          "/".proxyPass = "http://127.0.0.1:8082";
-        };
-      };
       "cloud.${config.network.dns.domain}" = {
         forceSSL = true;
         enableACME = true;
@@ -39,26 +26,13 @@
           "/".proxyPass = "http://cloud.int.kittywit.ch:80/";
         };
       };
-      "home.${config.network.dns.domain}" = {
-        forceSSL = true;
-        enableACME = true;
-        locations = {
-          "/" = {
-            proxyPass = "http://home.int.kittywit.ch:80/";
-            extraConfig = ''
-              proxy_set_header Upgrade $http_upgrade;
-              proxy_set_header Connection "upgrade";
-            '';
-          };
-        };
-      };
       "media.${config.network.dns.domain}" = {
         forceSSL = true;
         enableACME = true;
         locations = {
-          "/jellyfin/".proxyPass = "http://${meta.network.nodes.yukari.network.addresses.wireguard.nixos.ipv4.address}:8096/jellyfin/";
+          "/jellyfin/".proxyPass = "http://[${meta.network.nodes.yukari.network.addresses.yggdrasil.nixos.ipv6.address}]:8096/jellyfin/";
           "/jellyfin/socket" = {
-            proxyPass = "http://${meta.network.nodes.yukari.network.addresses.wireguard.nixos.ipv4.address}:8096/jellyfin/";
+            proxyPass = "http://[${meta.network.nodes.yukari.network.addresses.yggdrasil.nixos.ipv6.address}]:8096/jellyfin/";
             extraConfig = ''
               proxy_set_header Upgrade $http_upgrade;
               proxy_set_header Connection "upgrade";

@@ -1,4 +1,4 @@
-{ config, tf, meta, kw, pkgs, lib, ... }: with lib; {
+{ config, inputs, tf, meta, kw, pkgs, lib, ... }: with lib; {
   imports = with meta; [
     profiles.hardware.aarch64
     profiles.hardware.oracle.ubuntu
@@ -13,13 +13,12 @@
     services.syncplay
     services.filehost
     services.keycloak
-    services.vikunja
-    services.tt-rss
     services.openldap
     services.mail
     services.hedgedoc
     services.website
     services.dnscrypt-proxy
+    services.daiyousei-access
     services.vaultwarden
     services.weechat
     services.znc

@@ -10,6 +10,7 @@ with lib;
     profiles.network
     services.kattv
     services.dnscrypt-proxy
+    users.arc
   ];
 
   # Terraform
@@ -53,11 +54,7 @@ with lib;
   networking = {
     hostId = "9f89b327";
     useDHCP = false;
-    interfaces.enp1s0.ipv4.addresses = singleton {
-      inherit (config.network.addresses.private.nixos.ipv4) address;
-      prefixLength = 24;
-    };
-    defaultGateway = config.network.privateGateway;
+    interfaces.enp1s0.useDHCP = true;
   };
 
   network = {
@@ -65,7 +62,7 @@ with lib;
       private = {
         enable = true;
         nixos = {
-          ipv4.address = "192.168.1.32";
+          ipv4.address = "192.168.1.215";
         };
       };
     };

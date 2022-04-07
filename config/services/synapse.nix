@@ -154,7 +154,8 @@ CONFIG = {
     config.secrets.files.mautrix-telegram-env.path;
   services.matrix-synapse = {
     enable = true;
-    logConfig = ''
+    settings = {
+      log_config = pkgs.writeText "nya.yaml" ''
       version: 1
       formatters:
         precise:
@@ -179,7 +180,6 @@ CONFIG = {
         level: WARNING
         handlers: [console]
     '';
-    settings = {
       server_name = config.network.dns.domain;
       app_service_config_files = [
         "/var/lib/matrix-synapse/telegram-registration.yaml"
@@ -187,8 +187,8 @@ CONFIG = {
         "/var/lib/matrix-synapse/whatsapp-registration.yaml"
       ];
       max_upload_size = "512M";
-      rc_messages_per_second = mkDefault "0.1";
-      rc_message_burst_count = mkDefault "25.0";
+      rc_messages_per_second = mkDefault 0.1;
+      rc_message_burst_count = mkDefault 25;
       public_baseurl = "https://${config.network.dns.domain}";
       url_preview_enabled = mkDefault true;
       enable_registration = mkDefault false;
@@ -196,9 +196,10 @@ CONFIG = {
       report_stats = mkDefault false;
       dynamic_thumbnails = mkDefault true;
       allow_guest_access = mkDefault true;
+      suppress_key_server_warning = mkDefault true;
       listeners = [{
         port = 8008;
-        bind_address = "::1";
+        bind_addresses = [ "::1" ] ;
         type = "http";
         tls = false;
         x_forwarded = true;
@@ -207,20 +208,19 @@ CONFIG = {
           compress = false;
         }];
       }];
+      saml2_config = {
+        sp_config.metadata.remote = [ {
+          url = "https://auth.kittywit.ch/auth/realms/kittywitch/protocol/saml/descriptor";
+        } ];
+        config_path = config.secrets.files.saml2-config.path;
+        user_mapping_provider = {
+          config = {};
+        };
+        password_config = {
+          enabled = false;
+        };
+      };
     };
-    extraConfig = ''
-      suppress_key_server_warning: true
-      saml2_config:
-        sp_config:
-          metadata:
-            remote:
-              - url: https://auth.kittywit.ch/auth/realms/kittywitch/protocol/saml/descriptor
-        config_path: "${config.secrets.files.saml2-config.path}"
-        user_mapping_provider:
-          config:
-        password_config:
-          enabled: false
-    '';
   };
 
   services.mautrix-telegram = {

@@ -91,7 +91,7 @@ in
     };
     privateGateway = mkOption {
       type = types.str;
-      default = "192.168.1.254";
+      default = "192.168.1.1";
     };
     tf = {
       enable = mkEnableOption "Was the system provisioned by terraform?";
@@ -184,7 +184,6 @@ in
         else if cfg.addresses.private.enable then "${cfg.addresses.private.prefix}.${cfg.dns.domain}" else "");
       }
       (mkIf cfg.addresses.private.enable {
-        defaultGateway = mkDefault cfg.privateGateway;
       })
       ];
 

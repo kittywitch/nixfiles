@@ -21,19 +21,40 @@
       };
     };
 
-  fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-uuid/31bfd91b-bdba-47a9-81bf-c96e0adc88e3";
-      fsType = "xfs";
-    };
-    "/boot" = {
-      device = "/dev/disk/by-uuid/89A2-ED28";
-      fsType = "vfat";
-    };
-  };
+    programs.ssh.extraConfig = ''
+Host daiyousei-build
+        HostName daiyousei.kittywit.ch
+        Port 62954
+        User root
+  '';
 
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/96952382-7f56-46b5-8c84-1f0130f68b63"; }
+  nix.buildMachines = [ {
+	 hostName = "daiyousei-build";
+	 system = "aarch64-linux";
+	 # systems = ["x86_64-linux" "aarch64-linux"];
+	 maxJobs = 100;
+	 speedFactor = 1;
+	 supportedFeatures = [ "benchmark" "big-parallel" "kvm" ];
+	 mandatoryFeatures = [ ];
+	}] ;
+	nix.distributedBuilds = true;
+	# optional, useful when the builder has a faster internet connection than yours
+	nix.extraOptions = ''
+		builders-use-substitutes = true
+	'';
+    fileSystems = {
+      "/" = {
+        device = "/dev/disk/by-uuid/31bfd91b-bdba-47a9-81bf-c96e0adc88e3";
+        fsType = "xfs";
+      };
+      "/boot" = {
+        device = "/dev/disk/by-uuid/89A2-ED28";
+        fsType = "vfat";
+      };
+    };
+
+    swapDevices =
+      [ { device = "/dev/disk/by-uuid/96952382-7f56-46b5-8c84-1f0130f68b63"; }
     ];
 
     powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
@@ -59,17 +80,16 @@
       hostId = "dddbb888";
       useDHCP = false;
       /* wireless = {
-        enable = true;
-        userControlled.enable = true;
-        interfaces = singleton "wlp3s0";
+      enable = true;
+      userControlled.enable = true;
+      interfaces = singleton "wlp3s0";
       };
       interfaces = {
-        wlp3s0.ipv4.addresses = singleton {
-          inherit (config.network.addresses.private.nixos.ipv4) address;
-          prefixLength = 24;
-        };
+      wlp3s0.ipv4.addresses = singleton {
+      inherit (config.network.addresses.private.nixos.ipv4) address;
+      prefixLength = 24;
+      };
       }; */
-      defaultGateway = config.network.privateGateway;
     };
 
     network = {
@@ -77,7 +97,7 @@
         private = {
           enable = true;
           nixos = {
-            ipv4.address = "192.168.1.3";
+            ipv4.address = "192.168.1.121";
           };
         };
       };

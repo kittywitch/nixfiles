@@ -68,12 +68,13 @@ let
     }
     "h264parse"
   ];
-  rtmpsink = [
+  tcpserversink = [
     "flvmux"
     queue_data
     {
-      element.rtmp2sink = {
-        location = "rtmp://localhost:1935/stream/kattv";
+      element.tcpserversink = {
+        port = 8989;
+        host = config.network.addresses.yggdrasil.nixos.ipv6.address;
       };
     }
   ];
@@ -93,26 +94,12 @@ let
     videoconvert_cpu
     encode_high
 
-    rtmpsink
+    tcpserversink
   ];
 in
-{
-  services.nginx.appendConfig = ''
-    rtmp {
-      server {
-        listen [::]:1935 ipv6only=off;
-        application stream {
-          live on;
-
-          allow publish all;
-          allow play all;
-        }
-      }
-    }
-  '';
-
+  {
   network.firewall = {
-    private.tcp.ports = singleton 1935;
+    private.tcp.ports = [ 1935 8989 8990 ];
     public.tcp.ports = [ 4953 1935 ];
   };
 

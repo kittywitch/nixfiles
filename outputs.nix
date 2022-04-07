@@ -13,13 +13,34 @@
         functor = {
           enable = true;
           external = [
-            (import (inputs.arcexprs + "/modules")).nixos
             (import (inputs.katexprs + "/modules")).nixos
             (import (inputs.impermanence + "/nixos.nix"))
             (import inputs.anicca).modules.nixos
             (inputs.tf-nix + "/modules/nixos/secrets.nix")
             (inputs.tf-nix + "/modules/nixos/secrets-users.nix")
-          ];
+          ] ++ (with (import (inputs.arcexprs + "/modules")).nixos; [
+      nix
+      systemd
+      dht22-exporter
+      glauth
+      modprobe
+      kernel
+      crypttab
+      mutable-state
+      common-root
+      pulseaudio
+      wireplumber
+      alsa
+      yggdrasil
+      bindings
+      matrix-appservices
+      matrix-synapse-appservices
+      display
+      filebin
+      mosh
+      base16 base16-shared
+      doc-warnings
+    ]);
         };
       };
       "modules/home" = {
