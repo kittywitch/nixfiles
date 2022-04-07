@@ -3,7 +3,7 @@
   deploy.tf.dns.records.services_home = {
     inherit (config.network.dns) zone;
     domain = "home";
-    cname = { inherit (config.network.addresses.public) target; };
+    a = { inherit (config.network.addresses.public.tf.ipv4) address; };
   };
 
   services.nginx.virtualHosts = {
@@ -12,7 +12,7 @@
         enableACME = true;
         locations = {
           "/" = {
-            proxyPass = "http://home.int.kittywit.ch:80/";
+            proxyPass = "http://home.int.kittywit.ch:8123";
             extraConfig = ''
               proxy_set_header Upgrade $http_upgrade;
               proxy_set_header Connection "upgrade";

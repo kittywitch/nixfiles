@@ -21,6 +21,19 @@
     };
   };
 
+  systemd.services.antennas = {
+    wantedBy = [ "plex.service" ];
+    after = [ "tvheadend-kat.service" ];
+    serviceConfig = let
+    antennaConf = pkgs.writeText "config.yaml" (builtins.toJSON {
+      antennas_url = "http://127.0.0.1:5009";
+      tvheadend_url = "http://127.0.0.1:9981";
+      tuner_count = "6";
+    }); in {
+      ExecStart = "${pkgs.antennas}/bin/antennas --config ${antennaConf}";
+    };
+  };
+
   systemd.services.tvheadend-kat = {
     description = "Tvheadend TV streaming server";
     wantedBy = [ "multi-user.target" ];
