@@ -30,7 +30,7 @@ with lib;
     package =
       let
         package = pkgs.prosody.override (old: {
-          withExtraLibs = old.withExtraLibs ++ singleton pkgs.luaPackages.luadbi-postgresql;
+          withExtraLuaPackages =  p: singleton p.luadbi-postgresql;
         }); in
       package;
     extraConfig = ''
