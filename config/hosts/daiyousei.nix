@@ -18,7 +18,6 @@
     services.hedgedoc
     services.website
     services.dnscrypt-proxy
-    services.daiyousei-access
     services.vaultwarden
     services.weechat
     services.znc

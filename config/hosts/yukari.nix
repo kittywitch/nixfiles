@@ -13,7 +13,6 @@
     services.tvheadend
     services.zfs
     services.plex
-    services.kubernetes
     users.arc
   ];
 
