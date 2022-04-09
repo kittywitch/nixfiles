@@ -31,23 +31,23 @@
 
   fileSystems = {
     "/" = {
-      device = "zroot/safe/root";
+      device = "rpool/safe/root";
       fsType = "zfs";
     };
     "/nix" = {
-      device = "zroot/local/nix";
+      device = "rpool/local/nix";
       fsType = "zfs";
     };
     "/home" = {
-      device = "zroot/safe/home";
+      device = "rpool/safe/home";
       fsType = "zfs";
     };
     "/boot" = {
-      device = "/dev/disk/by-uuid/44CC-7137";
+      device = "/dev/disk/by-id/ata-Samsung_SSD_860_EVO_250GB_S3YJNX0K780441Z-part3";
       fsType = "vfat";
     };
     "/boot-fallback" = {
-      device = "/dev/disk/by-uuid/4520-4E5F";
+      device = "/dev/disk/by-id/ata-Samsung_SSD_850_EVO_250GB_S3R0NF1J841629N-part3";
       fsType = "vfat";
     };
     "/mnt/zraw" = {
@@ -61,8 +61,8 @@
   };
 
   swapDevices = [
-    { device = "/dev/disk/by-uuid/682df001-bad8-4d94-a86b-9068ce5eee4c"; }
-    { device = "/dev/disk/by-uuid/1ee2d322-235c-41de-b272-7ceded4e2624"; }
+    { device = "/dev/disk/by-id/ata-Samsung_SSD_860_EVO_250GB_S3YJNX0K780441Z-part2"; }
+    { device = "/dev/disk/by-id/ata-Samsung_SSD_850_EVO_250GB_S3R0NF1J841629N-part2"; }
   ];
 
   boot.loader = {
@@ -73,7 +73,7 @@
       device = "nodev";
       mirroredBoots = [
         {
-          devices = [ "/dev/disk/by-uuid/4520-4E5F" ];
+          devices = [ "/dev/disk/by-id/ata-Samsung_SSD_850_EVO_250GB_S3R0NF1J841629N-part3" ];
           path = "/boot-fallback";
         }
       ];
