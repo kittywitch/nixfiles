@@ -23,6 +23,11 @@
       url = "github:kittywitch/anicca/main";
       flake = false;
     };
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-21.11-darwin";
+    nix-darwin.url = "github:lnl7/nix-darwin/master";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
+    home-manager-darwin.url = "github:nix-community/home-manager";
+    home-manager-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
     nix-dns = {
       url = "github:kirelagin/nix-dns/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -48,13 +53,23 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... }@inputs:
-    flake-utils.lib.eachDefaultSystem
+  outputs = { self, nixpkgs, flake-utils, nix-darwin, home-manager-darwin, ... }@inputs: {	
+    darwinConfigurations."sumireko" = nix-darwin.lib.darwinSystem {
+      system = "aarch64-darwin";
+      modules = [
+        home-manager-darwin.darwinModules.home-manager
+        ./darwin/configuration.nix
+        ./darwin/home-base.nix
+	{ home-manager.users.kat = import ./darwin/home.nix; }
+      ];
+    };
+  }  // 
+    (flake-utils.lib.eachDefaultSystem
       (system:
         let pkgs = nixpkgs.legacyPackages.${system}; in
         {
           devShell = import ./devShell.nix { inherit inputs system; };
           legacyPackages = import ./outputs.nix { inherit inputs system; };
         }
-      );
+      ));
 }
