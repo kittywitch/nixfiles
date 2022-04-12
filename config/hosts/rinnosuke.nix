@@ -27,14 +27,5 @@
     };
   };
 
-  services.nginx.virtualHosts =
-    let
-      splashy = pkgs.host-splash-site config.networking.hostName;
-    in
-    kw.virtualHostGen {
-      networkFilter = [ "public" ];
-      block.locations."/" = { root = splashy; };
-    };
-
   system.stateVersion = "21.11";
 }

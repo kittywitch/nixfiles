@@ -14,7 +14,6 @@
     users.kat.guiX11Full
     users.kat.services.weechat
     services.nginx
-    services.katsplash
     services.restic
     services.zfs
   ];

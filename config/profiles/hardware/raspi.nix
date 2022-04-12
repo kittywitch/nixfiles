@@ -11,7 +11,6 @@
       generic-extlinux-compatible.enable = true;
     };
     consoleLogLevel = lib.mkDefault 7;
-    kernelPackages = pkgs.linuxPackages_rpi1;
     kernelModules = mkForce [ "loop" "atkbd" ];
     initrd = {
       includeDefaultModules = false;
