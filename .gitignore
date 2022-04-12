@@ -2,3 +2,4 @@
 /result*
 /.direnv/
 /wiki
+.DS_Store

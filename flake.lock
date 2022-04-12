@@ -51,6 +51,27 @@
         "type": "github"
       }
     },
+    "darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-darwin"
+        ]
+      },
+      "locked": {
+        "lastModified": 1648278671,
+        "narHash": "sha256-1WrR9ex+rKTjZtODNUZQhkWYUprtfOkjOyo9YWL2NMs=",
+        "owner": "lnl7",
+        "repo": "nix-darwin",
+        "rev": "4fdbb8168f61d31d3f90bb0d07f48de709c4fe79",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lnl7",
+        "ref": "master",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
     "doom-emacs": {
       "flake": false,
       "locked": {
@@ -86,11 +107,11 @@
     },
     "emacs-overlay": {
       "locked": {
-        "lastModified": 1649647100,
-        "narHash": "sha256-JjIQlPUohatoXJWgC/QATwQ7GBf78fEOXiPm4WT7vIQ=",
+        "lastModified": 1649732714,
+        "narHash": "sha256-D8iDZsLJWXB4n/Iy/KCpgdKSLFff2rynCeohO7Xs3R0=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "4392b4c2b738c2447b796be2e27bb00d97aa0522",
+        "rev": "8b7323d06cc5310f75781ae87dd50840c3b2bfc7",
         "type": "github"
       },
       "original": {
@@ -214,11 +235,11 @@
     },
     "flake-utils": {
       "locked": {
-        "lastModified": 1648297722,
-        "narHash": "sha256-W+qlPsiZd8F3XkzXOzAoR+mpFqzm3ekQkJNa+PIh1BQ=",
+        "lastModified": 1649676176,
+        "narHash": "sha256-OWKJratjt2RW151VUlJPRALb7OU2S5s+f0vLj4o1bHM=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "0f8662f1319ad6abf89b3380dd2722369fc51ade",
+        "rev": "a4b154ebbdc88c8498a5c7b01589addc9e9cb678",
         "type": "github"
       },
       "original": {
@@ -311,44 +332,6 @@
         "owner": "nix-community",
         "ref": "master",
         "repo": "impermanence",
-        "type": "github"
-      }
-    },
-    "katexprs": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1641402064,
-        "narHash": "sha256-YwyYTkZqBgM/SKxu5rLGcL67NqHaTI/mUzvYaYtHN/M=",
-        "owner": "kittywitch",
-        "repo": "nixexprs",
-        "rev": "706856839b5d1bbe4b1f9ba32842ce86dd21989c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kittywitch",
-        "ref": "main",
-        "repo": "nixexprs",
-        "type": "github"
-      }
-    },
-    "nix-darwin": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs-darwin"
-        ]
-      },
-      "locked": {
-        "lastModified": 1648278671,
-        "narHash": "sha256-1WrR9ex+rKTjZtODNUZQhkWYUprtfOkjOyo9YWL2NMs=",
-        "owner": "lnl7",
-        "repo": "nix-darwin",
-        "rev": "4fdbb8168f61d31d3f90bb0d07f48de709c4fe79",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lnl7",
-        "ref": "master",
-        "repo": "nix-darwin",
         "type": "github"
       }
     },
@@ -448,11 +431,11 @@
     },
     "nixpkgs-darwin": {
       "locked": {
-        "lastModified": 1649541905,
-        "narHash": "sha256-e8uePwD302weU4saoLg5uhb0yI5ZbHl/L49ncKejh5o=",
+        "lastModified": 1649675302,
+        "narHash": "sha256-joXkXjdOn73GF/1Y3mhir44aG5doekJyJwiG3DblIlo=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "db81927829becddb57db2b3b3e34301ed4af8d0a",
+        "rev": "a31e3437d3b5d8f0b4f3bbc3b097b15b10250dab",
         "type": "github"
       },
       "original": {
@@ -480,11 +463,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1649669925,
-        "narHash": "sha256-9NbeOUhAVsRhwN4YMtqJznYyO/1xSUgWfOCmOHg+vOQ=",
+        "lastModified": 1649749110,
+        "narHash": "sha256-gN/BkRu93GDHGENao+G0oHrknSJB3l+sfGOZWkqG2RY=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "6902d2d240c9afbece10014e8df1ab3df453e509",
+        "rev": "287aa9ab138e00c3a3519e437a56b7627c62c478",
         "type": "github"
       },
       "original": {
@@ -595,14 +578,13 @@
         "anicca": "anicca",
         "arcexprs": "arcexprs",
         "ci": "ci",
+        "darwin": "darwin",
         "emacs-overlay": "emacs-overlay",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "home-manager-darwin": "home-manager-darwin",
         "impermanence": "impermanence",
-        "katexprs": "katexprs",
-        "nix-darwin": "nix-darwin",
         "nix-dns": "nix-dns",
         "nix-doom-emacs": "nix-doom-emacs",
         "nixpkgs": "nixpkgs",

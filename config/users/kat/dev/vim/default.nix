@@ -2,12 +2,11 @@
 
 let
   initvim = pkgs.callPackage
-    ({ stdenv, elinks, nodejs }: stdenv.mkDerivation {
+    ({ stdenv, nodejs }: stdenv.mkDerivation {
       name = "init.vim";
       src = ./init.vim;
-      inherit nodejs elinks;
+      inherit nodejs;
       buildInputs = [
-        elinks
         nodejs
       ];
       phases = [ "buildPhase" ];
@@ -44,10 +43,6 @@ in
       nvim-base16
       nvim-web-devicons
       telescope-nvim
-      (nvim-treesitter.withPlugins (
-        plugins: with plugins; pkgs.tree-sitter.allGrammars
-      ))
-      nvim-ts-rainbow
       coc-yaml
       coc-git
       coc-css

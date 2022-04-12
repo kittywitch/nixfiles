@@ -8,7 +8,6 @@
     tokei
     nixpkgs-fmt
     pandoc
-    apache-directory-studio
     hugo
   ];
 }

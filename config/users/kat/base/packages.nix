@@ -8,7 +8,7 @@
     sd
     duc-cli
     bat
-    exa-noman
+    exa
     socat
     rsync
     wget

@@ -10,9 +10,16 @@
   serviceImports = wrapImports tree.prev.services;
 in
 dirImports // {
+  darwin = {
+    imports = [
+      dirImports.base
+      tree.prev.darwin
+    ];
+  };
   base = {
     imports = [
       dirImports.base
+      dirImports.linux
       tree.prev.nixos
     ];
   };

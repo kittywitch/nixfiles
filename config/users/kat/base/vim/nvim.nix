@@ -1,12 +1,11 @@
 { config, lib, pkgs, nixos, ... }: with lib;
 
 let initvim = pkgs.callPackage
-  ({ stdenv, elinks, nodejs }: stdenv.mkDerivation {
+  ({ stdenv, nodejs }: stdenv.mkDerivation {
     name = "init.vim";
     src = ./init.vim;
-    inherit nodejs elinks;
+    inherit nodejs;
     buildInputs = [
-      elinks
       nodejs
     ];
     phases = [ "buildPhase" ];

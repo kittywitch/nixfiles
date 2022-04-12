@@ -4,7 +4,7 @@ set list listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:✖
 " Enable mouse
 set mouse=a
 
-set viminfo='100000,<100000,s1000,h,n$XDG_DATA_HOME/vim/viminfo'
+set viminfo='100000,<100000,s1000,h,n~/.local/share/vim/viminfo'
 set ts=2
 set sw=2
 

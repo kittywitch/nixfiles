@@ -27,7 +27,7 @@ in
     yes = "me instead";
   };
   xdg.dataFile = { "z/.keep".text = ""; };
-  home.packages = with pkgs; [ fzf fd zsh-completions akiflags ];
+  home.packages = with pkgs; [ fzf fd zsh-completions ];
   programs.zsh = {
     enable = true;
     enableSyntaxHighlighting = true;
@@ -61,7 +61,10 @@ in
           HISTFILE=/persist/home/.zsh_history
         '' else ''
         ''}
+	${if pkgs.stdenv.system != "aarch64-darwin" then ''
         eval $(dircolors)
+	'' else ''
+	''}
         PROMPT_EOL_MARK='''
         ZSH_TAB_TITLE_ADDITIONAL_TERMS='foot'
         ZSH_TAB_TITLE_ENABLE_FULL_COMMAND=true
@@ -123,6 +126,9 @@ in
       name = "fzf-tab";
       src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
     });
+  };
+  home.sessionVariables = {
+    XDG_DATA_HOME = "${config.xdg.dataHome}";
   };
   programs.fzf = {
     enable = true;

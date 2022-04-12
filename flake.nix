@@ -15,17 +15,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     impermanence.url = "github:nix-community/impermanence/master";
-    katexprs = {
-      url = "github:kittywitch/nixexprs/main";
-      flake = false;
-    };
     anicca = {
       url = "github:kittywitch/anicca/main";
       flake = false;
     };
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-21.11-darwin";
-    nix-darwin.url = "github:lnl7/nix-darwin/master";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
+    darwin.url = "github:lnl7/nix-darwin/master";
+    darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
     home-manager-darwin.url = "github:nix-community/home-manager";
     home-manager-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
     nix-dns = {
@@ -53,23 +49,31 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, nix-darwin, home-manager-darwin, ... }@inputs: {	
-    darwinConfigurations."sumireko" = nix-darwin.lib.darwinSystem {
-      system = "aarch64-darwin";
-      modules = [
+  outputs = { self, nixpkgs, flake-utils, darwin, home-manager-darwin, ... }@inputs: {	
+    darwinConfigurations."sumireko" = let
+	system = "aarch64-darwin";
+	meta = self.legacyPackages.${system};
+      in darwin.lib.darwinSystem {
+      inherit inputs;
+      inherit system;
+      specialArgs = {
+	inherit inputs meta;
+	tf = { };
+      };
+      pkgs = self.legacyPackages.${system}.darwin-pkgs;
+      modules = with meta; [
         home-manager-darwin.darwinModules.home-manager
-        ./darwin/configuration.nix
-        ./darwin/home-base.nix
-	{ home-manager.users.kat = import ./darwin/home.nix; }
-      ];
+        meta.hosts.sumireko
+	];
     };
   }  // 
     (flake-utils.lib.eachDefaultSystem
       (system:
         let pkgs = nixpkgs.legacyPackages.${system}; in
-        {
+        rec {
           devShell = import ./devShell.nix { inherit inputs system; };
           legacyPackages = import ./outputs.nix { inherit inputs system; };
+          nixosConfigurations = legacyPackages.network.nodes;
         }
       ));
 }

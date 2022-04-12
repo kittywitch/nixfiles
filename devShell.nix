@@ -32,6 +32,10 @@ let
       nix flake lock ./trusted --update-input trusted
     fi
   '';
+  sumireko-apply = pkgs.writeShellScriptBin "sumireko-apply" ''
+    nix build ${./.}#darwinConfigurations.sumireko.system
+    darwin-rebuild switch --flake ${./.}#sumireko
+  '';
 in
 with lib; pkgs.mkShell {
   nativeBuildInputs = with pkgs; [
@@ -39,6 +43,7 @@ with lib; pkgs.mkShell {
     nf-actions
     nf-actions-test
     nf-update
+    sumireko-apply
   ] ++ config.runners.lazy.nativeBuildInputs
   ++ (map
     (node: writeShellScriptBin "${node.networking.hostName}-sd-img" ''

@@ -2,6 +2,7 @@
   optionalAttrs = cond: as: if cond then as else { };
 
   pkgs = import ./overlays { inherit inputs system; };
+  darwin-pkgs = import ./overlays/darwin.nix { inherit inputs system; };
   inherit (pkgs) lib;
 
   mkTree = import ./tree.nix { inherit lib; };
@@ -13,7 +14,6 @@
         functor = {
           enable = true;
           external = [
-            (import (inputs.katexprs + "/modules")).nixos
             (import (inputs.impermanence + "/nixos.nix"))
             (import inputs.anicca).modules.nixos
             (inputs.tf-nix + "/modules/nixos/secrets.nix")
@@ -48,7 +48,6 @@
           enable = true;
           external = [
             (import (inputs.arcexprs + "/modules")).home-manager
-            (import (inputs.katexprs + "/modules")).home
             (import (inputs.impermanence + "/home-manager.nix"))
             (import inputs.anicca).modules.home
             (inputs.tf-nix + "/modules/home/secrets.nix")
@@ -102,7 +101,7 @@
           };
         };
       })
-      (lib.attrNames xarg.hosts));
+      (lib.remove "sumireko" (lib.attrNames xarg.hosts)));
 
     specialArgs = {
       inherit inputs root tree;
@@ -113,6 +112,6 @@
   inherit (eval) config;
 
 
-  self = config // { inherit pkgs lib inputs tree; } // xarg;
+  self = config // { inherit pkgs lib inputs tree darwin-pkgs; } // xarg;
 in
 self

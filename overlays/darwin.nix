@@ -1,7 +1,7 @@
 { inputs, system ? builtins.currentSystem, ... }@args:
 
 let
-  pkgs = import inputs.nixpkgs {
+  pkgs = import inputs.nixpkgs-darwin {
     inherit system;
     overlays = [
       (import ./nur { inherit inputs; })
@@ -16,6 +16,7 @@ let
     config = {
       allowUnfree = true;
       allowBroken = true;
+      allowUnsupportedSystem = true;
       permittedInsecurePackages = [
         "ffmpeg-3.4.8"
         "ffmpeg-2.8.17"
