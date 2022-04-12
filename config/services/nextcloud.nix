@@ -46,7 +46,7 @@ in {
     };
     https = true;
     enableImagemagick = true;
-    home = "/mnt/zraw/nextcloud";
+    home = "/mnt/zenc/nextcloud";
     hostName = "cloud.kittywit.ch";
     autoUpdateApps = {
       enable = true;

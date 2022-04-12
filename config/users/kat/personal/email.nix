@@ -14,7 +14,7 @@
       neovim.plugins = [ pkgs.vimPlugins.notmuch-vim ];
     };
 
-    services.imapnotify.enable = true;
+    services.imapnotify.enable = false;
 
     accounts.email = {
       maildirBasePath = "${config.home.homeDirectory}/mail";

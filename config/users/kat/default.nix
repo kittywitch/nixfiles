@@ -33,6 +33,22 @@ dirImports // {
       personal
     ];
   };
+  guiBase = {
+    imports = with dirImports; [
+      gui
+      dev
+      media
+      personal
+    ];
+  };
+  guiFlavour = flavour: {
+    imports = (with dirImports; [
+      gui
+      dev
+      media
+      personal
+    ]) ++ [ dirImports.${flavour} ];
+  };
   guiFull = {
     imports = with dirImports; [
       gui

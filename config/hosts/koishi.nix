@@ -2,9 +2,10 @@
   imports = with meta; [
     profiles.hardware.x270
     profiles.gui
+    profiles.gnome
     profiles.light
     profiles.network
-    users.kat.guiFull
+    (users.kat.guiFlavour "gnome")
     services.nginx
     services.dnscrypt-proxy
   ];

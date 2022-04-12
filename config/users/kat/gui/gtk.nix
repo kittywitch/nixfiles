@@ -2,14 +2,14 @@
 
 {
   gtk = {
-    enable = true;
+    enable = false;
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
     theme = {
-      name = "Adementary-dark";
-      package = pkgs.adementary-theme;
+      name = "Adapta";
+      package = pkgs.adapta-gtk-theme;
     };
   };
 }

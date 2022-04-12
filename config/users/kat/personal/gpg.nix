@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ pinentry.gtk2 ];
+  home.packages = lib.mkIf (config.services.gpg-agent.pinentryFlavor == "gtk2") (with pkgs; [ pinentry.gtk2 ]);
   services.gpg-agent = {
     enable = true;
     enableExtraSocket = true;

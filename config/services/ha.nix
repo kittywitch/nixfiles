@@ -18,6 +18,7 @@
         "google_translate"
         "homekit"
         "mqtt"
+        "wake_on_lan"
         "zeroconf"
         "luci"
       ];
@@ -74,6 +75,6 @@
     cp --no-preserve=mode ${config.secrets.files.zigbee2mqtt-secret.path} "${cfg.dataDir}/secret.yaml"
   '';
 
-  network.firewall.public.tcp.ports = [ 8123 8072 ];
+  network.firewall.public.tcp.ports = [ 8123 8072 1883 ];
   network.firewall.private.tcp.ports = [ 8123 ];
 }
