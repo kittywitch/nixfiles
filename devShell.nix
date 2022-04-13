@@ -33,8 +33,8 @@ let
     fi
   '';
   sumireko-apply = pkgs.writeShellScriptBin "sumireko-apply" ''
-    nix build ${./.}#darwinConfigurations.sumireko.system
-    darwin-rebuild switch --flake ${./.}#sumireko
+    nix build ${toString ./.}#darwinConfigurations.sumireko.system
+    darwin-rebuild switch --flake ${toString ./.}#sumireko
   '';
 in
 with lib; pkgs.mkShell {

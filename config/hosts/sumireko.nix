@@ -1,8 +1,8 @@
 { config, pkgs, lib, meta, ... }: {
   imports = with meta; [
-	profiles.darwin
-        users.kat.darwin
-      	users.kat.dev
+      profiles.darwin
+      users.kat.darwin
+      users.kat.dev
   ];
   services.nix-daemon.enable = true;
   nix = {
@@ -16,11 +16,12 @@
     brewPrefix = "/opt/homebrew/bin";
     casks = [
       "element"
+      "visual-studio-code"
     ];
   };
   environment.systemPackages = with pkgs; [
-	awscli
-	jq
+    awscli
+    jq
   ];
 
   programs.zsh = {
