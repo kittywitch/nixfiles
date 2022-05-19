@@ -425,12 +425,12 @@
       },
       "locked": {
         "lastModified": 0,
-        "narHash": "sha256-Gi7tG1c/ePjp4GRO+lqyVyBw4D/Q6ArhqQoQAviGBZ8=",
-        "path": "/nix/store/0d1rpf5pi4lnykkg4lq409d11lh6gga6-source",
+        "narHash": "sha256-6xe8414ZG567zfDVV7ITkmw0TtIlQeD2tP5UuV9BkSU=",
+        "path": "/nix/store/gkmhcdc2vwj7x3rh70g3zax0lcyppxn7-source",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/0d1rpf5pi4lnykkg4lq409d11lh6gga6-source",
+        "path": "/nix/store/gkmhcdc2vwj7x3rh70g3zax0lcyppxn7-source",
         "type": "path"
       }
     },
@@ -664,11 +664,11 @@
     "trusted": {
       "flake": false,
       "locked": {
-        "lastModified": 1639598693,
-        "narHash": "sha256-stR1xQiJCt1PM0JocMpdSC14/2QcDFKjIX4wRJJzQRE=",
+        "lastModified": 1652985072,
+        "narHash": "sha256-SHqXjkk10wMdE47jUSAuLfWIJ40L3cDP6UOiBhZKtVY=",
         "ref": "main",
-        "rev": "1b831ed778fad5919d09cb8b70fc3ede0851729d",
-        "revCount": 89,
+        "rev": "2af2d4cc2e4675a7eebbdfccd5542d306104c237",
+        "revCount": 90,
         "type": "git",
         "url": "ssh://git@github.com/kittywitch/nixfiles-trusted"
       },

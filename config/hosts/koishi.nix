@@ -117,6 +117,8 @@ Host daiyousei-build
       }; */
     };
 
+    services.fstrim.enable = true;
+
     network = {
       addresses = {
         private = {

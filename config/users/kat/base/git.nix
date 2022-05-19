@@ -3,8 +3,8 @@
 {
   programs.git = {
     enable = true;
-    userName = "kat witch";
-    userEmail = "kat@kittywit.ch";
+    userName = "Kat Inskip";
+    userEmail = "kat@inskip.me";
     extraConfig = {
       init = { defaultBranch = "main"; };
       protocol.gcrypt.allow = "always";
@@ -15,7 +15,7 @@
       };
     };
     signing = {
-      key = "01F50A29D4AA91175A11BDB17248991EFA8EFBEE";
+      key = "0xE8DDE3ED1C90F3A0";
       signByDefault = true;
     };
   };
