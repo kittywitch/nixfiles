@@ -91,11 +91,7 @@
     interfaces.eno1 = {
       useDHCP = true;
       tempAddress = "disabled";
-    }; /*.ipv4.addresses = singleton {
-      inherit (config.network.addresses.private.nixos.ipv4) address;
-      prefixLength = 24;
     };
-    defaultGateway = config.network.privateGateway; */
   };
 
   network = {
@@ -104,7 +100,6 @@
         enable = true;
         nixos = {
           ipv4.address = "192.168.1.154";
-          # TODO ipv6.address
         };
       };
     };

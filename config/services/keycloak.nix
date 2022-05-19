@@ -6,34 +6,20 @@ in {
     package = (pkgs.keycloak.override {
       jre = pkgs.openjdk11;
     });
-    bindAddress = "127.0.0.1";
-    httpPort = "8089";
-    httpsPort = "8445";
     initialAdminPassword = "mewpymewlymewlies";
-    forceBackendUrlToFrontendUrl = true;
-    frontendUrl = "https://auth.${config.network.dns.domain}/auth";
     database.passwordFile = config.secrets.files.keycloak-postgres-file.path;
-    extraConfig = {
-    "subsystem=undertow" = {
-      "server=default-server" = {
-        "http-listener=default" = {
-          "proxy-address-forwarding" = true;
-        };
+    settings = {
+      http-enabled = true;
+      http-host = "127.0.0.1";
+      http-port = 8089;
+      https-port = 8445;
+      hostname = "auth.kittywit.ch";
+      http-relative-path = "/auth";
+      hostname-strict-backchannel = true;
+      https-key-store-file = "/var/lib/acme/domain-auth/trust-store.jks";
+      https-key-store-password = keystore-pass;
       };
     };
-    "subsystem=keycloak-server" = {
-        "spi=truststore" = {
-          "provider=file" = {
-            enabled = true;
-            properties.password = keystore-pass;
-            properties.file = "/var/lib/acme/domain-auth/trust-store.jks";
-            properties.hostname-verification-policy = "WILDCARD";
-            properties.disabled = false;
-          };
-        };
-      };
-    };
-  };
 
 
   network.extraCerts.domain-auth = "auth.${config.network.dns.domain}";

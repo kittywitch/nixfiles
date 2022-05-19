@@ -44,9 +44,6 @@ with lib;
         };
       }));
     };
-    privateGateway = mkOption {
-      type = types.str;
-    };
     tf = {
       enable = mkEnableOption "Was the system provisioned by terraform?";
       ipv4_attr = mkOption {
@@ -74,7 +71,6 @@ with lib;
 
   config = {
     network.addresses = nixos.network.addresses or {};
-    network.privateGateway = nixos.network.privateGateway or "";
     network.tf = nixos.network.tf or {};
     network.dns = nixos.network.dns or {};
   };

@@ -89,10 +89,6 @@ in
       type = types.attrsOf types.str;
       default = { };
     };
-    privateGateway = mkOption {
-      type = types.str;
-      default = "192.168.1.1";
-    };
     tf = {
       enable = mkEnableOption "Was the system provisioned by terraform?";
       ipv4_attr = mkOption {
@@ -132,13 +128,13 @@ in
           domain = builtins.substring 0 ((builtins.stringLength cfg.dns.zone) - 1) cfg.dns.zone;
         };
         addresses = lib.mkMerge [
-          (mkIf (!cfg.tf.enable) (genAttrs [ "private" "public" "yggdrasil" "wireguard" ] (network: {
+          (mkIf (!cfg.tf.enable) (genAttrs [ "private" "public" "yggdrasil" ] (network: {
             tf = {
               ipv4.address = mkIf (cfg.addresses.${network}.nixos.ipv4.enable) cfg.addresses.${network}.nixos.ipv4.address;
               ipv6.address = mkIf (cfg.addresses.${network}.nixos.ipv6.enable) cfg.addresses.${network}.nixos.ipv6.address;
             };
           })))
-          (mkIf cfg.tf.enable (genAttrs ["yggdrasil" "wireguard" ] (network: {
+          (mkIf cfg.tf.enable (genAttrs ["yggdrasil" ] (network: {
             tf = {
               ipv4.address = mkIf (cfg.addresses.${network}.nixos.ipv4.enable) cfg.addresses.${network}.nixos.ipv4.address;
               ipv6.address = mkIf (cfg.addresses.${network}.nixos.ipv6.enable) cfg.addresses.${network}.nixos.ipv6.address;
@@ -179,13 +175,8 @@ in
       };
 
 
-      networking = mkMerge [{
-        domain = mkDefault (if cfg.addresses.public.enable then cfg.dns.domain
+      networking.domain = mkDefault (if cfg.addresses.public.enable then cfg.dns.domain
         else if cfg.addresses.private.enable then "${cfg.addresses.private.prefix}.${cfg.dns.domain}" else "");
-      }
-      (mkIf cfg.addresses.private.enable {
-      })
-      ];
 
       deploy.tf.dns.records =
         let

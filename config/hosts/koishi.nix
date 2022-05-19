@@ -7,7 +7,6 @@
     profiles.network
     (users.kat.guiFlavour "gnome")
     services.nginx
-    services.dnscrypt-proxy
   ];
 
   config = {
@@ -45,26 +44,51 @@ Host daiyousei-build
 	'';
     fileSystems = {
       "/" = {
-        device = "/dev/disk/by-uuid/31bfd91b-bdba-47a9-81bf-c96e0adc88e3";
+        device = "/dev/disk/by-uuid/a664de0f-9883-420e-acc5-b9602a23e816";
         fsType = "xfs";
       };
       "/boot" = {
-        device = "/dev/disk/by-uuid/89A2-ED28";
+        device = "/dev/disk/by-uuid/DEBC-8F03";
         fsType = "vfat";
       };
     };
 
     swapDevices =
-      [ { device = "/dev/disk/by-uuid/96952382-7f56-46b5-8c84-1f0130f68b63"; }
+      [ { device = "/dev/disk/by-uuid/0d846453-95b4-46e1-8eaf-b910b4321ef0"; }
     ];
 
     powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
     boot = {
       supportedFilesystems = [ "xfs" "zfs" ];
-      initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/8dd300d3-c432-47b6-8466-55682cd1c1a1";
+      initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/f0ea08b4-6af7-4d90-a2ad-edd5672a2105";
       loader = {
-        systemd-boot.enable = true;
-        efi.canTouchEfiVariables = true;
+ efi = {
+      canTouchEfiVariables = true;
+      # assuming /boot is the mount point of the  EFI partition in NixOS (as the installation section recommends).
+      efiSysMountPoint = "/boot";
+    };
+    grub = {
+      # despite what the configuration.nix manpage seems to indicate,
+      # as of release 17.09, setting device to "nodev" will still call
+      # `grub-install` if efiSupport is true
+      # (the devices list is not used by the EFI grub install,
+      # but must be set to some value in order to pass an assert in grub.nix)
+      devices = [ "nodev" ];
+      efiSupport = true;
+      enable = true;
+      # set $FS_UUID to the UUID of the EFI partition
+      extraEntries = ''
+        menuentry "Windows" {
+          insmod part_gpt
+          insmod fat
+          insmod search_fs_uuid
+          insmod chain
+          search --fs-uuid --set=root DEBC-8F03
+          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+        }
+      '';
+      version = 2;
+    };
       };
     };
 

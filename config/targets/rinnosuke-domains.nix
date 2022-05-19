@@ -19,16 +19,6 @@ let rinnosuke = config.network.nodes.rinnosuke; in
         domain = rinnosuke.network.addresses.wireguard.subdomain;
         a.address = rinnosuke.network.addresses.wireguard.tf.ipv4.address;
       };
-      node_wireguard_rinnosuke_v6 = {
-        inherit (rinnosuke.network.dns) zone;
-        domain = rinnosuke.network.addresses.wireguard.subdomain;
-        aaaa.address = rinnosuke.network.addresses.wireguard.tf.ipv6.address;
-      };
-      node_yggdrasil_rinnosuke_v6 = {
-        inherit (rinnosuke.network.dns) zone;
-        domain = rinnosuke.network.addresses.yggdrasil.subdomain;
-        aaaa.address = rinnosuke.network.addresses.yggdrasil.tf.ipv6.address;
-      };
     };
   };
 }

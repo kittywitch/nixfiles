@@ -1,8 +1,6 @@
 { config, meta, pkgs, lib, modulesPath, ... }: with lib; {
   imports = with meta; [
     profiles.hardware.raspi
-    services.dnscrypt-proxy
-    services.dht22-exporter
     (modulesPath + "/installer/sd-card/sd-image-raspberrypi.nix")
   ];
 
@@ -32,7 +30,7 @@
       private = {
         enable = true;
         nixos = {
-          ipv4.address = "192.168.1.33";
+          ipv4.address = "192.168.1.34";
         };
       };
     };

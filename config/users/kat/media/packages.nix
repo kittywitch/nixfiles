@@ -15,17 +15,5 @@
     v4l-utils
     gimp-with-plugins
     wf-recorder
-    dolphinEmuMaster
-    pcsxr
-    pcsx2
-    mgba
-    nestopia
-    snes9x-gtk
-    citra
-    melonDS
-    mupen64plus
-    retroarch
-    sixpair
-    xboxdrv
   ];
 }

@@ -48,6 +48,13 @@
   services.udisks2.enable = false;
   boot.enableContainers = false;
 
+  home-manager.users.kat.manual = {
+    json.enable = false;
+    manpages.enable = false;
+  };
+
+  services.logrotate.enable = false;
+
   nixpkgs.crossSystem = systems.examples.raspberryPi // {
     system = "armv6l-linux";
   };

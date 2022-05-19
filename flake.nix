@@ -1,7 +1,7 @@
 {
   description = "kat's nixfiles";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     arcexprs = {
       url = "github:arcnmx/nixexprs/master";
       flake = false;
@@ -11,7 +11,7 @@
       flake = false;
     };
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:kittywitch/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     impermanence.url = "github:nix-community/impermanence/master";
@@ -27,12 +27,17 @@
     nix-dns = {
       url = "github:kirelagin/nix-dns/master";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
-    emacs-overlay.url = "github:nix-community/emacs-overlay/master";
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay/master";
+      inputs.flake-utils.follows = "flake-utils";
+    };
     nur.url = "github:nix-community/nur/master";
     nix-doom-emacs = {
       url = "github:vlaci/nix-doom-emacs/develop";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
     tf-nix = {
       url = "github:arcnmx/tf-nix/master";
@@ -49,25 +54,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, darwin, home-manager-darwin, ... }@inputs: {	
-    darwinConfigurations."sumireko" = let
-	system = "aarch64-darwin";
-	meta = self.legacyPackages.${system};
-      in darwin.lib.darwinSystem {
-      inherit inputs;
-      inherit system;
-      specialArgs = {
-	inherit inputs meta;
-	tf = { };
-      };
-      pkgs = self.legacyPackages.${system}.darwin-pkgs;
-      modules = with meta; [
-        home-manager-darwin.darwinModules.home-manager
-        meta.hosts.sumireko
-	];
-    };
-  }  // 
-    (flake-utils.lib.eachDefaultSystem
+  outputs = { self, nixpkgs, flake-utils, darwin, home-manager-darwin, ... }@inputs: flake-utils.lib.eachDefaultSystem
       (system:
         let pkgs = nixpkgs.legacyPackages.${system}; in
         rec {
@@ -75,5 +62,22 @@
           legacyPackages = import ./outputs.nix { inherit inputs system; };
           nixosConfigurations = legacyPackages.network.nodes;
         }
-      ));
+      ) // {
+    darwinConfigurations."sumireko" = let
+        system = "aarch64-darwin";
+        meta = self.legacyPackages.${system};
+      in darwin.lib.darwinSystem {
+      inherit inputs;
+      inherit system;
+      specialArgs = {
+        inherit inputs meta;
+        tf = { };
+      };
+      pkgs = self.legacyPackages.${system}.darwin-pkgs;
+      modules = with meta; [
+        home-manager-darwin.darwinModules.home-manager
+        meta.hosts.sumireko
+      ];
+    };
+  };
 }

@@ -1,36 +1,42 @@
-{ config, lib, meta, ... }: with lib; {
+{ config, lib, meta, pkgs, ... }: with lib; {
   deploy.tf.dns.records.services_plex = {
     inherit (config.network.dns) zone;
     domain = "plex";
     cname = { inherit (config.network.addresses.public) target; };
   };
 
-  deploy.tf.dns.records.services_owncast = {
-    inherit (config.network.dns) zone;
-    domain = "cast";
-    cname = { inherit (config.network.addresses.public) target; };
-  };
 
   deploy.tf.dns.records.services_cloud = {
     inherit (config.network.dns) zone;
     domain = "cloud";
     cname = { inherit (config.network.addresses.public) target; };
   };
-
+  
   deploy.tf.dns.records.services_home = {
     inherit (config.network.dns) zone;
     domain = "home";
+    cname = { inherit (config.network.addresses.public) target; };
+  };
+
+  deploy.tf.dns.records.gensokyo_root_v4 = {
+    zone = "gensokyo.zone.";
     a = { inherit (config.network.addresses.public.tf.ipv4) address; };
   };
 
-  deploy.tf.dns.records.services_home_v6 = {
-    inherit (config.network.dns) zone;
-    domain = "home";
+  deploy.tf.dns.records.gensokyo_root_v6 = {
+    zone = "gensokyo.zone.";
     aaaa = { inherit (config.network.addresses.public.tf.ipv6) address; };
   };
+
   services.nginx.virtualHosts = mkMerge [
     {
-
+      "gensokyo.zone" = {
+        forceSSL = true;
+        enableACME = true;
+        locations."/" = {
+          root = pkgs.gensokyoZone;
+        };
+      };
       "home.${config.network.dns.domain}" = {
         forceSSL = true;
         enableACME = true;
@@ -80,6 +86,5 @@
           };
         };
       }
-    (mkIf config.deploy.profile.trusted (import config.kw.secrets.repo.access.source { inherit config meta; }))
   ];
 }

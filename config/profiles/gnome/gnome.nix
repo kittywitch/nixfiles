@@ -18,8 +18,6 @@
   environment.systemPackages = (with pkgs.gnomeExtensions; [
     gsconnect
     vitals
-    paperwm
-    timezone
     switcher
     espresso
     impatience
@@ -30,6 +28,8 @@
     random-wallpaper
     mullvad-indicator
     tray-icons-reloaded
+    noannoyance-2
+    dash-to-panel
   ]) ++ (with pkgs; [
     mullvad-vpn
     ytmdesktop

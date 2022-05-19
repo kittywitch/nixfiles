@@ -26,9 +26,9 @@
       trusted-users = [ "root" "@wheel" ];
     };
     gc = {
-      automatic = lib.mkDefault false;
+      automatic = lib.mkDefault true;
       dates = lib.mkDefault "weekly";
-      options = lib.mkDefault "--delete-older-than 1w";
+      options = lib.mkDefault "--delete-older-than 7d";
     };
   };
 }

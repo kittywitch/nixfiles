@@ -80,6 +80,7 @@ in
                   name = mkDefault "kw-${config.name}";
                   user = mkIf (builtins.getEnv "HOME_USER" != "") (mkDefault (builtins.getEnv "HOME_USER"));
                 };
+                providers.local = { };
                 deps = {
                   select.allProviders = true;
                   enable = true;

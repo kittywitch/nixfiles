@@ -9,4 +9,5 @@ final: prev: {
   waybar-gpg = final.callPackage ./waybar-gpg { };
   waybar-konawall = final.callPackage ./waybar-konawall { };
   hedgedoc-cli = final.callPackage ./hedgedoc-cli.nix { };
+  gensokyoZone = final.callPackage ./gensokyoZone { };
 }
