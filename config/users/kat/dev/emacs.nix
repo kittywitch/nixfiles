@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }: with lib;
+{ tf, config, lib, pkgs, inputs, ... }: with lib;
 
 let
   doom-emacs = pkgs.callPackage inputs.nix-doom-emacs {
@@ -15,7 +15,7 @@ let
     };
   };
 in
-optionalAttrs (builtins.getEnv "CI_PLATFORM" == "impure" && "mew" != "mew") {
+optionalAttrs (builtins.getEnv "CI_PLATFORM" == "impure" && builtins.getEnv "TF_IN_AUTOMATION" != "") {
     home.packages = [ doom-emacs pkgs.sqlite ];
 
     home.file.".emacs.d/init.el".text = ''

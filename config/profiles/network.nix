@@ -48,7 +48,7 @@
 
   services.tailscale.enable = true;
 
-  systemd.services.tailscale-autoconnect = {
+  systemd.services.tailscale-autoconnect = mkIf (builtins.getEnv "TF_IN_AUTOMATION" != "" || tf.state.enable) {
     description = "Automatic connection to Tailscale";
 
     # make sure tailscale is running before trying to connect to tailscale

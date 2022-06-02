@@ -57,10 +57,6 @@ in
           "listrowsfirst"
         ]; in
       ''
-        ${if config.anicca.enabled then ''
-          HISTFILE=/persist/home/.zsh_history
-        '' else ''
-        ''}
 	${if pkgs.stdenv.system != "aarch64-darwin" then ''
         eval $(dircolors)
 	'' else ''

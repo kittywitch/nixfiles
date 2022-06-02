@@ -3,7 +3,7 @@
 
   services.openldap = {
     enable = true;
-    urlList = [ "ldap:///" "ldapi:///" "ldaps:///" ];
+    urlList = [ "ldap:///" "ldaps:///" ];
     settings = {
       attrs = {
         objectClass = "olcGlobal";

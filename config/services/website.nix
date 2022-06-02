@@ -5,10 +5,9 @@
 
   services.nginx.virtualHosts = {
     "${config.network.dns.domain}" = {
-      root = pkgs.kat-hugosite;
+      root = pkgs.gensokyoZone;
       enableACME = true;
       forceSSL = true;
     };
-
   };
 }

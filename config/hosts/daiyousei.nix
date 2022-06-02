@@ -5,7 +5,6 @@
     profiles.network
     users.kat.services.weechat
     services.nginx
-    services.gitea
     services.murmur
     services.murmur-ldap
     services.prosody

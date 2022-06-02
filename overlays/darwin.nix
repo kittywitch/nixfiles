@@ -5,13 +5,11 @@ let
     inherit system;
     overlays = [
       (import ./nur { inherit inputs; })
-      (import inputs.emacs-overlay)
       (import ./dns { inherit inputs; })
       (import ./local)
       (import ./lib)
     ] ++ (map (path: import "${path}/overlay.nix") [
       inputs.arcexprs
-      inputs.anicca
     ]);
     config = {
       allowUnfree = true;

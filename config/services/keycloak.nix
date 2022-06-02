@@ -13,6 +13,7 @@ in {
       http-host = "127.0.0.1";
       http-port = 8089;
       https-port = 8445;
+      proxy = "edge";
       hostname = "auth.kittywit.ch";
       http-relative-path = "/auth";
       hostname-strict-backchannel = true;

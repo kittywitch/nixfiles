@@ -3,7 +3,8 @@
     profiles.hardware.oracle.ubuntu
     profiles.network
     services.nginx
-  ] ++ optional (builtins.getEnv "CI_PLATFORM" == "impure" && builtins.pathExists ../trusted/knot) ../trusted/knot;
+    services.knot
+  ];
 
   kw.oci = {
     specs = {
