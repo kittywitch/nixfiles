@@ -1,4 +1,5 @@
 { config, kw, pkgs, lib, ... }: {
+    network.firewall.public.tcp.ports = [ 32400 ];
   services = {
     plex = {
       enable = true;
@@ -15,6 +16,7 @@
       }
       );
     };
+
 
     nginx.virtualHosts."plex.kittywit.ch".locations."/" = {
       proxyPass = "http://127.0.0.1:32400";

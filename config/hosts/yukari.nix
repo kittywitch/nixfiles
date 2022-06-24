@@ -4,8 +4,8 @@
     profiles.network
     services.ha
     services.nextcloud
-    services.kattv-ingest
-    services.kattv2-ingest
+    #services.kattv-ingest
+    #services.kattv2-ingest
     services.postgres
     services.nfs
     services.nginx
@@ -99,7 +99,7 @@
       private = {
         enable = true;
         nixos = {
-          ipv4.address = "192.168.1.154";
+          ipv4.address = "100.98.152.108";
         };
       };
     };

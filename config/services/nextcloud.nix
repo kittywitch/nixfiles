@@ -34,7 +34,7 @@ in {
 
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud23;
+    package = pkgs.nextcloud24;
     config = {
       dbtype = "pgsql";
       dbhost = "/run/postgresql";

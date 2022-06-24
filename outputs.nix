@@ -14,8 +14,6 @@
         functor = {
           enable = true;
           external = [
-            (import (inputs.impermanence + "/nixos.nix"))
-            (import inputs.anicca).modules.nixos
             (inputs.tf-nix + "/modules/nixos/secrets.nix")
             (inputs.tf-nix + "/modules/nixos/secrets-users.nix")
           ] ++ (with (import (inputs.arcexprs + "/modules")).nixos; [
@@ -48,8 +46,6 @@
           enable = true;
           external = [
             (import (inputs.arcexprs + "/modules")).home-manager
-            (import (inputs.impermanence + "/home-manager.nix"))
-            (import inputs.anicca).modules.home
             (inputs.tf-nix + "/modules/home/secrets.nix")
           ];
         };

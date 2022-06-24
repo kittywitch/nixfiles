@@ -14,6 +14,7 @@
       url = "github:kittywitch/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur.url = "github:nix-community/nur/master";
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-21.11-darwin";
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
