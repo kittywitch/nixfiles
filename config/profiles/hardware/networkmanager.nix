@@ -1,4 +1,4 @@
-{ config, lib, ... }: with lib; {
+{ config, lib, pkgs, ... }: with lib; {
   options = {
     home-manager.users = let
       applets = { config, nixos, ... }: {
@@ -15,6 +15,9 @@
     };
   };
   config = {
+    systemd.services.NetworkManager-wait-online = {
+      serviceConfig.ExecStart = [ "" "${pkgs.networkmanager}/bin/nm-online -q" ];
+    };
     hardware.bluetooth = {
       enable = true;
       settings = {
