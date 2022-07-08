@@ -25,7 +25,21 @@ with lib;
         default = toString (pkgs.path + "/nixos/modules");
       };
     };
-    nodes =
+    darwin = {
+      extraModules = mkOption {
+        type = types.listOf types.unspecified;
+        default = [ ];
+      };
+      specialArgs = mkOption {
+        type = types.attrsOf types.unspecified;
+        default = { };
+      };
+      modulesPath = mkOption {
+        type = types.path;
+        default = toString (inputs.darwin + "/modules");
+      };
+    };
+    nodes.nixos =
       let
         nixosModule = { name, config, meta, modulesPath, lib, ... }: with lib; {
           options = {
@@ -44,7 +58,7 @@ with lib;
                     inherit (pkgs) overlays config;
                   };
                 in
-                mkDefault (if config.nixpkgs.config == pkgs.config && config.nixpkgs.localSystem.system == pkgs.targetPlatform.system then pkgs else pkgsReval);
+                mkDefault (if config.nixpkgs.config == pkgs.config && config.nixpkgs.system == pkgs.targetPlatform.system then pkgs else pkgsReval);
             };
           };
         };
@@ -67,12 +81,52 @@ with lib;
         type = types.attrsOf nixosType;
         default = { };
       };
+    nodes.darwin =
+      let
+        darwinModule = { name, config, meta, modulesPath, lib, ... }: with lib; {
+          config = {
+            _module.args.pkgs = pkgs;
+            nixpkgs = {
+              system = mkDefault pkgs.system;
+            };
+          };
+        };
+        darwinType =
+          let
+            baseModules = import (config.network.darwin.modulesPath + "/module-list.nix");
+          in
+          types.submoduleWith {
+            modules = baseModules
+              ++ singleton darwinModule
+              ++ config.network.darwin.extraModules;
+
+            specialArgs = {
+              inherit baseModules;
+              inherit (config.network.darwin) modulesPath;
+            } // config.network.darwin.specialArgs;
+          };
+      in
+      mkOption {
+        type = types.attrsOf darwinType;
+        default = { };
+      };
   };
   config.network = {
+    darwin = {
+      extraModules = [
+        inputs.home-manager.darwinModules.home-manager
+        meta.modules.darwin
+      ];
+      specialArgs = {
+        inherit (config.network) nodes;
+        inherit inputs meta;
+      };
+    };
     nixos = {
       extraModules = [
-        "${toString inputs.home-manager}/nixos"
-      ] ++ lib.singleton meta.modules.nixos;
+        inputs.home-manager.nixosModules.home-manager
+        meta.modules.nixos
+      ];
       specialArgs = {
         inherit (config.network) nodes;
         inherit inputs meta;

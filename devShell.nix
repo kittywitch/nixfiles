@@ -49,12 +49,12 @@ with lib; pkgs.mkShell {
     (node: writeShellScriptBin "${node.networking.hostName}-sd-img" ''
       nix build -f . network.nodes.${node.networking.hostName}.system.build.sdImage --show-trace
     '')
-    (filter (node: node.system.build ? sdImage) (attrValues meta.network.nodes)))
+    (filter (node: node.system.build ? sdImage) (attrValues meta.network.nodes.nixos)))
   ++ (map
     (node: writeShellScriptBin "${node.networking.hostName}-iso-img" ''
       nix build -f . network.nodes.${node.networking.hostName}.system.build.isoImage --show-trace
     '')
-    (filter (node: node.system.build ? isoImage) (attrValues meta.network.nodes)));
+    (filter (node: node.system.build ? isoImage) (attrValues meta.network.nodes.nixos)));
   shellHook = ''
     export HOME_HOSTNAME=$(hostname -s)
     export NIX_BIN_DIR=${pkgs.nix}/bin

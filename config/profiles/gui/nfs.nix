@@ -5,7 +5,7 @@
 
   /*
   fileSystems."/mnt/kat-nas" = lib.mkIf (config.networking.hostName != "yukari") {
-    device = "${meta.network.nodes.yukari.network.addresses.w.domain}:/mnt/zraw/media";
+    device = "${meta.network.nodes.nixos.yukari.network.addresses.w.domain}:/mnt/zraw/media";
     fsType = "nfs";
     options = [ "x-systemd.automount" "noauto" "nfsvers=4" "soft" "retrans=2" "timeo=60" ];
     };

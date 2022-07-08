@@ -1,8 +1,7 @@
-{ inputs, system, ... }: let
+{ inputs, system ? builtins.currentSystem or "x86_64-linux" , ... }: let
   optionalAttrs = cond: as: if cond then as else { };
 
   pkgs = import ./overlays { inherit inputs system; };
-  darwin-pkgs = import ./overlays/darwin.nix { inherit inputs system; };
   inherit (pkgs) lib;
 
   mkTree = import ./tree.nix { inherit lib; };
@@ -50,6 +49,7 @@
           ];
         };
       };
+      "modules/darwin".functor.enable = true;
       "modules/meta".functor.enable = true;
       "profiles/*".functor.enable = true;
       "profiles/hardware".evaluateDefault = true;
@@ -82,32 +82,45 @@
 
   metaBase = import ./meta.nix { inherit config lib pkgs root; };
 
-  xarg = tree.impure;
+  nixfiles = tree.impure;
 
-  eval = lib.evalModules {
-    modules = lib.singleton metaBase
-      ++ lib.singleton xarg.modules.meta
-      ++ lib.attrValues xarg.targets
-      ++ (map
-      (host: {
-        network.nodes.${host} = {
-          imports = config.lib.kw.nodeImport host;
+  eval = let
+    nixosNodes = (map
+      (node: {
+        network.nodes.nixos.${node} = {
+          imports = config.lib.kw.nixosImport node;
           networking = {
-            hostName = host;
+            hostName = node;
           };
         };
       })
-      (lib.remove "sumireko" (lib.attrNames xarg.hosts)));
+      (lib.attrNames nixfiles.nodes.nixos));
+    darwinNodes = (map
+      (node: {
+        network.nodes.darwin.${node} = {
+          imports = config.lib.kw.darwinImport node;
+          networking = {
+            hostName = node;
+          };
+        };
+      })
+      (lib.attrNames nixfiles.nodes.darwin));
+  in lib.evalModules {
+    modules = lib.singleton metaBase
+      ++ lib.singleton nixfiles.modules.meta
+      ++ lib.attrValues nixfiles.targets
+      ++ nixosNodes
+      ++ darwinNodes;
 
     specialArgs = {
       inherit inputs root tree;
       meta = self;
-    } // xarg;
+    } // nixfiles;
   };
 
   inherit (eval) config;
 
 
-  self = config // { inherit pkgs lib inputs tree darwin-pkgs; } // xarg;
+  self = config // { inherit pkgs lib inputs tree; } // nixfiles;
 in
 self

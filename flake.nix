@@ -15,11 +15,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur.url = "github:nix-community/nur/master";
-    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-21.11-darwin";
     darwin.url = "github:lnl7/nix-darwin/master";
-    darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
-    home-manager-darwin.url = "github:nix-community/home-manager";
-    home-manager-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
     nix-dns = {
       url = "github:kirelagin/nix-dns/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,30 +46,20 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, darwin, home-manager-darwin, ... }@inputs: flake-utils.lib.eachDefaultSystem
+  outputs = { self, nixpkgs, flake-utils, ... }@inputs: let
+    providedSystems = flake-utils.lib.eachDefaultSystem
   (system:
-  let pkgs = nixpkgs.legacyPackages.${system}; in
   rec {
     devShell = import ./devShell.nix { inherit inputs system; };
     legacyPackages = import ./outputs.nix { inherit inputs system; };
-    nixosConfigurations = legacyPackages.network.nodes;
-  }
-  ) // {
-    darwinConfigurations."sumireko" = let
-      system = "aarch64-darwin";
-      meta = self.legacyPackages.${system};
-    in darwin.lib.darwinSystem {
-      inherit inputs;
-      inherit system;
-      specialArgs = {
-        inherit inputs meta;
-        tf = { };
-      };
-      pkgs = self.legacyPackages.${system}.darwin-pkgs;
-      modules = with meta; [
-        home-manager-darwin.darwinModules.home-manager
-        meta.hosts.sumireko
-      ];
-    };
+  });
+  in providedSystems // {
+    nixosConfigurations = self.legacyPackages.x86_64-linux.network.nodes.nixos;
+    darwinConfigurations = builtins.mapAttrs (_: config: {
+      inherit (config.deploy) pkgs;
+      inherit config;
+
+      system = config.system.build.toplevel;
+    }) self.legacyPackages.aarch64-darwin.network.nodes.darwin;
   };
 }

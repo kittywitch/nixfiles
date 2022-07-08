@@ -1,6 +1,6 @@
 { config, ... }:
 
-let rinnosuke = config.network.nodes.rinnosuke; in
+let rinnosuke = config.network.nodes.nixos.rinnosuke; in
 {
   deploy.targets.rinnosuke-domains.tf = {
     dns.records = {

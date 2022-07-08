@@ -63,7 +63,7 @@
         enableACME = true;
         locations = {
           "/" = {
-            proxyPass = "http://[${meta.network.nodes.yukari.network.addresses.yggdrasil.nixos.ipv6.address}]";
+            proxyPass = "http://[${meta.network.nodes.nixos.yukari.network.addresses.yggdrasil.nixos.ipv6.address}]";
       extraConfig = ''
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";

@@ -90,12 +90,12 @@ with lib; {
         command =
           let
             main = (import ../.);
-            hosts = main.network.nodes;
+            nodes = main.network.nodes.nixos;
             targets = main.deploy.targets;
             enabledTargets = filterAttrs (_: v: v.enable) main.deploy.targets;
             enabledHosts = concatLists (mapAttrsToList (targetName: target: target.nodeNames) enabledTargets);
             filteredHosts = subtractLists [ "daiyousei" "shinmyoumaru" "medicine" ] enabledHosts;
-            hostBuildString = concatMapStringsSep " && " (host: "nix build -Lf . network.nodes.${host}.deploy.system -o result-${host} && nix-collect-garbage -d") filteredHosts;
+            nodeBuildString = concatMapStringsSep " && " (node: "nix build -Lf . network.nodes.nixos.${node}.deploy.system -o result-${node} && nix-collect-garbage -d") filteredHosts;
           in
           ''
             # ${toString builtins.currentTime}
@@ -110,7 +110,7 @@ with lib; {
             if git status --porcelain | grep -qF flake.lock; then
               git -P diff flake.lock
               echo "checking that network.nodes.still build..." >&2
-              if ${hostBuildString}; then
+              if ${nodeBuildString}; then
                 if [[ -n $CACHIX_SIGNING_KEY ]]; then
                   cachix push kittywitch result*/ &
                   CACHIX_PUSH=$!

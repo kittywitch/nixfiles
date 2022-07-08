@@ -129,7 +129,7 @@ in
                   };
                 };
                 continue.envVar = "TF_NIX_CONTINUE_${replaceStrings [ "-" ] [ "_" ] config.name}";
-              }) ++ map (nodeName: mapAttrs (_: mkMerge) meta.network.nodes.${nodeName}.deploy.tf.out.set) config.nodeNames);
+              }) ++ map (nodeName: mapAttrs (_: mkMerge) meta.network.nodes.nixos.${nodeName}.deploy.tf.out.set) config.nodeNames);
           });
         in
         mkOption {
@@ -141,7 +141,7 @@ in
   config = {
     deploy.targets =
       let
-        nodeNames = attrNames config.network.nodes;
+        nodeNames = attrNames config.network.nodes.nixos;
         targets = config.deploy.targets;
         explicitlyDefinedHosts = concatLists (mapAttrsToList (targetName: target: remove targetName target.nodeNames) config.deploy.targets);
       in

@@ -19,7 +19,6 @@
     zstd
     file
     whois
-    dnsutils
     neofetch
   ];
 }

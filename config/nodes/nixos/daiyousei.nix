@@ -1,6 +1,6 @@
 { config, inputs, tf, meta, kw, pkgs, lib, ... }: with lib; {
   imports = with meta; [
-    profiles.hardware.aarch64
+    profiles.hardware.aarch64-linux
     profiles.hardware.oracle.ubuntu
     profiles.network
     users.kat.services.weechat

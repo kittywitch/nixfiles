@@ -105,7 +105,7 @@ in
           c: c.enable && (cfg.pubkey != c.pubkey)
         )
         (
-          mapAttrsToList (_: node: node.network.yggdrasil or { enable = false; pubkey = null; }) meta.network.nodes
+          mapAttrsToList (_: node: node.network.yggdrasil or { enable = false; pubkey = null; }) meta.network.nodes.nixos
         );
       pubkeys = flatten ((filter (n: n != "0000000000000000000000000000000000000000000000000000000000000000") (attrValues cfg.extern.pubkeys)) ++ (map (c: [ c.pubkey ] ++ (attrValues c.extra.pubkeys)) yggConfigs));
     in

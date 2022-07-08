@@ -8,12 +8,16 @@ let
       (import ./dns { inherit inputs; })
       (import ./local)
       (import ./lib)
+      (final: prev: {
+        jemalloc = if final.hostPlatform != "aarch64-darwin" then prev.jemalloc else null;
+      })
     ] ++ (map (path: import "${path}/overlay.nix") [
       inputs.arcexprs
     ]);
     config = {
       allowUnfree = true;
       allowBroken = true;
+      allowUnsupportedSystem = true;
       permittedInsecurePackages = [
         "ffmpeg-3.4.8"
         "ffmpeg-2.8.17"

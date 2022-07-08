@@ -1,0 +1,5 @@
+{ config, ... }: {
+  homebrew = {
+    enable = true;
+  };
+}
