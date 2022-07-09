@@ -38,7 +38,7 @@
       "inputs": {
         "nixpkgs": [
           "nixfiles",
-          "nixpkgs-darwin"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -98,11 +98,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1657275959,
-        "narHash": "sha256-pg8FB1DRImBpqXHCp/0Y7bIphpVqGmkWgWOcFDMwdTg=",
+        "lastModified": 1657305762,
+        "narHash": "sha256-dsuJG/y2LtqyHhDEIo3d3g/+K9IqhG3qt/tf7WYheH4=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "22448c09bae21969ca14d1558a120dafe9853c73",
+        "rev": "eae26b7d5fc04699078a1687185d65077bc73c96",
         "type": "github"
       },
       "original": {
@@ -261,29 +261,6 @@
         "type": "github"
       }
     },
-    "home-manager-darwin": {
-      "inputs": {
-        "nixpkgs": [
-          "nixfiles",
-          "nixpkgs-darwin"
-        ],
-        "utils": "utils"
-      },
-      "locked": {
-        "lastModified": 1657241847,
-        "narHash": "sha256-/aN3p2LaRNVXf7w92GWgXq9H5f23YRQPOvsm3BrBqzU=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "8160b3b45b8457d58d2b3af2aeb2eb6f47042e0f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "master",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
     "nix-dns": {
       "inputs": {
         "flake-utils": [
@@ -379,11 +356,9 @@
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
-        "home-manager-darwin": "home-manager-darwin",
         "nix-dns": "nix-dns",
         "nix-doom-emacs": "nix-doom-emacs",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-darwin": "nixpkgs-darwin",
         "nur": "nur",
         "tf-nix": "tf-nix",
         "trusted": [
@@ -392,43 +367,26 @@
       },
       "locked": {
         "lastModified": 0,
-        "narHash": "sha256-vGvSygG1efbRaUiBu48fHkLn5q1ZcN19YocDVG21vuI=",
-        "path": "/nix/store/n8s60kqi0wdnp3gv28b8211ldx9alvk3-source",
+        "narHash": "sha256-FHjqiLYqBGP1qEmyNkmHIulZKiifg+K8AD1WlIW592s=",
+        "path": "/nix/store/psp2lvg1gjpy781cvvd703wrjmk27d5f-source",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/n8s60kqi0wdnp3gv28b8211ldx9alvk3-source",
+        "path": "/nix/store/psp2lvg1gjpy781cvvd703wrjmk27d5f-source",
         "type": "path"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1657208011,
-        "narHash": "sha256-BlIFwopAykvdy1DYayEkj6ZZdkn+cVgPNX98QVLc0jM=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "2770cc0b1e8faa0e20eb2c6aea64c256a706d4f2",
-        "type": "github"
+        "lastModified": 1657114324,
+        "narHash": "sha256-fWuaUNXrHcz/ciHRHlcSO92dvV3EVS0GJQUSBO5JIB4=",
+        "path": "/nix/store/7x87vd43nvg8pkcmya5ivl34q5y8kp9b-source",
+        "rev": "a5c867d9fe9e4380452628e8f171c26b69fa9d3d",
+        "type": "path"
       },
       "original": {
         "id": "nixpkgs",
         "type": "indirect"
-      }
-    },
-    "nixpkgs-darwin": {
-      "locked": {
-        "lastModified": 1657208011,
-        "narHash": "sha256-BlIFwopAykvdy1DYayEkj6ZZdkn+cVgPNX98QVLc0jM=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "2770cc0b1e8faa0e20eb2c6aea64c256a706d4f2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
       }
     },
     "nixpkgs_2": {
@@ -465,11 +423,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1657272425,
-        "narHash": "sha256-Y1vbPYhUi0ZKqn6XxQeE/RnyMcfHIE0YCkR1iPGoToo=",
+        "lastModified": 1657315594,
+        "narHash": "sha256-lkAqmREtGhWwHK3wdVSfqt+Q+xUhZmQ0UZyubeMJLR4=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "4a0d26d6ccb60f24a5e771c6de4c64622fb2b4af",
+        "rev": "fae381cd12525fdfb5163ce0ac78c2705d5917c4",
         "type": "github"
       },
       "original": {
@@ -645,21 +603,6 @@
         "ref": "main",
         "type": "git",
         "url": "ssh://git@github.com/kittywitch/nixfiles-trusted"
-      }
-    },
-    "utils": {
-      "locked": {
-        "lastModified": 1653893745,
-        "narHash": "sha256-0jntwV3Z8//YwuOjzhV2sgJJPt+HY6KhU7VZUL0fKZQ=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "1ed9fb1935d260de5fe1c2f7ee0ebaae17ed2fa1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
       }
     }
   },

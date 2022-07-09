@@ -8,16 +8,25 @@
     vimAlias = true;
     viAlias = true;
     plugins = with pkgs.vimPlugins; [
+      # Disables and re-enables highlighting when searching
       vim-cool
-      vim-lastplace
+      # Colour highlighting
       vim-hexokinase
-      vim-nix
+      # fzf
       fzf-vim
+      # Git porcelain
       vim-fugitive
+      # Start screen
       vim-startify
+      # Re-open with cursor at the same place
       vim-lastplace
+      # Status Bar
       lualine-nvim
+      # EasyMotion Equivalent
       hop-nvim
+      # Languages
+      vim-nix
+      vim-terraform
     ];
     extraConfig = ''
     	luafile ${./init.lua}

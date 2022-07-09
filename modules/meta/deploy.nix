@@ -31,13 +31,13 @@ let
 in
 {
   imports = [
-    (toString (inputs.tf-nix + "/modules/run.nix"))
+    "${toString inputs.tf-nix}/modules/run.nix"
   ] ++ (optional (builtins.pathExists ../../tf/tf.nix) (../../tf/tf.nix));
   options = {
     deploy = {
       dataDir = mkOption {
         type = types.path;
-        default = ../../../tf;
+        default = ../../tf;
       };
       local = {
         isRoot = mkOption {

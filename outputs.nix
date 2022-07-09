@@ -7,8 +7,20 @@
   mkTree = import ./tree.nix { inherit lib; };
   localTree = mkTree {
     inherit inputs;
-    folder = ./config;
+    folder = ./.;
     config = {
+      "/" = {
+        excludes = [
+          "tf"
+          "inputs"
+          "tree"
+          "flake"
+          "meta"
+          "outputs"
+          "inputs"
+          "trusted"
+        ];
+      };
       "modules/nixos" = {
         functor = {
           enable = true;

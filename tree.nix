@@ -63,6 +63,7 @@
     };
     config.treeConfig = {
       "*" = {};
+      "/" = {};
     };
   };
   configTree.treeConfig = config;
@@ -78,7 +79,7 @@
         then f (path ++ [name]) (recurse (path ++ [name]) value)
         else f (path ++ [name]) value;
     in mapAttrs g set;
-  in recurse [] set;
+  in f [] (recurse [] set);
   getPathString = path: concatStringsSep "/" path;
   getConfig = path: default: configTreeModule.${getPathString path} or default;
   revtail = path: sublist 0 (length path - 1) path;
@@ -87,7 +88,9 @@
   in getConfig (path ++ singleton "*") (getConfigRecursive parentPath);
   processLeaves = tree: config: mapAttrsRecursive (path: value: let
     pathString = getPathString path;
-    leafConfig = getConfig path (getConfigRecursive (revtail path));
+    leafConfig = if path == [] then
+      configTreeModule."/"
+      else getConfig path (getConfigRecursive (revtail path));
     processConfig = path: value: let
       processFunctor = prev: prev // {
         __functor = self: { ... }: {

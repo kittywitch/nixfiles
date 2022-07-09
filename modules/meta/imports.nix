@@ -25,19 +25,19 @@ with lib;
   config = {
     network.importing = {
       nixosImports = mkDefault (map (path: toString path) [
-        (root + "/config/nodes/nixos/HN.nix")
-        (root + "/config/nodes/nixos/HN/nixos.nix")
-        (root + "/config/trusted/nodes/nixos/HN/nixos.nix")
+        (root + "/nodes/nixos/HN.nix")
+        (root + "/nodes/nixos/HN/nixos.nix")
+        (root + "/trusted/nodes/nixos/HN/nixos.nix")
       ]);
       darwinImports = mkDefault (map (path: toString path) [
-        (root + "/config/nodes/darwin/HN.nix")
-        (root + "/config/nodes/darwin/HN/darwin.nix")
-        (root + "/config/trusted/nodes/darwin/HN/darwin.nix")
+        (root + "/nodes/darwin/HN.nix")
+        (root + "/nodes/darwin/HN/darwin.nix")
+        (root + "/trusted/nodes/darwin/HN/darwin.nix")
       ]);
       homeImports = mkDefault (map (path: toString path) [
-        (root + "/config/nodes/nixos/HN/home.nix")
-        (root + "/config/nodes/darwin/HN/home.nix")
-        (root + "/config/trusted/nodes/HN/home.nix")
+        (root + "/nodes/nixos/HN/home.nix")
+        (root + "/nodes/darwin/HN/home.nix")
+        (root + "/trusted/nodes/HN/home.nix")
       ]);
       users = mkDefault (singleton "kat");
     };

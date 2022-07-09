@@ -5,7 +5,9 @@
       users.kat.darwin
       users.kat.dev
   ];
+  
   security.pam.enableSudoTouchIdAuth = true;
+
   homebrew = {
     brewPrefix = "/opt/homebrew/bin";
     casks = [
@@ -15,6 +17,7 @@
       "discord"
     ];
   };
+
   environment.systemPackages = with pkgs; [
     awscli
     jq
