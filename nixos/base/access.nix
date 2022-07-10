@@ -12,6 +12,7 @@
   '';
 
   imports = with meta; [
+    nixos.kat
     home.base
   ];
 
