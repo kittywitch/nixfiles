@@ -3,7 +3,7 @@
 {
   xdg.configFile."waybar/style.css" = { inherit (kw.sassTemplate { name = "waybar-style"; src = ./waybar.sass; }) source; };
 
-  systemd.user.services.waybar.Service.Environment = lib.singleton "NOTMUCH_CONFIG=${config.home.sessionVariables.NOTMUCH_CONFIG}";
+  #systemd.user.services.waybar.Service.Environment = lib.singleton "NOTMUCH_CONFIG=${config.home.sessionVariables.NOTMUCH_CONFIG}";
 
   programs.waybar = {
     enable = true;
