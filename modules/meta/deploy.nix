@@ -84,7 +84,6 @@ in
                 deps = {
                   select.allProviders = true;
                   enable = true;
-/*
                   apply = {
                     doneCommand = ''
                       git -C "${cfg.dataDir}" add -A
@@ -92,7 +91,6 @@ in
                       git -C "${cfg.dataDir}" push
                       '';
                       };
-*/
                 };
                 terraform = {
                   version = "1.0";
