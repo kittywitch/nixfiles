@@ -2,7 +2,7 @@
   services = {
     home-assistant = {
       enable = true;
-      config = null;
+      config = lib.mkForce null;
       extraComponents = [
         "zha"
         "esphome"
