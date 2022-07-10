@@ -28,6 +28,8 @@
       neorg
       # Completion
       nvim-cmp
+      # base16
+      nvim-base16
       # Fuzzy Finder
       telescope-nvim
       # Language Server
