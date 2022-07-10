@@ -25,7 +25,6 @@
     socat
     rsync
     wget
-    dnsutils
     whois
   ];
 }
