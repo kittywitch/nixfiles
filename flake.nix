@@ -22,15 +22,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-    nix-doom-emacs = {
-      url = "github:vlaci/nix-doom-emacs/develop";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-    emacs-overlay = {
-      url = "github:nix-community/emacs-overlay/master";
-      inputs.flake-utils.follows = "flake-utils";
-    };
     tf-nix = {
       url = "github:arcnmx/tf-nix/master";
       flake = false;
