@@ -37,6 +37,7 @@
     "darwin": {
       "inputs": {
         "nixpkgs": [
+          "nixfiles",
           "nixpkgs"
         ]
       },
@@ -91,6 +92,7 @@
     "emacs-overlay": {
       "inputs": {
         "flake-utils": [
+          "nixfiles",
           "flake-utils"
         ],
         "nixpkgs": "nixpkgs"
@@ -240,6 +242,7 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
+          "nixfiles",
           "nixpkgs"
         ]
       },
@@ -261,9 +264,11 @@
     "nix-dns": {
       "inputs": {
         "flake-utils": [
+          "nixfiles",
           "flake-utils"
         ],
         "nixpkgs": [
+          "nixfiles",
           "nixpkgs"
         ]
       },
@@ -293,10 +298,12 @@
         "evil-quick-diff": "evil-quick-diff",
         "explain-pause-mode": "explain-pause-mode",
         "flake-utils": [
+          "nixfiles",
           "flake-utils"
         ],
         "nix-straight": "nix-straight",
         "nixpkgs": [
+          "nixfiles",
           "nixpkgs"
         ],
         "nose": "nose",
@@ -338,6 +345,35 @@
         "owner": "vlaci",
         "repo": "nix-straight.el",
         "type": "github"
+      }
+    },
+    "nixfiles": {
+      "inputs": {
+        "arcexprs": "arcexprs",
+        "ci": "ci",
+        "darwin": "darwin",
+        "emacs-overlay": "emacs-overlay",
+        "flake-compat": "flake-compat",
+        "flake-utils": "flake-utils",
+        "home-manager": "home-manager",
+        "nix-dns": "nix-dns",
+        "nix-doom-emacs": "nix-doom-emacs",
+        "nixpkgs": "nixpkgs_2",
+        "nur": "nur",
+        "tf-nix": "tf-nix",
+        "trusted": [
+          "trusted"
+        ]
+      },
+      "locked": {
+        "lastModified": 0,
+        "narHash": "sha256-WoNwisXEGdCMmpvIKl2ufMXkvIUboFJsImWy+a1Vqxk=",
+        "path": "/nix/store/1x5vxzi56ywzbw2pfnblwxy459gzm29g-source",
+        "type": "path"
+      },
+      "original": {
+        "path": "/nix/store/1x5vxzi56ywzbw2pfnblwxy459gzm29g-source",
+        "type": "path"
       }
     },
     "nixpkgs": {
@@ -499,18 +535,7 @@
     },
     "root": {
       "inputs": {
-        "arcexprs": "arcexprs",
-        "ci": "ci",
-        "darwin": "darwin",
-        "emacs-overlay": "emacs-overlay",
-        "flake-compat": "flake-compat",
-        "flake-utils": "flake-utils",
-        "home-manager": "home-manager",
-        "nix-dns": "nix-dns",
-        "nix-doom-emacs": "nix-doom-emacs",
-        "nixpkgs": "nixpkgs_2",
-        "nur": "nur",
-        "tf-nix": "tf-nix",
+        "nixfiles": "nixfiles",
         "trusted": "trusted"
       }
     },
@@ -566,14 +591,18 @@
     "trusted": {
       "flake": false,
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-Q3QXOoy+iN4VK2CflvRulYvPZXYgF0dO7FoF7CvWFTA=",
-        "path": "./flake/empty/.",
-        "type": "path"
+        "lastModified": 1657482041,
+        "narHash": "sha256-AEC0DO586Xq5NcYwyEBAosFj5VRSwLSPZCH5v5ri11s=",
+        "ref": "main",
+        "rev": "76779729b344d8427f05d9e78c76a19daa7cc2a8",
+        "revCount": 92,
+        "type": "git",
+        "url": "ssh://git@github.com/kittywitch/nixfiles-trusted"
       },
       "original": {
-        "path": "./flake/empty/.",
-        "type": "path"
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/kittywitch/nixfiles-trusted"
       }
     }
   },

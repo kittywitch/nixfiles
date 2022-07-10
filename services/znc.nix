@@ -1,4 +1,4 @@
-{ config, tf, lib, pkgs, ... }:
+{ meta, config, tf, lib, pkgs, ... }:
 
 with lib;
 
@@ -189,7 +189,7 @@ in
           };
         };
       })
-      (mkIf config.deploy.profile.trusted (import config.kw.secrets.repo.znc.source))
+      (mkIf (meta.trusted ? secrets) (import config.kw.secrets.repo.znc.source))
     ];
     configFile = config.secrets.files.znc-config.path;
   };

@@ -63,14 +63,20 @@
       };
       "modules/darwin".functor.enable = true;
       "modules/meta".functor.enable = true;
-      "profiles/*".functor.enable = true;
-      "profiles/hardware".evaluateDefault = true;
-      "profiles/cross".evaluateDefault = true;
-      "profiles/hardware/*".evaluateDefault = true;
+      "nixos/systems".functor.enable = false;
+      "darwin/systems".functor.enable = false;
+      "nixos/*".functor = {
+        enable = true;
+      };
+      "darwin/*".functor = {
+        enable = true;
+      };
+      "hardware".evaluateDefault = true;
+      "nixos/cross".evaluateDefault = true;
+      "hardware/*".evaluateDefault = true;
       "services/*".aliasDefault = true;
-      "users/*".evaluateDefault = true;
-      "users/kat/*".functor.enable = true;
-      "users/kat/services/mpd".functor.enable = true;
+      "home".evaluateDefault = true;
+      "home/*".functor.enable = true;
     };
   };
   trustedTree = mkTree {
@@ -106,7 +112,7 @@
           };
         };
       })
-      (lib.attrNames nixfiles.nodes.nixos));
+      (lib.attrNames nixfiles.nixos.systems));
     darwinNodes = (map
       (node: {
         network.nodes.darwin.${node} = {
@@ -116,7 +122,7 @@
           };
         };
       })
-      (lib.attrNames nixfiles.nodes.darwin));
+      (lib.attrNames nixfiles.darwin.systems));
   in lib.evalModules {
     modules = lib.singleton metaBase
       ++ lib.singleton nixfiles.modules.meta

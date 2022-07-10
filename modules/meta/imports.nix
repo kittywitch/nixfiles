@@ -1,4 +1,4 @@
-{ config, lib, profiles, root, ... }:
+{ config, lib, meta, root, ... }:
 
 with lib;
 
@@ -25,29 +25,26 @@ with lib;
   config = {
     network.importing = {
       nixosImports = mkDefault (map (path: toString path) [
-        (root + "/nodes/nixos/HN.nix")
-        (root + "/nodes/nixos/HN/nixos.nix")
-        (root + "/trusted/nodes/nixos/HN/nixos.nix")
+        (root + "/nixos/systems/HN.nix")
+        (root + "/nixos/systems/HN/nixos.nix")
+        (root + "/trusted/nixos/systems/HN/nixos.nix")
       ]);
       darwinImports = mkDefault (map (path: toString path) [
-        (root + "/nodes/darwin/HN.nix")
-        (root + "/nodes/darwin/HN/darwin.nix")
-        (root + "/trusted/nodes/darwin/HN/darwin.nix")
+        (root + "/darwin/systems/HN.nix")
+        (root + "/darwin/systems/HN/darwin.nix")
+        (root + "/trusted/darwin/systems/HN/darwin.nix")
       ]);
-      homeImports = mkDefault (map (path: toString path) [
-        (root + "/nodes/nixos/HN/home.nix")
-        (root + "/nodes/darwin/HN/home.nix")
-        (root + "/trusted/nodes/HN/home.nix")
-      ]);
+      homeImports = [];
       users = mkDefault (singleton "kat");
     };
     lib.kw.nixosImport = hostName: lib.nodeImport {
       inherit (config.network.importing) nixosImports homeImports users;
-      inherit profiles hostName;
+      profiles = meta.nixos;
+      inherit hostName;
     };
     lib.kw.darwinImport = hostName: lib.nodeImport {
       nixosImports = config.network.importing.darwinImports;
-      profiles = profiles // { base = {}; };
+      profiles = meta.darwin;
       inherit (config.network.importing) homeImports users;
       inherit hostName;
     };

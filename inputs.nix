@@ -6,7 +6,7 @@ let
     sha256 = lock.nodes.flake-compat.locked.narHash;
   };
   trusted = import flakeCompat {
-    src = ./trusted;
+    src = ./flake/trusted;
   };
   nixfiles = import flakeCompat {
     src = ./.;
@@ -14,5 +14,5 @@ let
 in nixfiles.defaultNix.inputs // {
   trusted = if builtins.getEnv "TRUSTED" != ""
     then trusted.defaultNix.inputs.trusted
-    else ./empty;
+    else ./flake/empty;
 }

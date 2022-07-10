@@ -37,7 +37,7 @@
     };
     flake-utils.url = "github:numtide/flake-utils";
     trusted = {
-      url = "path:./empty/.";
+      url = "path:./flake/empty/.";
       flake = false;
     };
     flake-compat = {
@@ -50,7 +50,7 @@
     providedSystems = flake-utils.lib.eachDefaultSystem
   (system:
   rec {
-    devShell = import ./devShell.nix { inherit inputs system; };
+    devShells.default = import ./devShell.nix { inherit inputs system; };
     legacyPackages = import ./outputs.nix { inherit inputs system; };
   });
   in providedSystems // {

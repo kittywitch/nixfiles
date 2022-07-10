@@ -29,7 +29,7 @@ let
   nf-update = pkgs.writeShellScriptBin "nf-update" ''
     nix flake update
     if [[ -n $TRUSTED ]]; then
-      nix flake lock ./trusted --update-input trusted
+      nix flake lock ./flake/trusted --update-input trusted
     fi
   '';
   sumireko-apply = pkgs.writeShellScriptBin "sumireko-apply" ''
@@ -45,6 +45,7 @@ with lib; pkgs.mkShell {
     nf-update
     sumireko-apply
   ] ++ config.runners.lazy.nativeBuildInputs
+  # ++ optional (builtins.getEnv "TRUSTED" != "") (pkgs.writeShellScriptBin "bitw" ''${pkgs.rbw-bitw}/bin/bitw -p gpg://${config.network.nodes.nixos.koishi.kw.secrets.repo.bitw.source} "$@"'')
   ++ (map
     (node: writeShellScriptBin "${node.networking.hostName}-sd-img" ''
       nix build -f . network.nodes.${node.networking.hostName}.system.build.sdImage --show-trace
