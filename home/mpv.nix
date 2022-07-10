@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }: with lib;
+{ config, lib, pkgs, ... }:
 
-{
+let
+  inherit (lib.modules) mkMerge mkIf;
+  inherit (lib.attrsets) mapAttrsToList;
+in {
   programs.mpv = {
     enable = true;
     scripts = [ pkgs.mpvScripts.sponsorblock pkgs.mpvScripts.paused ];
@@ -98,8 +101,8 @@
       osd-bar-h = 2.5; # 3.125 default
       osd-border-size = 2; # font border pixels, default 3
       term-osd-bar = true;
-      script-opts = lib.concatStringsSep ","
-      (lib.mapAttrsToList (k: v: "${k}=${toString v}") {
+      script-opts = builtins.concatStringsSep ","
+      (mapAttrsToList (k: v: "${k}=${toString v}") {
           ytdl_hook-ytdl_path = "${pkgs.yt-dlp}/bin/yt-dlp";
           osc-layout = "slimbox";
           osc-vidscale = "no";

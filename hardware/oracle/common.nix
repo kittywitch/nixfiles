@@ -1,54 +1,54 @@
-{ config, tf, meta, kw, pkgs, lib, inputs, ... }: with lib; let
+{ config, tf, meta, kw, pkgs, lib, inputs, ... }:  let
   oci-root = meta.deploy.targets.oci-root.tf;
   cfg = config.kw.oci;
 in
 {
   options.kw.oci = {
-    base = mkOption {
+    base = lib.mkOption {
       description = ''
         Canonical Ubuntu provides an EXT4 root filesystem.
         Oracle Linux provides an XFS root filesystem.
       '';
-      type = with types; enum [
+      type = lib.enum [
         "Canonical Ubuntu"
         "Oracle Linux"
       ];
       default = "Canonical Ubuntu";
     };
     specs = {
-      shape = mkOption {
-        type = with types; nullOr str;
+      shape = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
         default = null;
       };
-      cores = mkOption {
-        type = with types; nullOr int;
+      cores = lib.mkOption {
+        type = lib.types.nullOr lib.types.int;
         default = null;
       };
-      ram = mkOption {
-        type = with types; nullOr int;
+      ram = lib.mkOption {
+        type = lib.types.nullOr lib.types.int;
         default = null;
       };
-      space = mkOption {
-        type = with types; nullOr int;
+      space = lib.mkOption {
+        type = lib.types.nullOr lib.types.int;
         default = null;
       };
     };
     network = {
-      privateV4 = mkOption {
-        type = with types; nullOr int;
+      privateV4 = lib.mkOption {
+        type = lib.types.nullOr lib.types.int;
         default = null;
       };
-      publicV6 = mkOption {
-        type = with types; nullOr int;
+      publicV6 = lib.mkOption {
+        type = lib.types.nullOr lib.types.int;
         default = null;
       };
     };
-    ad = mkOption {
+    ad = lib.mkOption {
       description = ''
         Availability Domain.
         Important because, for example: EPYC instances can only be provisioned on AD2 in London.
       '';
-      type = with types; nullOr int;
+      type = lib.types.nullOr lib.types.int;
       default = null;
     };
   };
@@ -57,7 +57,7 @@ in
   ];
   config =
     let
-      interface = attrByPath [ cfg.specs.shape ] (throw "Unsupported shape") {
+      interface = lib.attrByPath [ cfg.specs.shape ] (throw "Unsupported shape") {
         "VM.Standard.A1.Flex" = "enp0s3";
         "VM.Standard.E2.1.Micro" = "ens3";
       };
@@ -68,7 +68,7 @@ in
           ${interface} = {
             useDHCP = true;
             ipv6 = {
-              addresses = mkIf (config.network.addresses.public.nixos.ipv6.enable) [{
+              addresses = lib.mkIf (config.network.addresses.public.nixos.ipv6.enable) [{
                 address = config.network.addresses.public.nixos.ipv6.address;
                 prefixLength = 64;
               }];
@@ -86,18 +86,18 @@ in
             let
               addr_ipv6_nix =
                 let
-                  prefix = head (splitString "/" (oci-root.resources.oci_kw_subnet.importAttr "ipv6cidr_block"));
+                  prefix = lib.head (lib.splitString "/" (oci-root.resources.oci_kw_subnet.importAttr "ipv6cidr_block"));
                 in
-                assert hasSuffix "::" prefix; prefix + toString config.kw.oci.network.publicV6;
+                assert lib.hasSuffix "::" prefix; prefix + toString config.kw.oci.network.publicV6;
             in
             {
               enable = true;
-              nixos.ipv6.address = mkIf tf.state.enable addr_ipv6_nix;
-              nixos.ipv6.selfaddress = mkIf tf.state.enable addr_ipv6_nix;
+              nixos.ipv6.address = lib.mkIf tf.state.enable addr_ipv6_nix;
+              nixos.ipv6.selfaddress = lib.mkIf tf.state.enable addr_ipv6_nix;
               tf.ipv6.address = tf.resources."${config.networking.hostName}_ipv6".refAttr "ip_address";
             };
         };
-        firewall.public.interfaces = singleton interface;
+        firewall.public.interfaces = lib.singleton interface;
         tf = {
           enable = true;
           ipv4_attr = "public_ip";
@@ -116,7 +116,7 @@ in
               connection = tf.resources."${config.networking.hostName}".connection.set;
             };
             connection = {
-              port = head config.services.openssh.ports;
+              port = lib.head config.services.openssh.ports;
             };
           };
           providers.oci = {
@@ -128,13 +128,13 @@ in
               private_key_path = oci-root.resources.oci_kw_key_file.importAttr "filename";
             };
           };
-          resources = mkMerge [{
+          resources = lib.mkMerge [{
             cloudinit = {
               provider = "cloudinit";
               type = "config";
               dataSource = true;
               inputs = {
-                part = singleton {
+                part = lib.singleton {
                   content_type = "text/cloud-config";
                   content = "#cloud-config\n" + builtins.toJSON {
                     disable_root = false;
@@ -188,7 +188,7 @@ in
                 inherit compartment_id;
                 extended_metadata = { };
                 metadata = {
-                  ssh_authorized_keys = concatStringsSep "\n" config.users.users.root.openssh.authorizedKeys.keys;
+                  ssh_authorized_keys = lib.concatStringsSep "\n" config.users.users.root.openssh.authorizedKeys.keys;
                   user_data = tf.resources.cloudinit.refAttr "rendered";
                 };
                 shape = cfg.specs.shape;
@@ -254,7 +254,7 @@ in
                     direction = "INGRESS";
                     ${if protocol == protoValues.TCP then "tcp_options" else "udp_options"} = {
                       destination_port_range =
-                        if isAttrs port then {
+                        if lib.isAttrs port then {
                           min = port.from;
                           max = port.to;
                         } else {
@@ -264,7 +264,7 @@ in
                     };
                   };
                 };
-                sourceProtos = cartesianProductOfSets {
+                sourceProtos = lib.cartesianProductOfSets {
                   source = [ ipv4 ipv6 ];
                   protocol = [ protoValues.TCP protoValues.UDP ];
                 };
@@ -280,7 +280,7 @@ in
                 rules = concatMap mapAllForInterface ([ firewall ] ++ map (interface: firewall.interfaces.${interface}) config.network.firewall.public.interfaces);*/
                 # TODO: use `count` and index into a fancy json or something?
               in
-              listToAttrs (imap0 (i: rule: nameValuePair "firewall${toString i}" rule) rules)
+              lib.listToAttrs (lib.imap0 (i: rule: lib.nameValuePair "firewall${toString i}" rule) rules)
             )];
         };
     };

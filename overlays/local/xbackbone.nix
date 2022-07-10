@@ -25,11 +25,11 @@ stdenv.mkDerivation rec {
     mv * $out
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A lightweight file manager with full ShareX, Screencloud support and more";
     homepage = "https://xbackbone.app/";
-    license = with licenses; agpl3;
-    maintainers = with maintainers; [ kittywitch ];
-    platforms = with platforms; unix;
+    license = lib.licenses.agpl3;
+    maintainers = [ lib.maintainers.kittywitch ];
+    platforms = lib.platforms.unix;
   };
 }

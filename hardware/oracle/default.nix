@@ -1,4 +1,4 @@
-{ lib, inputs, tree, ... }: with lib; let
+{ inputs, tree, ... }: let
   profiles = tree.prev;
   appendedProfiles = with profiles; {
     ubuntu = { config, ... }: {

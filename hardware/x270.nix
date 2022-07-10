@@ -1,10 +1,12 @@
-{ config, lib, ... }: with lib;
+{ config, lib, ... }:
 
 /*
   This hardware profile corresponds to the Lenovo Thinkpad x270.
 */
 
-{
+let
+  inherit (lib.options) mkOption;
+in {
   options.home-manager.users = let
     userTouchpadExtend = { config, nixos, ... }: {
       wayland.windowManager.sway.config.input."2:7:SynPS/2_Synaptics_TouchPad" = {
@@ -18,7 +20,7 @@
     waybarExtend = { config, ... }: {
       options = {
         programs.waybar.settings = mkOption {
-          type = with types; either (listOf (submodule waybarExtend2)) (attrsOf (submodule waybarExtend2));
+          type = lib.types.either (lib.types.listOf (lib.types.submodule waybarExtend2)) (lib.types.attrsOf (lib.types.submodule waybarExtend2));
         };
       };
     };
@@ -28,7 +30,7 @@
       };
     };
   in mkOption {
-    type = types.attrsOf (types.submoduleWith {
+    type = lib.types.attrsOf (lib.types.submoduleWith {
       modules = [ userTouchpadExtend waybarExtend ];
     });
   };

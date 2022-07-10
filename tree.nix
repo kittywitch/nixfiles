@@ -1,4 +1,10 @@
-{ lib }: { config, folder, inputs, ... }@args: with lib; let
+{ lib }: { config, folder, inputs, ... }@args: let
+  inherit (lib.attrsets) filterAttrs mapAttrs' mapAttrs isAttrs nameValuePair attrValues;
+  inherit (lib.strings) hasPrefix removeSuffix;
+  inherit (lib.lists) imap1 singleton optionals optional sublist;
+  inherit (lib.trivial) pipe;
+  inherit (lib.options) mkOption;
+  inherit (lib.modules) evalModules;
   pureTreeGrab = { base, path }: let
     realPath = toString path;
     dirContents = builtins.readDir path;
@@ -24,36 +30,36 @@
  in contents;
   configTreeStruct = { config, ... }: {
     options.treeConfig = mkOption {
-      type = with types; attrsOf (submodule ({ name, options, config, ... }: {
+      type = lib.types.attrsOf (lib.types.submodule ({ name, options, config, ... }: {
         options = {
           evaluateDefault = mkOption {
-            type = types.bool;
+            type = lib.types.bool;
             description = "Replace the contents of this branch or leaf with those provided by the evaluation of default.nix.";
             default = false;
           };
           aliasDefault = mkOption {
-            type = types.bool;
+            type = lib.types.bool;
             description = "Replace the contents of this branch or leaf with the default.nix.";
             default = false;
           };
           excludes = mkOption {
-            type = types.listOf types.str;
+            type = lib.types.listOf lib.types.str;
             description = "Exclude files or folders from the recurser.";
             default = [];
           };
           functor = {
             enable = mkOption {
-              type = types.bool;
+              type = lib.types.bool;
               description = "Provide a functor for the path provided";
               default = false;
             };
             external = mkOption {
-              type = types.listOf types.unspecified;
+              type = lib.types.listOf lib.types.unspecified;
               description = "Add external imports into the functor.";
               default = [];
             };
             excludes = mkOption {
-              type = types.listOf types.str;
+              type = lib.types.listOf lib.types.str;
               description = "Exclude files or folders from the functor.";
               default = [];
             };
@@ -80,9 +86,9 @@
         else f (path ++ [name]) value;
     in mapAttrs g set;
   in f [] (recurse [] set);
-  getPathString = path: concatStringsSep "/" path;
+  getPathString = path: builtins.concatStringsSep "/" path;
   getConfig = path: default: configTreeModule.${getPathString path} or default;
-  revtail = path: sublist 0 (length path - 1) path;
+  revtail = path: sublist 0 (builtins.length path - 1) path;
   getConfigRecursive = path: let
     parentPath = revtail path;
   in getConfig (path ++ singleton "*") (getConfigRecursive parentPath);

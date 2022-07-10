@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: with lib; {
+{ config, pkgs, lib, ... }: {
 /*
   This hardware profile corresponds to any machine which has an AMD Ryzen processor.
 */
@@ -7,7 +7,7 @@
     waybarExtend = { config, ... }: {
       options = {
         programs.waybar.settings = mkOption {
-          type = with types; listOf (submodule waybarExtend2);
+          type = lib.listOf (lib.submodule waybarExtend2);
         };
       };
     };
@@ -28,7 +28,7 @@
       };
     };*/
   in mkOption {
-    type = types.attrsOf (types.submoduleWith {
+    type = lib.types.attrsOf (lib.types.submoduleWith {
       modules = [ waybarExtend polybarExtend ];
     });
   };

@@ -36,7 +36,7 @@
           "listrowsfirst"
         ]; in
       ''
-	${if lib.hasSuffix "darwin" pkgs.stdenv.system then ''
+	${if lib.hasSuffix "linux" pkgs.stdenv.system then ''
         eval $(dircolors)
 	'' else ''
 	''}

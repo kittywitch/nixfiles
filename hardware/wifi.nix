@@ -1,6 +1,9 @@
-{ config, tf, lib, ... }: with lib;
+{ config, tf, lib, ... }:
 
-{
+let
+  inherit (lib.attrsets) mapListToAttrs nameValuePair;
+  inherit (lib.modules) mkIf;
+in {
   kw.secrets.variables = mapListToAttrs
     (field:
       nameValuePair "wireless-${field}" {

@@ -1,4 +1,4 @@
-{ lib, tree, ... }: with lib; let
+{ lib, tree, ... }: let
   profiles = tree.prev;
   appendedProfiles = with profiles; {
     ms-7b86 = {

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: with lib; {
+{ config, lib, pkgs, ... }: {
   options = {
     home-manager.users = let
       applets = { config, nixos, ... }: {
@@ -8,9 +8,9 @@
           blueman-applet.enable = true;
         };
       };
-    in mkOption {
-      type = types.attrsOf (types.submoduleWith {
-        modules = singleton applets;
+    in lib.mkOption {
+      type = lib.types.attrsOf (lib.types.submoduleWith {
+        modules = lib.singleton applets;
       });
     };
   };
@@ -51,7 +51,7 @@
       networkmanager = {
         enable = true;
         connectionConfig = {
-           "ipv6.ip6-privacy" = mkForce 0;
+           "ipv6.ip6-privacy" = lib.mkForce 0;
         };
       };
     };

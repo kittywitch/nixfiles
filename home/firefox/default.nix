@@ -1,4 +1,4 @@
-{ config, lib, pkgs, nixos, kw, ... }: with lib;
+{ config, lib, pkgs, nixos, kw, ... }:
 
 let
   commonSettings = {
@@ -127,7 +127,7 @@ in
       };
       extraNativeMessagingHosts = with pkgs; [
         tridactyl-native
-      ] ++ optional config.programs.buku.enable bukubrow;
+      ] ++ lib.optional config.programs.buku.enable bukubrow;
     };
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       sponsorblock

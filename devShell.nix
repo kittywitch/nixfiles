@@ -4,6 +4,8 @@ let
   config = meta;
   inherit (meta) pkgs;
   inherit (pkgs) lib;
+  inherit (lib.options) optional;
+  inherit (lib.attrsets) attrValues;
   nf-actions = pkgs.writeShellScriptBin "nf-actions" ''
     export START_DIR="$PWD"
     cd "${toString ./.}"
@@ -37,7 +39,7 @@ let
     darwin-rebuild switch --flake ${toString ./.}#sumireko
   '';
 in
-with lib; pkgs.mkShell {
+pkgs.mkShell {
   nativeBuildInputs = with pkgs; [
     inetutils
     nf-actions
@@ -45,17 +47,17 @@ with lib; pkgs.mkShell {
     nf-update
     sumireko-apply
   ] ++ config.runners.lazy.nativeBuildInputs
-  # ++ optional (builtins.getEnv "TRUSTED" != "") (pkgs.writeShellScriptBin "bitw" ''${pkgs.rbw-bitw}/bin/bitw -p gpg://${config.network.nodes.nixos.koishi.kw.secrets.repo.bitw.source} "$@"'')
+   ++ lib.optional (builtins.getEnv "TRUSTED" != "") (pkgs.writeShellScriptBin "bitw" ''${pkgs.rbw-bitw}/bin/bitw -p gpg://${config.network.nodes.nixos.koishi.kw.secrets.repo.bitw.source} "$@"'')
   ++ (map
     (node: writeShellScriptBin "${node.networking.hostName}-sd-img" ''
       nix build -f . network.nodes.${node.networking.hostName}.system.build.sdImage --show-trace
     '')
-    (filter (node: node.system.build ? sdImage) (attrValues meta.network.nodes.nixos)))
+    (builtins.filter (node: node.system.build ? sdImage) (attrValues meta.network.nodes.nixos)))
   ++ (map
     (node: writeShellScriptBin "${node.networking.hostName}-iso-img" ''
       nix build -f . network.nodes.${node.networking.hostName}.system.build.isoImage --show-trace
     '')
-    (filter (node: node.system.build ? isoImage) (attrValues meta.network.nodes.nixos)));
+    (builtins.filter (node: node.system.build ? isoImage) (attrValues meta.network.nodes.nixos)));
   shellHook = ''
     export HOME_HOSTNAME=$(hostname -s)
     export NIX_BIN_DIR=${pkgs.nix}/bin

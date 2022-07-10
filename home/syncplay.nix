@@ -1,8 +1,8 @@
 { config, lib, tf, ... }:
 
-with lib;
-
-{
+let
+  inherit (lib.modules) mkForce;
+in {
   kw.secrets.variables = {
     syncplay-pass = {
       path = "services/media/syncplay";
