@@ -11,16 +11,6 @@
     tcp.ports = [ 9981 9982 ];
   };
 
-  services.nginx.virtualHosts = kw.virtualHostGen {
-    networkFilter = [ "private" "yggdrasil" ];
-    block = {
-      locations."/tvheadend" = {
-        proxyPass = "http://127.0.0.1:9981";
-        extraConfig = "proxy_pass_header  X-Transmission-Session-Id;";
-      };
-    };
-  };
-
   systemd.services.antennas = {
     wantedBy = [ "plex.service" ];
     after = [ "tvheadend-kat.service" ];
