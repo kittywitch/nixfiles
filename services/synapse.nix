@@ -295,22 +295,23 @@ CONFIG = {
 
   deploy.tf.dns.records.services_element = {
     inherit (config.network.dns) zone;
-    domain = "element";
+    domain = "matrix";
     cname = { inherit (config.network.addresses.public) target; };
   };
 
-  services.nginx.virtualHosts."element.${config.network.dns.domain}" = {
+  services.nginx.virtualHosts."matrix.${config.network.dns.domain}" = {
     forceSSL = true;
     enableACME = true;
     extraConfig = ''
       keepalive_requests 100000;
     '';
-    root = pkgs.element-web.override {
+    root = pkgs.cinny.override {
       conf = {
-        default_server_config."m.homeserver" = {
-          "base_url" = "https://${config.network.dns.domain}:443";
-          "server_name" = "kittywit.ch";
-        };
+        defaultHomeserver = 1;
+        homeserverList = [
+          "kittywit.ch"
+        ];
+        allowCustomHomeservers = false;
       };
     };
   };
