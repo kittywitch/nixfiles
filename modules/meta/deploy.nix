@@ -86,9 +86,9 @@ in
                   enable = true;
                   apply = {
                     doneCommand = ''
-                      git -C "${cfg.dataDir}" add -A
-                      git -C "${cfg.dataDir}" commit -m "${config.name}: $(date +'%F %T')"
-                      git -C "${cfg.dataDir}" push
+                      git -C "${toString cfg.dataDir}" add -A
+                      git -C "${toString cfg.dataDir}" commit -m "${config.name}: $(date +'%F %T')"
+                      git -C "${toString cfg.dataDir}" push
                       '';
                       };
                 };
