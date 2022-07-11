@@ -121,8 +121,6 @@ in
       networksWithDomains = filterAttrs (_: v: v.enable) networks;
     in
     mkIf cfg.enable {
-      lib.kw.virtualHostGen = args: virtualHostGen ({ inherit config; } // args);
-
       network = {
         dns = {
           domain = builtins.substring 0 ((builtins.stringLength cfg.dns.zone) - 1) cfg.dns.zone;

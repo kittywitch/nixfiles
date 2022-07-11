@@ -10,7 +10,6 @@
     services.postgres
     services.nfs
     services.nginx
-    services.transmission
     services.tvheadend
     services.zfs
     services.plex
