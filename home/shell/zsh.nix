@@ -36,7 +36,7 @@
           "listrowsfirst"
         ]; in
       ''
-	${if lib.hasSuffix "linux" pkgs.stdenv.system then ''
+	${if pkgs.hostPlatform.isLinux then ''
         eval $(dircolors)
 	'' else ''
 	''}
@@ -72,7 +72,7 @@
         dmesg = "dmesg -HP";
         hg = "history 0 | rg";
       }
-      (lib.mkIf (lib.hasSuffix "linux" pkgs.stdenv.system) {
+      (lib.mkIf pkgs.hostPlatform.isLinux {
         sys = "systemctl";
         sysu = "systemctl --user";
         walls = "journalctl _SYSTEMD_INVOCATION_ID=$(systemctl show -p InvocationID --value konawall.service --user) -o json | jq -r '.MESSAGE'";

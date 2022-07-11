@@ -15,10 +15,19 @@
       "firefox"
       "telegram"
       "discord"
+      "utm"
+      "mullvadvpn"
+      "bitwarden"
     ];
+    masApps = {
+      Tailscale = 1475387142;
+    };
   };
 
   environment.systemPackages = with pkgs; [
+    terraform
+    yt-dlp
+    k2tf
     awscli
     jq
   ];

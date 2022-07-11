@@ -35,7 +35,6 @@ let
     fi
   '';
   sumireko-apply = pkgs.writeShellScriptBin "sumireko-apply" ''
-    nix build ${toString ./.}#darwinConfigurations.sumireko.system
     darwin-rebuild switch --flake ${toString ./.}#sumireko
   '';
 in
@@ -47,7 +46,7 @@ pkgs.mkShell {
     nf-update
     sumireko-apply
   ] ++ config.runners.lazy.nativeBuildInputs
-   ++ lib.optional (builtins.getEnv "TRUSTED" != "") (pkgs.writeShellScriptBin "bitw" ''${pkgs.rbw-bitw}/bin/bitw -p gpg://${config.network.nodes.nixos.koishi.kw.secrets.repo.bitw.source} "$@"'')
+   ++ lib.optional (builtins.getEnv "TRUSTED" != "") (pkgs.writeShellScriptBin "bitw" ''${pkgs.rbw-bitw}/bin/bitw -p gpg://${config.network.nodes.${pkgs.hostPlatform.parsed.kernel.name}.${builtins.getEnv "HOME_HOSTNAME"}.kw.secrets.repo.bitw.source} "$@"'')
   ++ (map
     (node: writeShellScriptBin "${node.networking.hostName}-sd-img" ''
       nix build -f . network.nodes.${node.networking.hostName}.system.build.sdImage --show-trace
@@ -59,7 +58,6 @@ pkgs.mkShell {
     '')
     (builtins.filter (node: node.system.build ? isoImage) (attrValues meta.network.nodes.nixos)));
   shellHook = ''
-    export HOME_HOSTNAME=$(hostname -s)
     export NIX_BIN_DIR=${pkgs.nix}/bin
     export HOME_UID=$(id -u)
     export HOME_USER=$(id -un)

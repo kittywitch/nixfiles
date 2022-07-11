@@ -50,7 +50,7 @@ with lib;
           };
           config = {
             nixpkgs = {
-              system = mkDefault pkgs.system;
+              system = mkDefault "x86_64-linux";
               pkgs =
                 let
                   pkgsReval = import pkgs.path {
@@ -94,10 +94,12 @@ with lib;
         darwinType =
           let
             baseModules = import (config.network.darwin.modulesPath + "/module-list.nix");
+            flakeModule = (config.network.darwin.modulesPath + "/system/flake-overrides.nix");
           in
           types.submoduleWith {
             modules = baseModules
               ++ singleton darwinModule
+              ++ singleton flakeModule
               ++ config.network.darwin.extraModules;
 
             specialArgs = {
@@ -116,6 +118,8 @@ with lib;
       extraModules = [
         inputs.home-manager.darwinModules.home-manager
         meta.modules.darwin
+        meta.modules.system
+        meta.system
       ];
       specialArgs = {
         inherit (config.network) nodes;
@@ -126,6 +130,8 @@ with lib;
       extraModules = [
         inputs.home-manager.nixosModules.home-manager
         meta.modules.nixos
+        meta.modules.system
+        meta.system
       ];
       specialArgs = {
         inherit (config.network) nodes;

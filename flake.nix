@@ -14,9 +14,10 @@
       url = "github:kittywitch/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nur.url = "github:nix-community/nur/master";
-    darwin.url = "github:lnl7/nix-darwin/master";
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
+    darwin = {
+      url = "github:lnl7/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-dns = {
       url = "github:kirelagin/nix-dns/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,7 +27,6 @@
       url = "github:arcnmx/tf-nix/master";
       flake = false;
     };
-    flake-utils.url = "github:numtide/flake-utils";
     trusted = {
       url = "path:./flake/empty/.";
       flake = false;
@@ -35,14 +35,16 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
+    nur.url = "github:nix-community/nur/master";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = { self, nixpkgs, flake-utils, ... }@inputs: let
     providedSystems = flake-utils.lib.eachDefaultSystem
   (system:
   rec {
-    devShells.default = import ./devShell.nix { inherit inputs system; };
-    legacyPackages = import ./outputs.nix { inherit inputs system; };
+    devShells.default = import ./devShell.nix { inherit system inputs; };
+    legacyPackages = import ./outputs.nix { inherit system inputs; };
   });
   in providedSystems // {
     nixosConfigurations = self.legacyPackages.x86_64-linux.network.nodes.nixos;

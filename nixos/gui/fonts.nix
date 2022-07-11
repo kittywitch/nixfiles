@@ -14,12 +14,4 @@
       };
     };
   };
-
-  fonts.fonts = with pkgs; [
-    cantarell-fonts
-    emacs-all-the-icons-fonts
-    font-awesome
-    cozette
-    twitter-color-emoji
-  ] ++ map (variant: iosevka-bin.override { inherit variant; } ) [ "" "ss10" "aile" ];
 }
