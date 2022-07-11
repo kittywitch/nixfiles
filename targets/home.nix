@@ -3,7 +3,7 @@
 {
   deploy.targets.home = {
     tf = { config, ... }: {
-      imports = optional (builtins.pathExists ../trusted/mail.nix) ../trusted/mail.nix;
+      imports = optional (builtins.pathExists ../services/irlmail.nix) ../services/irlmail.nix;
 
       dns.records.ygg_grimoire = {
         zone = "kittywit.ch.";

@@ -4,7 +4,8 @@
     nixos.network
     services.nginx
     services.access
-  ] ++ optional (meta.trusted ? services) trusted.services.website;
+    services.irlsite
+  ];
 
 
   deploy.tf = {

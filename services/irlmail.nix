@@ -25,11 +25,11 @@
   dns.records = {
     services_inskip_a = {
       zone = "inskip.me.";
-      a.address = meta.network.nodes.marisa.network.addresses.public.nixos.ipv4.address;
+      a.address = meta.network.nodes.nixos.marisa.network.addresses.public.nixos.ipv4.address;
     };
     services_inskip_aaaa = {
       zone = "inskip.me.";
-      aaaa.address = meta.network.nodes.marisa.network.addresses.public.nixos.ipv6.address;
+      aaaa.address = meta.network.nodes.nixos.marisa.network.addresses.public.nixos.ipv6.address;
     };
     services_gmail_spf = {
       zone = "inskip.me.";
