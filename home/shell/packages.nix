@@ -1,5 +1,8 @@
 { config, pkgs, ... }: {
   home.packages = with pkgs; [
+    # task managers
+    htop
+    btop
     # disk usage 
     duc-cli
     # nix formatting
