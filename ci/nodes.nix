@@ -1,5 +1,8 @@
 { lib, config, channels, env, ... }: with lib; {
   name = "nodes";
+
+  nixpkgs.args.localSystem = "x86_64-linux";
+
   ci = {
     version = "nix2.4";
     gh-actions = {

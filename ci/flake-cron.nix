@@ -1,6 +1,9 @@
 { lib, channels, config, ... }:
 with lib; {
   name = "flake-update";
+
+  nixpkgs.args.localSystem = "x86_64-linux";
+
   ci = {
     version = "nix2.4";
     gh-actions = {
