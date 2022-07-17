@@ -338,6 +338,68 @@ jobs:
         command: ci-build-cache
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.cache
+  renko:
+    name: nodes-renko
+    runs-on: ubuntu-latest
+    steps:
+    - id: checkout
+      name: git clone
+      uses: actions/checkout@v1
+      with:
+        submodules: false
+    - id: nix-install
+      name: nix install
+      uses: arcnmx/ci/actions/nix/install@nix2.4
+    - id: ci-setup
+      name: nix setup
+      uses: arcnmx/ci/actions/nix/run@nix2.4
+      with:
+        attrs: ci.job.renko.run.bootstrap
+        quiet: false
+    - id: architectures
+      name: prepare for emulated builds
+      run: 'sudo $(which archbinfmt)
+
+        '
+    - id: ci-dirty
+      name: nix test dirty
+      uses: arcnmx/ci/actions/nix/run@nix2.4
+      with:
+        attrs: ci.job.renko.run.test
+        command: ci-build-dirty
+        quiet: false
+        stdout: ${{ runner.temp }}/ci.build.dirty
+    - id: ci-test
+      name: nix test build
+      uses: arcnmx/ci/actions/nix/run@nix2.4
+      with:
+        attrs: ci.job.renko.run.test
+        command: ci-build-realise
+        ignore-exit-code: true
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.dirty
+    - env:
+        CI_EXIT_CODE: ${{ steps.ci-test.outputs.exit-code }}
+      id: ci-summary
+      name: nix test results
+      uses: arcnmx/ci/actions/nix/run@nix2.4
+      with:
+        attrs: ci.job.renko.run.test
+        command: ci-build-summarise
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.dirty
+        stdout: ${{ runner.temp }}/ci.build.cache
+    - env:
+        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+      id: ci-cache
+      if: always()
+      name: nix test cache
+      uses: arcnmx/ci/actions/nix/run@nix2.4
+      with:
+        attrs: ci.job.renko.run.test
+        command: ci-build-cache
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.cache
   rinnosuke:
     name: nodes-rinnosuke
     runs-on: ubuntu-latest
