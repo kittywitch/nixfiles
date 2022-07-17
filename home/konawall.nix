@@ -2,6 +2,10 @@
 
 
 {
+  home.packages = [
+    config.services.konawall.konashow
+  ];
+
   services.konawall = {
     enable = true;
     interval = "30m";

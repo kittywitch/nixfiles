@@ -75,7 +75,6 @@
       (lib.mkIf pkgs.hostPlatform.isLinux {
         sys = "systemctl";
         sysu = "systemctl --user";
-        walls = "journalctl _SYSTEMD_INVOCATION_ID=$(systemctl show -p InvocationID --value konawall.service --user) -o json | jq -r '.MESSAGE'";
         logu = "journalctl --user";
         log = "journalctl";
         lg = "log --no-pager | rg";
