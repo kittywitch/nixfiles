@@ -35,6 +35,13 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
+    nix-doom-emacs = {
+      url = "github:nix-community/nix-doom-emacs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
     nur.url = "github:nix-community/nur/master";
     flake-utils.url = "github:numtide/flake-utils";
   };

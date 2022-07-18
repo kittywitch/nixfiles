@@ -9,6 +9,7 @@ with lib;
       nixos = config;
     };
     sharedModules = [
+      inputs.nix-doom-emacs.hmModule
       meta.modules.home
     ];
     useUserPackages = true;
