@@ -165,8 +165,9 @@ api.nvim_set_keymap('n', '<leader>fb', '<cmd>Telescope buffers<cr>', { noremap =
 api.nvim_set_keymap('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', { noremap = true, silent = true })
 
 -- hop
-local hop = require'hop'.setup()
+local hop = require'hop'
 local directions = require("hop.hint").HintDirection
+hop.setup()
 
 vim.keymap.set("", "t", function()
   hop.hint_words()
