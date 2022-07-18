@@ -55,7 +55,12 @@ in {
   services.nginx.virtualHosts."auth.${config.network.dns.domain}" = {
     useACMEHost = "domain-auth";
     forceSSL = true;
-    locations = { "/".proxyPass = "http://127.0.0.1:8089"; };
+    locations = {
+      "/".extraConfig = ''
+        return 301 /auth;
+      '';
+      "/auth".proxyPass = "http://127.0.0.1:8089/auth";
+    };
   };
 
   deploy.tf.dns.records.services_keycloak = {
