@@ -9,7 +9,7 @@ in
         Canonical Ubuntu provides an EXT4 root filesystem.
         Oracle Linux provides an XFS root filesystem.
       '';
-      type = lib.enum [
+      type = lib.types.enum [
         "Canonical Ubuntu"
         "Oracle Linux"
       ];
