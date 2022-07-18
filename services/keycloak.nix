@@ -4,7 +4,7 @@ in {
   services.keycloak = {
     enable = builtins.getEnv "CI_PLATFORM" == "impure";
     package = (pkgs.keycloak.override {
-      jre = pkgs.openjdk11;
+      jre = pkgs.openjdk17;
     });
     initialAdminPassword = "mewpymewlymewlies";
     database.passwordFile = config.secrets.files.keycloak-postgres-file.path;
@@ -15,7 +15,8 @@ in {
       https-port = 8445;
       proxy = "edge";
       hostname = "auth.kittywit.ch";
-      http-relative-path = "/auth";
+      hostname-strict = false;
+      http-relative-path = "/";
       hostname-strict-backchannel = true;
       https-key-store-file = "/var/lib/acme/domain-auth/trust-store.jks";
       https-key-store-password = keystore-pass;
