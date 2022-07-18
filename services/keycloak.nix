@@ -16,7 +16,7 @@ in {
       proxy = "edge";
       hostname = "auth.kittywit.ch";
       hostname-strict = false;
-      http-relative-path = "/";
+      http-relative-path = "/auth";
       hostname-strict-backchannel = true;
       https-key-store-file = "/var/lib/acme/domain-auth/trust-store.jks";
       https-key-store-password = keystore-pass;
