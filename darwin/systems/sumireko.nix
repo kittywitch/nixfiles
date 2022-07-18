@@ -3,6 +3,7 @@
     hardware.aarch64-darwin
     darwin.base
     darwin.kat
+    home.emacs
   ];
 
   security.pam.enableSudoTouchIdAuth = true;

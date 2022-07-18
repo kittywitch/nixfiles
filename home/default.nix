@@ -18,7 +18,6 @@ in
         secrets
         state
         dconf
-        emacs
       ];
     };
     gui = {
