@@ -38,15 +38,15 @@ let cfg = config.kw.theme; in
     font = {
       name = mkOption {
         type = types.str;
-        default = "Iosevka SS10";
+        default = "Iosevka Nerd Font";
       };
       termName = mkOption {
         type = types.str;
-        default = "Iosevka Term SS10";
+        default = "Iosevka Nerd Font";
       };
       size = mkOption {
         type = types.float;
-        default = 9.0;
+        default = 10.0;
       };
       size_css = mkOption {
         type = types.str;

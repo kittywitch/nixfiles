@@ -126,49 +126,13 @@ in
       extraPolicies = {
         DisableAppUpdate = true;
       };
-      extraNativeMessagingHosts = with pkgs; [
-        tridactyl-native
-      ] ++ lib.optional config.programs.buku.enable bukubrow;
     };
-    extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-      sponsorblock
-      link-cleaner
-      a11ycss
-      canvasblocker
-      view-image
-      wappalyzer
-      auto-tab-discard
-      bitwarden
-      darkreader
-      decentraleyes
-      foxyproxy-standard
-      clearurls
-      df-youtube
-      tridactyl
-      old-reddit-redirect
-      privacy-badger
-      reddit-enhancement-suite
-      refined-github
-      stylus
-      temporary-containers
-      browserpass
-      tree-style-tab
-      multi-account-containers
-      ublock-origin
-      violentmonkey
-    ];
     profiles = {
       main = {
         id = 0;
         isDefault = true;
         settings = commonSettings;
         userChrome = (kw.sassTemplate { name = "userChrome"; src = ./userChrome.sass; }).text;
-        containers.identities = [
-          { id = 7; name = "Professional"; icon = "briefcase"; color = "red"; }
-          { id = 8; name = "Shopping"; icon = "cart"; color = "pink"; }
-          { id = 9; name = "Sensitive"; icon = "gift"; color = "orange"; }
-          { id = 10; name = "Private"; icon = "fence"; color = "blue"; }
-        ];
       };
     };
   };
