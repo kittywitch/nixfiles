@@ -37,7 +37,7 @@
         ]; in
       ''
 	${if pkgs.hostPlatform.isLinux then ''
-        eval $(dircolors -b | sd "*#=00;90" "*\#=00;90")
+        eval $(dircolors -b | sd "\*#=00;90" "*\#=00;90")
 	'' else ''
 	''}
         PROMPT_EOL_MARK='''
