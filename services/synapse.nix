@@ -307,7 +307,7 @@ CONFIG = {
     '';
     root = pkgs.cinny.override {
       conf = {
-        defaultHomeserver = 1;
+        defaultHomeserver = 0;
         homeserverList = [
           "kittywit.ch"
         ];

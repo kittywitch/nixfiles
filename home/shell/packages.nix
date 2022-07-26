@@ -10,7 +10,6 @@
     # show type of files
     file
     # command monitoring
-    progress
     pv
     # cat but better
     bat

@@ -17,7 +17,7 @@ let
     config = {
       allowUnfree = true;
       allowBroken = true;
-      allowUnsupportedSystem = true;
+      allowUnsupportedSystem = false;
       permittedInsecurePackages = [
         "ffmpeg-3.4.8"
         "ffmpeg-2.8.17"

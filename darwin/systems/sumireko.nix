@@ -63,6 +63,7 @@
       "mullvadvpn"
       "bitwarden"
       "gimp"
+      "cyberduck"
       ];
       masApps = {
         Tailscale = 1475387142;

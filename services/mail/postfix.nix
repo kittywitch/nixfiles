@@ -24,6 +24,8 @@ in {
     field = "password";
   };
 
+  services.redis.enable = true;
+
   secrets.files = {
     domains-ldap = {
       text = ''

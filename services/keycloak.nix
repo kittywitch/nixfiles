@@ -4,7 +4,7 @@ in {
   services.keycloak = {
     enable = builtins.getEnv "CI_PLATFORM" == "impure";
     package = (pkgs.keycloak.override {
-      jre = pkgs.openjdk17;
+      jre = pkgs.openjdk11;
     });
     initialAdminPassword = "mewpymewlymewlies";
     database.passwordFile = config.secrets.files.keycloak-postgres-file.path;
