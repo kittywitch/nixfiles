@@ -62,9 +62,6 @@ in {
       nvim-ts-rainbow
       nvim-treesitter-context
       twilight-nvim
-      # Languages
-      vim-nix
-      vim-terraform
     ];
     extraPackages = with pkgs; [
       # For nvim-lspconfig, Terraform Language Server
