@@ -1,46 +1,54 @@
 local g = vim.g       -- Global variables
 local opt = vim.opt   -- Set options (global/buffer/windows-scoped)
+local wo = vim.wo     -- Window local variables
 local api = vim.api   -- Lua API
-
 -----------------------------------------------------------
 -- General
 -----------------------------------------------------------
-opt.mouse = 'a'                                                        -- Enable mouse support
-opt.clipboard = 'unnamedplus'                                          -- Copy/paste to system clipboard
-opt.completeopt = 'longest,menuone'                                    -- Autocomplete options
-opt.backup = false                                                     -- Disable backup
-opt.writebackup = false                                                -- Disable backup
-opt.ttimeoutlen = 100                                                  -- Mapping timeout
+opt.mouse = 'a'                        -- Enable mouse support
+opt.clipboard = 'unnamedplus'          -- Copy/paste to system clipboard
+opt.completeopt = 'longest,menuone'    -- Autocomplete options
+opt.backup = false                     -- Disable backup
+opt.writebackup = false                -- Disable backup
+opt.ttimeoutlen = 100                  -- Mapping timeout
 
 -----------------------------------------------------------
 -- Neovim UI
 -----------------------------------------------------------
-vim.cmd("colorscheme base16-default-dark")                                      -- Color scheme
-opt.number = true                                                               -- Show line number
-opt.relativenumber = true                                                       -- Relative line numbers
-opt.showmatch = true                                                            -- Highlight matching parenthesis
-opt.foldmethod = 'marker'                                                       -- Enable folding (default 'foldmarker')
-opt.colorcolumn = '80'                                                          -- Line length marker at 80 columns
-opt.splitright = true                                                           -- Vertical split to the right
-opt.splitbelow = true                                                           -- Horizontal split to the bottom
-opt.ignorecase = true                                                           -- Ignore case letters when search
-opt.smartcase = true                                                            -- Ignore lowercase for the whole pattern
-opt.linebreak = true                                                            -- Wrap on word boundary
-opt.showbreak = " ↳"                                                            -- Character to use to display word boundary
-opt.termguicolors = true                                                        -- Enable 24-bit RGB colors
-opt.laststatus = 3                                                              -- Set global statusline
-opt.listchars = 'tab:» ,extends:›,precedes:‹,nbsp:·,trail:✖'                    -- Set listmode options
-opt.cursorline = true                                                           -- Highlight cursor screenline
-opt.cmdheight = 1                                                               -- Command entry line height
-opt.hlsearch = true                                                             -- Highlight matches with last search pattern
+vim.cmd("colorscheme base16-default-dark")    -- Color scheme
+opt.number = true                             -- Show line number
+opt.relativenumber = true                     -- Relative line numbers
+opt.showmatch = true                          -- Highlight matching parenthesis
+opt.foldmethod = 'marker'                     -- Enable folding (default 'foldmarker')
+opt.colorcolumn = '80'                        -- Line length marker at 80 columns
+opt.splitright = true                         -- Vertical split to the right
+opt.splitbelow = true                         -- Horizontal split to the bottom
+opt.ignorecase = true                         -- Ignore case letters when search
+opt.smartcase = true                          -- Ignore lowercase for the whole pattern
+opt.wrap = true                               -- Wrap on word boundary
+opt.linebreak = true                          -- Wrap on word boundary
+opt.showbreak = " ↳"                          -- Character to use to display word boundary
+opt.termguicolors = true                      -- Enable 24-bit RGB colors
+opt.laststatus = 3                            -- Set global statusline
+opt.cursorline = true                         -- Highlight cursor screenline
+opt.cmdheight = 1                             -- Command entry line height
+opt.hlsearch = true                           -- Highlight matches with last search pattern
 
 -----------------------------------------------------------
 -- Tabs, indent
 -----------------------------------------------------------
 opt.expandtab = false       -- Use spaces instead of tabs
-opt.shiftwidth = 4          -- Shift 4 spaces when tab
-opt.tabstop = 4             -- 1 tab == 4 spaces
+opt.shiftwidth = 2          -- Shift 2 spaces when tab
+opt.tabstop = 2             -- 1 tab == 2 spaces
 opt.smartindent = true      -- Autoindent new lines
+opt.list = true             -- List chars
+opt.listchars = {
+	tab = '» ',
+	extends = '›',
+	precedes= '‹',
+	nbsp = '·',
+	trail = '✖'
+}
 
 -----------------------------------------------------------
 -- Memory, CPU
@@ -61,13 +69,16 @@ api.nvim_create_autocmd("vimenter", {
 })
 api.nvim_create_autocmd("SourcePost", {
 	command = "highlight Normal     ctermbg=NONE guibg=NONE | " ..
-	"highlight LineNr     ctermbg=NONE guibg=NONE | " ..
-	"highlight SignColumn ctermbg=NONE guibg=NONE"
+		"highlight LineNr     ctermbg=NONE guibg=NONE | " ..
+		"highlight SignColumn ctermbg=NONE guibg=NONE"
 })
 
 -----------------------------------------------------------
 -- Plugins
 -----------------------------------------------------------
+
+-- Remove perl
+g.loaded_perl_provider = 0
 
 -- Hexokinaise
 g.Hexokinase_highlighters = {'virtual'}
@@ -89,33 +100,40 @@ g.lastplace_ignore = 'gitcommit,gitrebase,svn,hgcommit'
 
 -- Disable builtins plugins
 local disabled_built_ins = {
-  "netrw",
-  "netrwPlugin",
-  "netrwSettings",
-  "netrwFileHandlers",
-  "gzip",
-  "zip",
-  "zipPlugin",
-  "tar",
-  "tarPlugin",
-  "getscript",
-  "getscriptPlugin",
-  "vimball",
-  "vimballPlugin",
-  "2html_plugin",
-  "logipat",
-  "rrhelper",
-  "spellfile_plugin",
-  "matchit"
+	"netrw",
+	"netrwPlugin",
+	"netrwSettings",
+	"netrwFileHandlers",
+	"gzip",
+	"zip",
+	"zipPlugin",
+	"tar",
+	"tarPlugin",
+	"getscript",
+	"getscriptPlugin",
+	"vimball",
+	"vimballPlugin",
+	"2html_plugin",
+	"logipat",
+	"rrhelper",
+	"spellfile_plugin",
+	"matchit"
 }
 
 for _, plugin in pairs(disabled_built_ins) do
-  g["loaded_" .. plugin] = 1
+	g["loaded_" .. plugin] = 1
 end
 
 -----------------------------------------------------------
 -- Plugins
 -----------------------------------------------------------
+
+-- lualine
+require('lualine').setup({
+	options = {
+		theme = "base16",
+	},
+})
 
 -- nvim-cmp
 local cmp = require'cmp'
@@ -148,14 +166,14 @@ require('neorg').setup {
 		['core.defaults'] = {}, -- Load all the default modules
 		['core.norg.concealer'] = {}, -- Allows for use of icons
 		['core.norg.dirman'] = { -- Manage your directories with Neorg
-		config = {
-			engine = 'nvim-cmp',
-			workspaces = {
-				home = '~/neorg'
+			config = {
+				engine = 'nvim-cmp',
+				workspaces = {
+					home = '~/neorg'
+				}
 			}
 		}
-	}
-},
+	},
 }
 
 -- telescope
@@ -164,20 +182,118 @@ api.nvim_set_keymap('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', { noremap
 api.nvim_set_keymap('n', '<leader>fb', '<cmd>Telescope buffers<cr>', { noremap = true, silent = true })
 api.nvim_set_keymap('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', { noremap = true, silent = true })
 
+-- tresitter
+require'nvim-treesitter.configs'.setup {
+	-- A list of parser names, or "all"
+	ensure_installed = {
+		"c",
+		"lua",
+		"rust",
+		"bash",
+		"css",
+		"dockerfile",
+		"go",
+		"hcl",
+		"html",
+		"javascript",
+		"markdown",
+		"nix",
+		"norg",
+		"python",
+		"regex",
+		"scss",
+	},
+
+	sync_install = false,
+	auto_install = false,
+	ignore_install = {},
+
+	highlight = {
+		enable = true,
+		additional_vim_regex_highlighting = false,
+	},
+	indent = {
+		enable = true,
+	},
+	rainbow = {
+		enable = true,
+		extended_mode = true
+	},
+}
+
+-- twilight
+require("twilight").setup {
+	dimming = {
+		alpha = 0.5,
+	},
+	context = 10,
+	expand = {
+		"function",
+		"method",
+		"table",
+		"if_statement",
+	},
+}
+
+-- bufferline
+require('bufferline').setup {
+	options = {
+		mode = "buffers", -- set to "tabs" to only show tabpages instead
+		numbers = "ordinal",
+		close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
+		right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
+		left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
+		middle_mouse_command = nil,          -- can be a string | function, see "Mouse actions"
+		indicator_icon = '▎',
+		buffer_close_icon = '',
+		modified_icon = '●',
+		close_icon = '',
+		left_trunc_marker = '',
+		right_trunc_marker = '',
+		name_formatter = function(buf)  -- buf contains a "name", "path" and "bufnr"
+			-- remove extension from markdown files for example
+			if buf.name:match('%.md') then
+				return vim.fn.fnamemodify(buf.name, ':t:r')
+			end
+		end,
+		max_name_length = 18,
+		max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
+		tab_size = 18,
+		diagnostics = "nvim_lsp",
+		diagnostics_update_in_insert = false,
+		color_icons = true,
+		show_buffer_icons = true, -- disable filetype icons for buffers
+		show_buffer_close_icons = true,
+		show_close_icon = true,
+		show_tab_indicators = true,
+		persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
+		separator_style = "padded_slant",
+		always_show_bufferline = true,
+	}
+}
+
+vim.cmd([[
+autocmd ColorScheme * highlight BufferLineFill guibg=#55505C
+autocmd ColorScheme * highlight BufferLineBackground guibg=#55505C
+autocmd ColorScheme * highlight BufferLineSeparator guifg=#55505C
+autocmd ColorScheme * highlight BufferLineSeparatorSelected guifg=#55505C
+autocmd ColorScheme * highlight BufferLineSeparatorVisible guifg=#55505C
+]])
+
 -- hop
 local hop = require'hop'
 local directions = require("hop.hint").HintDirection
 hop.setup()
 
 vim.keymap.set("", "t", function()
-  hop.hint_words()
+	hop.hint_words()
 end, {})
 vim.keymap.set("", "T", function()
-  hop.hint_lines_skip_whitespace()
+	hop.hint_lines_skip_whitespace()
 end, {remap=true})
 vim.keymap.set("", "f", function()
-  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+	hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
 end, {remap=true})
 vim.keymap.set("", "F", function()
-  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+	hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
 end, {remap=true})
