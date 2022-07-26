@@ -1,9 +1,10 @@
 { config, lib, pkgs, nixos, kw, ... }:
 
 let
+  inherit (lib.strings) toLower;
   commonSettings = {
     "app.update.auto" = false;
-    "identity.fxaccounts.account.device.name" = nixos.networking.hostName;
+    "identity.fxaccounts.account.device.name" = "${nixos.networking.hostName}-${toLower pkgs.hostPlatform.uname.system}";
     "browser.download.lastDir" = "/home/kat/downloads";
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     "svg.context-properties.content.enabled" = true;
