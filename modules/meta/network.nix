@@ -39,6 +39,10 @@ with lib;
         default = toString (inputs.darwin + "/modules");
       };
     };
+    nodes.all = mkOption {
+      type = types.attrsOf types.unspecified;
+      default = config.network.nodes.nixos // config.network.nodes.darwin;
+    };
     nodes.nixos =
       let
         nixosModule = { name, config, meta, modulesPath, lib, ... }: with lib; {
