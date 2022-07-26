@@ -196,8 +196,8 @@ vim.keymap.set("n", "<leader>fh", function()
 	telescope.help_tags()
 end, { silent = true })
 
--- tresitter
-require'nvim-treesitter.configs'.setup {
+-- treesitter
+require('nvim-treesitter.configs').setup {
 	-- A list of parser names, or "all"
 	ensure_installed = {
 		"c",
