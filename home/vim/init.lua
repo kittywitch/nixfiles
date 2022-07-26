@@ -154,7 +154,7 @@ cmp.setup({
 })
 
 -- lspconfig
-require('lspconfig').terraformls.setup()
+require('lspconfig').terraformls.setup{}
 
 api.nvim_create_autocmd('BufWritePre', {
 	pattern = '*.tf',
