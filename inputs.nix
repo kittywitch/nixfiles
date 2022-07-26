@@ -5,14 +5,12 @@ let
     url = "https://github.com/edolstra/flake-compat/archive/${lock.nodes.flake-compat.locked.rev}.tar.gz";
     sha256 = lock.nodes.flake-compat.locked.narHash;
   };
-  trusted = import flakeCompat {
-    src = ./flake/trusted;
-  };
   nixfiles = import flakeCompat {
     src = ./.;
   };
-in nixfiles.defaultNix.inputs // {
-  trusted = if builtins.getEnv "TRUSTED" != ""
-    then trusted.defaultNix.inputs.trusted
-    else ./flake/empty;
-}
+  trusted = import flakeCompat {
+    src = ./trusted;
+  };
+in nixfiles.defaultNix.inputs // (if builtins.getEnv "TRUSTED" != "" then {
+  inherit (trusted.defaultNix.inputs) trusted;
+} else {})

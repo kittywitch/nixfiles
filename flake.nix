@@ -28,7 +28,7 @@
       flake = false;
     };
     trusted = {
-      url = "path:./flake/empty/.";
+      url = "github:input-output-hk/empty-flake";
       flake = false;
     };
     flake-compat = {

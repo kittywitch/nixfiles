@@ -5,7 +5,7 @@
       flake = false;
     };
     nixfiles = {
-      url = "../../.";
+      url = "github:kittywitch/nixfiles";
       inputs.trusted.follows = "trusted";
     };
   };
