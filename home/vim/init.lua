@@ -137,7 +137,7 @@ require('lualine').setup({
 })
 
 -- nvim-cmp
-local cmp = require'cmp'
+local cmp = require('cmp')
 
 cmp.setup({
 	snippet = {
@@ -154,7 +154,7 @@ cmp.setup({
 })
 
 -- lspconfig
-require'lspconfig'.terraformls.setup{}
+require('lspconfig').terraformls.setup{}
 api.nvim_create_autocmd('BufWritePre', {
 	pattern = '*.tf',
 	command = 'lua vim.lsp.buf.formatting_sync()'
@@ -289,19 +289,22 @@ for item, ground in pairs(highlightItems) do
 }) end
 
 -- hop
-local hop = require'hop'
+local hop = require('hop')
 local directions = require("hop.hint").HintDirection
 hop.setup()
 
 vim.keymap.set("", "t", function()
 	hop.hint_words()
 end, {})
+
 vim.keymap.set("", "T", function()
 	hop.hint_lines_skip_whitespace()
 end, {remap=true})
+
 vim.keymap.set("", "f", function()
 	hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
 end, {remap=true})
+
 vim.keymap.set("", "F", function()
 	hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
 end, {remap=true})
