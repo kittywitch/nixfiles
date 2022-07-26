@@ -158,7 +158,7 @@
           tooltip = true;
           tooltip-format = "{:%A, %F %T %z (%Z)}";
           timezones = [
-            "Europe/London"
+            "America/Vancouver"
           ];
           interval = 1;
         };
