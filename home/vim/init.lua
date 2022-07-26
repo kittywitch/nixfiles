@@ -2,6 +2,7 @@ local g = vim.g       -- Global variables
 local opt = vim.opt   -- Set options (global/buffer/windows-scoped)
 local wo = vim.wo     -- Window local variables
 local api = vim.api   -- Lua API
+
 -----------------------------------------------------------
 -- General
 -----------------------------------------------------------
