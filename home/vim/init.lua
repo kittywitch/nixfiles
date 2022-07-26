@@ -272,13 +272,20 @@ require('bufferline').setup {
 	}
 }
 
-vim.cmd([[
-autocmd ColorScheme * highlight BufferLineFill guibg=#55505C
-autocmd ColorScheme * highlight BufferLineBackground guibg=#55505C
-autocmd ColorScheme * highlight BufferLineSeparator guifg=#55505C
-autocmd ColorScheme * highlight BufferLineSeparatorSelected guifg=#55505C
-autocmd ColorScheme * highlight BufferLineSeparatorVisible guifg=#55505C
-]])
+local barColor = "#2F2F30"
+
+local highlightItems = {
+	BufferLineFill = "bg",
+	BufferLineBackground = "bg",
+	BufferLineSeparator = "fg",
+	BufferLineSeparatorSelected = "fg",
+	BufferLineSeparatorVisible = "fg",
+}
+
+for item, ground in pairs(highlightItems) do
+	api.nvim_create_autocmd("ColorScheme", {
+	command = "highlight " .. item .. " gui" .. ground .. "=" .. barColor
+}) end
 
 -- hop
 local hop = require'hop'
