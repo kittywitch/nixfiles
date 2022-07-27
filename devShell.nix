@@ -31,7 +31,7 @@ let
   nf-update = pkgs.writeShellScriptBin "nf-update" ''
     nix flake update
     if [[ -n $TRUSTED ]]; then
-      nix flake lock ./flake/trusted --update-input trusted
+      nix flake lock ./trusted --update-input trusted
     fi
   '';
   sumireko-apply = pkgs.writeShellScriptBin "sumireko-apply" ''
