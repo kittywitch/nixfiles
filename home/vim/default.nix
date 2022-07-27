@@ -2,6 +2,16 @@
 
 let
   inherit (lib.modules) mkIf;
+	inherit (lib.strings) concatStringsSep;
+	inherit (lib.attrsets) mapAttrsToList;
+	initLua = pkgs.writeText "init.lua" (
+	''-- Kat's Base16 Colors
+	local base16 = {
+		${concatStringsSep "\n" (mapAttrsToList(var: col: "${var} = '${col}',") config.kw.theme.base16)}
+	}
+
+	${builtins.readFile ./init.lua}
+	'');
 in {
   home.sessionVariables = mkIf config.programs.neovim.enable { EDITOR = "nvim"; };
 
@@ -73,7 +83,7 @@ in {
       clangStdenv.cc
     ];
     extraConfig = ''
-    luafile ${./init.lua}
+    luafile ${initLua}
     '';
   };
 }

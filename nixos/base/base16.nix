@@ -2,10 +2,9 @@
 
 {
   base16 = {
-    inherit (config.home-manager.users.kat.base16) schemes alias;
+		inherit (config.home-manager.users.kat.base16) defaultSchemeName defaultScheme schemes;
     console = {
       enable = true;
-      scheme = config.home-manager.users.kat.base16.alias.default;
     };
   };
 }

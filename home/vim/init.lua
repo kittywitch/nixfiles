@@ -279,7 +279,7 @@ require('bufferline').setup {
 		color_icons = true,
 		show_buffer_icons = true, -- disable filetype icons for buffers
 		show_buffer_close_icons = true,
-		show_close_icon = true,
+		show_close_icon = false,
 		show_tab_indicators = true,
 		persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
 		separator_style = "padded_slant",
@@ -287,7 +287,7 @@ require('bufferline').setup {
 	}
 }
 
-local barColor = "#2F2F30"
+local barColor = base16.base00;
 
 local highlightItems = {
 	BufferLineFill = "bg",
@@ -297,10 +297,15 @@ local highlightItems = {
 	BufferLineSeparatorVisible = "fg",
 }
 
+local commandString = ""
+
 for item, ground in pairs(highlightItems) do
-	api.nvim_create_autocmd("ColorScheme", {
-	command = "highlight " .. item .. " gui" .. ground .. "=" .. barColor
-}) end
+	commandString = "highlight " .. item .. " gui" .. ground .. "=" .. barColor .. " | " .. commandString
+end
+
+api.nvim_create_autocmd("ColorScheme", {
+	command = commandString;
+})
 
 -- hop
 local hop = require('hop')

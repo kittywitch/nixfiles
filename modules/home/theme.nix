@@ -56,10 +56,10 @@ let cfg = config.kw.theme; in
   };
   config = mkIf (cfg.enable) {
     kw.theme = {
-      base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex.rgb}")
-        (lib.filterAttrs (n: _: lib.hasInfix "base" n) config.lib.arc.base16.schemeForAlias.default);
-      base16t = lib.mapAttrs' (k: v: lib.nameValuePair "${k}t" "rgba(${toString v.rgb.r}, ${toString v.rgb.g}, ${toString v.rgb.b}, ${toString cfg.alpha})")
-        (lib.filterAttrs (n: _: lib.hasInfix "base" n) config.lib.arc.base16.schemeForAlias.default);
+      base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex}")
+        (lib.filterAttrs (n: _: lib.hasInfix "base" n) config.base16.defaultScheme);
+      base16t = lib.mapAttrs' (k: v: lib.nameValuePair "${k}t" "rgba(${toString v.red.byte}, ${toString v.green.byte}, ${toString v.blue.byte}, ${toString cfg.alpha})")
+        (lib.filterAttrs (n: _: lib.hasInfix "base" n) config.base16.defaultScheme);
       alpha = 0.7;
     };
 
@@ -144,7 +144,7 @@ let cfg = config.kw.theme; in
             phases = [ "buildPhase" ];
             buildPhase = ''
               cat $variables $src > src-mut.sass
-              sass src-mut.sass $out --sourcemap=none --style=${cfg.sass.css_style}
+              sass src-mut.sass $out --sourcemap=none --trace --style=${cfg.sass.css_style}
             '';
           })
           { };
