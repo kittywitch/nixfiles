@@ -73,7 +73,7 @@ let lockCommand = config.programs.swaylock.script; in
       config =
         let
           pactl = "${config.home.nixosConfig.hardware.pulseaudio.package or pkgs.pulseaudio}/bin/pactl";
-          dmenu = "${pkgs.wofi}/bin/wofi -idbt ${pkgs.kitty}/bin/kitty -s ~/.config/wofi/wofi.css -p '' -W 25%";
+          dmenu = "${pkgs.wofi}/bin/wofi -idbt ${pkgs.wezterm}/bin/wezterm -s ~/.config/wofi/wofi.css -p '' -W 25%";
         in
         {
 
@@ -104,8 +104,8 @@ let lockCommand = config.programs.swaylock.script; in
             style = "Regular";
             size = config.kw.theme.font.size;
           };
-          terminal = "${pkgs.kitty}/bin/kitty";
-          menu = "${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --no-generic --dmenu=\"${dmenu}\" --term='${pkgs.kitty}/bin/kitty'";
+          terminal = "${pkgs.wezterm}/bin/wezterm";
+          menu = "${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --no-generic --dmenu=\"${dmenu}\" --term='${pkgs.wezterm}/bin/wezterm'";
           modifier = "Mod4";
 
           assigns = { "12:F2" = [{ class = "screenstub"; }]; };

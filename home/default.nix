@@ -23,11 +23,11 @@ in
     gui = {
       imports = with dirImports; [
         gui
+				wezterm
         firefox
         konawall
         ranger
         xkb
-        kitty
         gpg
         sway
         mako
