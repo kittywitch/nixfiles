@@ -53,6 +53,7 @@
 				};
 				"sway/window" = {
 					icon = true;
+					icon-size = 12;
 					format = "{}";
 				};
 				tray = {

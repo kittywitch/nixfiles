@@ -117,6 +117,7 @@ in
 
   home.sessionVariables = {
     XDG_CURRENT_DESKTOP = "sway";
+		BROWSER = "firefox";
   };
 
   programs.firefox = {
