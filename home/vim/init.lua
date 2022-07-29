@@ -1,7 +1,54 @@
+-----------------------------------------------------------
+-- Variables
+-----------------------------------------------------------
 local g = vim.g       -- Global variables
 local opt = vim.opt   -- Set options (global/buffer/windows-scoped)
 local wo = vim.wo     -- Window local variables
 local api = vim.api   -- Lua API
+
+-----------------------------------------------------------
+-- Nix Fuckery
+-----------------------------------------------------------
+opt.packpath:prepend{"@packDir@"}
+opt.runtimepath:prepend{"@packDir@"}
+
+-----------------------------------------------------------
+-- Base16
+-----------------------------------------------------------
+vim.g.base16colorspace = 256
+vim.g.base16background = "@defaultSchemeName@"
+g.base16_shell_path = "@base16ShellPath@"
+vim.cmd("colorscheme base16-@defaultSchemeSlug@")
+g.colors_name = "@defaultSchemeSlug@"
+
+local base16 = {
+	base00 = "@base00@",
+	base01 = "@base01@",
+	base02 = "@base02@",
+	base03 = "@base03@",
+	base04 = "@base04@",
+	base05 = "@base05@",
+	base06 = "@base06@",
+	base07 = "@base07@",
+	base08 = "@base08@",
+	base09 = "@base09@",
+	base0A = "@base0A@",
+	base0B = "@base0B@",
+	base0C = "@base0C@",
+	base0D = "@base0D@",
+	base0E = "@base0E@",
+	base0F = "@base0F@"
+}
+
+api.nvim_create_autocmd("vimenter", {
+	command = "highlight Normal guibg=NONE ctermbg=NONE"
+})
+api.nvim_create_autocmd("SourcePost", {
+	command = "highlight Normal     ctermbg=NONE guibg=NONE | " ..
+		"highlight LineNr     ctermbg=NONE guibg=NONE | " ..
+		"highlight SignColumn ctermbg=NONE guibg=NONE"
+})
+
 
 -----------------------------------------------------------
 -- General
@@ -16,7 +63,6 @@ opt.ttimeoutlen = 100                  -- Mapping timeout
 -----------------------------------------------------------
 -- Neovim UI
 -----------------------------------------------------------
-vim.cmd("colorscheme base16-default-dark")    -- Color scheme
 opt.number = true                             -- Show line number
 opt.relativenumber = true                     -- Relative line numbers
 opt.showmatch = true                          -- Highlight matching parenthesis
@@ -29,7 +75,7 @@ opt.smartcase = true                          -- Ignore lowercase for the whole 
 opt.wrap = true                               -- Wrap on word boundary
 opt.linebreak = true                          -- Wrap on word boundary
 opt.showbreak = " ↳"                          -- Character to use to display word boundary
-opt.termguicolors = true                      -- Enable 24-bit RGB colors
+opt.termguicolors = false                     -- Enable 24-bit RGB colors
 opt.laststatus = 3                            -- Set global statusline
 opt.cursorline = true                         -- Highlight cursor screenline
 opt.cmdheight = 1                             -- Command entry line height
@@ -59,20 +105,6 @@ opt.history = 100           -- Remember N lines in history
 opt.lazyredraw = true       -- Faster scrolling
 opt.synmaxcol = 240         -- Max column for syntax highlight
 opt.updatetime = 700        -- ms to wait for trigger an event
-
------------------------------------------------------------
--- Base16
------------------------------------------------------------
-vim.base16colorspace=256
-
-api.nvim_create_autocmd("vimenter", {
-	command = "highlight Normal guibg=NONE ctermbg=NONE"
-})
-api.nvim_create_autocmd("SourcePost", {
-	command = "highlight Normal     ctermbg=NONE guibg=NONE | " ..
-		"highlight LineNr     ctermbg=NONE guibg=NONE | " ..
-		"highlight SignColumn ctermbg=NONE guibg=NONE"
-})
 
 -----------------------------------------------------------
 -- Plugins
@@ -130,11 +162,7 @@ end
 -----------------------------------------------------------
 
 -- lualine
-require('lualine').setup({
-	options = {
-		theme = "base16",
-	},
-})
+require('lualine').setup{}
 
 -- nvim-cmp
 local cmp = require('cmp')
@@ -282,7 +310,7 @@ require('bufferline').setup {
 		show_close_icon = false,
 		show_tab_indicators = true,
 		persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
-		separator_style = "padded_slant",
+		separator_style = "slant",
 		always_show_bufferline = true,
 	}
 }
@@ -300,7 +328,7 @@ local highlightItems = {
 local commandString = ""
 
 for item, ground in pairs(highlightItems) do
-	commandString = "highlight " .. item .. " gui" .. ground .. "=" .. barColor .. " | " .. commandString
+	commandString = "highlight " .. item .. " cterm" .. ground .. "=" .. barColor .. " | " .. commandString
 end
 
 api.nvim_create_autocmd("ColorScheme", {
