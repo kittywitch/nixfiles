@@ -1,8 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
+	home.packages = with pkgs; [ lxappearance ];
+	base16.gtk.enable = true;
   gtk = {
-    enable = true;
+    enable = false;
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;

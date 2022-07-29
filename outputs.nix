@@ -1,17 +1,19 @@
 { inputs, system ? builtins.currentSystem or "x86_64-linux" , ... }: let
   optionalAttrs = cond: as: if cond then as else { };
 
-  pkgs = import ./overlays { inherit inputs system; };
+  bootstrapPkgs = import ./overlays { inherit inputs system; };
   inherit (pkgs) lib;
 
-  patchedInputs = inputs // { darwin = pkgs.applyPatches {
+  patchedInputs = inputs // { darwin = bootstrapPkgs.applyPatches {
     name = "darwin";
     src = inputs.darwin;
-    patches = [ (pkgs.fetchpatch {
+    patches = [ (bootstrapPkgs.fetchpatch {
       url = "https://patch-diff.githubusercontent.com/raw/LnL7/nix-darwin/pull/310.patch";
       sha256 = "sha256-drnLOhF8JGXx8YY7w1PD2arUZvbqafWPTatQNTHt+QI=";
     }) ];
   }; };
+
+  pkgs = import ./overlays { inherit system; inputs = patchedInputs; };
 
   mkTree = import ./tree.nix { inherit lib; };
   localTree = mkTree {
