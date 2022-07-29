@@ -1,8 +1,8 @@
 { config, pkgs, lib, ... }: let
-inherit (lib.types) bool enum str int submodule oneOf attrsOf package;
+inherit (lib.types) bool enum str int submodule oneOf attrsOf listOf package;
 inherit (lib.options) mkEnableOption mkOption;
 inherit (lib.strings) optionalString concatStringsSep toUpper hasInfix;
-inherit (lib.attrsets) mapAttrsToList mapAttrs;
+inherit (lib.attrsets) mapAttrsToList mapAttrs attrValues;
 inherit (pkgs.stdenv) mkDerivation;
 inherit (lib.modules) mkIf mkDefault;
 cfg = config.base16.gtk.settings;
@@ -12,7 +12,7 @@ in {
 		base16.gtk = {
 			enable = mkEnableOption "Enable GTK theme generation";
 			packages = mkOption {
-				type = attrsOf package;
+				type = listOf package;
 			};
 			settings = mkOption {
 				type = attrsOf (submodule {
@@ -140,7 +140,7 @@ in {
 					--hidpi False --target $out/share/themes --output $name-${schemeConfig.theme_style} ${schemeConfigFile}
 			'';
 		};
-		packagesForSchemes = mapAttrsToList (k: v: packageForScheme k v) configFilesForSchemes;
+		packagesForSchemes = mapAttrs (k: v: packageForScheme k v) configFilesForSchemes;
 in {
 		base16.gtk =  {
 			packages = packagesForSchemes;
@@ -202,6 +202,6 @@ in {
 			icons_archdroid = "base0E";
 		};
 		};
-		home.packages = packagesForSchemes;
+		home.packages = attrValues packagesForSchemes;
 	});
 }
