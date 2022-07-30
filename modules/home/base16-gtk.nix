@@ -11,8 +11,13 @@ in {
 	options = {
 		base16.gtk = {
 			enable = mkEnableOption "Enable GTK theme generation";
-			packages = mkOption {
-				type = listOf package;
+			packages = {
+				icons = mkOption {
+					type = attrsOf package;
+				};
+				themes = mkOption {
+					type = attrsOf package;
+				};
 			};
 			settings = mkOption {
 				type = attrsOf (submodule {
@@ -112,7 +117,7 @@ in {
 		'';
 		configForSchemes = mapAttrs configForScheme config.base16.schemes;
 		configFilesForSchemes = mapAttrs (k: v: pkgs.writeText "oomox-config-${k}" v) configForSchemes;
-		packageForScheme = name: schemeConfigFile: let
+		iconPackageForScheme = name: schemeConfigFile: let
 			schemeConfig = cfg.${name} or cfg.default;
 		in with pkgs; mkDerivation rec {
 			inherit name;
@@ -140,10 +145,36 @@ in {
 					--hidpi False --target $out/share/themes --output $name-${schemeConfig.theme_style} ${schemeConfigFile}
 			'';
 		};
-		packagesForSchemes = mapAttrs (k: v: packageForScheme k v) configFilesForSchemes;
+		themePackageForScheme = name: schemeConfigFile: let
+			schemeConfig = cfg.${name} or cfg.default;
+		in with pkgs; mkDerivation rec {
+			inherit name;
+          src = fetchFromGitHub {
+            owner = "themix-project";
+            repo = "oomox";
+            rev = "1.14";
+            sha256 = "0zk2q0z0n64kl6my60vkq11gp4mc442jxqcwbi4kl108242izpjv";
+            fetchSubmodules = true;
+          };
+          nativeBuildInputs = [ glib libxml2 bc ];
+          buildInputs = [ meson gnome3.gnome-themes-extra gdk-pixbuf librsvg pkgs.sassc pkgs.inkscape pkgs.optipng ];
+          propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+			installPhase = ''
+				export HOME=./
+				mkdir -p $out/share/themes/${schemeConfig.theme_style}-$name
+				patchShebangs plugins/theme_${schemeConfig.theme_style}
+				plugins/${themePathSelector schemeConfig.theme_style} \
+					--hidpi False --target $out/share/themes --output $name-${schemeConfig.theme_style} ${schemeConfigFile}
+			'';
+		};
+		themePackagesForSchemes = mapAttrs (k: v: themePackageForScheme k v) configFilesForSchemes;
+		iconPackagesForSchemes = mapAttrs (k: v: iconPackageForScheme k v) configFilesForSchemes;
 in {
 		base16.gtk =  {
-			packages = packagesForSchemes;
+			packages = {
+				themes = themePackagesForSchemes;
+				icons = iconPackagesForSchemes;
+			};
 			settings.default = mapAttrs (_: mkDefault) {
 			base16_invert_terminal = false;
 			base16_mild_terminal = false;
@@ -202,6 +233,6 @@ in {
 			icons_archdroid = "base0E";
 		};
 		};
-		home.packages = attrValues packagesForSchemes;
+		home.packages = (attrValues iconPackagesForSchemes) ++ (attrValues themePackagesForSchemes);
 	});
 }
