@@ -157,7 +157,7 @@ in {
             fetchSubmodules = true;
           };
           nativeBuildInputs = [ glib libxml2 bc ];
-          buildInputs = [ meson gnome3.gnome-themes-extra gdk-pixbuf librsvg pkgs.sassc pkgs.inkscape pkgs.optipng ];
+          buildInputs = [ gnome3.gnome-themes-extra gdk-pixbuf librsvg pkgs.sassc pkgs.inkscape pkgs.optipng ];
           propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 			installPhase = ''
 				export HOME=./

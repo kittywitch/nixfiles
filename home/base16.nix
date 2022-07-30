@@ -8,7 +8,7 @@
 		gtk = {
 			settings.default = {
 				icon_style = "numix";
-				theme_style = "materia";
+				theme_style = "oomox";
 			};
 		};
  vim.template = data: let
