@@ -117,10 +117,10 @@ in {
 		'';
 		configForSchemes = mapAttrs configForScheme config.base16.schemes;
 		configFilesForSchemes = mapAttrs (k: v: pkgs.writeText "oomox-config-${k}" v) configForSchemes;
-		iconPackageForScheme = name: schemeConfigFile: let
-			schemeConfig = cfg.${name} or cfg.default;
+		iconPackageForScheme = schemeName: schemeConfigFile: let
+			schemeConfig = cfg.${schemeName} or cfg.default;
 		in with pkgs; mkDerivation rec {
-			inherit name;
+			name = "icons-${cfg.${schemeName}.icon_style or cfg.default.icon_style}-${schemeName}";
           src = fetchFromGitHub {
             owner = "themix-project";
             repo = "oomox";
@@ -136,19 +136,15 @@ in {
 				mkdir -p ./.icons
 				patchShebangs plugins/${iconPathSelector schemeConfig.icon_style}
 				plugins/${iconPathSelector schemeConfig.icon_style} ${schemeConfigFile} \
-					-o $name-${schemeConfig.icon_style}
+					-o ${schemeConfig.icon_style}-$name
 				mkdir -p $out/share/icons/${schemeConfig.icon_style}-$name
-				mv ./.icons/* $out/share/icons/${schemeConfig.icon_style}-$name
-				mkdir -p $out/share/themes/${schemeConfig.theme_style}-$name
-				patchShebangs plugins/theme_${schemeConfig.theme_style}
-				plugins/${themePathSelector schemeConfig.theme_style} \
-					--hidpi False --target $out/share/themes --output $name-${schemeConfig.theme_style} ${schemeConfigFile}
+				mv ./.icons/* $out/share/icons
 			'';
 		};
-		themePackageForScheme = name: schemeConfigFile: let
-			schemeConfig = cfg.${name} or cfg.default;
+		themePackageForScheme = schemeName: schemeConfigFile: let
+			schemeConfig = cfg.${schemeName} or cfg.default;
 		in with pkgs; mkDerivation rec {
-			inherit name;
+				name = "theme-${cfg.${schemeName}.theme_style or cfg.default.theme_style}-${schemeName}";
           src = fetchFromGitHub {
             owner = "themix-project";
             repo = "oomox";
@@ -164,7 +160,7 @@ in {
 				mkdir -p $out/share/themes/${schemeConfig.theme_style}-$name
 				patchShebangs plugins/theme_${schemeConfig.theme_style}
 				plugins/${themePathSelector schemeConfig.theme_style} \
-					--hidpi False --target $out/share/themes --output $name-${schemeConfig.theme_style} ${schemeConfigFile}
+					--hidpi False -t $out/share/themes -m all --output ${schemeConfig.theme_style}-$name ${schemeConfigFile}
 			'';
 		};
 		themePackagesForSchemes = mapAttrs (k: v: themePackageForScheme k v) configFilesForSchemes;
