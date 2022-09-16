@@ -3,7 +3,9 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-
+    ./home-assistant.nix
+    ./zigbee2mqtt.nix
+    ./mosquitto.nix
   ];
 
   deploy.tf = {
