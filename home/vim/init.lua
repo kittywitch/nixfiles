@@ -84,7 +84,7 @@ opt.hlsearch = true                           -- Highlight matches with last sea
 -----------------------------------------------------------
 -- Tabs, indent
 -----------------------------------------------------------
-opt.expandtab = false       -- Use spaces instead of tabs
+opt.expandtab = true       -- Use spaces instead of tabs
 opt.shiftwidth = 2          -- Shift 2 spaces when tab
 opt.tabstop = 2             -- 1 tab == 2 spaces
 opt.smartindent = true      -- Autoindent new lines

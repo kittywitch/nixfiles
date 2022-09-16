@@ -7,9 +7,14 @@
   users.users.tvheadend.group = "tvheadend";
   users.groups.tvheadend = {};
 
-  network.firewall.public = {
+  network.firewall = {
+		private = {
     tcp.ports = [ 9981 9982 ];
-  };
+		};
+		public = {
+    tcp.ports = [ 9981 9982 ];
+		};
+	};
 
   systemd.services.antennas = {
     wantedBy = [ "plex.service" ];

@@ -43,6 +43,14 @@ in
         gtk
         qt
       ];
-    };
+		};
+    work = {
+			imports = with dirImports; [
+			work
+			wezterm
+			emacs
+			];
+		};
+
   services = serviceImports;
 }

@@ -21,6 +21,7 @@
 , CoreGraphics
 , Cocoa
 , Foundation
+, UserNotifications
 , libiconv
 , nixosTests
 , runCommand
@@ -69,6 +70,7 @@ rustPlatform.buildRustPackage rec {
   ] ++ lib.optionals stdenv.isDarwin [
     Cocoa
     CoreGraphics
+		UserNotifications
     Foundation
     libiconv
   ];

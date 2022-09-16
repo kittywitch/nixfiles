@@ -12,6 +12,6 @@ final: prev: {
   gensokyoZone = final.callPackage ./gensokyoZone { };
 	oomox = final.callPackage ./oomox.nix { };
 	wezterm = final.callPackage ./wezterm {
-    inherit (final.darwin.apple_sdk.frameworks) Cocoa CoreGraphics Foundation;
+    inherit (final.darwin.apple_sdk.frameworks) Cocoa CoreGraphics Foundation UserNotifications;
 	};
 }
