@@ -1,10 +1,11 @@
-{ config, lib, tf, pkgs, meta, ... }: with lib;
-
-{
-  options.network = with lib; {
-    routeDefault = mkOption {
-      default = true;
-      type = types.bool;
+{ config, lib, tf, pkgs, meta, ... }: with lib; let
+in {
+  options = with lib; {
+    network = {
+      routeDefault = mkOption {
+        default = true;
+        type = types.bool;
+      };
     };
   };
 
@@ -31,12 +32,29 @@
       };
     };
 
-  kw.secrets.variables.tailscale-authkey = {
-    path = "secrets/tailscale";
-    field = "password";
+  deploy.tf = {
+  variables.tailscale-apikey = {
+    value.shellCommand = "${meta.kw.secrets.command} secrets/tailscale -f api_key";
+    sensitive = true;
+    export = true;
   };
-
-  deploy.tf.variables.tailscale-authkey.export = true;
+    providers.tailscale = {
+      inputs = {
+        api_key = tf.variables.tailscale-apikey.ref;
+        tailnet = "inskip.me";
+      };
+    };
+    variables.tailscale-authkey.export = true;
+    resources.tailnet_key = {
+      provider = "tailscale";
+      type = "tailnet_key";
+      inputs = {
+        reusable = false;
+        ephemeral = false;
+        preauthorized = true;
+      };
+    };
+  };
 
   networking.firewall = {
     trustedInterfaces = [ "tailscale0" ];
@@ -71,7 +89,7 @@
       fi
 
       # otherwise authenticate with tailscale
-      ${tailscale}/bin/tailscale up -authkey ${tf.variables.tailscale-authkey.get}
+      ${tailscale}/bin/tailscale up -authkey ${tf.resources.tailnet_key.getAttr "key"}
     '';
   };
 };

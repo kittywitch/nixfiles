@@ -116,6 +116,7 @@ in
               connection = tf.resources."${config.networking.hostName}".connection.set;
             };
             connection = {
+
               port = lib.head config.services.openssh.ports;
             };
           };

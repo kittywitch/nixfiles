@@ -1,21 +1,36 @@
 { config, lib, ... }: with lib;
 
 {
-  deploy.targets.home = {
+  deploy.targets.home = let meta = config; in {
     tf = { config, ... }: {
       imports = optional (builtins.pathExists ../services/irlmail.nix) ../services/irlmail.nix;
 
-      dns.records.ygg_grimoire = {
-        zone = "kittywit.ch.";
-        domain = "grimoire.ygg";
-        aaaa.address = "200:c87d:7960:916:bf0e:a0e1:3da7:4fc6";
-      };
+  variables.tailscale-apikey = {
+    value.shellCommand = "${meta.kw.secrets.command} secrets/tailscale -f api_key";
+    sensitive = true;
+    export = true;
+  };
 
-      dns.records.ygg_boline = {
-        zone = "kittywit.ch.";
-        domain = "boline.ygg";
-        aaaa.address = "200:474d:14f7:1d21:f171:4e85:a3fa:9393";
+    providers.tailscale = {
+      inputs = {
+        api_key = config.variables.tailscale-apikey.ref;
+        tailnet = "inskip.me";
+      };
+    };
+    resources = {
+      tailnet_devices = {
+        type = "devices";
+        provider = "tailscale";
+        dataSource = true;
+      };
+      tailnet_nr = {
+        provider = "null";
+        type = "resource";
+        inputs.triggers = {
+          mew = config.resources.tailnet_devices.refAttr "id";
+        };
       };
     };
   };
+};
 }

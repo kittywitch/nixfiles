@@ -6,8 +6,13 @@
         log_level = "info";
         network_key = "!secret network_key";
       };
+      mqtt = {
+        server = "mqtt://127.0.0.1:1883";
+        user = "z2m";
+        password = tf.variables.z2m-mqtt-password.ref;
+      };
       homeassistant = true;
-      permit_join = true;
+      permit_join = false;
       frontend = {
         port = 8072;
       };
@@ -17,6 +22,11 @@
 
     };
   };
+
+kw.secrets.variables.z2m-mqtt-password = {
+  path = "secrets/mosquitto";
+  field = "z2m";
+};
 
   kw.secrets.variables.z2m-network-key = {
     path = "secrets/zigbee2mqtt";
@@ -40,6 +50,6 @@
     cp --no-preserve=mode ${config.secrets.files.zigbee2mqtt-secret.path} "${cfg.dataDir}/secret.yaml"
   '';
 
-  network.firewall.public.tcp.ports = [ 8123 8072 1883 ];
+  network.firewall.public.tcp.ports = [ 8123 8072 1883 21064 21063 ];
   network.firewall.private.tcp.ports = [ 8123 ];
 }

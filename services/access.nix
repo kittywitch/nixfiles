@@ -5,7 +5,6 @@
     cname = { inherit (config.network.addresses.public) target; };
   };
 
-
   deploy.tf.dns.records.services_cloud = {
     inherit (config.network.dns) zone;
     domain = "cloud";
@@ -14,6 +13,12 @@
   
   deploy.tf.dns.records.services_home = {
     inherit (config.network.dns) zone;
+    domain = "home";
+    cname = { inherit (config.network.addresses.public) target; };
+  };
+
+  deploy.tf.dns.records.gensokyo_home = {
+    zone = "gensokyo.zone.";
     domain = "home";
     cname = { inherit (config.network.addresses.public) target; };
   };
@@ -35,6 +40,20 @@
         enableACME = true;
         locations."/" = {
           root = pkgs.gensokyoZone;
+        };
+      };
+      "home.gensokyo.zone" = {
+        forceSSL = true;
+        enableACME = true;
+        locations = {
+          "/" = {
+            proxyPass = "http://${meta.tailnet.tewi.addresses.ipv4}:8123";
+            extraConfig = ''
+              proxy_set_header Upgrade $http_upgrade;
+              proxy_set_header Connection "upgrade";
+                proxy_http_version 1.1;
+            '';
+          };
         };
       };
       "home.${config.network.dns.domain}" = {

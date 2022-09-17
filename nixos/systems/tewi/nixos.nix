@@ -1,11 +1,13 @@
 { meta, config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [
+  imports = with meta; [
     (modulesPath + "/installer/scan/not-detected.nix")
+    nixos.network
     ./home-assistant.nix
     ./zigbee2mqtt.nix
     ./mosquitto.nix
+    ./postgres.nix
   ];
 
   deploy.tf = {
@@ -29,6 +31,9 @@
   };
 
   network = {
+    firewall = {
+      public.interfaces = lib.singleton "eno1";
+    };
     addresses = {
       private = {
         enable = true;

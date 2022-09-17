@@ -1,107 +1,83 @@
-{ config, lib, ... }: {
+{ config, lib, tf, ... }: {
+  kw.secrets.variables.ha-integration = {
+    path = "secrets/home-assistant";
+    field = "notes";
+  };
+
+  secrets.files.ha-integration = {
+    text = tf.variables.ha-integration.ref;
+    owner = "hass";
+    group = "hass";
+  };
+
+  systemd.services.home-assistant = {
+    preStart = lib.mkBefore ''
+      rm ${config.services.home-assistant.configDir}/integration.json
+      cp --no-preserve=mode ${config.secrets.files.ha-integration.path} ${config.services.home-assistant.configDir}/integration.json
+    '';
+  };
+
   services.home-assistant = {
     enable = true;
     config = {
-      automation = "automations.yaml";
-      config = null;
-      counter = null;
-      device_tracker = null;
-      dhcp = null;
-      energy = null;
-      frontend = { themes = "themes"; };
-      google_assistant = null;
-      group = "groups.yaml";
-      history = null;
-      homeassistant = {
-        external_url = "https://home.gensokyo.zone";
-        packages = "packages";
+      default_config = {};
+      google_assistant = {
+        project_id = "gensokyo-5cfaf";
+        service_account = "!include integration.json";
       };
       http = {
         cors_allowed_origins = [
           "https://google.com"
           "https://www.home-assistant.io"
         ];
+        use_x_forwarded_for = "true";
         trusted_proxies = [
           "127.0.0.0/24"
           "200::/7"
+          "100.64.0.0/10"
+          "fd7a:115c:a1e0:ab12::/64"
         ];
-        use_x_forwarded_for = true;
       };
-      image = null;
-      input_boolean = null;
-      input_datetime = null;
-      input_number = null;
-      input_select = null;
-      input_text = null;
-      logbook = null;
+
+      homeassistant = {
+        name = "Gensokyo";
+        unit_system = "metric";
+        external_url = "https://home.gensokyo.zone";
+      };
       logger = {
         default = "info";
       };
-      device_tracker = null;
-      map = null;
-      media_source = null;
-      mobile_app = null;
-      my = null;
-      person = null;
       recorder = {
-        auto_purge = true;
-        commit_interval = 1;
-        exclude = {
-          domains = [
-            "automation"
-              "updater"
-          ]; 
-          entities = [
-            "sun.sun"
-              "sensor.last_boot"
-              "sensor.date"
-              "sensor.time"
-          ];
-          entity_globs = [
-            "sensor.weather_*"
-              "sensor.date_*"
-          ];
-          event_types = [
-            "call_service"
-          ];
-        };
-        purge_keep_days = 14;
+        db_url = "postgresql://@/hass";
+
       };
-      scene = "scenes.yaml";
-      script = "scripts.yaml";
-      ssdp = null;
-      stream = null;
-      sun = null;
-      switch = null;
-      system_health = null;
-      tag = null;
-      template = null;
-      timer = null;
-      tts = [{
-        platform = "google_translate";
-        service_name = "google_say";
-      }];
-      wake_on_lan = null;
-      webhook = null;
-      zeroconf = null;
-      zone = null;
+      homekit = {
+        name = "Tewi";
+        port = 21063;
+        ip_address = "10.1.1.38";
+      };
     };
+    extraPackages = python3Packages: with python3Packages; [
+      psycopg2
+      securetar
+    ];
     extraComponents = [
       "zha"
-        "esphome"
-        "apple_tv"
-        "spotify"
-        "default_config"
-        "cast"
-        "plex"
-        "google"
-        "google_assistant"
-        "google_cloud"
-        "google_translate"
-        "homekit"
-        "mqtt"
-        "wake_on_lan"
-        "zeroconf"
+      "esphome"
+      "apple_tv"
+      "spotify"
+      "default_config"
+      "cast"
+      "plex"
+      "met"
+      "google"
+      "google_assistant"
+      "google_cloud"
+      "google_translate"
+      "homekit"
+      "mqtt"
+      "wake_on_lan"
+      "zeroconf"
     ];
   };
-}
+                      }

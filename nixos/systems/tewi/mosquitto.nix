@@ -4,8 +4,19 @@
     field = "z2m";
   };
 
+  kw.secrets.variables.hass-pass = {
+    path = "secrets/mosquitto";
+    field = "hass";
+  };
+
   secrets.files.z2m-pass = {
     text = tf.variables.z2m-pass.ref;
+    owner = "mosquitto";
+    group = "mosquitto";
+  };
+
+  secrets.files.hass-pass = {
+    text = tf.variables.hass-pass.ref;
     owner = "mosquitto";
     group = "mosquitto";
   };
@@ -18,10 +29,16 @@
         "pattern readwrite #"
       ];
       users = {
+        hass = {
+          passwordFile = config.secrets.files.hass-pass.path;
+          acl = [
+            "readwrite #"
+          ];
+        };
         z2m = {
           passwordFile = config.secrets.files.z2m-pass.path;
           acl = [
-            "topic readwrite zigbee2mqtt/#"
+            "readwrite #"
           ];
         };
       };
