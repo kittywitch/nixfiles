@@ -158,10 +158,13 @@
           zone = mkDefault "gensokyo.zone.";
           create_domain = true;
         };
-        tailscale = {
-          interfaces = singleton "tailscale0";
+        tailscale = mkMerge [
+        (mkIf (cfg.tf.enable) {
           ipv4 = meta.tailnet.${config.networking.hostName}.ipv4 or null;
           ipv6 = meta.tailnet.${config.networking.hostName}.ipv6 or null;
+        })
+        {
+          interfaces = singleton "tailscale0";
           zone = "inskip.me.";
           create_domain = true;
         };
