@@ -51,7 +51,6 @@
             pulseaudio
             wireplumber
             alsa
-            yggdrasil
             bindings
             matrix-appservices
             matrix-synapse-appservices

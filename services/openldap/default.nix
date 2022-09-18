@@ -1,5 +1,5 @@
 { config, pkgs, tf, lib, ... }: with lib; {
-  network.firewall.public.tcp.ports = [ 636 ];
+  networks.internet.tcp = [ 636 ];
 
   services.openldap = {
     enable = true;

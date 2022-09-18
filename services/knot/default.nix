@@ -1,8 +1,6 @@
 { config, lib, tf, pkgs, ... }:
 
 {
-  network.dns.enable = false;
-
   kw.secrets.variables = {
     katdns-key-config = {
       path = "secrets/katdns";
@@ -10,9 +8,9 @@
     };
   };
 
-  network.firewall.public = {
-    tcp.ports = [ 53 ];
-    udp.ports = [ 53 ];
+  networks.internet = {
+    tcp = [ 53 ];
+    udp = [ 53 ];
   };
 
     /* environment.etc."katdns/zones/gensokyo.zone.zone".text = let

@@ -37,11 +37,5 @@
     };
   };
 
-  network.yggdrasil = {
-    enable = true;
-    pubkey = "edb7de263e6924b8c9446123979782420e5196317bffc75e9a6ca546551252da";
-    address = "206:d807:a98:309f:3bc0:de7a:411d:9d95";
-  };
-
   system.stateVersion = "21.11";
 }

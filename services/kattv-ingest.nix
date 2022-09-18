@@ -74,7 +74,7 @@ let
     {
       element.tcpserversink = {
         port = 8989;
-        host = config.network.addresses.yggdrasil.nixos.ipv6.address;
+        host = config.networks.tailscale.ipv4;
       };
     }
   ];

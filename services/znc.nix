@@ -48,7 +48,8 @@ let
 
 in
 {
-  network.firewall.public.tcp.ports = singleton 5001;
+  # ZNC
+  networks.internet.tcp = singleton 5001;
 
   kw.secrets.variables =
     let

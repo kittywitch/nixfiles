@@ -73,23 +73,9 @@ with lib;
     };
   };
 
-  network = {
-    addresses = {
-      private = {
-        enable = true;
-        nixos = {
-          ipv4.address = "192.168.1.196";
-        };
-      };
-    };
-  };
-
-  # Firewall
-
-  network.firewall = {
-    public = {
-      interfaces = singleton "enp0s20u1";
-    };
+  networks.chitei = {
+    interfaces = [ "enp0s20u1" "wlp1s0" ];
+    ipv4 = "192.168.1.196";
   };
 
   # State

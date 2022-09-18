@@ -2,19 +2,38 @@
   home = config.deploy.targets.home.tf;
 in {
   options = {
+      networks = let
+        meta = config;
+      in mkOption{
+        type = with types; attrsOf (submodule ({ name, config, ... }: {
+          options = {
+            member_configs = mkOption {
+            type = unspecified;
+          };
+            members = mkOption {
+            type = unspecified;
+          };
+        };}));
+      };
       tailnet_uri = mkOption {
         type = types.str;
       };
       tailnet = mkOption {
-          type = types.attrsOf (types.submodule ({ name, ... }: {
+          type = types.attrsOf (types.submodule ({ name, config, ... }: {
             options = {
-              addresses = {
-                ipv4 = mkOption {
-                  type = types.str;
-                };
-                ipv6 = mkOption {
-                  type = types.str;
-                };
+              ipv4 = mkOption {
+                type = types.str;
+              };
+              ipv6 = mkOption {
+                type = types.str;
+              };
+              pp = mkOption {
+                type = types.unspecified;
+                default = family: port: "http://${config."ipv${toString family}"}:${toString port}";
+              };
+              ppp = mkOption {
+                type = types.unspecified;
+                default = family: port: path: "http://${config."ipv${toString family}"}/${path}:${toString port}";
               };
               tags = mkOption {
                 type = types.listOf types.str;
@@ -25,20 +44,23 @@ in {
       };
   config = {
 
+  networks = let
+    names = [ "gensokyo" "chitei" "internet" "tailscale" ];
+    network_filter = network: rec {
+      member_configs = filterAttrs (_: nodeConfig: nodeConfig.networks.${network}.interfaces != []) config.network.nodes.nixos;
+      members = mapAttrs (_: nodeConfig: nodeConfig.networks.${network}) member_configs;
+    };
+    networks' = genAttrs names network_filter;
+  in networks';
+
   tailnet_uri = "inskip.me";
   tailnet = let
     raw = home.resources.tailnet_devices.importAttr "devices";
-    devices = mapListToAttrs (elet: nameValuePair (removeSuffix ".${config.tailnet_uri}" elet.name) {
+  in mapListToAttrs (elet: nameValuePair (removeSuffix ".${config.tailnet_uri}" elet.name) {
       tags = elet.tags;
-      addresses = let
-        addresses = elet.addresses;
-        ipv4 = head (filter (e: hasInfix "." e) addresses);
-        ipv6 = head (filter (e: hasInfix ":" e) addresses);
-      in {
-        inherit ipv4 ipv6;
-      };
+        ipv4 = head (filter (e: hasInfix "." e) elet.addresses);
+        ipv6 = head (filter (e: hasInfix ":" e) elet.addresses);
       }) raw;
-  in devices;
 
   runners = {
     lazy = {

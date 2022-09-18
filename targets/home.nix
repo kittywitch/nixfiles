@@ -10,7 +10,11 @@
     sensitive = true;
     export = true;
   };
-
+    acme.account = {
+      register = false;
+      emailAddress = "kat@inskip.me";
+      accountKeyPem = config.resources.acme_private_key.refAttr "private_key_pem";
+    };
     providers.tailscale = {
       inputs = {
         api_key = config.variables.tailscale-apikey.ref;
@@ -18,6 +22,14 @@
       };
     };
     resources = {
+      acme_private_key = {
+        provider = "tls";
+        type = "private_key";
+        inputs = {
+          algorithm = "RSA";
+          rsa_bits = 4096;
+        };
+      };
       tailnet_devices = {
         type = "devices";
         provider = "tailscale";

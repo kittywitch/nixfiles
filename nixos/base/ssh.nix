@@ -3,22 +3,11 @@
 with lib;
 
 {
-  network.firewall = {
-    public = {
-      tcp.ports = singleton 62954;
-      udp.ranges = [{
-        from = 60000;
-        to = 61000;
-      }];
-    };
-    private = {
-      tcp.ports = singleton 62954;
-      udp.ranges = [{
-        from = 60000;
-        to = 61000;
-      }];
-    };
-  };
+  networks = genAttrs [ "chitei" "gensokyo" ] (_: {
+    # Mosh
+    tcp = [62954];
+    udp = [ [60000 61000] ];
+  });
 
 /*
   security.pam.services.sshd.text = mkDefault (mkAfter ''
@@ -39,5 +28,6 @@ with lib;
       LogLevel VERBOSE
     '';
   };
+
   programs.mosh.enable = true;
 }

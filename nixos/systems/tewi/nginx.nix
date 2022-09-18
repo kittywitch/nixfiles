@@ -12,9 +12,11 @@ with lib;
     '';
   };
 
-  network.firewall = {
-    public.tcp.ports = [ 443 80 ];
-    private.tcp.ports = [ 443 80 ];
+  networks.gensokyo = {
+    tcp = [
+      443
+      80
+    ];
   };
 
   services.nginx = {
@@ -36,34 +38,12 @@ with lib;
       #proxy_cookie_path / "/; secure; HttpOnly; SameSite=strict";
     '';
     clientMaxBodySize = "512m";
-  virtualHosts = {
-      "gensokyo.zone" = {
-        forceSSL = true;
-        enableACME = true;
-        locations."/" = {
-          root = pkgs.gensokyoZone;
-        };
-      };
-      "home.${config.network.dns.domain}" = {
-        forceSSL = true;
-        enableACME = true;
-        locations = {
-          "/" = {
-            proxyPass = "http://127.0.0.1:8123";
-            extraConfig = ''
-              proxy_set_header Upgrade $http_upgrade;
-              proxy_set_header Connection "upgrade";
-                proxy_http_version 1.1;
-            '';
-          };
-        };
-      };
+    virtualHosts = {
     };
   };
 
   security.acme = {
     defaults.email = config.network.dns.email;
-    #email = config.network.dns.email;
     acceptTerms = true;
   };
 }

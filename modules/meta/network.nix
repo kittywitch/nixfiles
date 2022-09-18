@@ -135,6 +135,7 @@ with lib;
         inputs.home-manager.nixosModules.home-manager
         meta.modules.nixos
         meta.modules.system
+        meta.nixos.network
         meta.system
       ];
       specialArgs = {

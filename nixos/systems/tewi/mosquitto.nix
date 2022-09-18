@@ -1,4 +1,11 @@
 { config, lib, tf, ... }: {
+  networks.gensokyo = {
+    tcp = [
+      # Mosquitto
+      1883
+    ];
+  };
+
   kw.secrets.variables.z2m-pass = {
     path = "secrets/mosquitto";
     field = "z2m";

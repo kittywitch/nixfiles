@@ -28,17 +28,17 @@ with lib;
     };
   };
 
-  network.firewall.public.tcp.ports = singleton 8999;
+  networks.internet.tcp = [ 8999 ];
 
   services.nginx.virtualHosts."sync.${config.network.dns.domain}" = {
     enableACME = true;
     forceSSL = true;
   };
 
-  deploy.tf.dns.records.services_syncplay = {
-    inherit (config.network.dns) zone;
+  domains.kittywitch-syncplay = {
+    network = "internet";
+    type = "cname";
     domain = "sync";
-    cname = { inherit (config.network.addresses.public) target; };
   };
 
   secrets.files.syncplay-env = {

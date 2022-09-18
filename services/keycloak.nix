@@ -24,16 +24,15 @@ in {
     };
 
 
-  network.extraCerts.domain-auth = "auth.${config.network.dns.domain}";
   users.groups.domain-auth.members = [ "nginx" "openldap" "keycloak" ];
-  security.acme.certs.domain-auth = {
+ /* security.acme.certs.domain-auth = {
     group = "domain-auth";
     postRun = ''
       ${pkgs.adoptopenjdk-jre-bin}/bin/keytool -delete -alias auth.kittywit.ch -keypass ${keystore-pass} -storepass ${keystore-pass} -keystore ./trust-store.jks
       ${pkgs.adoptopenjdk-jre-bin}/bin/keytool -import -alias auth.${config.network.dns.domain} -noprompt -keystore trust-store.jks -keypass ${keystore-pass} -storepass ${keystore-pass} -file cert.pem
       chown acme:domain-auth ./trust-store.jks
     '';
-  };
+  }; */
 
   users.groups.keycloak = { };
   users.users.keycloak = {
@@ -63,9 +62,9 @@ in {
     };
   };
 
-  deploy.tf.dns.records.services_keycloak = {
-    inherit (config.network.dns) zone;
+  domains.kittywitch-keycloak = {
+    network = "internet";
+    type = "cname";
     domain = "auth";
-    cname = { inherit (config.network.addresses.public) target; };
   };
 }

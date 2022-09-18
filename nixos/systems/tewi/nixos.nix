@@ -3,21 +3,21 @@
 {
   imports = with meta; [
     (modulesPath + "/installer/scan/not-detected.nix")
+    hardware.local
     nixos.network
     ./home-assistant.nix
     ./zigbee2mqtt.nix
     ./mosquitto.nix
     ./postgres.nix
+    ./nginx.nix
   ];
 
-  deploy.tf = {
-    resources.tewi = {
-      provider = "null";
-      type = "resource";
-      connection = {
-        port = lib.head config.services.openssh.ports;
-        host = config.network.addresses.private.nixos.ipv4.address;
-      };
+  networks = {
+    gensokyo = {
+      interfaces = [
+        "eno1"
+      ];
+      ipv4 = "10.1.1.38";
     };
   };
 
@@ -26,20 +26,6 @@
     interfaces = {
       eno1 = {
         useDHCP = true;
-      };
-    };
-  };
-
-  network = {
-    firewall = {
-      public.interfaces = lib.singleton "eno1";
-    };
-    addresses = {
-      private = {
-        enable = true;
-        nixos = {
-          ipv4.address = "10.1.1.38";
-        };
       };
     };
   };

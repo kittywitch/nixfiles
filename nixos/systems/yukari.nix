@@ -93,26 +93,9 @@
     };
   };
 
-  network = {
-    addresses = {
-      private = {
-        enable = true;
-        nixos = {
-          ipv4.address = "100.98.152.108";
-        };
-      };
-    };
-    yggdrasil = {
-      enable = true;
-      pubkey = "4f8fb0817afcd6211fb6a2cac2893df7d3f12c5c99eed106718d7223468473b2";
-      address = "201:c1c1:3dfa:140c:a77b:8125:74d4:f5db";
-      listen.enable = false;
-      listen.endpoints = [ "tcp://0.0.0.0:0" ];
-    };
-    firewall = {
-      private.interfaces = singleton "yggdrasil";
-      public.interfaces = singleton "eno1";
-    };
+  networks.chitei = {
+    interfaces = [ "eno1" ];
+    ipv4 = "100.98.152.108";
   };
 
   system.stateVersion = "21.05";

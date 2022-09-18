@@ -3,7 +3,7 @@
 with lib;
 
 {
-  network.firewall.public.tcp.ports = [
+  networks.internet.tcp = [
     5000
     5222
     5223
@@ -65,33 +65,29 @@ with lib;
       [ config.network.dns.domain "upload.${config.network.dns.domain}" "conference.${config.network.dns.domain}" ];
   };
 
+domains = rec {
+  kittywitch-prosody = {
+    network = "internet";
+    type = "both";
+    domain = "xmpp";
+  };
+  kittywitch-prosody-upload = {
+    network = "internet";
+    type = "cname";
+    domain = "upload";
+    cname.target = kittywitch-prosody.target;
+  };
+  kittywitch-prosody-conference = {
+    network = "internet";
+    type = "cname";
+    domain = "conference";
+    cname.target = kittywitch-prosody.target;
+  };
+};
+
   deploy.tf.dns.records = {
-    services_prosody_xmpp = {
-      inherit (config.network.dns) zone;
-      domain = "xmpp";
-      a.address = config.network.addresses.public.nixos.ipv4.selfaddress;
-    };
-
-    services_prosody_xmpp_v6 = {
-      inherit (config.network.dns) zone;
-      domain = "xmpp";
-      aaaa.address = config.network.addresses.public.nixos.ipv6.selfaddress;
-    };
-
-    services_prosody_upload = {
-      inherit (config.network.dns) zone;
-      domain = "upload";
-      cname.target = "xmpp.${config.network.dns.zone}";
-    };
-
-    services_prosody_conference = {
-      inherit (config.network.dns) zone;
-      domain = "conference";
-      cname.target = "xmpp.${config.network.dns.zone}";
-    };
-
     services_prosody_muc = {
-      inherit (config.network.dns) zone;
+      inherit (config.domains.kittywitch-prosody) zone;
       domain = "conference";
       srv = {
         service = "xmpp-server";
@@ -99,12 +95,12 @@ with lib;
         priority = 0;
         weight = 5;
         port = 5269;
-        target = "xmpp.${config.network.dns.zone}";
+        target = config.domains.kittywitch-prosody.target;
       };
     };
 
     services_prosody_client_srv = {
-      inherit (config.network.dns) zone;
+      inherit (config.domains.kittywitch-prosody) zone;
       domain = "@";
       srv = {
         service = "xmpp-client";
@@ -112,12 +108,12 @@ with lib;
         priority = 0;
         weight = 5;
         port = 5222;
-        target = "xmpp.${config.network.dns.zone}";
+        target = config.domains.kittywitch-prosody.target;
       };
     };
 
     services_prosody_secure_client_srv = {
-      inherit (config.network.dns) zone;
+      inherit (config.domains.kittywitch-prosody) zone;
       domain = "@";
       srv = {
         service = "xmpps-client";
@@ -125,12 +121,12 @@ with lib;
         priority = 0;
         weight = 5;
         port = 5223;
-        target = "xmpp.${config.network.dns.zone}";
+        target = config.domains.kittywitch-prosody.target;
       };
     };
 
     services_prosody_server_srv = {
-      inherit (config.network.dns) zone;
+      inherit (config.domains.kittywitch-prosody) zone;
       domain = "@";
       srv = {
         service = "xmpp-server";
@@ -138,7 +134,7 @@ with lib;
         priority = 0;
         weight = 5;
         port = 5269;
-        target = "xmpp.${config.network.dns.zone}";
+        target = config.domains.kittywitch-prosody.target;
       };
     };
   };

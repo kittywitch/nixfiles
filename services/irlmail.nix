@@ -1,8 +1,4 @@
 { config, tf, meta, lib, ... }: with lib; {
-  dns.zones."inskip.me." = {
-    provider = "dns.katdns";
-  };
-
   resources.gmail-mx = let
     zone = config.dns.zones."inskip.me.";
   in with zone; {
@@ -25,11 +21,11 @@
   dns.records = {
     services_inskip_a = {
       zone = "inskip.me.";
-      a.address = meta.network.nodes.nixos.marisa.network.addresses.public.nixos.ipv4.address;
+      a.address = meta.networks.internet.members.marisa.ipv4;
     };
     services_inskip_aaaa = {
       zone = "inskip.me.";
-      aaaa.address = meta.network.nodes.nixos.marisa.network.addresses.public.nixos.ipv6.address;
+      aaaa.address = meta.networks.internet.members.marisa.ipv6;
     };
     services_gmail_spf = {
       zone = "inskip.me.";

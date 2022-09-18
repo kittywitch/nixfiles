@@ -77,6 +77,5 @@
     cp --no-preserve=mode ${config.secrets.files.zigbee2mqtt-secret.path} "${cfg.dataDir}/secret.yaml"
   '';
 
-  network.firewall.public.tcp.ports = [ 8123 8072 1883 ];
-  network.firewall.private.tcp.ports = [ 8123 ];
+  networks.chitei.tcp = [ 8123 8072 1883 ];
 }

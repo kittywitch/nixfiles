@@ -7,11 +7,9 @@ let
   forking = (cfg.logFile != null);
 in
 {
-  network.firewall = {
-    public = {
-      tcp.ports = singleton 64738;
-      udp.ports = singleton 64738;
-    };
+  networks.internet = {
+    tcp = singleton 64738;
+    udp = singleton 64738;
   };
 
   kw.secrets.variables = {
@@ -107,26 +105,24 @@ in
   };
 
   # Certs
-
-  network.extraCerts.services_murmur = "voice.${config.network.dns.domain}";
+/*
+  network.extraCerts.services_murmur = "voice.${config.net";
   users.groups."voice-cert".members = [ "nginx" "murmur" ];
   security.acme.certs.services_murmur = {
     group = "voice-cert";
     postRun = "systemctl restart murmur";
-    extraDomainNames = [ config.network.dns.domain ];
+    extraDomainNames = [ config.networks.internet.dn ];
+  };*/
+
+  domains.kittywitch-murmur = {
+    network = "internet";
+    type = "cname";
+    domain = "voice";
   };
 
-  # DNS
-
   deploy.tf.dns.records = {
-    services_murmur = {
-      inherit (config.network.dns) zone;
-      domain = "voice";
-      cname = { inherit (config.network.addresses.public) target; };
-    };
-
     services_murmur_tcp_srv = {
-      inherit (config.network.dns) zone;
+      inherit (config.networks.internet) zone;
       domain = "@";
       srv = {
         service = "mumble";
@@ -134,12 +130,12 @@ in
         priority = 0;
         weight = 5;
         port = 64738;
-        target = "voice.${config.network.dns.zone}";
+        target = kittywitch-murmur.target;
       };
     };
 
     services_murmur_udp_srv = {
-      inherit (config.network.dns) zone;
+      inherit (config.networks.internet) zone;
       domain = "@";
       srv = {
         service = "mumble";
@@ -147,7 +143,7 @@ in
         priority = 0;
         weight = 5;
         port = 64738;
-        target = "voice.${config.network.dns.zone}";
+        target = kittywitch-murmur.target;
       };
     };
   };

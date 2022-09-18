@@ -29,7 +29,7 @@
     };
   };
 
-  dns.zones = genAttrs [ "kittywit.ch." "dork.dev." "gensokyo.zone." ] (_: {
+  dns.zones = genAttrs [ "inskip.me." "kittywit.ch." "dork.dev." "gensokyo.zone." ] (_: {
     provider = "dns.katdns";
   });
 }

@@ -7,24 +7,12 @@ with lib;
 
   imports = with meta; [
     hardware.eeepc-1015pem
+    hardware.local
     nixos.network
     nixos.arc
     services.kattv
     services.dnscrypt-proxy
   ];
-
-  # Terraform
-
-  deploy.tf = {
-    resources.ran = {
-      provider = "null";
-      type = "resource";
-      connection = {
-        port = head config.services.openssh.ports;
-        host = config.network.addresses.private.nixos.ipv4.address;
-      };
-    };
-  };
 
   # File Systems and Swap
 
@@ -57,23 +45,9 @@ with lib;
     interfaces.enp1s0.useDHCP = true;
   };
 
-  network = {
-    addresses = {
-      private = {
-        enable = true;
-        nixos = {
-          ipv4.address = "192.168.1.215";
-        };
-      };
-    };
-  };
-
-  # Firewall
-
-  network.firewall = {
-    public = {
-      interfaces = singleton "enp1s0";
-    };
+  networks.chitei = {
+    interfaces = [ "enp1s0" ];
+    ipv4 = "192.168.1.215";
   };
 
   # State

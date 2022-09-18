@@ -19,8 +19,8 @@
       };
     };
 
-    programs.ssh.extraConfig = ''
-Host daiyousei-build
+  programs.ssh.extraConfig = ''
+    Host daiyousei-build
         HostName daiyousei.kittywit.ch
         Port 62954
         User root
@@ -51,42 +51,36 @@ Host daiyousei-build
       };
     };
 
-    swapDevices =
-      [ { device = "/dev/disk/by-uuid/0d846453-95b4-46e1-8eaf-b910b4321ef0"; }
+    swapDevices = [
+      { device = "/dev/disk/by-uuid/0d846453-95b4-46e1-8eaf-b910b4321ef0"; }
     ];
 
     powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+    
     boot = {
       supportedFilesystems = [ "xfs" "zfs" ];
       initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/f0ea08b4-6af7-4d90-a2ad-edd5672a2105";
       loader = {
- efi = {
-      canTouchEfiVariables = true;
-      # assuming /boot is the mount point of the  EFI partition in NixOS (as the installation section recommends).
-      efiSysMountPoint = "/boot";
-    };
-    grub = {
-      # despite what the configuration.nix manpage seems to indicate,
-      # as of release 17.09, setting device to "nodev" will still call
-      # `grub-install` if efiSupport is true
-      # (the devices list is not used by the EFI grub install,
-      # but must be set to some value in order to pass an assert in grub.nix)
-      devices = [ "nodev" ];
-      efiSupport = true;
-      enable = true;
-      # set $FS_UUID to the UUID of the EFI partition
-      extraEntries = ''
-        menuentry "Windows" {
-          insmod part_gpt
-          insmod fat
-          insmod search_fs_uuid
-          insmod chain
-          search --fs-uuid --set=root DEBC-8F03
-          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-        }
-      '';
-      version = 2;
-    };
+        efi = {
+          canTouchEfiVariables = true;
+          efiSysMountPoint = "/boot";
+        };
+        grub = {
+          devices = [ "nodev" ];
+          efiSupport = true;
+          enable = true;
+          extraEntries = ''
+            menuentry "Windows" {
+              insmod part_gpt
+                insmod fat
+                insmod search_fs_uuid
+                insmod chain
+                search --fs-uuid --set=root DEBC-8F03
+                chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+            }
+          '';
+          version = 2;
+        };
       };
     };
 
@@ -100,40 +94,14 @@ Host daiyousei-build
     networking = {
       hostId = "dddbb888";
       useDHCP = false;
-      /* wireless = {
-      enable = true;
-      userControlled.enable = true;
-      interfaces = singleton "wlp3s0";
-      };
-      interfaces = {
-      wlp3s0.ipv4.addresses = singleton {
-      inherit (config.network.addresses.private.nixos.ipv4) address;
-      prefixLength = 24;
-      };
-      }; */
     };
 
     services.fstrim.enable = true;
 
-    network = {
-      addresses = {
-        private = {
-          enable = true;
-          nixos = {
-            ipv4.address = "192.168.1.121";
-          };
-        };
-      };
-      yggdrasil = {
-        enable = true;
-        pubkey = "f94d49458822a73d70306b249a39d4de8a292b13e12339b21010001133417be7";
-        address = "200:d65:6d74:efba:b185:1f9f:29b6:cb8c";
-        listen.enable = false;
-        listen.endpoints = [ "tcp://0.0.0.0:0" ];
-      };
-      firewall = {
-        public.interfaces = [ "enp1s0" "wlp3s0" ];
-        private.interfaces = singleton "yggdrasil";
+    networks = {
+      gensokyo = {
+        interfaces = [ "enp1s0" "wlp3s0" ];
+        ipv4 = "10.1.1.65";
       };
     };
 

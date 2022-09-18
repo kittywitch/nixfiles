@@ -1,4 +1,33 @@
 { config, lib, tf, ... }: {
+  networks.gensokyo = {
+    tcp = [
+      # Zigbee2MQTT Frontend
+      8072
+    ];
+  };
+
+  kw.secrets.variables.z2m-mqtt-password = {
+    path = "secrets/mosquitto";
+    field = "z2m";
+  };
+
+  kw.secrets.variables.z2m-network-key = {
+    path = "secrets/zigbee2mqtt";
+    field = "password";
+  };
+
+  secrets.files.zigbee2mqtt-config = {
+    text = builtins.toJSON config.services.zigbee2mqtt.settings;
+    owner = "zigbee2mqtt";
+    group = "zigbee2mqtt";
+  };
+
+  secrets.files.zigbee2mqtt-secret = {
+    text = "network_key: ${tf.variables.z2m-network-key.ref}";
+    owner = "zigbee2mqtt";
+    group = "zigbee2mqtt";
+  };
+
   services.zigbee2mqtt = {
     enable = true;
     settings = {
@@ -23,33 +52,8 @@
     };
   };
 
-kw.secrets.variables.z2m-mqtt-password = {
-  path = "secrets/mosquitto";
-  field = "z2m";
-};
-
-  kw.secrets.variables.z2m-network-key = {
-    path = "secrets/zigbee2mqtt";
-    field = "password";
-  };
-
-  secrets.files.zigbee2mqtt-config = {
-    text = builtins.toJSON config.services.zigbee2mqtt.settings;
-    owner = "zigbee2mqtt";
-    group = "zigbee2mqtt";
-  };
-
-  secrets.files.zigbee2mqtt-secret = {
-    text = "network_key: ${tf.variables.z2m-network-key.ref}";
-    owner = "zigbee2mqtt";
-    group = "zigbee2mqtt";
-  };
-
   systemd.services.zigbee2mqtt.preStart = let cfg = config.services.zigbee2mqtt; in lib.mkForce ''
     cp --no-preserve=mode ${config.secrets.files.zigbee2mqtt-config.path} "${cfg.dataDir}/configuration.yaml"
     cp --no-preserve=mode ${config.secrets.files.zigbee2mqtt-secret.path} "${cfg.dataDir}/secret.yaml"
   '';
-
-  network.firewall.public.tcp.ports = [ 8123 8072 1883 21064 21063 ];
-  network.firewall.private.tcp.ports = [ 8123 ];
 }

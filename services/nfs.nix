@@ -3,9 +3,8 @@
 with lib;
 
 {
-  network.firewall = {
-    private.tcp.ports = [ 111 2049 ];
-    public.tcp.ports = [ 111 2049 ];
+  networks.chitei = {
+    tcp = [ 111 2049 ];
   };
 
   services.nfs.server.enable = true;

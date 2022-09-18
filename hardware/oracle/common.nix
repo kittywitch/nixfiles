@@ -68,8 +68,8 @@ in
           ${interface} = {
             useDHCP = true;
             ipv6 = {
-              addresses = lib.mkIf (config.network.addresses.public.nixos.ipv6.enable) [{
-                address = config.network.addresses.public.nixos.ipv6.address;
+              addresses = lib.mkIf (config.networks.internet.ipv6_defined) [{
+                address = config.networks.internet.ipv6;
                 prefixLength = 64;
               }];
               routes = [{
@@ -80,29 +80,29 @@ in
           };
         };
 
-      network = {
-        addresses = {
-          public =
-            let
-              addr_ipv6_nix =
-                let
+      networks = {
+        internet = {
+          interfaces = lib.singleton interface;
+          ipv4 = lib.mkOrder 1000 (tf.resources.${config.networking.hostName}.getAttr "public_ip");
+          ipv6 = let
+            prefix = lib.head (lib.splitString "/" (oci-root.resources.oci_kw_subnet.importAttr "ipv6cidr_block"));
+          in assert lib.hasSuffix "::" prefix; prefix + toString config.kw.oci.network.publicV6;
+          ip = hostname: class: if hostname != config.networking.hostName then
+              if class == 6 then let
                   prefix = lib.head (lib.splitString "/" (oci-root.resources.oci_kw_subnet.importAttr "ipv6cidr_block"));
-                in
-                assert lib.hasSuffix "::" prefix; prefix + toString config.kw.oci.network.publicV6;
-            in
-            {
-              enable = true;
-              nixos.ipv6.address = lib.mkIf tf.state.enable addr_ipv6_nix;
-              nixos.ipv6.selfaddress = lib.mkIf tf.state.enable addr_ipv6_nix;
-              tf.ipv6.address = tf.resources."${config.networking.hostName}_ipv6".refAttr "ip_address";
-            };
+                in assert lib.hasSuffix "::" prefix; prefix + toString config.kw.oci.network.publicV6
+              else if class == 4 then
+                tf.resources.${config.networking.hostName}.importAttr "public_ip"
+                else throw "${config.networking.hostName}: IP for ${hostname} of ${toString class} is invalid."
+            else
+              if class == 6 then let
+                  prefix = lib.head (lib.splitString "/" (oci-root.resources.oci_kw_subnet.importAttr "ipv6cidr_block"));
+                in assert lib.hasSuffix "::" prefix; prefix + toString config.kw.oci.network.publicV6
+              else if class == 4 then
+                tf.resources.${config.networking.hostName}.getAttr "public_ip"
+                else throw "${config.networking.hostName}: IP for ${hostname} of ${toString class} is invalid.";
+          };
         };
-        firewall.public.interfaces = lib.singleton interface;
-        tf = {
-          enable = true;
-          ipv4_attr = "public_ip";
-        };
-      };
 
       deploy.tf =
         let
@@ -116,7 +116,6 @@ in
               connection = tf.resources."${config.networking.hostName}".connection.set;
             };
             connection = {
-
               port = lib.head config.services.openssh.ports;
             };
           };

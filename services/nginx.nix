@@ -12,10 +12,11 @@ with lib;
     '';
   };
 
-  network.firewall = {
-    public.tcp.ports = [ 443 80 ];
-    private.tcp.ports = [ 443 80 ];
-  };
+  networks = genAttrs [ "chitei" "gensokyo" "internet" "tailscale" ] (_: {
+    # NGINX
+    tcp = [ 80 443 ];
+    udp = [ 80 443 ];
+  });
 
   services.nginx = {
     enable = true;
@@ -39,8 +40,7 @@ with lib;
   };
 
   security.acme = {
-    defaults.email = config.network.dns.email;
-    #email = config.network.dns.email;
+    defaults.email = "kat@inskip.me";
     acceptTerms = true;
   };
 }
