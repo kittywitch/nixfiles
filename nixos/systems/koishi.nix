@@ -14,7 +14,7 @@
         type = "resource";
         connection = {
           port = head config.services.openssh.ports;
-          host = config.network.addresses.private.nixos.ipv4.address;
+          host = config.networks.gensokyo.ipv4;
         };
       };
     };

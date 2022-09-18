@@ -159,7 +159,7 @@
           create_domain = true;
         };
         tailscale = mkMerge [
-        (mkIf (cfg.tf.enable) {
+        (mkIf tf.state.enable {
           ipv4 = meta.tailnet.${config.networking.hostName}.ipv4 or null;
           ipv6 = meta.tailnet.${config.networking.hostName}.ipv6 or null;
         })
