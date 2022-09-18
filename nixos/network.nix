@@ -167,7 +167,8 @@
           interfaces = singleton "tailscale0";
           zone = "inskip.me.";
           create_domain = true;
-        };
+        }
+      ];
       };
 
     networking.domain = "inskip.me";
