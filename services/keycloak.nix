@@ -24,7 +24,6 @@ in {
     };
 
 
-  users.groups.domain-auth.members = [ "nginx" "openldap" "keycloak" ];
  /* security.acme.certs.domain-auth = {
     group = "domain-auth";
     postRun = ''

@@ -273,12 +273,12 @@
         nameValuePair "${hostname}-cert" {
           text = tf.acme.certs.${hostname}.out.refFullchainPem;
           owner = "nginx";
-          group = "nginx";
+          group = "domain-auth";
         }) hostnames) // listToAttrs (map (hostname:
         nameValuePair "${hostname}-key" {
           text = tf.acme.certs.${hostname}.out.refPrivateKeyPem;
           owner = "nginx";
-          group = "nginx";
+          group = "domain-auth";
         }) hostnames);
 
     services.nginx.virtualHosts = let
@@ -291,6 +291,11 @@
           sslCertificateKey = config.secrets.files."${hostname}-key".path;
         }) hostnames);
 
+    users.groups.domain-auth = {
+      gid = 10600;
+      members = [ "nginx" "openldap" "keycloak" ];
+    };
+
     networking.firewall = {
       interfaces = mkMerge (mapAttrsToList (network: settings:
         genAttrs settings.interfaces (_: { allowedTCPPortRanges = settings.tcp; allowedUDPPortRanges = settings.udp; })
@@ -299,7 +304,6 @@
       allowedTCPPorts = [ 5200 ];
       allowedUDPPorts = [ config.services.tailscale.port ];
     };
-
 
     services.tailscale.enable = true;
 
