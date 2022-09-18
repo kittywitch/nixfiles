@@ -93,7 +93,7 @@ jobs:
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.cache
 name: flake-update
-'on':
+on:
   pull_request:
     paths:
     - default.nix
