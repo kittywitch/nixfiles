@@ -3,16 +3,23 @@
 with lib;
 
 {
-  networks.internet.tcp = [
-    5000
-    5222
-    5223
-    5269
-    5280
-    5281
-    5347
-    5582
-  ];
+  networks.internet = {
+    extra_domains = [
+      "xmpp.kittywit.ch"
+      "conference.kittywit.ch"
+      "upload.kittywit.ch"
+    ];
+    tcp = [
+      5000
+      5222
+      5223
+      5269
+      5280
+      5281
+      5347
+      5582
+    ];
+  };
 
   services.postgresql = {
     ensureDatabases = [ "prosody" ];
@@ -44,46 +51,18 @@ with lib;
         }
     '';
     virtualHosts = {
-      "xmpp.${config.network.dns.domain}" = {
+      "xmpp.kittywit.ch" = {
         domain = config.network.dns.domain;
         enabled = true;
         ssl.cert = "/var/lib/acme/prosody/fullchain.pem";
         ssl.key = "/var/lib/acme/prosody/key.pem";
       };
     };
-    muc = [{ domain = "conference.${config.network.dns.domain}"; }];
-    uploadHttp = { domain = "upload.${config.network.dns.domain}"; };
+    muc = [{ domain = "conference.kittywit.ch"; }];
+    uploadHttp = { domain = "upload.kittywit.ch"; };
   };
 
-  security.acme.certs.prosody = {
-    domain = "xmpp.${config.network.dns.domain}";
-    group = "prosody";
-    dnsProvider = "rfc2136";
-    credentialsFile = config.secrets.files.dns_creds.path;
-    postRun = "systemctl restart prosody";
-    extraDomainNames =
-      [ config.network.dns.domain "upload.${config.network.dns.domain}" "conference.${config.network.dns.domain}" ];
-  };
-
-domains = rec {
-  kittywitch-prosody = {
-    network = "internet";
-    type = "both";
-    domain = "xmpp";
-  };
-  kittywitch-prosody-upload = {
-    network = "internet";
-    type = "cname";
-    domain = "upload";
-    cname.target = kittywitch-prosody.target;
-  };
-  kittywitch-prosody-conference = {
-    network = "internet";
-    type = "cname";
-    domain = "conference";
-    cname.target = kittywitch-prosody.target;
-  };
-};
+  users.groups.domain-auth.members = [ "prosody" ];
 
   deploy.tf.dns.records = {
     services_prosody_muc = {
@@ -140,14 +119,10 @@ domains = rec {
   };
 
   services.nginx.virtualHosts = {
-    "upload.${config.network.dns.domain}" = {
-      useACMEHost = "prosody";
-      forceSSL = true;
+    "upload.kittywit.ch" = {
     };
 
-    "conference.${config.network.dns.domain}" = {
-      useACMEHost = "prosody";
-      forceSSL = true;
+    "conference.kittywit.ch" = {
     };
   };
 

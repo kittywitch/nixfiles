@@ -45,14 +45,12 @@
       rocketPort = 4000;
       websocketEnabled = true;
       signupsAllowed = false;
-      domain = "https://vault.${config.network.dns.domain}";
+      domain = "https://vault.kittywit.ch}";
       databaseUrl = "postgresql://bitwarden_rs@/bitwarden_rs";
     };
   };
 
-  services.nginx.virtualHosts."vault.${config.network.dns.domain}" = {
-    enableACME = true;
-    forceSSL = true;
+  services.nginx.virtualHosts."vault.kittywit.ch" = {
     locations = {
         "/" = {
           proxyPass = "http://localhost:4000";
@@ -69,9 +67,9 @@
     };
   };
 
-  deploy.tf.dns.records.services_vaultwarden = {
-    inherit (config.network.dns) zone;
+  domains.kittywitch-vault = {
+    inherit (config.networks.internet) target;
+    type = "cname";
     domain = "vault";
-    cname = { inherit (config.network.addresses.public) target; };
   };
 }

@@ -23,8 +23,6 @@
 					"pulseaudio"
 					"custom/headset-icon"
 					"custom/headset"
-					"custom/mail-icon"
-					"custom/mail"
 					"custom/cpu-icon"
 					"cpu"
 					"custom/memory-icon"
@@ -33,7 +31,8 @@
 					"temperature"
 					"battery#icon"
 					"battery"
-					"backlight#icon"
+					"battery#icon"
+					"backlight"
 					"backlight"
 					"network"
 					"idle_inhibitor"
@@ -60,9 +59,12 @@
 					icon-size = 12;
 					spacing = 2;
 				};
-				backlight = {
-					format = "{icon} {percent}%";
+				"backlight#icon" = {
+					format = "{icon}";
 					format-icons = ["" ""];
+				};
+				backlight = {
+					format = "{percent}%";
 				};
 				"custom/gpg-status" = {
 					format = "{}";
@@ -90,12 +92,6 @@
 					on-click = "${pkgs.waybar-konawall}/bin/konawall-toggle";
 					on-click-right = "systemctl --user restart konawall";
 					signal = 8;
-				};
-				"custom/mail-icon".format = "";
-				"custom/mail" = {
-					format = "{}";
-					interval = 30;
-					exec = "${pkgs.notmuch-arc}/bin/notmuch count tag:flagged OR tag:inbox AND NOT tag:killed";
 				};
 				"custom/cpu-icon".format = "";
 				cpu.format = "{usage}%";

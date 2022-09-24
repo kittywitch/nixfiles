@@ -4,7 +4,18 @@
   bootstrapPkgs = import ./overlays { inherit inputs system; };
   inherit (pkgs) lib;
 
-  patchedInputs = inputs // { darwin = bootstrapPkgs.applyPatches {
+  patchedInputs = inputs // {
+    nixpkgs = bootstrapPkgs.applyPatches {
+      name = "nixpkgs";
+      src = inputs.nixpkgs;
+      patches = [ (bootstrapPkgs.fetchpatch {
+        url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/180469.patch";
+        sha256 = "sha256-uxgx5fLB5450EgqP7OxETD5SKDd4l5qhTFzU/6azPZA=";
+        })
+        
+      ];
+    };
+  } // { darwin = bootstrapPkgs.applyPatches {
     name = "darwin";
     src = inputs.darwin;
     patches = [ (bootstrapPkgs.fetchpatch {

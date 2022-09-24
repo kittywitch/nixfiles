@@ -83,7 +83,7 @@ return [
   };
 
   services.nginx.virtualHosts = {
-    "files.${config.network.dns.domain}" = {
+    "files.kittywit.ch" = {
       root = "/var/lib/xbackbone/www";
       locations = {
         "/" = {
@@ -139,8 +139,6 @@ location CHANGELOG.md {
   return 403;
 }
         '';
-      enableACME = true;
-      forceSSL = true;
     };
   };
 
@@ -181,9 +179,9 @@ location CHANGELOG.md {
     };
   };
 
-  deploy.tf.dns.records.services_filehost = {
-    inherit (config.network.dns) zone;
+  domains.kittywitch-filehost = {
     domain = "files";
-    cname = { inherit (config.network.addresses.public) target; };
+    type = "cname";
+    inherit (config.networks.internet) target;
   };
 }

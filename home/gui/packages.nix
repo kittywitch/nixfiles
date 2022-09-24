@@ -20,5 +20,7 @@
     jmtpfs
     element-desktop
     cryptsetup
+    esphome
+    kicad
   ];
 }

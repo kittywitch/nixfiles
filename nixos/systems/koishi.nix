@@ -1,24 +1,15 @@
 { meta, config, pkgs, lib, ... }: with lib; {
   imports = with meta; [
     hardware.x270
+    hardware.local
     nixos.gui
     nixos.light
     nixos.network
+    services.nginx
     home.gui
   ];
 
   config = {
-    deploy.tf = {
-      resources.koishi = {
-        provider = "null";
-        type = "resource";
-        connection = {
-          port = head config.services.openssh.ports;
-          host = config.networks.gensokyo.ipv4;
-        };
-      };
-    };
-
   programs.ssh.extraConfig = ''
     Host daiyousei-build
         HostName daiyousei.kittywit.ch
@@ -102,6 +93,12 @@
       gensokyo = {
         interfaces = [ "enp1s0" "wlp3s0" ];
         ipv4 = "10.1.1.65";
+        udp = [
+          # Chromecast
+          [ 32768 60999 ]
+          # MDNS
+          5353
+        ];
       };
     };
 

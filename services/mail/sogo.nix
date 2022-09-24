@@ -12,19 +12,10 @@
     group = "sogo";
   };
 
-  services.nginx.virtualHosts."mail.${config.network.dns.domain}" = {
-    useACMEHost = "dovecot_domains";
-    enableACME = mkForce false;
-    forceSSL = true;
-  };
 
+  users.groups.domain-auth.members = [ "postfix" ];
   users.users.nginx.extraGroups = singleton "postfix";
-
-  deploy.tf.dns.records.services_sogo = {
-    inherit (config.network.dns) zone;
-    domain = "mail";
-    cname = { inherit (config.network.addresses.public) target; };
-  };
+  networks.internet.extra_domains = [ "mail.kittywit.ch" ];
 
   services.postgresql = {
     enable = true;
@@ -42,7 +33,7 @@
   services.sogo = {
     enable = true;
     timezone = "Europe/London";
-    vhostName = "mail.${config.network.dns.domain}";
+    vhostName = "mail.kittywit.ch";
     extraConfig = ''
       SOGoMailDomain = "kittywit.ch";
       SOGoPageTitle = "kittywitch";

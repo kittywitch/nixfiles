@@ -104,6 +104,14 @@ in
     };
   };
 
+  networks.internet = {
+    extra_domains = [
+      "kittywit.ch"
+      "sync.kittywit.ch"
+      "voice.kittywit.ch"
+    ];
+  };
+  users.groups."domain-auth".members = [ "murmur" ];
   # Certs
 /*
   network.extraCerts.services_murmur = "voice.${config.net";

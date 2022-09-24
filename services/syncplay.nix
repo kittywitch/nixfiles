@@ -17,10 +17,10 @@ with lib;
 
   users.users.syncplay = { isSystemUser = true; group = "sync-cert"; };
 
-  users.groups."sync-cert".members = [ "nginx" "syncplay" ];
+  users.groups."domain-auth".members = [ "syncplay" ];
+
   security.acme = {
-    certs."sync.${config.network.dns.domain}" = {
-      group = "sync-cert";
+    certs."kittywit.ch" = {
       postRun = ''
         cp key.pem privkey.pem
         chown acme:voice-cert privkey.pem
@@ -29,11 +29,6 @@ with lib;
   };
 
   networks.internet.tcp = [ 8999 ];
-
-  services.nginx.virtualHosts."sync.${config.network.dns.domain}" = {
-    enableACME = true;
-    forceSSL = true;
-  };
 
   domains.kittywitch-syncplay = {
     network = "internet";

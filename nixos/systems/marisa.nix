@@ -49,6 +49,7 @@
 
   networks = {
     internet = {
+      zone = "kittywit.ch.";
       ipv4 = "104.244.72.5";
       ipv6 = "2605:6400:30:eed1:6cf7:bbfc:b4e:15c0";
       interfaces = singleton "ens3";

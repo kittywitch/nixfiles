@@ -10,7 +10,7 @@
 
   secrets.files.hedgedoc-env = {
     text = ''
-      CMD_OAUTH2_USER_PROFILE_URL=https://auth.${config.network.dns.domain}/auth/realms/kittywitch/protocol/openid-connect/userinfo
+      CMD_OAUTH2_USER_PROFILE_URL=https://auth.kittywit.ch/auth/realms/kittywitch/protocol/openid-connect/userinfo
       CMD_OAUTH2_CLIENT_SECRET=${tf.variables.hedgedoc-secret.ref}
       CMD_OAUTH2_USER_PROFILE_USERNAME_ATTR=preferred_username
       CMD_OAUTH2_USER_PROFILE_DISPLAY_NAME_ATTR=name
@@ -27,7 +27,7 @@
     configuration = {
       debug = true;
       path = "/run/hedgedoc/hedgedoc.sock";
-      domain = "md.${config.network.dns.domain}";
+      domain = "md.kittywit.ch";
       protocolUseSSL = true;
       allowFreeURL = true;
       email = false;
@@ -41,8 +41,8 @@
         host = "/run/postgresql";
       };
       oauth2 = {
-        tokenURL = "https://auth.${config.network.dns.domain}/auth/realms/kittywitch/protocol/openid-connect/token";
-        authorizationURL = "https://auth.${config.network.dns.domain}/auth/realms/kittywitch/protocol/openid-connect/auth";
+        tokenURL = "https://auth.kittywit.ch/auth/realms/kittywitch/protocol/openid-connect/token";
+        authorizationURL = "https://auth.kittywit.ch/auth/realms/kittywitch/protocol/openid-connect/auth";
         clientID = "hedgedoc";
         clientSecret = "";
       };
@@ -74,7 +74,7 @@
   };
 
   users.users.nginx.extraGroups = [ "hedgedoc" ];
-  services.nginx.virtualHosts."md.${config.network.dns.domain}" = {
+  services.nginx.virtualHosts."md.kittywit.ch" = {
     enableACME = true;
     forceSSL = true;
     locations."/" = {

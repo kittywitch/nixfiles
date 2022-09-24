@@ -2,7 +2,7 @@
 
 {
   services.nginx.virtualHosts = {
-    "${config.network.dns.domain}" = {
+    "kittywit.ch" = {
       root = pkgs.gensokyoZone;
       enableACME = true;
       forceSSL = true;

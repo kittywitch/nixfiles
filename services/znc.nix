@@ -121,7 +121,7 @@ in
     group = "znc";
   };
 
-  services.nginx.virtualHosts."znc.${config.network.dns.domain}" = {
+  services.nginx.virtualHosts."znc.kittywit.ch" = {
     enableACME = true;
     forceSSL = true;
     locations = { "/".proxyPass = "http://127.0.0.1:5002"; };

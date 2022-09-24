@@ -25,6 +25,8 @@ with lib;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
     commonHttpConfig = mkIf (config.networking.hostName != "yukari") ''
+      large_client_header_buffers 4 16k;
+      proxy_buffers 8 8k;
       map $scheme $hsts_header {
           https   "max-age=31536000; includeSubdomains; preload";
       }

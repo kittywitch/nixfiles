@@ -5,6 +5,8 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     hardware.local
     nixos.network
+    ./kanidm.nix
+    ./vouch.nix
     ./home-assistant.nix
     ./zigbee2mqtt.nix
     ./mosquitto.nix

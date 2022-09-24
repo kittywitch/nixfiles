@@ -1,6 +1,7 @@
 { meta, tf, config, pkgs, lib, ... }: with lib; {
   imports = with meta; [
     hardware.rm-310
+    hardware.local
     nixos.network
     nixos.arc
     services.ha
@@ -14,17 +15,6 @@
     services.zfs
     services.plex
   ];
-
-  deploy.tf = {
-    resources.yukari = {
-      provider = "null";
-      type = "resource";
-      connection = {
-        port = head config.services.openssh.ports;
-        host = config.network.addresses.private.nixos.ipv4.address;
-      };
-    };
-  };
 
   boot.supportedFilesystems = singleton "zfs";
 

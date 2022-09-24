@@ -10,8 +10,16 @@
             type = nullOr str;
             default = nixos.networking.hostName;
           };
+          owner = mkOption {
+            type = str;
+            default = "nginx";
+          };
+          group = mkOption {
+            type = str;
+            default = "domain-auth";
+          };
           network = mkOption {
-            type = nullOr str;
+            type = unspecified;
             default = "internet";
           };
           type = mkOption {
@@ -21,6 +29,10 @@
               "both"
               "cname"
             ];
+          };
+          create_cert = mkOption {
+            type = bool;
+            default = true;
           };
           domain = mkOption {
             type = nullOr str;
@@ -42,7 +54,7 @@
             type = nullOr str;
             default = if (config.type == "cname" && config.host != nixos.networking.hostName) then
               meta.network.nodes.nixos.${config.host}.networks.${config.network}.target
-            else "${config.domain}.${config.zone}";
+            else "${if config.domain == null then "" else "${config.domain}."}${config.zone}";
           };
         };
       }));
@@ -126,6 +138,11 @@
             type = bool;
             default = false;
           };
+          extra_domains = mkOption {
+            type = listOf str;
+            description = "Domains to add to the certificate generated for this network.";
+            default = [];
+          };
           domain = mkOption {
             type = nullOr str;
             default = "${nixos.networking.hostName}${if config.prefix != null then ".${config.prefix}" else ""}";
@@ -146,13 +163,17 @@
       }));
     };
   };
-  config = {
+  config = let
+  sane_networks = lib.filterAttrs (network: settings: settings.interfaces != []) config.networks;
+    in {
     networks = {
         internet = {
+          zone = mkDefault "kittywit.ch.";
           create_domain = true;
         };
         chitei = {
-          create_domain = true;
+          zone = mkDefault "kittywit.ch.";
+          create_domain = false;
         };
         gensokyo = {
           zone = mkDefault "gensokyo.zone.";
@@ -182,8 +203,8 @@
         domains' = map (family: mapAttrs' (name: settings: let
           network = if settings.host != config.networking.hostName then
             meta.network.nodes.nixos.${settings.host}.networks.${settings.network}
-          else config.networks.${settings.network};
-        in nameValuePair "${settings.network}-${if settings.type == "both" || settings.type == family then family else settings.type}-${settings.domain}-${settings.zone}" ({
+          else sane_networks.${settings.network};
+        in nameValuePair "${settings.network}-${if settings.type == "both" || settings.type == family then family else settings.type}-${if settings.domain == null then "root" else settings.domain}-${settings.zone}" ({
             inherit (settings) domain zone;
             enable = mkDefault false;
           } // (optionalAttrs (settings.type == "cname" && family == "ipv4") {
@@ -200,9 +221,21 @@
             a.address = network.ipv4;
             enable = mkForce network.ipv4_defined;
           }))) domains) address_families;
-        networks = config.networks;
+        networks = sane_networks;
         # Networks to actually create domains for
         networks' = filterAttrs (_: settings: settings.create_domain) networks;
+        # Extra domains to automatically be cnamed
+        extraDomainedNetworks = filterAttrs (_: settings: settings.extra_domains != []) networks';
+        extraDomains = listToAttrs (concatLists (mapAttrsToList (network: settings:
+          map (domain: let
+            split_domain = splitString "."  domain;
+            isRoot = (length split_domain) == 2;
+        in nameValuePair "${network}-cname-${if isRoot then "root" else elemAt split_domain (length split_domain -2)}-${concatStringsSep "." (sublist (length split_domain - 2) (length split_domain) split_domain)}." {
+          zone = "${concatStringsSep "." (sublist (length split_domain - 2) (length split_domain) split_domain)}.";
+          domain = if isRoot then null
+            else elemAt split_domain (length split_domain - 2);
+          cname = { inherit (settings) target; };
+        }) settings.extra_domains) extraDomainedNetworks));
         # Merge the result of a map upon address_families to mapAttrs'
         networks'' = map (family: mapAttrs' (network: settings:
           nameValuePair "${network}-${family}-${settings.domain}-${settings.zone}" ({
@@ -216,7 +249,7 @@
             a.address = settings.ipv4;
           })
         )) networks') address_families;
-      in mkMerge (networks'' ++ domains');
+      in mkMerge (networks'' ++  domains' ++ [ extraDomains ]);
 
       acme = let
           home = meta.deploy.targets.home.tf;
@@ -236,13 +269,13 @@
           };
         };
         certs = let
-          hostnames = (attrValues (mapAttrs (network: settings: removeSuffix "." settings.target) config.networks))
-          ++ (attrValues (mapAttrs (network: settings: removeSuffix "." settings.target) config.domains));
-        in listToAttrs (map (hostname:
-        nameValuePair hostname {
-          keyType = "4096";
-          dnsNames = singleton hostname;
-        }) hostnames);
+          nvP = network: settings: nameValuePair "${removeSuffix "." settings.target}" {
+            keyType = "4096";
+            dnsNames = [ (removeSuffix "." settings.target) ] ++ (lib.optionals (settings ? extra_domains) settings.extra_domains);
+          };
+          network_certs = mapAttrs' nvP sane_networks;
+          domain_certs = mapAttrs' nvP (filterAttrs (network: settings: settings.create_cert) config.domains);
+        in network_certs // domain_certs;
       };
 
       variables = {
@@ -271,39 +304,60 @@
     };
 
     secrets.files = let
-          hostnames = (attrValues (mapAttrs (network: settings: removeSuffix "." settings.target) config.networks))
-          ++ (attrValues (mapAttrs (network: settings: removeSuffix "." settings.target) config.domains));
-        in listToAttrs (map (hostname:
-        nameValuePair "${hostname}-cert" {
-          text = tf.acme.certs.${hostname}.out.refFullchainPem;
-          owner = "nginx";
-          group = "domain-auth";
-        }) hostnames) // listToAttrs (map (hostname:
-        nameValuePair "${hostname}-key" {
-          text = tf.acme.certs.${hostname}.out.refPrivateKeyPem;
-          owner = "nginx";
-          group = "domain-auth";
-        }) hostnames);
+          fixedTarget = settings: removeSuffix "." settings.target;
+          networks = mapAttrs' (network: settings:
+            nameValuePair "${fixedTarget settings}-cert" {
+              text = tf.acme.certs.${fixedTarget settings}.out.refFullchainPem;
+              owner = "nginx";
+              group = "domain-auth";
+            }
+          ) sane_networks;
+          networks' = mapAttrs' (network: settings:
+            nameValuePair "${fixedTarget settings}-key" {
+              text = tf.acme.certs.${fixedTarget settings}.out.refPrivateKeyPem;
+              owner = "nginx";
+              group = "domain-auth";
+            }
+          ) sane_networks;
+          domains = mapAttrs' (network: settings:
+            nameValuePair "${fixedTarget settings}-cert" {
+              text = tf.acme.certs.${fixedTarget settings}.out.refFullchainPem;
+              owner = settings.owner;
+              group = settings.group;
+            }
+          ) (filterAttrs (network: settings: settings.create_cert) config.domains);
+          domains' = mapAttrs' (network: settings:
+            nameValuePair "${fixedTarget settings}-key" {
+              text = tf.acme.certs.${fixedTarget settings}.out.refPrivateKeyPem;
+              owner = settings.owner;
+              group = settings.group;
+            }
+          ) (filterAttrs (network: settings: settings.create_cert) config.domains);
+          in networks // networks' // domains // domains';
 
     services.nginx.virtualHosts = let
-          hostnames = (attrValues (mapAttrs (network: settings: removeSuffix "." settings.target) config.networks))
-          ++ (attrValues (mapAttrs (network: settings: removeSuffix "." settings.target) config.domains));
-        in listToAttrs (map (hostname:
-        nameValuePair hostname {
-          forceSSL = true;
-          sslCertificate = config.secrets.files."${hostname}-cert".path;
-          sslCertificateKey = config.secrets.files."${hostname}-key".path;
-        }) hostnames);
+          networkVirtualHosts = concatLists (mapAttrsToList (network: settings: map(domain: nameValuePair domain {
+            forceSSL = true;
+            sslCertificate = config.secrets.files."${removeSuffix "." settings.target}-cert".path;
+            sslCertificateKey = config.secrets.files."${removeSuffix "." settings.target}-key".path;
+          }) ([ settings.target ] ++ settings.extra_domains)) sane_networks);
+          domainVirtualHosts = (attrValues (mapAttrs (network: settings: removeSuffix "." settings.target) config.domains));
+          domainVirtualHosts' = (map (hostname:
+            nameValuePair hostname {
+              forceSSL = true;
+              sslCertificate = config.secrets.files."${hostname}-cert".path;
+              sslCertificateKey = config.secrets.files."${hostname}-key".path;
+          }) domainVirtualHosts);
+        in listToAttrs (networkVirtualHosts ++ (lib.optionals config.services.nginx.enable domainVirtualHosts'));
 
     users.groups.domain-auth = {
       gid = 10600;
-      members = [ "nginx" "openldap" "keycloak" ];
     };
 
     networking.firewall = {
       interfaces = mkMerge (mapAttrsToList (network: settings:
         genAttrs settings.interfaces (_: { allowedTCPPortRanges = settings.tcp; allowedUDPPortRanges = settings.udp; })
-      ) (removeAttrs config.networks ["tailscale"]));
+      ) (removeAttrs sane_networks ["tailscale"]));
       trustedInterfaces = [ "tailscale0" ];
       allowedTCPPorts = [ 5200 ];
       allowedUDPPorts = [ config.services.tailscale.port ];

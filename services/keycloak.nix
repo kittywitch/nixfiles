@@ -24,14 +24,19 @@ in {
     };
 
 
- /* security.acme.certs.domain-auth = {
+  users.groups.domain-auth = {
+    gid = 10600;
+    members = [ "keycloak" ];
+  };
+
+  security.acme.certs."auth.kittywit.ch" = {
     group = "domain-auth";
     postRun = ''
       ${pkgs.adoptopenjdk-jre-bin}/bin/keytool -delete -alias auth.kittywit.ch -keypass ${keystore-pass} -storepass ${keystore-pass} -keystore ./trust-store.jks
-      ${pkgs.adoptopenjdk-jre-bin}/bin/keytool -import -alias auth.${config.network.dns.domain} -noprompt -keystore trust-store.jks -keypass ${keystore-pass} -storepass ${keystore-pass} -file cert.pem
+      ${pkgs.adoptopenjdk-jre-bin}/bin/keytool -import -alias auth.kittywit.ch -noprompt -keystore trust-store.jks -keypass ${keystore-pass} -storepass ${keystore-pass} -file cert.pem
       chown acme:domain-auth ./trust-store.jks
     '';
-  }; */
+  };
 
   users.groups.keycloak = { };
   users.users.keycloak = {
@@ -50,7 +55,7 @@ in {
     group = "keycloak";
   };
 
-  services.nginx.virtualHosts."auth.${config.network.dns.domain}" = {
+  services.nginx.virtualHosts."auth.kittywit.ch" = {
     useACMEHost = "domain-auth";
     forceSSL = true;
     locations = {

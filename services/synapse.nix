@@ -180,7 +180,7 @@ CONFIG = {
         level: WARNING
         handlers: [console]
     '';
-      server_name = config.network.dns.domain;
+      server_name = "kittywit.ch";
       app_service_config_files = [
         "/var/lib/matrix-synapse/telegram-registration.yaml"
         "/var/lib/matrix-synapse/discord-registration.yaml"
@@ -189,7 +189,7 @@ CONFIG = {
       max_upload_size = "512M";
       rc_messages_per_second = mkDefault 0.1;
       rc_message_burst_count = mkDefault 25;
-      public_baseurl = "https://${config.network.dns.domain}";
+      public_baseurl = "https://kittywit.ch";
       url_preview_enabled = mkDefault true;
       enable_registration = mkDefault false;
       enable_metrics = mkDefault false;
@@ -236,14 +236,14 @@ CONFIG = {
         public = {
           enabled = false;
           prefix = "/public";
-          external = "https://${config.network.dns.domain}/public";
+          external = "https://kittywit.ch/public";
         };
       };
       bridge = {
         relaybot.authless_portals = false;
         permissions = {
-          "@kat:${config.network.dns.domain}" = "admin";
-          "${config.network.dns.domain}" = "full";
+          "@kat:kittywit.ch" = "admin";
+          "kittywit.ch" = "full";
         };
       };
     };
@@ -293,15 +293,13 @@ CONFIG = {
     after = [ "network.target" ];
   };
 
-  deploy.tf.dns.records.services_element = {
-    inherit (config.network.dns) zone;
+  domains.kittywitch-matrix = {
+    inherit (config.networks.internet) target;
+    type = "cname";
     domain = "matrix";
-    cname = { inherit (config.network.addresses.public) target; };
   };
 
-  services.nginx.virtualHosts."matrix.${config.network.dns.domain}" = {
-    forceSSL = true;
-    enableACME = true;
+  services.nginx.virtualHosts."matrix.kittywit.ch" = {
     extraConfig = ''
       keepalive_requests 100000;
     '';
@@ -316,7 +314,7 @@ CONFIG = {
     };
   };
 
-  services.nginx.virtualHosts."${config.network.dns.domain}" = {
+  services.nginx.virtualHosts."kittywit.ch" = {
     # allegedly fixes https://github.com/poljar/weechat-matrix/issues/240
     extraConfig = ''
       keepalive_requests 100000;
@@ -334,7 +332,7 @@ CONFIG = {
       "= /.well-known/matrix/client".extraConfig =
         let
           client = {
-            "m.homeserver" = { "base_url" = "https://${config.network.dns.domain}"; };
+            "m.homeserver" = { "base_url" = "https://kittywit.ch"; };
             "m.identity_server" = { "base_url" = "https://vector.im"; };
           };
         in

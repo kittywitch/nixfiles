@@ -29,11 +29,11 @@ in {
               };
               pp = mkOption {
                 type = types.unspecified;
-                default = family: port: "http://${config."ipv${toString family}"}:${toString port}";
+                default = family: port: "http://${config."ipv${toString family}"}:${toString port}/";
               };
               ppp = mkOption {
                 type = types.unspecified;
-                default = family: port: path: "http://${config."ipv${toString family}"}/${path}:${toString port}";
+                default = family: port: path: "http://${config."ipv${toString family}"}:${toString port}/${path}";
               };
               tags = mkOption {
                 type = types.listOf types.str;
@@ -76,6 +76,7 @@ in {
     "${bitw}/bin/bitw get";
 
   deploy.targets.dummy.enable = false;
+  deploy.targets.marisa.tf.terraform.refreshOnApply = false;
   _module.args.pkgs = lib.mkDefault pkgs;
 };
 }
