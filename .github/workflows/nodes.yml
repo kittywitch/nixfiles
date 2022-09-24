@@ -587,6 +587,6 @@ jobs:
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.cache
 name: nodes
-on:
+'on':
 - push
 - pull_request
