@@ -20,14 +20,14 @@ in {
                <displayName>kittywit.ch Mail</displayName>
                <displayShortName>kittywitch</displayShortName>
                <incomingServer type="imap">
-                 <hostname>${config.network.addresses.public.domain}</hostname>
+                 <hostname>daiyousei.kittywit.ch}</hostname>
                  <port>993</port>
                  <socketType>SSL</socketType>
                  <authentication>password-cleartext</authentication>
                  <username>%EMAILADDRESS%</username>
                </incomingServer>
                <outgoingServer type="smtp">
-                 <hostname>${config.network.addresses.public.domain}</hostname>
+                 <hostname>daiyousei.kittywit.ch</hostname>
                  <port>465</port>
                  <socketType>SSL</socketType>
                  <authentication>password-cleartext</authentication>
