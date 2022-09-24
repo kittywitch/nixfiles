@@ -81,7 +81,7 @@ in
         };
 
       networks = {
-        internet = {
+        internet = lib.mkIf tf.state.enable {
           interfaces = lib.singleton interface;
           ipv4 = lib.mkOrder 1000 (tf.resources.${config.networking.hostName}.getAttr "public_ip");
           ipv6 = let
