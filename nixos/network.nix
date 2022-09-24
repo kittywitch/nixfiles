@@ -181,10 +181,12 @@
         };
         tailscale = mkMerge [
         (mkIf tf.state.enable {
-          ipv4 = meta.tailnet.${config.networking.hostName}.ipv4 or null;
-          ipv6 = meta.tailnet.${config.networking.hostName}.ipv6 or null;
+          ipv4 = mkForce meta.tailnet.${config.networking.hostName}.ipv4 or null;
+          ipv6 = mkForce meta.tailnet.${config.networking.hostName}.ipv6 or null;
         })
         {
+          ipv4 = mkDefault "wawawawaawa";
+          ipv6 = mkDefault "awawawawawa";
           interfaces = singleton "tailscale0";
           zone = "inskip.me.";
           create_domain = true;
