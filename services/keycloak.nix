@@ -18,7 +18,7 @@ in {
       hostname-strict = false;
       http-relative-path = "/auth";
       hostname-strict-backchannel = true;
-      https-key-store-file = "/var/lib/acme/domain-auth/trust-store.jks";
+      https-key-store-file = "/var/lib/acme/auth.kittywit.ch/trust-store.jks";
       https-key-store-password = keystore-pass;
       };
     };
@@ -28,7 +28,7 @@ in {
     gid = 10600;
     members = [ "keycloak" ];
   };
-
+/*
   security.acme.certs."auth.kittywit.ch" = {
     group = "domain-auth";
     postRun = ''
@@ -36,7 +36,7 @@ in {
       ${pkgs.adoptopenjdk-jre-bin}/bin/keytool -import -alias auth.kittywit.ch -noprompt -keystore trust-store.jks -keypass ${keystore-pass} -storepass ${keystore-pass} -file cert.pem
       chown acme:domain-auth ./trust-store.jks
     '';
-  };
+  };*/
 
   users.groups.keycloak = { };
   users.users.keycloak = {
@@ -56,7 +56,6 @@ in {
   };
 
   services.nginx.virtualHosts."auth.kittywit.ch" = {
-    useACMEHost = "domain-auth";
     forceSSL = true;
     locations = {
       "/".extraConfig = ''
