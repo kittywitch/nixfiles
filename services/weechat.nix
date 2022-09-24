@@ -13,6 +13,7 @@
 
   domains.kittywitch_irc = {
     domain = "irc";
+    type = "cname";
     inherit (config.networks.internet) target;
   };
 
