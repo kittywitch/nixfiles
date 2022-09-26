@@ -21,6 +21,5 @@
     element-desktop
     cryptsetup
     esphome
-    kicad
   ];
 }

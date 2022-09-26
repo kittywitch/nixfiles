@@ -12,7 +12,7 @@
   config = {
   programs.ssh.extraConfig = ''
     Host daiyousei-build
-        HostName daiyousei.kittywit.ch
+        HostName daiyousei.inskip.me
         Port 62954
         User root
   '';
