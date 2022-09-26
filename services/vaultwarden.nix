@@ -68,7 +68,7 @@
   };
 
   domains.kittywitch-vault = {
-    inherit (config.networks.internet) target;
+    network = "internet";
     type = "cname";
     domain = "vault";
   };

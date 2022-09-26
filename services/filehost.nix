@@ -180,8 +180,8 @@ location CHANGELOG.md {
   };
 
   domains.kittywitch-filehost = {
+    network = "internet";
     domain = "files";
     type = "cname";
-    inherit (config.networks.internet) target;
   };
 }

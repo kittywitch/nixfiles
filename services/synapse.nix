@@ -228,7 +228,7 @@ CONFIG = {
     settings = {
       homeserver = {
         address = "https://kittywit.ch";
-        domain = config.network.dns.domain;
+        domain = "kittywit.ch";
       };
       appservice = {
         provisioning.enabled = false;
@@ -294,7 +294,7 @@ CONFIG = {
   };
 
   domains.kittywitch-matrix = {
-    inherit (config.networks.internet) target;
+    network = "internet";
     type = "cname";
     domain = "matrix";
   };
@@ -323,7 +323,7 @@ CONFIG = {
     locations = {
       "/_matrix" = { proxyPass = "http://[::1]:8008"; };
       "= /.well-known/matrix/server".extraConfig =
-        let server = { "m.server" = "${config.network.dns.domain}:443"; };
+        let server = { "m.server" = "kittywit.ch:443"; };
         in
         ''
           add_header Content-Type application/json;

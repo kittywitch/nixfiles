@@ -1,6 +1,7 @@
 { config, pkgs, tf, lib, ... }: with lib; {
   networks.internet.tcp = [ 636 ];
 
+  users.groups.domain-auth.members = [ "openldap" ];
   services.openldap = {
     enable = true;
     urlList = [ "ldap:///" "ldaps:///" ];
@@ -9,9 +10,9 @@
         objectClass = "olcGlobal";
         cn = "config";
         olcPidFile = "/run/slapd/slapd.pid";
-        olcTLSCACertificateFile = "/var/lib/acme/domain-auth/fullchain.pem";
-        olcTLSCertificateFile = "/var/lib/acme/domain-auth/cert.pem";
-        olcTLSCertificateKeyFile = "/var/lib/acme/domain-auth/key.pem";
+        olcTLSCACertificateFile = config.domains.kittywitch-keycloak.cert_path;
+        olcTLSCertificateFile = config.domains.kittywitch-keycloak.cert_path;
+        olcTLSCertificateKeyFile = config.domains.kittywitch-keycloak.key_path;
       };
       children = {
         "cn=module" = {
@@ -72,7 +73,7 @@
           attrs = {
             objectClass = [ "olcDatabaseConfig" "olcMdbConfig" ];
             olcDatabase = "{1}mdb";
-            olcDbDirectory = "/var/db/ldap";
+            olcDbDirectory = "/var/lib/openldap/db";
             olcSuffix = "dc=kittywit,dc=ch";
             olcRootDN = "cn=root,dc=kittywit,dc=ch";
             olcRootPW.path = config.secrets.files.openldap-root-password-file.path;

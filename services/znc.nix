@@ -127,10 +127,10 @@ in
     locations = { "/".proxyPass = "http://127.0.0.1:5002"; };
   };
 
-  deploy.tf.dns.records.services_znc = {
-    inherit (config.network.dns) zone;
+  domains.kittywitch_znc = {
+    network = "internet";
+    type = "cname";
     domain = "znc";
-    cname = { inherit (config.network.addresses.public) target; };
   };
 
   services.znc = {

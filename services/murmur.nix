@@ -65,8 +65,8 @@ in
     package = pkgs.murmur.override (old: { iceSupport = true; });
     password = tf.variables.murmur-password.ref;
     extraConfig = ''
-      sslCert=/var/lib/acme/services_murmur/fullchain.pem
-      sslKey=/var/lib/acme/services_murmur/key.pem
+      sslCert=${config.networks.internet.cert_path}
+      sslKey=${config.networks.internet.key_path}
       ice="tcp -h 127.0.0.1 -p 6502"
       icesecretread=${tf.variables.murmur-ice.ref}
       icesecretwrite=${tf.variables.murmur-ice.ref}
@@ -106,11 +106,10 @@ in
 
   networks.internet = {
     extra_domains = [
-      "kittywit.ch"
-      "sync.kittywit.ch"
       "voice.kittywit.ch"
     ];
   };
+
   users.groups."domain-auth".members = [ "murmur" ];
   # Certs
 /*
@@ -122,12 +121,6 @@ in
     extraDomainNames = [ config.networks.internet.dn ];
   };*/
 
-  domains.kittywitch-murmur = {
-    network = "internet";
-    type = "cname";
-    domain = "voice";
-  };
-
   deploy.tf.dns.records = {
     services_murmur_tcp_srv = {
       inherit (config.networks.internet) zone;
@@ -138,7 +131,7 @@ in
         priority = 0;
         weight = 5;
         port = 64738;
-        target = kittywitch-murmur.target;
+        inherit (config.networks.internet) target;
       };
     };
 
@@ -151,7 +144,7 @@ in
         priority = 0;
         weight = 5;
         port = 64738;
-        target = kittywitch-murmur.target;
+        inherit (config.networks.internet) target;
       };
     };
   };

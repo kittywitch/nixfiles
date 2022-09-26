@@ -52,10 +52,10 @@ with lib;
     '';
     virtualHosts = {
       "xmpp.kittywit.ch" = {
-        domain = config.network.dns.domain;
+        domain = "kittywit.ch";
         enabled = true;
-        ssl.cert = "/var/lib/acme/prosody/fullchain.pem";
-        ssl.key = "/var/lib/acme/prosody/key.pem";
+        ssl.cert = config.networks.internet.cert_path;
+        ssl.key = config.networks.internet.key_path;
       };
     };
     muc = [{ domain = "conference.kittywit.ch"; }];
@@ -66,7 +66,7 @@ with lib;
 
   deploy.tf.dns.records = {
     services_prosody_muc = {
-      inherit (config.domains.kittywitch-prosody) zone;
+      inherit (config.networks.internet) zone;
       domain = "conference";
       srv = {
         service = "xmpp-server";
@@ -74,12 +74,12 @@ with lib;
         priority = 0;
         weight = 5;
         port = 5269;
-        target = config.domains.kittywitch-prosody.target;
+        target = config.networks.internet.target;
       };
     };
 
     services_prosody_client_srv = {
-      inherit (config.domains.kittywitch-prosody) zone;
+      inherit (config.networks.internet) zone;
       domain = "@";
       srv = {
         service = "xmpp-client";
@@ -87,12 +87,12 @@ with lib;
         priority = 0;
         weight = 5;
         port = 5222;
-        target = config.domains.kittywitch-prosody.target;
+        target = config.networks.internet.target;
       };
     };
 
     services_prosody_secure_client_srv = {
-      inherit (config.domains.kittywitch-prosody) zone;
+      inherit (config.networks.internet) zone;
       domain = "@";
       srv = {
         service = "xmpps-client";
@@ -100,12 +100,12 @@ with lib;
         priority = 0;
         weight = 5;
         port = 5223;
-        target = config.domains.kittywitch-prosody.target;
+        target = config.networks.internet.target;
       };
     };
 
     services_prosody_server_srv = {
-      inherit (config.domains.kittywitch-prosody) zone;
+      inherit (config.networks.internet) zone;
       domain = "@";
       srv = {
         service = "xmpp-server";
@@ -113,7 +113,7 @@ with lib;
         priority = 0;
         weight = 5;
         port = 5269;
-        target = config.domains.kittywitch-prosody.target;
+        target = config.networks.internet.target;
       };
     };
   };

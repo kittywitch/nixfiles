@@ -1,12 +1,11 @@
 { config, pkgs, lib, tf, ... }: with lib; let
-  keystore-pass = "zZX3eS";
+  id = tf.acme.certs."auth.kittywit.ch".out.resource.getAttr "id";
 in {
   services.keycloak = {
     enable = builtins.getEnv "CI_PLATFORM" == "impure";
     package = (pkgs.keycloak.override {
       jre = pkgs.openjdk11;
     });
-    initialAdminPassword = "mewpymewlymewlies";
     database.passwordFile = config.secrets.files.keycloak-postgres-file.path;
     settings = {
       http-enabled = true;
@@ -18,27 +17,31 @@ in {
       hostname-strict = false;
       http-relative-path = "/auth";
       hostname-strict-backchannel = true;
-      https-key-store-file = "/var/lib/acme/auth.kittywit.ch/trust-store.jks";
-      https-key-store-password = keystore-pass;
+      https-key-store-file = "/run/keycloak/${id}.jks";
+      https-key-store-password = id;
       };
     };
 
+  domains.kittywitch-keycloak = {
+    network = "internet";
+    type = "cname";
+    domain = "auth";
+  };
 
   users.groups.domain-auth = {
     gid = 10600;
     members = [ "keycloak" ];
   };
-/*
-  security.acme.certs."auth.kittywit.ch" = {
-    group = "domain-auth";
-    postRun = ''
-      ${pkgs.adoptopenjdk-jre-bin}/bin/keytool -delete -alias auth.kittywit.ch -keypass ${keystore-pass} -storepass ${keystore-pass} -keystore ./trust-store.jks
-      ${pkgs.adoptopenjdk-jre-bin}/bin/keytool -import -alias auth.kittywit.ch -noprompt -keystore trust-store.jks -keypass ${keystore-pass} -storepass ${keystore-pass} -file cert.pem
-      chown acme:domain-auth ./trust-store.jks
-    '';
-  };*/
+
+  systemd.services.keycloak.script  = lib.mkBefore ''
+    mkdir -p /run/keycloak
+    if [[ ! -e /run/keycloak/${id}.jks ]]; then
+      ${pkgs.adoptopenjdk-jre-bin}/bin/keytool -import -alias auth.kittywit.ch -noprompt -keystore /run/keycloak/${id}.jks -keypass ${id} -storepass ${id} -file ${config.domains.kittywitch-keycloak.cert_path}
+    fi
+  '';
 
   users.groups.keycloak = { };
+
   users.users.keycloak = {
     isSystemUser = true;
     group = "keycloak";
@@ -63,11 +66,5 @@ in {
       '';
       "/auth".proxyPass = "http://127.0.0.1:8089/auth";
     };
-  };
-
-  domains.kittywitch-keycloak = {
-    network = "internet";
-    type = "cname";
-    domain = "auth";
   };
 }

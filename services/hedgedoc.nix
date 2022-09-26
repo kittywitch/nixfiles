@@ -24,7 +24,7 @@
 
   services.hedgedoc = {
     enable = true;
-    configuration = {
+    settings = {
       debug = true;
       path = "/run/hedgedoc/hedgedoc.sock";
       domain = "md.kittywit.ch";
@@ -50,10 +50,10 @@
     environmentFile = config.secrets.files.hedgedoc-env.path;
   };
 
-  deploy.tf.dns.records.services_hedgedoc = {
-    inherit (config.network.dns) zone;
+  domains.kittywitch_hedgedoc = {
+    network = "internet";
+    type = "cname";
     domain = "md";
-    cname = { inherit (config.network.addresses.public) target; };
   };
 
   systemd.services.hedgedoc = {
@@ -75,8 +75,6 @@
 
   users.users.nginx.extraGroups = [ "hedgedoc" ];
   services.nginx.virtualHosts."md.kittywit.ch" = {
-    enableACME = true;
-    forceSSL = true;
     locations."/" = {
       proxyPass = "http://unix:/run/hedgedoc/hedgedoc.sock";
       proxyWebsockets = true;

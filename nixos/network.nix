@@ -38,9 +38,9 @@
             type = nullOr str;
             default = "${nixos.networking.hostName}${if config.prefix != null then ".${config.prefix}" else ""}";
           };
-          dn = mkOption {
+          cname = mkOption {
             type = nullOr str;
-            default = lib.removeSuffix "." config.domain;
+            default = "${config.domain}.${config.zone}";
           };
           prefix = mkOption {
             type = nullOr str;
@@ -49,6 +49,14 @@
           zone = mkOption {
             type = nullOr str;
             default = "kittywit.ch.";
+          };
+          key_path = mkOption {
+            type = nullOr str;
+            default = if config.create_cert then nixos.secrets.files."${lib.removeSuffix "." config.cname}-key".path else null;
+          };
+          cert_path = mkOption {
+            type = nullOr str;
+            default = if config.create_cert then nixos.secrets.files."${lib.removeSuffix "." config.cname}-cert".path else null;
           };
           target = mkOption {
             type = nullOr str;
@@ -136,12 +144,24 @@
           };
           create_domain = mkOption {
             type = bool;
-            default = false;
+            default = config.extra_domains != [];
+          };
+          create_cert = mkOption {
+            type = bool;
+            default = config.extra_domains != [];
           };
           extra_domains = mkOption {
             type = listOf str;
             description = "Domains to add to the certificate generated for this network.";
             default = [];
+          };
+          key_path = mkOption {
+            type = nullOr str;
+            default = if config.create_cert && config.interfaces != [] then nixos.secrets.files."${lib.removeSuffix "." config.target}-key".path else null;
+          };
+          cert_path = mkOption {
+            type = nullOr str;
+            default = if config.create_cert && config.interfaces != [] then nixos.secrets.files."${lib.removeSuffix "." config.target}-cert".path else null;
           };
           domain = mkOption {
             type = nullOr str;
@@ -154,6 +174,10 @@
           zone = mkOption {
             type = nullOr str;
             default = "kittywit.ch.";
+          };
+          domain_dotless = mkOption {
+            type = nullOr str;
+            default = lib.removeSuffix "." config.target;
           };
           target = mkOption {
             type = nullOr str;
@@ -190,6 +214,7 @@
           interfaces = singleton "tailscale0";
           zone = "inskip.me.";
           create_domain = true;
+          create_cert = true;
         }
       ];
       };
@@ -230,11 +255,12 @@
         extraDomainedNetworks = filterAttrs (_: settings: settings.extra_domains != []) networks';
         extraDomains = listToAttrs (concatLists (mapAttrsToList (network: settings:
           map (domain: let
-            split_domain = splitString "."  domain;
-            isRoot = (length split_domain) == 2;
-        in nameValuePair "${network}-cname-${if isRoot then "root" else elemAt split_domain (length split_domain -2)}-${concatStringsSep "." (sublist (length split_domain - 2) (length split_domain) split_domain)}." {
-          zone = "${concatStringsSep "." (sublist (length split_domain - 2) (length split_domain) split_domain)}.";
-          domain = if isRoot then null
+            split_domain = splitString "."   domain;
+            isRoot = (length split_domain) <= 2;
+        in nameValuePair "${network}-cname-${if isRoot then "root" else elemAt split_domain ((length split_domain) - 2)}-${concatStringsSep "." (sublist (length split_domain - 2) (length split_domain) split_domain)}." {
+          zone = if isRoot then "${domain}." else "${concatStringsSep "." (sublist ((length split_domain) - 2) (length split_domain) split_domain)}.";
+          enable = true;
+          domain = if isRoot then "@"
             else elemAt split_domain (length split_domain - 2);
           cname = { inherit (settings) target; };
         }) settings.extra_domains) extraDomainedNetworks));
@@ -247,7 +273,6 @@
             enable = mkForce settings.ipv6_defined;
           } else {
             enable = mkForce settings.ipv4_defined;
-            #a.address = if settings.ipv4_defined then settings.ipv4 else "127.0.0.1";
             a.address = settings.ipv4;
           })
         )) networks') address_families;
@@ -275,9 +300,9 @@
             keyType = "4096";
             dnsNames = [ (removeSuffix "." settings.target) ] ++ (lib.optionals (settings ? extra_domains) settings.extra_domains);
           };
-          network_certs = mapAttrs' nvP sane_networks;
+          network_certs = mapAttrs' nvP (filterAttrs (network: settings: settings.create_cert) sane_networks);
           domain_certs = mapAttrs' nvP (filterAttrs (network: settings: settings.create_cert) config.domains);
-        in network_certs // domain_certs;
+        in domain_certs // network_certs;
       };
 
       variables = {
@@ -312,6 +337,7 @@
               text = tf.acme.certs.${fixedTarget settings}.out.refFullchainPem;
               owner = "nginx";
               group = "domain-auth";
+              mode = "0440";
             }
           ) sane_networks;
           networks' = mapAttrs' (network: settings:
@@ -319,6 +345,7 @@
               text = tf.acme.certs.${fixedTarget settings}.out.refPrivateKeyPem;
               owner = "nginx";
               group = "domain-auth";
+              mode = "0440";
             }
           ) sane_networks;
           domains = mapAttrs' (network: settings:
@@ -326,6 +353,7 @@
               text = tf.acme.certs.${fixedTarget settings}.out.refFullchainPem;
               owner = settings.owner;
               group = settings.group;
+              mode = "0440";
             }
           ) (filterAttrs (network: settings: settings.create_cert) config.domains);
           domains' = mapAttrs' (network: settings:
@@ -333,6 +361,7 @@
               text = tf.acme.certs.${fixedTarget settings}.out.refPrivateKeyPem;
               owner = settings.owner;
               group = settings.group;
+              mode = "0440";
             }
           ) (filterAttrs (network: settings: settings.create_cert) config.domains);
           in networks // networks' // domains // domains';

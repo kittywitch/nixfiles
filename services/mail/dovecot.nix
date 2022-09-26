@@ -40,23 +40,19 @@ let
   '';
 in
 {
-  security.acme.certs.dovecot_domains = {
-    inherit (config.network.dns) domain;
-    group = "postfix";
-    dnsProvider = "rfc2136";
-    credentialsFile = config.secrets.files.dns_creds.path;
-    postRun = "systemctl restart dovecot2";
-    extraDomainNames =
-      [
-        config.network.dns.domain
-        "mail.${config.network.dns.domain}"
-        config.network.addresses.public.domain
-        "dork.dev"
-      ];
-    };
+  networks.internet.extra_domains = [
+    "mail.kittywit.ch"
+    "dork.dev"
+  ];
+
+  users.groups.domain_auth.members = [
+    "postfix"
+    "dovecot2"
+  ];
 
   services.dovecot2 = {
     enable = true;
+    group = "domain_auth";
     enableImap = true;
     enableLmtp = true;
     enablePAM = false;
@@ -99,7 +95,7 @@ in
       }
       protocol lmtp {
         postmaster_address=postmaster@kittywit.ch
-        hostname=${config.network.addresses.public.domain}
+        hostname=${config.networks.internet.domain_dotless}
         mail_plugins = $mail_plugins sieve
       }
       service auth {
@@ -198,7 +194,7 @@ in
     sed -e "s!@ldap-password@!$(<${config.secrets.files.dovecot-ldap-password.path})!" ${ldapConfig-services} > /run/dovecot2/ldap-services.conf
   '';
 
-  networking.firewall.allowedTCPPorts = [
+  networks.internet.tcp = [
     143 # imap
     993 # imaps
     4190 # sieve

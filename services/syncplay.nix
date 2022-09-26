@@ -15,18 +15,9 @@ with lib;
           field = fieldAdapt field;
         }) [ "pass" "salt" ];
 
-  users.users.syncplay = { isSystemUser = true; group = "sync-cert"; };
 
+  users.users.syncplay = { isSystemUser = true; group = "domain-auth"; };
   users.groups."domain-auth".members = [ "syncplay" ];
-
-  security.acme = {
-    certs."kittywit.ch" = {
-      postRun = ''
-        cp key.pem privkey.pem
-        chown acme:voice-cert privkey.pem
-      '';
-    };
-  };
 
   networks.internet.tcp = [ 8999 ];
 
@@ -42,20 +33,33 @@ with lib;
       SYNCPLAY_SALT=${tf.variables.syncplay-salt.ref}
     '';
     owner = "syncplay";
-    group = "sync-cert";
+    group = "domain-auth";
+  };
+
+  systemd.tmpfiles.rules = [
+    "d /var/lib/syncplay 0711 syncplay domain-auth 90"
+  ];
+
+  networks.internet = {
+    extra_domains = [
+      "sync.kittywit.ch"
+    ];
   };
 
   systemd.services.syncplay = {
     description = "Syncplay Service";
     wantedBy = singleton "multi-user.target";
     after = singleton "network-online.target";
-
+    preStart = ''
+    cp ${config.networks.internet.cert_path} /var/lib/syncplay/fullchain.pem
+    cp ${config.networks.internet.key_path} /var/lib/syncplay/privkey.pem
+    '';
     serviceConfig = {
       EnvironmentFile = config.secrets.files.syncplay-env.path;
       ExecStart =
-        "${pkgs.syncplay}/bin/syncplay-server --port 8999 --tls /var/lib/acme/sync.${config.network.dns.domain}/ --disable-ready";
+        "${pkgs.syncplay}/bin/syncplay-server --port 8999 --tls /var/lib/syncplay --disable-ready";
       User = "syncplay";
-      Group = "sync-cert";
+      Group = "domain-auth";
     };
   };
 }

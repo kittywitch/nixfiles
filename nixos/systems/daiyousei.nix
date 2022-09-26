@@ -37,5 +37,11 @@
     };
   };
 
+  networks.internet = {
+    extra_domains = [
+      "kittywit.ch"
+    ];
+  };
+
   system.stateVersion = "21.11";
 }

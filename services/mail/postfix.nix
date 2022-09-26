@@ -1,9 +1,9 @@
 { pkgs, lib, config, tf, ... }:
 
 let
-  publicCert = "public_${config.networking.hostName}";
+  publicCert = "daiyousei.kittywit.ch";
 
-  ldaps = "ldaps://auth.${config.network.dns.domain}:636";
+  ldaps = "ldaps://auth.${config.networks.internet.domain_dotless}:636";
 
   virtualRegex = pkgs.writeText "virtual-regex" ''
     /^kat\.[^@.]+@kittywit\.ch$/ kat@kittywit.ch
@@ -13,8 +13,8 @@ let
   '';
 
   helo_access = pkgs.writeText "helo_access" ''
-        ${if tf.state.enable then config.network.addresses.public.nixos.ipv4.selfaddress else ""}   REJECT Get lost - you're lying about who you are
-        ${if tf.state.enable then config.network.addresses.public.nixos.ipv6.selfaddress else ""}   REJECT Get lost - you're lying about who you are
+        ${if tf.state.enable then config.networks.internet.ipv4 else ""}   REJECT Get lost - you're lying about who you are
+        ${if tf.state.enable then config.networks.internet.ipv6 else ""}   REJECT Get lost - you're lying about who you are
         kittywit.ch   REJECT Get lost - you're lying about who you are
         dork.dev   REJECT Get lost - you're lying about who you are
   '';
@@ -23,8 +23,6 @@ in {
     path = "services/dovecot";
     field = "password";
   };
-
-  services.redis.enable = true;
 
   secrets.files = {
     domains-ldap = {
@@ -92,8 +90,8 @@ in {
   services.postfix = {
     enable = true;
     enableSubmission = true;
-    hostname = config.network.addresses.public.domain;
-    domain = config.network.dns.domain;
+    hostname = config.networks.internet.domain_dotless;
+    domain = "kittywit.ch";
 
     masterConfig."465" = {
       type = "inet";
@@ -117,7 +115,7 @@ in {
 
     extraConfig = ''
       smtp_bind_address = ${if tf.state.enable then tf.resources.${config.networking.hostName}.getAttr "private_ip" else ""}
-      smtp_bind_address6 = ${if tf.state.enable then config.network.addresses.public.nixos.ipv6.selfaddress else ""}
+      smtp_bind_address6 = ${if tf.state.enable then config.networks.internet.ipv6 else ""}
       mailbox_transport = lmtp:unix:private/dovecot-lmtp
       masquerade_domains = ldap:${config.secrets.files.domains-ldap.path}
       virtual_mailbox_domains = ldap:${config.secrets.files.domains-ldap.path}
@@ -146,9 +144,9 @@ in {
       smtpd_tls_security_level = may
       smtpd_tls_auth_only = yes
 
-      smtpd_tls_cert_file = /var/lib/acme/${publicCert}/full.pem
-      smtpd_tls_key_file = /var/lib/acme/${publicCert}/key.pem
-      smtpd_tls_CAfile = /var/lib/acme/${publicCert}/fullchain.pem
+      smtpd_tls_cert_file = ${config.secrets.files."${config.networking.hostName}.kittywit.ch-cert".path}
+      smtpd_tls_key_file = ${config.secrets.files."${config.networking.hostName}.kittywit.ch-key".path}
+      smtpd_tls_CAfile = ${config.secrets.files."${config.networking.hostName}.kittywit.ch-cert".path}
 
       smtpd_tls_dh512_param_file = ${config.security.dhparams.params.postfix512.path}
       smtpd_tls_dh1024_param_file = ${config.security.dhparams.params.postfix2048.path}
@@ -205,8 +203,8 @@ in {
     '';
   };
 
-  systemd.services.postfix.wants = [ "openldap.service" "acme-${publicCert}.service" ];
-  systemd.services.postfix.after = [ "openldap.service" "acme-${publicCert}.service" "network.target" ];
+  systemd.services.postfix.wants = [ "openldap.service" ];
+  systemd.services.postfix.after = [ "openldap.service" "network.target" ];
 
   security.dhparams = {
     enable = true;
@@ -214,7 +212,7 @@ in {
     params.postfix2048.bits = 1024;
   };
 
-  networking.firewall.allowedTCPPorts = [
+  networks.internet.tcp = [
     25 # smtp
     465 # stmps
     587 # submission
