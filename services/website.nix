@@ -3,7 +3,7 @@
 {
   services.nginx.virtualHosts = {
     "kittywit.ch" = {
-      root = pkgs.gensokyoZone;
+      root = pkgs.kittywitCh;
     };
   };
 }

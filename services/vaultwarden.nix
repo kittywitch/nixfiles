@@ -71,6 +71,5 @@
     network = "internet";
     type = "cname";
     domain = "vault";
-    zone = "kittywit.ch.";
   };
 }

@@ -10,6 +10,7 @@ final: prev: {
   waybar-konawall = final.callPackage ./waybar-konawall { };
   hedgedoc-cli = final.callPackage ./hedgedoc-cli.nix { };
   gensokyoZone = final.callPackage ./gensokyoZone { };
+  kittywitCh = final.callPackage ./gensokyoZone/kittywitch.nix { };
 	oomox = final.callPackage ./oomox.nix { };
 	wezterm = final.callPackage ./wezterm {
     inherit (final.darwin.apple_sdk.frameworks) Cocoa CoreGraphics Foundation UserNotifications;
