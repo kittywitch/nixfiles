@@ -6,8 +6,6 @@
     nixos.arc
     services.ha
     services.nextcloud
-    #services.kattv-ingest
-    #services.kattv2-ingest
     services.postgres
     services.nfs
     services.nginx
