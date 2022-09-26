@@ -231,9 +231,13 @@
           network = if settings.host != config.networking.hostName then
             meta.network.nodes.nixos.${settings.host}.networks.${settings.network}
           else sane_networks.${settings.network};
-        in nameValuePair "${settings.network}-${if settings.type == "both" || settings.type == family then family else settings.type}-${if settings.domain == null then "root" else settings.domain}-${settings.zone}" ({
-            inherit (settings) domain zone;
+        in nameValuePair "${settings.network}-${if settings.type == "both" || settings.type == family then family else settings.type}-${if settings.domain == "@" then "root" else settings.domain}-${settings.zone}" ({
+            inherit (settings) zone;
             enable = mkDefault false;
+          } // optionalAttrs (settings.domain != null && settings.domain != "" && settings.domain != "@") {
+            inherit (settings) domain;
+          } // optionalAttrs (settings.domain == null || settings.domain == "" || settings.domain == "@") {
+            enable = mkForce true;
           } // (optionalAttrs (settings.type == "cname" && family == "ipv4") {
             cname = { inherit (network) target; };
             enable = mkForce true;
@@ -259,7 +263,7 @@
             isRoot = (length split_domain) <= 2;
         in nameValuePair "${network}-cname-${if isRoot then "root" else elemAt split_domain ((length split_domain) - 2)}-${concatStringsSep "." (sublist (length split_domain - 2) (length split_domain) split_domain)}." {
           zone = if isRoot then "${domain}." else "${concatStringsSep "." (sublist ((length split_domain) - 2) (length split_domain) split_domain)}.";
-          enable = true;
+          enable = !isRoot;
           domain = if isRoot then "@"
             else elemAt split_domain (length split_domain - 2);
           cname = { inherit (settings) target; };
@@ -267,7 +271,7 @@
         # Merge the result of a map upon address_families to mapAttrs'
         networks'' = map (family: mapAttrs' (network: settings:
           nameValuePair "${network}-${family}-${settings.domain}-${settings.zone}" ({
-            inherit (settings) domain zone;
+            inherit (settings) zone;
           } // (if family == "ipv6" then {
             aaaa.address = settings.ipv6;
             enable = mkForce settings.ipv6_defined;
@@ -275,7 +279,10 @@
             enable = mkForce settings.ipv4_defined;
             a.address = settings.ipv4;
           })
-        )) networks') address_families;
+        ) // optionalAttrs (settings.domain != "@" && settings.domain != "" && settings.domain != null) {
+          inherit (settings) domain;
+        } // optionalAttrs (settings.domain == "@" || settings.domain == "" || settings.domain == null) {
+        }) networks') address_families;
       in mkMerge (networks'' ++  domains' ++ [ extraDomains ]);
 
       acme = let
@@ -367,17 +374,18 @@
           in networks // networks' // domains // domains';
 
     services.nginx.virtualHosts = let
-          networkVirtualHosts = concatLists (mapAttrsToList (network: settings: map(domain: nameValuePair domain {
+          networkVirtualHosts = concatLists (mapAttrsToList (network: settings: map(domain: nameValuePair (if domain != "@" then domain else "root") {
             forceSSL = true;
             sslCertificate = config.secrets.files."${removeSuffix "." settings.target}-cert".path;
             sslCertificateKey = config.secrets.files."${removeSuffix "." settings.target}-key".path;
           }) ([ settings.target ] ++ settings.extra_domains)) sane_networks);
-          domainVirtualHosts = (attrValues (mapAttrs (network: settings: removeSuffix "." settings.target) config.domains));
-          domainVirtualHosts' = (map (hostname:
-            nameValuePair hostname {
+          domainVirtualHosts = (attrValues (mapAttrs (network: settings: removeSuffix "." settings.target) (filterAttrs (network: settings:  settings.create_cert) config.domains)));
+          domainVirtualHosts' = (map (hostname2: let
+            hostname = if hasPrefix "@" hostname2 then "root" else hostname2;
+          in nameValuePair hostname  {
               forceSSL = true;
-              sslCertificate = config.secrets.files."${hostname}-cert".path;
-              sslCertificateKey = config.secrets.files."${hostname}-key".path;
+              sslCertificate = mkDefault config.secrets.files."${hostname}-cert".path;
+              sslCertificateKey = mkDefault config.secrets.files."${hostname}-key".path;
           }) domainVirtualHosts);
         in listToAttrs (networkVirtualHosts ++ (lib.optionals config.services.nginx.enable domainVirtualHosts'));
 

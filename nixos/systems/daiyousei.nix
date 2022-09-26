@@ -43,5 +43,15 @@
     ];
   };
 
+  domains = {
+    kittywitch-root = {
+      network = "internet";
+      type = "both";
+      domain = "@";
+      zone = "kittywit.ch.";
+      create_cert = false;
+    };
+  };
+
   system.stateVersion = "21.11";
 }

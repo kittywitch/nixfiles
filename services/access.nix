@@ -1,7 +1,4 @@
 { config, lib, meta, pkgs, ... }: with lib; {
-  networks.internet.extra_domains = [
-    "gensokyo.zone"
-  ];
 
   domains = {
     kittywitch-plex = {
@@ -41,6 +38,12 @@
       network = "internet";
       type = "cname";
       domain = "z2m";
+      zone = "gensokyo.zone.";
+    };
+    gensokyo-root = {
+      network = "internet";
+      type = "both";
+      domain = "@";
       zone = "gensokyo.zone.";
     };
   };
