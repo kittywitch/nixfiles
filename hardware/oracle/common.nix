@@ -81,7 +81,8 @@ in
         };
 
       networks = {
-        internet = lib.mkIf tf.state.enable {
+        internet = mkMerge [
+        (lib.mkIf tf.state.enable {
           interfaces = lib.singleton interface;
           ipv4 = lib.mkOrder 1000 (tf.resources.${config.networking.hostName}.getAttr "public_ip");
           ipv6 = let
@@ -101,7 +102,11 @@ in
               else if class == 4 then
                 tf.resources.${config.networking.hostName}.getAttr "public_ip"
                 else throw "${config.networking.hostName}: IP for ${hostname} of ${toString class} is invalid.";
-          };
+          })
+          (lib.mkIf (!tf.state.enable) {
+            interfaces = lib.singleton "whee";
+          })
+        ];
         };
 
       deploy.tf =
