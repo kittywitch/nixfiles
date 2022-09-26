@@ -3,7 +3,6 @@
 
   users.groups.domain-auth.members = [ "openldap" ];
 
-
   services.openldap = {
     enable = true;
     group = "domain-auth";
@@ -175,7 +174,7 @@
     openldap-root-password-file = {
       text = tf.variables.openldap-password.ref;
       owner = "openldap";
-      group = "openldap";
+      group = "domain-auth";
     };
   };
 }
