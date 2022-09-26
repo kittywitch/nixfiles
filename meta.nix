@@ -56,11 +56,11 @@ in {
   tailnet_uri = "inskip.me";
   tailnet = let
     raw = home.resources.tailnet_devices.importAttr "devices";
-  in mapListToAttrs (elet: nameValuePair (removeSuffix ".${config.tailnet_uri}" elet.name) {
+  in mkIf (home.state.enable) (mapListToAttrs (elet: nameValuePair (removeSuffix ".${config.tailnet_uri}" elet.name) {
       tags = elet.tags;
         ipv4 = head (filter (e: hasInfix "." e) elet.addresses);
         ipv6 = head (filter (e: hasInfix ":" e) elet.addresses);
-      }) raw;
+      }) raw);
 
   runners = {
     lazy = {
