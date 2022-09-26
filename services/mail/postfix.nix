@@ -3,7 +3,7 @@
 let
   publicCert = "daiyousei.kittywit.ch";
 
-  ldaps = "ldaps://auth.${config.networks.internet.domain_dotless}:636";
+  ldaps = "ldaps://auth.${config.networks.internet.uqdn}:636";
 
   virtualRegex = pkgs.writeText "virtual-regex" ''
     /^kat\.[^@.]+@kittywit\.ch$/ kat@kittywit.ch
@@ -90,7 +90,7 @@ in {
   services.postfix = {
     enable = true;
     enableSubmission = true;
-    hostname = config.networks.internet.domain_dotless;
+    hostname = config.networks.internet.uqdn;
     domain = "kittywit.ch";
 
     masterConfig."465" = {

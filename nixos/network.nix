@@ -175,7 +175,7 @@
             type = nullOr str;
             default = "kittywit.ch.";
           };
-          domain_dotless = mkOption {
+          uqdn = mkOption {
             type = nullOr str;
             default = lib.removeSuffix "." config.target;
           };

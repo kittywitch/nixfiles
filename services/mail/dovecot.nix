@@ -95,7 +95,7 @@ in
       }
       protocol lmtp {
         postmaster_address=postmaster@kittywit.ch
-        hostname=${config.networks.internet.domain_dotless}
+        hostname=${config.networks.internet.uqdn}
         mail_plugins = $mail_plugins sieve
       }
       service auth {

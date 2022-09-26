@@ -46,8 +46,8 @@
       SOGoMailingMechanism = "smtp";
       SOGoForceExternalLoginWithEmail = YES;
       SOGoSMTPAuthenticationType = PLAIN;
-      SOGoSMTPServer = "smtps://${config.networks.internet.domain_dotless}:465";
-      SOGoIMAPServer = "imaps://${config.networks.internet.domain_dotless}:993";
+      SOGoSMTPServer = "smtps://${config.networks.internet.uqdn}:465";
+      SOGoIMAPServer = "imaps://${config.networks.internet.uqdn}:993";
       SOGoUserSources = (
           {
               type = ldap;
