@@ -1,7 +1,7 @@
 { config, pkgs, lib, tf, ... }: with lib; let
   id = tf.acme.certs."auth.kittywit.ch".out.resource.getAttr "id";
 in {
-  services.keycloak = {
+  services.keycloak = lib.mkIf (tf.state.enable) {
     enable = builtins.getEnv "CI_PLATFORM" == "impure";
     package = (pkgs.keycloak.override {
       jre = pkgs.openjdk11;
@@ -33,12 +33,12 @@ in {
     members = [ "keycloak" "openldap" ];
   };
 
-  systemd.services.keycloak.script  = lib.mkBefore ''
+  systemd.services.keycloak.script = lib.mkIf (tf.state.enable) (lib.mkBefore ''
     mkdir -p /run/keycloak
     if [[ ! -e /run/keycloak/${id}.jks ]]; then
       ${pkgs.adoptopenjdk-jre-bin}/bin/keytool -import -alias auth.kittywit.ch -noprompt -keystore /run/keycloak/${id}.jks -keypass ${id} -storepass ${id} -file ${config.domains.kittywitch-keycloak.cert_path}
     fi
-  '';
+  '');
 
   users.groups.keycloak = { };
 

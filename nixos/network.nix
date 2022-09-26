@@ -46,6 +46,10 @@
             type = nullOr str;
             default = null;
           };
+          uqdn = mkOption {
+            type = nullOr str;
+            default = (if config.domain == "@" then (removeSuffix "." config.zone) else (removeSuffix "." config.target));
+          };
           zone = mkOption {
             type = nullOr str;
             default = "kittywit.ch.";
@@ -177,7 +181,7 @@
           };
           uqdn = mkOption {
             type = nullOr str;
-            default = lib.removeSuffix "." config.target;
+            default = (if config.domain == "@" then (removeSuffix "." config.zone) else (removeSuffix "." config.target));
           };
           target = mkOption {
             type = nullOr str;
@@ -271,7 +275,7 @@
         # Merge the result of a map upon address_families to mapAttrs'
         networks'' = map (family: mapAttrs' (network: settings:
           nameValuePair "${network}-${family}-${settings.domain}-${settings.zone}" ({
-            inherit (settings) zone;
+            inherit (settings) zone domain;
           } // (if family == "ipv6" then {
             aaaa.address = settings.ipv6;
             enable = mkForce settings.ipv6_defined;
@@ -279,10 +283,7 @@
             enable = mkForce settings.ipv4_defined;
             a.address = settings.ipv4;
           })
-        ) // optionalAttrs (settings.domain != "@" && settings.domain != "" && settings.domain != null) {
-          inherit (settings) domain;
-        } // optionalAttrs (settings.domain == "@" || settings.domain == "" || settings.domain == null) {
-        }) networks') address_families;
+        )) networks') address_families;
       in mkMerge (if tf.state.enable then (networks'' ++  domains' ++ [ extraDomains ]) else []);
 
       acme = let
@@ -303,9 +304,9 @@
           };
         };
         certs = let
-          nvP = network: settings: nameValuePair "${removeSuffix "." settings.target}" {
+          nvP = network: settings: nameValuePair settings.uqdn {
             keyType = "4096";
-            dnsNames = [ (removeSuffix "." settings.target) ] ++ (lib.optionals (settings ? extra_domains) settings.extra_domains);
+            dnsNames = [ settings.uqdn ] ++ (lib.optionals (settings ? extra_domains) settings.extra_domains);
           };
           network_certs = mapAttrs' nvP (filterAttrs (network: settings: settings.create_cert) sane_networks);
           domain_certs = mapAttrs' nvP (filterAttrs (network: settings: settings.create_cert) config.domains);
@@ -338,34 +339,33 @@
     };
 
     secrets.files = let
-          fixedTarget = settings: removeSuffix "." settings.target;
           networks = mapAttrs' (network: settings:
-            nameValuePair "${fixedTarget settings}-cert" {
-              text = tf.acme.certs.${fixedTarget settings}.out.refFullchainPem;
+            nameValuePair "${settings.uqdn}-cert" {
+              text = tf.acme.certs.${settings.uqdn}.out.refFullchainPem;
               owner = "nginx";
               group = "domain-auth";
               mode = "0440";
             }
           ) (filterAttrs (_: settings: settings.create_cert) sane_networks);
           networks' = mapAttrs' (network: settings:
-            nameValuePair "${fixedTarget settings}-key" {
-              text = tf.acme.certs.${fixedTarget settings}.out.refPrivateKeyPem;
+            nameValuePair "${settings.uqdn}-key" {
+              text = tf.acme.certs.${settings.uqdn}.out.refPrivateKeyPem;
               owner = "nginx";
               group = "domain-auth";
               mode = "0440";
             }
           ) (filterAttrs (_: settings: settings.create_cert) sane_networks);
           domains = mapAttrs' (network: settings:
-            nameValuePair "${fixedTarget settings}-cert" {
-              text = tf.acme.certs.${fixedTarget settings}.out.refFullchainPem;
+            nameValuePair "${settings.uqdn}-cert" {
+              text = tf.acme.certs.${settings.uqdn}.out.refFullchainPem;
               owner = settings.owner;
               group = settings.group;
               mode = "0440";
             }
           ) (filterAttrs (network: settings: settings.create_cert) config.domains);
           domains' = mapAttrs' (network: settings:
-            nameValuePair "${fixedTarget settings}-key" {
-              text = tf.acme.certs.${fixedTarget settings}.out.refPrivateKeyPem;
+            nameValuePair "${settings.uqdn}-key" {
+              text = tf.acme.certs.${settings.uqdn}.out.refPrivateKeyPem;
               owner = settings.owner;
               group = settings.group;
               mode = "0440";
@@ -374,18 +374,17 @@
           in networks // networks' // domains // domains';
 
     services.nginx.virtualHosts = let
-          networkVirtualHosts = concatLists (mapAttrsToList (network: settings: map(domain: nameValuePair (if domain != "@" then domain else "root") {
+          networkVirtualHosts = concatLists (mapAttrsToList (network: settings: map(domain: nameValuePair (if domain != "@" then domain else settings.zone) {
             forceSSL = true;
-            sslCertificate = config.secrets.files."${removeSuffix "." settings.target}-cert".path;
-            sslCertificateKey = config.secrets.files."${removeSuffix "." settings.target}-key".path;
-          }) ([ settings.target ] ++ settings.extra_domains)) (filterAttrs (_: settings: settings.create_cert) sane_networks));
-          domainVirtualHosts = (attrValues (mapAttrs (network: settings: removeSuffix "." settings.target) (filterAttrs (network: settings:  settings.create_cert) config.domains)));
-          domainVirtualHosts' = (map (hostname2: let
-            hostname = if hasPrefix "@" hostname2 then "root" else hostname2;
-          in nameValuePair hostname  {
+            sslCertificate = config.secrets.files."${settings.uqdn}-cert".path;
+            sslCertificateKey = config.secrets.files."${settings.uqdn}-key".path;
+          }) ([ settings.uqdn ] ++ settings.extra_domains)) (filterAttrs (_: settings: settings.create_cert) sane_networks));
+          domainVirtualHosts = (filterAttrs (network: settings:  settings.create_cert) config.domains);
+          domainVirtualHosts' = (mapAttrsToList (network: settings: let
+          in nameValuePair settings.uqdn  {
               forceSSL = true;
-              sslCertificate = mkDefault config.secrets.files."${hostname}-cert".path;
-              sslCertificateKey = mkDefault config.secrets.files."${hostname}-key".path;
+              sslCertificate = mkDefault config.secrets.files."${settings.uqdn}-cert".path;
+              sslCertificateKey = mkDefault config.secrets.files."${settings.uqdn}-key".path;
           }) domainVirtualHosts);
         in listToAttrs (networkVirtualHosts ++ (lib.optionals config.services.nginx.enable domainVirtualHosts'));
 

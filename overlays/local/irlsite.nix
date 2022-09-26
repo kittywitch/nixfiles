@@ -4,7 +4,7 @@
     owner = "kittywitch";
     repo = "inskip.me";
     rev = "3789d9ae2b0135828a6d92e2e6846aec42a29d88";
-    sha256 = "sha256-EYtlGmfEjJ0n2F2OKgKD59SgvKHZC109jgRsyawqGNw=";
+    sha256 = "sha256-nIAeZRxZ86QuZxGnHTIaawySiTEdw8ZQ4L8eR/2Mdy0=";
   };
   buildPhase = ''
   '';
