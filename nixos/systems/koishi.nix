@@ -12,7 +12,7 @@
   config = {
   programs.ssh.extraConfig = ''
     Host daiyousei-build
-        HostName daiyousei.inskip.me
+        HostName ${meta.tailnet.daiyousei.ipv4}
         Port 62954
         User root
   '';
