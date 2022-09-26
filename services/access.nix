@@ -1,4 +1,4 @@
-{ config, lib, meta, pkgs, ... }: with lib; {
+{ config, lib, meta, pkgs, tf, ... }: with lib; {
 
   domains = {
     kittywitch-plex = {
