@@ -49,7 +49,7 @@
   };
 
   services.nginx.virtualHosts = mkMerge [
-  {
+  (mkIf tf.state.enable {
     "gensokyo.zone" = {
       locations."/" = {
         root = pkgs.gensokyoZone;
@@ -171,6 +171,6 @@
         };
       };
     };
-  }
+  });
   ];
                                             }
