@@ -189,7 +189,7 @@
   };
   config = let
   sane_networks = lib.filterAttrs (network: settings: settings.interfaces != []) config.networks;
-    in {
+    in  {
     networks = {
         internet = {
           zone = mkDefault "kittywit.ch.";
@@ -346,7 +346,7 @@
               group = "domain-auth";
               mode = "0440";
             }
-          ) sane_networks;
+          ) (filterAttrs (_: settings: settings.create_cert) sane_networks);
           networks' = mapAttrs' (network: settings:
             nameValuePair "${fixedTarget settings}-key" {
               text = tf.acme.certs.${fixedTarget settings}.out.refPrivateKeyPem;
@@ -354,7 +354,7 @@
               group = "domain-auth";
               mode = "0440";
             }
-          ) sane_networks;
+          ) (filterAttrs (_: settings: settings.create_cert) sane_networks);
           domains = mapAttrs' (network: settings:
             nameValuePair "${fixedTarget settings}-cert" {
               text = tf.acme.certs.${fixedTarget settings}.out.refFullchainPem;
@@ -365,12 +365,12 @@
           ) (filterAttrs (network: settings: settings.create_cert) config.domains);
           domains' = mapAttrs' (network: settings:
             nameValuePair "${fixedTarget settings}-key" {
-              text = tf.acme.certs.${fixedTarget settings}.out.refPrivateKeyPem;
+              text = tf.acme.certs.${fixedTarget settings}.out.refFullchainPem;
               owner = settings.owner;
               group = settings.group;
               mode = "0440";
             }
-          ) (filterAttrs (network: settings: settings.create_cert) config.domains);
+          ) (filterAttrs (_: settings: settings.create_cert) config.domains);
           in networks // networks' // domains // domains';
 
     services.nginx.virtualHosts = let
@@ -378,7 +378,7 @@
             forceSSL = true;
             sslCertificate = config.secrets.files."${removeSuffix "." settings.target}-cert".path;
             sslCertificateKey = config.secrets.files."${removeSuffix "." settings.target}-key".path;
-          }) ([ settings.target ] ++ settings.extra_domains)) sane_networks);
+          }) ([ settings.target ] ++ settings.extra_domains)) (filterAttrs (_: settings: settings.create_cert) sane_networks));
           domainVirtualHosts = (attrValues (mapAttrs (network: settings: removeSuffix "." settings.target) (filterAttrs (network: settings:  settings.create_cert) config.domains)));
           domainVirtualHosts' = (map (hostname2: let
             hostname = if hasPrefix "@" hostname2 then "root" else hostname2;
