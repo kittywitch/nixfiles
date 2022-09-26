@@ -2,8 +2,11 @@
   networks.internet.tcp = [ 636 ];
 
   users.groups.domain-auth.members = [ "openldap" ];
+
+
   services.openldap = {
     enable = true;
+    group = "domain-auth";
     urlList = [ "ldap:///" "ldaps:///" ];
     settings = {
       attrs = {

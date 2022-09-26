@@ -30,7 +30,7 @@ in {
 
   users.groups.domain-auth = {
     gid = 10600;
-    members = [ "keycloak" ];
+    members = [ "keycloak" "openldap" ];
   };
 
   systemd.services.keycloak.script  = lib.mkBefore ''

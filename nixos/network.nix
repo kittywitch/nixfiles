@@ -365,7 +365,7 @@
           ) (filterAttrs (network: settings: settings.create_cert) config.domains);
           domains' = mapAttrs' (network: settings:
             nameValuePair "${fixedTarget settings}-key" {
-              text = tf.acme.certs.${fixedTarget settings}.out.refFullchainPem;
+              text = tf.acme.certs.${fixedTarget settings}.out.refPrivateKeyPem;
               owner = settings.owner;
               group = settings.group;
               mode = "0440";
