@@ -122,6 +122,18 @@
   nixfiles = tree.impure;
 
   eval = let
+    esphomeNodes = (map
+    (node: {
+      network.nodes.esphome.${node} = {
+        settings = {
+          imports = config.lib.kw.esphomeImport node;
+          esphome = {
+            name = node;
+          };
+        };
+      };
+    })
+    (lib.attrNames nixfiles.esphome));
     nixosNodes = (map
     (node: {
       network.nodes.nixos.${node} = {
@@ -147,7 +159,8 @@
     ++ lib.singleton nixfiles.modules.meta
     ++ lib.attrValues nixfiles.targets
     ++ nixosNodes
-    ++ darwinNodes;
+    ++ darwinNodes
+    ++ esphomeNodes;
 
     specialArgs = {
       inherit root tree;

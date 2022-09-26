@@ -1,11 +1,11 @@
 { pkgs, inputs, lib, meta, config, ... }:
 
 /*
-  This module:
-  * Makes hosts nixosModules.
-  * Manages module imports and specialArgs.
-  * Builds network.nodes.
-*/
+   This module:
+ * Makes hosts nixosModules.
+ * Manages module imports and specialArgs.
+ * Builds network.nodes.
+ */
 
 with lib;
 
@@ -39,91 +39,137 @@ with lib;
         default = toString (inputs.darwin + "/modules");
       };
     };
-    nodes.all = mkOption {
+    esphome = {
+      extraModules = mkOption {
+        type = types.listOf types.unspecified;
+        default = [ ];
+      };
+      specialArgs = mkOption {
+        type = types.attrsOf types.unspecified;
+        default = { };
+      };
+    };
+    union = mkOption {
       type = types.attrsOf types.unspecified;
-      default = config.network.nodes.nixos // config.network.nodes.darwin;
+      default = config.network.nodes.nixos // config.network.nodes.darwin // config.network.nodes.esphome;
+    };
+    nodes.esphome = let
+      esphomeModule = { name, config, meta, lib, ... }: with lib;
+    let
+    settings = config.settings;
+    closureConfig = pkgs.writeText "${settings.esphome.name}.json" builtins.toJSON settings;
+    closure = pkgs.runCommand "${settings.esphome.name}" {} ''
+      ${pkgs.esphome}/bin/esphome compile ${closureConfig}
+    mv .esphome/build/${settings.esphome.name}/.pioenvs/${settings.esphome.name}/firmware.bin $out
+      '';
+    in {
+      options.out = mkOption {
+        type = types.unspecified;
+        default = closure;
+      };
+      options.settings = mkOption {
+        type = types.unspecified;
+      };
+    };
+    esphomeType = types.submoduleWith {
+      modules = [
+        esphomeModule
+      ] ++ config.network.esphome.extraModules;
+      inherit (config.network.esphome) specialArgs;
+    };
+    in mkOption {
+      type = types.attrsOf esphomeType;
+      default = { };
     };
     nodes.nixos =
       let
-        nixosModule = { name, config, meta, modulesPath, lib, ... }: with lib; {
-          options = {
-            nixpkgs.crossOverlays = mkOption {
-              type = types.listOf types.unspecified;
-              default = [ ];
-            };
-          };
-          config = {
-            nixpkgs = {
-              system = mkDefault "x86_64-linux";
-              pkgs =
-                let
-                  pkgsReval = import pkgs.path {
-                    inherit (config.nixpkgs) localSystem crossSystem crossOverlays;
-                    inherit (pkgs) overlays config;
-                  };
-                in
-                mkDefault (if config.nixpkgs.config == pkgs.config && config.nixpkgs.system == pkgs.targetPlatform.system then pkgs else pkgsReval);
-            };
+      nixosModule = { name, config, meta, modulesPath, lib, ... }: with lib; {
+        options = {
+          nixpkgs.crossOverlays = mkOption {
+            type = types.listOf types.unspecified;
+            default = [ ];
           };
         };
-        nixosType =
-          let
-            baseModules = import (config.network.nixos.modulesPath + "/module-list.nix");
-          in
-          types.submoduleWith {
-            modules = baseModules
-              ++ singleton nixosModule
-              ++ config.network.nixos.extraModules;
-
-            specialArgs = {
-              inherit baseModules;
-              inherit (config.network.nixos) modulesPath;
-            } // config.network.nixos.specialArgs;
+        config = {
+          nixpkgs = {
+            system = mkDefault "x86_64-linux";
+            pkgs =
+              let
+              pkgsReval = import pkgs.path {
+                inherit (config.nixpkgs) localSystem crossSystem crossOverlays;
+                inherit (pkgs) overlays config;
+              };
+            in
+              mkDefault (if config.nixpkgs.config == pkgs.config && config.nixpkgs.system == pkgs.targetPlatform.system then pkgs else pkgsReval);
           };
-      in
+        };
+      };
+    nixosType =
+      let
+      baseModules = import (config.network.nixos.modulesPath + "/module-list.nix");
+    in
+      types.submoduleWith {
+        modules = baseModules
+          ++ singleton nixosModule
+          ++ config.network.nixos.extraModules;
+
+        specialArgs = {
+          inherit baseModules;
+          inherit (config.network.nixos) modulesPath;
+        } // config.network.nixos.specialArgs;
+      };
+    in
       mkOption {
         type = types.attrsOf nixosType;
         default = { };
       };
     nodes.darwin =
       let
-        darwinModule = { name, config, meta, modulesPath, lib, ... }: with lib; {
-          config = {
-            _module.args.pkgs = pkgs;
-            nixpkgs = {
-              system = mkDefault pkgs.system;
-            };
+      darwinModule = { name, config, meta, modulesPath, lib, ... }: with lib; {
+        config = {
+          _module.args.pkgs = pkgs;
+          nixpkgs = {
+            system = mkDefault pkgs.system;
           };
         };
-        darwinType =
-          let
-            baseModules = import (config.network.darwin.modulesPath + "/module-list.nix");
-            flakeModule = (config.network.darwin.modulesPath + "/system/flake-overrides.nix");
-          in
-          types.submoduleWith {
-            modules = baseModules
-              ++ singleton darwinModule
-              ++ singleton flakeModule
-              ++ config.network.darwin.extraModules;
+      };
+    darwinType =
+      let
+      baseModules = import (config.network.darwin.modulesPath + "/module-list.nix");
+    flakeModule = (config.network.darwin.modulesPath + "/system/flake-overrides.nix");
+    in
+      types.submoduleWith {
+        modules = baseModules
+          ++ singleton darwinModule
+          ++ singleton flakeModule
+          ++ config.network.darwin.extraModules;
 
-            specialArgs = {
-              inherit baseModules;
-              inherit (config.network.darwin) modulesPath;
-            } // config.network.darwin.specialArgs;
-          };
-      in
+        specialArgs = {
+          inherit baseModules;
+          inherit (config.network.darwin) modulesPath;
+        } // config.network.darwin.specialArgs;
+      };
+    in
       mkOption {
         type = types.attrsOf darwinType;
         default = { };
       };
   };
   config.network = {
+    esphome = {
+      extraModules = [
+      ];
+      specialArgs = {
+        inherit (config.network) nodes;
+        inherit inputs meta;
+      };
+    };
     darwin = {
       extraModules = [
         inputs.home-manager.darwinModules.home-manager
-        meta.modules.darwin
-        meta.modules.system
-        meta.system
+          meta.modules.darwin
+          meta.modules.system
+          meta.system
       ];
       specialArgs = {
         inherit (config.network) nodes;
@@ -133,10 +179,10 @@ with lib;
     nixos = {
       extraModules = [
         inputs.home-manager.nixosModules.home-manager
-        meta.modules.nixos
-        meta.modules.system
-        meta.nixos.network
-        meta.system
+          meta.modules.nixos
+          meta.modules.system
+          meta.nixos.network
+          meta.system
       ];
       specialArgs = {
         inherit (config.network) nodes;
