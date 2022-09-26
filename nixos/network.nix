@@ -283,7 +283,7 @@
           inherit (settings) domain;
         } // optionalAttrs (settings.domain == "@" || settings.domain == "" || settings.domain == null) {
         }) networks') address_families;
-      in mkMerge (networks'' ++  domains' ++ [ extraDomains ]);
+      in mkMerge (if tf.state.enable then (networks'' ++  domains' ++ [ extraDomains ]) else []);
 
       acme = let
           home = meta.deploy.targets.home.tf;

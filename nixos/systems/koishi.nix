@@ -12,7 +12,7 @@
   config = {
   programs.ssh.extraConfig = ''
     Host daiyousei-build
-        HostName ${meta.tailnet.daiyousei.ipv4}
+        HostName ${meta.network.nodes.nixos.daiyousei.networks.internet.uqdn}
         Port 62954
         User root
   '';
