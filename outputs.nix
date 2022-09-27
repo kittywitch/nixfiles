@@ -80,6 +80,7 @@
       };
       "modules/darwin".functor.enable = true;
       "modules/system".functor.enable = true;
+      "modules/esphome".functor.enable = true;
       "modules/meta".functor.enable = true;
       "nixos/systems".functor.enable = false;
       "darwin/systems".functor.enable = false;
@@ -125,11 +126,9 @@
     esphomeNodes = (map
     (node: {
       network.nodes.esphome.${node} = {
-        settings = {
-          imports = config.lib.kw.esphomeImport node;
-          esphome = {
-            name = node;
-          };
+        imports = config.lib.kw.esphomeImport node;
+        esphome = {
+          name = node;
         };
       };
     })

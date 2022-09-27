@@ -49,32 +49,13 @@ with lib;
         default = { };
       };
     };
-    union = mkOption {
+    nodes.all = mkOption {
       type = types.attrsOf types.unspecified;
       default = config.network.nodes.nixos // config.network.nodes.darwin // config.network.nodes.esphome;
     };
     nodes.esphome = let
-      esphomeModule = { name, config, meta, lib, ... }: with lib;
-    let
-    settings = config.settings;
-    closureConfig = pkgs.writeText "${settings.esphome.name}.json" builtins.toJSON settings;
-    closure = pkgs.runCommand "${settings.esphome.name}" {} ''
-      ${pkgs.esphome}/bin/esphome compile ${closureConfig}
-    mv .esphome/build/${settings.esphome.name}/.pioenvs/${settings.esphome.name}/firmware.bin $out
-      '';
-    in {
-      options.out = mkOption {
-        type = types.unspecified;
-        default = closure;
-      };
-      options.settings = mkOption {
-        type = types.unspecified;
-      };
-    };
     esphomeType = types.submoduleWith {
-      modules = [
-        esphomeModule
-      ] ++ config.network.esphome.extraModules;
+      modules = [ { _module.args.pkgs = pkgs; } ] ++ config.network.esphome.extraModules;
       inherit (config.network.esphome) specialArgs;
     };
     in mkOption {
@@ -158,8 +139,10 @@ with lib;
   config.network = {
     esphome = {
       extraModules = [
+        meta.modules.esphome
       ];
       specialArgs = {
+        target = config.deploy.targets.home;
         inherit (config.network) nodes;
         inherit inputs meta;
       };
@@ -186,7 +169,7 @@ with lib;
       ];
       specialArgs = {
         inherit (config.network) nodes;
-        inherit inputs meta;
+        inherit inputs meta pkgs;
       };
     };
   };

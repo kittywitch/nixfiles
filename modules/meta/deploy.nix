@@ -127,7 +127,8 @@ in
                   };
                 };
                 continue.envVar = "TF_NIX_CONTINUE_${replaceStrings [ "-" ] [ "_" ] config.name}";
-              }) ++ map (nodeName: mapAttrs (_: mkMerge) meta.network.nodes.nixos.${nodeName}.deploy.tf.out.set) config.nodeNames);
+              }) ++ map (nodeName: mapAttrs (_: mkMerge) meta.network.nodes.nixos.${nodeName}.deploy.tf.out.set) config.nodeNames
+                 ++ (optionals (config.name == "home") (mapAttrsToList (node: config: (mapAttrs (_: mkMerge) config.deploy.tf.out.set)) meta.network.nodes.esphome)));
           });
         in
         mkOption {

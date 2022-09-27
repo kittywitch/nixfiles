@@ -1,9 +1,10 @@
-{ config, ... }: {
+{ config, target, ... }: {
+  esphome = {
+    platform = "esp8266";
+    board = "d1_mini";
+  };
   api = {
     password = "!secret api_password";
-  };
-  esp8266 = {
-    board = "d1_mini";
   };
   wifi = {
     ssid = "Gensokyo";
@@ -24,7 +25,7 @@
   sensor = [
     {
       platform = "dht";
-      model = "dht22";
+      model = "DHT22";
       update_interval = "60s";
       pin = "D0";
       temperature = {
