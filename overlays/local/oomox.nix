@@ -1,4 +1,4 @@
-{ gnome3
+{ gnome
 , stdenv
 , gdk-pixbuf
 , glib
@@ -37,7 +37,7 @@ python3.pkgs.buildPythonApplication rec {
 					'';
           nativeBuildInputs = [ makeWrapper wrapGAppsHook libxml2 gobject-introspection glib bc ];
 					propagatedBuildInputs = with python3.pkgs; [
-						gnome3.gnome-themes-extra gdk-pixbuf librsvg sassc inkscape optipng
+						gnome.gnome-themes-extra gdk-pixbuf librsvg sassc inkscape optipng
 						gobject-introspection
 						pygobject3
 						python3
