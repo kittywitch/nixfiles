@@ -1,6 +1,7 @@
 final: prev: {
   irlsite = final.callPackage ./irlsite.nix { };
   vips = prev.vips.override { libjxl = null; };
+  yabai = final.callPackage ./yabai.nix { };
   sway-scrot = final.callPackage ./sway-scrot { };
   vfio-vm = final.callPackage ./vm.nix { };
   vfio-vm-pinning = final.callPackage ./vm-pinning.nix { };

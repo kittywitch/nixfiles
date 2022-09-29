@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    gitAndTools.gitRemoteGcrypt
+    gitAndTools.git-remote-gcrypt
     git-crypt
     git-revise
   ];

@@ -64,9 +64,12 @@
         "kicad"
         "disk-inventory-x"
         "element"
+        "dozer"
         "discord"
         "firefox"
         "gimp"
+        "devtoys"
+        "google-assistant"
         "cyberduck"
         "docker"
         "google-chrome"
@@ -79,6 +82,9 @@
     ];
     masApps = {
       Tailscale = 1475387142;
+      Dato = 1470584107;
+      Lungo = 1263070803;
+      "Battery Indicator" = 1206020918;
     };
   };
 
