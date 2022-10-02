@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, lib, ... }:
+{ inputs, tree, config, pkgs, lib, ... }:
 
 /*
   This module:
@@ -32,7 +32,7 @@ in
 {
   imports = [
     "${toString inputs.tf-nix}/modules/run.nix"
-  ] ++ (optional (builtins.pathExists ../../tf/tf.nix) (../../tf/tf.nix));
+  ];
   options = {
     deploy = {
       dataDir = mkOption {
@@ -73,8 +73,9 @@ in
             };
             config.tf = mkMerge (singleton
               ({ ... }: {
-                imports = [
-                  ../../tf.nix
+                imports = if name == "home" then attrValues (removeAttrs tree.impure.modules.tf [ "acme" "__functor" ])
+                else [
+                  tree.impure.modules.tf
                 ];
                 deploy.gcroot = {
                   name = mkDefault "kw-${config.name}";

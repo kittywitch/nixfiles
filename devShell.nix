@@ -1,6 +1,6 @@
 { inputs, system }:
 let
-  meta = import ./outputs.nix { inherit inputs system; };
+  meta = import ./meta.nix { inherit inputs system; };
   config = meta;
   inherit (meta) pkgs;
   inherit (pkgs) lib;

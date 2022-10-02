@@ -39,7 +39,7 @@ in {
 # EasyMotion Equivalent
 				hop-nvim
 # org-mode for vim
-				neorg
+#				neorg
 # base16
 				config.base16.vim.plugin
 # Fonts

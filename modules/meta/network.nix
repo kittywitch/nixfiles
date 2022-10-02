@@ -55,7 +55,7 @@ with lib;
     };
     nodes.esphome = let
     esphomeType = types.submoduleWith {
-      modules = [ { _module.args.pkgs = pkgs; } ] ++ config.network.esphome.extraModules;
+      modules = config.network.esphome.extraModules;
       inherit (config.network.esphome) specialArgs;
     };
     in mkOption {
@@ -140,6 +140,7 @@ with lib;
     esphome = {
       extraModules = [
         meta.modules.esphome
+        meta.modules.system.genesis
       ];
       specialArgs = {
         target = config.deploy.targets.home;
@@ -149,8 +150,9 @@ with lib;
     };
     darwin = {
       extraModules = [
-        inputs.home-manager.darwinModules.home-manager
+          inputs.home-manager.darwinModules.home-manager
           meta.modules.darwin
+          meta.modules.system.genesis
           meta.modules.system
           meta.system
       ];
@@ -161,7 +163,8 @@ with lib;
     };
     nixos = {
       extraModules = [
-        inputs.home-manager.nixosModules.home-manager
+          inputs.home-manager.nixosModules.home-manager
+          meta.modules.system.genesis
           meta.modules.nixos
           meta.modules.system
           meta.nixos.network

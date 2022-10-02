@@ -11,7 +11,7 @@
     export = true;
   };
     acme.account = {
-      register = false;
+      register = lib.mkForce true;
       emailAddress = "kat@inskip.me";
       accountKeyPem = config.resources.acme_private_key.refAttr "private_key_pem";
     };

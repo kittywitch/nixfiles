@@ -7,4 +7,8 @@
       host = if config.networks.gensokyo.interfaces != [] then config.networks.gensokyo.ipv4 else config.networks.chitei.ipv4;
     };
   };
+
+  services.udev.extraRules = ''
+    SUBSYSTEM=="tty", GROUP="input", MODE="0660"
+  '';
 }

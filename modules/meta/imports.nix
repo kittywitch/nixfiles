@@ -32,8 +32,8 @@ with lib;
         (root + "/nixos/systems/HN/nixos.nix")
       ]);
       esphomeImports = mkDefault (map (path: toString path) [
-        (root + "/esphome/HN.nix")
-        (root + "/esphome/HN/esphome.nix")
+        (root + "/esphome/boards/HN.nix")
+        (root + "/esphome/boards/HN/esphome.nix")
       ]);
       darwinImports = mkDefault (map (path: toString path) [
         (root + "/darwin/systems/HN.nix")

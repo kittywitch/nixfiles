@@ -1,8 +1,4 @@
-{ config, meta, lib, ... }: with lib;
-
-{
-  deploy.gcroot.enable = true;
-
+{ config, lib, ... }:  with lib; {
   variables.katdns-address = {
     value.shellCommand = "${meta.kw.secrets.command} secrets/katdns -f address";
     type = "string";
@@ -18,22 +14,6 @@
     type = "string";
     sensitive = true;
   };
-  acme = {
-    enable = true;
-        account = {
-          emailAddress = "kat@inskip.me";
-          accountKeyPem = home.resources.acme_private_key.importAttr "private_key_pem";
-        };
-        challenge = {
-          defaultProvider = "rfc2136";
-          configs.rfc2136 = {
-            RFC2136_NAMESERVER = tf.variables.katdns-address.ref;
-            RFC2136_TSIG_KEY = tf.variables.katdns-name.ref;
-            RFC2136_TSIG_SECRET = tf.variables.katdns-key.ref;
-            RFC2136_TSIG_ALGORITHM = "hmac-sha512";
-          };
-        };
-    };
 
   providers.katdns = {
     type = "dns";

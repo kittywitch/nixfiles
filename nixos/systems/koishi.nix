@@ -17,6 +17,10 @@
         User root
   '';
 
+virtualisation.docker.enable = true;
+
+environment.systemPackages = [ pkgs.docker-compose ];
+
   nix.buildMachines = [ {
 	 hostName = "daiyousei-build";
 	 system = "aarch64-linux";

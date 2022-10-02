@@ -21,6 +21,11 @@
     field = "hass";
   };
 
+  kw.secrets.variables.espresence-pass = {
+    path = "secrets/mosquitto";
+    field = "espresence";
+  };
+
   secrets.files.z2m-pass = {
     text = tf.variables.z2m-pass.ref;
     owner = "mosquitto";
@@ -39,6 +44,12 @@
     group = "mosquitto";
   };
 
+  secrets.files.espresence-pass = {
+    text = tf.variables.espresence-pass.ref;
+    owner = "mosquitto";
+    group = "mosquitto";
+  };
+
   services.mosquitto = {
     enable = true;
     persistence = true;
@@ -49,6 +60,12 @@
       users = {
         z2m = {
           passwordFile = config.secrets.files.z2m-pass.path;
+          acl = [
+            "readwrite #"
+          ];
+        };
+        espresence = {
+          passwordFile = config.secrets.files.espresence-pass.path;
           acl = [
             "readwrite #"
           ];

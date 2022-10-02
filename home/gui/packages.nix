@@ -18,6 +18,7 @@
     unzip
     yubikey-manager
     jmtpfs
+    google-chrome
     element-desktop
     cryptsetup
     esphome

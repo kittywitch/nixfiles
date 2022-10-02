@@ -43,6 +43,13 @@
         unit_system = "metric";
         external_url = "https://home.gensokyo.zone";
       };
+      frontend = {
+        themes = "!include_dir_merge_named themes";
+      };
+      powercalc = {
+      };
+      utility_meter = {
+      };
       logger = {
         default = "info";
       };
@@ -101,7 +108,6 @@
       counter = {};
       device_tracker = {};
       energy = {};
-      frontend = {};
       group = {};
       history = {};
       image = {};
@@ -135,6 +141,7 @@
       psycopg2
       aiohomekit
       securetar
+      (aiogithubapi.overrideAttrs (_: { doInstallCheck = false; }))
     ];
     extraComponents = [
       "zha"

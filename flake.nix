@@ -51,7 +51,7 @@
   (system:
   rec {
     devShells.default = import ./devShell.nix { inherit system inputs; };
-    legacyPackages = import ./outputs.nix { inherit system inputs; };
+    legacyPackages = import ./meta.nix { inherit system inputs; };
   });
   in providedSystems // {
     nixosConfigurations = self.legacyPackages.x86_64-linux.network.nodes.nixos;

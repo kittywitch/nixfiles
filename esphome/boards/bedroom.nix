@@ -3,24 +3,10 @@
     platform = "esp8266";
     board = "d1_mini";
   };
-  api = {
-    password = "!secret api_password";
-  };
-  wifi = {
-    ssid = "Gensokyo";
-    password = "!secret wifi_password";
-  };
   i2c = {
     sda = "D2";
     scl = "D1";
     scan = true;
-  };
-  logger = {
-    level = "DEBUG";
-  };
-  ota = {
-    safe_mode = true;
-    password = "!secret ota_password";
   };
   sensor = [
     {
@@ -48,7 +34,7 @@
         name = "Bedroom eCO2";
       };
       tvoc = {
-        name = "Bedroom Total Volatile Organic Compound";
+        name = "Bedroom TVOC";
       };
     }
   ];

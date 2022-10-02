@@ -177,7 +177,7 @@ cmp.setup({
 		['<C-y>'] = cmp.mapping.confirm({ select = true }),
 	},
 	sources = {
-		{ name = 'neorg' },
+--		{ name = 'neorg' },
 	}
 })
 
@@ -189,6 +189,7 @@ api.nvim_create_autocmd('BufWritePre', {
 	command = 'lua vim.lsp.buf.formatting_sync()'
 })
 
+--[[
 -- neorg
 require('neorg').setup {
 	-- Tell Neorg what modules to load
@@ -204,7 +205,7 @@ require('neorg').setup {
 			}
 		}
 	},
-}
+}]]--
 
 -- telescope
 local telescope = require('telescope.builtin')
