@@ -1,4 +1,4 @@
-{ config, lib, ... }:  with lib; {
+{ config, meta, lib, ... }:  with lib; {
 
   variables.katdns-address = {
     value.shellCommand = "${meta.secrets.command} secrets/katdns -f address";

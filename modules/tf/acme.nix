@@ -1,7 +1,7 @@
-{ config, meta, lib, target, ... }: with lib;
+{ config, meta, lib, name, ... }: with lib;
 let
   home = meta.deploy.targets.home.tf;
-in lib.mkIf (target != "home") {
+in lib.mkIf (name != "home") {
   acme = {
     enable = true;
         account = {

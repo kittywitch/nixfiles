@@ -43,43 +43,43 @@
         };
 
         resources = {
-          oci_nixfiles_compartment = {
+          oci_kw_compartment = {
             provider = "oci.oci-root";
             type = "identity_compartment";
             inputs = {
-              name = "nixfiles";
-              description = "nixfiles";
+              name = "kw";
+              description = "kw";
               compartment_id = var.oci_root_tenancy.ref;
               enable_delete = true;
             };
           };
-          oci_nixfiles_user = {
+          oci_kw_user = {
             provider = "oci.oci-root";
             type = "identity_user";
             inputs = {
-              name = "nixfiles";
-              description = "nixfiles";
+              name = "kw";
+              description = "kw";
               compartment_id = var.oci_root_tenancy.ref;
             };
           };
-          oci_nixfiles_group = {
+          oci_kw_group = {
             provider = "oci.oci-root";
             type = "identity_group";
             inputs = {
-              name = "nixfiles";
-              description = "nixfiles";
+              name = "kw";
+              description = "kw";
               compartment_id = var.oci_root_tenancy.ref;
             };
           };
-          oci_nixfiles_usergroup = {
+          oci_kw_usergroup = {
             provider = "oci.oci-root";
             type = "identity_user_group_membership";
             inputs = {
-              group_id = res.oci_nixfiles_group.refAttr "id";
-              user_id = res.oci_nixfiles_user.refAttr "id";
+              group_id = res.oci_kw_group.refAttr "id";
+              user_id = res.oci_kw_user.refAttr "id";
             };
           };
-          oci_nixfiles_key = {
+          oci_kw_key = {
             provider = "tls";
             type = "private_key";
             inputs = {
@@ -87,35 +87,35 @@
               rsa_bits = 2048;
             };
           };
-          oci_nixfiles_key_file = {
+          oci_kw_key_file = {
             provider = "local";
             type = "file";
             inputs = {
-              sensitive_content = res.oci_nixfiles_key.refAttr "private_key_pem";
-              filename = toString (config.terraform.dataDir + "/oci_nixfiles_key");
+              sensitive_content = res.oci_kw_key.refAttr "private_key_pem";
+              filename = toString (config.terraform.dataDir + "/oci_kw_key");
               file_permission = "0600";
             };
           };
-          oci_nixfiles_apikey = {
+          oci_kw_apikey = {
             provider = "oci.oci-root";
             type = "identity_api_key";
             inputs = {
-              key_value = res.oci_nixfiles_key.refAttr "public_key_pem";
-              user_id = res.oci_nixfiles_user.refAttr "id";
+              key_value = res.oci_kw_key.refAttr "public_key_pem";
+              user_id = res.oci_kw_user.refAttr "id";
             };
           };
-          oci_nixfiles_policy = {
+          oci_kw_policy = {
             provider = "oci.oci-root";
             type = "identity_policy";
             inputs = {
-              name = "nixfiles-admin";
-              description = "nixfiles admin";
+              name = "kw-admin";
+              description = "kw admin";
               compartment_id = var.oci_root_tenancy.ref;
               statements = [
-                "Allow group ${res.oci_nixfiles_group.refAttr "name"} to manage all-resources in compartment id ${res.oci_nixfiles_compartment.refAttr "id"}"
-                "Allow group ${res.oci_nixfiles_group.refAttr "name"} to read virtual-network-family in compartment id ${var.oci_root_tenancy.ref}"
+                "Allow group ${res.oci_kw_group.refAttr "name"} to manage all-resources in compartment id ${res.oci_kw_compartment.refAttr "id"}"
+                "Allow group ${res.oci_kw_group.refAttr "name"} to read virtual-network-family in compartment id ${var.oci_root_tenancy.ref}"
                 ''
-                  Allow group ${res.oci_nixfiles_group.refAttr "name"} to manage vcns in compartment id ${var.oci_root_tenancy.ref} where ALL {
+                  Allow group ${res.oci_kw_group.refAttr "name"} to manage vcns in compartment id ${var.oci_root_tenancy.ref} where ALL {
                   ANY { request.operation = 'CreateNetworkSecurityGroup', request.operation = 'DeleteNetworkSecurityGroup' }
                   }
                 ''
@@ -166,14 +166,14 @@
               vcn_id = res.oci_vcn.refAttr "id";
             };
           };
-          oci_nixfiles_subnet = {
+          oci_kw_subnet = {
             provider = "oci.oci-root";
             type = "core_subnet";
             inputs = {
-              display_name = "nixfiles";
+              display_name = "kw";
               cidr_block = terraformExpr "cidrsubnet(${res.oci_vcn.namedRef}.cidr_blocks[0], 8, 8)"; # /24
               ipv6cidr_block = terraformExpr "cidrsubnet(${res.oci_vcn.namedRef}.ipv6cidr_blocks[0], 8, 0)"; # from a /56 block to /64
-              compartment_id = res.oci_nixfiles_compartment.refAttr "id";
+              compartment_id = res.oci_kw_compartment.refAttr "id";
               vcn_id = res.oci_vcn.refAttr "id";
               route_table_id = res.oci_routes.refAttr "id";
             };
