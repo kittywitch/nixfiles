@@ -1,4 +1,4 @@
-{ config, pkgs, lib, kw, ... }:
+{ config, pkgs, lib, nixfiles, ... }:
 
 {
   hardware.firmware = [ pkgs.libreelec-dvb-firmware ];

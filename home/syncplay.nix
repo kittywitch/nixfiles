@@ -3,7 +3,7 @@
 let
   inherit (lib.modules) mkForce;
 in {
-  kw.secrets.variables = {
+  secrets.variables = {
     syncplay-pass = {
       path = "services/media/syncplay";
       field = "password";

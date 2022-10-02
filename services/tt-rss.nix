@@ -1,5 +1,5 @@
 { config, pkgs, lib, tf, ... }: with lib; {
-  kw.secrets.variables = mapListToAttrs
+  secrets.variables = mapListToAttrs
     (field:
       nameValuePair "ttrss-${field}" {
         path = "secrets/ttrss";

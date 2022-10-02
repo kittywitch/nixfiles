@@ -1,4 +1,4 @@
-{ config, tf, meta, kw, pkgs, lib, ... }: with lib; {
+{ config, tf, meta, nixfiles, pkgs, lib, ... }: with lib; {
   imports = with meta; [
     hardware.oracle.ubuntu
     nixos.network
@@ -6,7 +6,7 @@
     services.knot
   ];
 
-  kw.oci = {
+  nixfiles.oci = {
     specs = {
       shape = "VM.Standard.E2.1.Micro";
       cores = 1;

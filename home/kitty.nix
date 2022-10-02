@@ -6,7 +6,7 @@
   '';
   programs.kitty = {
     enable = true;
-    font.name = config.kw.theme.font.termName;
+    font.name = config.nixfiles.theme.font.termName;
     settings = {
       font_size = "10.0";
       bold_font = "auto";

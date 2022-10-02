@@ -47,7 +47,7 @@ in {
     group = "keycloak";
   };
 
-  kw.secrets.variables.keycloak-postgres = {
+  secrets.variables.keycloak-postgres = {
     path = "services/keycloak";
     field = "postgres";
   };

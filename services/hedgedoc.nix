@@ -1,7 +1,7 @@
 { config, lib, tf, ... }: with lib;
 
 {
-  kw.secrets.variables = (mapListToAttrs
+  secrets.variables = (mapListToAttrs
     (field:
       nameValuePair "hedgedoc-${field}" {
         path = "secrets/hedgedoc";

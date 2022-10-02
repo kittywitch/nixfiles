@@ -7,9 +7,9 @@
 
 with lib;
 
-let cfg = config.kw.theme; in
+let cfg = config.nixfiles.theme; in
 {
-  options.kw.theme = {
+  options.nixfiles.theme = {
     enable = mkEnableOption "kat's theme module";
     sass = {
       variables = mkOption {
@@ -55,7 +55,7 @@ let cfg = config.kw.theme; in
     };
   };
   config = mkIf (cfg.enable) {
-    kw.theme = {
+    nixfiles.theme = {
       base16 = lib.mapAttrs' (k: v: lib.nameValuePair k "#${v.hex}")
         (lib.filterAttrs (n: _: lib.hasInfix "base" n) config.base16.defaultScheme);
       base16t = lib.mapAttrs' (k: v: lib.nameValuePair "${k}t" "rgba(${toString v.red.byte}, ${toString v.green.byte}, ${toString v.blue.byte}, ${toString cfg.alpha})")
@@ -132,7 +132,7 @@ let cfg = config.kw.theme; in
       Install = { WantedBy = [ "sway-session.target" ]; };
     };
 
-    lib.kw.sassTemplate = { name, src }:
+    lib.nixfiles.sassTemplate = { name, src }:
       let
         variables = pkgs.writeText "base-variables.sass" ''
           ${(concatStringsSep "\n" (mapAttrsToList(var: con: "\$${var}: ${con}") cfg.sass.variables))}
@@ -153,6 +153,6 @@ let cfg = config.kw.theme; in
         inherit source;
         text = builtins.readFile source;
       };
-    _module.args = { inherit (config.lib) kw; };
+    _module.args = { inherit (config.lib) nixfiles; };
   };
 }

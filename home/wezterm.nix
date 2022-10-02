@@ -10,8 +10,8 @@
 		return {
       check_for_updates = true,
 			enable_tab_bar = true,
-			font = wezterm.font "${config.kw.theme.font.termName}",
-			font_size = ${toString config.kw.theme.font.size},
+			font = wezterm.font "${config.nixfiles.theme.font.termName}",
+			font_size = ${toString config.nixfiles.theme.font.size},
 		}
 	'';
 }

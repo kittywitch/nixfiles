@@ -12,7 +12,7 @@ in
     udp = singleton 64738;
   };
 
-  kw.secrets.variables = {
+  secrets.variables = {
     murmur-password = {
       path = "social/mumble";
       field = "password";

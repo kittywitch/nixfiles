@@ -302,7 +302,7 @@
       variables = {
         tailscale-authkey.export = true;
         tailscale-apikey = {
-          value.shellCommand = "${meta.kw.secrets.command} secrets/tailscale -f api_key";
+          value.shellCommand = "${meta.secrets.command} secrets/tailscale -f api_key";
           sensitive = true;
           export = true;
         };

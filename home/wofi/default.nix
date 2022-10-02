@@ -1,5 +1,5 @@
-{ config, kw, ... }:
+{ config, nixfiles, ... }:
 
 {
-  xdg.configFile."wofi/wofi.css" = { inherit (kw.sassTemplate { name = "wofi-style"; src = ./wofi.sass; }) source; };
+  xdg.configFile."wofi/wofi.css" = { inherit (nixfiles.sassTemplate { name = "wofi-style"; src = ./wofi.sass; }) source; };
 }

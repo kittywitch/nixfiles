@@ -4,7 +4,7 @@ with lib;
 
 {
 
-  kw.secrets.variables =
+  secrets.variables =
     let
       fieldAdapt = field: if field == "pass" then "password" else field;
     in

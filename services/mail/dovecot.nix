@@ -180,7 +180,7 @@ in
     params.dovecot2 = { };
   };
 
-  kw.secrets.variables."dovecot-ldap-password" = {
+  secrets.variables."dovecot-ldap-password" = {
     path = "services/dovecot";
     field = "password";
   };

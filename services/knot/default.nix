@@ -1,7 +1,7 @@
 { config, lib, tf, pkgs, ... }:
 
 {
-  kw.secrets.variables = {
+  secrets.variables = {
     katdns-key-config = {
       path = "secrets/katdns";
       field = "notes";

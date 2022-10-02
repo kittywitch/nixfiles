@@ -42,24 +42,24 @@ with lib;
       homeImports = [];
       users = mkDefault (singleton "kat");
     };
-    lib.kw.nixosImport = hostName: lib.nodeImport {
+    lib.nixfiles.nixosImport = hostName: lib.nodeImport {
       inherit (config.network.importing) nixosImports homeImports users;
       profiles = meta.nixos;
       inherit hostName;
     };
-    lib.kw.esphomeImport = hostName: lib.nodeImport {
+    lib.nixfiles.esphomeImport = hostName: lib.nodeImport {
       nixosImports = config.network.importing.esphomeImports;
       homeImports = [];
       users = [];
       profiles = { base = { }; };
       inherit hostName;
     };
-    lib.kw.darwinImport = hostName: lib.nodeImport {
+    lib.nixfiles.darwinImport = hostName: lib.nodeImport {
       nixosImports = config.network.importing.darwinImports;
       profiles = meta.darwin;
       inherit (config.network.importing) homeImports users;
       inherit hostName;
     };
-    _module.args = { inherit (config.lib) kw; };
+    _module.args = { inherit (config.lib) nixfiles; };
   };
 }

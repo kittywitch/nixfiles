@@ -51,7 +51,7 @@ in
   # ZNC
   networks.internet.tcp = singleton 5001;
 
-  kw.secrets.variables =
+  secrets.variables =
     let
       fieldAdapt = field: if field == "cert" then "notes" else if field == "pass" then "password" else field;
     in
@@ -190,7 +190,7 @@ in
           };
         };
       })
-      (mkIf (meta.trusted ? secrets) (import config.kw.secrets.repo.znc.source))
+      (mkIf (meta.trusted ? secrets) (import config.secrets.repo.znc.source))
     ];
     configFile = config.secrets.files.znc-config.path;
   };

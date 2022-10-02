@@ -78,7 +78,7 @@ in
                   tree.impure.modules.tf
                 ];
                 deploy.gcroot = {
-                  name = mkDefault "kw-${config.name}";
+                  name = mkDefault "nixfiles-${config.name}";
                   user = mkIf (builtins.getEnv "HOME_USER" != "") (mkDefault (builtins.getEnv "HOME_USER"));
                 };
                 providers.local = { };

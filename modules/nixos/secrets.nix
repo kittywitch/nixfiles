@@ -1,21 +1,13 @@
-{ config, lib, meta, ... }:
-
-with lib;
-
-let
-  mcfg = meta.kw.secrets;
-  cfg = config.kw.secrets;
-in
-{
-  config = mkIf (cfg.variables != { }) {
+{ config, lib, meta, ... }: with lib; {
+  config = mkIf (config.secrets.variables != { }) {
       deploy.tf.variables = mapAttrs'
         (name: content:
           nameValuePair name ({
-            value.shellCommand = "${mcfg.command} ${content.path}" + optionalString (content.field != "") " -f ${content.field}";
+            value.shellCommand = "${meta.secrets.command} ${content.path}" + optionalString (content.field != "") " -f ${content.field}";
             type = "string";
             sensitive = true;
           })
         )
-        cfg.variables;
+        config.secrets.variables;
     };
 }

@@ -1,7 +1,7 @@
-{ config, lib, pkgs, kw, ... }:
+{ config, lib, pkgs, nixfiles, ... }:
 
 {
-	xdg.configFile."waybar/style.css" = { inherit (kw.sassTemplate { name = "waybar-style"; src = ./waybar.sass; }) source; };
+	xdg.configFile."waybar/style.css" = { inherit (nixfiles.sassTemplate { name = "waybar-style"; src = ./waybar.sass; }) source; };
 
 #systemd.user.services.waybar.Service.Environment = lib.singleton "NOTMUCH_CONFIG=${config.home.sessionVariables.NOTMUCH_CONFIG}";
 

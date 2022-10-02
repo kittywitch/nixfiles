@@ -16,7 +16,7 @@
         fi
   '';
 in {
-  kw.secrets.variables.xbackbone-ldap = {
+  secrets.variables.xbackbone-ldap = {
     path = "secrets/xbackbone";
     field = "password";
   };

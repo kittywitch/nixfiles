@@ -1,7 +1,7 @@
 { config, lib, tf, pkgs, ... }: with lib; let
   murmurLdapScript = ./LDAPauth.py;
 in {
-  kw.secrets.variables = {
+  secrets.variables = {
     murmur-ldap-pass = {
       path = "social/mumble";
       field = "ldap";

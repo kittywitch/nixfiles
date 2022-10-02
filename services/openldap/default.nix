@@ -163,7 +163,7 @@
   };
 
 
-  kw.secrets.variables = mapListToAttrs
+  secrets.variables = mapListToAttrs
     (field:
       nameValuePair "openldap-${field}" {
         path = "services/openldap";

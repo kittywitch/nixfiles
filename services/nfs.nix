@@ -1,4 +1,4 @@
-{ config, lib, kw, ... }:
+{ config, lib, nixfiles, ... }:
 
 with lib;
 

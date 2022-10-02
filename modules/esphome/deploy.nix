@@ -102,7 +102,9 @@ in {
         field = head (reverseList parts);
         path = if length parts > 1 then head parts else "password";
       in nameValuePair "${config.esphome.name}-secret-${name}" ({
-        value.shellCommand = "bitw get ${path} -f ${field}";
+        value.shellCommand = let
+          bitw = pkgs.writeShellScriptBin "bitw" ''${pkgs.rbw-bitw}/bin/bitw -p gpg://${config.network.nodes.all.${builtins.getEnv "HOME_HOSTNAME"}.secrets.repo.bitw.source} "$@"'';
+        in "${bitw}/bin/bitw get ${path} -f ${field}";
         type = "string";
         sensitive = true;
       })

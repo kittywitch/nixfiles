@@ -4,7 +4,7 @@ let
   inherit (lib.attrsets) mapListToAttrs nameValuePair;
   inherit (lib.modules) mkIf;
 in {
-  kw.secrets.variables = mapListToAttrs
+  secrets.variables = mapListToAttrs
     (field:
       nameValuePair "wireless-${field}" {
         path = "secrets/wifi";

@@ -1,7 +1,7 @@
 { config, lib, nixos, pkgs, tf, ... }:
 
 {
-  kw.secrets.variables = {
+  secrets.variables = {
     matrix-pass = {
       path = "social/matrix";
       field = "password";

@@ -10,7 +10,7 @@
     esphomeNodes = (map
     (node: {
       network.nodes.esphome.${node} = {
-        imports = config.lib.kw.esphomeImport node;
+        imports = config.lib.nixfiles.esphomeImport node;
         esphome = {
           name = node;
         };
@@ -20,7 +20,7 @@
     nixosNodes = (map
     (node: {
       network.nodes.nixos.${node} = {
-        imports = config.lib.kw.nixosImport node;
+        imports = config.lib.nixfiles.nixosImport node;
         networking = {
           hostName = node;
         };
@@ -30,7 +30,7 @@
     darwinNodes = (map
     (node: {
       network.nodes.darwin.${node} = {
-        imports = config.lib.kw.darwinImport node;
+        imports = config.lib.nixfiles.darwinImport node;
         networking = {
           hostName = node;
         };

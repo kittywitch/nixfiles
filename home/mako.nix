@@ -1,7 +1,7 @@
 { config, pkgs, lib, witch, ... }:
 
 let
-  inherit (config.kw.theme) base16;
+  inherit (config.nixfiles.theme) base16;
 in
 {
   systemd.user.services = {
@@ -21,7 +21,7 @@ in
 
   programs.mako = {
     enable = true;
-    font = "${config.kw.theme.font.name} ${toString config.kw.theme.font.size}";
+    font = "${config.nixfiles.theme.font.name} ${toString config.nixfiles.theme.font.size}";
     defaultTimeout = 3000;
     borderColor = base16.base08;
     backgroundColor = "${base16.base00}BF";

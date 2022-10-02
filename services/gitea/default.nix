@@ -1,7 +1,7 @@
 { config, lib, pkgs, tf, ... }:
 
 {
-  kw.secrets.variables = {
+  secrets.variables = {
     gitea-mail-pass = {
       path = "secrets/mail-kittywitch";
       field = "gitea-pass";

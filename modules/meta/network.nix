@@ -152,8 +152,8 @@ with lib;
       extraModules = [
           inputs.home-manager.darwinModules.home-manager
           meta.modules.darwin
-          meta.modules.system.genesis
           meta.modules.system
+          meta.modules.type
           meta.system
       ];
       specialArgs = {
@@ -164,9 +164,9 @@ with lib;
     nixos = {
       extraModules = [
           inputs.home-manager.nixosModules.home-manager
-          meta.modules.system.genesis
           meta.modules.nixos
           meta.modules.system
+          meta.modules.type
           meta.nixos.network
           meta.system
       ];

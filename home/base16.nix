@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
-	kw.theme.enable = true;
+	nixfiles.theme.enable = true;
 
 	base16 = {
 		vim.enable = false;

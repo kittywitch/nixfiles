@@ -6,12 +6,12 @@
     ];
   };
 
-  kw.secrets.variables.z2m-mqtt-password = {
+  secrets.variables.z2m-mqtt-password = {
     path = "secrets/mosquitto";
     field = "z2m";
   };
 
-  kw.secrets.variables.z2m-network-key = {
+  secrets.variables.z2m-network-key = {
     path = "secrets/zigbee2mqtt";
     field = "password";
   };

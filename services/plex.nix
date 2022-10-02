@@ -1,4 +1,4 @@
-{ config, kw, pkgs, lib, ... }: {
+{ config, nixfiles, pkgs, lib, ... }: {
     networks.chitei.tcp = [ 32400 ];
     services = {
     plex = {

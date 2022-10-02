@@ -2,7 +2,7 @@
   domains = [ "dork" "kittywitch" ];
 in {
 
-  kw.secrets.variables = listToAttrs (map
+  secrets.variables = listToAttrs (map
     (domain:
       nameValuePair "mail-domainkey-${domain}" {
         path = "secrets/mail-${domain}";

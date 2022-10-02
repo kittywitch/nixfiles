@@ -17,7 +17,7 @@
     ];
   };
 
-  kw.secrets.variables.ha-integration = {
+  secrets.variables.ha-integration = {
     path = "secrets/home-assistant";
     field = "notes";
   };

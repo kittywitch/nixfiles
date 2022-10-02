@@ -6,22 +6,22 @@
     ];
   };
 
-  kw.secrets.variables.z2m-pass = {
+  secrets.variables.z2m-pass = {
     path = "secrets/mosquitto";
     field = "z2m";
   };
 
-  kw.secrets.variables.systemd-pass = {
+  secrets.variables.systemd-pass = {
     path = "secrets/mosquitto";
     field = "systemd";
   };
 
-  kw.secrets.variables.hass-pass = {
+  secrets.variables.hass-pass = {
     path = "secrets/mosquitto";
     field = "hass";
   };
 
-  kw.secrets.variables.espresence-pass = {
+  secrets.variables.espresence-pass = {
     path = "secrets/mosquitto";
     field = "espresence";
   };

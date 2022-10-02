@@ -1,16 +1,17 @@
 { config, lib, ... }:  with lib; {
+
   variables.katdns-address = {
-    value.shellCommand = "${meta.kw.secrets.command} secrets/katdns -f address";
+    value.shellCommand = "${meta.secrets.command} secrets/katdns -f address";
     type = "string";
     sensitive = true;
   };
   variables.katdns-name = {
-    value.shellCommand = "${meta.kw.secrets.command} secrets/katdns -f username";
+    value.shellCommand = "${meta.secrets.command} secrets/katdns -f username";
     type = "string";
     sensitive = true;
   };
   variables.katdns-key = {
-    value.shellCommand = "${meta.kw.secrets.command} secrets/katdns -f password";
+    value.shellCommand = "${meta.secrets.command} secrets/katdns -f password";
     type = "string";
     sensitive = true;
   };

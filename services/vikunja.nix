@@ -40,7 +40,7 @@ let
   };
 in {
 
-  kw.secrets.variables = (mapListToAttrs
+  secrets.variables = (mapListToAttrs
     (field:
       nameValuePair "vikunja-${field}" {
         path = "secrets/vikunja";

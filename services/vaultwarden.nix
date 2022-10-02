@@ -1,7 +1,7 @@
 { config, pkgs, lib, tf, ... }: with lib;
 
 {
-  kw.secrets.variables = mapListToAttrs (field:
+  secrets.variables = mapListToAttrs (field:
     nameValuePair "vaultwarden-${field}" {
       path = "secrets/vaultwarden";
       inherit field;

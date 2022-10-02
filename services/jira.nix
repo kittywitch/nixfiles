@@ -33,7 +33,7 @@
   };
 
 
-  kw.secrets.variables.jira-postgres = {
+  secrets.variables.jira-postgres = {
     path = "secrets/jira";
     field = "password";
   };

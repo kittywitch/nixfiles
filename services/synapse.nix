@@ -13,7 +13,7 @@ with lib;
     LC_CTYPE = "C";
   '';
 
-  kw.secrets.variables = (mapListToAttrs
+  secrets.variables = (mapListToAttrs
     (field:
       nameValuePair "mautrix-telegram-${field}" {
         path = "secrets/mautrix-telegram";

@@ -1,9 +1,9 @@
-{ config, tf, meta, kw, pkgs, lib, inputs, ... }:  let
+{ config, tf, meta, nixfiles, pkgs, lib, inputs, ... }:  let
   oci-root = meta.deploy.targets.oci-root.tf;
-  cfg = config.kw.oci;
+  cfg = config.nixfiles.oci;
 in
 {
-  options.kw.oci = {
+  options.nixfiles.oci = {
     base = lib.mkOption {
       description = ''
         Canonical Ubuntu provides an EXT4 root filesystem.
@@ -86,19 +86,19 @@ in
           interfaces = lib.singleton interface;
           ipv4 = lib.mkOrder 1000 (tf.resources.${config.networking.hostName}.getAttr "public_ip");
           ipv6 = let
-            prefix = lib.head (lib.splitString "/" (oci-root.resources.oci_kw_subnet.importAttr "ipv6cidr_block"));
-          in assert lib.hasSuffix "::" prefix; prefix + toString config.kw.oci.network.publicV6;
+            prefix = lib.head (lib.splitString "/" (oci-root.resources.oci_nixfiles_subnet.importAttr "ipv6cidr_block"));
+          in assert lib.hasSuffix "::" prefix; prefix + toString config.nixfiles.oci.network.publicV6;
           ip = hostname: class: if hostname != config.networking.hostName then
               if class == 6 then let
-                  prefix = lib.head (lib.splitString "/" (oci-root.resources.oci_kw_subnet.importAttr "ipv6cidr_block"));
-                in assert lib.hasSuffix "::" prefix; prefix + toString config.kw.oci.network.publicV6
+                  prefix = lib.head (lib.splitString "/" (oci-root.resources.oci_nixfiles_subnet.importAttr "ipv6cidr_block"));
+                in assert lib.hasSuffix "::" prefix; prefix + toString config.nixfiles.oci.network.publicV6
               else if class == 4 then
                 tf.resources.${config.networking.hostName}.importAttr "public_ip"
                 else throw "${config.networking.hostName}: IP for ${hostname} of ${toString class} is invalid."
             else
               if class == 6 then let
-                  prefix = lib.head (lib.splitString "/" (oci-root.resources.oci_kw_subnet.importAttr "ipv6cidr_block"));
-                in assert lib.hasSuffix "::" prefix; prefix + toString config.kw.oci.network.publicV6
+                  prefix = lib.head (lib.splitString "/" (oci-root.resources.oci_nixfiles_subnet.importAttr "ipv6cidr_block"));
+                in assert lib.hasSuffix "::" prefix; prefix + toString config.nixfiles.oci.network.publicV6
               else if class == 4 then
                 tf.resources.${config.networking.hostName}.getAttr "public_ip"
                 else throw "${config.networking.hostName}: IP for ${hostname} of ${toString class} is invalid.";
@@ -111,7 +111,7 @@ in
 
       deploy.tf =
         let
-          compartment_id = oci-root.resources.oci_kw_compartment.importAttr "id";
+          compartment_id = oci-root.resources.oci_nixfiles_compartment.importAttr "id";
           inherit (tf.lib.tf) terraformExpr;
         in
         {
@@ -127,10 +127,10 @@ in
           providers.oci = {
             inputs = {
               tenancy_ocid = oci-root.outputs.oci_tenancy.import;
-              user_ocid = oci-root.resources.oci_kw_user.importAttr "id";
-              fingerprint = oci-root.resources.oci_kw_apikey.importAttr "fingerprint";
+              user_ocid = oci-root.resources.oci_nixfiles_user.importAttr "id";
+              fingerprint = oci-root.resources.oci_nixfiles_apikey.importAttr "fingerprint";
               region = oci-root.outputs.oci_region.import;
-              private_key_path = oci-root.resources.oci_kw_key_file.importAttr "filename";
+              private_key_path = oci-root.resources.oci_nixfiles_key_file.importAttr "filename";
             };
           };
           resources = lib.mkMerge [{
@@ -183,7 +183,7 @@ in
               inputs = {
                 vnic_id = tf.resources."${config.networking.hostName}_vnic".refAttr "vnic_attachments[0].vnic_id";
                 display_name = config.networking.hostName;
-                ip_address = terraformExpr ''cidrhost("${oci-root.resources.oci_kw_subnet.importAttr "ipv6cidr_block"}", ${toString cfg.network.publicV6})'';
+                ip_address = terraformExpr ''cidrhost("${oci-root.resources.oci_nixfiles_subnet.importAttr "ipv6cidr_block"}", ${toString cfg.network.publicV6})'';
               };
             };
             "${config.networking.hostName}" = {
@@ -209,8 +209,8 @@ in
                 create_vnic_details = [
                   {
                     assign_public_ip = true;
-                    subnet_id = oci-root.resources.oci_kw_subnet.importAttr "id";
-                    private_ip = terraformExpr ''cidrhost("${oci-root.resources.oci_kw_subnet.importAttr "cidr_block"}", ${toString cfg.network.privateV4})'';
+                    subnet_id = oci-root.resources.oci_nixfiles_subnet.importAttr "id";
+                    private_ip = terraformExpr ''cidrhost("${oci-root.resources.oci_nixfiles_subnet.importAttr "cidr_block"}", ${toString cfg.network.privateV4})'';
                     nsg_ids = [
                       (tf.resources.firewall_group.refAttr "id")
                     ];

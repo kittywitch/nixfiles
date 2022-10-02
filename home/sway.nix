@@ -12,7 +12,7 @@ let lockCommand = config.programs.swaylock.script; in
 
   services.i3gopher = { enable = true; };
 
-  kw.theme.swaylock = true;
+  nixfiles.theme.swaylock = true;
 
   programs.zsh.profileExtra = ''
     # If running from tty1 start sway
@@ -100,9 +100,9 @@ let lockCommand = config.programs.swaylock.script; in
             };
           };
           fonts = {
-            names = [ config.kw.theme.font.name ];
+            names = [ config.nixfiles.theme.font.name ];
             style = "Regular";
-            size = config.kw.theme.font.size;
+            size = config.nixfiles.theme.font.size;
           };
           terminal = "${pkgs.wezterm}/bin/wezterm";
           menu = "${pkgs.j4-dmenu-desktop}/bin/j4-dmenu-desktop --no-generic --dmenu=\"${dmenu}\" --term='${pkgs.wezterm}/bin/wezterm'";
@@ -265,7 +265,7 @@ let lockCommand = config.programs.swaylock.script; in
             "${cfg.modifier}+Delete" = ''mode "System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown"'';
           };
 
-          colors = let inherit (config.kw.theme) base16; in
+          colors = let inherit (config.nixfiles.theme) base16; in
             {
               focused = {
                 border = base16.base01;

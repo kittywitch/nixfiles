@@ -1,5 +1,5 @@
 { config, tf, lib, ... }: with lib; {
-  kw.secrets.variables.sogo-ldap = {
+  secrets.variables.sogo-ldap = {
     path = "secrets/sogo";
     field = "password";
   };

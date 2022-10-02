@@ -1,4 +1,4 @@
-{ config, inputs, tf, meta, kw, pkgs, lib, ... }: with lib; {
+{ config, inputs, tf, meta, nixfiles, pkgs, lib, ... }: with lib; {
   imports = with meta; [
     hardware.aarch64-linux
     hardware.oracle.ubuntu
@@ -23,7 +23,7 @@
     services.znc
   ];
 
-  kw.oci = {
+  nixfiles.oci = {
     specs = {
       shape = "VM.Standard.A1.Flex";
       cores = 4;

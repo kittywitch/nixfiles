@@ -1,7 +1,7 @@
-{ config, pkgs, lib, tf, kw, ... }: with lib; let
+{ config, pkgs, lib, tf, nixfiles, ... }: with lib; let
   cfg = config.services.nextcloud;
 in {
-  kw.secrets.variables =
+  secrets.variables =
     mapListToAttrs
       (field:
         nameValuePair "nextcloud-${field}" {

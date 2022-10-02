@@ -46,7 +46,7 @@ pkgs.mkShell {
     nf-update
     sumireko-apply
   ] ++ config.runners.lazy.nativeBuildInputs
-   ++ lib.optional (builtins.getEnv "TRUSTED" != "") (pkgs.writeShellScriptBin "bitw" ''${pkgs.rbw-bitw}/bin/bitw -p gpg://${config.network.nodes.all.${builtins.getEnv "HOME_HOSTNAME"}.kw.secrets.repo.bitw.source} "$@"'')
+   ++ lib.optional (builtins.getEnv "TRUSTED" != "") (pkgs.writeShellScriptBin "bitw" ''${pkgs.rbw-bitw}/bin/bitw -p gpg://${config.network.nodes.all.${builtins.getEnv "HOME_HOSTNAME"}.secrets.repo.bitw.source} "$@"'')
   ++ (map
     (node: writeShellScriptBin "${node.networking.hostName}-sd-img" ''
       nix build -f . network.nodes.${node.networking.hostName}.system.build.sdImage --show-trace

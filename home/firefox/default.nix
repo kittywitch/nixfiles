@@ -1,4 +1,4 @@
-{ config, lib, pkgs, nixos, kw, ... }:
+{ config, lib, pkgs, nixos, nixfiles, ... }:
 
 let
   inherit (lib.strings) toLower;
@@ -108,7 +108,7 @@ let
   };
 in
 {
-  home.file.".mozilla/tst.css" = { inherit (kw.sassTemplate { name = "tst"; src = ./tst.sass; }) source; };
+  home.file.".mozilla/tst.css" = { inherit (nixfiles.sassTemplate { name = "tst"; src = ./tst.sass; }) source; };
 
   programs.zsh.shellAliases = {
     ff-pm = "firefox --ProfileManager";
@@ -133,7 +133,7 @@ in
         id = 0;
         isDefault = true;
         settings = commonSettings;
-        userChrome = (kw.sassTemplate { name = "userChrome"; src = ./userChrome.sass; }).text;
+        userChrome = (nixfiles.sassTemplate { name = "userChrome"; src = ./userChrome.sass; }).text;
       };
     };
   };

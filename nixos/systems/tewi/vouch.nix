@@ -62,12 +62,12 @@
     };
   };
   config = {
-    kw.secrets.variables.gensokyo-id = {
+    secrets.variables.gensokyo-id = {
       path = "secrets/id.gensokyo.zone";
       field = "client_secret";
     };
 
-    kw.secrets.variables.gensokyo-jwt = {
+    secrets.variables.gensokyo-jwt = {
       path = "secrets/id.gensokyo.zone";
       field = "jwt";
     };

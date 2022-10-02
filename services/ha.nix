@@ -55,7 +55,7 @@
 
   systemd.services.home-assistant.reloadTriggers = lib.mkForce [ ];
 
-  kw.secrets.variables.z2m-network-key = {
+  secrets.variables.z2m-network-key = {
     path = "secrets/zigbee2mqtt";
     field = "password";
   };

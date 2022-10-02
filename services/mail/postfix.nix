@@ -19,7 +19,7 @@ let
         dork.dev   REJECT Get lost - you're lying about who you are
   '';
 in {
-  kw.secrets.variables."postfix-ldap-password" = {
+  secrets.variables."postfix-ldap-password" = {
     path = "services/dovecot";
     field = "password";
   };
