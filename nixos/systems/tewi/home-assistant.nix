@@ -141,6 +141,7 @@
       psycopg2
       aiohomekit
       securetar
+      getmac # for upnp integration
       (aiogithubapi.overrideAttrs (_: { doInstallCheck = false; }))
     ];
     extraComponents = [
