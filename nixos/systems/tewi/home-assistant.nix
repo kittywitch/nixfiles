@@ -104,6 +104,12 @@
         platform = "google_translate";
         service_name = "google_say";
       }];
+      # https://nixos.wiki/wiki/Home_Assistant#Combine_declarative_and_UI_defined_automations
+      "automation manual" = [ ];
+      "automation ui" = "!include automations.yaml";
+      # https://nixos.wiki/wiki/Home_Assistant#Combine_declarative_and_UI_defined_scenes
+      "scene manual" = [];
+      "scene ui" = "!include scenes.yaml";
     };
     extraPackages = python3Packages: with python3Packages; [
       psycopg2
