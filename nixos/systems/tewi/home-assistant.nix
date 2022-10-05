@@ -56,14 +56,14 @@
       http = {
         cors_allowed_origins = [
           "https://google.com"
-            "https://www.home-assistant.io"
+          "https://www.home-assistant.io"
         ];
         use_x_forwarded_for = "true";
         trusted_proxies = [
           "127.0.0.0/24"
-            "200::/7"
-            "100.64.0.0/10"
-            "fd7a:115c:a1e0:ab12::/64"
+          "200::/7"
+          "100.64.0.0/10"
+          "fd7a:115c:a1e0:ab12::/64"
         ];
       };
       recorder = {
