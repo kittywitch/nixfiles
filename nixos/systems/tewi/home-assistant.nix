@@ -133,11 +133,62 @@
       google_assistant = {
         project_id = "gensokyo-5cfaf";
         service_account = "!include integration.yaml";
+        report_state = true;
+        exposed_domains = [
+          "scene"
+          "climate"
+          #"sensor"
+        ];
+        entity_config = let
+          hidden = "XYZ";
+        in {
+          # bedroom entities
+          "light.bedside_lamp".expose = true;
+          "light.bedroom_strip".expose = true;
+          "light.bedroom_overhead".expose = true;
+          "light.bed_side_overhead".room = hidden;
+          "light.closet_side_overhead".room = hidden;
+          "light.pc_side_overhead".room = hidden;
+          "fan.fornuftig_fan".expose = true;
+          "switch.swb1_relay_3".expose = true;
+          "switch.swb1_relay_4".expose = true;
+
+          # living room entities
+          "light.dining_overhead".expose = true;
+          "light.living_cluster".expose = true;
+          "light.living_overhead".room = hidden;
+          "light.couch_overhead_left".room = hidden;
+          "light.couch_overhead_right".room = hidden;
+          # midea
+          "climate.living_ac".aliases = [
+            "AC"
+            "Midea"
+          ];
+          "sensor.living_ac_outdoor_temperature".expose = false;
+
+          # shanghai systemd
+          "switch.graphical".expose = true;
+          "switch.mradio".expose = true;
+          "switch.vm_goliath1650".expose = true;
+          "switch.vm_goliath3080".expose = true;
+          "switch.vm_hourai1650".expose = true;
+          "switch.vm_hourai3080".expose = true;
+        };
       };
       homekit = {
         name = "Tewi";
         port = 21063;
         ip_address = "10.1.1.38";
+        filter = let
+          inherit (config.services.host-assistant.config) google_assistant;
+        in {
+          include_domains = google_assistant.exposed_domains;
+          include_entities = attrNames (filterAttrs (_: entity: entity.expose or true) google_assistant.entity_config);
+        };
+        entity_config = {
+          "switch.swb1_relay_3".type = "outlet";
+          "switch.swb1_relay_4".type = "outlet";
+        };
       };
       tts = [{
         platform = "google_translate";
