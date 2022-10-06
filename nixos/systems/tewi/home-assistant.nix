@@ -179,6 +179,16 @@
         name = "Tewi";
         port = 21063;
         ip_address = "10.1.1.38";
+        filter = let
+          inherit (config.services.host-assistant.config) google_assistant;
+        in {
+          include_domains = google_assistant.exposed_domains;
+          include_entities = attrNames (filterAttrs (_: entity: entity.expose or true) google_assistant.entity_config);
+        };
+        entity_config = {
+          "switch.swb1_relay_3".type = "outlet";
+          "switch.swb1_relay_4".type = "outlet";
+        };
       };
       tts = [{
         platform = "google_translate";
