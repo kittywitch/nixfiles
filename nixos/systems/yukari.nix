@@ -12,7 +12,10 @@
     services.tvheadend
     services.zfs
     services.plex
+    services.cockroachdb
   ];
+
+  services.cockroachdb.locality = "provider=local,network=chitei,host=${config.networking.hostName}";
 
   boot.supportedFilesystems = singleton "zfs";
 

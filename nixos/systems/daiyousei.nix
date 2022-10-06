@@ -21,6 +21,7 @@
     services.vaultwarden
     services.weechat
     services.znc
+    services.cockroachdb
   ];
 
   nixfiles.oci = {

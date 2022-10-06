@@ -109,6 +109,8 @@ in
         ];
         };
 
+      services.cockroachdb.locality = "provider=oracle,region=${oci-root.outputs.oci_region.import},ad=${cfg.ad},host=${config.networking.hostName}";
+
       deploy.tf =
         let
           compartment_id = oci-root.resources.oci_kw_compartment.importAttr "id";

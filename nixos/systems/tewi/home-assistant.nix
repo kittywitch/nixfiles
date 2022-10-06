@@ -28,10 +28,36 @@
     group = "hass";
   };
 
+  secrets.variables.latitude = {
+    path = "secrets/home-assistant";
+    field = "latitude";
+  };
+
+  secrets.variables.longitude = {
+    path = "secrets/home-assistant";
+    field = "longitude";
+  };
+
+  secrets.variables.elevation = {
+    path = "secrets/home-assistant";
+    field = "elevation";
+  };
+
+
+  secrets.files.home-assistant-secrets = {
+    text = builtins.toJSON {
+      latitude = tf.variables.latitude.ref;
+      longitude = tf.variables.longitude.ref;
+      elevation = tf.variables.elevation.ref;
+    };
+    owner = "hass";
+    group = "hass";
+  };
+
   systemd.services.home-assistant = {
     preStart = lib.mkBefore ''
-      rm ${config.services.home-assistant.configDir}/integration.json
-      cp --no-preserve=mode ${config.secrets.files.ha-integration.path} ${config.services.home-assistant.configDir}/integration.json
+      cp --no-preserve=mode ${config.secrets.files.home-assistant-secrets.path} ${config.services.home-assistant.configDir}/secrets.yaml
+      cp --no-preserve=mode ${config.secrets.files.ha-integration.path} ${config.services.home-assistant.configDir}/integration.yaml
       '';
   };
 
@@ -41,6 +67,11 @@
       homeassistant = {
         name = "Gensokyo";
         unit_system = "metric";
+        latitude = "!secret latitude";
+        longitude = "!secret longitude";
+        elevation = "!secret elevation";
+        currency = "CAD";
+        time_zone = "America/Vancouver";
         external_url = "https://home.gensokyo.zone";
       };
       frontend = {
@@ -93,7 +124,7 @@
       };
       google_assistant = {
         project_id = "gensokyo-5cfaf";
-        service_account = "!include integration.json";
+        service_account = "!include integration.yaml";
       };
       homekit = {
         name = "Tewi";

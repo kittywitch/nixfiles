@@ -5,6 +5,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     hardware.local
     nixos.network
+    services.cockroachdb
     ./kanidm.nix
     ./vouch.nix
     ./home-assistant.nix
@@ -13,6 +14,8 @@
     ./postgres.nix
     ./nginx.nix
   ];
+
+  services.cockroachdb.locality = "provider=local,network=gensokyo,host=${config.networking.hostName}";
 
   networks = {
     gensokyo = {

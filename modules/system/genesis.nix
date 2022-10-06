@@ -1,3 +1,3 @@
-{ config, pkgs, lib, ... }: {
-  _module.args.pkgs = lib.mkDefault pkgs;
+{ config, pkgs, lib, meta, ... }: {
+  _module.args.pkgs = lib.mkDefault meta.pkgs;
 }

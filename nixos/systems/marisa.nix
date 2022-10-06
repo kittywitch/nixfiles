@@ -6,7 +6,10 @@
     services.nginx
     services.access
     services.irlsite
+    services.cockroachdb
   ];
+
+  services.cockroachdb.locality = "provider=buyvm,region=luxembourg,host=${config.networking.hostName}";
 
   boot = {
     loader.grub = {

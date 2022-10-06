@@ -62,6 +62,7 @@ in {
       _module.args.tf = mapNullable (target: target.tf) target;
       out = jsonConfig;
     deploy.tf = {
+        terraform.environment.ESPHOME = "${pkgs.esphome}";
         attrs = [ "import" "imports" "out" "attrs" "triggers" ];
         import = genAttrs cfg.tf.imports (target: meta.deploy.targets.${target}.tf);
         out.set = removeAttrs cfg.tf cfg.tf.attrs;
@@ -75,7 +76,7 @@ in {
             provider = "local";
             type = "file";
             inputs = {
-              filename = "${tf.terraform.dataDir}/esphome-${name}-secrets.json";
+              filename = "${builtins.toString tf.terraform.dataDir}/esphome-${name}-secrets.json";
               content = secretsFile;
             };
           };
@@ -86,10 +87,13 @@ in {
             provisioners = [
               {
                 type = "local-exec";
-                local-exec.command = ''
-                  ${pkgs.esphome}/bin/esphome compile ${closureConfig} ${tf.resources."${name}-secrets".refAttr "filename"}
-                  ${pkgs.esphome}/bin/esphome upload ${closureConfig} --device ${name}.local
-                '';
+                local-exec = {
+                  working_dir = builtins.toString tf.terraform.dataDir;
+                  command = ''
+                    ${pkgs.esphome}/bin/esphome compile ${closureConfig} ${tf.resources."${name}-secrets".refAttr "filename"}
+                    ${pkgs.esphome}/bin/esphome upload ${closureConfig} ${tf.resources."${name}-secrets".refAttr "filename"} --device ${name}.local
+                  '';
+                };
               }
             ];
           };
@@ -103,7 +107,7 @@ in {
         path = if length parts > 1 then head parts else "password";
       in nameValuePair "${config.esphome.name}-secret-${name}" ({
         value.shellCommand = let
-          bitw = pkgs.writeShellScriptBin "bitw" ''${pkgs.rbw-bitw}/bin/bitw -p gpg://${config.network.nodes.all.${builtins.getEnv "HOME_HOSTNAME"}.secrets.repo.bitw.source} "$@"'';
+          bitw = pkgs.writeShellScriptBin "bitw" ''${pkgs.rbw-bitw}/bin/bitw -p gpg://${meta.network.nodes.all.${builtins.getEnv "HOME_HOSTNAME"}.secrets.repo.bitw.source} "$@"'';
         in "${bitw}/bin/bitw get ${path} -f ${field}";
         type = "string";
         sensitive = true;
