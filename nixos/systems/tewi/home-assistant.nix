@@ -1,4 +1,6 @@
-{ config, lib, tf, ... }: {
+{ config, lib, tf, ... }: let
+  inherit (lib.attrsets) attrNames filterAttrs;
+in {
   # MDNS
   services.avahi.enable = true;
 
@@ -180,7 +182,7 @@
         port = 21063;
         ip_address = "10.1.1.38";
         filter = let
-          inherit (config.services.host-assistant.config) google_assistant;
+          inherit (config.services.home-assistant.config) google_assistant;
         in {
           include_domains = google_assistant.exposed_domains;
           include_entities = attrNames (filterAttrs (_: entity: entity.expose or true) google_assistant.entity_config);
