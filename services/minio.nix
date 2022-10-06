@@ -1,8 +1,10 @@
-{ config, lib, ... }: let
-  import (lib.modules) mkIf mkDefault;
+{ config, lib, tf, ... }: let
+  inherit (lib.modules) mkIf mkDefault;
+  inherit (lib.options) mkEnableOption;
+  inherit (lib.attrsets) mapAttrs' genAttrs nameValuePair;
   cfg = config.services.minio;
 in {
-  options.services.minio.isNAS = mkEnableFunction "NAS lack of defaults";
+  options.services.minio.isNAS = mkEnableOption "NAS lack of defaults";
 
   config = {
     secrets = {
@@ -10,7 +12,6 @@ in {
           path = "gensokyo/minio";
           field = "${name}-key";
       }));
-      };
       files = {
         minio-root-credentials = {
           text = ''
@@ -23,17 +24,17 @@ in {
       };
     };
 
-    systemd.tmpfiles.rules = mkIf !cfg.isNAS ''
-      v /minio 700 minio minio
-    '';
+    systemd.tmpfiles.rules = mkIf (!cfg.isNAS) [
+      "v /minio 700 minio minio"
+    ];
 
     services = {
       minio = {
         region = config.services.cockroachdb.locality;
         enable = true;
-        dataDir = lib.optional !cfg.isNAS "/minio";
+        dataDir = lib.optional (!cfg.isNAS) "/minio";
         listenAddress = "${config.networks.tailscale.ipv4}:9000";
-        consoleAddress = "${config.networks.tailcale.ipv4}:9001";
+        consoleAddress = "${config.networks.tailscale.ipv4}:9001";
         rootCredentialsFile = config.secrets.files.minio-root-credentials.path;
       };
     };

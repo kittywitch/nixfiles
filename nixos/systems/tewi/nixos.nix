@@ -6,6 +6,7 @@
     hardware.local
     nixos.network
     services.cockroachdb
+    services.minio
     ./kanidm.nix
     ./vouch.nix
     ./home-assistant.nix
