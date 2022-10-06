@@ -110,6 +110,23 @@
       # https://nixos.wiki/wiki/Home_Assistant#Combine_declarative_and_UI_defined_scenes
       "scene manual" = [];
       "scene ui" = "!include scenes.yaml";
+      sensor = let
+        mkESPresenceBeacon = { device_id, ... }@args: {
+          platform = "mqtt_room";
+          state_topic = "espresense/devices/${device_id}";
+        } // args;
+      in [
+        (mkESPresenceBeacon {
+          device_id = "irk:${secrets.arc-iphone-se-irk}";
+          name = "iPhone SE";
+          timeout = 2;
+          away_timeout = 120;
+        })
+        (mkESPresenceBeacon {
+          device_id = "name:galaxy-watch-active";
+          name = "Galaxy Watch Active";
+        })
+      ];
     };
     extraPackages = python3Packages: with python3Packages; [
       psycopg2
