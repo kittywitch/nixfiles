@@ -104,38 +104,12 @@
         platform = "google_translate";
         service_name = "google_say";
       }];
-      automation = {};
-      counter = {};
-      device_tracker = {};
-      energy = {};
-      group = {};
-      history = {};
-      image = {};
-      input_boolean = {};
-      input_datetime = {};
-      input_number = {};
-      input_select = {};
-      input_text = {};
-      logbook = {};
-      map = {};
-      media_source = {};
-      mobile_app = {};
-      my = {};
-      person = {};
-      scene = {};
-      script = {};
-      ssdp = {};
-      switch = {};
-      stream = {};
-      sun = {};
-      system_health = {};
-      tag = {};
-      template = {};
-      timer = {};
-      webhook = {};
-      wake_on_lan = {};
-      zeroconf = {};
-      zone = {};
+      # https://nixos.wiki/wiki/Home_Assistant#Combine_declarative_and_UI_defined_automations
+      "automation manual" = [ ];
+      "automation ui" = "!include automations.yaml";
+      # https://nixos.wiki/wiki/Home_Assistant#Combine_declarative_and_UI_defined_scenes
+      "scene manual" = [];
+      "scene ui" = "!include scenes.yaml";
     };
     extraPackages = python3Packages: with python3Packages; [
       psycopg2
@@ -145,6 +119,36 @@
       (aiogithubapi.overrideAttrs (_: { doInstallCheck = false; }))
     ];
     extraComponents = [
+      "automation"
+      "counter"
+      "device_tracker"
+      "energy"
+      "group"
+      "history"
+      "image"
+      "input_boolean"
+      "input_datetime"
+      "input_number"
+      "input_select"
+      "input_text"
+      "logbook"
+      "map"
+      "media_source"
+      "mobile_app"
+      "my"
+      "person"
+      "scene"
+      "script"
+      "ssdp"
+      "switch"
+      "stream"
+      "sun"
+      "system_health"
+      "tag"
+      "template"
+      "timer"
+      "webhook"
+      "zone"
       "zha"
       "esphome"
       "apple_tv"
