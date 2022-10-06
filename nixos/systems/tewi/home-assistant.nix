@@ -43,12 +43,18 @@
     field = "elevation";
   };
 
+  secrets.variables.iphone-se-irk = {
+    path = "secrets/home-assistant";
+    field = "iphone-se-irk";
+  };
+
 
   secrets.files.home-assistant-secrets = {
     text = builtins.toJSON {
       latitude = tf.variables.latitude.ref;
       longitude = tf.variables.longitude.ref;
       elevation = tf.variables.elevation.ref;
+      iphone-se-irk = tf.variables.iphone-se-irk.ref;
     };
     owner = "hass";
     group = "hass";
@@ -148,7 +154,7 @@
         } // args;
       in [
         (mkESPresenceBeacon {
-          device_id = "irk:${secrets.arc-iphone-se-irk}";
+          device_id = "!secret iphone_se_irk";
           name = "iPhone SE";
           timeout = 2;
           away_timeout = 120;
