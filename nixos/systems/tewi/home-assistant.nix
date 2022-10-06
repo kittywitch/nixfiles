@@ -48,20 +48,6 @@
     field = "iphone-se-irk";
   };
 
-  secrets.files.home-assistant-scenes = {
-    text = builtins.toJSON {
-    };
-    owner = "hass";
-    group = "hass";
-  };
-
-  secrets.files.home-assistant-automations = {
-    text = builtins.toJSON {
-    };
-    owner = "hass";
-    group = "hass";
-  };
-
 
   secrets.files.home-assistant-secrets = {
     text = builtins.toJSON {
@@ -77,10 +63,10 @@
   systemd.services.home-assistant = {
     preStart = lib.mkBefore ''
       cp --no-preserve=mode ${config.secrets.files.home-assistant-secrets.path} ${config.services.home-assistant.configDir}/secrets.yaml
-      cp --no-preserve=mode ${config.secrets.files.home-assistant-scenes.path} ${config.services.home-assistant.configDir}/scenes.yaml
-      cp --no-preserve=mode ${config.secrets.files.home-assistant-automations.path} ${config.services.home-assistant.configDir}/automations.yaml
       cp --no-preserve=mode ${config.secrets.files.ha-integration.path} ${config.services.home-assistant.configDir}/integration.yaml
-      '';
+      touch ${config.services.home-assistant.configDir}/automations.yaml
+      touch ${config.services.home-assistant.configDir}/scenes.yaml
+    '';
   };
 
   services.home-assistant = {
