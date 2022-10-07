@@ -66,8 +66,8 @@ in {
     preStart = lib.mkBefore ''
       cp --no-preserve=mode ${config.secrets.files.home-assistant-secrets.path} ${config.services.home-assistant.configDir}/secrets.yaml
       cp --no-preserve=mode ${config.secrets.files.ha-integration.path} ${config.services.home-assistant.configDir}/integration.yaml
-      touch ${config.services.home-assistant.configDir}/automations.yaml
-      touch ${config.services.home-assistant.configDir}/scenes.yaml
+      # UI-editable config files
+      touch ${config.services.home-assistant.configDir}/{automations,scenes,scripts}.yaml
     '';
   };
 
@@ -138,6 +138,7 @@ in {
         report_state = true;
         exposed_domains = [
           "scene"
+          "script"
           "climate"
           #"sensor"
         ];
@@ -183,9 +184,14 @@ in {
         ip_address = "10.1.1.38";
         filter = let
           inherit (config.services.home-assistant.config) google_assistant;
+          entities = filterAttrs (_: entity: entity.expose or true) google_assistant.entity_config;
         in {
           include_domains = google_assistant.exposed_domains;
-          include_entities = attrNames (filterAttrs (_: entity: entity.expose or true) google_assistant.entity_config);
+          include_entities = attrNames (removeAttrs entities [
+            # HomeKit is able to group lights together, no need to use the google hack here
+            "light.living_cluster"
+            "light.bedroom_overhead"
+          ]);
         };
         entity_config = {
           "switch.swb1_relay_3".type = "outlet";
@@ -202,6 +208,8 @@ in {
       # https://nixos.wiki/wiki/Home_Assistant#Combine_declarative_and_UI_defined_scenes
       "scene manual" = [];
       "scene ui" = "!include scenes.yaml";
+      "script manual" = [];
+      "script ui" = "!include scripts.yaml";
       counter = {};
       device_tracker = {};
       energy = {};
@@ -209,17 +217,18 @@ in {
       history = {};
       image = {};
       input_boolean = {};
+      input_button = {};
       input_datetime = {};
       input_number = {};
       input_select = {};
       input_text = {};
       logbook = {};
+      schedule = {};
       map = {};
       media_source = {};
       mobile_app = {};
       my = {};
       person = {};
-      script = {};
       ssdp = {};
       switch = {};
       stream = {};
@@ -248,6 +257,10 @@ in {
           device_id = "name:galaxy-watch-active";
           name = "Galaxy Watch Active";
         })
+        (mkESPresenceBeacon {
+          device_id = "3003c8383b6c";
+          name = "Nue";
+        })
       ];
     };
     extraPackages = python3Packages: with python3Packages; [
@@ -260,6 +273,7 @@ in {
     extraComponents = [
       "automation"
       "scene"
+      "script"
       "zha"
       "esphome"
       "apple_tv"
