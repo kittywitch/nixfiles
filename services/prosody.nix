@@ -1,15 +1,15 @@
-{ config, pkgs, lib, ... }:
-
-with lib;
-
-{
+{ config, pkgs, lib, ... }: with lib; let
+ctcfg = config.services.coturn;
+in {
   networks.internet = {
     extra_domains = [
       "xmpp.kittywit.ch"
       "conference.kittywit.ch"
       "upload.kittywit.ch"
+      "turn.kittywit.ch"
     ];
     tcp = [
+      # XMPP
       5000
       5222
       5223
@@ -18,6 +18,18 @@ with lib;
       5281
       5347
       5582
+      # TURN/STUN
+      ctcfg.listening-port
+      ctcfg.alt-listening-port
+      ctcfg.tls-listening-port
+      ctcfg.alt-tls-listening-port
+    ];
+    udp = [
+      ctcfg.listening-port
+      ctcfg.alt-listening-port
+      ctcfg.tls-listening-port
+      ctcfg.alt-tls-listening-port
+      [ ctcfg.min-port ctcfg.max-port ]
     ];
   };
 
@@ -29,10 +41,30 @@ with lib;
     }];
   };
 
+  secrets = {
+    variables.turn-external-secret = {
+      path = "gensokyo/coturn";
+      field = "static-auth";
+    };
+    files.turn-external-secret = {
+      text = tf.variables.turn-external-secret.ref;
+      owner = "prosody";
+      group = "domain-auth";
+    };
+  };
+
+  services.coturn = {
+    enable = true;
+    cert = config.networks.internet.cert_path;
+    pkey = config.networks.internet.key_path;
+    static-auth-secret-file = config.files.turn-external-secret.path;
+    realm = "turn.kittywit.ch";
+  };
+
   services.prosody = {
     enable = true;
-    ssl.cert = "/var/lib/acme/prosody/fullchain.pem";
-    ssl.key = "/var/lib/acme/prosody/key.pem";
+    ssl.cert = config.networks.internet.cert_path;
+    ssl.key = config.networks.internet.key_path;
     admins = singleton "kat@kittywit.ch";
     package =
       let
@@ -49,6 +81,8 @@ with lib;
           database = "prosody";
           username = "prosody";
         }
+        turn_external_host = "turn.kittywit.ch"
+        turn_external_secret = "${tf.variables.turn-external-secret.import}"
     '';
     virtualHosts = {
       "xmpp.kittywit.ch" = {
