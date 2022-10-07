@@ -20,7 +20,7 @@ in {
   };
 
   secrets.variables.ha-integration = {
-    path = "secrets/home-assistant";
+    path = "gensokyo/home-assistant";
     field = "notes";
   };
 
@@ -31,27 +31,27 @@ in {
   };
 
   secrets.variables.latitude = {
-    path = "secrets/home-assistant";
+    path = "gensokyo/home-assistant";
     field = "latitude";
   };
 
   secrets.variables.longitude = {
-    path = "secrets/home-assistant";
+    path = "gensokyo/home-assistant";
     field = "longitude";
   };
 
   secrets.variables.elevation = {
-    path = "secrets/home-assistant";
+    path = "gensokyo/home-assistant";
     field = "elevation";
   };
 
   secrets.variables.iphone-se-irk = {
-    path = "secrets/home-assistant";
+    path = "gensokyo/home-assistant";
     field = "iphone-se-irk";
   };
   secrets.variables.mpd-shanghai-password = {
-    path = "secrets/home-assistant";
-    field = "mpd-shanghai-password";
+    path = "gensokyo/abby";
+    field = "mpd";
   };
 
 
@@ -97,6 +97,9 @@ in {
       };
       utility_meter = {
       };
+      withings = {
+        use_webhook = true;
+      };
       logger = {
         default = "info";
       };
@@ -121,7 +124,7 @@ in {
         exclude = {
           domains = [
             "automation"
-              "updater"
+            "updater"
           ];
           entity_globs = [
             "sensor.weather_*"
@@ -250,6 +253,7 @@ in {
       system_health = {};
       tag = {};
       template = {};
+      tile = {};
       timer = {};
       webhook = {};
       wake_on_lan = {};
@@ -304,7 +308,9 @@ in {
       "homekit"
       "mpd"
       "mqtt"
+      "tile"
       "wake_on_lan"
+      "withings"
       "zeroconf"
     ];
   };
