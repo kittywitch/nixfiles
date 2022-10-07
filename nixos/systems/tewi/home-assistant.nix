@@ -184,9 +184,14 @@ in {
         ip_address = "10.1.1.38";
         filter = let
           inherit (config.services.home-assistant.config) google_assistant;
+          entities = filterAttrs (_: entity: entity.expose or true) google_assistant.entity_config;
         in {
           include_domains = google_assistant.exposed_domains;
-          include_entities = attrNames (filterAttrs (_: entity: entity.expose or true) google_assistant.entity_config);
+          include_entities = attrNames (removeAttrs entities [
+            # HomeKit is able to group lights together, no need to use the google hack here
+            "light.living_cluster"
+            "light.bedroom_overhead"
+          ]);
         };
         entity_config = {
           "switch.swb1_relay_3".type = "outlet";
