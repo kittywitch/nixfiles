@@ -217,11 +217,13 @@ in {
       history = {};
       image = {};
       input_boolean = {};
+      input_button = {};
       input_datetime = {};
       input_number = {};
       input_select = {};
       input_text = {};
       logbook = {};
+      schedule = {};
       map = {};
       media_source = {};
       mobile_app = {};
