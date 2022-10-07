@@ -49,6 +49,10 @@ in {
     path = "secrets/home-assistant";
     field = "iphone-se-irk";
   };
+  secrets.variables.mpd-shanghai-password = {
+    path = "secrets/home-assistant";
+    field = "mpd-shanghai-password";
+  };
 
 
   secrets.files.home-assistant-secrets = {
@@ -57,6 +61,7 @@ in {
       longitude = tf.variables.longitude.ref;
       elevation = tf.variables.elevation.ref;
       iphone-se-irk = tf.variables.iphone-se-irk.ref;
+      mpd-shanghai-password = tf.variables.mpd-shanghai-password.ref;
     };
     owner = "hass";
     group = "hass";
@@ -216,6 +221,14 @@ in {
       logbook = {};
       map = {};
       media_source = {};
+      media_player = [
+        {
+          platform = "mpd";
+          name = "Shanghai MPD";
+          host = "10.1.1.32";
+          password = "!secret mpd-shanghai-password";
+        }
+      ];
       mobile_app = {};
       my = {};
       person = {};
@@ -273,6 +286,7 @@ in {
       "google_cloud"
       "google_translate"
       "homekit"
+      "mpd"
       "mqtt"
       "wake_on_lan"
       "zeroconf"
