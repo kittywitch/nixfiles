@@ -255,6 +255,10 @@ in {
           device_id = "name:galaxy-watch-active";
           name = "Galaxy Watch Active";
         })
+        (mkESPresenceBeacon {
+          device_id = "3003c8383b6c";
+          name = "Nue";
+        })
       ];
     };
     extraPackages = python3Packages: with python3Packages; [
