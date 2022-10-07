@@ -66,8 +66,8 @@ in {
     preStart = lib.mkBefore ''
       cp --no-preserve=mode ${config.secrets.files.home-assistant-secrets.path} ${config.services.home-assistant.configDir}/secrets.yaml
       cp --no-preserve=mode ${config.secrets.files.ha-integration.path} ${config.services.home-assistant.configDir}/integration.yaml
-      touch ${config.services.home-assistant.configDir}/automations.yaml
-      touch ${config.services.home-assistant.configDir}/scenes.yaml
+      # UI-editable config files
+      touch ${config.services.home-assistant.configDir}/{automations,scenes,scripts}.yaml
     '';
   };
 
@@ -138,6 +138,7 @@ in {
         report_state = true;
         exposed_domains = [
           "scene"
+          "script"
           "climate"
           #"sensor"
         ];
@@ -202,6 +203,8 @@ in {
       # https://nixos.wiki/wiki/Home_Assistant#Combine_declarative_and_UI_defined_scenes
       "scene manual" = [];
       "scene ui" = "!include scenes.yaml";
+      "script manual" = [];
+      "script ui" = "!include scripts.yaml";
       counter = {};
       device_tracker = {};
       energy = {};
@@ -219,7 +222,6 @@ in {
       mobile_app = {};
       my = {};
       person = {};
-      script = {};
       ssdp = {};
       switch = {};
       stream = {};
@@ -260,6 +262,7 @@ in {
     extraComponents = [
       "automation"
       "scene"
+      "script"
       "zha"
       "esphome"
       "apple_tv"
