@@ -87,18 +87,18 @@ in
           ipv4 = lib.mkOrder 1000 (tf.resources.${config.networking.hostName}.getAttr "public_ip");
           ipv6 = let
             prefix = lib.head (lib.splitString "/" (oci-root.resources.oci_kw_subnet.importAttr "ipv6cidr_block"));
-          in assert lib.hasSuffix "::" prefix; prefix + toString config.kw.oci.network.publicV6;
+          in assert lib.hasSuffix "::" prefix; prefix + toString config.nixfiles.oci.network.publicV6;
           ip = hostname: class: if hostname != config.networking.hostName then
               if class == 6 then let
                   prefix = lib.head (lib.splitString "/" (oci-root.resources.oci_kw_subnet.importAttr "ipv6cidr_block"));
-                in assert lib.hasSuffix "::" prefix; prefix + toString config.kw.oci.network.publicV6
+                in assert lib.hasSuffix "::" prefix; prefix + toString config.nixfiles.oci.network.publicV6
               else if class == 4 then
                 tf.resources.${config.networking.hostName}.importAttr "public_ip"
                 else throw "${config.networking.hostName}: IP for ${hostname} of ${toString class} is invalid."
             else
               if class == 6 then let
                   prefix = lib.head (lib.splitString "/" (oci-root.resources.oci_kw_subnet.importAttr "ipv6cidr_block"));
-                in assert lib.hasSuffix "::" prefix; prefix + toString config.kw.oci.network.publicV6
+                in assert lib.hasSuffix "::" prefix; prefix + toString config.nixfiles.oci.network.publicV6
               else if class == 4 then
                 tf.resources.${config.networking.hostName}.getAttr "public_ip"
                 else throw "${config.networking.hostName}: IP for ${hostname} of ${toString class} is invalid.";
@@ -109,7 +109,7 @@ in
         ];
         };
 
-      services.cockroachdb.locality = "provider=oracle,region=${oci-root.outputs.oci_region.import},ad=${cfg.ad},host=${config.networking.hostName}";
+      services.cockroachdb.locality = "provider=oracle,region=${tf.providers.oci.inputs.region},ad=${toString cfg.ad},host=${config.networking.hostName}";
 
       deploy.tf =
         let
