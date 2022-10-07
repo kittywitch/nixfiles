@@ -56,11 +56,12 @@ in {
 
 
   secrets.files.home-assistant-secrets = {
-    text = builtins.toJSON {
+    text = builtins.toJSON rec {
       latitude = tf.variables.latitude.ref;
       longitude = tf.variables.longitude.ref;
       elevation = tf.variables.elevation.ref;
       iphone-se-irk = tf.variables.iphone-se-irk.ref;
+      iphone-se-irk-topic = "espresense/devices/${iphone-se-irk}";
       mpd-shanghai-password = tf.variables.mpd-shanghai-password.ref;
     };
     owner = "hass";
@@ -262,6 +263,7 @@ in {
       in [
         (mkESPresenceBeacon {
           device_id = "!secret iphone-se-irk";
+          state_topic = "!secret iphone-se-irk-topic";
           name = "iPhone SE";
           timeout = 2;
           away_timeout = 120;
