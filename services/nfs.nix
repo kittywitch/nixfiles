@@ -8,6 +8,7 @@ with lib;
   };
 
   services.nfs.server.enable = true;
-  services.nfs.server.exports = "/mnt/zraw/media 192.168.1.0/24(rw) fe80::/10(rw) 200::/7(rw) 2a00:23c7:c597:7400::/56(rw)";
+  # chitei, tailscale v4, link-local, tailscale v6
+  services.nfs.server.exports = "/mnt/zraw/media 192.168.1.0/24(rw) 100.64.0.0/10(rw) fe80::/10(rw) fd7a:115c:a1e0:ab12::/64(rw)";
 }
 
