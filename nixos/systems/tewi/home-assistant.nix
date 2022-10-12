@@ -278,7 +278,15 @@ in {
         })
         (mkESPresenceBeacon {
           device_id = "3003c8383b6c";
-          name = "Nue";
+          name = "MT7922 BT";
+        })
+        (mkESPresenceBeacon {
+          device_id = "d8f8833681ba";
+          name = "AX210 BT";
+        })
+        (mkESPresenceBeacon {
+          device_id = "md:03ff:6";
+          name = "Kat's Smartwatch";
         })
       ];
     };
