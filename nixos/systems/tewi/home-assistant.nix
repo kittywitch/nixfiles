@@ -1,5 +1,5 @@
 { config, lib, tf, ... }: let
-  inherit (lib.attrsets) attrNames filterAttrs;
+  inherit (lib.attrsets) attrNames filterAttrs mapAttrs' nameValuePair;
 in {
   # MDNS
   services.avahi.enable = true;
@@ -49,6 +49,18 @@ in {
     path = "gensokyo/home-assistant";
     field = "iphone-se-irk";
   };
+  secrets.variables.tile-bee = {
+    path = "gensokyo/home-assistant";
+    field = "tile-bee";
+  };
+  secrets.variables.tile-kat-wallet = {
+    path = "gensokyo/home-assistant";
+    field = "tile-kat-wallet";
+  };
+  secrets.variables.tile-kat-keys = {
+    path = "gensokyo/home-assistant";
+    field = "tile-kat-keys";
+  };
   secrets.variables.mpd-shanghai-password = {
     path = "gensokyo/abby";
     field = "mpd";
@@ -56,14 +68,21 @@ in {
 
 
   secrets.files.home-assistant-secrets = {
-    text = builtins.toJSON rec {
+    text = let
+      espresenceDevices = {
+        iphone-se-irk = tf.variables.iphone-se-irk.ref;
+        tile-kat-wallet = tf.variables.tile-kat-wallet.ref;
+        tile-kat-keys = tf.variables.tile-kat-keys.ref;
+        tile-bee = tf.variables.tile-bee.ref;
+      };
+    in builtins.toJSON ({
       latitude = tf.variables.latitude.ref;
       longitude = tf.variables.longitude.ref;
       elevation = tf.variables.elevation.ref;
-      iphone-se-irk = tf.variables.iphone-se-irk.ref;
-      iphone-se-irk-topic = "espresense/devices/${iphone-se-irk}";
       mpd-shanghai-password = tf.variables.mpd-shanghai-password.ref;
-    };
+    } // mapAttrs' (key: device_id:
+      nameValuePair "${key}-topic" "espresense/devices/${device_id}"
+    ) espresenceDevices);
     owner = "hass";
     group = "hass";
   };
@@ -278,7 +297,30 @@ in {
         })
         (mkESPresenceBeacon {
           device_id = "3003c8383b6c";
-          name = "Nue";
+          name = "MT7922 BT";
+        })
+        (mkESPresenceBeacon {
+          device_id = "d8f8833681ba";
+          name = "AX210 BT";
+        })
+        (mkESPresenceBeacon {
+          device_id = "md:03ff:6";
+          name = "Kat's Smartwatch";
+        })
+        (mkESPresenceBeacon {
+          device_id = "!secret tile-bee";
+          state_topic = "!secret tile-bee-topic";
+          name = "Bee";
+        })
+        (mkESPresenceBeacon {
+          device_id = "!secret tile-kat-wallet";
+          state_topic = "!secret tile-kat-wallet-topic";
+          name = "Kat's Wallet";
+        })
+        (mkESPresenceBeacon {
+          device_id = "!secret tile-kat-keys";
+          state_topic = "!secret tile-kat-keys-topic";
+          name = "Knife";
         })
       ];
     };
