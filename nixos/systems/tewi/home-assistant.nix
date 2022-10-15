@@ -181,6 +181,7 @@ in {
           "light.closet_side_overhead".room = hidden;
           "light.pc_side_overhead".room = hidden;
           "fan.fornuftig_fan".expose = true;
+          "fan.bedroom_floor".expose = true;
           "switch.swb1_relay_3".expose = true;
           "switch.swb1_relay_4".expose = true;
 
@@ -196,6 +197,9 @@ in {
             "Midea"
           ];
           "sensor.living_ac_outdoor_temperature".expose = false;
+
+          # balcony
+          "light.outdoor_strip".expose = true;
 
           # shanghai systemd
           "switch.graphical".expose = true;
