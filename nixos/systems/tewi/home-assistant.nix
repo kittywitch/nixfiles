@@ -201,12 +201,12 @@ in {
           "light.outdoor_strip".expose = true;
 
           # shanghai systemd
-          "switch.graphical".expose = true;
-          "switch.mradio".expose = true;
-          "switch.vm_goliath1650".expose = true;
-          "switch.vm_goliath3080".expose = true;
-          "switch.vm_hourai1650".expose = true;
-          "switch.vm_hourai3080".expose = true;
+          "switch.shanghai_graphical".expose = true;
+          "switch.shanghai_mradio".expose = true;
+          "switch.shanghai_vm_goliath1650".expose = true;
+          "switch.shanghai_vm_goliath3080".expose = true;
+          "switch.shanghai_vm_hourai1650".expose = true;
+          "switch.shanghai_vm_hourai3080".expose = true;
         };
       };
       homekit = {
