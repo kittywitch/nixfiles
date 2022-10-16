@@ -1,4 +1,6 @@
 final: prev: {
+  requests-oauth = final.python3Packages.callPackage ./requests-oauth.nix { };
+  withings-api = final.python3Packages.callPackage ./withings-api.nix { };
   irlsite = final.callPackage ./irlsite.nix { };
   vips = prev.vips.override { libjxl = null; };
   yabai = final.callPackage ./yabai.nix { };

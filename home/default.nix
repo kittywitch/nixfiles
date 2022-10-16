@@ -23,6 +23,7 @@ in
     gui = {
       imports = with dirImports; [
         gui
+        vscode
 				wezterm
         firefox
         konawall

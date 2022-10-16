@@ -4,7 +4,6 @@
   imports = with meta; [
     (modulesPath + "/installer/scan/not-detected.nix")
     hardware.local
-    nixos.network
     nixos.arc
     services.cockroachdb
     services.minio

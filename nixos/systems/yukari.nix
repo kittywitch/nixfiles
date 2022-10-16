@@ -2,7 +2,6 @@
   imports = with meta; [
     hardware.rm-310
     hardware.local
-    nixos.network
     nixos.arc
     services.ha
     services.nextcloud

@@ -313,6 +313,14 @@
           tailnet = "inskip.me";
         };
       };
+      resources.tailnet_device_key = {
+        provider = "tailscale";
+        type = "device_key";
+        inputs = {
+          device_id = meta.tailnet.${config.networking.hostName}.id;
+          key_expiry_disabled = true;
+        };
+      };
       resources.tailnet_key = {
         provider = "tailscale";
         type = "tailnet_key";

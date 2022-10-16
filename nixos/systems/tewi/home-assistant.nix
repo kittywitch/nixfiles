@@ -66,7 +66,6 @@ in {
     field = "mpd";
   };
 
-
   secrets.files.home-assistant-secrets = {
     text = let
       espresenceDevices = {
@@ -80,7 +79,7 @@ in {
       longitude = tf.variables.longitude.ref;
       elevation = tf.variables.elevation.ref;
       mpd-shanghai-password = tf.variables.mpd-shanghai-password.ref;
-    } // mapAttrs' (key: device_id:
+    } // espresenceDevices // mapAttrs' (key: device_id:
       nameValuePair "${key}-topic" "espresense/devices/${device_id}"
     ) espresenceDevices);
     owner = "hass";
@@ -320,13 +319,14 @@ in {
         (mkESPresenceBeacon {
           device_id = "!secret tile-kat-keys";
           state_topic = "!secret tile-kat-keys-topic";
-          name = "Knife";
+          name = "Girlwife";
         })
       ];
     };
     extraPackages = python3Packages: with python3Packages; [
       psycopg2
       aiohomekit
+      pkgs.withings-api
       securetar
       getmac # for upnp integration
       (aiogithubapi.overrideAttrs (_: { doInstallCheck = false; }))

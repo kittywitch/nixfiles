@@ -1,5 +1,4 @@
 { config, lib, pkgs, ... }:
-
 {
   home.packages = with pkgs; [
     btop
@@ -22,5 +21,6 @@
     element-desktop
     cryptsetup
     esphome
+    esptool
   ];
 }

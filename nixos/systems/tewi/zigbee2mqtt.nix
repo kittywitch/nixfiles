@@ -28,6 +28,8 @@
     group = "zigbee2mqtt";
   };
 
+  users.groups.input.members = [ "zigbee2mqtt" ];
+
   services.zigbee2mqtt = {
     enable = true;
     settings = {
@@ -46,9 +48,8 @@
         port = 8072;
       };
       serial = {
-        port = "/dev/serial/by-id/usb-Silicon_Labs_Sonoff_Zigbee_3.0_USB_Dongle_Plus_0001-if00-port0";
+        port = "/dev/ttyUSB0";
       };
-
     };
   };
 

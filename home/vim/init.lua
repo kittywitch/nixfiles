@@ -230,22 +230,6 @@ end, { silent = true })
 require('nvim-treesitter.configs').setup {
 	-- A list of parser names, or "all"
 	ensure_installed = {
-		"c",
-		"lua",
-		"rust",
-		"bash",
-		"css",
-		"dockerfile",
-		"go",
-		"hcl",
-		"html",
-		"javascript",
-		"markdown",
-		"nix",
-		"norg",
-		"python",
-		"regex",
-		"scss",
 	},
 
 	sync_install = false,

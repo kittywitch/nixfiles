@@ -167,7 +167,6 @@ with lib;
           meta.modules.nixos
           meta.modules.system
           meta.modules.type
-          meta.nixos.network
           meta.system
       ];
       specialArgs = {

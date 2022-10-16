@@ -2,7 +2,6 @@
   imports = with meta; [
     (modulesPath + "/profiles/qemu-guest.nix")
     hardware.manual
-    nixos.network
     services.nginx
     services.access
     services.irlsite

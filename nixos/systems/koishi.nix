@@ -4,7 +4,6 @@
     hardware.local
     nixos.gui
     nixos.light
-    nixos.network
     services.nginx
     home.gui
   ];
@@ -19,6 +18,7 @@
 
 virtualisation.docker.enable = true;
 
+services.avahi.enable = true;
 environment.systemPackages = [ pkgs.docker-compose ];
 
   nix.buildMachines = [ {
@@ -53,7 +53,7 @@ environment.systemPackages = [ pkgs.docker-compose ];
     powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
     
     boot = {
-      supportedFilesystems = [ "xfs" "zfs" ];
+      supportedFilesystems = [ "xfs" ];
       initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/f0ea08b4-6af7-4d90-a2ad-edd5672a2105";
       loader = {
         efi = {

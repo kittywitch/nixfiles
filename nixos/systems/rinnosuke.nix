@@ -1,7 +1,6 @@
 { config, tf, meta, nixfiles, pkgs, lib, ... }: with lib; {
   imports = with meta; [
     hardware.oracle.ubuntu
-    nixos.network
     services.nginx
     services.knot
   ];

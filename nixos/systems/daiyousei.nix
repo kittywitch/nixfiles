@@ -2,7 +2,6 @@
   imports = with meta; [
     hardware.aarch64-linux
     hardware.oracle.ubuntu
-    nixos.network
     home.weechat
     home.services.weechat
     services.nginx
