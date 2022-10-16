@@ -340,6 +340,8 @@ in {
       "apple_tv"
       "spotify"
       "default_config"
+      "brother"
+      "ipp"
       "cast"
       "plex"
       "met"
