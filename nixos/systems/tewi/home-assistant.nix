@@ -212,6 +212,12 @@ in {
           "switch.shanghai_vm_goliath3080".expose = true;
           "switch.shanghai_vm_hourai1650".expose = true;
           "switch.shanghai_vm_hourai3080".expose = true;
+          "cover.shanghai_dpms" = {
+            expose = true;
+            aliases = [
+              "DPMS"
+            ];
+          };
         };
       };
       homekit = {
