@@ -179,6 +179,9 @@ in {
           "light.bed_side_overhead".room = hidden;
           "light.closet_side_overhead".room = hidden;
           "light.pc_side_overhead".room = hidden;
+          "light.closet_overhead".expose = true;
+          "light.closet_overhead_left".room = hidden;
+          "light.closet_overhead_right".room = hidden;
           "fan.fornuftig_fan".expose = true;
           "fan.bedroom_floor".expose = true;
           "switch.swb1_relay_3".expose = true;
@@ -188,6 +191,7 @@ in {
           "light.dining_overhead".expose = true;
           "light.living_cluster".expose = true;
           "light.living_overhead".room = hidden;
+          "light.tv_overhead".room = hidden;
           "light.couch_overhead_left".room = hidden;
           "light.couch_overhead_right".room = hidden;
           # midea
@@ -199,6 +203,7 @@ in {
 
           # balcony
           "light.outdoor_strip".expose = true;
+          "light.lantern".expose = true;
 
           # shanghai systemd
           "switch.shanghai_graphical".expose = true;
@@ -222,6 +227,7 @@ in {
             # HomeKit is able to group lights together, no need to use the google hack here
             "light.living_cluster"
             "light.bedroom_overhead"
+            "light.closet_overhead"
           ]);
         };
         entity_config = {
