@@ -209,6 +209,7 @@ in {
               "TV Backlight"
             ];
           };
+          "light.living_bookshelf".room = hidden;
           # midea
           "climate.living_ac".aliases = [
             "AC"
