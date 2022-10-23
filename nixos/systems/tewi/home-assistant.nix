@@ -194,6 +194,13 @@ in {
           "light.tv_overhead".room = hidden;
           "light.couch_overhead_left".room = hidden;
           "light.couch_overhead_right".room = hidden;
+          "light.tv_bias" = {
+            room = hidden;
+            aliases = [
+              "Bias Lighting"
+              "TV Backlight"
+            ];
+          };
           # midea
           "climate.living_ac".aliases = [
             "AC"
