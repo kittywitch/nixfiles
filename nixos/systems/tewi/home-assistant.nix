@@ -96,13 +96,16 @@ in {
       cp --no-preserve=mode ${config.secrets.files.home-assistant-secrets.path} ${config.services.home-assistant.configDir}/secrets.yaml
       cp --no-preserve=mode ${config.secrets.files.ha-integration.path} ${config.services.home-assistant.configDir}/integration.yaml
       # UI-editable config files
-      touch ${config.services.home-assistant.configDir}/{automations,scenes,scripts}.yaml
+      touch ${config.services.home-assistant.configDir}/{automations,scenes,scripts,manual}.yaml
     '';
   };
 
   services.home-assistant = {
     enable = true;
     config = {
+      packages = {
+        manual = "!include manual.yaml";
+      };
       homeassistant = {
         name = "Gensokyo";
         unit_system = "metric";
