@@ -49,6 +49,10 @@ in {
     path = "gensokyo/home-assistant";
     field = "iphone-se-irk";
   };
+  secrets.variables.companion-pixel6 = {
+    path = "gensokyo/home-assistant";
+    field = "companion-pixel6";
+  };
   secrets.variables.tile-bee = {
     path = "gensokyo/home-assistant";
     field = "tile-bee";
@@ -70,6 +74,7 @@ in {
     text = let
       espresenceDevices = {
         iphone-se-irk = tf.variables.iphone-se-irk.ref;
+        companion-pixel6 = tf.variables.companion-pixel6.ref;
         tile-kat-wallet = tf.variables.tile-kat-wallet.ref;
         tile-kat-keys = tf.variables.tile-kat-keys.ref;
         tile-bee = tf.variables.tile-bee.ref;
@@ -303,14 +308,21 @@ in {
       sensor = let
         mkESPresenceBeacon = { device_id, ... }@args: {
           platform = "mqtt_room";
-          state_topic = "espresense/devices/${device_id}";
+          state_topic = if hasPrefix "!secret" device_id
+            then "${device_id}-topic"
+            else "espresense/devices/${device_id}";
         } // args;
       in [
         (mkESPresenceBeacon {
           device_id = "!secret iphone-se-irk";
-          state_topic = "!secret iphone-se-irk-topic";
           name = "iPhone SE";
           timeout = 2;
+          away_timeout = 120;
+        })
+        (mkESPresenceBeacon {
+          device_id = "!secret companion-pixel6";
+          name = "Kat's Pixel 6";
+          timeout = 5;
           away_timeout = 120;
         })
         (mkESPresenceBeacon {
@@ -331,17 +343,14 @@ in {
         })
         (mkESPresenceBeacon {
           device_id = "!secret tile-bee";
-          state_topic = "!secret tile-bee-topic";
           name = "Bee";
         })
         (mkESPresenceBeacon {
           device_id = "!secret tile-kat-wallet";
-          state_topic = "!secret tile-kat-wallet-topic";
           name = "Kat's Wallet";
         })
         (mkESPresenceBeacon {
           device_id = "!secret tile-kat-keys";
-          state_topic = "!secret tile-kat-keys-topic";
           name = "Girlwife";
         })
       ];
