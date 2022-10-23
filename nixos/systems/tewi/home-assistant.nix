@@ -217,9 +217,20 @@ in {
           ];
           "sensor.living_ac_outdoor_temperature".expose = false;
 
+          # kitchen
+          "light.kitchen_overhead".expose = true;
+          "light.kitchen_overhead_inner".room = hidden;
+          "light.kitchen_overhead_middle".room = hidden;
+          "light.kitchen_overhead_outer".room = hidden;
+
           # balcony
           "light.outdoor_strip".expose = true;
           "light.lantern".expose = true;
+
+          # foyer
+          "light.entry_overhead".expose = true;
+          "light.entry_overhead_left".room = hidden;
+          "light.entry_overhead_right".room = hidden;
 
           # shanghai systemd
           "switch.shanghai_graphical".expose = true;
@@ -250,6 +261,8 @@ in {
             "light.living_cluster"
             "light.bedroom_overhead"
             "light.closet_overhead"
+            "light.kitchen_overhead"
+            "light.entry_overhead"
           ]);
         };
         entity_config = {
