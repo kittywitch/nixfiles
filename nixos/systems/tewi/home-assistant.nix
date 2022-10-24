@@ -190,7 +190,13 @@ in {
           "light.closet_overhead".expose = true;
           "light.closet_overhead_left".room = hidden;
           "light.closet_overhead_right".room = hidden;
-          "fan.fornuftig_fan".expose = true;
+          "fan.bedroom_purifier" = {
+            expose = true;
+            aliases = [
+              "FÖRNUFTIG"
+              "Bedroom Air Purifier"
+            ];
+          };
           "fan.bedroom_floor".expose = true;
           "switch.swb1_relay_3".expose = true;
           "switch.swb1_relay_4".expose = true;
