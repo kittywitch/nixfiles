@@ -49,6 +49,10 @@ in {
     path = "gensokyo/home-assistant";
     field = "iphone-se-irk";
   };
+  secrets.variables.companion-pixel6 = {
+    path = "gensokyo/home-assistant";
+    field = "companion-pixel6";
+  };
   secrets.variables.tile-bee = {
     path = "gensokyo/home-assistant";
     field = "tile-bee";
@@ -70,6 +74,7 @@ in {
     text = let
       espresenceDevices = {
         iphone-se-irk = tf.variables.iphone-se-irk.ref;
+        companion-pixel6 = tf.variables.companion-pixel6.ref;
         tile-kat-wallet = tf.variables.tile-kat-wallet.ref;
         tile-kat-keys = tf.variables.tile-kat-keys.ref;
         tile-bee = tf.variables.tile-bee.ref;
@@ -91,13 +96,16 @@ in {
       cp --no-preserve=mode ${config.secrets.files.home-assistant-secrets.path} ${config.services.home-assistant.configDir}/secrets.yaml
       cp --no-preserve=mode ${config.secrets.files.ha-integration.path} ${config.services.home-assistant.configDir}/integration.yaml
       # UI-editable config files
-      touch ${config.services.home-assistant.configDir}/{automations,scenes,scripts}.yaml
+      touch ${config.services.home-assistant.configDir}/{automations,scenes,scripts,manual}.yaml
     '';
   };
 
   services.home-assistant = {
     enable = true;
     config = {
+      packages = {
+        manual = "!include manual.yaml";
+      };
       homeassistant = {
         name = "Gensokyo";
         unit_system = "metric";
@@ -182,7 +190,13 @@ in {
           "light.closet_overhead".expose = true;
           "light.closet_overhead_left".room = hidden;
           "light.closet_overhead_right".room = hidden;
-          "fan.fornuftig_fan".expose = true;
+          "fan.bedroom_purifier" = {
+            expose = true;
+            aliases = [
+              "FÖRNUFTIG"
+              "Bedroom Air Purifier"
+            ];
+          };
           "fan.bedroom_floor".expose = true;
           "switch.swb1_relay_3".expose = true;
           "switch.swb1_relay_4".expose = true;
@@ -201,6 +215,7 @@ in {
               "TV Backlight"
             ];
           };
+          "light.living_bookshelf".room = hidden;
           # midea
           "climate.living_ac".aliases = [
             "AC"
@@ -208,9 +223,20 @@ in {
           ];
           "sensor.living_ac_outdoor_temperature".expose = false;
 
+          # kitchen
+          "light.kitchen_overhead".expose = true;
+          "light.kitchen_overhead_inner".room = hidden;
+          "light.kitchen_overhead_middle".room = hidden;
+          "light.kitchen_overhead_outer".room = hidden;
+
           # balcony
           "light.outdoor_strip".expose = true;
           "light.lantern".expose = true;
+
+          # foyer
+          "light.entry_overhead".expose = true;
+          "light.entry_overhead_left".room = hidden;
+          "light.entry_overhead_right".room = hidden;
 
           # shanghai systemd
           "switch.shanghai_graphical".expose = true;
@@ -241,6 +267,8 @@ in {
             "light.living_cluster"
             "light.bedroom_overhead"
             "light.closet_overhead"
+            "light.kitchen_overhead"
+            "light.entry_overhead"
           ]);
         };
         entity_config = {
@@ -303,14 +331,21 @@ in {
       sensor = let
         mkESPresenceBeacon = { device_id, ... }@args: {
           platform = "mqtt_room";
-          state_topic = "espresense/devices/${device_id}";
+          state_topic = if hasPrefix "!secret" device_id
+            then "${device_id}-topic"
+            else "espresense/devices/${device_id}";
         } // args;
       in [
         (mkESPresenceBeacon {
           device_id = "!secret iphone-se-irk";
-          state_topic = "!secret iphone-se-irk-topic";
           name = "iPhone SE";
           timeout = 2;
+          away_timeout = 120;
+        })
+        (mkESPresenceBeacon {
+          device_id = "!secret companion-pixel6";
+          name = "Kat's Pixel 6";
+          timeout = 5;
           away_timeout = 120;
         })
         (mkESPresenceBeacon {
@@ -331,17 +366,14 @@ in {
         })
         (mkESPresenceBeacon {
           device_id = "!secret tile-bee";
-          state_topic = "!secret tile-bee-topic";
           name = "Bee";
         })
         (mkESPresenceBeacon {
           device_id = "!secret tile-kat-wallet";
-          state_topic = "!secret tile-kat-wallet-topic";
           name = "Kat's Wallet";
         })
         (mkESPresenceBeacon {
           device_id = "!secret tile-kat-keys";
-          state_topic = "!secret tile-kat-keys-topic";
           name = "Girlwife";
         })
       ];
