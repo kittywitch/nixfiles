@@ -50,7 +50,7 @@
     };
   };
   config = mkMerge [
-    (mkIf cfg.enable {
+    (mkIf false {
       environment.systemPackages = [ pkgs.glusterfs ];
 
       services.glusterfs = {

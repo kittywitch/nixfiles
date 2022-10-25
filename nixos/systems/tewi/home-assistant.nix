@@ -1,5 +1,6 @@
 { config, lib, tf, ... }: let
   inherit (lib.attrsets) attrNames filterAttrs mapAttrs' nameValuePair;
+  inherit (lib.strings) hasPrefix;
 in {
   # MDNS
   services.avahi.enable = true;
@@ -103,9 +104,6 @@ in {
   services.home-assistant = {
     enable = true;
     config = {
-      packages = {
-        manual = "!include manual.yaml";
-      };
       homeassistant = {
         name = "Gensokyo";
         unit_system = "metric";
@@ -115,6 +113,9 @@ in {
         currency = "CAD";
         time_zone = "America/Vancouver";
         external_url = "https://home.gensokyo.zone";
+        packages = {
+          manual = "!include manual.yaml";
+        };
       };
       frontend = {
         themes = "!include_dir_merge_named themes";
@@ -381,7 +382,6 @@ in {
     extraPackages = python3Packages: with python3Packages; [
       psycopg2
       aiohomekit
-      pkgs.withings-api
       securetar
       getmac # for upnp integration
       (aiogithubapi.overrideAttrs (_: { doInstallCheck = false; }))

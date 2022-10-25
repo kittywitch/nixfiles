@@ -109,7 +109,7 @@ in
         ];
         };
 
-      services.cockroachdb.locality = "provider=oracle,region=${tf.providers.oci.inputs.region},ad=${toString cfg.ad},host=${config.networking.hostName}";
+      services.cockroachdb.locality = lib.mkIf (tf.state.enable) "provider=oracle,region=${tf.providers.oci.inputs.region},ad=${toString cfg.ad},host=${config.networking.hostName}";
 
       deploy.tf =
         let
