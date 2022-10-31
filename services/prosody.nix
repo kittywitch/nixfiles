@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: with lib; let
+{ tf, config, pkgs, lib, ... }: with lib; let
 ctcfg = config.services.coturn;
 in {
   networks.internet = {
@@ -52,12 +52,13 @@ in {
       group = "domain-auth";
     };
   };
+  deploy.tf.variables.turn-external-secret.export = true;
 
   services.coturn = {
     enable = true;
     cert = config.networks.internet.cert_path;
     pkey = config.networks.internet.key_path;
-    static-auth-secret-file = config.files.turn-external-secret.path;
+    static-auth-secret-file = config.secrets.files.turn-external-secret.path;
     realm = "turn.kittywit.ch";
   };
 
@@ -82,7 +83,8 @@ in {
           username = "prosody";
         }
         turn_external_host = "turn.kittywit.ch"
-        turn_external_secret = "${tf.variables.turn-external-secret.import}"
+    '' + optionalString tf.state.enable ''
+        turn_external_secret = "${tf.variables.turn-external-secret.get}"
     '';
     virtualHosts = {
       "xmpp.kittywit.ch" = {
