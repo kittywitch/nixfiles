@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     btop
     bitwarden
+    brave
     discord
     exiftool
     thunderbird

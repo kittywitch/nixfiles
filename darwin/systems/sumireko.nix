@@ -53,14 +53,22 @@
 
   homebrew = {
     brewPrefix = "/opt/homebrew/bin";
+    brews = [
+      "gnupg"
+      "pinentry"
+    ];
     casks = [
       "utm"
         "mullvadvpn"
         "android-studio"
         "bitwarden"
         "telegram"
+        "mumble"
         "deluge"
+        "signal"
         "alt-tab"
+        "spotify"
+        "brave"
         "kicad"
         "disk-inventory-x"
         "element"

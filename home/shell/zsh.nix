@@ -71,6 +71,10 @@ xdg.configFile."kattheme_immutable.json".text = builtins.toJSON rec {
 		zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1lb --color=always $realpath'
 			${lib.concatStringsSep "\n" (map (opt: "setopt ${opt}") zshOpts)}
 		bindkey '^ ' autosuggest-accept
+    ${if pkgs.hostPlatform.isDarwin then ''
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+'' else ""
+    }
 			'';
 		shellAliases = lib.mkMerge [
 		{
