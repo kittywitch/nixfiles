@@ -49,7 +49,6 @@ in
 			imports = with dirImports; [
 			work
 			wezterm
-			emacs
 			];
 		};
 

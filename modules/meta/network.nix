@@ -151,7 +151,6 @@ with lib;
     darwin = {
       extraModules = [
           inputs.home-manager.darwinModules.home-manager
-          meta.modules.darwin
           meta.modules.system
           meta.modules.type
           meta.system

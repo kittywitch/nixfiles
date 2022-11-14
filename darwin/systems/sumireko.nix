@@ -65,7 +65,7 @@
         "deluge"
         "alt-tab"
         "spotify"
-        "brave"
+        "brave-browser"
         "disk-inventory-x"
         "dozer"
         "firefox"
