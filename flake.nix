@@ -11,7 +11,7 @@
       flake = false;
     };
     home-manager = {
-      url = "github:kittywitch/home-manager/master";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     darwin = {
