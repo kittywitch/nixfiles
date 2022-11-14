@@ -72,7 +72,7 @@ xdg.configFile."kattheme_immutable.json".text = builtins.toJSON rec {
 			${lib.concatStringsSep "\n" (map (opt: "setopt ${opt}") zshOpts)}
 		bindkey '^ ' autosuggest-accept
     ${if pkgs.hostPlatform.isDarwin then ''
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+    export PATH="''${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 '' else ""
     }
 			'';

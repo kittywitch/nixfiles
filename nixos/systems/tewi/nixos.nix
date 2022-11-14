@@ -1,4 +1,4 @@
-{ meta, config, lib, pkgs, modulesPath, ... }:
+{ meta, tf, config, lib, pkgs, modulesPath, ... }:
 
 {
   imports = with meta; [
@@ -14,6 +14,7 @@
     ./mosquitto.nix
     ./postgres.nix
     ./nginx.nix
+    ../../gui/nfs.nix
   ];
 
   services.cockroachdb.locality = "provider=local,network=gensokyo,host=${config.networking.hostName}";
@@ -49,6 +50,25 @@
       availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
     };
     kernelModules = [ "kvm-intel" ];
+  };
+
+  services.openiscsi = {
+    enable = true;
+    name = "";
+    discoverPortal = "shanghai.tail.cutie.moe";
+  };
+
+  environment.etc."iscsi/initiatorname.iscsi" = lib.mkForce {
+    source = config.secrets.files.openscsi-config.path;
+  };
+
+  secrets.variables.openscsi-password = {
+    path = "gensokyo/tewi-scsi";
+    field = "password";
+  };
+
+  secrets.files.openscsi-config = {
+    text = "InitiatorName=${tf.variables.openscsi-password.ref}";
   };
 
   fileSystems = {

@@ -365,7 +365,11 @@
               mode = "0440";
             }
           ) (filterAttrs (_: settings: settings.create_cert) config.domains);
-          in networks // networks' // domains // domains';
+          in networks // networks' // domains // domains' // {
+            tailscale-key = {
+              text = tf.resources.tailnet_key.refAttr "key";
+            };
+          };
 
     services.nginx.virtualHosts = let
           networkVirtualHosts = concatLists (mapAttrsToList (network: settings: map(domain: nameValuePair (if domain != "@" then domain else settings.zone) {
@@ -421,7 +425,7 @@
 
 # otherwise authenticate with tailscale
 # to-do: --advertise-exit-node
-            ${tailscale}/bin/tailscale up -authkey ${tf.resources.tailnet_key.getAttr "key"}
+            ${tailscale}/bin/tailscale up -authkey $(cat ${config.secrets.files.tailscale-key.path})
       '';
     };
   };

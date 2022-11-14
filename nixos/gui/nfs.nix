@@ -3,13 +3,13 @@
 {
   boot.supportedFilesystems = [ "nfs" ];
 
-  /*
+
   fileSystems."/mnt/kat-nas" = lib.mkIf (config.networking.hostName != "yukari") {
-    device = "${meta.network.nodes.nixos.yukari.network.addresses.w.domain}:/mnt/zraw/media";
+    device = "yukari.inskip.me:/mnt/zraw/media";
     fsType = "nfs";
     options = [ "x-systemd.automount" "noauto" "nfsvers=4" "soft" "retrans=2" "timeo=60" ];
     };
-
+/*
     fileSystems."/mnt/hex-corn" = {
     device = "storah.net.lilwit.ch:/data/cornbox";
     fsType = "nfs";
