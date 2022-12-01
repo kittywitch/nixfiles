@@ -15,13 +15,13 @@
   inherit (lib.attrsets) mapAttrs;
 in {
   inherit tree;
-  nixosConfigurations = mapAttrs (name: path: nixpkgs.lib.nixosSystem {
+  nixosConfigurations = mapAttrs (_: path: nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     modules = [
       path
     ];
     } ) tree.nixos.systems;
-  darwinConfigurations = mapAttrs (name: path: darwin.lib.darwinSystem {
+  darwinConfigurations = mapAttrs (_: path: darwin.lib.darwinSystem {
     system = "x86_64-linux";
     modules = [
       path
