@@ -6,7 +6,7 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-darwin = {
+    darwin = {
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -16,5 +16,5 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { ... }@inputs: import ./default.nix { inherit inputs; };
+  outputs = { ... }@inputs: import ./default.nix inputs;
 }
