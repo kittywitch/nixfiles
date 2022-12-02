@@ -29,7 +29,7 @@ in {
       ragenix.nixosModule
       path
     ];
-    } ) tree.nixos.systems in mapAttrs (_: sys: sys.extendModules {
+    } ) tree.nixos.systems; in mapAttrs (_: sys: sys.extendModules {
       modules = [ scalpel.nixosModule ];
       specialArgs = {
         prev = sys;
