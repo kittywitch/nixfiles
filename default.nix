@@ -1,4 +1,4 @@
-{ nixpkgs, darwin, home-manager, ... }@inputs: let
+{ nixpkgs, darwin, home-manager, scalpel ... }@inputs: let
   tree = (inputs.tree.tree {
     inherit inputs;
     folder = ./.;
@@ -18,7 +18,7 @@
   inherit (lib.attrsets) mapAttrs;
 in {
   inherit tree;
-  nixosConfigurations = mapAttrs (name: path: nixpkgs.lib.nixosSystem {
+  nixosConfigurations = let base = mapAttrs (name: path: nixpkgs.lib.nixosSystem {
     specialArgs = {
       inherit inputs tree;
       machine = name;
@@ -26,9 +26,15 @@ in {
     system = "x86_64-linux";
     modules = [
       home-manager.nixosModules.home-manager
+      agenix.nixosModule
       path
     ];
-    } ) tree.nixos.systems;
+    } ) tree.nixos.systems in mapAttrs (_: sys: sys.extendModules {
+      modules = [ scalpel.nixosModule ];
+      specialArgs = {
+        prev = sys;
+      };
+    } ) base;
   darwinConfigurations = mapAttrs (name: path: darwin.lib.darwinSystem {
     specialArgs = {
       inherit inputs tree;

@@ -15,6 +15,17 @@
       url = "github:kittywitch/tree";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ragenix = {
+      url = "github:yaxitech/ragenix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
+    scalpel = {
+      url = "github:polygon/scalpel";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = { ... }@inputs: import ./default.nix inputs;
 }
