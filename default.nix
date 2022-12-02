@@ -1,4 +1,4 @@
-{ nixpkgs, darwin, home-manager, scalpel ... }@inputs: let
+{ nixpkgs, darwin, home-manager, ragenix, scalpel, ... }@inputs: let
   tree = (inputs.tree.tree {
     inherit inputs;
     folder = ./.;
@@ -26,7 +26,7 @@ in {
     system = "x86_64-linux";
     modules = [
       home-manager.nixosModules.home-manager
-      agenix.nixosModule
+      ragenix.nixosModule
       path
     ];
     } ) tree.nixos.systems in mapAttrs (_: sys: sys.extendModules {
