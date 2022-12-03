@@ -26,10 +26,10 @@ in utils.lib.mkFlake {
     system = "x86_64-linux";
     modules = [
       home-manager.nixosModules.home-manager
-      ragenix.nixosModule
+      ragenix.nixosModules.age
     ];
     extraArgs = {
-      inherit utils inputs tree;
+      inherit inputs tree;
     };
   };
 
