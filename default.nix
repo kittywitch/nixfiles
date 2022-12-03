@@ -1,4 +1,4 @@
-{ self, utils, nixpkgs, darwin, home-manager, ragenix, scalpel, mach-nix, ... }@inputs: let
+{ self, utils, nixpkgs, darwin, home-manager, ragenix, scalpel, mach-nix, arcexprs, ... }@inputs: let
   tree = (inputs.tree.tree {
     inherit inputs;
     folder = ./.;
@@ -9,6 +9,25 @@
           "default"
         ];
       };
+      "nixos/modules" = {
+        functor = {
+          enable = true;
+          external = with (import (arcexprs + "/modules")).nixos; [
+            base16
+            base16-shared
+          ];
+        };
+      };
+      "home/modules" = {
+        functor = {
+          enable = true;
+          external = with (import (arcexprs + "/modules")).home-manager; [
+            base16
+            base16-shared
+          ];
+        };
+      };
+      "home".evaluateDefault = true;
       "home/*" = {
         functor.enable = true;
       };
@@ -24,10 +43,6 @@ in utils.lib.mkFlake {
 
   hostDefaults = {
     system = "x86_64-linux";
-    modules = [
-      home-manager.nixosModules.home-manager
-      ragenix.nixosModules.age
-    ];
     extraArgs = {
       inherit inputs tree;
     };
@@ -42,11 +57,25 @@ in utils.lib.mkFlake {
       "x86_64-linux" = nixpkgs.lib.nixosSystem;
       "aarch64-darwin" = darwin.lib.darwinSystem;
     }.${system};
+    modulesForSystem = system: {
+      "x86_64-linux" = [
+        home-manager.nixosModules.home-manager
+        ragenix.nixosModules.age
+        tree.nixos.modules
+      ];
+      "aarch64-darwin" = [
+        home-manager.darwinModules.home-manager
+        ragenix.nixosModules.age
+        tree.darwin.modules
+      ];
+    }.${system};
     mapSystem = system: name: path: {
       inherit system;
       output = outputForSystem system;
       builder = builderForSystem system;
-      modules = singleton path;
+      modules = (modulesForSystem system) ++ [
+        path
+      ];
       extraArgs = {
         machine = name;
       };
@@ -69,7 +98,13 @@ in utils.lib.mkFlake {
         machine = name;
       };
       modules = [
-        tree.home.common
+        ({ config, ... }: {
+          home = {
+            username = "kat";
+            stateVersion = "22.11";
+            homeDirectory = "/home/kat";
+          };
+        })
         path
       ];
     }) tree.home;

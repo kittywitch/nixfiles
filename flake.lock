@@ -21,6 +21,23 @@
         "type": "github"
       }
     },
+    "arcexprs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1669933794,
+        "narHash": "sha256-+7kYj0AhffjlrLXksTmCfcovRqDrBOF9TZA2jSlsfws=",
+        "owner": "arcnmx",
+        "repo": "nixexprs",
+        "rev": "1adfd2810dd37e78ee98e5cd18afe2e87d4bbe38",
+        "type": "github"
+      },
+      "original": {
+        "owner": "arcnmx",
+        "ref": "master",
+        "repo": "nixexprs",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -177,6 +194,7 @@
     },
     "root": {
       "inputs": {
+        "arcexprs": "arcexprs",
         "darwin": "darwin",
         "empty": "empty",
         "home-manager": "home-manager",

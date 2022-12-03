@@ -40,6 +40,10 @@
         flake-utils.follows = "utils";
       };
     };
+    arcexprs = {
+      url = "github:arcnmx/nixexprs/master";
+      flake = false;
+    };
   };
   outputs = { ... }@inputs: import ./default.nix inputs;
 }
