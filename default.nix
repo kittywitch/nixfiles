@@ -1,4 +1,4 @@
-{ nixpkgs, darwin, home-manager, ragenix, scalpel, ... }@inputs: let
+{ self, utils, nixpkgs, darwin, home-manager, ragenix, scalpel, mach-nix, ... }@inputs: let
   tree = (inputs.tree.tree {
     inherit inputs;
     folder = ./.;
@@ -16,38 +16,54 @@
   }).impure;
   lib = inputs.nixpkgs.lib;
   inherit (lib.attrsets) mapAttrs;
-in {
-  inherit tree;
-  nixosConfigurations = let base = mapAttrs (name: path: nixpkgs.lib.nixosSystem {
-    specialArgs = {
-      inherit inputs tree;
-      machine = name;
-    };
+  inherit (lib.lists) singleton;
+in utils.lib.mkFlake {
+  inherit self inputs;
+  supportedSystems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
+  channelsConfig.allowUnfree = true;
+
+  hostDefaults = {
     system = "x86_64-linux";
     modules = [
       home-manager.nixosModules.home-manager
       ragenix.nixosModule
-      path
     ];
-    } ) tree.nixos.systems; in mapAttrs (_: sys: sys.extendModules {
+    extraArgs = {
+      inherit utils inputs tree;
+    };
+  };
+
+  hosts = let
+    outputForSystem = system: {
+      "x86_64-linux" = "nixosConfigurations";
+      "aarch64-darwin" = "darwinConfigurations";
+    }.${system};
+    builderForSystem = system: {
+      "x86_64-linux" = nixpkgs.lib.nixosSystem;
+      "aarch64-darwin" = darwin.lib.darwinSystem;
+    }.${system};
+    mapSystem = system: name: path: {
+      inherit system;
+      output = outputForSystem system;
+      builder = builderForSystem system;
+      modules = singleton path;
+      extraArgs = {
+        machine = name;
+      };
+    };
+  in mapAttrs (mapSystem "x86_64-linux") tree.nixos.systems
+    // mapAttrs (mapSystem "aarch64-darwin") tree.darwin.systems;
+
+  outputsBuilder = channels: {
+    nixosConfigurations = mapAttrs(_: sys: sys.extendModules {
       modules = [ scalpel.nixosModule ];
       specialArgs = {
         prev = sys;
       };
-    } ) base;
-  darwinConfigurations = mapAttrs (name: path: darwin.lib.darwinSystem {
-    specialArgs = {
-      inherit inputs tree;
-      machine = name;
-    };
-    system = "aarch64-darwin";
-    modules = [
-      home-manager.nixosModules.home-manager
-      path
-    ];
-    } ) tree.darwin.systems;
+    }) self.nixosConfigurations;
+
     homeManagerConfigurations = mapAttrs (name: path: home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      pkgs = channels.nixpkgs;
       extraSpecialArgs = {
         inherit inputs tree;
         machine = name;
@@ -57,4 +73,15 @@ in {
         path
       ];
     }) tree.home;
+
+    inherit tree;
+  };
+
+  devShells = {
+    "python" = mach-nix.mkPythonShell {
+      python = "python310";
+      requirements = ''
+      '';
+    };
+  };
 }
