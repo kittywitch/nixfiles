@@ -1,5 +1,3 @@
-{ config, pkgs, ... }: {
-  home.packages = [
-    pkgs.deadnix
-  ];
+{ config, ... }: {
+  role.development = true;
 }

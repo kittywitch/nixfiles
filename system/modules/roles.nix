@@ -14,6 +14,11 @@ in {
         description = mdDoc "Is this system's role as a personal device?";
         default = false;
       };
+      development = mkOption {
+        type = bool;
+        description = mdDoc "Is this system's role as a development device?";
+        default = false;
+      };
       laptop = mkOption {
         type = bool;
         description = mdDoc "Is this system's role as a laptop?";
