@@ -97,7 +97,7 @@ in utils.lib.mkFlake {
     homeManagerConfigurations = mapAttrs (name: path: home-manager.lib.homeManagerConfiguration {
       pkgs = channels.nixpkgs;
       extraSpecialArgs = {
-        inherit inputs tree;
+        inherit channels inputs tree;
         machine = name;
         nixos = {};
       };
