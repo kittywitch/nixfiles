@@ -37,11 +37,16 @@
         sops-nix.follows = "empty";
       };
     };
+    pypi-deps-db = {
+      url = "github:DavHau/pypi-deps-db";
+      flake = false;
+    };
     mach-nix = {
       url = "mach-nix/3.5.0";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "utils";
+        pypi-deps-db.follows = "pypi-deps-db";
       };
     };
     arcexprs = {
