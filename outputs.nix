@@ -36,8 +36,6 @@
   }).impure;
   lib = inputs.nixpkgs.lib;
   inherit (lib.attrsets) mapAttrs;
-  inherit (builtins) removeAttrs;
-  inherit (lib.lists) singleton;
 in utils.lib.mkFlake {
   inherit self inputs;
   supportedSystems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];

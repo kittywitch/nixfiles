@@ -2,7 +2,7 @@
 
 let
 inherit (lib.modules) mkIf;
-inherit (lib.strings) concatStringsSep fixedWidthNumber hasInfix;
+inherit (lib.strings) fixedWidthNumber hasInfix;
 inherit (lib.attrsets) mapAttrs filterAttrs;
 packDir = builtins.toString(pkgs.vimUtils.packDir config.programs.neovim.generatedConfigViml.configure.packages);
 initLua = pkgs.substituteAll ({
@@ -49,7 +49,7 @@ in mkIf config.programs.neovim.enable {
       bufferline-nvim
 # Language Server
       nvim-lspconfig
-      (pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins: with pkgs.tree-sitter-grammars; [
+      (pkgs.vimPlugins.nvim-treesitter.withPlugins (_: with pkgs.tree-sitter-grammars; [
         tree-sitter-c
         tree-sitter-lua
         tree-sitter-rust

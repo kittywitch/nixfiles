@@ -1,6 +1,5 @@
 { config, lib, ... }: let
   inherit (lib.options) mkOption mdDoc;
-  inherit (lib.modules) mkIf mkDefault;
   inherit (lib.types) bool;
 in {
   options = {
