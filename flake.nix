@@ -1,6 +1,10 @@
 {
   description = "kat's personal system flakes";
   inputs = {
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
     empty.url = "github:input-output-hk/empty-flake";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
@@ -45,5 +49,5 @@
       flake = false;
     };
   };
-  outputs = { ... }@inputs: import ./default.nix inputs;
+  outputs = { ... }@inputs: import ./outputs.nix inputs;
 }
