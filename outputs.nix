@@ -9,6 +9,11 @@
           "default"
         ];
       };
+      "system/modules" = {
+        functor = {
+          enable = true;
+        };
+      };
       "nixos/modules" = {
         functor = {
           enable = true;
@@ -27,14 +32,11 @@
           ];
         };
       };
-      "home".evaluateDefault = true;
-      "home/*" = {
-        functor.enable = true;
-      };
     };
   }).impure;
   lib = inputs.nixpkgs.lib;
   inherit (lib.attrsets) mapAttrs;
+  inherit (builtins) removeAttrs;
   inherit (lib.lists) singleton;
 in utils.lib.mkFlake {
   inherit self inputs;
@@ -43,6 +45,9 @@ in utils.lib.mkFlake {
 
   hostDefaults = {
     system = "x86_64-linux";
+    modules = [
+      tree.system.modules
+    ];
     extraArgs = {
       inherit inputs tree;
     };
@@ -96,18 +101,14 @@ in utils.lib.mkFlake {
       extraSpecialArgs = {
         inherit inputs tree;
         machine = name;
+        nixos = {};
       };
       modules = [
-        ({ config, ... }: {
-          home = {
-            username = "kat";
-            stateVersion = "22.11";
-            homeDirectory = "/home/kat";
-          };
-        })
+        tree.system.modules
+        tree.home.common
         path
       ];
-    }) tree.home;
+    }) tree.home.profiles;
 
     inherit tree;
   };

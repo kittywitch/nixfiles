@@ -1,6 +1,4 @@
-{ tree, config, ... }: with lib;
-
-{
+{ tree, config, ... }: {
   users.users.kat = {
     uid = 1000;
     isNormalUser = true;
@@ -10,6 +8,13 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII74JrgGsDQ6r7tD7+k3ykxXV7DpeeFRscPMxrBsDPhz kat@goliath"
     ];
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "video" "systemd-journal" "plugdev" "bird2" "vfio" "input" "uinput" ];
+    extraGroups = [
+      "wheel"
+      "video"
+      "systemd-journal"
+      "plugdev"
+      "input"
+      "uinput"
+    ];
   };
 }
