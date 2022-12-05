@@ -11,6 +11,23 @@
   - [ ] SSH keys
   - [ ] scalpel
 
+## Minimum Viable Sumireko
+
+Since Sumireko is not a personal machine and needs less, it is far easier to graft the existing nixfiles sumireko stuff onto kittywitch
+
+- [ ] homebrew
+- [ ] neovim
+- [ ] zsh
+- [ ] exa
+- [ ] fzf
+- [ ] z
+- [ ] git
+- [ ] gpg
+- [ ] starship
+- [ ] tmux
+- [ ] direnv
+- [ ] bitw
+
 ## Minimum Viable Koishi
 
 - [ ] GNOME
