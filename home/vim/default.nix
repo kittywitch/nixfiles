@@ -56,7 +56,7 @@ in {
 					tree-sitter-c
 					tree-sitter-lua
 					tree-sitter-rust
-					tree-sitter-bash
+					#tree-sitter-bash
 					tree-sitter-css
 					tree-sitter-dockerfile
 					tree-sitter-go

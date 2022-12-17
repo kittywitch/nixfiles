@@ -67,7 +67,7 @@
           format = "{percent}%";
         };
         "custom/gpg-status" = {
-          format = "{}";
+          format = "{text} {alt}";
           interval = 300;
           return-type = "json";
           exec = "${pkgs.waybar-gpg}/bin/kat-gpg-status";
@@ -138,7 +138,7 @@
         "pulseaudio#icon" = {
           format = "{icon}";
           format-muted = "婢";
-          on-click = "wezterm start pulsemixer";
+          on-click = "foot pulsemixer";
           format-icons = {
             default = [
               ""
@@ -149,7 +149,7 @@
         };
         pulseaudio = {
           format = "{volume}%";
-          on-click = "${pkgs.wezterm}/bin/wezterm start ${pkgs.pulsemixer}/bin/pulsemixer";
+          on-click = "foot pulsemixer";
         };
         "network#icon" = {
           format-wifi = "直";

@@ -7,13 +7,12 @@ in inputs /*// {
       patches = [
       ];
     };
-  }*/ // { darwin = pkgs.applyPatches {
-    # TODO: close when emi's PR is merged
+  } // { darwin = pkgs.applyPatches {
     name = "darwin";
     src = inputs.darwin;
     patches = [ (pkgs.fetchpatch {
       url = "https://patch-diff.githubusercontent.com/raw/LnL7/nix-darwin/pull/310.patch";
       sha256 = "sha256-drnLOhF8JGXx8YY7w1PD2arUZvbqafWPTatQNTHt+QI=";
     }) ];
-  }; }
+  }; } */
 

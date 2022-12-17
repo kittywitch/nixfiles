@@ -1,13 +1,19 @@
 { config, lib, pkgs, ... }:
 
 {
-	home.packages = with pkgs; [ lxappearance ];
-	base16.gtk.enable = true;
+  home.packages = with pkgs; [
+    gnome.adwaita-icon-theme
+  ];
+  base16.gtk.enable = false;
   gtk = {
-    enable = false;
+    enable = true;
+    font = {
+      name = "Iosevka Aile";
+      size = 9;
+    };
     iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
+      name = "Maia";
+      package = pkgs.maia-icon-theme;
     };
     theme = {
       name = "Adapta";

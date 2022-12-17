@@ -21,6 +21,9 @@
     google-chrome
     element-desktop
     cryptsetup
+    signal-desktop
+    nix-linter
+    spotify
     esphome
     esptool
   ];

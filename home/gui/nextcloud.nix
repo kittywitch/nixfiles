@@ -1,6 +1,6 @@
 { config, ... }: {
 	services = {
-		nextcloud-client.enable = true;
-		gnome-keyring.enable = true;
+		nextcloud-client.enable = false;
+		gnome-keyring.enable = false;
 	};
 }

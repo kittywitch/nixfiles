@@ -13,7 +13,8 @@
     commonTags = [ "width:>=1600" ];
     tagList = map (lib.toList) [
       (["score:>=50"
-      "rating:s"]) #++ optional (nixos.networking.hostName == "koishi") "rating:s")
+      "no_humans"
+      "rating:s"])
     ];
   };
 }

@@ -3,8 +3,8 @@
   src = fetchFromGitHub {
     owner = "kittywitch";
     repo = "inskip.me";
-    rev = "3789d9ae2b0135828a6d92e2e6846aec42a29d88";
-    sha256 = "sha256-nIAeZRxZ86QuZxGnHTIaawySiTEdw8ZQ4L8eR/2Mdy0=";
+    rev = "a430a42d70ca9ddb554e8e0c0ed78a33b3ccb9e5";
+    sha256 = "sha256-SUhXD0/PdWkvMUGOVTm9PPw8fi+Q+7Psw61VhMKRf2I=";
   };
   buildPhase = ''
   '';

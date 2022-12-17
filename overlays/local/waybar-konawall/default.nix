@@ -7,6 +7,11 @@ in
 stdenv.mkDerivation {
   pname = "konawall-toggle";
   version = "0.0.1";
+  propagatedBuildInputs = with pkgs; [
+    gawk
+    coreutils-full
+    bash
+  ];
   unpackPhase = "true";
   installPhase = ''
     mkdir -p $out/bin
