@@ -610,18 +610,18 @@
     "trusted": {
       "flake": false,
       "locked": {
-        "lastModified": 1664745519,
-        "narHash": "sha256-tUNmmEjJ6KOOPkHCkJytv4KemXf4idM8erPQgOr7SWc=",
-        "ref": "main",
-        "rev": "f89074f4500dddb1962d49f3f542ce41d7beee87",
-        "revCount": 93,
+        "lastModified": 1671330960,
+        "narHash": "sha256-r8yqTEoOhZmTNlpThApRrZOAwc7+xrBBIXEk6nyx1pc=",
+        "ref": "shim",
+        "rev": "7848692e19091222d1fcafa51ffd48ceeb037ab6",
+        "revCount": 1,
         "type": "git",
-        "url": "ssh://git@github.com/kittywitch/nixfiles-trusted"
+        "url": "gcrypt::ssh://git@github.com/arcnmx/kat-nixfiles-trusted.git"
       },
       "original": {
-        "ref": "main",
+        "ref": "shim",
         "type": "git",
-        "url": "ssh://git@github.com/kittywitch/nixfiles-trusted"
+        "url": "gcrypt::ssh://git@github.com/arcnmx/kat-nixfiles-trusted.git"
       }
     },
     "ts-fold": {

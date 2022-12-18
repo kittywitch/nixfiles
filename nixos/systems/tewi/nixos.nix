@@ -15,7 +15,7 @@
     ./postgres.nix
     ./nginx.nix
     ../../gui/nfs.nix
-  ];
+  ] ++ lib.optional (meta.trusted ? nixos.systems.tewi.default) meta.trusted.nixos.systems.tewi.default;
 
   services.cockroachdb.locality = "provider=local,network=gensokyo,host=${config.networking.hostName}";
 

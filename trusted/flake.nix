@@ -1,7 +1,9 @@
 {
   inputs = {
     trusted = {
-      url = "git+ssh://git@github.com/kittywitch/nixfiles-trusted?ref=main";
+      type = "git";
+      url = "gcrypt::ssh://git@github.com/arcnmx/kat-nixfiles-trusted.git";
+      ref = "shim";
       flake = false;
     };
     nixfiles = {

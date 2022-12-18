@@ -1,6 +1,7 @@
-{ config, pkgs, lib, root, ... }: with lib; let
+{ config, pkgs, lib, tree, ... }: with lib; let
   home = config.deploy.targets.home.tf;
 in {
+  imports = lib.optional (tree.pure.trusted ? modules.meta) tree.pure.trusted.modules.meta.tailscale;
   options = {
     tailnet_uri = mkOption {
       type = types.str;
