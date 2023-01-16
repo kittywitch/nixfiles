@@ -7,4 +7,5 @@ let
   kittywitch = import flakeCompat {
     src = ./.;
   };
-in kittywitch.defaultNix.inputs
+in
+  kittywitch.defaultNix.inputs

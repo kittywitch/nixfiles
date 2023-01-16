@@ -1,4 +1,4 @@
-{ config, ... }: {
+_: {
   home = {
     username = "kat";
     stateVersion = "22.11";

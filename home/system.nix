@@ -1,10 +1,15 @@
-{ config, tree, machine, ... }: {
+{
+  config,
+  tree,
+  machine,
+  ...
+}: {
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    sharedModules = [
-      tree.home.modules
-      tree.system.modules
+    sharedModules = with tree; [
+      home.modules
+      home.common
     ];
     extraSpecialArgs = {
       inherit tree machine;
