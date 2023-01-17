@@ -1,8 +1,5 @@
 _: let
-  hostConfig = {
-    tree,
-    ...
-  }: {
+  hostConfig = {tree, ...}: {
     imports = with tree; [
       nixos.gnome
     ];

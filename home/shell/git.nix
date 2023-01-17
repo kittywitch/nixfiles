@@ -1,6 +1,4 @@
-{ config, pkgs, lib, ... }:
-
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     gitAndTools.git-remote-gcrypt
     git-crypt
@@ -13,7 +11,7 @@
     userName = "Kat Inskip";
     userEmail = "kat@inskip.me";
     extraConfig = {
-      init = { defaultBranch = "main"; };
+      init = {defaultBranch = "main";};
       protocol.gcrypt.allow = "always";
       annex = {
         autocommit = false;

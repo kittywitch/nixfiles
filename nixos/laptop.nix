@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}: let
+{lib, ...}: let
   inherit (lib.modules) mkDefault;
 in {
   powerManagement.cpuFreqGovernor = mkDefault "powersave";

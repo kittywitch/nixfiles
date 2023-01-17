@@ -1,9 +1,9 @@
-{ config, pkgs, ... }: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     # task managers
     htop
     btop
-    # disk usage 
+    # disk usage
     duc-cli
     # nix formatting
     nixpkgs-fmt

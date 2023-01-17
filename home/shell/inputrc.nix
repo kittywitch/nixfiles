@@ -1,6 +1,4 @@
-{ config, ... }:
-
-{
+{config, ...}: {
   xdg.configFile."inputrc".text = ''
     set editing-mode vi
     set keyseq-timeout 1

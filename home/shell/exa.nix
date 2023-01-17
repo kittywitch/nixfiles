@@ -1,5 +1,5 @@
-{ config, pkgs, ... }: {
-  home.packages = [ pkgs.exa ];
+{pkgs, ...}: {
+  home.packages = [pkgs.exa];
 
   programs.zsh.shellAliases = {
     exa = "exa --time-style long-iso";

@@ -1,6 +1,4 @@
-{ meta, config, pkgs, lib, ... }:
-
-{
+_: {
   programs.ssh = {
     enable = true;
     controlMaster = "auto";

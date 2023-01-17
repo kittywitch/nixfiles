@@ -1,12 +1,16 @@
-{ config, lib, pkgs, ... }:
-
 {
+  pkgs,
+  lib,
+  ...
+}: let
+  inherit (lib) toTOML;
+in {
   home.packages = with pkgs; [
     #rink-readline TODO: wait for fix
     rink
   ];
 
-  xdg.configFile."rink/config.toml".text = lib.toTOML {
+  xdg.configFile."rink/config.toml".text = toTOML {
     colors = {
       enabled = true;
       theme = "my_theme";

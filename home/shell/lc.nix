@@ -1,7 +1,6 @@
-{ config, ... }: {
+_: {
   home.language = let
     ca = "en_CA.UTF-8";
-    dk = "en_DK.UTF-8";
   in {
     base = ca;
     ctype = ca;

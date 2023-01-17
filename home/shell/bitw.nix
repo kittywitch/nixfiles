@@ -1,7 +1,7 @@
-{ config, pkgs, meta, lib, ... }: {
+{pkgs, ...}: {
   programs.rbw = {
     enable = true;
-    package = lib.mkIf (meta.trusted ? secrets) (pkgs.writeShellScriptBin "bitw" ''${pkgs.rbw-bitw}/bin/bitw -p gpg://${config.secrets.repo.bitw.source} "$@"'');
+    package = pkgs.rbw-bitw;
     settings = {
       email = "kat@kittywit.ch";
       base_url = "https://vault.kittywit.ch";

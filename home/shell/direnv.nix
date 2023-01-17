@@ -1,4 +1,4 @@
-{ config, ... }: {
+_: {
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;

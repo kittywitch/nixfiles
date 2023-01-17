@@ -1,10 +1,12 @@
 _: {
-  programs.wezterm.enable = true;
-  xdg.configFile."wezterm/wezterm.lua".text = ''
-    local = wezterm = require 'wezterm'
-    return {
-      check_for_updates = false,
-      enable_tab_bar = true
-    }
-  '';
+  programs.wezterm = {
+    enable = true;
+    extraConfig = ''
+      local = wezterm = require 'wezterm'
+      return {
+        check_for_updates = false,
+        enable_tab_bar = true
+      }
+    '';
+  };
 }
