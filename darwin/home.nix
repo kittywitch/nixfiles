@@ -1,4 +1,8 @@
-{config,lib,...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib.modules) mkForce mkMerge;
 in {
   services.gpg-agent = {

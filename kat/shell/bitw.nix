@@ -1,4 +1,8 @@
-{pkgs,tree,...}: {
+{
+  pkgs,
+  tree,
+  ...
+}: {
   programs.rbw = {
     enable = true;
     package = pkgs.rbw-bitw;

@@ -1,4 +1,4 @@
-{tree,...}: {
+{tree, ...}: {
   users.users.kat = {
     uid = 1000;
     isNormalUser = true;

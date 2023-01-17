@@ -1,4 +1,8 @@
-{pkgs,tree,...}: let
+{
+  pkgs,
+  tree,
+  ...
+}: let
   kat = import tree.kat.user.data;
 in {
   home.packages = with pkgs; [
