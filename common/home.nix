@@ -14,7 +14,6 @@ in {
     sharedModules = with tree;
       [
         modules.home
-        kat.state
       ]
       ++ optional (tree.${systemType} ? home) tree.${systemType}.home;
 
