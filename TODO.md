@@ -1,47 +1,26 @@
 # To-dos
 
-- [x] Correctly handle multi-system environments
-  - [x] NixOS
-  - [x] nix-darwin
-  - [x] home-manager
-- [x] Contemplate migration to Pulumi instead of tf-nix / Terraform
+## Overview
+
 - [ ] Initial secrets setup
   - [ ] age identity
   - [ ] yubikey plugin
   - [ ] SSH keys
   - [ ] scalpel
 
-## Minimum Viable Sumireko
+## Exocortex
 
-Since Sumireko is not a personal machine and needs less, it is far easier to graft the existing nixfiles sumireko stuff onto kittywitch
+- [ ] Set up doom-emacs
+- [ ] Learn org
+- [ ] Learn org-roam
+- [ ] Transition from Obsidian to org
 
-- [ ] homebrew
-- [ ] neovim
-- [ ] zsh
-- [ ] exa
-- [ ] fzf
-- [ ] z
-- [ ] git
-- [ ] gpg
-- [ ] starship
-- [ ] tmux
-- [ ] direnv
-- [ ] bitw
+## Koishi
 
-## Minimum Viable Koishi
+- [ ] Decide window manager / desktop environment
+- [ ] Decide browser and browser workflow
 
-- [ ] GNOME
-  - [ ] Find minimal extension set
-  - [ ] Track config changes and add to dconf
-- [ ] firefox
-- [ ] neovim
-- [ ] zsh
-- [ ] exa
-- [ ] fzf
-- [ ] z
-- [ ] git
-- [ ] starship
-- [ ] ssh
-- [ ] tmux
-- [ ] direnv
-- [ ] bitw
+## Sumireko
+
+- [ ] Decide on enhancements to current workflow (https://github.com/jaywcjlove/awesome-mac)
+- [ ] Decide browser and browser workflow
