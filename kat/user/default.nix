@@ -1,17 +1,16 @@
 {tree, ...}:
 tree.prev
 // {
-  base = {
+  nixos = {
     imports = with tree.prev; [
-      base16
-      shell
-      neovim
+      nixos
+      common
     ];
   };
-  work = {
+  darwin = {
     imports = with tree.prev; [
-      work
-      wezterm
+      darwin
+      common
     ];
   };
 }

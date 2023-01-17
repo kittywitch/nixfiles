@@ -13,13 +13,13 @@ in {
     useUserPackages = true;
     sharedModules = with tree;
       [
-        home.modules
-        home.state
+        modules.home
+        kat.state
       ]
       ++ optional (tree.${systemType} ? home) tree.${systemType}.home;
 
-    users.kat.imports = with tree; [
-      home.base
+    users.kat.imports = with tree.kat; [
+      common
     ];
     extraSpecialArgs = {
       inherit tree machine;

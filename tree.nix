@@ -25,15 +25,16 @@
       ];
     };
     # Required for all-system common imports
-    system.functor.enable = true;
+    common.functor.enable = true;
     # Re-map home directory profiles
-    home.evaluateDefault = true;
+    kat.evaluateDefault = true;
+    "kat/user".evaluateDefault = true;
     # Allow profile importing
     "nixos/*".functor.enable = true;
     "darwin/*".functor.enable = true;
-    "home/*".functor.enable = true;
+    "kat/*".functor.enable = true;
     # Various modules
-    "nixos/modules" = {
+    "modules/nixos" = {
       functor = {
         enable = true;
         external = with inputs;
@@ -48,7 +49,7 @@
           ]);
       };
     };
-    "darwin/modules" = {
+    "modules/darwin" = {
       functor = {
         enable = true;
         external = with inputs; [
@@ -57,7 +58,7 @@
         ];
       };
     };
-    "home/modules" = {
+    "modules/home" = {
       functor = {
         enable = true;
         external = with inputs;

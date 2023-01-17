@@ -1,10 +1,13 @@
 {lib, ...}: let
-  inherit (lib.modules) mkMerge;
+  inherit (lib.modules) mkDefault mkMerge;
 in {
   services.gpg-agent = {
-    enable = true;
+    enable = mkDefault true;
     enableExtraSocket = true;
-    enableSshSupport = false;
+    enableSshSupport = true;
+    sshKeys = [
+      "59921D2F4E6DF7EEC3CB2934BD3D53666007B1AB" # kat@inskip.me
+    ];
     extraConfig = mkMerge [
       "auto-expand-secmem 0x30000" # otherwise "gpg: public key decryption failed: Cannot allocate memory"
       "pinentry-timeout 30"

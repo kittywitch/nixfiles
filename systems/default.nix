@@ -71,8 +71,10 @@
         }
         .${toLower config.type};
       modules = with tree; [
-        tree.${config.folder}.modules
-        system
+        tree.modules.${config.folder}
+        tree.${config.folder}.common
+        tree.kat.user.${config.folder}
+        common
       ];
       builder =
         {

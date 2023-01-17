@@ -1,8 +1,7 @@
 _: let
   hostConfig = {tree, ...}: {
     imports = with tree; [
-      darwin.base
-      darwin.kat
+      kat.work
     ];
 
     security.pam.enableSudoTouchIdAuth = true;

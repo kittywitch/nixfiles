@@ -1,4 +1,6 @@
-{pkgs, ...}: {
+{pkgs,tree,...}: let
+  kat = import tree.kat.user.data;
+in {
   home.packages = with pkgs; [
     gitAndTools.git-remote-gcrypt
     git-crypt
@@ -6,10 +8,9 @@
   ];
 
   programs.git = {
+    inherit (kat) userName userEmail;
     package = pkgs.gitAndTools.gitFull;
     enable = true;
-    userName = "Kat Inskip";
-    userEmail = "kat@inskip.me";
     extraConfig = {
       init = {defaultBranch = "main";};
       protocol.gcrypt.allow = "always";
@@ -20,7 +21,7 @@
       };
     };
     signing = {
-      key = "0xE8DDE3ED1C90F3A0";
+      inherit (kat) key;
       signByDefault = true;
     };
   };
