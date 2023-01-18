@@ -68,15 +68,18 @@ _: let
         "brave-browser"
         "disk-inventory-x"
         "dozer"
-        "firefox"
         "devtoys"
         "cyberduck"
         "docker"
         "pycharm-ce"
+        "vscode"
         "slack"
         "boop"
         "obsidian"
         "contexts"
+      ];
+      taps = [
+        "pulumi/tap"
       ];
       masApps = {
         Tailscale = 1475387142;

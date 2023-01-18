@@ -3,7 +3,7 @@
     uid = 1000;
     isNormalUser = true;
     openssh.authorizedKeys = {
-      inherit (import tree.kat.user.data) keys;
+      inherit (tree.kat.user.data) keys;
     };
     extraGroups = [
       "wheel"

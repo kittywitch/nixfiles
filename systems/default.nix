@@ -2,25 +2,24 @@
   inputs,
   tree,
   lib,
+  std,
   ...
 }: let
   # The purpose of this file is to set up the host module which allows assigning of the system, e.g. aarch64-linux and the builder used with less pain.
-  inherit (lib.lists) fold;
-  inherit (lib.attrsets) mapAttrs mapAttrsToList recursiveUpdate;
-  inherit (lib.strings) toLower;
-  inherit (lib.options) mkOption;
-  inherit (lib.types) str listOf attrs unspecified;
   inherit (lib.modules) evalModules;
-  recursiveMergeAttrs = fold recursiveUpdate {};
+  inherit (std) string list function types bool optional set;
   defaultSpecialArgs = {
-    inherit inputs tree;
+    inherit inputs tree std;
   };
   hostModule = {
     config,
     machine,
     ...
   }: {
-    options = {
+    options = let
+      inherit (lib.types) str listOf attrs unspecified;
+      inherit (lib.options) mkOption;
+    in {
       arch = mkOption {
         description = "Processor architecture of the host";
         type = str;
@@ -60,7 +59,7 @@
             darwin = "darwin";
             linux = "linux";
           }
-          .${toLower config.type};
+          .${string.toLower config.type};
       in "${config.arch}-${kernel}";
       folder =
         {
@@ -69,7 +68,7 @@
           darwin = "darwin";
           linux = "linux";
         }
-        .${toLower config.type};
+        .${string.toLower config.type};
       modules = with tree; [
         tree.modules.${config.folder}
         tree.${config.folder}.common
@@ -82,7 +81,7 @@
           darwin = inputs.darwin.lib.darwinSystem;
           macos = inputs.darwin.lib.darwinSystem;
         }
-        .${toLower config.type};
+        .${string.toLower config.type};
       specialArgs =
         {
           inherit machine;
@@ -91,7 +90,7 @@
         // defaultSpecialArgs;
     };
   };
-  hostConfigs = mapAttrs (name: path:
+  hostConfigs = set.map (name: path:
     evalModules {
       modules = [
         hostModule
@@ -123,4 +122,4 @@
       else hostConfig;
   };
 in
-  recursiveMergeAttrs (mapAttrsToList processHost hostConfigs)
+  set.merge (set.mapToValues processHost hostConfigs)

@@ -6,6 +6,10 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
+    # better than nixpkgs.lib
+    std = {
+      url = "github:chessai/nix-std";
+    };
     # used for overriding unwanted flake inputs
     empty.url = "github:input-output-hk/empty-flake";
     # self-explanatory
@@ -25,6 +29,7 @@
     # file structure -> attrset
     tree = {
       url = "github:kittywitch/tree";
+      inputs.std.follows = "std";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # secrets
@@ -71,5 +76,5 @@
       flake = false;
     };
   };
-  outputs = inputs: import ./outputs.nix inputs;
+  outputs = inputs: import ./outputs.nix { inherit inputs; };
 }

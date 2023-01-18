@@ -2,7 +2,9 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  inherit (lib.modules) mkMerge;
+in {
   base16 = {
     vim.enable = false;
     vim.template = data: let
@@ -32,7 +34,7 @@
           ];
       });
     shell.enable = true;
-    schemes = lib.mkMerge [
+    schemes = mkMerge [
       {
         light = "atelier.atelier-cave-light";
         dark = "atelier.atelier-cave";

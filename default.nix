@@ -1,9 +1,11 @@
 let
-  inputs = import ./inputs.nix;
-  self = import ./outputs.nix ({
-      inherit self inputs;
-      system = builtins.currentSystem;
-    }
-    // inputs);
+  lock = builtins.fromJSON (builtins.readFile ./flake.lock);
+  flakeCompat = fetchTarball {
+    url = "https://github.com/edolstra/flake-compat/archive/${lock.nodes.flake-compat.locked.rev}.tar.gz";
+    sha256 = lock.nodes.flake-compat.locked.narHash;
+  };
+  kittywitch = import flakeCompat {
+    src = ./.;
+  };
 in
-  self
+  kittywitch.defaultNix

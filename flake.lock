@@ -98,11 +98,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1673948101,
-        "narHash": "sha256-cD0OzFfnLFeeaz4jVszH9QiMTn+PBxmcYzrp+xujpwM=",
+        "lastModified": 1674041176,
+        "narHash": "sha256-cMf1BQzI39nHQ0H/mOatthbbI3392qLmJ9gU0u520P4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "bd3efacb82c721edad1ce9eda583df5fb62ab00a",
+        "rev": "2c29ae48f9a149151bdd82f429ac61d4412c312a",
         "type": "github"
       },
       "original": {
@@ -177,11 +177,11 @@
     "pypi-deps-db": {
       "flake": false,
       "locked": {
-        "lastModified": 1673954576,
-        "narHash": "sha256-fsnuDr954gveIRxcqIq2UKJDppQpYdoLbtl5MZlIDrE=",
+        "lastModified": 1674040379,
+        "narHash": "sha256-g0TSvbl31l81qYIMGIM7p1buPaA9rHM3N/WFD6Zk/RY=",
         "owner": "DavHau",
         "repo": "pypi-deps-db",
-        "rev": "7def05c2f169bc69abd2217e1410ef0cf0cd03c8",
+        "rev": "322a4f20c357704644abe8c2e50412e9b9c16909",
         "type": "github"
       },
       "original": {
@@ -228,6 +228,7 @@
         "pypi-deps-db": "pypi-deps-db",
         "ragenix": "ragenix",
         "scalpel": "scalpel",
+        "std": "std",
         "tree": "tree",
         "utils": "utils_2"
       }
@@ -280,18 +281,36 @@
         "type": "github"
       }
     },
+    "std": {
+      "locked": {
+        "lastModified": 1671250799,
+        "narHash": "sha256-uPIakP98gOf6504NtrAb2/0O0BgRRXNShM0PTV8z+T0=",
+        "owner": "chessai",
+        "repo": "nix-std",
+        "rev": "b300fd6dfeae8cc331c7d8cde0e81b404d50d40c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chessai",
+        "repo": "nix-std",
+        "type": "github"
+      }
+    },
     "tree": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
+        ],
+        "std": [
+          "std"
         ]
       },
       "locked": {
-        "lastModified": 1670085069,
-        "narHash": "sha256-IO9HcAjncPp/0sUGcCUWVwa0XoBVFQKx+oY+8EBRcTc=",
+        "lastModified": 1674066361,
+        "narHash": "sha256-1f7L1be7u3x0jNDJ+W641kM9pZfd2ZLkjziRvKIZMvw=",
         "owner": "kittywitch",
         "repo": "tree",
-        "rev": "501675588cb663a9bd18056002de697f4e91b667",
+        "rev": "638ad6549febe360b0120375cae2bc3bb3b477f3",
         "type": "github"
       },
       "original": {

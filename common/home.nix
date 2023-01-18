@@ -3,10 +3,10 @@
   tree,
   machine,
   systemType,
-  lib,
+  std,
   ...
 }: let
-  inherit (lib.lists) optional;
+  inherit (std) list;
 in {
   home-manager = {
     useGlobalPkgs = true;
@@ -15,13 +15,13 @@ in {
       [
         modules.home
       ]
-      ++ optional (tree.${systemType} ? home) tree.${systemType}.home;
+      ++ list.optional (tree.${systemType} ? home) tree.${systemType}.home;
 
     users.kat.imports = with tree.kat; [
       common
     ];
     extraSpecialArgs = {
-      inherit tree machine;
+      inherit tree machine std;
       parent = config;
     };
   };

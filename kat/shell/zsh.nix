@@ -1,15 +1,19 @@
 {
   config,
   lib,
+  std,
   pkgs,
   ...
-}: {
+}: let
+  inherit (lib.modules) mkMerge mkIf;
+  inherit (std) string list serde;
+in {
   home.packages = with pkgs; [
     # programs.zsh.enableAutosuggestions only includes nix-zsh-autocompletions
     zsh-completions
   ];
 
-  xdg.configFile."kattheme_immutable.json".text = builtins.toJSON rec {
+  xdg.configFile."kattheme_immutable.json".text = serde.toJSON rec {
     default = config.base16.defaultSchemeName;
     current = default;
   };
@@ -73,7 +77,7 @@
                 zstyle ':completion:*:complete:pass:*:*' matcher 'r:|[./_-]=** r:|=*' 'l:|=* r:|=*'
                 zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
       zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1lb --color=always $realpath'
-        ${lib.concatStringsSep "\n" (map (opt: "setopt ${opt}") zshOpts)}
+        ${string.concatSep "\n" (map (opt: "setopt ${opt}") zshOpts)}
       bindkey '^ ' autosuggest-accept
         ${
         if pkgs.hostPlatform.isDarwin
@@ -83,13 +87,13 @@
         else ""
       }
     '';
-    shellAliases = lib.mkMerge [
+    shellAliases = mkMerge [
       {
         nixdirfmt = "nixpkgs-fmt $(fd -e nix)";
         dmesg = "dmesg -HP";
         hg = "history 0 | rg";
       }
-      (lib.mkIf pkgs.hostPlatform.isLinux {
+      (mkIf pkgs.hostPlatform.isLinux {
         sys = "systemctl";
         sysu = "systemctl --user";
         logu = "journalctl --user";
@@ -101,7 +105,7 @@
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=3,bold";
       ZSH_AUTOSUGGEST_USE_ASYNC = 1;
     };
-    plugins = with pkgs.zsh-plugins; (map (plugin: plugin.zshPlugin) [
+    plugins = with pkgs.zsh-plugins; (list.map (plugin: plugin.zshPlugin) [
       tab-title
       vim-mode
       evil-registers

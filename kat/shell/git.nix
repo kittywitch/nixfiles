@@ -2,9 +2,7 @@
   pkgs,
   tree,
   ...
-}: let
-  kat = import tree.kat.user.data;
-in {
+}: {
   home.packages = with pkgs; [
     gitAndTools.git-remote-gcrypt
     git-crypt
@@ -12,7 +10,7 @@ in {
   ];
 
   programs.git = {
-    inherit (kat) userName userEmail;
+    inherit (tree.kat.user.data) userName userEmail;
     package = pkgs.gitAndTools.gitFull;
     enable = true;
     extraConfig = {
@@ -25,7 +23,7 @@ in {
       };
     };
     signing = {
-      inherit (kat) key;
+      inherit (tree.kat.user.data) key;
       signByDefault = true;
     };
   };

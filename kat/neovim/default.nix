@@ -1,12 +1,12 @@
 {
   config,
   lib,
+  std,
   pkgs,
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (lib.strings) fixedWidthNumber hasInfix;
-  inherit (lib.attrsets) mapAttrs filterAttrs;
+  inherit (std) string set;
   packDir = builtins.toString (pkgs.vimUtils.packDir config.programs.neovim.generatedConfigViml.configure.packages);
   initLua = pkgs.substituteAll ({
       name = "init.lua";
@@ -16,8 +16,8 @@
       inherit (config.base16) defaultSchemeName;
       defaultSchemeSlug = config.base16.defaultScheme.slug;
     }
-    // mapAttrs (_: col: fixedWidthNumber 2 col.ansiIndex)
-    (filterAttrs (var: _: hasInfix "base" var) config.base16.defaultScheme));
+    // set.map (_: col: string.justifyRight 2 "0" (builtins.toString col.ansiIndex))
+    (set.filter (var: _: string.hasInfix "base" var) config.base16.defaultScheme));
 in {
   home.sessionVariables = mkIf config.programs.neovim.enable {EDITOR = "nvim";};
 

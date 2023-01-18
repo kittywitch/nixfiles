@@ -2,17 +2,17 @@
   lib,
   tree,
   inputs,
+  std,
   ...
 }: let
-  inherit (lib.attrsets) mapAttrs;
+  inherit (std) set;
 in
   inputs.utils.lib.eachDefaultSystem (system: {
     devShells = let
-      shells = mapAttrs (_: path:
+      shells = set.map (_: path:
         import path rec {
-          inherit tree inputs system;
+          inherit tree inputs system lib std;
           pkgs = inputs.nixpkgs.legacyPackages.${system};
-          inherit (inputs.nixpkgs) lib;
         })
       tree.shells;
     in

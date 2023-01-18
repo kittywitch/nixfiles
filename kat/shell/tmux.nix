@@ -1,9 +1,9 @@
 {
-  lib,
+  std,
   pkgs,
   ...
 }: let
-  inherit (lib.attrsets) mapAttrs;
+  inherit (std) set;
 in {
   programs.zsh.shellAliases = {
     tt = "tmux new -AD -s";
@@ -13,7 +13,7 @@ in {
     terminal = "tmux-256color";
     keyMode = "vi";
     baseIndex = 1;
-    extraConfig = with mapAttrs (_: v: "colour${toString v}") pkgs.base16.shell.shell256; ''
+    extraConfig = with set.map (_: v: "colour${builtins.toString v}") pkgs.base16.shell.shell256; ''
       # proper title handling
       set -g set-titles on
       set -g set-titles-string "#T"

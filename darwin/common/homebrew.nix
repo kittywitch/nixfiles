@@ -3,7 +3,7 @@ _: {
     enable = true;
     onActivation = {
       upgrade = true;
-      cleanup = "zap";
+      cleanup = "uninstall";
     };
     brews = [
       "mas"

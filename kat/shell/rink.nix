@@ -1,16 +1,16 @@
 {
   pkgs,
-  lib,
+  std,
   ...
 }: let
-  inherit (lib) toTOML;
+  inherit (std) serde;
 in {
   home.packages = with pkgs; [
     #rink-readline TODO: wait for fix
     rink
   ];
 
-  xdg.configFile."rink/config.toml".text = toTOML {
+  xdg.configFile."rink/config.toml".text = serde.toTOML {
     colors = {
       enabled = true;
       theme = "my_theme";

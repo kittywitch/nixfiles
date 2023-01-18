@@ -29,6 +29,7 @@
     # Re-map home directory profiles
     kat.evaluateDefault = true;
     "kat/user".evaluateDefault = true;
+    "kat/user/data".evaluate = true;
     # Allow profile importing
     "nixos/*".functor.enable = true;
     "darwin/*".functor.enable = true;

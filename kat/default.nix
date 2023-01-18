@@ -1,14 +1,14 @@
 {
   tree,
-  lib,
+  std,
   ...
 }: let
-  inherit (lib.attrsets) mapAttrs;
+  inherit (std) set list;
   wrapImports = imports:
-    mapAttrs
+    set.map
     (_: paths: {config, ...}: {
       config.home-manager.users.kat = {
-        imports = lib.singleton paths;
+        imports = list.singleton paths;
       };
     })
     imports;

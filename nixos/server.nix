@@ -1,5 +1,5 @@
-{lib, ...}: let
-  inherit (lib.attrsets) mapAttrsToList;
+{std, ...}: let
+  inherit (std) set;
 in {
-  systemd.tmpfiles.rules = mapAttrsToList (username: _: "f /var/lib/systemd/linger/${username}") config.users.users;
+  systemd.tmpfiles.rules = set.mapToValues (username: _: "f /var/lib/systemd/linger/${username}") config.users.users;
 }
