@@ -77,6 +77,7 @@ _: let
         "boop"
         "obsidian"
         "contexts"
+        "rectangle"
       ];
       taps = [
         "pulumi/tap"
