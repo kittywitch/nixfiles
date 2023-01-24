@@ -153,6 +153,9 @@ func main() {
     }
 
     for _, device := range tailnet.Devices {
+      if device.User != "kat@inskip.me" {
+        continue
+      }
       device_name := strings.Split(device.Name, ".")[0]
       ipv4 := DNSRecord{
         Name: device_name,
