@@ -173,9 +173,9 @@ records = {**{
 }, **{
     f"tailscale-{name.split('.')[0]}": {
         recordType: ConstructorToType(recordType)(
-            value=addresses[0], domain=name.split(".")[0], zone="inskip"
+            value=addresses[i], domain=name.split(".")[0], zone="inskip"
         )
-        for recordType in ["A", "AAAA"]
+        for i, recordType in enumerate(["A", "AAAA"])
     }
     for name, addresses in tailscale_devices.items()
 }}
