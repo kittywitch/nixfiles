@@ -1,6 +1,4 @@
 name: kittywitch
 description: The Katzian Monorepo
 runtime:
-    name: python
-    options:
-        virtualenv: venv
+    name: go

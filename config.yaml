@@ -1,0 +1,34 @@
+zones:
+  inskip:
+    name: inskip.me
+    records:
+      - kind: caa
+        flags: 0
+        tag: iodef
+        value: mailto:acme@inskip.me
+      - kind: caa
+        flags: 0
+        tag: issue
+        value: letsencrypt.org
+      - kind: caa
+        flags: 0
+        tag: issuewild
+        value: ;
+      - kind: mx
+        priority: 1
+        value: aspmx.l.google.com
+      - kind: mx
+        priority: 5
+        value: alt1.aspmx.l.google.com
+      - kind: mx
+        priority: 5
+        value: alt2.aspmx.l.google.com
+      - kind: mx
+        priority: 10
+        value: alt3.aspmx.l.google.com
+      - kind: mx
+        priority: 10
+        value: alt4.aspmx.l.google.com
+      - kind: mx
+        priority: 15
+        value: 6uyykkzhqi4zgogxiicbuamoqrxajwo5werga4byh77b2iyx3wma.mx-verification.google.com

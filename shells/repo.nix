@@ -23,7 +23,7 @@ with pkgs; let
     nativeBuildInputs =
       [
         go # Required for pulumi
-        pulumi # Infrastructure as code
+        pulumi-bin # Infrastructure as code
         python39Packages.pulumi # Pulumi for Python!
         pulumiPackages.pulumi-language-python # Python!
         deadnix # dead-code scanner
