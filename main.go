@@ -130,10 +130,20 @@ func main() {
       return err
     }
     zones := make(map[string]*cloudflare.Zone)
+    dnssec := make(map[string]*cloudflare.ZoneDnssec)
     records := make(map[string][]*cloudflare.Record)
     for name, zone := range config.Zones {
       ctx.Log.Info(name, nil)
       zones[name], err = zone.handle(ctx, name)
+      if err != nil {
+        return err
+      }
+      dnssec[name], err = cloudflare.NewZoneDnssec(ctx, fmt.Sprintf("%s-dnssec", name), &cloudflare.ZoneDnssecArgs{
+        ZoneId: zones[name].ID(),
+      })
+      if err != nil {
+        return err
+      }
       for _, record := range zone.Records {
         _, exists := records[name]
         if exists {
