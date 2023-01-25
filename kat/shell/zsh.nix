@@ -86,6 +86,7 @@ in {
         ''
         else ""
       }
+      ${pkgs.fortune}/bin/fortune | ${pkgs.ponysay}/bin/ponysay
     '';
     shellAliases = mkMerge [
       {
