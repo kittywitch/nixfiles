@@ -3,7 +3,6 @@ package iac
 import(
   "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
   tls "github.com/pulumi/pulumi-tls/sdk/v4/go/tls"
-  "log"
 )
 
 func GenerateTLSCA(ctx *pulumi.Context) (key *tls.PrivateKey, cert *tls.SelfSignedCert, err error) {
@@ -13,7 +12,7 @@ func GenerateTLSCA(ctx *pulumi.Context) (key *tls.PrivateKey, cert *tls.SelfSign
     })
 
     if err != nil {
-      log.Fatal(err)
+      return nil, nil, err
     }
 
     cert, err = tls.NewSelfSignedCert(ctx, "kat-root-ca-pem-cert", &tls.SelfSignedCertArgs{
@@ -30,7 +29,7 @@ func GenerateTLSCA(ctx *pulumi.Context) (key *tls.PrivateKey, cert *tls.SelfSign
     })
 
     if err != nil {
-      log.Fatal(err)
+      return nil, nil, err
     }
 
     ctx.Export("tls_ca_pem_key", key.PrivateKeyPem)
