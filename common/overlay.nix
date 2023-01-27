@@ -1,7 +1,9 @@
-{inputs, ...}: {
+{
+  inputs,
+  tree,
+  ...
+}: {
   nixpkgs = {
-    overlays = map (path: import "${path}/overlay.nix") [
-      inputs.arcexprs
-    ];
+    overlays = import tree.overlays {inherit inputs;};
   };
 }

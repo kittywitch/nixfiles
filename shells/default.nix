@@ -3,6 +3,7 @@
   tree,
   inputs,
   std,
+  pkgs,
   ...
 }: let
   inherit (std) set;
@@ -10,9 +11,9 @@ in
   inputs.utils.lib.eachDefaultSystem (system: {
     devShells = let
       shells = set.map (_: path:
-        import path rec {
+        import path {
           inherit tree inputs system lib std;
-          pkgs = inputs.nixpkgs.legacyPackages.${system};
+          pkgs = pkgs.${system};
         })
       tree.shells;
     in

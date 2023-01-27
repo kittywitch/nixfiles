@@ -7,7 +7,7 @@
 }: let
   # The purpose of this file is to set up the host module which allows assigning of the system, e.g. aarch64-linux and the builder used with less pain.
   inherit (lib.modules) evalModules;
-  inherit (std) string list function types bool optional set;
+  inherit (std) string types optional set;
   defaultSpecialArgs = {
     inherit inputs tree std;
   };
@@ -106,6 +106,27 @@
   processHost = name: cfg: let
     host = cfg.config;
   in {
+    deploy.nodes = set.merge [
+      (set.optional (host.folder == "nixos") {
+        ${name} = {
+          profiles.system = {
+            user = "root";
+            path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.${name};
+          };
+          hostname = "${name}.inskip.me";
+          sshOpts = ["-p" "${builtins.toString (builtins.head inputs.self.nixosConfigurations.${name}.config.services.openssh.ports)}"];
+          sshUser = "kat";
+          user = "root";
+          autoRollback = true;
+          magicRollback = true;
+        };
+      })
+      (set.optional (host.folder == "nixos" && host.arch != "x86_64") {
+        ${name} = {
+          remoteBuild = true;
+        };
+      })
+    ];
     "${host.folder}Configurations".${name} = let
       hostConfig = host.builder {
         inherit (host) system modules specialArgs;

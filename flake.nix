@@ -14,10 +14,22 @@
     empty.url = "github:input-output-hk/empty-flake";
     # self-explanatory
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # deployments
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
+        utils.follows = "utils";
+      };
+    };
     # self-explanatory
     home-manager = {
       url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        utils.follows = "utils";
+      };
     };
     # self-explanatory
     darwin = {
@@ -76,5 +88,5 @@
       flake = false;
     };
   };
-  outputs = inputs: import ./outputs.nix { inherit inputs; };
+  outputs = inputs: import ./outputs.nix {inherit inputs;};
 }
