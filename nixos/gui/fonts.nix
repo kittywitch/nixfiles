@@ -1,12 +1,9 @@
 { pkgs, ... }: {
   fonts = {
-    fonts = (with pkgs; [
+    fonts = with pkgs; [
       twitter-color-emoji
-    ]) ++ (with pkgs.iosevka-comfy; [
-      comfy
-      comfy-motion
-      comfy-wide
-    ]);
+      iosevka-bin
+    ];
     enableDefaultFonts = true;
     fontDir.enable = true;
     fontconfig = {

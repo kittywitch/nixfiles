@@ -117,9 +117,9 @@ in {
       };
 
       fonts = {
-        names = [ "Iosevka Comfy"];
+        names = [ "Iosevka"];
         style = "Regular";
-        size = 10.0;
+        size = 12.0;
       };
 
       terminal = "${pkgs.wezterm}/bin/wezterm";

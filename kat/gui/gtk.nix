@@ -6,7 +6,7 @@
   gtk = {
     enable = true;
     font = {
-      name = "Iosevka Comfy";
+      name = "Iosevka";
       size = 9;
     };
     iconTheme = {

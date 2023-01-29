@@ -14,8 +14,8 @@ in with lib; {
       variables = mkOption {
         type = attrsOf str;
         default = (cfg.palette // cfg.palette' // {
-          term_font = "Iosevka Comfy";
-          font = "Iosevka Comfy";
+          term_font = "Iosevka";
+          font = "Iosevka";
           font_size = "12px";
         });
       };

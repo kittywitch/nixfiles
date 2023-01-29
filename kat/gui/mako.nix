@@ -18,7 +18,7 @@ in {
 
   programs.mako = {
     enable = true;
-    font = "Iosevka Comfy 10";
+    font = "Iosevka 10";
     defaultTimeout = 3000;
     borderColor = palette.base08;
     backgroundColor = "${palette.base00}BF";

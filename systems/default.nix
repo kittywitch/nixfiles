@@ -123,7 +123,7 @@
           };
           hostname = "${name}.inskip.me";
           sshOpts = ["-p" "${builtins.toString (builtins.head inputs.self.nixosConfigurations.${name}.config.services.openssh.ports)}"];
-          sshUser = "root";
+          sshUser = "deploy";
           user = "root";
           autoRollback = true;
           magicRollback = true;

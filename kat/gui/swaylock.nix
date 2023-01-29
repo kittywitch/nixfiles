@@ -9,7 +9,7 @@
         indicator = true;
         indicator-radius = 110;
         indicator-thickness = 8;
-        font = "Iosevka Comfy";
+        font = "Iosevka";
         font-size = "12px";
         clock = true;
         datestr = "%F";
