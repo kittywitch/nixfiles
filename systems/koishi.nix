@@ -1,7 +1,8 @@
 _: let
   hostConfig = {tree, ...}: {
     imports = with tree; [
-      nixos.gnome
+      nixos.gui
+      kat.gui
     ];
 
     fileSystems = {

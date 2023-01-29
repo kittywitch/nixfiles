@@ -23,6 +23,13 @@ in
         neovim
       ];
     };
+    gui = {
+      imports = with dirImports; [
+        gui
+        wezterm
+        gpg
+      ];
+    };
     work = {
       imports = with dirImports; [
         wezterm

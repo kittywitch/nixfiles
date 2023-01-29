@@ -68,6 +68,9 @@
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).home-manager; [
             base16
+            swaylock
+            i3gopher
+            konawall
           ]);
       };
     };

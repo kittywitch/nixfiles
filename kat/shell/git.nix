@@ -16,6 +16,7 @@
     extraConfig = {
       init = {defaultBranch = "main";};
       protocol.gcrypt.allow = "always";
+      merge.conflictstyle = "diff3";
       annex = {
         autocommit = false;
         backend = "BLAKE2B512";

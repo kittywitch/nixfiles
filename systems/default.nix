@@ -77,7 +77,15 @@
       ];
       builder =
         {
-          nixos = inputs.nixpkgs.lib.nixosSystem;
+          nixos = let
+            lib = inputs.nixpkgs.lib.extend (self: super: import (inputs.arcexprs + "/lib") {
+            inherit super;
+            lib = self;
+            isOverlayLib = true;
+          });
+          in args: lib.nixosSystem ({
+            inherit lib;
+          } // args);
           darwin = inputs.darwin.lib.darwinSystem;
           macos = inputs.darwin.lib.darwinSystem;
         }
