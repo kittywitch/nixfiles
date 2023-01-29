@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ lib, pkgs, ... }: let
+inherit (lib.modules) mkForce;
+in {
   systemd.services.NetworkManager-wait-online = {
     serviceConfig.ExecStart = [ "" "${pkgs.networkmanager}/bin/nm-online -q" ];
   };
@@ -35,12 +37,12 @@
   networking = {
     firewall = {
       allowedUDPPorts = [ 5353 ];
-      allowedUDPPortRanges = [ { from = "32768"; to="60999" } ];
+      allowedUDPPortRanges = [ { from = 32768; to=60999; } ];
     };
     networkmanager = {
       enable = true;
       connectionConfig = {
-        "ipv6.ip6-privacy" = lib.mkForce 0;
+        "ipv6.ip6-privacy" = mkForce 0;
       };
     };
   };

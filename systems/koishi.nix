@@ -1,5 +1,5 @@
 _: let
-  hostConfig = {tree, ...}: {
+  hostConfig = {tree, pkgs, ...}: {
     imports = with tree; [
       nixos.gui
       kat.gui
@@ -20,7 +20,7 @@ _: let
       {device = "/dev/disk/by-uuid/0d846453-95b4-46e1-8eaf-b910b4321ef0";}
     ];
 
-    home-manager.SharedModules = [
+    home-manager.sharedModules = [
       {
         wayland.windowManager.sway.config.input."2:7:SynPS/2_Synaptics_TouchPad" = {
           dwt = "enabled";
