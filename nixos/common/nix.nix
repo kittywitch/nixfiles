@@ -7,7 +7,7 @@ in {
   };
 
   nix.gc = {
-    automatic = mkDefault true;
+    automatic = mkDefault false;
     dates = mkDefault "weekly";
     options = mkDefault "--delete-older-than 7d";
   };
