@@ -20,7 +20,35 @@ _: let
       {device = "/dev/disk/by-uuid/0d846453-95b4-46e1-8eaf-b910b4321ef0";}
     ];
 
+    home-manager.SharedModules = [
+      {
+        wayland.windowManager.sway.config.input."2:7:SynPS/2_Synaptics_TouchPad" = {
+          dwt = "enabled";
+          tap = "enabled";
+          natural_scroll = "enabled";
+          middle_emulation = "enabled";
+          click_method = "clickfinger";
+        };
+      }
+    ];
+
+    hardware = {
+      cpu.intel.updateMicrocode = true;
+      opengl = {
+        enable = true;
+        extraPackages = with pkgs; [
+          intel-media-driver
+          vaapiIntel
+          vaapiVdpau
+          libvdpau-va-gl
+        ];
+      };
+    };
+
     boot = {
+      initrd.availableKernelModules =
+        [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "sr_mod" "rtsx_usb_sdmmc" ];
+      kernelModules = [ "kvm-intel" ];
       supportedFilesystems = ["xfs"];
       initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/f0ea08b4-6af7-4d90-a2ad-edd5672a2105";
       loader = {
@@ -29,9 +57,9 @@ _: let
           efiSysMountPoint = "/boot";
         };
         grub = {
-          devices = ["nodev"];
-          efiSupport = true;
           enable = true;
+          efiSupport = true;
+          devices = ["nodev"];
           extraEntries = ''
             menuentry "Windows" {
               insmod part_gpt
@@ -45,6 +73,11 @@ _: let
           version = 2;
         };
       };
+    };
+
+    networking = {
+      hostId = "dddbb888";
+      useDHCP = false;
     };
 
     system.stateVersion = "21.11";
