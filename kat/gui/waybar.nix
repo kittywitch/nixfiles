@@ -1,4 +1,4 @@
-{ config, kittywitch, lib, pkgs, nixfiles, ... }:
+{ config, kittywitch, lib, pkgs, ... }:
 
 {
   xdg.configFile."waybar/style.css" = { inherit (kittywitch.sassTemplate { name = "waybar-style"; src = ./waybar.sass; }) source; };
