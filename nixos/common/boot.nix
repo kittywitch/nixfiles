@@ -3,7 +3,7 @@
   inherit (std) list;
 in {
   boot = mkMerge [
-    ({
+    {
       kernel.sysctl = {
         "fs.inotify.max_user_watches" = 524288;
         "net.core.rmem_max" = 16777216;
@@ -20,7 +20,7 @@ in {
       tmpOnTmpfs = true;
       tmpOnTmpfsSize = "80%";
       kernelPackages = mkIf (list.elem "zfs" config.boot.supportedFilesystems) (mkDefault config.boot.zfs.package.latestCompatibleLinuxPackages);
-    })
+    }
     (mkIf (list.elem "zfs" config.boot.supportedFilesystems) {
       kernelPackages = mkDefault config.boot.zfs.package.latestCompatibleLinuxPackages;
       zfs.enableUnstable = true;

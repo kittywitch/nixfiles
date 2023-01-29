@@ -1,4 +1,4 @@
-{ config, pkgs, nixos, lib, ... }: {
+{ config, lib, ... }: {
   # TODO: fix lib use
   home.packages = [
     config.services.konawall.konashow
@@ -9,12 +9,12 @@
     interval = "30m";
     mode = "shuffle";
     commonTags = [ "width:>=1600" ];
-    tagList = map (lib.toList) [
-      ([
+    tagList = map lib.toList [
+      [
         "score:>=50"
         #"no_humans"
         #"rating:s"
-      ])
+      ]
     ];
   };
 }

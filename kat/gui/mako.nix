@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: let
+{ config, pkgs, ... }: let
   inherit (config.base16) palette;
 in {
   systemd.user.services = {

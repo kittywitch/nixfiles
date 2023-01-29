@@ -5,7 +5,7 @@ inherit (lib.attrsets) mapAttrsToList;
 commonUser = {
   shell = pkgs.zsh;
   openssh.authorizedKeys.keys = concatLists (mapAttrsToList
-        (name: user:
+        (_: user:
          if elem "wheel" user.extraGroups then
          user.openssh.authorizedKeys.keys
          else

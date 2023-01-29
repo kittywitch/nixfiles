@@ -1,7 +1,7 @@
 {inputs}: let
   std = import ./std.nix {inherit inputs;};
   tree = import ./tree.nix {inherit inputs;};
-  lib = inputs.nixpkgs.lib;
+  inherit (inputs.nixpkgs) lib;
   systems = import ./systems {inherit inputs tree lib std;};
   shells = import ./shells {inherit inputs tree lib std pkgs;};
   inherit (import ./pkgs.nix {inherit inputs tree;}) pkgs;

@@ -1,4 +1,4 @@
-{ config, kittywitch, lib, pkgs, ... }:
+{ kittywitch, pkgs, ... }:
 
 {
   xdg.configFile."waybar/style.css" = { inherit (kittywitch.sassTemplate { name = "waybar-style"; src = ./waybar.sass; }) source; };

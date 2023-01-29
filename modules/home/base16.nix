@@ -13,11 +13,11 @@ in with lib; {
     sass = {
       variables = mkOption {
         type = attrsOf str;
-        default = (cfg.palette // cfg.palette' // {
+        default = cfg.palette // cfg.palette' // {
           term_font = "Iosevka";
           font = "Iosevka";
           font_size = "12px";
-        });
+        };
       };
       css_style = mkOption {
         type = enum [ "nested" "compressed" "compact" "expanded" ];
