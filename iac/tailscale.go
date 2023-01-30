@@ -96,13 +96,12 @@ func HandleTSHostCerts(ctx *pulumi.Context,
   keys = make(map[string]*tls.PrivateKey)
   crs = make(map[string]*tls.CertRequest)
   certs = make(map[string]*tls.LocallySignedCert)
-
   for _, device := range tailnet.Devices {
     if device.User != "kat@inskip.me" {
-      return nil, nil, nil, err
+      continue
     }
     name := strings.Split(device.Name, ".")[0]
-    keys[name], crs[name], certs[name], err = HandleTSHostCert(ctx, device, ca_key, ca_cert)
+    keys[fmt.Sprintf("ts-%s-host-key", name)], crs[fmt.Sprintf("ts-%s-host-cr", name)], certs[fmt.Sprintf("ts-%s-host-cert", name)], err = HandleTSHostCert(ctx, device, ca_key, ca_cert)
     if err != nil {
       return nil, nil, nil, err
     }

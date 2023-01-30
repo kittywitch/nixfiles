@@ -18,7 +18,7 @@ func generateKeyPair(ctx *pulumi.Context,
   key, err = tls.NewPrivateKey(ctx, fmt.Sprintf("%s-key", purpose), &tls.PrivateKeyArgs{
     Algorithm: pulumi.String("RSA"),
     RsaBits: pulumi.Int(4096),
-  })
+  }, pulumi.DependsOn([]pulumi.Resource{ca_key, ca_cert}))
   if err != nil {
     return nil, nil, nil, err
   }
@@ -30,7 +30,7 @@ func generateKeyPair(ctx *pulumi.Context,
       CommonName: pulumi.String("inskip.me"),
       Organization: pulumi.String("Kat Inskip"),
     },
-  })
+  }, pulumi.DependsOn([]pulumi.Resource{ca_key, ca_cert, key}))
   if err != nil {
     return nil, nil, nil, err
   }
@@ -46,7 +46,7 @@ func generateKeyPair(ctx *pulumi.Context,
     CertRequestPem: cr.CertRequestPem,
     ValidityPeriodHours: pulumi.Int(1440),
     EarlyRenewalHours: pulumi.Int(168),
-  })
+  }, pulumi.DependsOn([]pulumi.Resource{ca_key, ca_cert, key, cr}))
   if err != nil {
     return nil, nil, nil, err
   }
