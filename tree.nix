@@ -35,6 +35,11 @@
     "darwin/*".functor.enable = true;
     "kat/*".functor.enable = true;
     # Various modules
+    "modules/common" = {
+      functor = {
+        enable = true;
+      };
+    };
     "modules/nixos" = {
       functor = {
         enable = true;

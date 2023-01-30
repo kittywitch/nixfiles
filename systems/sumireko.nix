@@ -7,6 +7,8 @@ _: let
 
     security.pam.enableSudoTouchIdAuth = true;
 
+    distributed.systems.renko.preference = 5;
+
     homebrew = {
       brewPrefix = "/opt/homebrew/bin";
       brews = [
