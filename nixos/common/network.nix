@@ -1,7 +1,4 @@
-{ machine, ... }: {
-  networking = {
-    hostName = machine;
-    nftables.enable = true;
-  };
+_: {
+  networking.nftables.enable = true;
   services.tailscale.enable = true;
 }

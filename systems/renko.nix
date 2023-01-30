@@ -1,27 +1,14 @@
 _: let
-  hostConfig = { lib, ... }: let
+  hostConfig = { lib, tree, ... }: let
       inherit (lib.modules) mkDefault;
     in {
-    imports = [
+    imports = with tree; [
+      nixos.rosetta
     ];
 
     boot = {
-      systemd-boot.enable = true;
-      initrd = {
-        availableKernelModules = ["virtio_pci" "xhci_pci" "usb_storage" "usbhid" "virtiofs"];
-      };
-      nix.settings = {
-        extra-platforms = [ "x86_64-linux" ];
-        extra-sandbox-paths = [ "/run/rosetta" "/run/binfmt" ];
-      };
-      binfmt.registrations."rosetta" = {
-        interpreter = "/run/rosetta/rosetta";
-        fixBinary = true;
-        wrapInterpreterInShell = false;
-        matchCredentials = true;
-        magicOrExtension = ''\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x3e\x00'';
-        mask = ''\xff\xff\xff\xff\xff\xfe\xfe\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff'';
-      };
+      loader.systemd-boot.enable = true;
+      initrd.availableKernelModules = ["virtio_pci" "xhci_pci" "usb_storage" "usbhid" ];
     };
 
     fileSystems = {
@@ -51,7 +38,7 @@ _: let
     system.stateVersion = "22.11";
   };
 in {
-  arch = "aarch64-linux";
+  arch = "aarch64";
   type = "NixOS";
   modules = [
     hostConfig

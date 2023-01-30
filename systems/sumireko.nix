@@ -2,64 +2,10 @@ _: let
   hostConfig = {tree, pkgs, ...}: {
     imports = with tree; [
       kat.work
+      darwin.distributed
     ];
 
     security.pam.enableSudoTouchIdAuth = true;
-
-  home-manager.users = let
-    commonUser = {
-      programs.ssh = {
-        enable = true;
-        matchBlocks = {
-          "koishi.inskip.me" = {
-            hostname = "koishi.inskip.me";
-            port = 22;
-            user = "root";
-          };
-          "daiyousei.inskip.me" = {
-            hostname = "daiyousei.inskip.me";
-            port = 62954;
-            user = "root";
-          };
-          "renko-build" = {
-            hostname = "192.168.64.3";
-            port = 62954;
-            user = "root";
-          };
-        };
-      };
-    };
-    in {
-      kat = commonUser;
-      root = commonUser;
-    };
-
-    nix = {
-      envVars = {
-        "SSH_AUTH_SOCK" = "/Users/kat/.gnupg/S.gpg-agent.ssh";
-      };
-      buildMachines = [
-        {
-          hostName = "koishi.inskip.me";
-          sshUser = "deploy";
-          system = "x86_64-linux";
-          maxJobs = 100;
-          speedFactor = 1;
-          supportedFeatures = ["benchmark" "big-parallel" "kvm"];
-          mandatoryFeatures = [];
-        }
-        {
-          hostName = "daiyousei-build";
-          sshUser = "root";
-          system = "aarch64-linux";
-          maxJobs = 100;
-          speedFactor = 1;
-          supportedFeatures = ["benchmark" "big-parallel" "kvm"];
-          mandatoryFeatures = [];
-        }
-      ];
-      distributedBuilds = true;
-    };
 
     homebrew = {
       brewPrefix = "/opt/homebrew/bin";
