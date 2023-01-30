@@ -6,9 +6,16 @@ in {
     systemd-boot.configurationLimit = 8;
   };
 
-  nix.gc = {
-    automatic = mkDefault false;
-    dates = mkDefault "weekly";
-    options = mkDefault "--delete-older-than 7d";
+  nix = {
+    settings = {
+      trusted-users = [
+        "deploy"
+      ];
+    };
+    gc = {
+      automatic = mkDefault false;
+      dates = mkDefault "weekly";
+      options = mkDefault "--delete-older-than 7d";
+    };
   };
 }

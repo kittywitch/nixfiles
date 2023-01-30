@@ -1,25 +1,37 @@
 _: let
-  hostConfig = {tree, ...}: {
+  hostConfig = {tree, pkgs, ...}: {
     imports = with tree; [
       kat.work
     ];
 
     security.pam.enableSudoTouchIdAuth = true;
 
-    home-manager.users.root.programs.ssh = {
-      enable = true;
-      matchBlocks = {
-        "daiyousei-build" = {
-          hostname = "daiyousei.kittywit.ch";
-          port = 62954;
-          user = "root";
-        };
-        "renko-build" = {
-          hostname = "192.168.64.3";
-          port = 62954;
-          user = "root";
+  home-manager.users = let
+    commonUser = {
+      programs.ssh = {
+        enable = true;
+        matchBlocks = {
+          "koishi.inskip.me" = {
+            hostname = "koishi.inskip.me";
+            port = 22;
+            user = "root";
+          };
+          "daiyousei.inskip.me" = {
+            hostname = "daiyousei.inskip.me";
+            port = 62954;
+            user = "root";
+          };
+          "renko-build" = {
+            hostname = "192.168.64.3";
+            port = 62954;
+            user = "root";
+          };
         };
       };
+    };
+    in {
+      kat = commonUser;
+      root = commonUser;
     };
 
     nix = {
@@ -28,8 +40,8 @@ _: let
       };
       buildMachines = [
         {
-          hostName = "renko-build";
-          sshUser = "root";
+          hostName = "koishi.inskip.me";
+          sshUser = "deploy";
           system = "x86_64-linux";
           maxJobs = 100;
           speedFactor = 1;
