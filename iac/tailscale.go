@@ -10,10 +10,10 @@ import (
   "fmt"
 )
 
-func MakeRecord(ctx *pulumi.Context, zones map[string]*cloudflare.Zone, name string, address string) (record *cloudflare.Record, err error) {
+func MakeRecord(ctx *pulumi.Context, zones map[string]*cloudflare.Zone, name string, address string) (record *cloudflare.Record, index string, err error) {
   ip := net.ParseIP(address)
   kind := A;
-  if ip.To4() != nil {
+  if ip.To4() == nil {
     kind = AAAA;
   }
   record_ := DNSRecord{
@@ -23,41 +23,45 @@ func MakeRecord(ctx *pulumi.Context, zones map[string]*cloudflare.Zone, name str
     Ttl: 3600,
   }
   record, err = record_.handle(ctx, "inskip", zones["inskip"])
+  index = record_.getName("inskip", zones["inskip"])
   if err != nil {
-    return nil, err
+    return nil, "", err
   }
-  return record, err
+  return record, index, err
 }
 
-func HandleTSRecord(ctx *pulumi.Context, zones map[string]*cloudflare.Zone, device tailscale.GetDevicesDevice) (records []*cloudflare.Record, err error) {
+func HandleTSRecord(ctx *pulumi.Context, zones map[string]*cloudflare.Zone, device tailscale.GetDevicesDevice) (new_records map[string]*cloudflare.Record, err error) {
   if device.User != "kat@inskip.me" {
-    return []*cloudflare.Record{}, nil
+    return nil, nil
   }
+  new_records = make(map[string]*cloudflare.Record)
   name := strings.Split(device.Name, ".")[0]
   for _, address := range device.Addresses {
-    record, err := MakeRecord(ctx, zones, name, address)
+    new_record, index, err := MakeRecord(ctx, zones, name, address)
+    new_records[index] = new_record
     if err != nil {
       return nil, err
     }
-    records = append(records, record)
   }
-  return records, err
+  return new_records, err
 }
 
 func HandleTSRecords(ctx *pulumi.Context,
   tailnet *tailscale.GetDevicesResult,
   zones map[string]*cloudflare.Zone,
-  records map[string][]*cloudflare.Record,
-) (records_ map[string][]*cloudflare.Record, err error) {
+  input_records map[string]*cloudflare.Record,
+) (records map[string]*cloudflare.Record, err error) {
   for _, device := range tailnet.Devices {
-    record, err := HandleTSRecord(ctx, zones, device)
+    new_records, err := HandleTSRecord(ctx, zones, device)
     if err != nil {
       return nil, err
     }
-    records["inskip"] = append(records["inskip"], record...)
+    for k,v := range new_records {
+        input_records[k] = v
+    }
+    records = input_records
   }
-  records_ = records
-  return records_, err
+  return records, err
 }
 
 func HandleTSHostCert(ctx *pulumi.Context,
@@ -73,8 +77,8 @@ func HandleTSHostCert(ctx *pulumi.Context,
     fmt.Sprintf("ts-%s-host", name),
     ca_key,
     ca_cert,
-    device.Addresses,
     []string{fmt.Sprintf("%s.inskip.me", name)},
+    device.Addresses,
   )
   if err != nil {
     return nil, nil, nil, err
@@ -94,6 +98,9 @@ func HandleTSHostCerts(ctx *pulumi.Context,
   certs = make(map[string]*tls.LocallySignedCert)
 
   for _, device := range tailnet.Devices {
+    if device.User != "kat@inskip.me" {
+      return nil, nil, nil, err
+    }
     name := strings.Split(device.Name, ".")[0]
     keys[name], crs[name], certs[name], err = HandleTSHostCert(ctx, device, ca_key, ca_cert)
     if err != nil {

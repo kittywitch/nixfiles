@@ -2,10 +2,11 @@ package main
 
 import (
   "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-  tailscale "github.com/pulumi/pulumi-tailscale/sdk/go/tailscale"
+  "github.com/pulumi/pulumi-tailscale/sdk/go/tailscale"
   "gopkg.in/yaml.v3"
   "os"
-  iac "kittywitch/iac"
+  "kittywitch/iac"
+  "github.com/pulumi/pulumi-command/sdk/go/command/local"
 )
 
 func main() {
@@ -46,12 +47,22 @@ func main() {
       return err
     }
 
-    // keys, crs, certs
-    _, _, _, err = iac.HandleTSHostCerts(ctx, tailnet, ca_key, ca_cert)
+    keys, _, certs, err := iac.HandleTSHostCerts(ctx, tailnet, ca_key, ca_cert)
 
     if err != nil {
       return err
     }
+
+    // files for those certs
+
+    files := make(map[string]*local.Command)
+
+    files, err = iac.PKITLSFiles(ctx, files, keys, certs)
+
+    if err != nil {
+      return err
+    }
+
     return err
   })
 }

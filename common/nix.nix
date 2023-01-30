@@ -5,19 +5,13 @@
   inputs,
   ...
 }: let
-  inherit (std) set tuple list;
+  inherit (std) set tuple list function;
   inherit (lib.strings) versionAtLeast;
-  renameAttrs = names:
-    set.remap ({
-      _0,
-      _1,
-    }:
-      tuple.tuple2 (names.${_0} or _0) _1);
-  renameAttr = oldName: newName: renameAttrs {${oldName} = newName;};
+  inputs' = set.filter (n: _: !list.elem n ["pypi-deps-db"]) (set.rename "self" "kat" inputs);
 in {
   nix = {
-    nixPath = set.mapToValues (name: flake: "${name}=${flake.outPath}") (renameAttr "self" "kat" inputs);
-    registry = set.map (_: flake: {inherit flake;}) inputs;
+    nixPath = set.mapToValues (name: flake: "${name}=${flake.outPath}") inputs';
+    registry = set.map (_: flake: {inherit flake;}) inputs';
 
     settings = {
       experimental-features = list.optional (versionAtLeast config.nix.package.version "2.4") "nix-command flakes";

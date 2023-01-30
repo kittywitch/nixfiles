@@ -21,6 +21,8 @@
     fd
     # ripgrep / grep replacement
     ripgrep
+    # rename with sed
+    rename
     # remote tmux
     tmate
     # remote utilities

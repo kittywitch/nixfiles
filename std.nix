@@ -1,7 +1,7 @@
 {inputs, ...}: let
   std = let
     baseStd = inputs.std.lib;
-    inherit (baseStd) set function list bool types optional;
+    inherit (baseStd) set function list bool types optional tuple;
     mergeWith = let
       append = {
         path,
@@ -50,6 +50,14 @@
       mergeWith {
         inherit sets;
       };
+    remap = f: s: set.fromList (list.map f (set.toList s));
+    renames = names:
+      remap ({
+        _0,
+        _1,
+      }:
+        tuple.tuple2 (names.${_0} or _0) _1);
+    rename = oldName: newName: renames {${oldName} = newName;};
   in
     merge [
       baseStd
@@ -58,8 +66,7 @@
           pipe = list.foldl' (function.flip function.compose) function.id;
         };
         set = {
-          inherit merge mergeWith;
-          remap = f: s: set.fromList (list.map f (set.toList s));
+          inherit merge mergeWith remap renames rename;
           recursiveMap = f: s: let
             recurse = str: s: let
               g = str1: str2:
