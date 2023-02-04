@@ -1,6 +1,6 @@
 config:
   cloudflare:apiToken:
-    secure: AAABACPPwldgPSVHPYdh4lQnYR+baaGsnQRwGw/qwNke8wuFnCTdZIqj6yXu0CCGaYBu0+66LTALNNl9mo9HXs/PMLmoOqLo
+    secure: AAABAFcufTX7tZZf2gcK6hML2tgovDEfcPAJcgjfYkV3GMS4Ilwzuco5p+hCpyj3vCm7cqm3tmdwOLlOFxGqKZGRj+ESXAzv
   tailscale:apiKey:
     secure: AAABAGc7s7XJ+voSUNcMmRuVwrUdx3kojn0fdEl6qpUy0WmhgHbk6cEz2/kGSEGhuLGwo3mzOGVTI+NVu6/Xz4PmE9FME++VfE8cz5DFjDrMJ4JdX0DR
   tailscale:tailnet: inskip.me

@@ -1,40 +1,45 @@
 package iac
 
-import(
-  "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-  tls "github.com/pulumi/pulumi-tls/sdk/v4/go/tls"
+import (
+	tls "github.com/pulumi/pulumi-tls/sdk/v4/go/tls"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-func GenerateTLSCA(ctx *pulumi.Context) (key *tls.PrivateKey, cert *tls.SelfSignedCert, err error) {
-    key, err = tls.NewPrivateKey(ctx, "kat-root-ca-key", &tls.PrivateKeyArgs{
-      Algorithm: pulumi.String("RSA"),
-      RsaBits: pulumi.Int(4096),
-    })
+type CertificateAuthority struct {
+	Key  *tls.PrivateKey
+	Cert *tls.SelfSignedCert
+}
 
-    if err != nil {
-      return nil, nil, err
-    }
+func (ca *CertificateAuthority) handle(ctx *pulumi.Context) (err error) {
+	ca.Key, err = tls.NewPrivateKey(ctx, "ca-root", &tls.PrivateKeyArgs{
+		Algorithm: pulumi.String("RSA"),
+		RsaBits:   pulumi.Int(4096),
+	})
 
-    cert, err = tls.NewSelfSignedCert(ctx, "kat-root-ca-pem-cert", &tls.SelfSignedCertArgs{
-      PrivateKeyPem: key.PrivateKeyPem,
-      AllowedUses: goStringArrayToPulumiStringArray([]string{"digital_signature",
-                    "cert_signing",
-                    "crl_signing"}),
-      IsCaCertificate: pulumi.Bool(true),
-      ValidityPeriodHours: pulumi.Int(2562047),
-      Subject: &tls.SelfSignedCertSubjectArgs{
-        CommonName: pulumi.String("inskip.me"),
-        Organization: pulumi.String("Kat Inskip"),
-      },
-    })
+	if err != nil {
+		return err
+	}
 
-    if err != nil {
-      return nil, nil, err
-    }
+	ca.Cert, err = tls.NewSelfSignedCert(ctx, "ca-root", &tls.SelfSignedCertArgs{
+		PrivateKeyPem: ca.Key.PrivateKeyPem,
+		AllowedUses: goStringArrayToPulumiStringArray([]string{"digital_signature",
+			"cert_signing",
+			"crl_signing"}),
+		IsCaCertificate:     pulumi.Bool(true),
+		ValidityPeriodHours: pulumi.Int(2562047),
+		Subject: &tls.SelfSignedCertSubjectArgs{
+			CommonName:   pulumi.String("inskip.me"),
+			Organization: pulumi.String("Kat Inskip"),
+		},
+	})
 
-    ctx.Export("tls_ca_pem_key", key.PrivateKeyPem)
-    ctx.Export("tls_ca_os_key", key.PrivateKeyOpenssh)
-    ctx.Export("tls_ca_cert", cert.CertPem)
+	if err != nil {
+		return err
+	}
 
-    return key, cert, err
+	ctx.Export("ca_pem_privkey", ca.Key.PrivateKeyPem)
+	ctx.Export("ca_os_privkey", ca.Key.PrivateKeyOpenssh)
+	ctx.Export("ca_pem_cert", ca.Cert.CertPem)
+
+	return err
 }

@@ -6,6 +6,8 @@ zones:
         flags: 0
         tag: iodef
         value: mailto:acme@inskip.me
+      - kind: cname
+        value: inskip-root.pages.dev
       - kind: caa
         flags: 0
         tag: issue

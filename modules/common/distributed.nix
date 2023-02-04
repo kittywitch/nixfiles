@@ -1,6 +1,6 @@
 { lib, config, inputs, ... }: let
   # TODO: convert to nix-std
-  inherit (lib.attrsets) mapAttrsToList mapAttrs;
+  inherit (lib.attrsets) mapAttrsToList mapAttrs filterAttrs;
   inherit (lib.lists) optionals;
   inherit (lib.options) mkOption;
   inherit (lib.types) int attrsOf submodule;
@@ -13,7 +13,7 @@
     maxJobs = 100;
     speedFactor = config.distributed.outputs.${name};
     supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-  } ) (inputs.self.nixosConfigurations // inputs.self.darwinConfigurations);
+  } ) (filterAttrs (n: _: n != config.networking.hostName) (inputs.self.nixosConfigurations // inputs.self.darwinConfigurations));
   daiyousei = {
     hostName = "daiyousei.inskip.me";
     sshUser = "root";

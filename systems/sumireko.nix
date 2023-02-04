@@ -9,6 +9,17 @@ _: let
 
     distributed.systems.renko.preference = 5;
 
+    environment.systemPackages = with pkgs; [
+        fd # fd, better fine!
+        ripgrep # rg, better grep!
+        go # Required for pulumi
+        pulumi-bin # Infrastructure as code
+        deadnix # dead-code scanner
+        alejandra # code formatter
+        statix # anti-pattern finder
+        deploy-rs.deploy-rs # deployment system
+    ];
+
     homebrew = {
       brewPrefix = "/opt/homebrew/bin";
       brews = [
