@@ -2,7 +2,6 @@ _: let
   hostConfig = {tree, modulesPath, inputs, pkgs, ...}: {
     imports = with tree; [
       inputs.wsl.nixosModules.wsl
-      "${modulesPath}/profiles/minimal.nix"
     ];
 
     fileSystems = {
