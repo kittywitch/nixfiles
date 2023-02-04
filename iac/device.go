@@ -71,7 +71,7 @@ func (d *Device) handle(ctx *pulumi.Context, zone *Zone, CAKey *tls.PrivateKey, 
 	if err != nil {
 		return err
 	}
-  if d.Hostname != "koishi" {
+  if d.Hostname != "koishi" && d.Hostname != "tewi" {
     return err
   }
 	err = d.handleTLS(CAKey, CACert)

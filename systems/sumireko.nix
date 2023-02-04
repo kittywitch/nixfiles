@@ -25,6 +25,7 @@ _: let
       brews = [
         "gnupg"
         "pinentry-mac"
+        "awscurl"
       ];
       casks = [
         "utm"

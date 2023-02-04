@@ -8,6 +8,12 @@ _: let
 
     networking.firewall.enable = mkForce false;
 
+    boot.kernel.sysctl = mkForce {};
+
+    systemd.services = {
+      systemd-sysctl.enable = false;
+    };
+
     fileSystems = {
       "/" = {
         device = "/dev/sdc";

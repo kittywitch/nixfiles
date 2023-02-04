@@ -4,6 +4,7 @@ _: {
     defaults = {
       SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
       NSGlobalDomain = {
+        ApplePressAndHoldEnabled = true;
         AppleInterfaceStyleSwitchesAutomatically = true;
         AppleShowAllFiles = true;
         AppleShowAllExtensions = true;
