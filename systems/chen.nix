@@ -47,6 +47,7 @@ _: let
       enable = true;
       defaultUser = "kat";
       startMenuLaunchers = true;
+      nativeSystemd = true;
       wslConf.automount.root = "/mnt";
     };
 
