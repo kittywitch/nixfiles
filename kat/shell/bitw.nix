@@ -4,7 +4,7 @@
   ...
 }: {
   programs.rbw = {
-    enable = true;
+    enable = false;
     package = pkgs.rbw-bitw;
     settings = {
       inherit (tree.kat.user.data) email;

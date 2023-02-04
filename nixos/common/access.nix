@@ -3,7 +3,6 @@
 inherit (lib.lists) concatLists elem;
 inherit (lib.attrsets) mapAttrsToList;
 commonUser = {
-  shell = pkgs.zsh;
   openssh.authorizedKeys.keys = concatLists (mapAttrsToList
         (_: user:
          if elem "wheel" user.extraGroups then

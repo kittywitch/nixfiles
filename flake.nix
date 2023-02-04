@@ -36,6 +36,15 @@
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # WSL host
+    wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "utils";
+        flake-compat.follows = "flake-compat";
+      };
+    };
     # flake-utils
     utils.url = "github:numtide/flake-utils";
     # file structure -> attrset
