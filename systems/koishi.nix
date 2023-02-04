@@ -2,6 +2,7 @@ _: let
   hostConfig = {tree, pkgs, ...}: {
     imports = with tree; [
       nixos.gui
+      nixos.bootable
       kat.gui
     ];
 

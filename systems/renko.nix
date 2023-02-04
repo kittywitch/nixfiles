@@ -4,6 +4,7 @@ _: let
     in {
     imports = with tree; [
       nixos.rosetta
+      nixos.bootable
     ];
 
     boot = {

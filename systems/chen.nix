@@ -1,8 +1,12 @@
 _: let
-  hostConfig = {tree, modulesPath, inputs, pkgs, ...}: {
+  hostConfig = {lib, tree, modulesPath, inputs, pkgs, ...}: let
+    inherit (lib.modules) mkForce;
+  in {
     imports = with tree; [
       inputs.wsl.nixosModules.wsl
     ];
+
+    networking.firewall.enable = mkForce false;
 
     fileSystems = {
       "/" = {
