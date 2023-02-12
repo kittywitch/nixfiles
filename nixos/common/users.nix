@@ -1,3 +1,3 @@
 _: {
-  users.mutableUsers = false;
+  users.mutableUsers = true;
 }
