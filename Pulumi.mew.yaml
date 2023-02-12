@@ -1,6 +1,8 @@
 config:
   cloudflare:apiToken:
     secure: AAABAFcufTX7tZZf2gcK6hML2tgovDEfcPAJcgjfYkV3GMS4Ilwzuco5p+hCpyj3vCm7cqm3tmdwOLlOFxGqKZGRj+ESXAzv
+  hcloud:token:
+    secure: AAABANEbHM3kyyahrtxQXlYCTHVlaenipP+7yqumMluc7rLAUlEh8uXuHWJe6xwqTS8rb8I4d32pKnZEPStt1aQnZSXkAhFiHLWheFF9pEj9dVEwkBLht7cqeRhE4CIV
   tailscale:apiKey:
     secure: AAABAGc7s7XJ+voSUNcMmRuVwrUdx3kojn0fdEl6qpUy0WmhgHbk6cEz2/kGSEGhuLGwo3mzOGVTI+NVu6/Xz4PmE9FME++VfE8cz5DFjDrMJ4JdX0DR
   tailscale:tailnet: inskip.me

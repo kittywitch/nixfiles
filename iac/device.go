@@ -1,7 +1,9 @@
 package iac
 
 import (
+	"crypto/ed25519"
 	"crypto/rand"
+	"crypto/rsa"
 	"fmt"
 	"github.com/pulumi/pulumi-command/sdk/go/command/remote"
 	"github.com/pulumi/pulumi-tailscale/sdk/go/tailscale"
@@ -42,20 +44,27 @@ func (t *Tailnet) handle(ctx *pulumi.Context, zone *Zone, CAKey *tls.PrivateKey,
 }
 
 type Device struct {
-	Addresses      []string
-	Id             string
-	Name           string
-	Hostname       string
-	Tailskip       string
-	Tags           []string
-	User           string
-	Files          []*remote.Command
-	Context        *pulumi.Context
-	Records        []DNSRecord
-	PrivateKey     *tls.PrivateKey
-	TLSCertRequest *tls.CertRequest
-	TLSCert        *tls.LocallySignedCert
-	OSHCertificate pulumi.StringOutput
+	Addresses                 []string
+	Id                        string
+	Name                      string
+	Hostname                  string
+	Tailskip                  string
+	Tags                      []string
+	User                      string
+	Files                     []*remote.Command
+	Context                   *pulumi.Context
+	Records                   []DNSRecord
+	PrivateKey                *tls.PrivateKey
+	PrivateKeyED25519         *tls.PrivateKey
+	PrivateKeyUser            *tls.PrivateKey
+	PrivateKeyED25519User     *tls.PrivateKey
+	TLSCertRequest            *tls.CertRequest
+	TLSCert                   *tls.LocallySignedCert
+	OSHCertificate            pulumi.StringOutput
+	OSHCertificateED25519     pulumi.StringOutput
+	OSHCertificateUser        pulumi.StringOutput
+	OSHCertificateED25519User pulumi.StringOutput
+	OSHCACert                 pulumi.StringOutput
 }
 
 func (d *Device) handle(ctx *pulumi.Context, zone *Zone, CAKey *tls.PrivateKey, CACert *tls.SelfSignedCert) (err error) {
@@ -71,9 +80,9 @@ func (d *Device) handle(ctx *pulumi.Context, zone *Zone, CAKey *tls.PrivateKey, 
 	if err != nil {
 		return err
 	}
-  if d.Hostname != "koishi" && d.Hostname != "tewi" {
-    return err
-  }
+	if d.Hostname != "koishi" && d.Hostname != "tewi" {
+		return err
+	}
 	err = d.handleTLS(CAKey, CACert)
 	if err != nil {
 		return err
@@ -85,7 +94,30 @@ func (d *Device) handle(ctx *pulumi.Context, zone *Zone, CAKey *tls.PrivateKey, 
 	return err
 }
 
+func PrivateKeyOpenSSHToRSAPrivateKey(keyPEM string) (key *rsa.PrivateKey, err error) {
+	key_int, err := ssh.ParseRawPrivateKey([]byte(keyPEM))
+	key_raw := key_int.(*rsa.PrivateKey)
+	if err != nil {
+		return nil, err
+	}
+	return key_raw, err
+}
+
+func PrivateKeyOpenSSHToED25519PrivateKey(keyPEM string) (key *ed25519.PrivateKey, err error) {
+	key_int, err := ssh.ParseRawPrivateKey([]byte(keyPEM))
+	key_raw := key_int.(*ed25519.PrivateKey)
+	if err != nil {
+		return nil, err
+	}
+	return key_raw, err
+}
+
+/*
+ */
 func (d *Device) handleOSH(CAKey *tls.PrivateKey) (err error) {
+	d.OSHCACert = CAKey.PublicKeyOpenssh
+	file, err := CreatePulumiFile(d.Context, fmt.Sprintf("%s-osh-ca-cert", d.Hostname), d.Tailskip, pulumi.Sprintf("@certificate-authority * %s", d.OSHCACert), []pulumi.Resource{CAKey})
+	d.Files = append(d.Files, file)
 	d.OSHCertificate = CAKey.PrivateKeyOpenssh.ApplyT(func(CAPriv string) pulumi.StringOutput {
 		OSHCertificate_ := d.PrivateKey.PrivateKeyOpenssh.ApplyT(func(UserPriv string) pulumi.String {
 			CARSAPriv, err := PrivateKeyOpenSSHToRSAPrivateKey(CAPriv)
@@ -122,7 +154,121 @@ func (d *Device) handleOSH(CAKey *tls.PrivateKey) (err error) {
 		}).(pulumi.StringOutput)
 		return OSHCertificate_
 	}).(pulumi.StringOutput)
-	file, err := CreatePulumiFile(d.Context, fmt.Sprintf("%s-osh-cert", d.Hostname), d.Tailskip, d.OSHCertificate, []pulumi.Resource{d.PrivateKey, CAKey})
+	d.OSHCertificateED25519 = CAKey.PrivateKeyOpenssh.ApplyT(func(CAPriv string) pulumi.StringOutput {
+		OSHCertificate_ := d.PrivateKeyED25519.PrivateKeyOpenssh.ApplyT(func(UserPriv string) pulumi.String {
+			CARSAPriv, err := PrivateKeyOpenSSHToRSAPrivateKey(CAPriv)
+			if err != nil {
+				panic(err)
+			}
+			signer, err := ssh.NewSignerFromKey(CARSAPriv)
+			if err != nil {
+				panic(err)
+			}
+			var cert ssh.Certificate
+			cert.Nonce = make([]byte, 32)
+			cert.CertType = 2
+			UserED25519Priv, err := PrivateKeyOpenSSHToED25519PrivateKey(UserPriv)
+			if err != nil {
+				panic(err)
+			}
+			cert.Key, err = ssh.NewPublicKey(UserED25519Priv.Public())
+			if err != nil {
+				panic(err)
+			}
+			cert.Serial = 0
+			cert.KeyId = d.Tailskip
+			cert.ValidPrincipals = []string{d.Tailskip}
+			cert.ValidAfter = 60
+			threeMonths, err := time.ParseDuration("730h")
+			if err != nil {
+				panic(err)
+			}
+			threeMonthsInSeconds := uint64(threeMonths.Seconds())
+			cert.ValidBefore = threeMonthsInSeconds
+			err = cert.SignCert(rand.Reader, signer)
+			return pulumi.String(string(ssh.MarshalAuthorizedKey(&cert)))
+		}).(pulumi.StringOutput)
+		return OSHCertificate_
+	}).(pulumi.StringOutput)
+	file, err = CreatePulumiFile(d.Context, fmt.Sprintf("%s-osh-cert", d.Hostname), d.Tailskip, d.OSHCertificate, []pulumi.Resource{d.PrivateKey, CAKey})
+	d.Files = append(d.Files, file)
+	file, err = CreatePulumiFile(d.Context, fmt.Sprintf("%s-osh-ed25519-cert", d.Hostname), d.Tailskip, d.OSHCertificateED25519, []pulumi.Resource{d.PrivateKeyED25519, CAKey})
+	d.Files = append(d.Files, file)
+	d.OSHCertificateUser = CAKey.PrivateKeyOpenssh.ApplyT(func(CAPriv string) pulumi.StringOutput {
+		OSHCertificate_ := d.PrivateKeyUser.PrivateKeyOpenssh.ApplyT(func(UserPriv string) pulumi.String {
+			CARSAPriv, err := PrivateKeyOpenSSHToRSAPrivateKey(CAPriv)
+			if err != nil {
+				panic(err)
+			}
+			signer, err := ssh.NewSignerFromKey(CARSAPriv)
+			if err != nil {
+				panic(err)
+			}
+			var cert ssh.Certificate
+			cert.Nonce = make([]byte, 32)
+			cert.CertType = 1
+			UserRSAPriv, err := PrivateKeyOpenSSHToRSAPrivateKey(UserPriv)
+			if err != nil {
+				panic(err)
+			}
+			cert.Key, err = ssh.NewPublicKey(UserRSAPriv.Public())
+			if err != nil {
+				panic(err)
+			}
+			cert.Serial = 0
+			cert.KeyId = d.Tailskip
+			cert.ValidPrincipals = []string{d.Tailskip}
+			cert.ValidAfter = 60
+			threeMonths, err := time.ParseDuration("730h")
+			if err != nil {
+				panic(err)
+			}
+			threeMonthsInSeconds := uint64(threeMonths.Seconds())
+			cert.ValidBefore = threeMonthsInSeconds
+			err = cert.SignCert(rand.Reader, signer)
+			return pulumi.String(string(ssh.MarshalAuthorizedKey(&cert)))
+		}).(pulumi.StringOutput)
+		return OSHCertificate_
+	}).(pulumi.StringOutput)
+	d.OSHCertificateED25519User = CAKey.PrivateKeyOpenssh.ApplyT(func(CAPriv string) pulumi.StringOutput {
+		OSHCertificate_ := d.PrivateKeyED25519User.PrivateKeyOpenssh.ApplyT(func(UserPriv string) pulumi.String {
+			CARSAPriv, err := PrivateKeyOpenSSHToRSAPrivateKey(CAPriv)
+			if err != nil {
+				panic(err)
+			}
+			signer, err := ssh.NewSignerFromKey(CARSAPriv)
+			if err != nil {
+				panic(err)
+			}
+			var cert ssh.Certificate
+			cert.Nonce = make([]byte, 32)
+			cert.CertType = 2
+			UserED25519Priv, err := PrivateKeyOpenSSHToED25519PrivateKey(UserPriv)
+			if err != nil {
+				panic(err)
+			}
+			cert.Key, err = ssh.NewPublicKey(UserED25519Priv.Public())
+			if err != nil {
+				panic(err)
+			}
+			cert.Serial = 0
+			cert.KeyId = d.Tailskip
+			cert.ValidPrincipals = []string{d.Tailskip}
+			cert.ValidAfter = 60
+			threeMonths, err := time.ParseDuration("730h")
+			if err != nil {
+				panic(err)
+			}
+			threeMonthsInSeconds := uint64(threeMonths.Seconds())
+			cert.ValidBefore = threeMonthsInSeconds
+			err = cert.SignCert(rand.Reader, signer)
+			return pulumi.String(string(ssh.MarshalAuthorizedKey(&cert)))
+		}).(pulumi.StringOutput)
+		return OSHCertificate_
+	}).(pulumi.StringOutput)
+	file, err = CreatePulumiFile(d.Context, fmt.Sprintf("%s-osh-user-cert", d.Hostname), d.Tailskip, d.OSHCertificateUser, []pulumi.Resource{d.PrivateKey, CAKey})
+	d.Files = append(d.Files, file)
+	file, err = CreatePulumiFile(d.Context, fmt.Sprintf("%s-osh-ed25519-user-cert", d.Hostname), d.Tailskip, d.OSHCertificateED25519User, []pulumi.Resource{d.PrivateKeyED25519, CAKey})
 	d.Files = append(d.Files, file)
 	return err
 }
@@ -155,16 +301,62 @@ func (d *Device) handleTLS(CAKey *tls.PrivateKey, CACert *tls.SelfSignedCert) (e
 		Algorithm: pulumi.String("RSA"),
 		RsaBits:   pulumi.Int(4096),
 	}, pulumi.DependsOn(PrivateKeyDepends))
+
 	if err != nil {
 		return err
 	}
+
+	d.PrivateKeyUser, err = tls.NewPrivateKey(d.Context, fmt.Sprintf("%s-user-key", d.Hostname), &tls.PrivateKeyArgs{
+		Algorithm: pulumi.String("RSA"),
+		RsaBits:   pulumi.Int(4096),
+	}, pulumi.DependsOn(PrivateKeyDepends))
+
+	if err != nil {
+		return err
+	}
+
+	d.PrivateKeyED25519, err = tls.NewPrivateKey(d.Context, fmt.Sprintf("%s-ed25519-key", d.Hostname), &tls.PrivateKeyArgs{
+		Algorithm: pulumi.String("ED25519"),
+		RsaBits:   pulumi.Int(4096),
+	}, pulumi.DependsOn(PrivateKeyDepends))
+
+	if err != nil {
+		return err
+	}
+	d.PrivateKeyED25519User, err = tls.NewPrivateKey(d.Context, fmt.Sprintf("%s-ed25519-user-key", d.Hostname), &tls.PrivateKeyArgs{
+		Algorithm: pulumi.String("ED25519"),
+		RsaBits:   pulumi.Int(4096),
+	}, pulumi.DependsOn(PrivateKeyDepends))
+
+	if err != nil {
+		return err
+	}
+	PrivateKeyED25519Depends := append(PrivateKeyDepends, d.PrivateKeyED25519)
 	PrivateKeyDepends = append(PrivateKeyDepends, d.PrivateKey)
+	PrivateKeyED25519UserDepends := append(PrivateKeyDepends, d.PrivateKeyED25519User)
+	PrivateKeyUserDepends := append(PrivateKeyDepends, d.PrivateKeyUser)
+
 	file, err := CreatePulumiFile(d.Context, fmt.Sprintf("%s-pem-pk", d.Hostname), d.Tailskip, d.PrivateKey.PrivateKeyPem, PrivateKeyDepends)
 	if err != nil {
 		return err
 	}
 	d.Files = append(d.Files, file)
 	file, err = CreatePulumiFile(d.Context, fmt.Sprintf("%s-osh-pk", d.Hostname), d.Tailskip, d.PrivateKey.PrivateKeyOpenssh, PrivateKeyDepends)
+	if err != nil {
+		return err
+	}
+	d.Files = append(d.Files, file)
+	file, err = CreatePulumiFile(d.Context, fmt.Sprintf("%s-osh-user-pk", d.Hostname), d.Tailskip, d.PrivateKeyUser.PrivateKeyOpenssh, PrivateKeyUserDepends)
+	if err != nil {
+		return err
+	}
+	d.Files = append(d.Files, file)
+	file, err = CreatePulumiFile(d.Context, fmt.Sprintf("%s-ed25519-osh-pk", d.Hostname), d.Tailskip, d.PrivateKeyED25519.PrivateKeyOpenssh, PrivateKeyED25519Depends)
+	if err != nil {
+		return err
+	}
+	d.Files = append(d.Files, file)
+	file, err = CreatePulumiFile(d.Context, fmt.Sprintf("%s-ed25519-osh-user-pk", d.Hostname), d.Tailskip, d.PrivateKeyED25519User.PrivateKeyOpenssh, PrivateKeyED25519UserDepends)
 	if err != nil {
 		return err
 	}

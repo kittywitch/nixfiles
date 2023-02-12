@@ -26,6 +26,12 @@ func main() {
 			if err != nil {
 				return err
 			}
+			if err != nil {
+				return err
+			}
+		}
+		for name, machine := range store.Machines {
+			err = machine.Handle(ctx, name)
 		}
 
 		err = iac.InskipPage(ctx)

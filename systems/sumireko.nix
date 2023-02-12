@@ -30,6 +30,7 @@ _: let
       casks = [
         "utm"
         "discord"
+        "barrier"
         "mullvadvpn"
         "bitwarden"
         "deluge"
@@ -44,7 +45,7 @@ _: let
         "cyberduck"
         "docker"
         "pycharm-ce"
-        "vscode"
+        "vscodium"
         "slack"
         "boop"
         "obsidian"

@@ -25,6 +25,9 @@ func (z *Zone) Handle(ctx *pulumi.Context) (err error) {
 		Zone:      pulumi.String(z.Zone),
 		Plan:      pulumi.String("free"),
 	})
+	if err != nil {
+		return err
+	}
 	if z.Alias == "inskip-me" {
 		z.CertAuth = CertificateAuthority{}
 		err = z.CertAuth.handle(ctx)
@@ -39,6 +42,7 @@ func (z *Zone) Handle(ctx *pulumi.Context) (err error) {
 	for _, record := range z.ExtraRecords {
 		err = record.handle(ctx, z)
 	}
+	err = z.dnssec()
 	return err
 }
 

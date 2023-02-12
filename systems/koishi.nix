@@ -1,5 +1,5 @@
 _: let
-  hostConfig = {tree, pkgs, ...}: {
+  hostConfig = {config, tree, pkgs, ...}: {
     imports = with tree; [
       nixos.gui
       nixos.bootable
@@ -15,6 +15,24 @@ _: let
         device = "/dev/disk/by-uuid/DEBC-8F03";
         fsType = "vfat";
       };
+    };
+
+    services.openssh = {
+      hostKeys = [
+        {
+          bits = 4096;
+          path = "/var/lib/secrets/${config.networking.hostName}-osh-pk";
+          type = "rsa";
+        }
+        {
+          path = "/var/lib/secrets/${config.networking.hostName}-ed25519-osh-pk";
+          type = "ed25519";
+        }
+      ];
+      extraConfig = ''
+        HostCertificate /var/lib/secrets/${config.networking.hostName}-osh-cert
+        HostCertificate /var/lib/secrets/${config.networking.hostName}-ed25519-osh-cert
+      '';
     };
 
     swapDevices = [

@@ -5,7 +5,10 @@ go 1.18
 require (
 	github.com/creasty/defaults v1.6.0
 	github.com/pulumi/pulumi-cloudflare/sdk/v4 v4.15.0
+	github.com/pulumi/pulumi-cloudinit/sdk v1.3.0
 	github.com/pulumi/pulumi-command/sdk v0.7.0
+	github.com/pulumi/pulumi-github/sdk/v5 v5.3.0
+	github.com/pulumi/pulumi-hcloud/sdk v1.10.2
 	github.com/pulumi/pulumi-tailscale/sdk v0.11.0
 	github.com/pulumi/pulumi-tls/sdk/v4 v4.6.1
 	github.com/pulumi/pulumi/sdk/v3 v3.52.1
@@ -48,7 +51,6 @@ require (
 	github.com/sabhiram/go-gitignore v0.0.0-20180611051255-d3107576ba94 // indirect
 	github.com/santhosh-tekuri/jsonschema/v5 v5.0.0 // indirect
 	github.com/sergi/go-diff v1.1.0 // indirect
-	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/cobra v1.4.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/texttheater/golang-levenshtein v0.0.0-20191208221605-eb6844b05fc6 // indirect

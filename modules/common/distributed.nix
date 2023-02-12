@@ -13,7 +13,7 @@
     maxJobs = 100;
     speedFactor = config.distributed.outputs.${name};
     supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-  } ) (filterAttrs (n: _: n != config.networking.hostName) (inputs.self.nixosConfigurations // inputs.self.darwinConfigurations));
+  } ) (filterAttrs (n: _: n != config.networking.hostName && n == "koishi") (inputs.self.nixosConfigurations // inputs.self.darwinConfigurations));
   daiyousei = {
     hostName = "daiyousei.inskip.me";
     sshUser = "root";
