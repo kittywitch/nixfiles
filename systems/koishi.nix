@@ -1,10 +1,15 @@
 _: let
   hostConfig = {config, tree, pkgs, ...}: {
-    imports = with tree; [
-      nixos.gui
-      nixos.bootable
+    imports = with tree.nixos.hardware; [
+      lenovo-thinkpad-x260
+      common-pc-laptop-ssd
+    ] ++ (with tree.nixos.roles; [
+      graphical
+      laptop
+      bootable
+    ]) ++ (with tree; [
       kat.gui
-    ];
+    ]);
 
     fileSystems = {
       "/" = {
@@ -17,7 +22,7 @@ _: let
       };
     };
 
-    services.openssh = {
+  services.openssh = {
       hostKeys = [
         {
           bits = 4096;
@@ -31,7 +36,7 @@ _: let
       ];
       extraConfig = ''
         HostCertificate /var/lib/secrets/${config.networking.hostName}-osh-cert
-        HostCertificate /var/lib/secrets/${config.networking.hostName}-ed25519-osh-cert
+        HostCertificate /var/lib/secrets/${config.networking.hostName}-osh-ed25519-cert
       '';
     };
 
@@ -39,35 +44,7 @@ _: let
       {device = "/dev/disk/by-uuid/0d846453-95b4-46e1-8eaf-b910b4321ef0";}
     ];
 
-    home-manager.sharedModules = [
-      {
-        wayland.windowManager.sway.config.input."2:7:SynPS/2_Synaptics_TouchPad" = {
-          dwt = "enabled";
-          tap = "enabled";
-          natural_scroll = "enabled";
-          middle_emulation = "enabled";
-          click_method = "clickfinger";
-        };
-      }
-    ];
-
-    hardware = {
-      cpu.intel.updateMicrocode = true;
-      opengl = {
-        enable = true;
-        extraPackages = with pkgs; [
-          intel-media-driver
-          vaapiIntel
-          vaapiVdpau
-          libvdpau-va-gl
-        ];
-      };
-    };
-
     boot = {
-      initrd.availableKernelModules =
-        [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "sr_mod" "rtsx_usb_sdmmc" ];
-      kernelModules = [ "kvm-intel" ];
       supportedFilesystems = ["xfs"];
       initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/f0ea08b4-6af7-4d90-a2ad-edd5672a2105";
       loader = {

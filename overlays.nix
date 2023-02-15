@@ -1,7 +1,6 @@
-{inputs, ...}:
-[
+{inputs, tree, ...}: [
   inputs.deploy-rs.overlay
-]
-++ map (path: import "${path}/overlay.nix") [
+  (import tree.packages.default { inherit inputs tree; })
+] ++ map (path: import "${path}/overlay.nix") [
   inputs.arcexprs
 ]

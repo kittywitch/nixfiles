@@ -1,4 +1,4 @@
-{inputs, ...}:
+{inputs, pkgs, ...}:
 (inputs.tree.tree {
   inherit inputs;
   folder = ./.;
@@ -11,6 +11,7 @@
         "tree"
         "inputs"
         "outputs"
+        "pkgs"
       ];
     };
     # Ignore the default.nix we actually use
@@ -32,6 +33,9 @@
     "kat/user/data".evaluate = true;
     # Allow profile importing
     "nixos/*".functor.enable = true;
+    "nixos/roles/*".functor.enable = true;
+    "nixos/hardware".evaluateDefault = true;
+    "nixos/hardware/*".functor.enable = true;
     "darwin/*".functor.enable = true;
     "kat/*".functor.enable = true;
     # Various modules
@@ -39,6 +43,9 @@
       functor = {
         enable = true;
       };
+    };
+    "nixos/hardware" = {
+      external = inputs.nixos-hardware.outputs.nixosModules;
     };
     "modules/nixos" = {
       functor = {

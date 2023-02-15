@@ -10,7 +10,8 @@
     # Mail
     thunderbird
     # Music
-    spotify
+    # spotify
+    playerctl
     # Chat
     discord
     nheko # Matrix
@@ -19,6 +20,11 @@
     signal-desktop
     element-desktop
     mumble-develop
+    # IDEs
+    jetbrains.idea-community
+    jetbrains.pycharm-community
+    # Exocortex
+    obsidian
     # Archivery
     unzip
     zip

@@ -7,13 +7,10 @@ in with lib; {
     palette = mkOption {
       type = attrsOf str;
     };
-    palette' = mkOption {
-      type = attrsOf str;
-    };
     sass = {
       variables = mkOption {
         type = attrsOf str;
-        default = cfg.palette // cfg.palette' // {
+        default = cfg.palette  // {
           term_font = "Iosevka";
           font = "Iosevka";
           font_size = "12px";
@@ -28,16 +25,10 @@ in with lib; {
   config = mkIf (cfg.schemes != {}) {
     base16 = {
     # TODO: convert to std
-    palette = lib.mapAttrs' (k: v: 
+    palette = lib.mapAttrs' (k: v:
       lib.nameValuePair
         k
-        "#${v.hex}") 
-        (lib.filterAttrs (n: _: lib.hasInfix "base" n)
-      cfg.defaultScheme);
-    palette' = lib.mapAttrs' (k: v:
-      lib.nameValuePair
-        "${k}t"
-        "rgba(${toString v.red.byte}, ${toString v.green.byte}, ${toString v.blue.byte}, ${toString 0.7})")
+        "#${v.hex}")
         (lib.filterAttrs (n: _: lib.hasInfix "base" n)
       cfg.defaultScheme);
     };
@@ -50,7 +41,7 @@ in with lib; {
         source = pkgs.callPackage
           ({ sass, stdenv }: stdenv.mkDerivation {
             inherit name src variables;
-            nativeBuildInputs = lib.singleton sass;
+            nativeBuildInputs = lib.singleton pkgs.sass;
             phases = [ "buildPhase" ];
             buildPhase = ''
               cat $variables $src > src-mut.sass

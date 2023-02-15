@@ -11,6 +11,9 @@ in {
   home.packages = with pkgs; [
     # programs.zsh.enableAutosuggestions only includes nix-zsh-autocompletions
     zsh-completions
+    fortune
+    neofetch
+    ponysay
   ];
 
   xdg.configFile."kattheme_immutable.json".text = serde.toJSON rec {
@@ -86,7 +89,6 @@ in {
         ''
         else ""
       }
-      ${pkgs.fortune}/bin/fortune | ${pkgs.ponysay}/bin/ponysay
     '';
     shellAliases = mkMerge [
       {

@@ -1,154 +1,31 @@
-%extend_1
-  padding: 0 8px
-  transition: none
-  color: $base00
-
 *
+  padding: 0
+  margin: 0
   border: none
   border-radius: 0
   background: none
   font-family: "Iosevka", "Font Awesome 6 Free", "Font Awesome 6 Brands"
   font-size: $font_size
-  min-height: 8px
   text-shadow: none
   box-shadow: none
 
-window#waybar
-  background: $base00t
-
-tooltip
-  background: $base00t
-  label
-    color: $base07
-
-#mode
+%widget_unpadded
+  transition: none
   background: $base01
-  color: $base06
+  color: $base07
+  margin: 0 4px
+
+%widget
+  @extend %widget_unpadded
   padding: 0 4px
 
-#clock, #custom-clock
-  @extend %extend_1
-  background: $base01
-  color: $base07
+window#waybar
+  background: color.change($base00, $alpha: 0.9)
+  border-bottom: 2px solid transparent
 
-#cpu, #memory, #temperature, #pulseaudio, #backlight, #battery, #custom-mail, #custom-headset, #clock.arc, #clock.hex, #clock.miku, #network
-  background: $base01
-  color: $base07
-  padding: 0 6px
-  margin-right: 4px
-
-#custom-gpg-status, #custom-konawall, #idle_inhibitor
-  margin: 0 4px
-
-#temperature.icon, #pulseaudio.icon, #battery.icon, #backlight.icon, #custom-cpu-icon, #custom-memory-icon, #custom-mail-icon, #custom-headset-icon, #custom-arc-h, #custom-hex-h, #custom-miku-h, #clock.original, #tray, #network.icon
-  margin-left: 4px
-  margin-right: 0px
-
-#custom-headset-icon
-  @extend %extend_1
-  background: $base06
-
-#custom-memory-icon
-  @extend %extend_1
-  background: $base09
-
-#custom-cpu-icon
-  @extend %extend_1
-  background: $base08
-
-#temperature.icon
-  @extend %extend_1
-  background: $base0B
-
-#pulseaudio.icon
-  @extend %extend_1
-  background: $base06
-  &.muted
-    background: $base03
-
-#network.icon
-  @extend %extend_1
-  background: $base0C
-
-#mpd
-  @extend %extend_1
-
-#backlight.icon
-  @extend %extend_1
-  background: $base0D
-
-#battery.icon
-  @extend %extend_1
-  background: $base0C
-
-#custom-mail-icon
-  @extend %extend_1
-  background: $base0F
-
-#custom-konawall
-  @extend %extend_1
-  &.enabled
-    background: $base0E
-
-  &.disabled
-    background: $base0D
-
-#custom-gpg-status
-  @extend %extend_1
-  &.enabled
-    background: $base0B
-
-  &.disabled
-    background: $base08
-
-#idle_inhibitor
-  @extend %extend_1
-  &.activated
-    background: $base0E
-
-  &.deactivated
-    background: $base0D
-
-#tray
-  @extend %extend_1
-  background: $base01
-  padding: 0 10px 0 8px
-  menu
-    background: $base00t
-    color: $base07
-
-
-.modules-left
-  margin: 0 4px
-  image
-    padding-left: 6px
-    padding-right: 6px
-    margin-left: 4px
-    margin-right: 0px
-    background: $base01
-  #window
-    margin-left: 0px
-    margin-right: 0px
-  widget
-    label
-      margin: 0
-
-    &:first-child
-      margin-left: 0
-
-    &:last-child
-      margin-right: 0
-
-.modules-center
-  margin: 0 4px
-
-.modules-right
-  margin: 0 4px
-
+// sway/workspaces
 #workspaces
-  background: $base01
-  padding: 0
-  margin-right: 8px
+  @extend %widget_unpadded
   button
     color: $base06
     &.focused
@@ -162,11 +39,46 @@ tooltip
       background: $base06
       color: $base0C
 
-#window
-  background: $base01
-  padding: 0 4px
-  color: $base06
-  border-bottom: 2px solid transparent
 
+// widgets
+#mode, window#waybar #window,
+#custom-clock, #mpris,
+#pulseaudio, #backlight, #network, #temperature, #battery, #idle_inhibitor, #tray, #tray menu
+  @extend %widget
+
+// hide when empty
 window#waybar.empty #window
   opacity: 0
+
+
+// tooltips
+tooltip
+  background: color.change($base00, $alpha: 0.9)
+  label
+    color: $base07
+
+// mpris player and state
+#mpris
+  &.spotify
+    background: #191414
+    color: #1DB954
+
+  &.paused
+    background: $base01
+    color: $base03
+
+/*.modules-left
+  #window
+  widget
+    label
+      margin: 0
+
+    &:first-child
+      margin-left: 0
+
+    &:last-child
+      margin-right: 0*/
+
+.modules-center
+
+.modules-right
