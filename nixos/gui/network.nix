@@ -35,6 +35,7 @@ in {
     ];
   };
   networking = {
+    wireless.enable = true;
     firewall = {
       allowedUDPPorts = [ 5353 ];
       allowedUDPPortRanges = [ { from = 32768; to=60999; } ];

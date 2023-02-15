@@ -18,6 +18,8 @@ _: let
         alejandra # code formatter
         statix # anti-pattern finder
         deploy-rs.deploy-rs # deployment system
+        rnix-lsp # vscode nix extensions
+        terraform # terraform
     ];
 
     homebrew = {
@@ -30,6 +32,7 @@ _: let
       casks = [
         "utm"
         "discord"
+        "orion"
         "barrier"
         "mullvadvpn"
         "bitwarden"
