@@ -101,7 +101,8 @@ opt.listchars = {
 -- Memory, CPU
 -----------------------------------------------------------
 opt.hidden = true           -- Enable background buffers
-opt.history = 100           -- Remember N lines in history
+opt.history = 1000           -- Remember N lines in history
+opt.shada = "'1000,f1,<500,@500,/500"
 opt.lazyredraw = true       -- Faster scrolling
 opt.synmaxcol = 240         -- Max column for syntax highlight
 opt.updatetime = 700        -- ms to wait for trigger an event

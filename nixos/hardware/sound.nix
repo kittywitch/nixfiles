@@ -1,4 +1,8 @@
-{ pkgs, ... }: {
+{lib, pkgs, ...}: let
+inherit (lib.modules) mkDefault mkOrder;
+in {
+  environment.systemPackages = with pkgs; [ pulsemixer ];
+
   sound = {
     enable = true;
     extraConfig = ''
@@ -6,20 +10,7 @@
       '';
   };
 
-  environment.systemPackages = with pkgs; [ pulsemixer bluez5-experimental ];
-
   security.rtkit.enable = true;
-
-  environment.etc = {
-    "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
-      bluez_monitor.properties = {
-        ["bluez5.enable-sbc-xq"] = true,
-        ["bluez5.enable-msbc"] = true,
-        ["bluez5.enable-hw-volume"] = true,
-        ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-      }
-    '';
-  };
 
   services.pipewire = {
     enable = true;
@@ -49,4 +40,28 @@
     jack.enable = true;
     alsa.enable = true;
   };
+
+  home-manager.sharedModules = [
+  {
+    programs.waybar.settings.main = {
+      modules-right = [
+        "pulseaudio"
+      ];
+      pulseaudio = {
+        format = "{icon} {volume}%";
+        format-muted = "";
+        on-click = "${pkgs.wezterm}/bin/wezterm start ${pkgs.pulsemixer}/bin/pulsemixer";
+        format-icons = {
+          headphone = "";
+          headset = "";
+          default = [
+            ""
+              ""
+              ""
+          ];
+        };
+      };
+    };
+  }
+  ];
 }

@@ -9,10 +9,10 @@ in {
 
   services.openssh = {
     enable = true;
-    knownHosts.katca = {
+/*    knownHosts.katca = {
       certAuthority = true;
-      publicKey = builtins.readFile ../../kat_pubkey_ssh.pub;
-    };
+      publicKey = builtins.readFile ./ca-pubkey.pem;
+    }; */
     kexAlgorithms = [ "curve25519-sha256@libssh.org" ];
     settings = {
       PasswordAuthentication = false;
