@@ -49,8 +49,7 @@
     utils.url = "github:numtide/flake-utils";
     # file structure -> attrset
     tree = {
-      #url = "github:kittywitch/tree";
-      url = "path:/home/kat/projects/tree";
+      url = "github:kittywitch/tree";
       inputs.std.follows = "std";
       inputs.nixpkgs.follows = "nixpkgs";
     };

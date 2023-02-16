@@ -352,14 +352,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1676402381,
-        "narHash": "sha256-G/0xP+XfTWK5GbY1qme7gD1E82eAQUuUGUdy+YZ/CQQ=",
-        "path": "/home/kat/projects/tree",
-        "type": "path"
+        "lastModified": 1676505934,
+        "narHash": "sha256-jeqZtNLOKXRSDmD1v+b9+v+hwVyH6kcKzZ9f0gcJpdk=",
+        "owner": "kittywitch",
+        "repo": "tree",
+        "rev": "a831f6fd209e3d00c5026303994de28d0031ab3b",
+        "type": "github"
       },
       "original": {
-        "path": "/home/kat/projects/tree",
-        "type": "path"
+        "owner": "kittywitch",
+        "repo": "tree",
+        "type": "github"
       }
     },
     "utils": {
