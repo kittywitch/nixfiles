@@ -1,11 +1,17 @@
-{ kittywitch, pkgs, ... }:
-
 {
+  kittywitch,
+  pkgs,
+  ...
+}: {
   programs.waybar = {
     enable = true;
     style = let
-      template = kittywitch.sassTemplate { name = "waybar-style"; src = ./waybar.sass; };
-    in template.source;
+      template = kittywitch.sassTemplate {
+        name = "waybar-style";
+        src = ./waybar.sass;
+      };
+    in
+      template.source;
     systemd.enable = true;
     settings.main = {
       layer = "top";
@@ -33,11 +39,12 @@
       "sway/workspaces" = {
         format = "{icon}";
         format-icons = {
-          "1" = "";
-          "2" = "";
-          "3" = "";
-          "4" = "";
-          "5" = "";
+          # https://fontawesome.com/v5/cheatsheet
+          "1" = ""; # chats
+          "2" = ""; # cloud (browser)
+          "3" = ""; # music
+          "4" = ""; # brain
+          "5" = ""; # terminal >_
         };
       };
       "sway/window" = {

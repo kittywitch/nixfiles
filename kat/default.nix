@@ -33,6 +33,7 @@ in
     work = {
       imports = with dirImports; [
         wezterm
+        vscodium
         gpg
       ];
     };

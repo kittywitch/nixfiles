@@ -36,6 +36,14 @@
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # status bar
+    spacebar = {
+      url = "github:cmacrae/spacebar/v1.4.0";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "utils";
+      };
+    };
     # WSL host
     wsl = {
       url = "github:nix-community/NixOS-WSL";

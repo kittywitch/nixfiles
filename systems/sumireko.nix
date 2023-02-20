@@ -1,7 +1,12 @@
 _: let
-  hostConfig = {tree, pkgs, ...}: {
+  hostConfig = {
+    tree,
+    pkgs,
+    ...
+  }: {
     imports = with tree; [
       kat.work
+      darwin.wm
       darwin.distributed
     ];
 
@@ -10,16 +15,16 @@ _: let
     distributed.systems.renko.preference = 5;
 
     environment.systemPackages = with pkgs; [
-        fd # fd, better fine!
-        ripgrep # rg, better grep!
-        go # Required for pulumi
-        pulumi-bin # Infrastructure as code
-        deadnix # dead-code scanner
-        alejandra # code formatter
-        statix # anti-pattern finder
-        deploy-rs.deploy-rs # deployment system
-        rnix-lsp # vscode nix extensions
-        terraform # terraform
+      fd # fd, better fine!
+      ripgrep # rg, better grep!
+      go # Required for pulumi
+      pulumi-bin # Infrastructure as code
+      deadnix # dead-code scanner
+      alejandra # code formatter
+      statix # anti-pattern finder
+      deploy-rs.deploy-rs # deployment system
+      rnix-lsp # vscode nix extensions
+      terraform # terraform
     ];
 
     homebrew = {
@@ -28,6 +33,7 @@ _: let
         "gnupg"
         "pinentry-mac"
         "awscurl"
+        "helm"
       ];
       casks = [
         "utm"
@@ -48,7 +54,6 @@ _: let
         "cyberduck"
         "docker"
         "pycharm-ce"
-        "vscodium"
         "slack"
         "boop"
         "obsidian"

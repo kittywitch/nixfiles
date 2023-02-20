@@ -2,7 +2,7 @@
   std = import ./std.nix {inherit inputs;};
   tree = import ./tree.nix {inherit inputs pkgs;};
   inherit (inputs.nixpkgs) lib;
-  overlay = import ./packages {inherit inputs tree lib std;};
+  overlay = import ./packages {inherit inputs tree;};
   systems = import ./systems {inherit inputs tree lib std;};
   shells = import ./shells {inherit inputs tree lib std pkgs;};
   inherit (import ./pkgs.nix {inherit inputs tree overlay;}) pkgs;
@@ -13,4 +13,6 @@ in
   {
     inherit inputs tree std pkgs checks formatter lib;
     legacyPackages = pkgs;
-  } // systems // shells
+  }
+  // systems
+  // shells
