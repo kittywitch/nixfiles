@@ -10,7 +10,7 @@
 
       # modules
       spaces = "on";
-      space_icon_strip = "       8 9 10 11 12 13 14 15 16 17 18 19 20 21 22";
+      space_icon_strip = "         ? 11 12 13 14 15 16 17 18 19 20 21 22";
       spaces_for_all_displays = "on";
       title = "off";
       clock = "on";

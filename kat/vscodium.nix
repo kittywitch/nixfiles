@@ -14,6 +14,7 @@
     userSettings = {
       "nix.enableLanguageServer" = true;
       "workbench.colorTheme" = "Quiet Light";
+      "editor.suggest.preview" = true;
       "[nix]" = {
         "editor.defaultFormatter" = "kamadorueda.alejandra";
         "editor.formatOnPaste" = true;
@@ -23,6 +24,9 @@
       "alejandra.program" = "${pkgs.alejandra}/bin/alejandra";
       "editor.fontFamily" = ''"Iosevka", "Font Awesome 6 Free", "Font Awesome 6 Brands"'';
       "editor.fontLigatures" = true;
+      "terraform.experimentalFeatures.prefillRequiredFields" = true;
+      "terraform.experimentalFeatures.validateOnSave" = true;
+      "terraform.codelens.referenceCount" = true;
     };
   };
 }

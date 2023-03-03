@@ -5,7 +5,7 @@ in {
     enable = true;
     skhdConfig = let
       bindWorkspace = key: workspace: ''
-        alt - ${key} : yabai -m space --focus  ${workspace}
+        ctrl + alt - ${key} : yabai -m space --focus  ${workspace}
         shift + alt - ${key} : yabai -m window --space ${workspace}
       '';
       workspaceBindings = string.concat (list.map (v: bindWorkspace v "${v}") (list.map builtins.toString (list.range 1 9))
@@ -62,8 +62,10 @@ in {
         # workspace prev/next - w
         alt - w  : yabai -m space --focus prev
         alt + shift - w  : yabai -m space --focus next
-        alt + ctrl - w  : yabai -m window --display next
-        ctrl + shift - w  : yabai -m window --display prev
+        alt + ctrl - w  : yabai -m window --output next
+        ctrl + shift - w  : yabai -m window --output prev
+        alt - p : yabai -m window --focus stack.prev || yabai -m window --focus prev || yabai -m window --focus last
+        alt - n : yabai -m window --focus stack.next || yabai -m window --focus next || yabai -m window --focus first
 
         # split managent - a
         alt - a : yabai -m window --toggle split
@@ -72,9 +74,9 @@ in {
         alt - r : yabai -m space --balance
 
         # layout handling (spaces) - t
-        alt - t : yabai -m space -- layout stack
-        alt + shift - t : yabai -m space -- layout bsp
-        alt + ctrl - t : yabai -m space -- layout float
+        alt - t : yabai -m space --layout stack
+        alt + shift - t : yabai -m space --layout bsp
+        alt + ctrl - t : yabai -m space --layout float
 
         # layout handling (windows) - p
         alt - p : yabai -m window --toggle float
