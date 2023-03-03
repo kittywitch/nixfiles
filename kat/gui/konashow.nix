@@ -13,7 +13,7 @@
       [
         "score:>=50"
         #"no_humans"
-        #"rating:s"
+        "rating:s"
       ]
     ];
   };
