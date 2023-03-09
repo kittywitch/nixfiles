@@ -6,7 +6,6 @@ _: let
   }: {
     imports = with tree; [
       kat.work
-      darwin.wm
       darwin.distributed
     ];
 
@@ -18,6 +17,14 @@ _: let
       fd # fd, better fine!
       ripgrep # rg, better grep!
       go # Required for pulumi
+      gotools
+      go-outline
+      gocode
+      gopkgs
+      gocode-gomod
+      godef
+      golint
+      gopls
       pulumi-bin # Infrastructure as code
       deadnix # dead-code scanner
       alejandra # code formatter
@@ -33,12 +40,12 @@ _: let
         "gnupg"
         "pinentry-mac"
         "awscurl"
+        "pandoc"
         "helm"
       ];
       casks = [
         "utm"
         "discord"
-        "orion"
         "barrier"
         "mullvadvpn"
         "bitwarden"

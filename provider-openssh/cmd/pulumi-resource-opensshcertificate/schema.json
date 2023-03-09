@@ -1,0 +1,88 @@
+{
+    "config": {},
+    "description": "I hope the people who worked on pulumi stub their toe every day",
+    "displayName": "OpenSSH Cert",
+    "homepage": "https://kittywit.ch",
+    "keywords": [
+        "pulumi",
+        "openssh",
+        "category/utility",
+        "kind/native"
+    ],
+    "language": {
+        "go": {
+            "generateResourceContainerTypes": true,
+            "importBasePath": "github.com/kittywitch/provider-opensshcertificate/sdk/go/provider"
+        }
+    },
+    "license": "WTFPL",
+    "logoUrl": "https://raw.githubusercontent.com/pulumi/pulumi-command/master/assets/logo.svg",
+    "name": "opensshcertificate",
+    "provider": {},
+    "publisher": "Pulumi",
+    "repository": "https://github.com/kittywitch/kittywitch",
+    "resources": {
+        "opensshcertificate:provider:OpenSSHCertificate": {
+            "inputProperties": {
+                "algorithm": {
+                    "type": "string"
+                },
+                "cakey": {
+                    "type": "string"
+                },
+                "duration": {
+                    "type": "string"
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "kind": {
+                    "type": "string"
+                },
+                "userkey": {
+                    "type": "string"
+                }
+            },
+            "properties": {
+                "algorithm": {
+                    "type": "string"
+                },
+                "cakey": {
+                    "type": "string"
+                },
+                "content": {
+                    "type": "string"
+                },
+                "duration": {
+                    "type": "string"
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "kind": {
+                    "type": "string"
+                },
+                "userkey": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "algorithm",
+                "kind",
+                "hostname",
+                "cakey",
+                "userkey",
+                "duration",
+                "content"
+            ],
+            "requiredInputs": [
+                "algorithm",
+                "kind",
+                "hostname",
+                "cakey",
+                "userkey",
+                "duration"
+            ]
+        }
+    }
+}

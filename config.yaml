@@ -61,6 +61,8 @@ zones:
       - kind: cname
         name: z2m
         value: marisa.kittywit.ch
+  kittywitch:
+    name: kittywit.ch
 machines:
   ran:
     provider: hcloud

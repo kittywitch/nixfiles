@@ -13,7 +13,7 @@
     ];
     userSettings = {
       "nix.enableLanguageServer" = true;
-      "workbench.colorTheme" = "Quiet Light";
+      "workbench.colorTheme" = "Synthax";
       "editor.suggest.preview" = true;
       "[nix]" = {
         "editor.defaultFormatter" = "kamadorueda.alejandra";
@@ -27,6 +27,21 @@
       "terraform.experimentalFeatures.prefillRequiredFields" = true;
       "terraform.experimentalFeatures.validateOnSave" = true;
       "terraform.codelens.referenceCount" = true;
+      "go.alternateTools" = {
+        gopls = "/nix/store/ma4bapwwd54v6sl93w9c80fhw1ynvric-gopls-0.11.0/bin/gopls";
+      };
+      "vim.useSystemClipboard" = true;
+      go = {
+        inlayHints = {
+          assignVariableTypes = true;
+          compositeLiteralFields = true;
+          compositeLiteralTypes = true;
+          constantValues = true;
+          functionTypeParameters = true;
+          parameterNames = true;
+          rangeVariableTypes = true;
+        };
+      };
     };
   };
 }

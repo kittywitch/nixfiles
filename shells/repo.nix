@@ -13,6 +13,7 @@ with pkgs; let
         fd # fd, better fine!
         ripgrep # rg, better grep!
         go # Required for pulumi
+        gopls
         pulumi-bin # Infrastructure as code
         deadnix # dead-code scanner
         alejandra # code formatter
