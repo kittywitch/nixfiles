@@ -140,7 +140,6 @@ with lib;
     esphome = {
       extraModules = [
         meta.modules.esphome
-        meta.modules.system.genesis
       ];
       specialArgs = {
         target = config.deploy.targets.home;
