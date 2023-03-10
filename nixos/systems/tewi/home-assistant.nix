@@ -20,83 +20,20 @@ in {
     ];
   };
 
-  secrets.variables.ha-integration = {
-    path = "gensokyo/home-assistant";
-    field = "notes";
-  };
-
-  secrets.files.ha-integration = {
-    text = tf.variables.ha-integration.ref;
-    owner = "hass";
-    group = "hass";
-  };
-
-  secrets.variables.latitude = {
-    path = "gensokyo/home-assistant";
-    field = "latitude";
-  };
-
-  secrets.variables.longitude = {
-    path = "gensokyo/home-assistant";
-    field = "longitude";
-  };
-
-  secrets.variables.elevation = {
-    path = "gensokyo/home-assistant";
-    field = "elevation";
-  };
-
-  secrets.variables.iphone-se-irk = {
-    path = "gensokyo/home-assistant";
-    field = "iphone-se-irk";
-  };
-  secrets.variables.companion-pixel6 = {
-    path = "gensokyo/home-assistant";
-    field = "companion-pixel6";
-  };
-  secrets.variables.tile-bee = {
-    path = "gensokyo/home-assistant";
-    field = "tile-bee";
-  };
-  secrets.variables.tile-kat-wallet = {
-    path = "gensokyo/home-assistant";
-    field = "tile-kat-wallet";
-  };
-  secrets.variables.tile-kat-keys = {
-    path = "gensokyo/home-assistant";
-    field = "tile-kat-keys";
-  };
-  secrets.variables.mpd-shanghai-password = {
-    path = "gensokyo/abby";
-    field = "mpd";
-  };
-
-  secrets.files.home-assistant-secrets = {
-    text = let
-      espresenceDevices = {
-        iphone-se-irk = tf.variables.iphone-se-irk.ref;
-        companion-pixel6 = tf.variables.companion-pixel6.ref;
-        tile-kat-wallet = tf.variables.tile-kat-wallet.ref;
-        tile-kat-keys = tf.variables.tile-kat-keys.ref;
-        tile-bee = tf.variables.tile-bee.ref;
-      };
-    in builtins.toJSON ({
-      latitude = tf.variables.latitude.ref;
-      longitude = tf.variables.longitude.ref;
-      elevation = tf.variables.elevation.ref;
-      mpd-shanghai-password = tf.variables.mpd-shanghai-password.ref;
-    } // espresenceDevices // mapAttrs' (key: device_id:
-      nameValuePair "${key}-topic" "espresense/devices/${device_id}"
-    ) espresenceDevices);
-    owner = "hass";
-    group = "hass";
+  sops.secrets = {
+    ha-integration = {
+      owner = "hass";
+      path = "${config.services.home-assistant.configDir}/integration.yaml";
+    };
+    ha-secrets = {
+      owner = "hass";
+      path = "${config.services.home-assistant.configDir}/secrets.yaml";
+    };
   };
 
   systemd.services.home-assistant = {
+    # UI-editable config files
     preStart = lib.mkBefore ''
-      cp --no-preserve=mode ${config.secrets.files.home-assistant-secrets.path} ${config.services.home-assistant.configDir}/secrets.yaml
-      cp --no-preserve=mode ${config.secrets.files.ha-integration.path} ${config.services.home-assistant.configDir}/integration.yaml
-      # UI-editable config files
       touch ${config.services.home-assistant.configDir}/{automations,scenes,scripts,manual}.yaml
     '';
   };
@@ -329,55 +266,7 @@ in {
       wake_on_lan = {};
       zeroconf = {};
       zone = {};
-      sensor = let
-        mkESPresenceBeacon = { device_id, ... }@args: {
-          platform = "mqtt_room";
-          state_topic = if hasPrefix "!secret" device_id
-            then "${device_id}-topic"
-            else "espresense/devices/${device_id}";
-        } // args;
-      in [
-        (mkESPresenceBeacon {
-          device_id = "!secret iphone-se-irk";
-          name = "iPhone SE";
-          timeout = 2;
-          away_timeout = 120;
-        })
-        (mkESPresenceBeacon {
-          device_id = "!secret companion-pixel6";
-          name = "Kat's Pixel 6";
-          timeout = 5;
-          away_timeout = 120;
-        })
-        (mkESPresenceBeacon {
-          device_id = "name:galaxy-watch-active";
-          name = "Galaxy Watch Active";
-        })
-        (mkESPresenceBeacon {
-          device_id = "3003c8383b6c";
-          name = "MT7922 BT";
-        })
-        (mkESPresenceBeacon {
-          device_id = "d8f8833681ba";
-          name = "AX210 BT";
-        })
-        (mkESPresenceBeacon {
-          device_id = "md:03ff:6";
-          name = "Kat's Smartwatch";
-        })
-        (mkESPresenceBeacon {
-          device_id = "!secret tile-bee";
-          name = "Bee";
-        })
-        (mkESPresenceBeacon {
-          device_id = "!secret tile-kat-wallet";
-          name = "Kat's Wallet";
-        })
-        (mkESPresenceBeacon {
-          device_id = "!secret tile-kat-keys";
-          name = "Girlwife";
-        })
-      ];
+      sensor = {};
     };
     extraPackages = python3Packages: with python3Packages; [
       psycopg2

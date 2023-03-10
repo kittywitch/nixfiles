@@ -1,4 +1,7 @@
 { config, lib, tf, pkgs, meta, ... }: with lib; {
+  imports = with meta; [
+    nixos.sops
+  ];
   options = let
     nixos = config;
   in {
@@ -331,58 +334,14 @@
         };
       };
     };
-
-    secrets.files = let
-          networks = mapAttrs' (network: settings:
-            nameValuePair "${settings.uqdn}-cert" {
-              text = tf.acme.certs.${settings.uqdn}.out.refFullchainPem;
-              owner = "nginx";
-              group = "domain-auth";
-              mode = "0440";
-            }
-          ) (filterAttrs (_: settings: settings.create_cert) sane_networks);
-          networks' = mapAttrs' (network: settings:
-            nameValuePair "${settings.uqdn}-key" {
-              text = tf.acme.certs.${settings.uqdn}.out.refPrivateKeyPem;
-              owner = "nginx";
-              group = "domain-auth";
-              mode = "0440";
-            }
-          ) (filterAttrs (_: settings: settings.create_cert) sane_networks);
-          domains = mapAttrs' (network: settings:
-            nameValuePair "${settings.uqdn}-cert" {
-              text = tf.acme.certs.${settings.uqdn}.out.refFullchainPem;
-              owner = settings.owner;
-              group = settings.group;
-              mode = "0440";
-            }
-          ) (filterAttrs (network: settings: settings.create_cert) config.domains);
-          domains' = mapAttrs' (network: settings:
-            nameValuePair "${settings.uqdn}-key" {
-              text = tf.acme.certs.${settings.uqdn}.out.refPrivateKeyPem;
-              owner = settings.owner;
-              group = settings.group;
-              mode = "0440";
-            }
-          ) (filterAttrs (_: settings: settings.create_cert) config.domains);
-          in networks // networks' // domains // domains' // {
-            tailscale-key = {
-              text = tf.resources.tailnet_key.refAttr "key";
-            };
-          };
+    sops.secrets.tailscale-key = { };
 
     services.nginx.virtualHosts = let
           networkVirtualHosts = concatLists (mapAttrsToList (network: settings: map(domain: nameValuePair (if domain != "@" then domain else settings.zone) {
-            forceSSL = true;
-            sslCertificate = config.secrets.files."${settings.uqdn}-cert".path;
-            sslCertificateKey = config.secrets.files."${settings.uqdn}-key".path;
           }) ([ settings.uqdn ] ++ settings.extra_domains)) (filterAttrs (_: settings: settings.create_cert) sane_networks));
           domainVirtualHosts = (filterAttrs (network: settings:  settings.create_cert) config.domains);
           domainVirtualHosts' = (mapAttrsToList (network: settings: let
           in nameValuePair settings.uqdn  {
-              forceSSL = true;
-              sslCertificate = mkDefault config.secrets.files."${settings.uqdn}-cert".path;
-              sslCertificateKey = mkDefault config.secrets.files."${settings.uqdn}-key".path;
           }) domainVirtualHosts);
         in listToAttrs (networkVirtualHosts ++ (lib.optionals config.services.nginx.enable domainVirtualHosts'));
 
@@ -401,7 +360,7 @@
 
     services.tailscale.enable = true;
 
-    systemd.services.tailscale-autoconnect = mkIf (builtins.getEnv "TF_IN_AUTOMATION" != "" || tf.state.enable) {
+    systemd.services.tailscale-autoconnect = {
       description = "Automatic connection to Tailscale";
 
 # make sure tailscale is running before trying to connect to tailscale
@@ -425,7 +384,7 @@
 
 # otherwise authenticate with tailscale
 # to-do: --advertise-exit-node
-            ${tailscale}/bin/tailscale up -authkey $(cat ${config.secrets.files.tailscale-key.path})
+            ${tailscale}/bin/tailscale up -authkey $(cat ${config.sops.secrets.tailscale-key.path})
       '';
     };
   };

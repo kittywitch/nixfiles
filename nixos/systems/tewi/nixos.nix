@@ -5,8 +5,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     hardware.local
     nixos.arc
-    services.cockroachdb
-    services.minio
+    nixos.sops
     ./kanidm.nix
     ./vouch.nix
     ./home-assistant.nix
@@ -18,6 +17,8 @@
   ] ++ lib.optional (meta.trusted ? nixos.systems.tewi.default) meta.trusted.nixos.systems.tewi.default;
 
   services.cockroachdb.locality = "provider=local,network=gensokyo,host=${config.networking.hostName}";
+
+  sops.defaultSopsFile = ./secrets.yaml;
 
   networks = {
     gensokyo = {
@@ -59,17 +60,10 @@
   };
 
   environment.etc."iscsi/initiatorname.iscsi" = lib.mkForce {
-    source = config.secrets.files.openscsi-config.path;
+    source = config.sops.secrets.openscsi-config.path;
   };
 
-  secrets.variables.openscsi-password = {
-    path = "gensokyo/tewi-scsi";
-    field = "password";
-  };
-
-  secrets.files.openscsi-config = {
-    text = "InitiatorName=${tf.variables.openscsi-password.ref}";
-  };
+  sops.secrets.openscsi-config = { };
 
   fileSystems = {
     "/" = {

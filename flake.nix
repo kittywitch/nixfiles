@@ -44,6 +44,10 @@
     };
     nur.url = "github:nix-community/nur/master";
     flake-utils.url = "github:numtide/flake-utils";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, flake-utils, ... }@inputs: let

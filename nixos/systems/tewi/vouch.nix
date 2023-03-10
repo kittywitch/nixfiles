@@ -1,4 +1,4 @@
-{ config, pkgs, lib, tf, ... }: {
+{ config, utils, pkgs, lib, tf, ... }: {
   options = with lib; let
     origin = "https://id.gensokyo.zone";
   in {
@@ -62,24 +62,9 @@
     };
   };
   config = {
-    secrets.variables.gensokyo-id = {
-      path = "secrets/id.gensokyo.zone";
-      field = "client_secret";
-    };
-
-    secrets.variables.gensokyo-jwt = {
-      path = "secrets/id.gensokyo.zone";
-      field = "jwt";
-    };
-    secrets.files.vouch-config = let
-      recursiveMergeAttrs = listOfAttrsets: lib.fold (attrset: acc: lib.recursiveUpdate attrset acc) {} listOfAttrsets;
-    in {
-      text = builtins.toJSON (recursiveMergeAttrs [
-          config.services.vouch-proxy.settings
-          { oauth.client_secret = tf.variables.gensokyo-id.ref; vouch.jwt.secret = tf.variables.gensokyo-jwt.ref; }
-        ]);
-        owner = "vouch-proxy";
-      group = "vouch-proxy";
+    sops.secrets = {
+      vouch-jwt.owner = "vouch-proxy";
+      vouch-client-secret.owner = "vouch-proxy";
     };
 
     systemd.services.vouch-proxy = {
@@ -87,9 +72,18 @@
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart =
-          ''
-          ${pkgs.vouch-proxy}/bin/vouch-proxy -config ${config.secrets.files.vouch-config.path}
+        ExecStart = let
+          recursiveMergeAttrs = listOfAttrsets: lib.fold (attrset: acc: lib.recursiveUpdate attrset acc) {} listOfAttrsets;
+          settings = recursiveMergeAttrs [
+            config.services.vouch-proxy.settings
+            {
+              oauth.client_secret._secret = config.sops.secrets.vouch-client-secret.path;
+              vouch.jwt.secret._secret = config.sops.secrets.vouch-jwt.path;
+            }
+          ];
+        in pkgs.writeShellScript "vouch-proxy-start" ''
+          ${utils.genJqSecretsReplacementSnippet settings "/run/vouch-proxy/vouch-config.json"}
+          ${pkgs.vouch-proxy}/bin/vouch-proxy -config /run/vouch-proxy/vouch-config.json
         '';
         Restart = "on-failure";
         RestartSec = 5;

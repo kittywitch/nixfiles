@@ -6,48 +6,11 @@
     ];
   };
 
-  secrets.variables.z2m-pass = {
-    path = "secrets/mosquitto";
-    field = "z2m";
-  };
-
-  secrets.variables.systemd-pass = {
-    path = "secrets/mosquitto";
-    field = "systemd";
-  };
-
-  secrets.variables.hass-pass = {
-    path = "secrets/mosquitto";
-    field = "hass";
-  };
-
-  secrets.variables.espresence-pass = {
-    path = "secrets/mosquitto";
-    field = "espresence";
-  };
-
-  secrets.files.z2m-pass = {
-    text = tf.variables.z2m-pass.ref;
-    owner = "mosquitto";
-    group = "mosquitto";
-  };
-
-  secrets.files.systemd-pass = {
-    text = tf.variables.systemd-pass.ref;
-    owner = "mosquitto";
-    group = "mosquitto";
-  };
-
-  secrets.files.hass-pass = {
-    text = tf.variables.hass-pass.ref;
-    owner = "mosquitto";
-    group = "mosquitto";
-  };
-
-  secrets.files.espresence-pass = {
-    text = tf.variables.espresence-pass.ref;
-    owner = "mosquitto";
-    group = "mosquitto";
+  sops.secrets = {
+    z2m-pass.owner = "mosquitto";
+    systemd-pass.owner = "mosquitto";
+    hass-pass.owner = "mosquitto";
+    espresence-pass.owner = "mosquitto";
   };
 
   services.mosquitto = {
@@ -59,25 +22,25 @@
       ];
       users = {
         z2m = {
-          passwordFile = config.secrets.files.z2m-pass.path;
+          passwordFile = config.sops.secrets.z2m-pass.path;
           acl = [
             "readwrite #"
           ];
         };
         espresence = {
-          passwordFile = config.secrets.files.espresence-pass.path;
+          passwordFile = config.sops.secrets.espresence-pass.path;
           acl = [
             "readwrite #"
           ];
         };
         systemd = {
-          passwordFile = config.secrets.files.systemd-pass.path;
+          passwordFile = config.sops.secrets.systemd-pass.path;
           acl = [
             "readwrite #"
           ];
         };
         hass = {
-          passwordFile = config.secrets.files.hass-pass.path;
+          passwordFile = config.sops.secrets.hass-pass.path;
           acl = [
             "readwrite #"
           ];
