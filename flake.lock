@@ -620,7 +620,6 @@
       }
     },
     "trusted": {
-      "flake": false,
       "locked": {
         "lastModified": 1630400035,
         "narHash": "sha256-MWaVOCzuFwp09wZIW9iHq5wWen5C69I940N1swZLEQ0=",

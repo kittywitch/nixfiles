@@ -21,12 +21,7 @@ let
     export START_DIR="$PWD"
     cd "${toString ./.}"
     export NF_CONFIG_ROOT=${toString ./.}/ci
-    NF_CONFIG_FILES=($NF_CONFIG_ROOT/{nodes,flake-cron}.nix)
-    for f in "''${NF_CONFIG_FILES[@]}"; do
-      echo $f
-      nix run --argstr config "$f" -f '${inputs.ci}' test
-    done
-    cd $START_DIR
+    nix run --argstr config "$NF_CONFIG_ROOT/nodes.nix" -f '${inputs.ci}' job.tewi.test
   '';
   nf-update = pkgs.writeShellScriptBin "nf-update" ''
     nix flake update
@@ -34,36 +29,26 @@ let
       nix flake lock ./trusted --update-input trusted
     fi
   '';
-  sumireko-apply = pkgs.writeShellScriptBin "sumireko-apply" ''
-    darwin-rebuild switch --flake ${toString ./.}#sumireko
+  nf-deploy = pkgs.writeShellScriptBin "nf-deploy" ''
+    export NF_CONFIG_ROOT=${toString ./.}
+    exec /usr/bin/env bash ${./nixos/deploy.sh} "$@"
   '';
 in
 pkgs.mkShell {
   nativeBuildInputs = with pkgs; [
     inetutils
+    sops
     nf-actions
     nf-actions-test
     nf-update
-    sumireko-apply
-  ] ++ config.runners.lazy.nativeBuildInputs
-   ++ lib.optional (builtins.getEnv "TRUSTED" != "") (pkgs.writeShellScriptBin "bitw" ''${pkgs.rbw-bitw}/bin/bitw -p gpg://${config.network.nodes.all.${builtins.getEnv "HOME_HOSTNAME"}.secrets.repo.bitw.source} "$@"'')
-  ++ (map
-    (node: writeShellScriptBin "${node.networking.hostName}-sd-img" ''
-      nix build -f . network.nodes.${node.networking.hostName}.system.build.sdImage --show-trace
-    '')
-    (builtins.filter (node: node.system.build ? sdImage) (attrValues meta.network.nodes.nixos)))
-  ++ (map
-    (node: writeShellScriptBin "${node.networking.hostName}-iso-img" ''
-      nix build -f . network.nodes.${node.networking.hostName}.system.build.isoImage --show-trace
-    '')
-    (builtins.filter (node: node.system.build ? isoImage) (attrValues meta.network.nodes.nixos)));
+    nf-deploy
+  ];
   shellHook = ''
     export NIX_BIN_DIR=${pkgs.nix}/bin
     export HOME_UID=$(id -u)
     export HOME_USER=$(id -un)
     export CI_PLATFORM="impure"
     export NIX_PATH="$NIX_PATH:home=${toString ./.}"
-    git pull
   '';
 }
 

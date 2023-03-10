@@ -1,4 +1,4 @@
-[submodule "tf"]
-	path = tf
-	branch = main
-	url = "gcrypt::ssh://git@github.com:kittywitch/nixfiles-tf.git#main"
+[submodule "trusted/trusted"]
+	path = trusted/trusted
+	branch = shim
+	url = gcrypt::ssh://git@github.com/arcnmx/kat-nixfiles-trusted.git

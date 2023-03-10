@@ -81,19 +81,16 @@
       "home/*".functor.enable = true;
     };
   };
-  trustedTree = mkTree {
+  trustedTree = lib.optionalAttrs (inputs.trusted ? lib.treeSetup) (mkTree {
     inherit inputs;
-    folder = inputs.trusted;
-    config = {
-      "secrets".evaluateDefault = true;
-    };
-  };
+    inherit (inputs.trusted.lib.treeSetup) folder config;
+  });
   tree = localTree // {
     pure = localTree.pure // {
-      trusted = trustedTree.pure;
+      trusted = trustedTree.pure or { };
     };
     impure = localTree.impure // {
-      trusted = trustedTree.impure;
+      trusted = trustedTree.impure or { };
     };
   };
 in tree

@@ -29,7 +29,6 @@
     };
     trusted = {
       url = "github:input-output-hk/empty-flake";
-      flake = false;
     };
     flake-compat = {
       url = "github:edolstra/flake-compat";
@@ -58,7 +57,9 @@
     legacyPackages = import ./meta.nix { inherit system inputs; };
   });
   in providedSystems // {
-    nixosConfigurations = self.legacyPackages.x86_64-linux.network.nodes.nixos;
+    nixosConfigurations = builtins.mapAttrs (_: config: config // {
+      inherit config;
+    }) self.legacyPackages.x86_64-linux.network.nodes.nixos;
     darwinConfigurations = builtins.mapAttrs (_: config: {
       inherit (config.deploy) pkgs;
       inherit config;

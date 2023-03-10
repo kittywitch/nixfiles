@@ -54,10 +54,7 @@
   jobs =
     let
       main = (import ../.);
-      hosts = main.network.nodes.nixos;
-      targets = main.deploy.targets;
-      enabledTargets = filterAttrs (k: v: v.enable && k != "medicine") main.deploy.targets;
-      enabledHosts = concatLists (mapAttrsToList (targetName: target: target.nodeNames) enabledTargets);
+      enabledHosts = [ "tewi" ];
     in
     mapAttrs' (k: nameValuePair "${k}") (genAttrs enabledHosts (host: {
       tasks.${host}.inputs = channels.nixfiles.network.nodes.nixos.${host}.deploy.system;

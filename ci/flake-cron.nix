@@ -93,11 +93,7 @@ with lib; {
         command =
           let
             main = (import ../.);
-            nodes = main.network.nodes.nixos;
-            targets = main.deploy.targets;
-            enabledTargets = filterAttrs (_: v: v.enable) main.deploy.targets;
-            enabledHosts = concatLists (mapAttrsToList (targetName: target: target.nodeNames) enabledTargets);
-            filteredHosts = subtractLists [ "daiyousei" "shinmyoumaru" "medicine" ] enabledHosts;
+            filteredHosts = [ "tewi" ];
             nodeBuildString = concatMapStringsSep " && " (node: "nix build -Lf . network.nodes.nixos.${node}.deploy.system -o result-${node} && nix-collect-garbage -d") filteredHosts;
           in
           ''
