@@ -15,37 +15,41 @@ if [[ -e trusted/trusted/flake.nix ]]; then
 	)
 fi
 
-NIXOS_HOST=tewi
-NIXOS_TOPLEVEL=network.nodes.nixos.$NIXOS_HOST.system.build.toplevel
+NF_HOST=${NF_HOST-tewi}
+NIXOS_TOPLEVEL=network.nodes.nixos.$NF_HOST.system.build.toplevel
 
 if [[ $1 = build ]]; then
-	exec nix build --no-link --print-out-paths $NF_CONFIG_ROOT#$NIXOS_TOPLEVEL "${TRUSTED_ARGS[@]}"
+	exec nix build --no-link --print-out-paths $NF_CONFIG_ROOT\#$NIXOS_TOPLEVEL "${TRUSTED_ARGS[@]}"
 elif [[ $1 = switch ]] || [[ $1 = test ]] || [[ $1 = dry-* ]]; then
 	METHOD=$1
 	shift
 	exec nixos-rebuild $METHOD \
-		--flake $NF_CONFIG_ROOT#$NIXOS_HOST "${TRUSTED_ARGS[@]}" \
+		--flake $NF_CONFIG_ROOT\#$NF_HOST "${TRUSTED_ARGS[@]}" \
 		--no-build-nix \
-		--target-host $NIXOS_HOST --use-remote-sudo \
+		--target-host $NF_HOST --use-remote-sudo \
 		"$@"
 elif [[ $1 = check ]]; then
-	DEFAULT=$(nix eval --raw -f $NF_CONFIG_ROOT $NIXOS_TOPLEVEL)
-	FLAKE=$(nix eval --raw $NF_CONFIG_ROOT#$NIXOS_TOPLEVEL)
+	EXIT_CODE=0
+	DEFAULT=$(TRUSTED= nix eval --raw -f $NF_CONFIG_ROOT $NIXOS_TOPLEVEL)
+	FLAKE=$(nix eval --raw $NF_CONFIG_ROOT\#$NIXOS_TOPLEVEL)
 	if [[ $DEFAULT != $FLAKE ]]; then
 		echo default.nix: $DEFAULT
 		echo flake.nix: $FLAKE
-		exit 1
+		EXIT_CODE=1
+	else
+		echo untrusted ok: $FLAKE
 	fi
-	echo untrusted ok: $FLAKE
 
 	TRUSTED=$(TRUSTED=1 nix eval --raw -f $NF_CONFIG_ROOT $NIXOS_TOPLEVEL)
-	TRUSTED_FLAKE=$(nix eval --raw $NF_CONFIG_ROOT#$NIXOS_TOPLEVEL "${TRUSTED_ARGS[@]}")
+	TRUSTED_FLAKE=$(nix eval --raw $NF_CONFIG_ROOT\#$NIXOS_TOPLEVEL "${TRUSTED_ARGS[@]}")
 	if [[ $TRUSTED != $TRUSTED_FLAKE ]]; then
 		echo TRUSTED=1 default.nix: $TRUSTED
 		echo trusted/flake.nix: $TRUSTED_FLAKE
-		exit 1
+		EXIT_CODE=1
+	else
+		echo trusted ok: $TRUSTED_FLAKE
 	fi
-	echo trusted ok: $TRUSTED_FLAKE
+	exit $EXIT_CODE
 else
 	echo unknown cmd $1 >&2
 	exit 1
