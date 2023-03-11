@@ -7,11 +7,11 @@
     },
     "trusted": {
       "locked": {
-        "lastModified": 1678478350,
-        "narHash": "sha256-OxAth0uppnijCgsgq0B3VgYwFfZ7RrrDsRmulQhvPsM=",
+        "lastModified": 1678569470,
+        "narHash": "sha256-wMOp8sBd4Wgh1ITgMRPkUdGvf0B1G9LlKuhN+bcnbxg=",
         "ref": "shim",
-        "rev": "d53a6c00dd57535dd9824493cbc6a64bc9902768",
-        "revCount": 2,
+        "rev": "b9c0310cab3d85a477e886201e09b6e565d944e6",
+        "revCount": 3,
         "type": "git",
         "url": "gcrypt::ssh://git@github.com/arcnmx/kat-nixfiles-trusted.git"
       },
