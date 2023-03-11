@@ -34,7 +34,7 @@ in {
   systemd.services.home-assistant = {
     # UI-editable config files
     preStart = lib.mkBefore ''
-      touch ${config.services.home-assistant.configDir}/{automations,scenes,scripts,manual}.yaml
+      touch ${config.services.home-assistant.configDir}/{automations,scenes,scripts,manual,homekit_entity_config,homekit_include_entities}.yaml
     '';
   };
 
@@ -115,81 +115,7 @@ in {
           "climate"
           #"sensor"
         ];
-        entity_config = let
-          hidden = "XYZ";
-        in {
-          # bedroom entities
-          "light.bedside_lamp".expose = true;
-          "light.bedroom_strip".expose = true;
-          "light.bedroom_overhead".expose = true;
-          "light.bed_side_overhead".room = hidden;
-          "light.closet_side_overhead".room = hidden;
-          "light.pc_side_overhead".room = hidden;
-          "light.closet_overhead".expose = true;
-          "light.closet_overhead_left".room = hidden;
-          "light.closet_overhead_right".room = hidden;
-          "fan.bedroom_purifier" = {
-            expose = true;
-            aliases = [
-              "FÖRNUFTIG"
-              "Bedroom Air Purifier"
-            ];
-          };
-          "fan.bedroom_floor".expose = true;
-          "switch.swb1_relay_3".expose = true;
-          "switch.swb1_relay_4".expose = true;
-
-          # living room entities
-          "light.dining_overhead".expose = true;
-          "light.living_cluster".expose = true;
-          "light.living_overhead".room = hidden;
-          "light.tv_overhead".room = hidden;
-          "light.couch_overhead_left".room = hidden;
-          "light.couch_overhead_right".room = hidden;
-          "light.tv_bias" = {
-            room = hidden;
-            aliases = [
-              "Bias Lighting"
-              "TV Backlight"
-            ];
-          };
-          "light.living_bookshelf".room = hidden;
-          # midea
-          "climate.living_ac".aliases = [
-            "AC"
-            "Midea"
-          ];
-          "sensor.living_ac_outdoor_temperature".expose = false;
-
-          # kitchen
-          "light.kitchen_overhead".expose = true;
-          "light.kitchen_overhead_inner".room = hidden;
-          "light.kitchen_overhead_middle".room = hidden;
-          "light.kitchen_overhead_outer".room = hidden;
-
-          # balcony
-          "light.outdoor_strip".expose = true;
-          "light.lantern".expose = true;
-
-          # foyer
-          "light.entry_overhead".expose = true;
-          "light.entry_overhead_left".room = hidden;
-          "light.entry_overhead_right".room = hidden;
-
-          # shanghai systemd
-          "switch.shanghai_graphical".expose = true;
-          "switch.shanghai_mradio".expose = true;
-          "switch.shanghai_vm_goliath1650".expose = true;
-          "switch.shanghai_vm_goliath3080".expose = true;
-          "switch.shanghai_vm_hourai1650".expose = true;
-          "switch.shanghai_vm_hourai3080".expose = true;
-          "cover.shanghai_dpms" = {
-            expose = true;
-            aliases = [
-              "DPMS"
-            ];
-          };
-        };
+        entity_config = { };
       };
       homekit = {
         name = "Tewi";
@@ -197,22 +123,11 @@ in {
         ip_address = "10.1.1.38";
         filter = let
           inherit (config.services.home-assistant.config) google_assistant;
-          entities = filterAttrs (_: entity: entity.expose or true) google_assistant.entity_config;
         in {
           include_domains = google_assistant.exposed_domains;
-          include_entities = attrNames (removeAttrs entities [
-            # HomeKit is able to group lights together, no need to use the google hack here
-            "light.living_cluster"
-            "light.bedroom_overhead"
-            "light.closet_overhead"
-            "light.kitchen_overhead"
-            "light.entry_overhead"
-          ]);
+          include_entities = "!include homekit_include_entities.yaml";
         };
-        entity_config = {
-          "switch.swb1_relay_3".type = "outlet";
-          "switch.swb1_relay_4".type = "outlet";
-        };
+        entity_config = "!include homekit_entity_config.yaml";
       };
       tts = [{
         platform = "google_translate";
