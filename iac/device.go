@@ -129,7 +129,7 @@ func (d *Device) handleOSH(CAKey *tls.PrivateKey) (err error) {
 		Duration:  pulumi.String("730h"),
 		Hostname:  pulumi.String(d.Tailskip),
 		Kind:      pulumi.String("host"),
-		Userkey:   d.PrivateKey.PrivateKeyOpenssh,
+		Userkey:   d.PrivateKeyED25519.PrivateKeyOpenssh,
 	}, pulumi.Provider(oshProvider))
 	if err != nil {
 		return err
