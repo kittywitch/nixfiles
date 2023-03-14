@@ -63,4 +63,34 @@ zones:
         value: marisa.kittywit.ch
   kittywitch:
     name: kittywit.ch
+    records:
+      - kind: a
+        name: marisa
+        value: 104.244.72.5
+      - kind: aaaa
+        name: marisa
+        value: 2605:6400:30:eed1:6cf7:bbfc:b4e:15c0
+      - kind: a
+        name: daiyousei
+        value: 132.145.26.5
+      - kind: aaaa
+        name: daiyousei
+        value: 2603:c020:c004:6f00::6
+      - kind: cname
+        name: irc
+        value: daiyousei.kittywit.ch
+      - kind: cname
+        name: auth
+        value: daiyousei.kittywit.ch
+      - kind: cname
+        name: vault
+        value: daiyousei.kittywit.ch
+      - kind: cname
+        name: files
+        value: daiyousei.kittywit.ch
+      - kind: cname
+        name: znc
+        value: daiyousei.kittywit.ch
+      - kind: cname
+        value: daiyousei.kittywit.ch
 machines:
