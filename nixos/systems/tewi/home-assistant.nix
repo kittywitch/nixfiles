@@ -146,7 +146,6 @@ in {
       energy = {};
       group = {};
       history = {};
-      image = {};
       input_boolean = {};
       input_button = {};
       input_datetime = {};
@@ -188,6 +187,7 @@ in {
       aiohomekit
       securetar
       getmac # for upnp integration
+      python-otbr-api
       (aiogithubapi.overrideAttrs (_: { doInstallCheck = false; }))
     ];
     extraComponents = [
