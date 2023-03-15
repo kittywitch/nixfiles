@@ -44,10 +44,11 @@ in {
       homeassistant = {
         name = "Gensokyo";
         unit_system = "metric";
-        latitude = "!secret latitude";
-        longitude = "!secret longitude";
-        elevation = "!secret elevation";
+        latitude = "!secret home_lat";
+        longitude = "!secret home_long";
+        elevation = "!secret home_asl";
         currency = "CAD";
+        country = "CA";
         time_zone = "America/Vancouver";
         external_url = "https://home.gensokyo.zone";
         packages = {
