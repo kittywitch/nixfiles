@@ -10,6 +10,10 @@
               type = types.nullOr types.str;
               default = "gensokyo.zone";
             };
+            secure = mkOption {
+              type = types.bool;
+              default = true;
+            };
           };
           port = mkOption {
             type = lib.types.port;
@@ -17,7 +21,7 @@
           };
           listen = mkOption {
             type = types.nullOr types.str;
-            default = config.networks.tailscale.ipv4;
+            default = "127.0.0.1";
           };
           allowAllUsers = mkOption {
             type = types.bool;
@@ -62,6 +66,10 @@
     };
   };
   config = {
+    services.vouch-proxy.settings = {
+      vouch.cookie.secure = false;
+    };
+
     sops.secrets = {
       vouch-jwt.owner = "vouch-proxy";
       vouch-client-secret.owner = "vouch-proxy";

@@ -26,6 +26,7 @@ in {
   imports = with meta; [
     (modulesPath + "/installer/scan/not-detected.nix")
     hardware.local
+    services.access
     nixos.arc
     nixos.sops
     ./kanidm.nix
@@ -35,6 +36,7 @@ in {
     ./mosquitto.nix
     ./postgres.nix
     ./nginx.nix
+    ./cloudflared.nix
     ../../gui/nfs.nix
   ] ++ lib.optional (meta.trusted ? nixos.systems.tewi.default) meta.trusted.nixos.systems.tewi.default;
 

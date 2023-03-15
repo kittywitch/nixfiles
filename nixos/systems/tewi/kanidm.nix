@@ -15,7 +15,7 @@
   '';
 in {
   networks.gensokyo = {
-    tcp = [ 8080 636 ];
+    tcp = [ 8081 636 ];
   };
 
   services.kanidm =  {
@@ -33,8 +33,8 @@ in {
       role = "WriteReplica";
       log_level = "default";
       db_fs_type = "zfs";
-      bindaddress = "${config.networks.tailscale.ipv4}:8080";
-      ldapbindaddress = "${config.networks.tailscale.ipv4}:636";
+      bindaddress = "0.0.0.0:8081";
+      ldapbindaddress = "0.0.0.0:636";
       tls_chain = "${unencryptedCert}/${unencryptedCert.domain}.pem";
       tls_key = "${unencryptedCert}/${unencryptedCert.domain}/key.pem";
     };

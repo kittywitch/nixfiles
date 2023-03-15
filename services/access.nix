@@ -49,32 +49,20 @@
   };
 
   services.nginx.virtualHosts = mkMerge [
-  (mkIf tf.state.enable {
+  (mkIf (tf.state.enable && config.networking.hostName == "tewi") {
     "gensokyo.zone" = {
       locations."/" = {
         root = pkgs.gensokyoZone;
       };
     };
-    "home.gensokyo.zone" = {
-      locations = {
-        "/" = {
-          proxyPass = meta.tailnet.tewi.pp 4 8123;
-          extraConfig = ''
-            proxy_set_header Upgrade $http_upgrade;
-          proxy_set_header Connection "upgrade";
-          proxy_http_version 1.1;
-          '';
-        };
-      };
-    };
     "z2m.gensokyo.zone" = {
       extraConfig = ''
-      auth_request /validate;
-      error_page 401 = @error401;
+        auth_request /validate;
+        error_page 401 = @error401;
       '';
       locations = {
         "/" = {
-          proxyPass = meta.tailnet.tewi.pp 4 8072;
+          proxyPass = "http://127.0.0.1:8072";
           extraConfig = ''
             add_header Access-Control-Allow-Origin https://login.gensokyo.zone;
             add_header Access-Control-Allow-Origin https://id.gensokyo.zone;
@@ -91,7 +79,7 @@
         };
         "/validate" = {
           recommendedProxySettings = false;
-          proxyPass = meta.tailnet.tewi.ppp 4 30746 "validate";
+          proxyPass = "http://127.0.0.1:30746/validate";
           extraConfig = ''
             proxy_set_header Host $http_host;
             proxy_pass_request_body off;
@@ -104,39 +92,16 @@
         };
       };
     };
-    "id.gensokyo.zone" = {
-      locations = {
-        "/" = {
-          proxyPass = meta.tailnet.tewi.pp 4 8080;
-          extraConfig = ''
-            proxy_set_header Host $host;
-            add_header Access-Control-Allow-Origin https://id.gensokyo.zone;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "upgrade";
-            proxy_http_version 1.1;
-          '';
-        };
-      };
-    };
-    "login.gensokyo.zone" = {
-      locations = {
-        "/" = {
-          proxyPass = meta.tailnet.tewi.pp 4 30746;
-          recommendedProxySettings = false;
-          extraConfig = ''
-            proxy_set_header Host $http_host;
-          '';
-        };
-      };
-    };
+  })
+  (mkIf (config.networking.hostName != "tewi") {
     "home.${config.networking.domain}" = {
       locations = {
         "/" = {
           proxyPass = meta.tailnet.yukari.pp 4 8123;
           extraConfig = ''
             proxy_set_header Upgrade $http_upgrade;
-          proxy_set_header Connection "upgrade";
-          proxy_http_version 1.1;
+            proxy_set_header Connection "upgrade";
+            proxy_http_version 1.1;
           '';
         };
       };
