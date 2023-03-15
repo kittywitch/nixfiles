@@ -168,6 +168,7 @@ in {
           StateDirectory = config.services.mediatomb.package.pname;
           BindReadOnlyPaths = map (path: "/mnt/shadow/media/${path}") [
             "anime" "movies" "tv" "unsorted"
+            "music" "music-to-import" "music-raw"
           ];
         };
       };

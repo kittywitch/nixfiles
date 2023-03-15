@@ -9,7 +9,7 @@ TRUSTED_ARGS=(
 	--no-write-lock-file
 	--quiet
 )
-if [[ -e trusted/trusted/flake.nix ]]; then
+if [[ -e $NF_CONFIG_ROOT/trusted/trusted/flake.nix ]]; then
 	TRUSTED_ARGS+=(
 		--override-input trusted/trusted $NF_CONFIG_ROOT/trusted/trusted
 	)
