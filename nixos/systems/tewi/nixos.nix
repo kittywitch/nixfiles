@@ -62,7 +62,10 @@ in {
     };
   };
 
-  environment.systemPackages = [ pkgs.cryptsetup ];
+  environment.systemPackages = [
+    pkgs.cryptsetup
+    pkgs.buildPackages.rxvt-unicode-unwrapped.terminfo
+  ];
 
   boot = {
     loader = {
