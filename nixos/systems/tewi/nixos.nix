@@ -87,6 +87,7 @@ in {
     enable = true;
     openFirewall = true;
     serverName = config.networking.hostName;
+    uuid = "082fd344-bf69-5b72-a68f-a5a4d88e76b2";
     mediaDirectories = lib.singleton {
       path = "/mnt/shadow/media";
       recursive = true;
@@ -164,10 +165,11 @@ in {
       };
       mediatomb = rec {
         confinement.enable = true;
-        requires = [
-          "mnt-shadow.mount"
-        ];
-        after = requires;
+        unitConfig = {
+          RequiresMountsFor = [
+            "/mnt/shadow"
+          ];
+        };
         serviceConfig = {
           StateDirectory = config.services.mediatomb.package.pname;
           BindReadOnlyPaths = map (path: "/mnt/shadow/media/${path}") [
