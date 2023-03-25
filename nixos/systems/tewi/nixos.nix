@@ -36,6 +36,7 @@ in {
     ./mosquitto.nix
     ./postgres.nix
     ./nginx.nix
+    ./deluge.nix
     ./cloudflared.nix
     ../../gui/nfs.nix
   ] ++ lib.optional (meta.trusted ? nixos.systems.tewi.default) meta.trusted.nixos.systems.tewi.default;
