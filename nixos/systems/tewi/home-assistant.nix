@@ -1,4 +1,5 @@
-{ config, lib, tf, ... }: let
+{ pkgs, config, lib, tf, ... }: let
+  cfg = config.services.home-assistant;
   inherit (lib.attrsets) attrNames filterAttrs mapAttrs' nameValuePair;
   inherit (lib.strings) hasPrefix;
 in {
@@ -8,9 +9,9 @@ in {
   networks.gensokyo = {
     tcp = [
       # Home Assistant
-      8123
+      cfg.config.http.server_port
       # Tewi Homekit
-      21063
+      cfg.config.homekit.port
     ];
     udp = [
       # Chromecast
@@ -23,18 +24,18 @@ in {
   sops.secrets = {
     ha-integration = {
       owner = "hass";
-      path = "${config.services.home-assistant.configDir}/integration.yaml";
+      path = "${cfg.configDir}/integration.yaml";
     };
     ha-secrets = {
       owner = "hass";
-      path = "${config.services.home-assistant.configDir}/secrets.yaml";
+      path = "${cfg.configDir}/secrets.yaml";
     };
   };
 
   systemd.services.home-assistant = {
     # UI-editable config files
     preStart = lib.mkBefore ''
-      touch ${config.services.home-assistant.configDir}/{automations,scenes,scripts,manual,homekit_entity_config,homekit_include_entities}.yaml
+      touch ${cfg.configDir}/{automations,scenes,scripts,manual,homekit_entity_config,homekit_include_entities}.yaml
     '';
   };
 
@@ -124,7 +125,7 @@ in {
         port = 21063;
         ip_address = "10.1.1.38";
         filter = let
-          inherit (config.services.home-assistant.config) google_assistant;
+          inherit (cfg.config) google_assistant;
         in {
           include_domains = google_assistant.exposed_domains;
           include_entities = "!include homekit_include_entities.yaml";
@@ -183,6 +184,20 @@ in {
       zeroconf = {};
       zone = {};
       sensor = {};
+    };
+    package = pkgs.home-assistant.override {
+      packageOverrides = self: super: {
+        pysnmplib = if lib.versionAtLeast self.brother.version "2.3.0"
+          then lib.warn "outdated pysnmplib override can be deleted" super.pysnmplib
+          else super.pysnmplib.overrideAttrs (old: rec {
+            version = "5.0.20";
+            src = pkgs.fetchFromGitHub {
+              inherit (old.src) owner repo;
+              rev = "v${version}";
+              hash = "sha256-SrtOn9zETtobT6nMVHLi6hP7VZGBvXvFzoThTi3ITag=";
+            };
+          });
+      };
     };
     extraPackages = python3Packages: with python3Packages; [
       psycopg2
