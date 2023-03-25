@@ -36,6 +36,7 @@ in {
     ./mosquitto.nix
     ./postgres.nix
     ./nginx.nix
+    ./mediatomb.nix
     ./deluge.nix
     ./cloudflared.nix
     ../../gui/nfs.nix
@@ -81,18 +82,6 @@ in {
       availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
     };
     kernelModules = [ "kvm-intel" ];
-  };
-
-  services.mediatomb = {
-    enable = true;
-    openFirewall = true;
-    serverName = config.networking.hostName;
-    uuid = "082fd344-bf69-5b72-a68f-a5a4d88e76b2";
-    mediaDirectories = lib.singleton {
-      path = "/mnt/shadow/media";
-      recursive = true;
-      hidden-files = false;
-    };
   };
 
   services.openiscsi = {
@@ -162,21 +151,6 @@ in {
       iscsid = rec {
         wantedBy = cryptServices;
         before = wantedBy;
-      };
-      mediatomb = rec {
-        confinement.enable = true;
-        unitConfig = {
-          RequiresMountsFor = [
-            "/mnt/shadow"
-          ];
-        };
-        serviceConfig = {
-          StateDirectory = config.services.mediatomb.package.pname;
-          BindReadOnlyPaths = map (path: "/mnt/shadow/media/${path}") [
-            "anime" "movies" "tv" "unsorted"
-            "music" "music-to-import" "music-raw"
-          ];
-        };
       };
     };
   };
