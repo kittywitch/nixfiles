@@ -231,6 +231,7 @@ in {
       "tile"
       "wake_on_lan"
       "withings"
+      "wled"
       "zeroconf"
     ];
   };
