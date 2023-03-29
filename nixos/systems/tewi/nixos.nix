@@ -29,6 +29,7 @@ in {
     services.access
     nixos.arc
     nixos.sops
+    inputs.systemd2mqtt.nixosModules.default
     ./kanidm.nix
     ./vouch.nix
     ./home-assistant.nix
@@ -89,6 +90,19 @@ in {
     name = "";
   };
 
+  services.systemd2mqtt = {
+    enable = true;
+    user = "root";
+    mqtt = {
+      url = "tcp://localhost:1883";
+      username = "systemd";
+    };
+    units = {
+      "mnt-shadow.mount" = { };
+      "mediatomb.service" = lib.mkIf config.services.mediatomb.enable { };
+    };
+  };
+
   environment.etc = {
     "iscsi/initiatorname.iscsi" = lib.mkForce {
       source = config.sops.secrets.openscsi-config.path;
@@ -101,7 +115,10 @@ in {
     ) md.shadow.cryptDisks);
   };
 
-  sops.secrets.openscsi-config = { };
+  sops.secrets = {
+    openscsi-config = { };
+    systemd2mqtt-env = { };
+  };
 
   fileSystems = {
     "/" = {
@@ -151,6 +168,13 @@ in {
       iscsid = rec {
         wantedBy = cryptServices;
         before = wantedBy;
+      };
+      systemd2mqtt = lib.mkIf config.services.systemd2mqtt.enable rec {
+        requires = lib.mkIf config.services.mosquitto.enable [ "mosquitto.service" ];
+        after = requires;
+        serviceConfig.EnvironmentFile = [
+          config.sops.secrets.systemd2mqtt-env.path
+        ];
       };
     };
   };

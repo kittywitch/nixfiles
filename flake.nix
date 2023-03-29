@@ -47,6 +47,12 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    systemd2mqtt = {
+      url = "github:arcnmx/systemd2mqtt";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
   };
 
   outputs = { self, nixpkgs, flake-utils, ... }@inputs: let
