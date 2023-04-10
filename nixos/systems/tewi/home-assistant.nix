@@ -185,20 +185,6 @@ in {
       zone = {};
       sensor = {};
     };
-    package = pkgs.home-assistant.override {
-      packageOverrides = self: super: {
-        pysnmplib = if lib.versionAtLeast self.brother.version "2.3.0"
-          then lib.warn "outdated pysnmplib override can be deleted" super.pysnmplib
-          else super.pysnmplib.overrideAttrs (old: rec {
-            version = "5.0.20";
-            src = pkgs.fetchFromGitHub {
-              inherit (old.src) owner repo;
-              rev = "v${version}";
-              hash = "sha256-SrtOn9zETtobT6nMVHLi6hP7VZGBvXvFzoThTi3ITag=";
-            };
-          });
-      };
-    };
     extraPackages = python3Packages: with python3Packages; [
       psycopg2
       aiohomekit
