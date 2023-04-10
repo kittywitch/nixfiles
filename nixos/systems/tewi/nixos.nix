@@ -27,6 +27,7 @@ in {
     (modulesPath + "/installer/scan/not-detected.nix")
     hardware.local
     services.access
+    services.syncplay
     nixos.arc
     nixos.sops
     inputs.systemd2mqtt.nixosModules.default

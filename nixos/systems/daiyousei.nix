@@ -9,7 +9,6 @@
     services.murmur-ldap
     services.prosody
     services.synapse
-    services.syncplay
     services.filehost
     services.keycloak
     services.openldap
