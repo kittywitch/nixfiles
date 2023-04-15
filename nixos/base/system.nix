@@ -3,7 +3,6 @@
 {
   boot.kernelPackages = mkIf (elem "zfs" config.boot.supportedFilesystems) (mkDefault config.boot.zfs.package.latestCompatibleLinuxPackages);
   hardware.enableRedistributableFirmware = lib.mkDefault true;
-  boot.tmpOnTmpfs = true;
   boot.zfs.enableUnstable = mkIf (elem "zfs" config.boot.supportedFilesystems) true;
   boot.kernel.sysctl = {
     "fs.inotify.max_user_watches" = 524288;
@@ -16,5 +15,8 @@
   };
   services.journald.extraConfig = "SystemMaxUse=512M";
   users.mutableUsers = false;
-  boot.tmpOnTmpfsSize = "80%";
+  boot.tmp = {
+    useTmpfs = true;
+    tmpfsSize = "80%";
+  };
 }
