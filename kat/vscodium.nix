@@ -10,10 +10,12 @@
       hashicorp.terraform
       arrterian.nix-env-selector
       jnoortheen.nix-ide
+      vscodevim.vim
+      catppuccin.catppuccin-vsc
     ];
     userSettings = {
       "nix.enableLanguageServer" = true;
-      "workbench.colorTheme" = "Synthax";
+      "workbench.colorTheme" = "Catppuccin Frappé";
       "editor.suggest.preview" = true;
       "[nix]" = {
         "editor.defaultFormatter" = "kamadorueda.alejandra";

@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     # Password manager
     bitwarden
@@ -10,7 +10,7 @@
     # Mail
     thunderbird
     # Music
-    # spotify
+    spotify
     playerctl
     # Chat
     discord
@@ -18,7 +18,6 @@
     tdesktop # Telegram
     dino # XMPP
     signal-desktop
-    element-desktop
     mumble-develop
     # IDEs
     jetbrains.idea-community

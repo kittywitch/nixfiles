@@ -14,8 +14,9 @@
     imports;
   dirImports = wrapImports tree.prev;
 in
-  tree.prev
+  dirImports
   // {
+    user = tree.prev.user;
     common = {
       imports = with tree.prev; [
         base16
@@ -27,6 +28,7 @@ in
       imports = with dirImports; [
         gui
         wezterm
+        vscodium
         gpg
       ];
     };

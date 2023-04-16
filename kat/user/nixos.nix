@@ -9,6 +9,7 @@
       "wheel"
       "video"
       "systemd-journal"
+      "networkmanager"
       "plugdev"
       "input"
       "uinput"

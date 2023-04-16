@@ -71,7 +71,7 @@
         .${string.toLower config.type};
       modules = with tree; [
         tree.modules.${config.folder}
-        tree.modules.common
+        #tree.modules.common
         tree.${config.folder}.common
         tree.kat.user.${config.folder}
         common
