@@ -20,16 +20,16 @@
     "ci": {
       "flake": false,
       "locked": {
-        "lastModified": 1668974694,
-        "narHash": "sha256-usfZB+CIVltVzkGUNXIdp0L+Nuaa6+gjLxbHT+1THiA=",
+        "lastModified": 1681855023,
+        "narHash": "sha256-nvt7kRr/4SizyhOxGH4kJ4y7ZNiSwPLS7/kz52JbmnY=",
         "owner": "arcnmx",
         "repo": "ci",
-        "rev": "56a0b866c1c2fedc25eac788fcead8cd229cb2b2",
+        "rev": "0aabdf572866e3db2d1b5124ef8d70993810bd29",
         "type": "github"
       },
       "original": {
         "owner": "arcnmx",
-        "ref": "nix2.4-broken",
+        "ref": "v0.6",
         "repo": "ci",
         "type": "github"
       }

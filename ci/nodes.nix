@@ -4,7 +4,7 @@
   nixpkgs.args.localSystem = "x86_64-linux";
 
   ci = {
-    version = "nix2.4-broken";
+    version = "v0.6";
     gh-actions = {
       enable = true;
       export = true;
