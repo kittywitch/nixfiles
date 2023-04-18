@@ -7,7 +7,7 @@
       flake = false;
     };
     ci = {
-      url = "github:arcnmx/ci/nix2.4";
+      url = "github:arcnmx/ci/nix2.4-broken";
       flake = false;
     };
     home-manager = {

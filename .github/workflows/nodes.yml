@@ -9,21 +9,21 @@ jobs:
     steps:
     - id: checkout
       name: git clone
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
       with:
         submodules: false
     - id: nix-install
       name: nix install
-      uses: arcnmx/ci/actions/nix/install@nix2.4
+      uses: arcnmx/ci/actions/nix/install@nix2.4-broken
     - id: ci-action-build
       name: nix build ci.gh-actions.configFile
-      uses: arcnmx/ci/actions/nix/build@nix2.4
+      uses: arcnmx/ci/actions/nix/build@nix2.4-broken
       with:
         attrs: ci.gh-actions.configFile
         out-link: .ci/workflow.yml
     - id: ci-action-compare
       name: gh-actions compare
-      uses: arcnmx/ci/actions/nix/run@nix2.4
+      uses: arcnmx/ci/actions/nix/run@nix2.4-broken
       with:
         args: -u .github/workflows/nodes.yml .ci/workflow.yml
         attrs: nixpkgs.diffutils
@@ -34,15 +34,15 @@ jobs:
     steps:
     - id: checkout
       name: git clone
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
       with:
         submodules: false
     - id: nix-install
       name: nix install
-      uses: arcnmx/ci/actions/nix/install@nix2.4
+      uses: arcnmx/ci/actions/nix/install@nix2.4-broken
     - id: ci-setup
       name: nix setup
-      uses: arcnmx/ci/actions/nix/run@nix2.4
+      uses: arcnmx/ci/actions/nix/run@nix2.4-broken
       with:
         attrs: ci.job.tewi.run.bootstrap
         quiet: false
@@ -53,7 +53,7 @@ jobs:
         '
     - id: ci-dirty
       name: nix test dirty
-      uses: arcnmx/ci/actions/nix/run@nix2.4
+      uses: arcnmx/ci/actions/nix/run@nix2.4-broken
       with:
         attrs: ci.job.tewi.run.test
         command: ci-build-dirty
@@ -61,7 +61,7 @@ jobs:
         stdout: ${{ runner.temp }}/ci.build.dirty
     - id: ci-test
       name: nix test build
-      uses: arcnmx/ci/actions/nix/run@nix2.4
+      uses: arcnmx/ci/actions/nix/run@nix2.4-broken
       with:
         attrs: ci.job.tewi.run.test
         command: ci-build-realise
@@ -72,7 +72,7 @@ jobs:
         CI_EXIT_CODE: ${{ steps.ci-test.outputs.exit-code }}
       id: ci-summary
       name: nix test results
-      uses: arcnmx/ci/actions/nix/run@nix2.4
+      uses: arcnmx/ci/actions/nix/run@nix2.4-broken
       with:
         attrs: ci.job.tewi.run.test
         command: ci-build-summarise
@@ -84,7 +84,7 @@ jobs:
       id: ci-cache
       if: always()
       name: nix test cache
-      uses: arcnmx/ci/actions/nix/run@nix2.4
+      uses: arcnmx/ci/actions/nix/run@nix2.4-broken
       with:
         attrs: ci.job.tewi.run.test
         command: ci-build-cache

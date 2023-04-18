@@ -1,11 +1,13 @@
 { lib, channels, config, ... }:
-with lib; {
+with lib; let
+  gitBranch = "arc";
+in {
   name = "flake-update";
 
   nixpkgs.args.localSystem = "x86_64-linux";
 
   ci = {
-    version = "nix2.4";
+    version = "nix2.4-broken";
     gh-actions = {
       enable = true;
       export = true;
@@ -13,7 +15,6 @@ with lib; {
   };
 
 
-  gh-actions.env.OPENSSH_PRIVATE_KEY = "\${{ secrets.OPENSSH_PRIVATE_KEY }}";
   gh-actions.env.CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
 
 
@@ -89,21 +90,14 @@ with lib; {
           enable = false;
         };
         displayName = "flake update build";
-        environment = [ "OPENSSH_PRIVATE_KEY" "CACHIX_SIGNING_KEY" "GITHUB_REF" ];
+        environment = [ "CACHIX_SIGNING_KEY" "GITHUB_REF" ];
         command =
           let
-            main = (import ../.);
             filteredHosts = [ "tewi" ];
             nodeBuildString = concatMapStringsSep " && " (node: "nix build -Lf . network.nodes.nixos.${node}.deploy.system -o result-${node} && nix-collect-garbage -d") filteredHosts;
           in
           ''
             # ${toString builtins.currentTime}
-            if [[ -n $OPENSSH_PRIVATE_KEY ]]; then
-              mkdir ~/.ssh
-              echo "$OPENSSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-              chmod 0600 ~/.ssh/id_rsa
-            fi
-
             nix flake update
 
             if git status --porcelain | grep -qF flake.lock; then
@@ -114,15 +108,12 @@ with lib; {
                   cachix push kittywitch result*/ &
                   CACHIX_PUSH=$!
                 fi
-                if [[ -n $OPENSSH_PRIVATE_KEY ]]; then
-                  git add flake.lock
-                  export GIT_{COMMITTER,AUTHOR}_EMAIL=github@kittywit.ch
-                  export GIT_{COMMITTER,AUTHOR}_NAME="flake cron job"
-                  git commit --message="ci: flake update"
-                  if [[ $GITHUB_REF = refs/heads/main ]]; then
-                    GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
-                      git push ssh://gitea@git.kittywit.ch:62954/kat/nixfiles.git HEAD:main
-                  fi
+                git add flake.lock
+                export GIT_{COMMITTER,AUTHOR}_EMAIL=github@kittywit.ch
+                export GIT_{COMMITTER,AUTHOR}_NAME="flake cron job"
+                git commit --message="ci: flake update"
+                if [[ $GITHUB_REF = refs/heads/${gitBranch} ]]; then
+                  git push origin HEAD:${gitBranch}
                 fi
 
                 wait ''${CACHIX_PUSH-}
@@ -135,7 +126,10 @@ with lib; {
       };
   };
 
-  ci.gh-actions.checkoutOptions.submodules = false;
+  ci.gh-actions.checkoutOptions = {
+    submodules = false;
+    fetch-depth = 0;
+  };
 
   cache.cachix = {
     arc = {
