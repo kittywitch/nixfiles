@@ -7,16 +7,14 @@ let
   inherit (lib.options) optional;
   inherit (lib.attrsets) attrValues;
   nf-actions = pkgs.writeShellScriptBin "nf-actions" ''
-    cd "${toString ./.}"
-    NF_CONFIG_FILES=($NF_CONFIG_ROOT/{nodes,flake-cron}.nix)
+    NF_CONFIG_FILES=($NF_CONFIG_ROOT/ci/{nodes,flake-cron}.nix)
     for f in "''${NF_CONFIG_FILES[@]}"; do
       echo $f
       nix run --argstr config "$f" -f '${inputs.ci}' run.gh-actions-generate
     done
   '';
   nf-actions-test = pkgs.writeShellScriptBin "nf-actions-test" ''
-    cd "${toString ./.}"
-    nix run --argstr config "$NF_CONFIG_ROOT/nodes.nix" -f '${inputs.ci}' job.tewi.test
+    nix run --argstr config "$NF_CONFIG_ROOT/ci/nodes.nix" -f '${inputs.ci}' job.tewi.test
   '';
   nf-update = pkgs.writeShellScriptBin "nf-update" ''
     nix flake update
