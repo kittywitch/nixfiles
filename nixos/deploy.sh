@@ -19,7 +19,11 @@ NF_HOST=${NF_HOST-tewi}
 NIXOS_TOPLEVEL=network.nodes.nixos.$NF_HOST.system.build.toplevel
 
 if [[ $1 = build ]]; then
-	exec nix build --no-link --print-out-paths $NF_CONFIG_ROOT\#$NIXOS_TOPLEVEL "${TRUSTED_ARGS[@]}"
+	shift
+	exec nix build --no-link --print-out-paths \
+		$NF_CONFIG_ROOT\#$NIXOS_TOPLEVEL \
+		"${TRUSTED_ARGS[@]}" \
+		"$@"
 elif [[ $1 = switch ]] || [[ $1 = test ]] || [[ $1 = dry-* ]]; then
 	METHOD=$1
 	shift
