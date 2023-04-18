@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ meta, config, pkgs, lib, ... }:
 
 /*
   This module:
@@ -9,6 +9,9 @@ with lib;
 
 let cfg = config.nixfiles.theme; in
 {
+  imports = with meta; [
+    modules.home.swaylock
+  ];
   options.nixfiles.theme = {
     enable = mkEnableOption "kat's theme module";
     sass = {
@@ -66,7 +69,7 @@ let cfg = config.nixfiles.theme; in
     programs.swaylock = mkIf (cfg.swaylock) {
       enable = true;
       package = pkgs.swaylock-effects-develop;
-      args = {
+      settings = {
         screenshots = true;
         daemonize = true;
         show-failed-attempts = true;
