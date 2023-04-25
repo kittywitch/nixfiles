@@ -61,7 +61,7 @@ in {
       gapsMode = "Gaps: (o) outer, (i) inner";
       gapsOuterMode = "Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)";
       gapsInnerMode = "Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)";
-      lockCommand = config.programs.swaylock.script;
+      lockCommand = "${pkgs.swaylock}/bin/swaylock";
     in {
       bars = [];
 
@@ -72,44 +72,54 @@ in {
           "${cfg.modifier}+z" = "mode default";
         };
       in {
-        ${gapsOuterMode} = defaultPath // {
-          "equal" = "gaps outer current plus 5";
-          "minus" = "gaps outer current minus 5";
-          "0" = "gaps outer current set 0";
-          "plus" = "gaps outer all plus 5";
-          "Shift+minus" = "gaps outer all minus 5";
-          "Shift+0" = "gaps outer all set 0";
-        };
-        ${gapsInnerMode} = defaultPath // {
-          "equal" = "gaps inner current plus 5";
-          "minus" = "gaps inner current minus 5";
-          "0" = "gaps inner current set 0";
-          "plus" = "gaps inner all plus 5";
-          "Shift+minus" = "gaps inner all minus 5";
-          "Shift+0" = "gaps inner all set 0";
-        };
-        ${gapsMode} = defaultPath // {
-          "o" = "mode ${gapsOuterMode}";
-          "i" = "mode ${gapsInnerMode}";
-        };
-        ${actionMode} = defaultPath // {
-          "l" = "exec ${lockCommand}, mode default";
-          "e" = "exec swaymsg exit, mode default";
-          "s" = "exec systemctl suspend, mode default";
-          "h" = "exec systemctl hibernate, mode default";
-          "r" = "exec systemctl reboot, mode default";
-          "Shift+s" = "exec systemctl shutdown, mode default";
-        };
-        resize = defaultPath // {
-          "a" = "resize shrink width 4 px or 4 ppt";
-          "s" = "resize shrink height 4 px or 4 ppt";
-          "w" = "resize grow height 4 px or 4 ppt";
-          "d" = "resize grow width 4 px or 4 ppt";
-          "Left" = "resize shrink width 4 px or 4 ppt";
-          "Down" = "resize shrink height 4 px or 4 ppt";
-          "Up" = "resize grow height 4 px or 4 ppt";
-          "Right" = "resize grow width 4 px or 4 ppt";
-        };
+        ${gapsOuterMode} =
+          defaultPath
+          // {
+            "equal" = "gaps outer current plus 5";
+            "minus" = "gaps outer current minus 5";
+            "0" = "gaps outer current set 0";
+            "plus" = "gaps outer all plus 5";
+            "Shift+minus" = "gaps outer all minus 5";
+            "Shift+0" = "gaps outer all set 0";
+          };
+        ${gapsInnerMode} =
+          defaultPath
+          // {
+            "equal" = "gaps inner current plus 5";
+            "minus" = "gaps inner current minus 5";
+            "0" = "gaps inner current set 0";
+            "plus" = "gaps inner all plus 5";
+            "Shift+minus" = "gaps inner all minus 5";
+            "Shift+0" = "gaps inner all set 0";
+          };
+        ${gapsMode} =
+          defaultPath
+          // {
+            "o" = "mode ${gapsOuterMode}";
+            "i" = "mode ${gapsInnerMode}";
+          };
+        ${actionMode} =
+          defaultPath
+          // {
+            "l" = "exec ${lockCommand}, mode default";
+            "e" = "exec swaymsg exit, mode default";
+            "s" = "exec systemctl suspend, mode default";
+            "h" = "exec systemctl hibernate, mode default";
+            "r" = "exec systemctl reboot, mode default";
+            "Shift+s" = "exec systemctl shutdown, mode default";
+          };
+        resize =
+          defaultPath
+          // {
+            "a" = "resize shrink width 4 px or 4 ppt";
+            "s" = "resize shrink height 4 px or 4 ppt";
+            "w" = "resize grow height 4 px or 4 ppt";
+            "d" = "resize grow width 4 px or 4 ppt";
+            "Left" = "resize shrink width 4 px or 4 ppt";
+            "Down" = "resize shrink height 4 px or 4 ppt";
+            "Up" = "resize grow height 4 px or 4 ppt";
+            "Right" = "resize grow width 4 px or 4 ppt";
+          };
       };
 
       input = {
@@ -124,7 +134,7 @@ in {
       };
 
       fonts = {
-        names = [ "Iosevka"];
+        names = ["Iosevka"];
         style = "Regular";
         size = 10.0;
       };
@@ -158,126 +168,134 @@ in {
           "${cfg.modifier}+${key}" = "workspace number ${workspace}";
           "${cfg.modifier}+shift+${key}" = "move container to workspace number ${workspace}";
         };
-        workspaceBindings = map (v: bindWorkspace v "${v}") (list.map builtins.toString (list.range 1 9)) ++ [(
-          bindWorkspace "0" "10")
-        ] ++ lib.imap1 (i: v: bindWorkspace v "${toString (10 + i)}") (list.map (n: "F${builtins.toString n}") (std.list.range 1 12));
-      in mkMerge ([ {
-        # modes
-        "${cfg.modifier}+Shift+g" = ''mode "${gapsMode}"'';
-        "${cfg.modifier}+Delete" = ''mode "${actionMode}"'';
+        workspaceBindings =
+          map (v: bindWorkspace v "${v}") (list.map builtins.toString (list.range 1 9))
+          ++ [
+            (
+              bindWorkspace "0" "10"
+            )
+          ]
+          ++ lib.imap1 (i: v: bindWorkspace v "${toString (10 + i)}") (list.map (n: "F${builtins.toString n}") (std.list.range 1 12));
+      in
+        mkMerge ([
+            {
+              # modes
+              "${cfg.modifier}+Shift+g" = ''mode "${gapsMode}"'';
+              "${cfg.modifier}+Delete" = ''mode "${actionMode}"'';
 
-        # focus windows - ESDF
-        "${cfg.modifier}+s" = "focus left";
-        "${cfg.modifier}+d" = "focus down";
-        "${cfg.modifier}+e" = "focus up";
-        "${cfg.modifier}+f" = "focus right";
+              # focus windows - ESDF
+              "${cfg.modifier}+s" = "focus left";
+              "${cfg.modifier}+d" = "focus down";
+              "${cfg.modifier}+e" = "focus up";
+              "${cfg.modifier}+f" = "focus right";
 
-        # focus windows - arrows
-        "${cfg.modifier}+Left" = "focus left";
-        "${cfg.modifier}+Down" = "focus down";
-        "${cfg.modifier}+Up" = "focus up";
-        "${cfg.modifier}+Right" = "focus right";
+              # focus windows - arrows
+              "${cfg.modifier}+Left" = "focus left";
+              "${cfg.modifier}+Down" = "focus down";
+              "${cfg.modifier}+Up" = "focus up";
+              "${cfg.modifier}+Right" = "focus right";
 
-        # move window / container - ESDF
-        "${cfg.modifier}+Shift+s" = "move left";
-        "${cfg.modifier}+Shift+d" = "move down";
-        "${cfg.modifier}+Shift+e" = "move up";
-        "${cfg.modifier}+Shift+f" = "move right";
+              # move window / container - ESDF
+              "${cfg.modifier}+Shift+s" = "move left";
+              "${cfg.modifier}+Shift+d" = "move down";
+              "${cfg.modifier}+Shift+e" = "move up";
+              "${cfg.modifier}+Shift+f" = "move right";
 
-        # move window / container - arrows
-        "${cfg.modifier}+Shift+Left" = "move left";
-        "${cfg.modifier}+Shift+Down" = "move down";
-        "${cfg.modifier}+Shift+Up" = "move up";
-        "${cfg.modifier}+Shift+Right" = "move right";
+              # move window / container - arrows
+              "${cfg.modifier}+Shift+Left" = "move left";
+              "${cfg.modifier}+Shift+Down" = "move down";
+              "${cfg.modifier}+Shift+Up" = "move up";
+              "${cfg.modifier}+Shift+Right" = "move right";
 
-        # focus output - ESDF
-        "${cfg.modifier}+control+s" = "focus output left";
-        "${cfg.modifier}+control+d" = "focus output down";
-        "${cfg.modifier}+control+e" = "focus output up";
-        "${cfg.modifier}+control+f" = "focus output right";
+              # focus output - ESDF
+              "${cfg.modifier}+control+s" = "focus output left";
+              "${cfg.modifier}+control+d" = "focus output down";
+              "${cfg.modifier}+control+e" = "focus output up";
+              "${cfg.modifier}+control+f" = "focus output right";
 
-        # focus output - arrows
-        "${cfg.modifier}+control+Left" = "focus output left";
-        "${cfg.modifier}+control+Down" = "focus output down";
-        "${cfg.modifier}+control+Up" = "focus output up";
-        "${cfg.modifier}+control+Right" = "focus output right";
+              # focus output - arrows
+              "${cfg.modifier}+control+Left" = "focus output left";
+              "${cfg.modifier}+control+Down" = "focus output down";
+              "${cfg.modifier}+control+Up" = "focus output up";
+              "${cfg.modifier}+control+Right" = "focus output right";
 
-        # move container to output - ESDF
-        "${cfg.modifier}+control+Shift+s" = "move container to output left";
-        "${cfg.modifier}+control+Shift+d" = "move container to output down";
-        "${cfg.modifier}+control+Shift+e" = "move container to output up";
-        "${cfg.modifier}+control+Shift+f" = "move container to output right";
+              # move container to output - ESDF
+              "${cfg.modifier}+control+Shift+s" = "move container to output left";
+              "${cfg.modifier}+control+Shift+d" = "move container to output down";
+              "${cfg.modifier}+control+Shift+e" = "move container to output up";
+              "${cfg.modifier}+control+Shift+f" = "move container to output right";
 
-        # move container to output - arrows
-        "${cfg.modifier}+control+Shift+Left" = "move container to output left";
-        "${cfg.modifier}+control+Shift+Down" = "move container to output down";
-        "${cfg.modifier}+control+Shift+Up" = "move container to output up";
-        "${cfg.modifier}+control+Shift+Right" = "move container to output right";
+              # move container to output - arrows
+              "${cfg.modifier}+control+Shift+Left" = "move container to output left";
+              "${cfg.modifier}+control+Shift+Down" = "move container to output down";
+              "${cfg.modifier}+control+Shift+Up" = "move container to output up";
+              "${cfg.modifier}+control+Shift+Right" = "move container to output right";
 
-        # move workspace to output - ESDF
-        "${cfg.modifier}+control+Shift+Mod1+s" = "move workspace to output left";
-        "${cfg.modifier}+control+Shift+Mod1+d" = "move workspace to output down";
-        "${cfg.modifier}+control+Shift+Mod1+e" = "move workspace to output up";
-        "${cfg.modifier}+control+Shift+Mod1+f" = "move workspace to output right";
+              # move workspace to output - ESDF
+              "${cfg.modifier}+control+Shift+Mod1+s" = "move workspace to output left";
+              "${cfg.modifier}+control+Shift+Mod1+d" = "move workspace to output down";
+              "${cfg.modifier}+control+Shift+Mod1+e" = "move workspace to output up";
+              "${cfg.modifier}+control+Shift+Mod1+f" = "move workspace to output right";
 
-        # move workspace to output - arrows
-        "${cfg.modifier}+control+Shift+Mod1+Left" = "move workspace to output left";
-        "${cfg.modifier}+control+Shift+Mod1+Down" = "move workspace to output down";
-        "${cfg.modifier}+control+Shift+Mod1+Up" = "move workspace to output up";
-        "${cfg.modifier}+control+Shift+Mod1+Right" = "move workspace to output right";
+              # move workspace to output - arrows
+              "${cfg.modifier}+control+Shift+Mod1+Left" = "move workspace to output left";
+              "${cfg.modifier}+control+Shift+Mod1+Down" = "move workspace to output down";
+              "${cfg.modifier}+control+Shift+Mod1+Up" = "move workspace to output up";
+              "${cfg.modifier}+control+Shift+Mod1+Right" = "move workspace to output right";
 
-        # process management - q
-        "${cfg.modifier}+q" = "exec ${cfg.menu}";
-        "${cfg.modifier}+Shift+q" = "kill";
-        "${cfg.modifier}+control+q" = "exec ${cfg.terminal}";
+              # process management - q
+              "${cfg.modifier}+q" = "exec ${cfg.menu}";
+              "${cfg.modifier}+Shift+q" = "kill";
+              "${cfg.modifier}+control+q" = "exec ${cfg.terminal}";
 
-        # focus parent/child - w
-        "${cfg.modifier}+w" = "focus parent";
-        "${cfg.modifier}+Shift+w" = "focus child";
-        # unused control
+              # focus parent/child - w
+              "${cfg.modifier}+w" = "focus parent";
+              "${cfg.modifier}+Shift+w" = "focus child";
+              # unused control
 
-        # split management - a
-        "${cfg.modifier}+a" = "splith";
-        "${cfg.modifier}+Shift+a" = "splitv";
-        "${cfg.modifier}+control+A" = "layout toggle split";
+              # split management - a
+              "${cfg.modifier}+a" = "splith";
+              "${cfg.modifier}+Shift+a" = "splitv";
+              "${cfg.modifier}+control+A" = "layout toggle split";
 
-        # resizing, reloading - r
-        # unused base
-        "${cfg.modifier}+Shift+r" = "mode resize";
-        "${cfg.modifier}+control+r" = "reload";
+              # resizing, reloading - r
+              # unused base
+              "${cfg.modifier}+Shift+r" = "mode resize";
+              "${cfg.modifier}+control+r" = "reload";
 
-        # layout handling - t
-        "${cfg.modifier}+t" = "layout tabbed";
-        "${cfg.modifier}+Shift+t" = "layout stacking";
-        "${cfg.modifier}+control+t" = "fullscreen toggle";
+              # layout handling - t
+              "${cfg.modifier}+t" = "layout tabbed";
+              "${cfg.modifier}+Shift+t" = "layout stacking";
+              "${cfg.modifier}+control+t" = "fullscreen toggle";
 
-        # locking - l
-        "${cfg.modifier}+l" = "exec ${lockCommand}";
-        # unused shift
-        # unused control
-        "control+${alt}+Delete" = "exec ${lockCommand}";
+              # locking - l
+              "${cfg.modifier}+l" = "exec ${lockCommand}";
+              # unused shift
+              # unused control
+              "control+${alt}+Delete" = "exec ${lockCommand}";
 
-        # floating - p
-        "${cfg.modifier}+p" = "focus mode_toggle";
-        "${cfg.modifier}+Shift+p" = "floating toggle";
-        # unused control
+              # floating - p
+              "${cfg.modifier}+p" = "focus mode_toggle";
+              "${cfg.modifier}+Shift+p" = "floating toggle";
+              # unused control
 
-        # workspace history switching - tab
-        "${cfg.modifier}+Tab" = "workspace back_and_forth";
-        "${cfg.modifier}+Shift+Tab" = "exec ${config.services.i3gopher.focus-last}";
-        # unused control
+              # workspace history switching - tab
+              "${cfg.modifier}+Tab" = "workspace back_and_forth";
+              "${cfg.modifier}+Shift+Tab" = "exec ${config.services.i3gopher.focus-last}";
+              # unused control
 
-        # multimedia / laptop
-        "XF86AudioPlay" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl play-pause";
-        "XF86AudioLowerVolume" = "exec --no-startup-id ${pactl} set-sink-volume @DEFAULT_SINK@ -5%";
-        "XF86AudioRaiseVolume" = "exec --no-startup-id ${pactl} set-sink-volume @DEFAULT_SINK@ +5%";
-        "XF86AudioMute" = "exec --no-startup-id ${pactl} set-sink-mute @DEFAULT_SINK@ toggle";
-        "XF86AudioMute+Shift" = "exec --no-startup-id ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle";
-        "XF86AudioMicMute" = "exec --no-startup-id ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle";
-        "XF86MonBrightnessDown" = "exec ${pkgs.light}/bin/light -U 5";
-        "XF86MonBrightnessUp" = "exec ${pkgs.light}/bin/light -A 5";
-      }
-    ] ++ workspaceBindings);
+              # multimedia / laptop
+              "XF86AudioPlay" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl play-pause";
+              "XF86AudioLowerVolume" = "exec --no-startup-id ${pactl} set-sink-volume @DEFAULT_SINK@ -5%";
+              "XF86AudioRaiseVolume" = "exec --no-startup-id ${pactl} set-sink-volume @DEFAULT_SINK@ +5%";
+              "XF86AudioMute" = "exec --no-startup-id ${pactl} set-sink-mute @DEFAULT_SINK@ toggle";
+              "XF86AudioMute+Shift" = "exec --no-startup-id ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle";
+              "XF86AudioMicMute" = "exec --no-startup-id ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle";
+              "XF86MonBrightnessDown" = "exec ${pkgs.light}/bin/light -U 5";
+              "XF86MonBrightnessUp" = "exec ${pkgs.light}/bin/light -A 5";
+            }
+          ]
+          ++ workspaceBindings);
 
       colors = let
         inherit (config.base16) palette;

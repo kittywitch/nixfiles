@@ -30,7 +30,7 @@
       "terraform.experimentalFeatures.validateOnSave" = true;
       "terraform.codelens.referenceCount" = true;
       "go.alternateTools" = {
-        gopls = "/nix/store/ma4bapwwd54v6sl93w9c80fhw1ynvric-gopls-0.11.0/bin/gopls";
+        gopls = "${pkgs.gopls}/bin/gopls";
       };
       "vim.useSystemClipboard" = true;
       go = {

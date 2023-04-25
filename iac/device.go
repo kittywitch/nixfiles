@@ -78,6 +78,7 @@ func (d *Device) handle(ctx *pulumi.Context, zone *Zone, CAKey *tls.PrivateKey, 
 	if err != nil {
 		return err
 	}
+	/*
 	if d.Hostname != "koishi" && d.Hostname != "tewi" {
 		return err
 	}
@@ -88,7 +89,7 @@ func (d *Device) handle(ctx *pulumi.Context, zone *Zone, CAKey *tls.PrivateKey, 
 	err = d.handleOSH(CAKey)
 	if err != nil {
 		return err
-	}
+	}*/
 	return err
 }
 

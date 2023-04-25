@@ -85,12 +85,24 @@
                 lib = self;
                 isOverlayLib = true;
               });
-          in
-            args:
+            sys = args:
               lib.nixosSystem ({
                   inherit lib;
                 }
                 // args);
+          in
+            args: let
+              nixos = sys args;
+            in
+              nixos.extendModules {
+                modules = [
+                  ({lib, ...}: {
+                    scalpel.trafos = lib.mkForce {};
+                  })
+                  inputs.scalpel.nixosModules.scalpel
+                ];
+                specialArgs = {prev = sys;};
+              };
           darwin = inputs.darwin.lib.darwinSystem;
           macos = inputs.darwin.lib.darwinSystem;
         }
@@ -127,9 +139,9 @@
             user = "root";
             path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.${name};
           };
-          hostname = "${name}.inskip.me";
+          hostname = "5.78.94.220";
           sshOpts = ["-p" "${builtins.toString (builtins.head inputs.self.nixosConfigurations.${name}.config.services.openssh.ports)}"];
-          sshUser = "deploy";
+          sshUser = "root";
           user = "root";
           autoRollback = true;
           magicRollback = true;
@@ -141,20 +153,9 @@
         };
       })
     ];
-    "${host.folder}Configurations".${name} = let
-      hostConfig = host.builder {
-        inherit (host) system modules specialArgs;
-      };
-    in
-      if host.folder == "nixos"
-      then
-        hostConfig.extendModules {
-          modules = [inputs.scalpel.nixosModule];
-          specialArgs = {
-            prev = hostConfig;
-          };
-        }
-      else hostConfig;
+    "${host.folder}Configurations".${name} = host.builder {
+      inherit (host) system modules specialArgs;
+    };
   };
 in
   set.merge (set.mapToValues processHost hostConfigs)

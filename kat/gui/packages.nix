@@ -29,6 +29,7 @@
     zip
     p7zip
     # Misc
+    gimp-with-plugins # GIMP
     exiftool # EXIF Stripping
     lm_sensors # Sensor Data
     cryptsetup # Encrypted block devices

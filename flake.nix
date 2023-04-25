@@ -28,7 +28,6 @@
       url = "github:nix-community/home-manager/master";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        utils.follows = "utils";
       };
     };
     # self-explanatory
@@ -54,7 +53,13 @@
       };
     };
     # flake-utils
-    utils.url = "github:numtide/flake-utils";
+    systems = {
+      url = "path:/home/kat/src/systems";
+    };
+    utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
     # file structure -> attrset
     tree = {
       url = "github:kittywitch/tree";
@@ -64,22 +69,16 @@
     # hardware quirks
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     # secrets
-    ragenix = {
-      url = "github:yaxitech/ragenix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "utils";
-      };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     # secrets templating
     scalpel = {
       url = "github:polygon/scalpel";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        # i get that you have to test shit, but isn't throwing sops-nix and thus three
-        # whole fucking versions of nixpkgs into shit a little excessive?
-        # making people have to stub this out unless they want to deal with importing that is a pain
-        sops-nix.follows = "empty";
+        sops-nix.follows = "sops-nix";
       };
     };
     # dependency database for mach-nix

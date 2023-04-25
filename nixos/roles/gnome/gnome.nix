@@ -33,5 +33,4 @@ in {
     gnome.gnome-tweaks
     gnome-extension-manager
   ];
-  services.gnome3.gnome-keyring.enable = mkForce false;
 }

@@ -47,20 +47,6 @@ zones:
         value: v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAziwoHJbM1rmeUiIXOgg0cujTL5BFW9PQOksUhKza1XpDP2rpzTlQr21NFYMJMc08xiE3AbvScMTX0jX3gc7+XoIYLD1VigRRvkyTubVfRmatqj+Pk41Fle1jWXHv5vNIYjjcsUTrpnrXYKoYrz34TtsmYHnu0G9MgmmcQGmbRU+WY+1R/ukhavlgXasfEW6r4tjLgVxQnser1Zjr80AUcu23od/+o+m6C9rDGMMnv6NIc2DOT7Ei6o60458f2Iwcpg38te22dy46A8AeGynbpB9+jF33Se0m22eKk5qZN5mfju/wxWMsl7ifCY/eqLZXRxJaEd5bMI8px5KvZp1TWwIDAQAB
   gensokyo:
     name: gensokyo.zone
-    records:
-      # TODO: Remove eventually ~
-      - kind: cname
-        name: id
-        value: marisa.kittywit.ch
-      - kind: cname
-        name: home
-        value: marisa.kittywit.ch
-      - kind: cname
-        name: login
-        value: marisa.kittywit.ch
-      - kind: cname
-        name: z2m
-        value: marisa.kittywit.ch
   kittywitch:
     name: kittywit.ch
     records:
@@ -94,3 +80,4 @@ zones:
       - kind: cname
         value: daiyousei.kittywit.ch
 machines:
+  yukari:

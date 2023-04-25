@@ -1,4 +1,8 @@
-{inputs, pkgs, ...}:
+{
+  inputs,
+  pkgs,
+  ...
+}:
 (inputs.tree.tree {
   inherit inputs;
   folder = ./.;
@@ -54,7 +58,7 @@
           [
             nix-index-database.nixosModules.nix-index
             home-manager.nixosModules.home-manager
-            ragenix.nixosModules.age
+            sops-nix.nixosModules.sops
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).nixos; [
             base16
@@ -67,7 +71,6 @@
         enable = true;
         external = with inputs; [
           home-manager.darwinModules.home-manager
-          ragenix.nixosModules.age
         ];
       };
     };
@@ -80,7 +83,6 @@
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).home-manager; [
             base16
-            swaylock
             i3gopher
             konawall
           ]);
