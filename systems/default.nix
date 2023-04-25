@@ -95,13 +95,12 @@
               nixos = sys args;
             in
               nixos.extendModules {
-                modules = [
-                  ({lib, ...}: {
-                    scalpel.trafos = lib.mkForce {};
-                  })
-                  inputs.scalpel.nixosModules.scalpel
-                ];
-                specialArgs = {prev = sys;};
+                modules =
+                  nixos.config.scalpels
+                  ++ [
+                    inputs.scalpel.nixosModules.scalpel
+                  ];
+                specialArgs = {prev = nixos;};
               };
           darwin = inputs.darwin.lib.darwinSystem;
           macos = inputs.darwin.lib.darwinSystem;

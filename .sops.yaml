@@ -1,14 +1,19 @@
 keys:
 - &kat CD8CE78CB0B3BDD4 # https://inskip.me/pubkey.asc
 - &mew 65BD3044771CB6FB
+- &yukari age1n4kdchmkk3rfkaknxhveqr2ftprdpgwckutt23y6u8639lazzuks77tgav
 creation_rules:
-- path_regex: systems/[^/]+/secrets\.yaml$
+- path_regex: roles/[^/]+/secrets\.yaml$
   shamir_threshold: 1
   key_groups:
   - pgp:
     - *kat
-    - *mew
     age:
-    - *tewi_gen
-    - *tewi_osh
-  - path 
+    - *yukari
+- path_regex: systems/.*\.yaml$
+  shamir_threshold: 1
+  key_groups:
+  - pgp:
+    - *kat
+    age:
+    - *yukari

@@ -14,6 +14,7 @@ with pkgs; let
         ripgrep # rg, better grep!
         go # Required for pulumi
         gopls
+        sops
         pulumi-bin # Infrastructure as code
         deadnix # dead-code scanner
         alejandra # code formatter

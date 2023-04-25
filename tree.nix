@@ -37,7 +37,13 @@
     "kat/user/data".evaluate = true;
     # Allow profile importing
     "nixos/*".functor.enable = true;
-    "nixos/roles/*".functor.enable = true;
+    "nixos/roles/*".functor = {
+      enable = true;
+      excludes = [
+        "scalpel"
+      ];
+    };
+    "systems/*".aliasDefault = true;
     "nixos/hardware".evaluateDefault = true;
     "nixos/hardware/*".functor.enable = true;
     "darwin/*".functor.enable = true;
