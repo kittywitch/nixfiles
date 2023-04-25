@@ -1,3 +1,3 @@
 _: {
-  boot.supportedFilesystems = [ "nfs" ];
+  boot.supportedFilesystems = ["nfs"];
 }

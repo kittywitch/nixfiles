@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+_: {
   dconf = {
     enable = true;
     settings = {

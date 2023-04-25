@@ -8,10 +8,10 @@
   inherit (import ./pkgs.nix {inherit inputs tree overlay;}) pkgs;
   formatter = import ./formatter.nix {inherit inputs pkgs;};
   inherit (std) set;
-  #checks = set.map (_: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
+  checks = set.map (_: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
 in
   {
-    inherit inputs tree std pkgs formatter lib; # checks
+    inherit inputs tree std pkgs formatter lib checks;
     legacyPackages = pkgs;
   }
   // systems

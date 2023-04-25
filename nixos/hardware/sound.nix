@@ -1,13 +1,11 @@
-{lib, pkgs, ...}: let
-inherit (lib.modules) mkDefault mkOrder;
-in {
-  environment.systemPackages = with pkgs; [ pulsemixer ];
+{pkgs, ...}: {
+  environment.systemPackages = with pkgs; [pulsemixer];
 
   sound = {
     enable = true;
     extraConfig = ''
       defaults.pcm.rate_converter "speexrate_best"
-      '';
+    '';
   };
   hardware.pulseaudio.enable = false;
 
@@ -22,26 +20,26 @@ in {
   };
 
   home-manager.sharedModules = [
-  {
-    programs.waybar.settings.main = {
-      modules-right = [
-        "pulseaudio"
-      ];
-      pulseaudio = {
-        format = "{icon} {volume}%";
-        format-muted = "";
-        on-click = "${pkgs.wezterm}/bin/wezterm start ${pkgs.pulsemixer}/bin/pulsemixer";
-        format-icons = {
-          headphone = "";
-          headset = "";
-          default = [
-            ""
+    {
+      programs.waybar.settings.main = {
+        modules-right = [
+          "pulseaudio"
+        ];
+        pulseaudio = {
+          format = "{icon} {volume}%";
+          format-muted = "";
+          on-click = "${pkgs.wezterm}/bin/wezterm start ${pkgs.pulsemixer}/bin/pulsemixer";
+          format-icons = {
+            headphone = "";
+            headset = "";
+            default = [
+              ""
               ""
               ""
-          ];
+            ];
+          };
         };
       };
-    };
-  }
+    }
   ];
 }

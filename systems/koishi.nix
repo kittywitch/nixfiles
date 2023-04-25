@@ -1,17 +1,24 @@
 _: let
-  hostConfig = {config, tree, pkgs, ...}: {
-    imports = with tree.nixos.hardware; [
-      lenovo-thinkpad-x260
-      common-pc-laptop-ssd
-    ] ++ (with tree.nixos.roles; [
-      graphical
-      sway
-      laptop
-      bootable
-    ]) ++ (with tree; [
-      kat.gui
-      kat.sway
-    ]);
+  hostConfig = {
+    config,
+    tree,
+    ...
+  }: {
+    imports = with tree.nixos.hardware;
+      [
+        lenovo-thinkpad-x260
+        common-pc-laptop-ssd
+      ]
+      ++ (with tree.nixos.roles; [
+        graphical
+        sway
+        laptop
+        bootable
+      ])
+      ++ (with tree; [
+        kat.gui
+        kat.sway
+      ]);
 
     fileSystems = {
       "/" = {
@@ -24,7 +31,7 @@ _: let
       };
     };
 
-  services.openssh = {
+    services.openssh = {
       hostKeys = [
         {
           bits = 4096;

@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+_: {
   fonts = {
     enableDefaultFonts = true;
     fontDir.enable = true;

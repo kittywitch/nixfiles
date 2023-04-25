@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
-  environment.systemPackages = with pkgs; [ bluez5-experimental ];
+{pkgs, ...}: {
+  environment.systemPackages = with pkgs; [bluez5-experimental];
 
   environment.etc = {
     "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''

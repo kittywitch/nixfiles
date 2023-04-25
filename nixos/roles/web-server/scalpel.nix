@@ -1,10 +1,4 @@
-{
-  lib,
-  config,
-  pkgs,
-  prev,
-  ...
-}: {
+{config, ...}: {
   scalpel.trafos."credentials_file" = {
     source = "/etc/ssl/credentials_template";
     matchers."CLOUDFLARE_EMAIL".secret = config.sops.secrets.cloudflare_email.path;

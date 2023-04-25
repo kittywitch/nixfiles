@@ -1,8 +1,4 @@
-{
-  inputs,
-  pkgs,
-  ...
-}:
+{inputs, ...}:
 (inputs.tree.tree {
   inherit inputs;
   folder = ./.;

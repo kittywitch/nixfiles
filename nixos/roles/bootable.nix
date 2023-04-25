@@ -1,4 +1,9 @@
-{ config, lib, std, ... }: let
+{
+  config,
+  lib,
+  std,
+  ...
+}: let
   inherit (lib.modules) mkDefault mkIf mkMerge;
   inherit (std) list;
 in {

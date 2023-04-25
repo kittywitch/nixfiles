@@ -16,7 +16,7 @@
 in
   dirImports
   // {
-    user = tree.prev.user;
+    inherit (tree.prev) user;
     common = {
       imports = with tree.prev; [
         base16

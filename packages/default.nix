@@ -1,3 +1,9 @@
-{ inputs, tree, ... }: final: prev: let
-  inherit (inputs.std.lib) set list;
-in set.map (_: package: prev.callPackage package {} ) (removeAttrs tree.packages ["default"])
+{
+  inputs,
+  tree,
+  ...
+}: _: prev: let
+  # formerly final: prev:, but deadnix
+  inherit (inputs.std.lib) set;
+in
+  set.map (_: package: prev.callPackage package {}) (removeAttrs tree.packages ["default"])

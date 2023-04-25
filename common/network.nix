@@ -1,3 +1,3 @@
-{ machine, ... }: {
+{machine, ...}: {
   networking.hostName = machine;
 }

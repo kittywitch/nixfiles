@@ -110,7 +110,7 @@
         {
           inherit machine;
           systemType = config.folder;
-          system = config.system;
+          inherit (config) system;
         }
         // defaultSpecialArgs;
     };

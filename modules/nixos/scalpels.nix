@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{lib, ...}: let
   inherit (lib.types) listOf path;
   inherit (lib.options) mkOption;
 in {

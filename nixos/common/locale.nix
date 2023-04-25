@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   fonts.fonts = [
     pkgs.tamzen
   ];
@@ -12,7 +12,7 @@
     ];
   };
   console = {
-    packages = [ pkgs.tamzen ];
+    packages = [pkgs.tamzen];
     font = "Tamzen7x14";
     earlySetup = true;
     keyMap = "uk";

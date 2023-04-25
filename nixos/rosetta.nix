@@ -1,6 +1,6 @@
 _: {
   boot = {
-    initrd.availableKernelModules = [ "virtiofs"];
+    initrd.availableKernelModules = ["virtiofs"];
     binfmt.registrations."rosetta" = {
       interpreter = "/run/rosetta/rosetta";
       fixBinary = true;
@@ -12,7 +12,7 @@ _: {
   };
 
   nix.settings = {
-    extra-platforms = [ "x86_64-linux" ];
-    extra-sandbox-paths = [ "/run/rosetta" "/run/binfmt" ];
+    extra-platforms = ["x86_64-linux"];
+    extra-sandbox-paths = ["/run/rosetta" "/run/binfmt"];
   };
 }

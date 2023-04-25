@@ -5,7 +5,7 @@
   inputs,
   ...
 }: let
-  inherit (std) set tuple list function;
+  inherit (std) set list;
   inherit (lib.strings) versionAtLeast;
   inputs' = set.filter (n: _: !list.elem n ["pypi-deps-db"]) (set.rename "self" "kat" inputs);
 in {

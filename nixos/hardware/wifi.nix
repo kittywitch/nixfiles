@@ -1,13 +1,22 @@
-{ lib, pkgs, ... }: let
-inherit (lib.modules) mkForce;
+{
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit (lib.modules) mkForce;
 in {
   systemd.services.NetworkManager-wait-online = {
-    serviceConfig.ExecStart = [ "" "${pkgs.networkmanager}/bin/nm-online -q" ];
+    serviceConfig.ExecStart = ["" "${pkgs.networkmanager}/bin/nm-online -q"];
   };
   networking = {
     firewall = {
-      allowedUDPPorts = [ 5353 ]; # MDNS
-      allowedUDPPortRanges = [ { from = 32768; to=60999; } ]; # Ephemeral / Chromecast
+      allowedUDPPorts = [5353]; # MDNS
+      allowedUDPPortRanges = [
+        {
+          from = 32768;
+          to = 60999;
+        }
+      ]; # Ephemeral / Chromecast
     };
     networkmanager = {
       enable = true;

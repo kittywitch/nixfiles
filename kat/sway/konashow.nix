@@ -1,4 +1,8 @@
-{ config, lib, ... }: {
+{
+  config,
+  lib,
+  ...
+}: {
   # TODO: fix lib use
   home.packages = [
     config.services.konawall.konashow
@@ -8,7 +12,7 @@
     enable = true;
     interval = "30m";
     mode = "shuffle";
-    commonTags = [ "width:>=1600" ];
+    commonTags = ["width:>=1600"];
     tagList = map lib.toList [
       [
         "score:>=50"

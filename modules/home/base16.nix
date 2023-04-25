@@ -1,59 +1,74 @@
-{ config, pkgs, lib, ... }: let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   inherit (lib.types) attrsOf str enum;
   inherit (lib.modules) mkIf;
   cfg = config.base16;
-in with lib; {
-  options.base16 = {
-    palette = mkOption {
-      type = attrsOf str;
-    };
-    sass = {
-      variables = mkOption {
+in
+  with lib; {
+    options.base16 = {
+      palette = mkOption {
         type = attrsOf str;
-        default = cfg.palette  // {
-          term_font = "Iosevka";
-          font = "Iosevka";
-          font_size = "12px";
+      };
+      sass = {
+        variables = mkOption {
+          type = attrsOf str;
+          default =
+            cfg.palette
+            // {
+              term_font = "Iosevka";
+              font = "Iosevka";
+              font_size = "12px";
+            };
+        };
+        css_style = mkOption {
+          type = enum ["nested" "compressed" "compact" "expanded"];
+          default = "expanded";
         };
       };
-      css_style = mkOption {
-        type = enum [ "nested" "compressed" "compact" "expanded" ];
-        default = "expanded";
+    };
+    config = mkIf (cfg.schemes != {}) {
+      base16 = {
+        # TODO: convert to std
+        palette =
+          lib.mapAttrs' (k: v:
+            lib.nameValuePair
+            k
+            "#${v.hex}")
+          (lib.filterAttrs (n: _: lib.hasInfix "base" n)
+            cfg.defaultScheme);
       };
-    };
-  };
-  config = mkIf (cfg.schemes != {}) {
-    base16 = {
-    # TODO: convert to std
-    palette = lib.mapAttrs' (k: v:
-      lib.nameValuePair
-        k
-        "#${v.hex}")
-        (lib.filterAttrs (n: _: lib.hasInfix "base" n)
-      cfg.defaultScheme);
-    };
 
-    lib.kittywitch.sassTemplate = { name, src }:
-      let
+      lib.kittywitch.sassTemplate = {
+        name,
+        src,
+      }: let
         variables = pkgs.writeText "base-variables.sass" ''
-          ${(concatStringsSep "\n" (mapAttrsToList(var: con: "\$${var}: ${con}") cfg.sass.variables))}
+          ${(concatStringsSep "\n" (mapAttrsToList (var: con: "\$${var}: ${con}") cfg.sass.variables))}
         '';
-        source = pkgs.callPackage
-          ({ sass, stdenv }: stdenv.mkDerivation {
-            inherit name src variables;
-            nativeBuildInputs = lib.singleton pkgs.sass;
-            phases = [ "buildPhase" ];
-            buildPhase = ''
-              cat $variables $src > src-mut.sass
-              sass src-mut.sass $out --sourcemap=none --trace --style=${cfg.sass.css_style}
-            '';
-          })
-          { };
-      in
-      {
+        source =
+          pkgs.callPackage
+          ({
+            sass,
+            stdenv,
+          }:
+            stdenv.mkDerivation {
+              inherit name src variables;
+              nativeBuildInputs = lib.singleton pkgs.sass;
+              phases = ["buildPhase"];
+              buildPhase = ''
+                cat $variables $src > src-mut.sass
+                sass src-mut.sass $out --sourcemap=none --trace --style=${cfg.sass.css_style}
+              '';
+            })
+          {};
+      in {
         inherit source;
         text = builtins.readFile source;
       };
-    _module.args = { inherit (config.lib) kittywitch; };
-  };
-}
+      _module.args = {inherit (config.lib) kittywitch;};
+    };
+  }

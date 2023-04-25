@@ -1,7 +1,11 @@
 _: let
-  hostConfig = { lib, tree, ... }: let
-      inherit (lib.modules) mkDefault;
-    in {
+  hostConfig = {
+    lib,
+    tree,
+    ...
+  }: let
+    inherit (lib.modules) mkDefault;
+  in {
     imports = with tree; [
       nixos.rosetta
       nixos.roles.bootable
@@ -9,7 +13,7 @@ _: let
 
     boot = {
       loader.systemd-boot.enable = true;
-      initrd.availableKernelModules = ["virtio_pci" "xhci_pci" "usb_storage" "usbhid" ];
+      initrd.availableKernelModules = ["virtio_pci" "xhci_pci" "usb_storage" "usbhid"];
     };
 
     fileSystems = {
@@ -24,8 +28,8 @@ _: let
       };
 
       "/run/rosetta" = {
-      device = "rosetta";
-      fsType = "virtiofs";
+        device = "rosetta";
+        fsType = "virtiofs";
       };
     };
     swapDevices = [

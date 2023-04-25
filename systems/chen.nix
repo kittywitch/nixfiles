@@ -1,5 +1,10 @@
 _: let
-  hostConfig = {lib, tree, modulesPath, inputs, pkgs, ...}: let
+  hostConfig = {
+    lib,
+    tree,
+    inputs,
+    ...
+  }: let
     inherit (lib.modules) mkForce;
   in {
     imports = with tree; [
@@ -46,7 +51,7 @@ _: let
     };
 
     swapDevices = [
-      { device = "/dev/sdb"; }
+      {device = "/dev/sdb";}
     ];
 
     wsl = {

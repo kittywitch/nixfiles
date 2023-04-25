@@ -1,19 +1,31 @@
-{ config, lib, std, ... }: let
+{
+  config,
+  lib,
+  std,
+  ...
+}: let
   inherit (lib.modules) mkDefault;
   inherit (std) list;
 in {
   networking.firewall = {
-    allowedTCPPorts = [ (list.unsafeHead config.services.openssh.ports) ];
-    allowedUDPPortRanges = [ { from = 60000; to = 61000; } ];
+    allowedTCPPorts = [(list.unsafeHead config.services.openssh.ports)];
+    allowedUDPPortRanges = [
+      {
+        from = 60000;
+        to = 61000;
+      }
+    ];
   };
 
   services.openssh = {
     enable = true;
-/*    knownHosts.katca = {
+    /*
+      knownHosts.katca = {
       certAuthority = true;
       publicKey = builtins.readFile ./ca-pubkey.pem;
-    }; */
-    kexAlgorithms = [ "curve25519-sha256@libssh.org" ];
+    };
+    */
+    kexAlgorithms = ["curve25519-sha256@libssh.org"];
     settings = {
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
