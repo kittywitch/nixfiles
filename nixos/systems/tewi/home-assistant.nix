@@ -204,6 +204,7 @@ in {
       "default_config"
       "brother"
       "ipp"
+      "androidtv"
       "cast"
       "plex"
       "met"
