@@ -6,6 +6,4 @@ _: {
     recommendedGzipSettings = true;
     recommendedProxySettings = true;
   };
-
-  networking.firewall.allowedTCPPorts = [80 443];
 }

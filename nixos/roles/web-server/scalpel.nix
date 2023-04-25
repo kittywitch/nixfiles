@@ -1,0 +1,18 @@
+{
+  lib,
+  config,
+  pkgs,
+  prev,
+  ...
+}: {
+  scalpel.trafos."credentials_file" = {
+    source = "/etc/ssl/credentials_template";
+    matchers."CLOUDFLARE_EMAIL".secret = config.sops.secrets.cloudflare_email.path;
+    matchers."CLOUDFLARE_TOKEN".secret = config.sops.secrets.cloudflare_token.path;
+    owner = "acme";
+    group = "acme";
+    mode = "0440";
+  };
+
+  security.acme.defaults.credentialsFile = config.scalpel.trafos."credentials_file".destination;
+}

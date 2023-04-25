@@ -12,6 +12,7 @@ _: let
       ++ (with tree.nixos.roles; [
         server
         web-server
+        postgres-server
         matrix-server
       ]);
 
