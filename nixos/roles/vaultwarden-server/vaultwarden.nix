@@ -5,12 +5,6 @@
   ...
 }:
 with lib; {
-  secrets.variables = mapListToAttrs (field:
-    nameValuePair "vaultwarden-${field}" {
-      path = "secrets/vaultwarden";
-      inherit field;
-    }) ["password" "smtp"];
-
   users.users.vaultwarden.name = "bitwarden_rs";
   users.groups.vaultwarden.name = "bitwarden_rs";
 

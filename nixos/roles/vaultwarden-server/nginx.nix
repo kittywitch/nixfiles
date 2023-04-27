@@ -1,5 +1,8 @@
 _: {
   services.nginx.virtualHosts."vault.kittywit.ch" = {
+    enableACME = true;
+    forceSSL = true;
+    acmeRoot = null;
     locations = {
       "/" = {
         proxyPass = "http://localhost:4000";

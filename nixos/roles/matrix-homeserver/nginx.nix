@@ -16,6 +16,7 @@ in {
       "kittywit.ch" = {
         enableACME = true;
         forceSSL = true;
+        acmeRoot = null;
         locations."= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
         locations."= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
       };

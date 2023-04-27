@@ -5,7 +5,7 @@ _: let
   };
 in {
   sops.secrets.cloudflare_email = secretConfig;
-  sops.secrets.cloudflare_token = secretConfig;
+  sops.secrets.cloudflare_api_key = secretConfig;
 
   scalpels = [
     ./scalpel.nix
