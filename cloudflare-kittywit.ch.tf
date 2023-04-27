@@ -75,7 +75,7 @@ resource "cloudflare_record" "terraform_managed_resource_95d39eb707041e694c6b7f0
   proxied = false
   ttl     = 3600
   type    = "CNAME"
-  value   = "daiyousei.kittywit.ch"
+  value   = "yukari.gensokyo.zone"
   zone_id = "7e44e5503a0bba73d2025d0a9679205e"
 }
 

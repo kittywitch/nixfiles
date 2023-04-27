@@ -13,7 +13,8 @@ _: let
         server
         web-server
         postgres-server
-        matrix-server
+        matrix-homeserver
+        vaultwarden-server
       ]);
 
     boot = {
