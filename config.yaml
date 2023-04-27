@@ -79,5 +79,3 @@ zones:
         value: daiyousei.kittywit.ch
       - kind: cname
         value: daiyousei.kittywit.ch
-machines:
-  yukari:

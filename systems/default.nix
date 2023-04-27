@@ -138,7 +138,7 @@
             user = "root";
             path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.${name};
           };
-          hostname = "5.78.94.220";
+          hostname = "${name}.inskip.me";
           sshOpts = ["-p" "${builtins.toString (builtins.head inputs.self.nixosConfigurations.${name}.config.services.openssh.ports)}"];
           sshUser = "root";
           user = "root";

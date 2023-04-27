@@ -1,4 +1,0 @@
-name: kittywitch
-description: The Katzian Monorepo
-runtime:
-    name: go

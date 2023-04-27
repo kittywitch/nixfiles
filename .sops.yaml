@@ -3,6 +3,11 @@ keys:
 - &mew 65BD3044771CB6FB
 - &yukari age1n4kdchmkk3rfkaknxhveqr2ftprdpgwckutt23y6u8639lazzuks77tgav
 creation_rules:
+- path_regex: terraform_secrets.yaml$
+  shamir_threshold: 1
+  key_groups:
+  - pgp:
+    - *kat
 - path_regex: roles/[^/]+/secrets\.yaml$
   shamir_threshold: 1
   key_groups:

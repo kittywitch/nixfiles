@@ -13,7 +13,6 @@ in {
       max_upload_size = "512M";
       rc_messages_per_second = mkDefault 0.1;
       rc_message_burst_count = mkDefault 25;
-      rc_invites.per_user.per_second = 0.5;
       public_baseurl = "https://${fqdn}";
       url_preview_enabled = mkDefault true;
       enable_registration = mkDefault false;

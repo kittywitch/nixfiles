@@ -52,13 +52,8 @@
         flake-compat.follows = "flake-compat";
       };
     };
-    # flake-utils
-    systems = {
-      url = "path:/home/kat/src/systems";
-    };
     utils = {
       url = "github:numtide/flake-utils";
-      inputs.systems.follows = "systems";
     };
     # file structure -> attrset
     tree = {

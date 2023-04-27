@@ -5,3 +5,6 @@ result
 .DS_Store
 /kittywitch
 data/
+.terraform
+.terraform.lock.hcl
+.idea/
