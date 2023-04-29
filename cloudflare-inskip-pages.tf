@@ -16,7 +16,7 @@ resource "cloudflare_pages_project" "inskip_root" {
   }
   build_config {
     build_command = "hugo"
-    destination_dir = "/public"
+    destination_dir = "public"
     root_dir = "/"
   }
 }
