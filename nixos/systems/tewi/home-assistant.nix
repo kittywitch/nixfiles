@@ -191,6 +191,8 @@ in {
       securetar
       getmac # for upnp integration
       python-otbr-api
+      protobuf3
+      adb-shell
       (aiogithubapi.overrideAttrs (_: { doInstallCheck = false; }))
     ];
     extraComponents = [
@@ -215,6 +217,7 @@ in {
       "homekit"
       "mpd"
       "mqtt"
+      "shopping_list"
       "tile"
       "wake_on_lan"
       "withings"
