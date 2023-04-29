@@ -15,6 +15,12 @@ resource "cloudflare_pages_project" "kittywitch" {
 
     }
   }
+  lifecycle {
+    ignore_changes = [
+      deployment_configs,
+      source
+    ]
+  }
 }
 
 resource "cloudflare_pages_domain" "kittywitch_root" {

@@ -19,6 +19,12 @@ resource "cloudflare_pages_project" "inskip_root" {
     destination_dir = "public"
     root_dir = "/"
   }
+  lifecycle {
+    ignore_changes = [
+      deployment_configs,
+      source
+    ]
+  }
 }
 
 resource "cloudflare_pages_domain" "inskip_root" {
