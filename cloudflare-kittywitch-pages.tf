@@ -22,3 +22,12 @@ resource "cloudflare_pages_domain" "kittywitch_root" {
     project_name = "kittywitch"
     domain = "kittywit.ch"
 }
+
+resource "cloudflare_record" "kittywitch_root_pages" {
+  name    = "kittywit.ch"
+  proxied = false
+  ttl     = 3600
+  type    = "CNAME"
+  value   = "kittywitch.pages.dev"
+  zone_id = "7e44e5503a0bba73d2025d0a9679205e"
+}
