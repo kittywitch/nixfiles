@@ -12,10 +12,7 @@ with pkgs; let
       [
         fd # fd, better fine!
         ripgrep # rg, better grep!
-        go # Required for pulumi
-        gopls
         sops
-        pulumi-bin # Infrastructure as code
         deadnix # dead-code scanner
         alejandra # code formatter
         statix # anti-pattern finder
@@ -26,6 +23,7 @@ with pkgs; let
         ''))
         repo.darwinConfigurations);
     shellHook = ''
+      sops
       echo -e "\e[39m\e[1m$USER@$REPO_HOSTNAME - \e[35m''$(realpath --relative-to=../ ./nixos/)\e[0m"
       echo -e "\e[35mRunning alejandra\e[0m"
       alejandra -cq $(fd -e nix)

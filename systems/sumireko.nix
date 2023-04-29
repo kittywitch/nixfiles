@@ -16,16 +16,6 @@ _: let
     environment.systemPackages = with pkgs; [
       fd # fd, better fine!
       ripgrep # rg, better grep!
-      go # Required for pulumi
-      gotools
-      go-outline
-      gocode
-      gopkgs
-      gocode-gomod
-      godef
-      golint
-      gopls
-      pulumi-bin # Infrastructure as code
       deadnix # dead-code scanner
       alejandra # code formatter
       statix # anti-pattern finder
