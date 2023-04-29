@@ -1,19 +1,25 @@
-{ inputs, system ? builtins.currentSystem, ... }@args:
-
-let
+{
+  inputs,
+  system ? builtins.currentSystem,
+  ...
+} @ args: let
   pkgs = import inputs.nixpkgs {
     inherit system;
-    overlays = [
-      (import ./nur { inherit inputs; })
-      (import ./dns { inherit inputs; })
-      (import ./local)
-      (import ./lib)
-      (final: prev: {
-        jemalloc = if final.hostPlatform != "aarch64-darwin" then prev.jemalloc else null;
-      })
-    ] ++ (map (path: import "${path}/overlay.nix") [
-      inputs.arcexprs
-    ]);
+    overlays =
+      [
+        (import ./nur {inherit inputs;})
+        (import ./local)
+        (import ./lib)
+        (final: prev: {
+          jemalloc =
+            if final.hostPlatform != "aarch64-darwin"
+            then prev.jemalloc
+            else null;
+        })
+      ]
+      ++ (map (path: import "${path}/overlay.nix") [
+        inputs.arcexprs
+      ]);
     config = {
       allowUnfree = true;
       allowBroken = true;
@@ -25,4 +31,4 @@ let
     };
   };
 in
-pkgs
+  pkgs

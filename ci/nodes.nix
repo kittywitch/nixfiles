@@ -1,4 +1,11 @@
-{ lib, config, channels, env, ... }: with lib; {
+{
+  lib,
+  config,
+  channels,
+  env,
+  ...
+}:
+with lib; {
   name = "nodes";
 
   nixpkgs.args.localSystem = "x86_64-linux";
@@ -13,7 +20,7 @@
   channels.nixfiles.path = ../.;
 
   nix.config = {
-    extra-platforms = [ "aarch64-linux" "armv6l-linux" "armv7l-linux" ];
+    extra-platforms = ["aarch64-linux" "armv6l-linux" "armv7l-linux"];
     #extra-sandbox-paths = with channels.cipkgs; map (package: builtins.unsafeDiscardStringContext "${package}?") [bash qemu "/run/binfmt"];
   };
 
@@ -30,17 +37,17 @@
   };
 
   environment.bootstrap = {
-    archbinfmt =
-      let
-        makeQemuWrapper = name: ''
-          mkdir -p /run/binfmt
-          rm -f /run/binfmt/${name}-linux
-          cat > /run/binfmt/${name}-linux << 'EOF'
-          #!${channels.cipkgs.bash}/bin/sh
-          exec -- ${channels.cipkgs.qemu}/bin/qemu-${name} "$@"
-          EOF
-          chmod +x /run/binfmt/${name}-linux
-        ''; in
+    archbinfmt = let
+      makeQemuWrapper = name: ''
+        mkdir -p /run/binfmt
+        rm -f /run/binfmt/${name}-linux
+        cat > /run/binfmt/${name}-linux << 'EOF'
+        #!${channels.cipkgs.bash}/bin/sh
+        exec -- ${channels.cipkgs.qemu}/bin/qemu-${name} "$@"
+        EOF
+        chmod +x /run/binfmt/${name}-linux
+      '';
+    in
       channels.cipkgs.writeShellScriptBin "archbinfmt" ''
         ${makeQemuWrapper "aarch64"}
         ${makeQemuWrapper "arm"}
@@ -51,13 +58,12 @@
       '';
   };
 
-  jobs =
-    let
-      main = (import ../.);
-      enabledHosts = [ "tewi" ];
-    in
+  jobs = let
+    main = import ../.;
+    enabledHosts = ["tewi"];
+  in
     mapAttrs' (k: nameValuePair "${k}") (genAttrs enabledHosts (host: {
-      tasks.${host}.inputs = channels.nixfiles.network.nodes.nixos.${host}.deploy.system;
+      tasks.${host}.inputs = channels.nixfiles.network.nodes.${host}.deploy.system;
     }));
 
   ci.gh-actions.checkoutOptions.submodules = false;

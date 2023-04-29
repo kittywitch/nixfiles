@@ -16,7 +16,7 @@ if [[ -e $NF_CONFIG_ROOT/trusted/trusted/flake.nix ]]; then
 fi
 
 NF_HOST=${NF_HOST-tewi}
-NIXOS_TOPLEVEL=network.nodes.nixos.$NF_HOST.system.build.toplevel
+NIXOS_TOPLEVEL=network.nodes.$NF_HOST.system.build.toplevel
 
 if [[ $1 = build ]]; then
 	shift

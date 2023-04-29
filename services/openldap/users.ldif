@@ -1,5 +1,0 @@
-dn: ou=users,dc=kittywit,dc=ch
-objectClass: top
-objectClass: organizationalUnit
-description: kittywitch
-ou: users

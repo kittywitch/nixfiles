@@ -1,17 +1,18 @@
-{ meta, config, lib, inputs, tf, ... }:
-
-with lib;
-
 {
+  meta,
+  config,
+  lib,
+  inputs,
+  ...
+}:
+with lib; {
   home-manager = {
     extraSpecialArgs = {
-      inherit inputs tf meta;
+      inherit inputs meta;
       nixos = config;
     };
     sharedModules = [
-      inputs.nix-doom-emacs.hmModule
       meta.modules.home
-      meta.modules.type
     ];
     useUserPackages = true;
     useGlobalPkgs = true;
