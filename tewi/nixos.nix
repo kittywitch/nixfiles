@@ -51,8 +51,7 @@ in {
       ./mediatomb.nix
       ./deluge.nix
       ./cloudflared.nix
-    ]
-    ++ lib.optional (meta.trusted ? nixos.systems.tewi.default) meta.trusted.nixos.systems.tewi.default;
+    ];
 
   boot.supportedFilesystems = ["nfs"];
 
@@ -132,6 +131,7 @@ in {
 
   sops.secrets = {
     openscsi-config = {};
+    openscsi-env = lib.mkIf config.services.openiscsi.enableAutoLoginOut { };
     systemd2mqtt-env = {};
   };
 
@@ -187,6 +187,16 @@ in {
       iscsid = rec {
         wantedBy = cryptServices;
         before = wantedBy;
+      };
+      iscsi = let
+        cfg = config.services.openiscsi;
+      in lib.mkIf cfg.enableAutoLoginOut {
+        serviceConfig = {
+          EnvironmentFile = [ config.sops.secrets.openscsi-env.path ];
+          ExecStartPre = [
+            "${cfg.package}/bin/iscsiadm --mode discoverydb --type sendtargets --portal $DISCOVER_PORTAL --discover"
+          ];
+        };
       };
       systemd2mqtt = lib.mkIf config.services.systemd2mqtt.enable rec {
         requires = lib.mkIf config.services.mosquitto.enable ["mosquitto.service"];

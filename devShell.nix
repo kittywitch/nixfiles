@@ -18,9 +18,6 @@ let
   '';
   nf-update = pkgs.writeShellScriptBin "nf-update" ''
     nix flake update
-    if [[ -n $TRUSTED ]]; then
-      nix flake lock ./trusted --update-input trusted
-    fi
   '';
   nf-deploy = pkgs.writeShellScriptBin "nf-deploy" ''
     exec /usr/bin/env bash ${./nixos/deploy.sh} "$@"

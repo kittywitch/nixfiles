@@ -4,7 +4,7 @@
   ...
 }: let
   mkTree = import ./mkTree.nix {inherit lib;};
-  localTree = mkTree {
+  tree = mkTree {
     inherit inputs;
     folder = ./.;
     config = {
@@ -20,17 +20,12 @@
           "flake"
           "meta"
           "inputs"
-          "trusted"
         ];
       };
       "modules/nixos" = {
         functor = {
           external =
-            [
-              (inputs.tf-nix + "/modules/nixos/secrets.nix")
-              (inputs.tf-nix + "/modules/nixos/secrets-users.nix")
-            ]
-            ++ (with (import (inputs.arcexprs + "/modules")).nixos; [
+            (with (import (inputs.arcexprs + "/modules")).nixos; [
               nix
               systemd
               dht22-exporter
@@ -59,7 +54,6 @@
         functor = {
           external = [
             (import (inputs.arcexprs + "/modules")).home-manager
-            (inputs.tf-nix + "/modules/home/secrets.nix")
           ];
         };
       };
@@ -80,23 +74,5 @@
       "home/*".functor.enable = true;
     };
   };
-  trustedTree = lib.optionalAttrs (inputs.trusted ? lib.treeSetup) (mkTree {
-    inherit inputs;
-    inherit (inputs.trusted.lib.treeSetup) folder config;
-  });
-  tree =
-    localTree
-    // {
-      pure =
-        localTree.pure
-        // {
-          trusted = trustedTree.pure or {};
-        };
-      impure =
-        localTree.impure
-        // {
-          trusted = trustedTree.impure or {};
-        };
-    };
 in
   tree

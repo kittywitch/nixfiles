@@ -1,4 +1,0 @@
-[submodule "trusted/trusted"]
-	path = trusted/trusted
-	branch = shim
-	url = gcrypt::ssh://git@github.com/arcnmx/kat-nixfiles-trusted.git

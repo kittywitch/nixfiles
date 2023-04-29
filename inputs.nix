@@ -7,11 +7,4 @@ let
   nixfiles = import flakeCompat {
     src = ./.;
   };
-  trusted = import flakeCompat {
-    src = if builtins.pathExists ./trusted/trusted/flake.nix
-      then ./trusted/trusted
-      else ./trusted;
-  };
-in nixfiles.defaultNix.inputs // (if builtins.getEnv "TRUSTED" != "" then {
-  trusted = trusted.defaultNix;
-} else {})
+in nixfiles.defaultNix.inputs

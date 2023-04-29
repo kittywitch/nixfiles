@@ -4,7 +4,7 @@ keys:
 - &tewi_gen age17haatqc7gpk9t690affyqcvwmhmz0us95en2r7qpqzw29tpq3ffspld0cf
 - &tewi_osh age172nhlv3py990k2rgw64hy27hffmnpv6ssxyu9fepww7zxfgg347qna4gzt
 creation_rules:
-- path_regex: nixos/systems/[^/]+/secrets\.yaml$
+- path_regex: '[^/]+/secrets\.yaml$'
   shamir_threshold: 1
   key_groups:
   - pgp:

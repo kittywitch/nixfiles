@@ -14,9 +14,6 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    trusted = {
-      url = "github:input-output-hk/empty-flake";
-    };
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;

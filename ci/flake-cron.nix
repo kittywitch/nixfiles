@@ -96,7 +96,7 @@ in {
         environment = ["CACHIX_SIGNING_KEY" "GITHUB_REF"];
         command = let
           filteredHosts = ["tewi"];
-          nodeBuildString = concatMapStringsSep " && " (node: "nix build -Lf . network.nodes.${node}.deploy.system -o result-${node} && nix-collect-garbage -d") filteredHosts;
+          nodeBuildString = concatMapStringsSep " && " (node: "nix build -Lf . network.nodes.${node}.system.build.toplevel -o result-${node} && nix-collect-garbage -d") filteredHosts;
         in ''
           # ${toString builtins.currentTime}
           nix flake update
