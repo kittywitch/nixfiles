@@ -25,6 +25,7 @@ _: {
       };
       "org/gnome/desktop/wm/preferences" = {
         workspace-names = ["Main"];
+        resize-with-right-button = true;
       };
     };
   };
