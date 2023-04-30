@@ -1,31 +1,46 @@
-resource "cloudflare_zone" "terraform_managed_resource_ef175eefc568696fb70bb591cbf0f7de" {
+locals {
   account_id = "0467b993b65d8fd4a53fe24ed2fbb2a1"
+  zones = {
+    dork = "dork.dev"
+    gensokyo = "gensokyo.zone"
+    inskip = "inskip.me"
+    kittywitch = "kittywit.ch"
+  }
+  zone_ids = {
+    dork = cloudflare_zone.dork_zone.id
+    gensokyo = cloudflare_zone.gensokyo_zone.id
+    inskip = cloudflare_zone.inskip_zone.id
+    kittywitch = cloudflare_zone.dork_zone.id
+  }
+}
+resource "cloudflare_zone" "dork_zone" {
+  account_id = local.account_id
   paused     = false
   plan       = "free"
   type       = "full"
-  zone       = "dork.dev"
+  zone       = local.zones.dork
 }
 
-resource "cloudflare_zone" "terraform_managed_resource_84e33c7736e439f633867310dbf7d672" {
-  account_id = "0467b993b65d8fd4a53fe24ed2fbb2a1"
+resource "cloudflare_zone" "gensokyo_zone" {
+  account_id = local.account_id
   paused     = false
   plan       = "free"
   type       = "full"
-  zone       = "gensokyo.zone"
+  zone       = local.zones.gensokyo
 }
 
-resource "cloudflare_zone" "terraform_managed_resource_635716e7dd314fd5ec52f9434bd4527d" {
-  account_id = "0467b993b65d8fd4a53fe24ed2fbb2a1"
+resource "cloudflare_zone" "inskip_zone" {
+  account_id = local.account_id
   paused     = false
   plan       = "free"
   type       = "full"
-  zone       = "inskip.me"
+  zone       = local.zones.inskip
 }
 
-resource "cloudflare_zone" "terraform_managed_resource_7e44e5503a0bba73d2025d0a9679205e" {
-  account_id = "0467b993b65d8fd4a53fe24ed2fbb2a1"
+resource "cloudflare_zone" "kittywitch_zone" {
+  account_id = local.account_id
   paused     = false
   plan       = "free"
   type       = "full"
-  zone       = "kittywit.ch"
+  zone       = local.zones.kittywitch
 }

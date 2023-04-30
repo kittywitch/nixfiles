@@ -1,5 +1,5 @@
 resource "cloudflare_pages_project" "kittywitch" {
-  account_id = "0467b993b65d8fd4a53fe24ed2fbb2a1"
+  account_id = local.account_id
   name = "kittywitch"
   production_branch = "main"
 
@@ -24,16 +24,16 @@ resource "cloudflare_pages_project" "kittywitch" {
 }
 
 resource "cloudflare_pages_domain" "kittywitch_root" {
-    account_id = "0467b993b65d8fd4a53fe24ed2fbb2a1"
+    account_id = local.account_id
     project_name = "kittywitch"
-    domain = "kittywit.ch"
+    domain = local.zones.kittywitch
 }
 
 resource "cloudflare_record" "kittywitch_root_pages" {
-  name    = "kittywit.ch"
+  name    = local.zones.kittywitch
   proxied = false
   ttl     = 3600
   type    = "CNAME"
-  value   = "kittywitch.pages.dev"
-  zone_id = "7e44e5503a0bba73d2025d0a9679205e"
+  value   = "${cloudflare_pages_project.kittywitch.name}.pages.dev"
+  zone_id = local.zone_ids.kittywitch
 }

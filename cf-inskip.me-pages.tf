@@ -1,5 +1,5 @@
 resource "cloudflare_pages_project" "inskip_root" {
-  account_id = "0467b993b65d8fd4a53fe24ed2fbb2a1"
+  account_id = local.account_id
   name = "inskip-root"
   production_branch = "main"
 
@@ -28,7 +28,16 @@ resource "cloudflare_pages_project" "inskip_root" {
 }
 
 resource "cloudflare_pages_domain" "inskip_root" {
-    account_id = "0467b993b65d8fd4a53fe24ed2fbb2a1"
+    account_id = local.account_id
     project_name = "inskip-root"
-    domain = "inskip.me"
+    domain = local.zones.inskip
+}
+
+resource "cloudflare_record" "inskip_root_pages" {
+  name    = local.zones.inskip
+  proxied = false
+  ttl     = 3600
+  type    = "CNAME"
+  value   = "${cloudflare_pages_project.inskip_root.name}.pages.dev"
+  zone_id = local.zone_ids.inskip
 }
