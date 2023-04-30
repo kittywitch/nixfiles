@@ -6,6 +6,7 @@ resource "cloudflare_tunnel" "gensokyo_apartment_tunnel" {
   account_id = local.account_id
   name       = "Apartment"
   secret     = var.cloudflare_apartment_tunnel
+  config_src = "local"
 }
 
 resource "cloudflare_record" "gensokyo_root" {
