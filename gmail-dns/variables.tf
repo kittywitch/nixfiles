@@ -1,4 +1,4 @@
-variable "cloudflare_token" {
+variable "cloudflare_api_key" {
 	sensitive = true
 }
 variable "zone_id" {
