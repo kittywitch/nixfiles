@@ -1,4 +1,12 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  tree,
+  ...
+}: {
+  imports = with tree.nixos.roles; [
+    graphical
+  ];
+
   services.xserver.enable = true;
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;

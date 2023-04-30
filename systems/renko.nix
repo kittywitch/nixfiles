@@ -6,9 +6,9 @@ _: let
   }: let
     inherit (lib.modules) mkDefault;
   in {
-    imports = with tree; [
-      nixos.rosetta
-      nixos.roles.bootable
+    imports = with tree.nixos.roles; [
+      rosetta
+      bootable
     ];
 
     boot = {

@@ -22,9 +22,10 @@ in {
         grub.configurationLimit = 8;
         systemd-boot.configurationLimit = 8;
       };
-      tmpOnTmpfs = true;
-      tmpOnTmpfsSize = "80%";
-      kernelPackages = mkIf (list.elem "zfs" config.boot.supportedFilesystems) (mkDefault config.boot.zfs.package.latestCompatibleLinuxPackages);
+      tmp = {
+        tmpfsSize = "80%";
+        useTmpfs = true;
+      };
     }
     (mkIf (list.elem "zfs" config.boot.supportedFilesystems) {
       kernelPackages = mkDefault config.boot.zfs.package.latestCompatibleLinuxPackages;

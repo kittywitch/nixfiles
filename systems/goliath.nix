@@ -12,10 +12,8 @@ _: let
         sound
       ]
       ++ (with tree.nixos.roles; [
-        graphical
-        gaming
         gnome
-        bootable
+        gaming
       ])
       ++ (with tree.kat; [
         gui

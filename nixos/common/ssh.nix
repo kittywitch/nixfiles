@@ -25,8 +25,8 @@ in {
       publicKey = builtins.readFile ./ca-pubkey.pem;
     };
     */
-    kexAlgorithms = ["curve25519-sha256@libssh.org"];
     settings = {
+      KexAlgorithms = ["curve25519-sha256@libssh.org"];
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
       PermitRootLogin = mkDefault "prohibit-password";

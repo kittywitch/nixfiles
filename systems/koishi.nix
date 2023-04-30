@@ -10,10 +10,8 @@ _: let
         common-pc-laptop-ssd
       ]
       ++ (with tree.nixos.roles; [
-        graphical
         sway
         laptop
-        bootable
       ])
       ++ (with tree; [
         kat.gui
