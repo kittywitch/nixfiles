@@ -11,7 +11,7 @@ This repository is my personal infrastructure repository. It contains the Nix an
 | darwin/common  | Imported into all nix-darwin systems                                                              |
 | kat            | Configurations relevant to my use of a computer, including base16 + vscodium                      |
 | kat/common     | Disables manuals                                                                                  |
-| kat/gnome      | GNOME.                                                                                            |
+| kat/gnome      | GNOME. Including dconf configuration.                                                             |
 | kat/gui        | Packages I use on a host that has a WM / DE.                                                      |
 | kat/neovim     | Text editor of choice, though VSCode or a JetBrains IDE normally takes forefront for development. |
 | kat/shell      | My shell configs. I use zsh, fzf, z, starship, exa, rg, fd, sd, ...                               |
