@@ -10,7 +10,7 @@ locals {
     dork = cloudflare_zone.dork_zone.id
     gensokyo = cloudflare_zone.gensokyo_zone.id
     inskip = cloudflare_zone.inskip_zone.id
-    kittywitch = cloudflare_zone.dork_zone.id
+    kittywitch = cloudflare_zone.kittywitch_zone.id
   }
 }
 resource "cloudflare_zone" "dork_zone" {
