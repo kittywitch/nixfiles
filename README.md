@@ -1,4 +1,4 @@
-# kittywitch
+# kittywitch infrastructure
 
 This project uses:
 
