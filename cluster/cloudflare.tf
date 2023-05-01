@@ -2,6 +2,7 @@ variable "cloudflare_api_token" {
     type = string
 }
 
+/*
 resource "kubernetes_secret" "cloudflare_api_token" {
     metadata {
         name = "cloudflare-api-token"
@@ -13,7 +14,6 @@ resource "kubernetes_secret" "cloudflare_api_token" {
     type = "Opaque"
 }
 
-/*
 resource "kubernetes_manifest" "cert_manager_cloudflare_issuer" {
     depends_on = [
         helm_release.traefik
