@@ -1,4 +1,4 @@
-resource "cloudflare_record" "terraform_managed_resource_4078b739fc60f37d90a25448e08b6616" {
+resource "cloudflare_record" "yukari_v4" {
 	name    = "yukari"
 	proxied = false
 	ttl     = 3600
@@ -7,7 +7,7 @@ resource "cloudflare_record" "terraform_managed_resource_4078b739fc60f37d90a2544
 	zone_id = local.zone_ids.gensokyo
 }
 
-resource "cloudflare_record" "terraform_managed_resource_1206b053e895e4f6a9d1b3b4856db871" {
+resource "cloudflare_record" "yukari_v6" {
 	name    = "yukari"
 	proxied = false
 	ttl     = 3600
