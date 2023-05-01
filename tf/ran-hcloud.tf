@@ -82,6 +82,15 @@ resource "hcloud_firewall" "ran" {
     }
     rule {
         direction = "in"
+        protocol = "tcp"
+        port = "6443"
+        source_ips = [
+            "0.0.0.0/0",
+            "::/0"
+        ]
+    }
+    rule {
+        direction = "in"
         protocol = "udp"
         port = "60000-61000"
         source_ips = [
