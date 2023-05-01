@@ -38,23 +38,12 @@ resource "helm_release" "postgresql" {
     cleanup_on_fail = true
     force_update = true
 
-    values = [
-        yamlencode({
-            global = {
-                postgresql = {
-                    storageClass = "local-path"
-                    auth = {
-                        existingSecret = "postgres-auth-secret"
-                    }
-                }
-            }
-            primary = {
-                persistence = {
-                    enabled = true
-                    storageClass = "local-path"
-                }
-            }
-        })
-
-    ]
+    set {
+        name = "global.storageClass"
+        value = "local-path"
+    }
+    set {
+        name = "global.postgresql.auth.existingSecret"
+        value = "postgres-auth-secret"
+    }
 }
