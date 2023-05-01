@@ -6,3 +6,7 @@ provider "helm" {
     cluster_ca_certificate = var.cluster_ca_certificate
   }
 }
+
+variable "helm_timeout" {
+    type = number
+}
