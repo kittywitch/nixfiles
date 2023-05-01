@@ -2,7 +2,17 @@ variable "postgres_password" {
     type = string
 }
 
+resource "kubernetes_namespace" "postgres_namespace" {
+    metadata { 
+        name = "postgresql"
+    }
+}
+
 resource "kubernetes_secret" "postgres_auth_secret" {
+    depends_on = [
+        kubernetes_namespace.postgres_namespace
+    ]
+
     metadata {
         name = "postgres-auth-secret"
         namespace = "postgresql"
@@ -14,10 +24,14 @@ resource "kubernetes_secret" "postgres_auth_secret" {
 }
 
 resource "helm_release" "postgresql" {
+    depends_on = [
+        kubernetes_namespace.postgres_namespace,
+        kubernetes_secret.postgres_auth_secret
+    ]
+
     name = "postgresql"
     repository = "https://charts.bitnami.com/bitnami"
     chart = "postgresql"
-    create_namespace = true
     namespace = "postgresql"
 
     timeout = var.helm_timeout
