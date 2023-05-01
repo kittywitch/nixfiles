@@ -41,10 +41,17 @@ resource "helm_release" "postgresql" {
     values = [
         yamlencode({
             global = {
+                storageClass = "local-path"
                 postgresql = {
                     auth = {
                         existingSecret = "postgres-auth-secret"
                     }
+                }
+            }
+            primary = {
+                persistence = {
+                    enabled = true
+                    storageClass = "local-path"
                 }
             }
         })
