@@ -19,6 +19,9 @@ resource "helm_release" "traefik" {
             }
             ports = {
                 traefik = {
+                    traefik = {
+                        hostPort = 9000
+                    }
                     web = {
                         hostPort = 80
                         expose = true
