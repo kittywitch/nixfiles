@@ -14,15 +14,18 @@ resource "helm_release" "traefik" {
             deployment = {
                 replicas = 1
             }
+            service = {
+                type = "NodePort"
+            }
             ports = {
                 traefik = {
                     web = {
                         hostPort = 80
-                        expose = false
+                        expose = true
                     }
                     websecure = {
                         hostPort = 443
-                        expose = false
+                        expose = true
                     }
                 }
             }
