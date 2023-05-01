@@ -36,7 +36,6 @@ resource "hcloud_server" "yukari" {
     }
 }
 
-
 resource "hcloud_rdns" "yukari-v4" {
     server_id  = hcloud_server.yukari.id
     ip_address = hcloud_server.yukari.ipv4_address

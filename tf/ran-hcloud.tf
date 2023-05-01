@@ -36,7 +36,6 @@ resource "hcloud_server" "ran" {
     }
 }
 
-
 resource "hcloud_rdns" "ran-v4" {
     server_id  = hcloud_server.ran.id
     ip_address = hcloud_server.ran.ipv4_address
