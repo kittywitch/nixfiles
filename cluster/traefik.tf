@@ -1,4 +1,4 @@
-resource "helm_release" "traefik" {
+/*resource "helm_release" "traefik" {
     name = "traefik"
     repository = "https://traefik.github.io/charts"
     chart = "traefik"
@@ -41,4 +41,4 @@ resource "helm_release" "traefik" {
             }
         })
     ]
-}
+}*/
