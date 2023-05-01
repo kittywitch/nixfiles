@@ -6,6 +6,8 @@ resource "helm_release" "traefik" {
     namespace = "traefik"
 
     timeout = var.helm_timeout
+    cleanup_on_fail = true
+    force_update = true
 
     values = [
         yamlencode({
