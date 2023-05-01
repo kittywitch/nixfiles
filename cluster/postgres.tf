@@ -18,7 +18,7 @@ resource "kubernetes_secret" "postgres_auth_secret" {
         namespace = "postgresql"
     }
     data = {
-        postgresPassword = var.postgres_password
+        postgres-password = var.postgres_password
     }
     type = "Opaque"
 }
