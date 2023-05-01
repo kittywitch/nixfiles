@@ -23,6 +23,22 @@ resource "kubernetes_secret" "postgres_auth_secret" {
     type = "Opaque"
 }
 
+resource "kubernetes_persistent_volume_claim" "postgresql" {
+    metadata {
+        name = "prometheus-data"
+        namespace = "postgresql"
+    }
+    spec {
+        access_modes = [ "ReadWriteOnce" ]
+        resources {
+            requests = {
+                storage = "8Gi"
+            }
+        }
+        storage_class_name = "local-path"
+    }
+}
+
 resource "helm_release" "postgresql" {
     depends_on = [
         kubernetes_namespace.postgres_namespace,
@@ -39,8 +55,8 @@ resource "helm_release" "postgresql" {
     force_update = true
 
     set {
-        name = "global.storageClass"
-        value = "local-path"
+        name = "persistence.existingClaim"
+        value = kubernetes_persistent_volume_claim.postgresql.metadata[0].name
     }
     set {
         name = "global.postgresql.existingSecret"
