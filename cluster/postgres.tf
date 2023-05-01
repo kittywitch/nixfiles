@@ -43,7 +43,7 @@ resource "helm_release" "postgresql" {
         value = "local-path"
     }
     set {
-        name = "global.postgresql.auth.existingSecret"
+        name = "global.postgresql.existingSecret"
         value = "postgres-auth-secret"
     }
 }
