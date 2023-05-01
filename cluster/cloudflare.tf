@@ -13,9 +13,9 @@ resource "kubernetes_secret" "cloudflare_api_token" {
     type = "Opaque"
 }
 
-resource "kubernetes_manifest" "cert_manager_cloudflare_issuer" {
+/*resource "kubernetes_manifest" "cert_manager_cloudflare_issuer" {
     depends_on = [
-        helm_release.traefik
+        helm_release.cert-manager
     ]
 
     manifest = {
@@ -48,4 +48,4 @@ resource "kubernetes_manifest" "cert_manager_cloudflare_issuer" {
             }
         }
     }
-}
+}*/
