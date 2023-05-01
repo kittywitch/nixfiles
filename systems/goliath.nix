@@ -29,6 +29,8 @@ _: let
       deploy-rs.deploy-rs # deployment system
       rnix-lsp # vscode nix extensions
       terraform # terraform
+      kubectl
+      k9s
     ];
 
     boot.loader.systemd-boot.enable = true;

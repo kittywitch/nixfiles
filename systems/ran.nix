@@ -8,6 +8,7 @@ _: let
   }: {
     imports = with tree.nixos.roles; [
       server
+      k8s-cluster
       (modulesPath + "/profiles/qemu-guest.nix")
     ];
     fileSystems."/" = {
