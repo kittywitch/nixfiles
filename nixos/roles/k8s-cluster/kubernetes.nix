@@ -11,11 +11,7 @@ in {
   ];
 
   networking = {
-    firewall.allowedTCPPorts = [
-      kubeMasterAPIServerPort
-      443
-      80
-    ];
+    firewall.enable = false;
     extraHosts = "${kubeMasterIP} ${kubeMasterHostname}";
   };
 
