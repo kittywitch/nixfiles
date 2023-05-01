@@ -24,10 +24,14 @@ resource "helm_release" "traefik" {
                     }
                     web = {
                         hostPort = 80
+                        port = 80
+                        exposedPort = 80
                         expose = true
                     }
                     websecure = {
                         hostPort = 443
+                        port = 443
+                        exposedPort = 443
                         expose = true
                     }
                 }

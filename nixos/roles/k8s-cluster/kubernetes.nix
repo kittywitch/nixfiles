@@ -1,4 +1,9 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  inherit (lib.modules) mkForce;
   kubeMasterIP = "100.105.14.66";
   kubeMasterHostname = "ran.gensokyo.zone";
   kubeMasterAPIServerPort = 6443;
@@ -11,7 +16,7 @@ in {
   ];
 
   networking = {
-    firewall.enable = false;
+    firewall.enable = mkForce false;
     extraHosts = "${kubeMasterIP} ${kubeMasterHostname}";
   };
 
@@ -27,6 +32,7 @@ in {
     apiserver = {
       securePort = kubeMasterAPIServerPort;
       advertiseAddress = kubeMasterIP;
+      extraOpts = "--service-node-port-range=1-65535";
     };
   };
 }

@@ -1,7 +1,7 @@
 variable "cloudflare_api_token" {
     type = string
 }
-/*
+
 resource "kubernetes_secret" "cloudflare_api_token" {
     metadata {
         name = "cloudflare-api-token"
@@ -48,4 +48,4 @@ resource "kubernetes_manifest" "cert_manager_cloudflare_issuer" {
             }
         }
     }
-}*/
+}
