@@ -9,6 +9,15 @@ resource "kubernetes_service_account" "local_path_provisioner_service_account" {
     name      = "local-path-provisioner-service-account"
     namespace = "local-path-storage"
   }
+  secret {
+    name = "${kubernetes_secret.local_path_provisioner_service_account_secret.metadata.0.name}"
+  }
+}
+
+resource "kubernetes_secret" "local_path_provisioner_service_account_secret" {
+  metadata {
+    name = "local-path-provisioner"
+  }
 }
 
 resource "kubernetes_cluster_role" "local_path_provisioner_role" {
