@@ -10,7 +10,6 @@ variable "cluster_ca_certificate" {
     type = string
 }
 
-
 provider "kubernetes" {
     host = "https://ran.gensokyo.zone:6443"
     client_certificate = var.client_certificate

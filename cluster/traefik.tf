@@ -1,4 +1,4 @@
-/*resource "helm_release" "traefik" {
+resource "helm_release" "traefik" {
     name = "traefik"
     repository = "https://traefik.github.io/charts"
     chart = "traefik"
@@ -14,6 +14,18 @@
             deployment = {
                 replicas = 1
             }
+            ports = {
+                traefik = {
+                    web = {
+                        hostPort = 80
+                        expose = false
+                    }
+                    websecure = {
+                        hostPort = 443
+                        expose = false
+                    }
+                }
+            }
         })
     ]
-}*/
+}
