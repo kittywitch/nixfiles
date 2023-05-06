@@ -33,6 +33,7 @@ in {
       securePort = kubeMasterAPIServerPort;
       advertiseAddress = kubeMasterIP;
       extraOpts = "--service-node-port-range=1-65535";
+      allowPrivileged = true;
     };
   };
 }
