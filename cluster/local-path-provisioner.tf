@@ -1,5 +1,5 @@
 resource "helm_release" "local_path_provisioner" {
-    name = "local-path-provisioner"
+    name = "local-path-storage"
     repository = "./lpp"
     chart = "local-path-storage"
     create_namespace = true
