@@ -17,7 +17,7 @@ resource "tailscale_tailnet_key" "cluster_reusable" {
 resource "kubernetes_secret" "tailscale_auth" {
     metadata {
         name = "tailscale-auth"
-        namespace = "pihole"
+        namespace = kubernetes_namespace.pihole.metadata[0].name
     }
     data = {
         TS_AUTHKEY = tailscale_tailnet_key.cluster_reusable.key

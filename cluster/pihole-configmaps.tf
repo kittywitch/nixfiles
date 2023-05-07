@@ -1,7 +1,7 @@
 resource "kubernetes_config_map" "pihole_regex_list" {
   metadata {
     name      = "regex.list"
-    namespace = "pihole"
+    namespace = kubernetes_namespace.pihole.metadata[0].name
   }
 
   data = {
@@ -13,7 +13,7 @@ resource "kubernetes_config_map" "pihole_regex_list" {
 resource "kubernetes_config_map" "pihole_adlists_list" {
   metadata {
     name      = "adlists.list"
-    namespace = "pihole"
+    namespace = kubernetes_namespace.pihole.metadata[0].name
   }
 
   data = {
@@ -28,7 +28,7 @@ https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt
 resource "kubernetes_config_map" "pihole_whitelist_list" {
   metadata {
     name      = "whitelist.txt"
-    namespace = "pihole"
+    namespace = kubernetes_namespace.pihole.metadata[0].name
   }
 
   data = {

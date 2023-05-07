@@ -4,7 +4,7 @@ resource "kubernetes_deployment" "pihole" {
     labels = {
       app = "pihole"
     }
-    namespace = "pihole"
+    namespace = kubernetes_namespace.pihole.metadata[0].name
   }
 
   spec {
@@ -60,6 +60,10 @@ resource "kubernetes_deployment" "pihole" {
             }
           }
           env {
+            name = "VIRTUAL_HOST"
+            value = "pihole.inskip.me"
+          }
+          env {
             name  = "DNS1"
             value = "1.1.1.1"
           }
@@ -108,9 +112,11 @@ resource "kubernetes_deployment" "pihole" {
             sub_path = "whitelist.txt"
           }
 
+          /*
+          TODO: figure out probes
           liveness_probe {
             http_get {
-              path = "/admin.index.php"
+              path = "/admin/index.php"
               port = 80
             }
             initial_delay_seconds = 180
@@ -119,16 +125,17 @@ resource "kubernetes_deployment" "pihole" {
 
           readiness_probe {
             http_get {
-              path = "/admin.index.php"
+              path = "/admin/index.php"
               port = 80
             }
             initial_delay_seconds = 60
             period_seconds = 15
           }
         }
+        */
 
         container {
-          image = "tailscale/tailscale:latest"
+          image = "ghcr.io/tailscale/tailscale:latest"
           name  = "tailscale"
 
           security_context {
@@ -138,8 +145,33 @@ resource "kubernetes_deployment" "pihole" {
           }
 
           env {
+            name = "TS_HOSTNAME"
+            value = "pihole"
+          }
+
+          env {
             name = "TS_KUBE_SECRET"
-            value = "tailscale-auth"
+            value = ""
+          }
+
+          env {
+            name = "TS_STATE_DIR"
+            value = "/tailscale"
+          }
+
+          env {
+            name = "TS_USERPSACE"
+            value = "false"
+          }
+
+          env {
+            name  = "TS_AUTHKEY"
+            value_from {
+              secret_key_ref {
+                name = "tailscale-auth"
+                key = "TS_AUTHKEY"
+              }
+            }
           }
           
           resources {
@@ -153,11 +185,10 @@ resource "kubernetes_deployment" "pihole" {
             }
           }
 
-          volume_mount {
+        volume_mount {
             name = "tailscale-state-volume"
             mount_path = "/tailscale"
           }
-
         }
 
         volume {
@@ -184,14 +215,14 @@ resource "kubernetes_deployment" "pihole" {
           config_map {
             name = "whitelist.txt"
           }
-        } 
+        }
 
         volume {
           name = "tailscale-state-volume"
           persistent_volume_claim {
             claim_name = "tailscale-state-volume-claim"
           }
-        }
+        } 
       }
     }
   }

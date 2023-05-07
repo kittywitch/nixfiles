@@ -1,7 +1,7 @@
 resource "kubernetes_persistent_volume_claim" "pihole-volume" {
   metadata {
     name = "pihole-volume-claim"
-    namespace = "pihole"
+    namespace = kubernetes_namespace.pihole.metadata[0].name
   }
   spec {
     storage_class_name = "local-path"
@@ -17,7 +17,7 @@ resource "kubernetes_persistent_volume_claim" "pihole-volume" {
 resource "kubernetes_persistent_volume_claim" "tailscale-state-volume" {
   metadata {
     name = "tailscale-state-volume-claim"
-    namespace = "pihole"
+    namespace = kubernetes_namespace.pihole.metadata[0].name
   }
   spec {
     storage_class_name = "local-path"
