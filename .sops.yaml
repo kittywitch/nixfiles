@@ -22,3 +22,13 @@ creation_rules:
     - *kat
     age:
     - *yukari
+- path_regex: cluster/cluster.tfvars.sops$
+  shamir_threshold: 1
+  key_groups:
+  - pgp:
+    - *kat
+- path_regex: tf/tf.tfvars.sops$
+  shamir_threshold: 1
+  key_groups:
+  - pgp:
+    - *kat

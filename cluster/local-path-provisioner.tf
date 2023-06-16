@@ -1,5 +1,5 @@
 resource "helm_release" "local_path_provisioner" {
-    name = "local-path-provisioner"
+    name = "local-path-storage"
     repository = "${path.module}/lpp/deploy/chart"
     chart = "local-path-provisioner"
     create_namespace = true
@@ -8,4 +8,10 @@ resource "helm_release" "local_path_provisioner" {
     timeout = var.helm_timeout
     cleanup_on_fail = true
     force_update = true
+
+    values = [yamlencode({
+        storageClass = {
+            defaultClass = true
+        }
+    })]
 }

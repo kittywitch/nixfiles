@@ -131,8 +131,8 @@ resource "kubernetes_deployment" "pihole" {
             initial_delay_seconds = 60
             period_seconds = 15
           }
-        }
         */
+        }
 
         container {
           image = "ghcr.io/tailscale/tailscale:latest"

@@ -17,6 +17,8 @@
     exa
     # sed replacement
     sd
+    # sops
+    sops
     # find replacement
     fd
     # ripgrep / grep replacement
