@@ -6,12 +6,32 @@ _: let
   }: {
     imports = with tree; [
       kat.work
-      darwin.distributed
     ];
 
     security.pam.enableSudoTouchIdAuth = true;
 
-    distributed.systems.renko.preference = 5;
+    home-manager.users.root.programs.ssh = {
+      enable = true;
+      extraConfig = ''
+        Host renko
+          HostName 192.168.64.3
+          Port 62954
+          User root
+      '';
+    };
+
+    nix.buildMachines = [
+      {
+        hostName = "renko";
+        system = "x86_64-linux";
+        supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
+      }
+    ];
+
+    nix.distributedBuilds = true;
+    nix.extraOptions = ''
+      builders-use-substitutes = true
+    '';
 
     environment.systemPackages = with pkgs; [
       fd # fd, better fine!
@@ -22,7 +42,30 @@ _: let
       deploy-rs.deploy-rs # deployment system
       rnix-lsp # vscode nix extensions
       terraform # terraform
+      kubectl # kubernetes
+      k9s # cute k8s client, canines~
+      kubernetes-helm # helm
+      awscli
     ];
+
+    home-manager.users.kat = {
+      programs.zsh = {
+        sessionVariables = {
+          PYENV_ROOT = "$HOME/.pyenv";
+          PATH = "$PYENV_ROOT/bin:$PATH";
+          PIPENV_PYTHON = "$PYENV_ROOT/shims/python";
+        };
+        initExtra = ''
+          plugin=(pyenv)
+          eval $(pyenv init -)
+          eval $(pyenv virtualenv-init -)
+          source <(kubectl completion zsh)
+        '';
+        shellAliases = {
+          artemiscli = "~/.artemis/.venv/bin/artemiscli";
+        };
+      };
+    };
 
     homebrew = {
       brewPrefix = "/opt/homebrew/bin";
@@ -31,31 +74,25 @@ _: let
         "pinentry-mac"
         "awscurl"
         "pandoc"
-        "helm"
       ];
       casks = [
         "utm"
-        "discord"
         "barrier"
-        "mullvadvpn"
         "bitwarden"
-        "deluge"
-        "telegram-desktop"
-        "spotify"
-        "element"
-        "signal"
-        "brave-browser"
+        "firefox"
         "disk-inventory-x"
         "dozer"
         "devtoys"
         "cyberduck"
         "docker"
+        "spotify"
         "pycharm-ce"
         "slack"
         "boop"
         "obsidian"
         "contexts"
         "rectangle"
+        "keybase"
       ];
       taps = [
         "pulumi/tap"

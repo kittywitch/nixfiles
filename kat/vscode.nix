@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   programs.vscode = {
     enable = true;
-    package = pkgs.vscodium;
     extensions = with pkgs.vscode-extensions; [
       kamadorueda.alejandra
       mkhl.direnv
@@ -12,6 +11,7 @@
       jnoortheen.nix-ide
       vscodevim.vim
       catppuccin.catppuccin-vsc
+      github.copilot
     ];
     userSettings = {
       "nix.enableLanguageServer" = true;

@@ -28,14 +28,14 @@ in
       imports = with dirImports; [
         gui
         wezterm
-        vscodium
+        vscode
         gpg
       ];
     };
     work = {
       imports = with dirImports; [
         wezterm
-        vscodium
+        vscode
         gpg
       ];
     };
