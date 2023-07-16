@@ -14,7 +14,7 @@ _: let
       enable = true;
       extraConfig = ''
         Host renko
-          HostName 192.168.64.3
+          HostName 192.168.64.5
           Port 62954
           User root
       '';
@@ -92,7 +92,14 @@ _: let
         "obsidian"
         "contexts"
         "rectangle"
+        "signal"
+        "telegram"
+        "discord"
+        "deluge"
         "keybase"
+        "anki"
+        "firefox"
+        "google-chrome"
       ];
       taps = [
         "pulumi/tap"

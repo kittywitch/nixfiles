@@ -7,7 +7,6 @@ _: let
     inherit (lib.modules) mkDefault;
   in {
     imports = with tree.nixos.roles; [
-      rosetta
       bootable
     ];
 
@@ -15,6 +14,8 @@ _: let
       loader.systemd-boot.enable = true;
       initrd.availableKernelModules = ["virtio_pci" "xhci_pci" "usb_storage" "usbhid"];
     };
+
+    virtualization.rosetta.enable = true;
 
     fileSystems = {
       "/" = {
