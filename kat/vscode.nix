@@ -15,7 +15,7 @@
     ];
     userSettings = {
       "nix.enableLanguageServer" = true;
-      "workbench.colorTheme" = "Catppuccin Frappé";
+      "workbench.colorTheme" = "Light Modern";
       "editor.suggest.preview" = true;
       "[nix]" = {
         "editor.defaultFormatter" = "kamadorueda.alejandra";

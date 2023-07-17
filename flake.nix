@@ -16,7 +16,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # deployments
     deploy-rs = {
-      url = "github:serokell/deploy-rs";
+      url = "github:serokell/deploy-rs/master";
       inputs = {
         flake-compat.follows = "flake-compat";
         nixpkgs.follows = "nixpkgs";

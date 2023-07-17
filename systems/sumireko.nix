@@ -15,12 +15,17 @@ _: let
       extraConfig = ''
         Host renko
           HostName 192.168.64.5
-          Port 62954
           User root
+         IdentityFile /Users/kat/.ssh/id_rsa
       '';
     };
 
     nix.buildMachines = [
+      {
+        hostName = "renko";
+        system = "aarch64-linux";
+        supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
+      }
       {
         hostName = "renko";
         system = "x86_64-linux";
@@ -50,20 +55,9 @@ _: let
 
     home-manager.users.kat = {
       programs.zsh = {
-        sessionVariables = {
-          PYENV_ROOT = "$HOME/.pyenv";
-          PATH = "$PYENV_ROOT/bin:$PATH";
-          PIPENV_PYTHON = "$PYENV_ROOT/shims/python";
-        };
         initExtra = ''
-          plugin=(pyenv)
-          eval $(pyenv init -)
-          eval $(pyenv virtualenv-init -)
           source <(kubectl completion zsh)
         '';
-        shellAliases = {
-          artemiscli = "~/.artemis/.venv/bin/artemiscli";
-        };
       };
     };
 

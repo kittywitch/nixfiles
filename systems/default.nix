@@ -140,18 +140,14 @@
           };
           hostname = "${name}.inskip.me";
           sshOpts = ["-p" "${builtins.toString (builtins.head inputs.self.nixosConfigurations.${name}.config.services.openssh.ports)}"];
-          sshUser = "deploy";
+          sshUser = "root";
           user = "root";
           autoRollback = true;
           magicRollback = true;
         };
       })
-      (set.optional (host.folder == "nixos" && host.arch != "x86_64") {
-        ${name} = {
-          remoteBuild = true;
-        };
-      })
     ];
+
     "${host.folder}Configurations".${name} = host.builder {
       inherit (host) system modules specialArgs;
     };

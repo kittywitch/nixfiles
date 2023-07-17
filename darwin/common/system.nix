@@ -40,4 +40,6 @@ _: {
       ];
     };
   };
+  users.users.kat.home = "/Users/kat";
+  users.users.root.home = "/var/root";
 }

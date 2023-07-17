@@ -15,7 +15,7 @@ _: let
       initrd.availableKernelModules = ["virtio_pci" "xhci_pci" "usb_storage" "usbhid"];
     };
 
-    virtualization.rosetta.enable = true;
+    virtualisation.rosetta.enable = true;
 
     fileSystems = {
       "/" = {

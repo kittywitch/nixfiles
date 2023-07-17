@@ -19,7 +19,7 @@ in {
     };
   };
 
-  programs.mako = {
+  services.mako = {
     enable = true;
     font = "Iosevka 10";
     defaultTimeout = 3000;

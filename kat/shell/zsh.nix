@@ -23,7 +23,7 @@ in {
 
   programs.zsh = {
     enable = true;
-    enableSyntaxHighlighting = true;
+    syntaxHighlighting.enable = true;
     enableAutosuggestions = true;
     initExtra = let
       zshOpts = [
