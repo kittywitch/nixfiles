@@ -100,6 +100,14 @@
       url = "github:arcnmx/nixexprs/master";
       flake = false;
     };
+    artemiscli = {
+      url = "/Users/kat/src/work/metaflow-cli-plugin";
+      inputs = {
+        flake-utils.follows = "utils";
+        nixpkgs.follows = "nixpkgs";
+        std.follows = "std";
+      };
+    };
   };
   outputs = inputs: import ./outputs.nix {inherit inputs;};
 }

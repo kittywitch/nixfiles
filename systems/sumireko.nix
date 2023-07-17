@@ -2,6 +2,7 @@ _: let
   hostConfig = {
     tree,
     pkgs,
+    inputs,
     ...
   }: {
     imports = with tree; [
@@ -39,6 +40,7 @@ _: let
     '';
 
     environment.systemPackages = with pkgs; [
+      inputs.artemiscli.packages.aarch64-darwin.artemiscli
       fd # fd, better fine!
       ripgrep # rg, better grep!
       deadnix # dead-code scanner
