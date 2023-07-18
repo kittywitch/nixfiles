@@ -3,8 +3,11 @@ _: let
     tree,
     pkgs,
     inputs,
+    lib,
     ...
-  }: {
+  }: let
+    inherit (lib.strings) concatStringsSep;
+  in {
     imports = with tree; [
       kat.work
     ];
@@ -15,9 +18,10 @@ _: let
       enable = true;
       extraConfig = ''
         Host renko
-          HostName 192.168.64.5
-          User root
-         IdentityFile /Users/kat/.ssh/id_rsa
+          HostName 127.0.0.1
+          Port 32222
+          User kat
+          IdentityFile /Users/kat/.orbstack/ssh/id_ed25519
       '';
     };
 
@@ -56,10 +60,28 @@ _: let
     ];
 
     home-manager.users.kat = {
-      programs.zsh = {
-        initExtra = ''
-          source <(kubectl completion zsh)
+      home.file.".orbstack/ssh/authorized_keys".text =
+        (concatStringsSep "\n" tree.kat.user.data.keys)
+        + ''
+
+          ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILW2V8yL2vC/KDmIQdxhEeevKo1vGG18bvMNj9mLL/On
         '';
+      programs = {
+        zsh = {
+          initExtra = ''
+            source <(kubectl completion zsh)
+          '';
+        };
+        ssh = {
+          enable = true;
+          extraConfig = ''
+            Host renko
+              HostName 127.0.0.1
+              Port 32222
+              User kat
+              IdentityFile /Users/kat/.orbstack/ssh/id_ed25519
+          '';
+        };
       };
     };
 
@@ -72,7 +94,6 @@ _: let
         "pandoc"
       ];
       casks = [
-        "utm"
         "barrier"
         "bitwarden"
         "firefox"
@@ -80,9 +101,9 @@ _: let
         "dozer"
         "devtoys"
         "cyberduck"
-        "docker"
         "spotify"
         "pycharm-ce"
+        "element"
         "slack"
         "boop"
         "obsidian"
@@ -96,6 +117,7 @@ _: let
         "anki"
         "firefox"
         "google-chrome"
+        "orbstack"
       ];
       taps = [
         "pulumi/tap"

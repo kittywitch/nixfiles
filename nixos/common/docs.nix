@@ -1,3 +1,5 @@
-_: {
-  documentation.nixos.enable = false;
+{lib, ...}: let
+  inherit (lib.modules) mkForce;
+in {
+  documentation.nixos.enable = mkForce false;
 }
