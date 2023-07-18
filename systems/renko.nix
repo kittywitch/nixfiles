@@ -12,6 +12,8 @@ _: let
       "${inputs.nixpkgs}/nixos/modules/virtualisation/lxc-container.nix"
     ];
 
+    nix.extraOptions = "extra-platforms = x86_64-linux";
+
     fileSystems = {
       "/" = {
         device = "/dev/disk/by-uuid/d91cbfb6-5a09-45d8-b226-fc97c6b09f61";
