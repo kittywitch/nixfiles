@@ -24,11 +24,6 @@ _: let
         device = "/dev/disk/by-uuid/FED9-4FD3";
         fsType = "vfat";
       };
-
-      "/run/rosetta" = {
-        device = "rosetta";
-        fsType = "virtiofs";
-      };
     };
     swapDevices = [
       {device = "/dev/disk/by-uuid/fd7d113e-7fed-44fc-8ad7-82080f27cd07";}
