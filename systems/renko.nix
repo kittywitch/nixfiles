@@ -12,7 +12,7 @@ _: let
       "${inputs.nixpkgs}/nixos/modules/virtualisation/lxc-container.nix"
     ];
 
-    nix.extraOptions = "extra-platforms = x86_64-linux";
+    nix.extraOptions = "extra-platforms = x86_64-linux i686-linux";
 
     fileSystems = {
       "/" = {
@@ -33,10 +33,12 @@ _: let
       pkgs.btop
     ];
 
-    networking.nftables.enable = mkForce false;
-
-    networking.useDHCP = false;
-    networking.interfaces.eth0.useDHCP = true;
+    networking = {
+      nftables.enable = mkForce false;
+      firewall.enable = mkForce false;
+      useDHCP = false;
+      interfaces.eth0.useDHCP = true;
+    };
 
     nixpkgs.hostPlatform = mkDefault "aarch64-linux";
 

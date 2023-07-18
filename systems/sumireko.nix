@@ -22,9 +22,11 @@ _: let
           Port 32222
           User default
           IdentityFile /Users/kat/.orbstack/ssh/id_ed25519
-          ProxyCommand env HOME=/Users/kat '/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper (VM).app/Contents/MacOS/OrbStack Helper (VM)' ssh-proxy-fdpass
-          ProxyUseFdpass yes
       '';
+      /*
+        ProxyCommand env HOME=/Users/kat '/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper (VM).app/Contents/MacOS/OrbStack Helper (VM)' ssh-proxy-fdpass
+      ProxyUseFdpass yes
+      */
     };
 
     nix.buildMachines = [
@@ -82,9 +84,11 @@ _: let
               Port 32222
               User default
               IdentityFile /Users/kat/.orbstack/ssh/id_ed25519
-              ProxyCommand env HOME=/Users/kat '/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper (VM).app/Contents/MacOS/OrbStack Helper (VM)' ssh-proxy-fdpass
-              ProxyUseFdpass yes
           '';
+          /*
+            ProxyCommand env HOME=/Users/kat '/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper (VM).app/Contents/MacOS/OrbStack Helper (VM)' ssh-proxy-fdpass
+          ProxyUseFdpass yes
+          */
         };
       };
     };
