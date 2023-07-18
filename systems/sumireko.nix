@@ -17,22 +17,24 @@ _: let
     home-manager.users.root.programs.ssh = {
       enable = true;
       extraConfig = ''
-        Host renko
+        Host orb
           HostName 127.0.0.1
           Port 32222
-          User kat
+          User default
           IdentityFile /Users/kat/.orbstack/ssh/id_ed25519
+          ProxyCommand env HOME=/Users/kat '/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper (VM).app/Contents/MacOS/OrbStack Helper (VM)' ssh-proxy-fdpass
+          ProxyUseFdpass yes
       '';
     };
 
     nix.buildMachines = [
       {
-        hostName = "renko";
+        hostName = "nixos@orb";
         system = "aarch64-linux";
         supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
       }
       {
-        hostName = "renko";
+        hostName = "nixos@orb";
         system = "x86_64-linux";
         supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
       }
@@ -75,11 +77,13 @@ _: let
         ssh = {
           enable = true;
           extraConfig = ''
-            Host renko
+            Host orb
               HostName 127.0.0.1
               Port 32222
-              User kat
+              User default
               IdentityFile /Users/kat/.orbstack/ssh/id_ed25519
+              ProxyCommand env HOME=/Users/kat '/Applications/OrbStack.app/Contents/Frameworks/OrbStack Helper (VM).app/Contents/MacOS/OrbStack Helper (VM)' ssh-proxy-fdpass
+              ProxyUseFdpass yes
           '';
         };
       };

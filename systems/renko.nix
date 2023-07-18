@@ -40,6 +40,8 @@ _: let
 
     nixpkgs.hostPlatform = mkDefault "aarch64-linux";
 
+    boot.kernelPackages = pkgs.linuxKernel.kernels.linux_6_3
+
     system.stateVersion = "22.11";
 
     security.sudo.extraRules = [
