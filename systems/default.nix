@@ -138,19 +138,17 @@
             user = "root";
             path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.${name};
           };
-          #hostname = "${name}.inskip.me";
-          #sshOpts = ["-p" "${builtins.toString (builtins.head inputs.self.nixosConfigurations.${name}.config.services.openssh.ports)}"];
-          hostname = "localhost";
-          sshOpts = ["-p" "32222"];
+          hostname = "${name}.inskip.me";
           sshUser = "kat";
           autoRollback = true;
           magicRollback = true;
         };
       })
-      (set.optional (host.folder == "nixos" && host.arch == "x86_64") {
-        ${name} = {
-          remoteBuild = true;
-        };
+      (set.optional (name != "renko") {
+        sshOpts = ["-p" "${builtins.toString (builtins.head inputs.self.nixosConfigurations.${name}.config.services.openssh.ports)}"];
+      })
+      (set.optional (name == "renko") {
+        sshOpts = ["-p" "32222"];
       })
     ];
 
