@@ -32,11 +32,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1689631745,
-        "narHash": "sha256-Gy0EyiOWoyXfcRwWibtufCPWGQsQiPaEnSqqhz4HYGo=",
+        "lastModified": 1689796386,
+        "narHash": "sha256-6JiEQmEGmi51m7lE0y2WDqBpGwAgouMPcUWJSo5yn0k=",
         "ref": "refs/heads/kittywitch/multitenancy",
-        "rev": "f40065132e524311e73a2d6d596fef14b263b6bf",
-        "revCount": 160,
+        "rev": "4d172c1526bf7cdb9b207ec5438fffe3ecd0c2b0",
+        "revCount": 161,
         "type": "git",
         "url": "file:///Users/kat/src/work/metaflow-cli-plugin"
       },
@@ -61,11 +61,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1689629642,
-        "narHash": "sha256-nAPpRqQvGjrt+D5zFGL0bsgd+rCNdLExV8BEAVMyaJs=",
-        "ref": "refs/heads/kittywitch/multitenancy",
-        "rev": "923245fbe00b158fd23a5bad04a225da0c4657a7",
-        "revCount": 82,
+        "lastModified": 1689789723,
+        "narHash": "sha256-kJq+dHavgi8FBZzF9Uoezx6Tw9scbjWsyBE+DoT6mxg=",
         "type": "git",
         "url": "file:///Users/kat/src/work/metaflow-core-plugin"
       },
