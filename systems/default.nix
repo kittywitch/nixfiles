@@ -145,7 +145,7 @@
       (set.optional (name != "renko") {
         ${name} = {
           hostname = "${name}.inskip.me";
-          sshUser = "kat";
+          sshUser = "deploy";
           sshOpts = ["-p" "${builtins.toString (builtins.head inputs.self.nixosConfigurations.${name}.config.services.openssh.ports)}"];
         };
       })
@@ -153,6 +153,7 @@
         ${name} = {
           sshUser = "nixos";
           hostname = "orb";
+          fastConnection = true;
           sshOpts = ["-p" "32222"];
         };
       })
