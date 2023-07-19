@@ -14,25 +14,6 @@ _: let
 
     nix.extraOptions = "extra-platforms = x86_64-linux i686-linux";
 
-    fileSystems = {
-      "/" = {
-        device = "/dev/disk/by-uuid/d91cbfb6-5a09-45d8-b226-fc97c6b09f61";
-        fsType = "ext4";
-      };
-
-      "/boot" = {
-        device = "/dev/disk/by-uuid/FED9-4FD3";
-        fsType = "vfat";
-      };
-    };
-    swapDevices = [
-      {device = "/dev/disk/by-uuid/fd7d113e-7fed-44fc-8ad7-82080f27cd07";}
-    ];
-
-    environment.systemPackages = [
-      pkgs.btop
-    ];
-
     networking = {
       nftables.enable = mkForce false;
       firewall.enable = mkForce false;
