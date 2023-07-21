@@ -142,19 +142,19 @@
           magicRollback = true;
         };
       })
-      (set.optional (name != "renko") {
+      (set.optional (name != "renko" && host.folder == "nixos") {
         ${name} = {
           hostname = "${name}.inskip.me";
           sshUser = "deploy";
-          sshOpts = ["-p" "${builtins.toString (builtins.head inputs.self.nixosConfigurations.${name}.config.services.openssh.ports)}"];
+          sshOpts = ["-oControlMaster=no" "-oControlPath=/tmp/willneverexist" "-p" "${builtins.toString (builtins.head inputs.self.nixosConfigurations.${name}.config.services.openssh.ports)}"];
         };
       })
-      (set.optional (name == "renko") {
+      (set.optional (name == "renko" && host.folder == "nixos") {
         ${name} = {
           sshUser = "nixos";
           hostname = "orb";
           fastConnection = true;
-          sshOpts = ["-p" "32222"];
+          sshOpts = ["-oControlMaster=no" "-oControlPath=/tmp/willneverexist" "-p" "32222"];
         };
       })
     ];
