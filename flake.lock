@@ -33,10 +33,7 @@
       },
       "locked": {
         "lastModified": 1689796386,
-        "narHash": "sha256-6JiEQmEGmi51m7lE0y2WDqBpGwAgouMPcUWJSo5yn0k=",
-        "ref": "refs/heads/kittywitch/multitenancy",
-        "rev": "4d172c1526bf7cdb9b207ec5438fffe3ecd0c2b0",
-        "revCount": 161,
+        "narHash": "sha256-1N6sWf7E2EdknkzKdzRi6blonUbawJRiGl4p8gkxnk8=",
         "type": "git",
         "url": "file:///Users/kat/src/work/metaflow-cli-plugin"
       },

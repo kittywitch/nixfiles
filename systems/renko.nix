@@ -25,6 +25,12 @@ _: let
 
     boot.kernelPackages = pkgs.linuxPackages_6_3;
 
+    environment.systemPackages = with pkgs; [
+      inputs.artemiscli.packages.aarch64-linux.artemiscli
+      awscli2
+      kubectl
+    ];
+
     system.stateVersion = "22.11";
 
     security.sudo.extraRules = [

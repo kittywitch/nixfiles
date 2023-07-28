@@ -8,3 +8,4 @@ data/
 .terraform
 .terraform.lock.hcl
 .idea/
+__pycache__/
