@@ -5,5 +5,6 @@ _: {
     recommendedOptimisation = true;
     recommendedGzipSettings = true;
     recommendedProxySettings = true;
+    statusPage = true;
   };
 }

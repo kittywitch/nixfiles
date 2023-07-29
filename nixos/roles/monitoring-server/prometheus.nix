@@ -11,6 +11,10 @@
       domain = {
         enable = true;
       };
+      nginx = {
+        enable = true;
+        sslVerify = false;
+      };
     };
     ruleFiles = [
       ./synapse-v2.rules
@@ -21,6 +25,22 @@
         static_configs = [
           {
             targets = ["127.0.0.1:${toString config.services.prometheus.exporters.node.port}"];
+          }
+        ];
+      }
+      {
+        job_name = "${config.networking.hostName}-telegraf";
+        static_configs = [
+          {
+            targets = ["127.0.0.1:9125"];
+          }
+        ];
+      }
+      {
+        job_name = "${config.networking.hostName}-nginx";
+        static_configs = [
+          {
+            targets = ["127.0.0.1:${toString config.services.prometheus.exporters.nginx.port}"];
           }
         ];
       }
