@@ -40,6 +40,7 @@
       ];
     };
     "systems/*".aliasDefault = true;
+    "packages/*".aliasDefault = true;
     "nixos/hardware".evaluateDefault = true;
     "nixos/hardware/*".functor.enable = true;
     "darwin/*".functor.enable = true;

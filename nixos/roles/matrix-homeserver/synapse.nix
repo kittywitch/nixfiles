@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   inherit (lib.modules) mkDefault;
@@ -39,4 +40,8 @@ in {
       ];
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    synapse-cleanup
+  ];
 }
