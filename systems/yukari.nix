@@ -15,6 +15,7 @@ _: let
         postgres-server
         matrix-homeserver
         vaultwarden-server
+        monitoring-server
         irc-client
       ]);
 
