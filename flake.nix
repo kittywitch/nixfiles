@@ -1,5 +1,5 @@
 {
-  description = "the katzian monorepo effort";
+  description = "Kat's Infrastructure";
   inputs = {
     # to allow non-nix 2.4 evaluation
     flake-compat = {
