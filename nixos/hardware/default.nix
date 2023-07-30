@@ -1,9 +1,4 @@
-{
-  lib,
-  tree,
-  ...
-}:
-with lib; let
+{tree, ...}: let
   profiles = tree.prev;
   appendedProfiles = {
     common-wifi-bt = {
