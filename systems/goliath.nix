@@ -5,7 +5,9 @@ _: let
     tree,
     pkgs,
     ...
-  }: {
+  }: let
+    inherit (lib.modules) mkDefault;
+  in {
     imports = with tree.nixos.hardware;
       [
         common-wifi-bt
@@ -44,8 +46,8 @@ _: let
     boot.kernelModules = ["kvm-amd"];
     boot.extraModulePackages = [];
     boot.supportedFilesystems = ["ntfs"];
-    nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-    hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    nixpkgs.hostPlatform = mkDefault "x86_64-linux";
+    hardware.cpu.amd.updateMicrocode = mkDefault config.hardware.enableRedistributableFirmware;
 
     fileSystems = {
       "/" = {
