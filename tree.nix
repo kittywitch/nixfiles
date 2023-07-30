@@ -74,6 +74,7 @@
         enable = true;
         external = with inputs; [
           home-manager.darwinModules.home-manager
+          #konawall-rs.darwinModules.konawall
         ];
       };
     };
@@ -83,11 +84,11 @@
         external = with inputs;
           [
             nix-index-database.hmModules.nix-index
+            konawall-rs.hmModules.konawall
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).home-manager; [
             base16
             i3gopher
-            konawall
           ]);
       };
     };

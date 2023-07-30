@@ -61,6 +61,14 @@
       inputs.std.follows = "std";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # konawall-rs
+    konawall-rs = {
+      url = "github:kittywitch/konawall-rs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "utils";
+      };
+    };
     # hardware quirks
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     # secrets

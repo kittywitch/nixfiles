@@ -5,7 +5,7 @@
   std,
   ...
 }: let
-  inherit (lib.option) mkOption;
+  inherit (lib.options) mkOption;
   inherit (lib.types) attrsOf str enum;
   inherit (lib.modules) mkIf;
   inherit (std) string set tuple list;
@@ -48,7 +48,7 @@ in {
       src,
     }: let
       variables = pkgs.writeText "base-variables.sass" ''
-        ${(string.concatSep "\n" (mapToValues (var: con: "\$${var}: ${con}") cfg.sass.variables))}
+        ${(string.concatSep "\n" (set.mapToValues (var: con: "\$${var}: ${con}") cfg.sass.variables))}
       '';
       source =
         pkgs.callPackage
