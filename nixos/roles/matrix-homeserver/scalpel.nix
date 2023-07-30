@@ -4,10 +4,11 @@
   prev,
   ...
 }: let
+  inherit (lib.modules) mkForce;
   start = prev.config.systemd.services.matrix-synapse.serviceConfig.ExecStart;
   synapse_cfgfile = builtins.head (builtins.match "^.*--config-path ([^\ ]*).*$" "${start}");
 in {
-  systemd.services.matrix-synapse.serviceConfig.ExecStart = lib.mkForce (
+  systemd.services.matrix-synapse.serviceConfig.ExecStart = mkForce (
     builtins.replaceStrings ["${synapse_cfgfile}"] ["${config.scalpel.trafos."homeserver.yaml".destination} "] "${start}"
   );
   scalpel.trafos."homeserver.yaml" = {

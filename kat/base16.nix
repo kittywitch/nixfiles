@@ -2,7 +2,7 @@
   inherit (lib.modules) mkMerge;
 in {
   base16 = {
-    vim.enable = true;
+    vim.enable = false;
     shell.enable = true;
     schemes = mkMerge [
       {

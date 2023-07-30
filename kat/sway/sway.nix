@@ -7,7 +7,6 @@
 }: let
   inherit (std) list;
   inherit (lib.modules) mkMerge;
-  # TODO: fix use of lib
 in {
   programs.zsh.profileExtra = ''
     # If running from tty1 start sway
@@ -169,13 +168,13 @@ in {
           "${cfg.modifier}+shift+${key}" = "move container to workspace number ${workspace}";
         };
         workspaceBindings =
-          map (v: bindWorkspace v "${v}") (list.map builtins.toString (list.range 1 9))
+          list.map (v: bindWorkspace v "${v}") (list.map builtins.toString (list.range 1 9))
           ++ [
             (
               bindWorkspace "0" "10"
             )
           ]
-          ++ lib.imap1 (i: v: bindWorkspace v "${toString (10 + i)}") (list.map (n: "F${builtins.toString n}") (std.list.range 1 12));
+          ++ list.imap (i: v: bindWorkspace v "${toString (11 + i)}") (list.map (n: "F${builtins.toString n}") (std.list.range 1 12));
       in
         mkMerge ([
             {

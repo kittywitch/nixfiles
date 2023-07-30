@@ -15,14 +15,14 @@ in {
       rc_messages_per_second = mkDefault 0.1;
       rc_message_burst_count = mkDefault 25;
       public_baseurl = "https://${fqdn}";
-      url_preview_enabled = mkDefault true;
-      enable_registration = mkDefault false;
-      enable_metrics = mkDefault true;
-      report_stats = mkDefault false;
-      dynamic_thumbnails = mkDefault true;
+      url_preview_enabled = true;
+      enable_registration = false;
+      enable_metrics = true;
+      report_stats = false;
+      dynamic_thumbnails = true;
       registration_shared_secret = "!!MATRIX_SHARED_REGISTRATION_SECRET!!";
-      allow_guest_access = mkDefault true;
-      suppress_key_server_warning = mkDefault true;
+      allow_guest_access = true;
+      suppress_key_server_warning = true;
       listeners = [
         {
           port = 8009;

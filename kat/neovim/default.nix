@@ -7,11 +7,10 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (std) string set;
-  packDir = builtins.toString (pkgs.vimUtils.packDir config.programs.neovim.generatedConfigViml.configure.packages);
+  packDir = builtins.toString (pkgs.vimUtils.packDir config.programs.neovim.plugins);
   initLua = pkgs.substituteAll ({
       name = "init.lua";
       src = ./init.lua;
-      inherit packDir;
       base16ShellPath = config.base16.shell.package;
       inherit (config.base16) defaultSchemeName;
       defaultSchemeSlug = config.base16.defaultScheme.slug;
@@ -26,6 +25,8 @@ in {
     vimAlias = true;
     viAlias = true;
     plugins = with pkgs.vimPlugins; [
+      # Base16 manual
+      config.base16.vim.plugin
       # Libraries
       plenary-nvim
       # Disables and re-enables highlighting when searching

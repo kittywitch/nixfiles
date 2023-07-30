@@ -1,15 +1,13 @@
 {
   config,
-  lib,
+  std,
   ...
 }: let
-  # TODO: solve lib usage
-  inherit (lib.lists) concatLists elem;
-  inherit (lib.attrsets) mapAttrsToList;
+  inherit (std) list set;
   commonUser = {
-    openssh.authorizedKeys.keys = concatLists (mapAttrsToList
+    openssh.authorizedKeys.keys = list.concat (set.mapToValues
       (_: user:
-        if elem "wheel" user.extraGroups
+        if list.elem "wheel" user.extraGroups
         then user.openssh.authorizedKeys.keys
         else [])
       config.users.users);

@@ -4,7 +4,9 @@ _: let
     tree,
     modulesPath,
     ...
-  }: {
+  }: let
+    inherit (lib.modules) mkDefault;
+  in {
     imports =
       [
         (modulesPath + "/profiles/qemu-guest.nix")
@@ -44,7 +46,7 @@ _: let
       domain = "gensokyo.zone";
       interfaces = {
         enp1s0 = {
-          useDHCP = lib.mkDefault true;
+          useDHCP = mkDefault true;
           ipv6.addresses = [
             {
               address = "2a01:4ff:1f0:e7bb::1";

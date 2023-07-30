@@ -6,7 +6,6 @@
   inherit (std) serde;
 in {
   home.packages = with pkgs; [
-    #rink-readline TODO: wait for fix
     rink
   ];
 

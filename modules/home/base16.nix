@@ -2,10 +2,12 @@
   config,
   pkgs,
   lib,
+  std,
   ...
 }: let
   inherit (lib.types) attrsOf str enum;
   inherit (lib.modules) mkIf;
+  inherit (std) string set tuple list;
   cfg = config.base16;
 in
   with lib; {
@@ -32,14 +34,13 @@ in
     };
     config = mkIf (cfg.schemes != {}) {
       base16 = {
-        # TODO: convert to std
-        palette =
-          lib.mapAttrs' (k: v:
-            lib.nameValuePair
+        palette = set.fromList (k: v:
+          tuple.toPair (tuple.tuple2 (
             k
-            "#${v.hex}")
-          (lib.filterAttrs (n: _: lib.hasInfix "base" n)
-            cfg.defaultScheme);
+            "#${v.hex}"
+          ))
+          (set.filter (n: _: string.hasPrefix "base" n)
+            cfg.defaultScheme));
       };
 
       lib.kittywitch.sassTemplate = {
@@ -47,7 +48,7 @@ in
         src,
       }: let
         variables = pkgs.writeText "base-variables.sass" ''
-          ${(concatStringsSep "\n" (mapAttrsToList (var: con: "\$${var}: ${con}") cfg.sass.variables))}
+          ${(string.concatSep "\n" (mapToValues (var: con: "\$${var}: ${con}") cfg.sass.variables))}
         '';
         source =
           pkgs.callPackage
@@ -57,7 +58,7 @@ in
           }:
             stdenv.mkDerivation {
               inherit name src variables;
-              nativeBuildInputs = lib.singleton pkgs.sass;
+              nativeBuildInputs = list.singleton pkgs.sass;
               phases = ["buildPhase"];
               buildPhase = ''
                 cat $variables $src > src-mut.sass

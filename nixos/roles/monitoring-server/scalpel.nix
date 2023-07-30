@@ -5,10 +5,11 @@
   ...
 }: let
   inherit (lib.strings) addContextFrom;
+  inherit (lib.modules) mkForce;
   start = prev.config.systemd.services.telegraf.serviceConfig.ExecStart;
   telegraf_cfgfile = builtins.head (builtins.match "^.*-config ([^\ ]*).*$" "${start}");
 in {
-  systemd.services.telegraf.serviceConfig.ExecStart = lib.mkForce (
+  systemd.services.telegraf.serviceConfig.ExecStart = mkForce (
     builtins.replaceStrings ["${telegraf_cfgfile}"] ["${config.scalpel.trafos."config.toml".destination} "] "${start}"
   );
   scalpel.trafos."config.toml" = {

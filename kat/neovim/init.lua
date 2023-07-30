@@ -7,12 +7,6 @@ local wo = vim.wo     -- Window local variables
 local api = vim.api   -- Lua API
 
 -----------------------------------------------------------
--- Nix Fuckery
------------------------------------------------------------
-opt.packpath:prepend{"@packDir@"}
-opt.runtimepath:prepend{"@packDir@"}
-
------------------------------------------------------------
 -- Base16
 -----------------------------------------------------------
 vim.g.base16colorspace = 256

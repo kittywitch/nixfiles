@@ -1,13 +1,13 @@
 {
   config,
   lib,
+  std,
   pkgs,
   ...
 }: let
+  inherit (std) string set;
   inherit (lib.modules) mkMerge mkIf;
-  inherit (lib.attrsets) mapAttrsToList;
 in {
-  # TODO: fix lib usage
   programs.mpv = {
     enable = true;
     scripts = with pkgs.mpvScripts; [sponsorblock paused];
@@ -105,8 +105,8 @@ in {
         osd-border-size = 2; # font border pixels, default 3
         term-osd-bar = true;
         script-opts =
-          builtins.concatStringsSep ","
-          (mapAttrsToList (k: v: "${k}=${toString v}") {
+          string.concatSep ","
+          (mapToValues (k: v: "${k}=${toString v}") {
             ytdl_hook-ytdl_path = "${pkgs.yt-dlp}/bin/yt-dlp";
             osc-layout = "slimbox";
             osc-vidscale = "no";

@@ -3,10 +3,10 @@ _: let
     tree,
     pkgs,
     inputs,
-    lib,
+    std,
     ...
   }: let
-    inherit (lib.strings) concatStringsSep;
+    inherit (std) string;
   in {
     imports = with tree; [
       kat.work
@@ -65,7 +65,7 @@ _: let
 
     home-manager.users.kat = {
       home.file.".orbstack/ssh/authorized_keys".text =
-        (concatStringsSep "\n" tree.kat.user.data.keys)
+        (string.concatSep "\n" tree.kat.user.data.keys)
         + ''
 
           ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILW2V8yL2vC/KDmIQdxhEeevKo1vGG18bvMNj9mLL/On

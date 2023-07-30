@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-with lib; {
+_: {
   users.users.vaultwarden.name = "bitwarden_rs";
   users.groups.vaultwarden.name = "bitwarden_rs";
 
