@@ -1,6 +1,6 @@
 {config, ...}: {
   system.autoUpgrade = {
     enable = true;
-    flake = "github:kittywitch/kittywitch#${config.networking.hostName}";
+    flake = "github:kittywitch/infrastructure#${config.networking.hostName}";
   };
 }

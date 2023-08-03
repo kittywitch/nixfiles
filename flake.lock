@@ -32,14 +32,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1689796386,
-        "narHash": "sha256-1N6sWf7E2EdknkzKdzRi6blonUbawJRiGl4p8gkxnk8=",
+        "lastModified": 1691089847,
+        "narHash": "sha256-1/jsJhFX8l5sR8NMoMWqNDVPOlslMqrWwrmXfah3kOM=",
+        "ref": "refs/heads/main",
+        "rev": "7b74f10372b63170b1319ec8382a41865a75e072",
+        "revCount": 170,
         "type": "git",
-        "url": "file:///Users/kat/src/work/metaflow-cli-plugin"
+        "url": "ssh://git@github.com/Glamorous-ai/metaflow-cli-plugin.git"
       },
       "original": {
         "type": "git",
-        "url": "file:///Users/kat/src/work/metaflow-cli-plugin"
+        "url": "ssh://git@github.com/Glamorous-ai/metaflow-cli-plugin.git"
       }
     },
     "artemiscore": {
@@ -58,14 +61,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1689789723,
-        "narHash": "sha256-kJq+dHavgi8FBZzF9Uoezx6Tw9scbjWsyBE+DoT6mxg=",
+        "lastModified": 1690988988,
+        "narHash": "sha256-PIv20oUK48yKHSal8jMFQuxu6XwVdE8iO8r8xy8d7A0=",
+        "ref": "refs/heads/main",
+        "rev": "e8afcdecfd6e467cc65a9f9f9286be33e8271c9f",
+        "revCount": 94,
         "type": "git",
-        "url": "file:///Users/kat/src/work/metaflow-core-plugin"
+        "url": "ssh://git@github.com/Glamorous-ai/metaflow-core-plugin.git"
       },
       "original": {
         "type": "git",
-        "url": "file:///Users/kat/src/work/metaflow-core-plugin"
+        "url": "ssh://git@github.com/Glamorous-ai/metaflow-core-plugin.git"
       }
     },
     "darwin": {
@@ -197,11 +203,11 @@
         "rust": "rust"
       },
       "locked": {
-        "lastModified": 1690746910,
-        "narHash": "sha256-ouCKyuyjs9+oSrOpIBlVi6R5LLAu+kBORdEaCuDQxwM=",
+        "lastModified": 1690751203,
+        "narHash": "sha256-RzE328E4rrA3YE8UEj9RhDVzdJxGa10S2VyL33LK6GU=",
         "owner": "kittywitch",
         "repo": "konawall-rs",
-        "rev": "17fc3098ffd993e4d1820da72b0866390484161b",
+        "rev": "385f55853f18c95fff3ea610d3c3c6ea3040f1c4",
         "type": "github"
       },
       "original": {

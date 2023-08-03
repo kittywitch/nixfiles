@@ -4,7 +4,16 @@
       "nginx"
     ];
   };
-
+  systemd.services.telegraf = {
+    serviceConfig = {
+      AmbientCapabilities = [
+        "CAP_NET_RAW"
+      ];
+      CapabilityBoundingSet = [
+        "CAP_NET_RAW"
+      ];
+    };
+  };
   services.telegraf = {
     enable = true;
     extraConfig = {
@@ -37,6 +46,16 @@
         net = {
         };
         mem = {
+        };
+        ping = {
+          interval = "60s";
+          method = "native";
+          urls = [
+            "8.8.8.8"
+            "2001:4860:4860:0:0:0:0:8888"
+          ];
+          count = 3;
+          timeout = 2.0;
         };
         system = {
         };

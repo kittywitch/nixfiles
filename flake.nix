@@ -109,7 +109,7 @@
       flake = false;
     };
     artemiscli = {
-      url = "/Users/kat/src/work/metaflow-cli-plugin";
+      url = "git+ssh://git@github.com/Glamorous-ai/metaflow-cli-plugin.git";
       inputs = {
         flake-utils.follows = "utils";
         nixpkgs.follows = "nixpkgs";

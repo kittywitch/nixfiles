@@ -64,15 +64,21 @@ _: let
     ];
 
     home-manager.users.kat = {
+      home.sessionVariables = {
+        ARTEMISCLI_CONFIG_PATH = "/Users/kat/.artemisconfig";
+      };
       services.konawall = {
         enable = true;
         interval_macos = 3600;
         mode = "shuffle";
         commonTags = ["width:>=1600"];
         tagList = [
-          "score:>=50"
-          #"no_humans"
-          "rating:s"
+          [
+            "score:>=50"
+            #"no_humans"
+            "touhou"
+            "rating:s"
+          ]
         ];
       };
       home.file.".orbstack/ssh/authorized_keys".text =
@@ -115,6 +121,7 @@ _: let
       casks = [
         "barrier"
         "bitwarden"
+        "mullvadvpn"
         "firefox"
         "disk-inventory-x"
         "dozer"
@@ -125,6 +132,7 @@ _: let
         "element"
         "slack"
         "boop"
+        "iterm2"
         "obsidian"
         "contexts"
         "rectangle"
