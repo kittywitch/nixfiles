@@ -119,7 +119,7 @@ _: let
         "pandoc"
       ];
       casks = [
-        "temurin"
+        "temurin17"
         "barrier"
         "bitwarden"
         "mullvadvpn"
@@ -150,6 +150,7 @@ _: let
       ];
       taps = [
         "pulumi/tap"
+        "homebrew/cask-versions"
       ];
       masApps = {
         Tailscale = 1475387142;
