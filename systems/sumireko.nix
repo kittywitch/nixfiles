@@ -119,6 +119,7 @@ _: let
         "pandoc"
       ];
       casks = [
+        "temurin"
         "barrier"
         "bitwarden"
         "mullvadvpn"
@@ -129,6 +130,7 @@ _: let
         "cyberduck"
         "spotify"
         "pycharm-ce"
+        "prismlauncher"
         "element"
         "slack"
         "boop"

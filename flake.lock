@@ -242,6 +242,32 @@
         "type": "indirect"
       }
     },
+    "minecraft": {
+      "inputs": {
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "flake-utils": [
+          "utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1691544427,
+        "narHash": "sha256-OwVJ6hn/Yqye3sO1Z6CjdoQvVUMuielyr1Fn/Epqg7A=",
+        "owner": "Infinidoge",
+        "repo": "nix-minecraft",
+        "rev": "ab3c5557225d31e36bf447561133ef0850c7eb47",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Infinidoge",
+        "repo": "nix-minecraft",
+        "type": "github"
+      }
+    },
     "nix-github-actions": {
       "inputs": {
         "nixpkgs": [
@@ -395,6 +421,7 @@
         "home-manager": "home-manager",
         "konawall-rs": "konawall-rs",
         "mach-nix": "mach-nix",
+        "minecraft": "minecraft",
         "nix-index-database": "nix-index-database",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",

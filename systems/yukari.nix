@@ -17,7 +17,9 @@ _: let
         postgres-server
         matrix-homeserver
         vaultwarden-server
+        minecraft-server
         monitoring-server
+        public-directory
         irc-client
       ]);
 

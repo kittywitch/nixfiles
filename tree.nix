@@ -61,6 +61,7 @@
           [
             nix-index-database.nixosModules.nix-index
             home-manager.nixosModules.home-manager
+            minecraft.nixosModules.minecraft-servers
             sops-nix.nixosModules.sops
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).nixos; [

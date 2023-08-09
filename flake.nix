@@ -103,6 +103,14 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "utils";
+        flake-compat.follows = "flake-compat";
+      };
+    };
     # a bunch of modules (also arcnmx is good)
     arcexprs = {
       url = "github:arcnmx/nixexprs/master";
