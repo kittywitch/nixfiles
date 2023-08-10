@@ -117,9 +117,9 @@ _: let
         "pinentry-mac"
         "awscurl"
         "pandoc"
+        "openjdk@17"
       ];
       casks = [
-        "temurin17"
         "barrier"
         "bitwarden"
         "mullvadvpn"
