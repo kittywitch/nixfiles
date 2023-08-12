@@ -8,6 +8,12 @@
         enabledCollectors = ["systemd"];
         port = 9002;
       };
+      postgres = {
+        enable = true;
+        port = 9187;
+        runAsLocalSuperUser = true;
+        extraFlags = ["--auto-discover-databases"];
+      };
       domain = {
         enable = true;
       };
@@ -21,6 +27,18 @@
     ];
     scrapeConfigs = [
       {
+        job_name = "tewi-hass";
+        scrape_interval = "60s";
+        metrics_path = "/api/prometheus";
+        scheme = "https";
+        bearer_token = "!!HOME_ASSISTANT_API_TOKEN!!";
+        static_configs = [
+          {
+            targets = ["home.gensokyo.zone:443"];
+          }
+        ];
+      }
+      {
         job_name = "${config.networking.hostName}";
         static_configs = [
           {
@@ -33,6 +51,14 @@
         static_configs = [
           {
             targets = ["127.0.0.1:9125"];
+          }
+        ];
+      }
+      {
+        job_name = "${config.networking.hostName}-postgres";
+        static_configs = [
+          {
+            targets = ["127.0.0.1:${toString config.services.prometheus.exporters.postgres.port}"];
           }
         ];
       }
