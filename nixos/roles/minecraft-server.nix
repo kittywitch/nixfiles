@@ -13,7 +13,7 @@
     servers.arkamew = let
       modpack = inputs.minecraft.legacyPackages.${pkgs.system}.fetchPackwizModpack {
         url = "https://github.com/kittywitch/arka-modpack/raw/main/pack.toml";
-        packHash = "sha256-5JbJvoVd+YxAS+EIFsXHuG5ZqVGxEgf2AjQOLSuG99U=";
+        packHash = "sha256-4Fa8xB0CpeANzjRg7B0RUEHepJvnVGFfgTPq7NLa8mM=";
         manifestHash = "sha256:17lg9syx1ddggyq2h8a92frg4lpr2xc7ryh30bniv9dhymr0vc23";
         side = "both";
       };
@@ -28,6 +28,7 @@
         katrynn = "356d8cf2-246a-4c07-b547-422aea06c0ab";
         arcnmx = "e9244315-848c-424a-b004-ae5305449fee";
       };
+      jvmOpts = "-Xmx4G -Xms1G";
       serverProperties = {
         server-port = 25565;
         gamemode = 0;

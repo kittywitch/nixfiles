@@ -39,6 +39,14 @@
         ];
       }
       {
+        job_name = "${config.networking.hostName}-minecraft";
+        static_configs = [
+          {
+            targets = ["127.0.0.1:25585"];
+          }
+        ];
+      }
+      {
         job_name = "${config.networking.hostName}";
         static_configs = [
           {
