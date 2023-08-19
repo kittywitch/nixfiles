@@ -4,16 +4,19 @@
   lib,
   ...
 }: {
+  networking.firewall = {
+    allowedTCPPorts = [25565 8123];
+  };
   services.minecraft-servers = {
-    enable = true;
-    eula = true;
+    enable = false;
+    eula = false;
     environmentFile = pkgs.writeText "aaaa" ''
       QUILT_LOADER_DISABLE_BEACON=true
     '';
     servers.arkamew = let
       modpack = inputs.minecraft.legacyPackages.${pkgs.system}.fetchPackwizModpack {
         url = "https://github.com/kittywitch/arka-modpack/raw/main/pack.toml";
-        packHash = "sha256-4Fa8xB0CpeANzjRg7B0RUEHepJvnVGFfgTPq7NLa8mM=";
+        packHash = "sha256-b198Q2eCf8xN3X6SJEIbFZB/PxC4vYcjiQSoeVjWyEk=";
         manifestHash = "sha256:17lg9syx1ddggyq2h8a92frg4lpr2xc7ryh30bniv9dhymr0vc23";
         side = "both";
       };
@@ -21,7 +24,7 @@
       quiltVersion = modpack.manifest.versions.quilt;
       serverVersion = lib.replaceStrings ["."] ["_"] "quilt-${mcVersion}-${quiltVersion}";
     in {
-      enable = true;
+      enable = false;
       autoStart = true;
       openFirewall = true;
       whitelist = {

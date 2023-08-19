@@ -23,6 +23,31 @@ in {
       registration_shared_secret = "!!MATRIX_SHARED_REGISTRATION_SECRET!!";
       allow_guest_access = true;
       suppress_key_server_warning = true;
+      log_config = pkgs.writeText "nya.yaml" ''
+        version: 1
+        formatters:
+          precise:
+            format: '%(asctime)s - %(name)s - %(lineno)d - %(levelname)s - %(request)s - %(message)s'
+        filters:
+          context:
+            (): synapse.util.logcontext.LoggingContextFilter
+            request: ""
+        handlers:
+          console:
+            class: logging.StreamHandler
+            formatter: precise
+            filters: [context]
+        loggers:
+          synapse:
+            level: WARNING
+          synapse.storage.SQL:
+            # beware: increasing this to DEBUG will make synapse log sensitive
+            # information such as access tokens.
+            level: WARNING
+        root:
+          level: WARNING
+          handlers: [console]
+      '';
       listeners = [
         {
           port = 8009;
