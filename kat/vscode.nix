@@ -23,6 +23,7 @@
         "editor.formatOnSave" = true;
         "editor.formatOnType" = false;
       };
+      "files.eol" = "\n";
       "alejandra.program" = "${pkgs.alejandra}/bin/alejandra";
       "editor.fontFamily" = ''"Iosevka", "Font Awesome 6 Free", "Font Awesome 6 Brands"'';
       "editor.fontLigatures" = true;

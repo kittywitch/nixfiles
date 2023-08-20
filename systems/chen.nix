@@ -1,13 +1,12 @@
 _: let
-<<<<<<< HEAD
   hostConfig = {
     lib,
     tree,
     inputs,
     ...
-  }: let
-  hostConfig = {lib, tree, modulesPath, inputs, pkgs, ...}: let
-    inherit (lib.modules) mkForce mkAfter;
+  }:
+  let
+   inherit (lib.modules) mkForce;
   in {
     imports = with tree; [
       inputs.wsl.nixosModules.wsl
