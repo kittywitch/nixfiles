@@ -30,6 +30,7 @@ resource "hcloud_server" "yukari" {
 
     lifecycle {
         ignore_changes = [
+            server_type,
             user_data,
             public_net
         ]
