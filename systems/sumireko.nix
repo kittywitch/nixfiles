@@ -81,12 +81,17 @@ _: let
           ]
         ];
       };
-      home.file.".orbstack/ssh/authorized_keys".text =
-        (string.concatSep "\n" tree.kat.user.data.keys)
-        + ''
+      home.file = {
+        ".orbstack/ssh/authorized_keys".text =
+          (string.concatSep "\n" tree.kat.user.data.keys)
+          + ''
 
-          ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILW2V8yL2vC/KDmIQdxhEeevKo1vGG18bvMNj9mLL/On
+            ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILW2V8yL2vC/KDmIQdxhEeevKo1vGG18bvMNj9mLL/On
+          '';
+        ".ssh/authorized_keys".text = ''
+          ${string.concatSep "\n" tree.kat.user.data.keys}
         '';
+      };
       programs = {
         zsh = {
           initExtra = ''
