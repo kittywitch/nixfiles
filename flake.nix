@@ -13,7 +13,9 @@
     # used for overriding unwanted flake inputs
     empty.url = "github:input-output-hk/empty-flake";
     # self-explanatory
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs = {
+      url = "github:nixos/nixpkgs/nixos-unstable";
+    };
     # deployments
     deploy-rs = {
       url = "github:serokell/deploy-rs/master";
@@ -116,9 +118,17 @@
       url = "github:arcnmx/nixexprs/master";
       flake = false;
     };
+    artemiscore = {
+      url = "git+ssh://git@github.com/Glamorous-ai/metaflow-core-plugin.git?ref=develop";
+      inputs = {
+        flake-utils.follows = "utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     artemiscli = {
       url = "git+ssh://git@github.com/Glamorous-ai/metaflow-cli-plugin.git";
       inputs = {
+        artemiscore.follows = "artemiscore";
         flake-utils.follows = "utils";
         nixpkgs.follows = "nixpkgs";
         std.follows = "std";

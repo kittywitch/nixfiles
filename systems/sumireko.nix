@@ -48,19 +48,18 @@ _: let
     '';
 
     environment.systemPackages = with pkgs; [
-      inputs.artemiscli.packages.aarch64-darwin.artemiscli
       fd # fd, better fine!
+      terraform
       ripgrep # rg, better grep!
       deadnix # dead-code scanner
       alejandra # code formatter
       statix # anti-pattern finder
       deploy-rs.deploy-rs # deployment system
       rnix-lsp # vscode nix extensions
-      terraform # terraform
       kubectl # kubernetes
       k9s # cute k8s client, canines~
       kubernetes-helm # helm
-      awscli
+      awscli2
     ];
 
     home-manager.users.kat = {
@@ -123,6 +122,9 @@ _: let
         "awscurl"
         "pandoc"
         "openjdk@17"
+        "maven"
+        "dependency-check"
+        "snyk"
       ];
       casks = [
         "barrier"
@@ -137,6 +139,7 @@ _: let
         "pycharm-ce"
         "prismlauncher"
         "element"
+        "logseq"
         "slack"
         "boop"
         "iterm2"
@@ -149,6 +152,7 @@ _: let
         "deluge"
         "keybase"
         "anki"
+        "syncthing"
         "firefox"
         "google-chrome"
         "orbstack"
@@ -156,6 +160,7 @@ _: let
       taps = [
         "pulumi/tap"
         "homebrew/cask-versions"
+        "snyk/tap"
       ];
       masApps = {
         Tailscale = 1475387142;

@@ -79,7 +79,7 @@ in {
                 zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
                 zstyle ':completion:*:complete:pass:*:*' matcher 'r:|[./_-]=** r:|=*' 'l:|=* r:|=*'
                 zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
-      zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1lb --color=always $realpath'
+      zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1lb --color=always $realpath'
         ${string.concatSep "\n" (map (opt: "setopt ${opt}") zshOpts)}
       bindkey '^ ' autosuggest-accept
         ${

@@ -14,7 +14,7 @@ This repository is my personal infrastructure repository. It contains the Nix an
 | kat/gnome      | GNOME. Including dconf configuration.                                                             |
 | kat/gui        | Packages I use on a host that has a WM / DE.                                                      |
 | kat/neovim     | Text editor of choice, though VSCode or a JetBrains IDE normally takes forefront for development. |
-| kat/shell      | My shell configs. I use zsh, fzf, z, starship, exa, rg, fd, sd, ...                               |
+| kat/shell      | My shell configs. I use zsh, fzf, z, starship, eza, rg, fd, sd, ...                               |
 | kat/sway       | My tiling window manager of choice (though I'll happily take i3 too)                              |
 | kat/user       | Per-system type configurations. Data on my user.                                                  |
 | modules/nixos  | An area for more reusable NixOS modules                                                           |

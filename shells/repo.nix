@@ -19,7 +19,7 @@ with pkgs; let
         deploy-rs.deploy-rs # deployment system
       ]
       ++ set.values (set.map (name: _: (pkgs.writeShellScriptBin "${name}-rebuild" ''
-          darwin-rebuild switch --flake $REPO_ROOT#${name} $@
+          ${pkgs.darwin-rebuild}/bin/darwin-rebuild switch --flake $REPO_ROOT#${name} $@
         ''))
         repo.darwinConfigurations);
     shellHook = ''

@@ -13,8 +13,6 @@
     pv
     # cat but better
     bat
-    # ls replacement
-    exa
     # sed replacement
     sd
     # sops
