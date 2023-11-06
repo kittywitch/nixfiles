@@ -11,13 +11,12 @@ _: let
       ]
       ++ (with tree.nixos.roles; [
         graphical
-        gnome
+        kde
         laptop
       ])
       ++ (with tree; [
         kat.gui
-        kat.gnome
-        kat.vscodium
+        kat.vscode
       ]);
 
     fileSystems = {

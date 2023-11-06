@@ -86,6 +86,7 @@
           [
             nix-index-database.hmModules.nix-index
             konawall-rs.hmModules.konawall
+            plasma-manager.homeManagerModules.plasma-manager
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).home-manager; [
             base16

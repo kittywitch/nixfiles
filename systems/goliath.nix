@@ -14,12 +14,11 @@ _: let
         sound
       ]
       ++ (with tree.nixos.roles; [
-        gnome
+        kde
         gaming
       ])
       ++ (with tree.kat; [
         gui
-        gnome
       ]);
 
     environment.systemPackages = with pkgs; [

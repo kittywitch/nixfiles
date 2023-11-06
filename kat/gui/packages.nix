@@ -18,10 +18,6 @@
     tdesktop # Telegram
     dino # XMPP
     signal-desktop
-    mumble-develop
-    # IDEs
-    jetbrains.idea-community
-    jetbrains.pycharm-community
     # Exocortex
     obsidian
     # Archivery

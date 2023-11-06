@@ -118,6 +118,15 @@
       url = "github:arcnmx/nixexprs/master";
       flake = false;
     };
+    # plasma manager
+    plasma-manager = {
+      url = "github:pjones/plasma-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
+    # work
     artemiscore = {
       url = "git+ssh://git@github.com/Glamorous-ai/metaflow-core-plugin.git?ref=develop";
       inputs = {

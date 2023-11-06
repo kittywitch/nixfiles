@@ -106,7 +106,7 @@ in {
         term-osd-bar = true;
         script-opts =
           string.concatSep ","
-          (mapToValues (k: v: "${k}=${toString v}") {
+          (set.mapToValues (k: v: "${k}=${toString v}") {
             ytdl_hook-ytdl_path = "${pkgs.yt-dlp}/bin/yt-dlp";
             osc-layout = "slimbox";
             osc-vidscale = "no";
