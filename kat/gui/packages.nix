@@ -5,8 +5,6 @@
     # Task managers
     btop
     htop
-    # Browser
-    brave
     # Mail
     thunderbird
     # Music

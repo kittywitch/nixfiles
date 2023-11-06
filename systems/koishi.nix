@@ -17,6 +17,7 @@ _: let
       ++ (with tree; [
         kat.gui
         kat.vscode
+        kat.kde
       ]);
 
     fileSystems = {
