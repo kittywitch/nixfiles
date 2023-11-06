@@ -10,12 +10,14 @@ _: let
         common-pc-laptop-ssd
       ]
       ++ (with tree.nixos.roles; [
-        sway
+        graphical
+        gnome
         laptop
       ])
       ++ (with tree; [
         kat.gui
-        kat.sway
+        kat.gnome
+        kat.vscodium
       ]);
 
     fileSystems = {
@@ -29,23 +31,7 @@ _: let
       };
     };
 
-    services.openssh = {
-      hostKeys = [
-        {
-          bits = 4096;
-          path = "/var/lib/secrets/${config.networking.hostName}-osh-pk";
-          type = "rsa";
-        }
-        {
-          path = "/var/lib/secrets/${config.networking.hostName}-ed25519-osh-pk";
-          type = "ed25519";
-        }
-      ];
-      extraConfig = ''
-        HostCertificate /var/lib/secrets/${config.networking.hostName}-osh-cert
-        HostCertificate /var/lib/secrets/${config.networking.hostName}-osh-ed25519-cert
-      '';
-    };
+    networking.networkmanager.wifi.backend = "iwd";
 
     swapDevices = [
       {device = "/dev/disk/by-uuid/0d846453-95b4-46e1-8eaf-b910b4321ef0";}
