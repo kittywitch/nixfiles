@@ -1,9 +1,9 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   qt = {
     enable = true;
     platformTheme = "kde";
     style = {
-      name = "Arc";
+      name = "arc";
       package = pkgs.arc-kde-theme;
     };
   };
