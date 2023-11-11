@@ -1,6 +1,11 @@
-_: {
+{pkgs, ...}: {
   fonts = {
-    enableDefaultFonts = true;
+    packages = with pkgs; [
+      font-awesome
+      twitter-color-emoji
+      iosevka-bin
+    ];
+    enableDefaultPackages = true;
     fontDir.enable = true;
     fontconfig = {
       enable = true;

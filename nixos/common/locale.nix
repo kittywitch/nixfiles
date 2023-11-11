@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  fonts.fonts = [
+  fonts.packages = [
     pkgs.tamzen
   ];
   i18n = {

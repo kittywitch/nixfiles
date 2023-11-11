@@ -19,6 +19,7 @@ _: let
       ])
       ++ (with tree.kat; [
         gui
+        kde
       ]);
 
     environment.systemPackages = with pkgs; [
