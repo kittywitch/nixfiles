@@ -1,15 +1,19 @@
-_: {
+{lib, ...}: let
+  inherit (lib.modules) mkForce;
+in {
   networking = {
+    networkmanager.dns = mkForce "none";
     nameservers = [
-      "194.242.2.2" # For now, Mullvad DNS.
+      "9.9.9.9"
     ];
   };
   services.resolved = {
     enable = true;
     fallbackDns = [
-      "1.1.1.1"
+      "9.9.9.9"
     ];
-    dnssec = "false";
+    domains = ["~."];
+    dnssec = "true";
     extraConfig = ''
       DNSOverTLS=yes
     '';
