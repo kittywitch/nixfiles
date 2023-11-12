@@ -4,14 +4,11 @@ in {
   networking = {
     networkmanager.dns = mkForce "none";
     nameservers = [
-      "9.9.9.9"
+      "194.242.2.2#dns.mullvad.net"
     ];
   };
   services.resolved = {
     enable = true;
-    fallbackDns = [
-      "9.9.9.9"
-    ];
     domains = ["~."];
     dnssec = "true";
     extraConfig = ''
