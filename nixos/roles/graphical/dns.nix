@@ -10,7 +10,7 @@ in {
   services.resolved = {
     enable = true;
     domains = ["~."];
-    dnssec = "true";
+    dnssec = "false";
     extraConfig = ''
       DNSOverTLS=yes
     '';

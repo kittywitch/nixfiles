@@ -142,10 +142,6 @@ in {
       modifier = super;
 
       startup = [
-        {
-          command = "systemctl --user restart konawall.service";
-          always = true;
-        }
       ];
 
       window = {

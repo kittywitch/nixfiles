@@ -63,9 +63,9 @@
       inputs.std.follows = "std";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # konawall-rs
-    konawall-rs = {
-      url = "github:kittywitch/konawall-rs";
+    # konawall-py
+    konawall-py = {
+      url = "github:kittywitch/konawall-py";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "utils";

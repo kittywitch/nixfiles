@@ -9,6 +9,5 @@ map (path: import "${path}/overlay.nix") [
 ++ [
   inputs.darwin.overlays.default
   inputs.deploy-rs.overlay
-  inputs.konawall-rs.overlays.default
   (import tree.packages.default {inherit inputs tree;})
 ]

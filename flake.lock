@@ -208,27 +208,26 @@
         "type": "github"
       }
     },
-    "konawall-rs": {
+    "konawall-py": {
       "inputs": {
         "flake-utils": [
           "utils"
         ],
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "rust": "rust"
+        ]
       },
       "locked": {
-        "lastModified": 1693499891,
-        "narHash": "sha256-Lt2RoY7k2BdAUji7qv7Y36+FVRiNhksVRbAjcTgA8e0=",
+        "lastModified": 1699822607,
+        "narHash": "sha256-sr1Dm+A5vc54zWLehp1IQujP8oL3y0kMWyiYCFBAe/Q=",
         "owner": "kittywitch",
-        "repo": "konawall-rs",
-        "rev": "a63a8f3297cbf47d7d3a0c0b5a27d61d39bcfc1c",
+        "repo": "konawall-py",
+        "rev": "4a18fa633718d243da65fbf8d4bd4a5227b55d44",
         "type": "github"
       },
       "original": {
         "owner": "kittywitch",
-        "repo": "konawall-rs",
+        "repo": "konawall-py",
         "type": "github"
       }
     },
@@ -365,16 +364,18 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1683185507,
-        "narHash": "sha256-Wcj09pigMFgj+0borXeoJvVMwH2Rc4gkSq4BwNq3k7s=",
-        "owner": "NixOS",
+        "lastModified": 1698924604,
+        "narHash": "sha256-GCFbkl2tj8fEZBZCw3Tc0AkGo0v+YrQlohhEGJ/X4s0=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "63464b8c2837ec56e1d610f5bd2a9b8e1f532c07",
+        "rev": "fa804edfb7869c9fb230e174182a8a1a7e512c40",
         "type": "github"
       },
       "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nixpkgs-stable": {
@@ -389,22 +390,6 @@
       "original": {
         "owner": "NixOS",
         "ref": "release-23.05",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1698924604,
-        "narHash": "sha256-GCFbkl2tj8fEZBZCw3Tc0AkGo0v+YrQlohhEGJ/X4s0=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "fa804edfb7869c9fb230e174182a8a1a7e512c40",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -504,12 +489,12 @@
         "empty": "empty",
         "flake-compat": "flake-compat",
         "home-manager": "home-manager",
-        "konawall-rs": "konawall-rs",
+        "konawall-py": "konawall-py",
         "mach-nix": "mach-nix",
         "minecraft": "minecraft",
         "nix-index-database": "nix-index-database",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "plasma-manager": "plasma-manager",
         "pypi-deps-db": "pypi-deps-db",
         "scalpel": "scalpel",
@@ -519,24 +504,6 @@
         "tree": "tree",
         "utils": "utils",
         "wsl": "wsl"
-      }
-    },
-    "rust": {
-      "inputs": {
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "lastModified": 1689281833,
-        "narHash": "sha256-+VQV7vtmrFNl5MEKASZ3Kc/y9J2ljEljbw500g5rb/E=",
-        "owner": "arcnmx",
-        "repo": "nixexprs-rust",
-        "rev": "ec3881a307d3b586b2942af40e7053c8b264300e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "arcnmx",
-        "repo": "nixexprs-rust",
-        "type": "github"
       }
     },
     "scalpel": {

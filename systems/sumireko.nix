@@ -66,20 +66,6 @@ _: let
       home.sessionVariables = {
         ARTEMISCLI_CONFIG_PATH = "/Users/kat/.artemisconfig";
       };
-      services.konawall = {
-        enable = true;
-        interval_macos = 3600;
-        mode = "shuffle";
-        commonTags = ["width:>=1600"];
-        tagList = [
-          [
-            "score:>=50"
-            #"no_humans"
-            "touhou"
-            "rating:s"
-          ]
-        ];
-      };
       home.file = {
         ".orbstack/ssh/authorized_keys".text =
           (string.concatSep "\n" tree.kat.user.data.keys)

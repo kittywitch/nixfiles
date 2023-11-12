@@ -4,6 +4,7 @@
   machine,
   systemType,
   std,
+  inputs,
   ...
 }: let
   inherit (std) list;
@@ -21,7 +22,7 @@ in {
       common
     ];
     extraSpecialArgs = {
-      inherit tree machine std;
+      inherit tree machine std inputs;
       parent = config;
     };
   };
