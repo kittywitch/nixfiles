@@ -24,37 +24,6 @@ in {
   launchd.agents.konawall = {
     enable = true;
     config = let
-      replacementPyProject = ''
-        [tool.poetry]
-        name = "konawall"
-        version = "0.1.0"
-        license = "MIT"
-        description = "A hopefully cross-platform service for fetching wallpapers and setting them"
-        authors = [
-            "Kat Inskip <kat@inskip.me>"
-        ]
-        readme = "README.MD"
-        packages = [
-            {include = "konawall"}
-        ]
-
-        [tool.poetry.scripts]
-        gui = "konawall.gui:main"
-
-        [tool.poetry.dependencies]
-        python = "^3.11"
-        pillow = "^10.0.1"
-        screeninfo = "^0.8.1"
-        requests = "^2.31.0"
-        termcolor = "^2.3.0"
-        wxpython = "^4.2.1"
-        humanfriendly = "^10.0"
-        xdg-base-dirs = "^6.0.1"
-
-        [build-system]
-        requires = [ "poetry-core" ]
-        build-backend = "poetry.core.masonry.api"
-      '';
       konawallInitialize = pkgs.writeScriptBin "konawall-initialize" ''
         #!/usr/bin/env bash
         set -xeuo pipefail
@@ -64,13 +33,7 @@ in {
         ${pkgs.coreutils}/bin/cp -r --no-preserve=mode,ownership "${inputs.konawall-py.outPath}" "$tmpDir/konawall"
         # change directory to the copy
         cd $tmpDir/konawall
-        # overwrite the pyproject.toml with the one that we want
-        # use a EOF heredoc to avoid escaping the quotes
-        cat <<EOF > pyproject.toml
-        ${replacementPyProject}
-        EOF
         # install the dependencies
-        ${pkgs.poetry}/bin/poetry lock --no-update
         ${pkgs.poetry}/bin/poetry install
         # run the package
         ${pkgs.poetry}/bin/poetry run gui
