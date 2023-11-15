@@ -9,22 +9,10 @@
 in {
   networking.firewall = {
     allowedTCPPorts = [(list.unsafeHead config.services.openssh.ports)];
-    allowedUDPPortRanges = [
-      {
-        from = 60000;
-        to = 61000;
-      }
-    ];
   };
 
   services.openssh = {
     enable = true;
-    /*
-      knownHosts.katca = {
-      certAuthority = true;
-      publicKey = builtins.readFile ./ca-pubkey.pem;
-    };
-    */
     settings = {
       KexAlgorithms = ["curve25519-sha256@libssh.org"];
       PasswordAuthentication = false;
@@ -37,6 +25,4 @@ in {
       LogLevel VERBOSE
     '';
   };
-
-  programs.mosh.enable = true;
 }

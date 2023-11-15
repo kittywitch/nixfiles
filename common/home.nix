@@ -18,9 +18,10 @@ in {
       ]
       ++ list.optional (tree.${systemType} ? home) tree.${systemType}.home;
 
-    users.kat.imports = with tree.kat; [
+    users.kat.imports = with tree.home.profiles; [
       common
     ];
+
     extraSpecialArgs = {
       inherit tree machine std inputs;
       parent = config;

@@ -8,19 +8,26 @@ _: let
   }: let
     inherit (lib.modules) mkDefault;
   in {
-    imports = with tree.nixos.hardware;
-      [
-        common-wifi-bt
-        sound
-      ]
-      ++ (with tree.nixos.roles; [
-        kde
+    imports =
+      (with tree.nixos.profiles; [
+        graphical
         gaming
       ])
-      ++ (with tree.kat; [
-        gui
+      ++ (with tree.nixos.environments; [
         kde
+      ])
+      ++ (with tree.home.profiles; [
+        devops
+        graphical
+        wireless
       ]);
+
+    machine = {
+      cpuVendor = "amd";
+    };
+
+    # to-do: add this and kvm-amd to automation
+    hardware.cpu.amd.updateMicrocode = mkDefault config.hardware.enableRedistributableFirmware;
 
     environment.systemPackages = with pkgs; [
       fd # fd, better fine!
@@ -35,19 +42,32 @@ _: let
       k9s
     ];
 
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
-    boot.loader.efi.efiSysMountPoint = "/boot/efi";
-    boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
-    boot.initrd.kernelModules = [];
-    boot.kernelParams = [
-      "amdgpu.gpu_recovery=1"
-    ];
-    boot.kernelModules = ["kvm-amd"];
-    boot.extraModulePackages = [];
-    boot.supportedFilesystems = ["ntfs"];
-    nixpkgs.hostPlatform = mkDefault "x86_64-linux";
-    hardware.cpu.amd.updateMicrocode = mkDefault config.hardware.enableRedistributableFirmware;
+    boot = {
+      loader = {
+        systemd-boot.enable = true;
+        efi = {
+          canTouchEfiVariables = true;
+          efiSysMountPoint = "/boot/efi";
+        };
+      };
+      # Enable swap on luks
+      boot.initrd = {
+        luks.devices = {
+          "luks-111c4857-5d73-4e75-89c7-43be9b044ade".device = "/dev/disk/by-uuid/111c4857-5d73-4e75-89c7-43be9b044ade";
+          "luks-111c4857-5d73-4e75-89c7-43be9b044ade".keyFile = "/crypto_keyfile.bin";
+          "luks-af144e7f-e35b-49e7-be90-ef7001cc2abd".device = "/dev/disk/by-uuid/af144e7f-e35b-49e7-be90-ef7001cc2abd";
+        };
+        availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
+        secrets = {
+          "/crypto_keyfile.bin" = null;
+        };
+      };
+      kernelParams = [
+        "amdgpu.gpu_recovery=1"
+      ];
+      kernelModules = ["kvm-amd"];
+      supportedFilesystems = ["ntfs"];
+    };
 
     fileSystems = {
       "/" = {
@@ -59,15 +79,6 @@ _: let
         fsType = "vfat";
       };
     };
-
-    boot.initrd.secrets = {
-      "/crypto_keyfile.bin" = null;
-    };
-
-    # Enable swap on luks
-    boot.initrd.luks.devices."luks-111c4857-5d73-4e75-89c7-43be9b044ade".device = "/dev/disk/by-uuid/111c4857-5d73-4e75-89c7-43be9b044ade";
-    boot.initrd.luks.devices."luks-111c4857-5d73-4e75-89c7-43be9b044ade".keyFile = "/crypto_keyfile.bin";
-    boot.initrd.luks.devices."luks-af144e7f-e35b-49e7-be90-ef7001cc2abd".device = "/dev/disk/by-uuid/af144e7f-e35b-49e7-be90-ef7001cc2abd";
 
     services.openssh = {
       hostKeys = [

@@ -1,24 +1,19 @@
 _: let
-  hostConfig = {
-    config,
-    tree,
-    ...
-  }: {
-    imports = with tree.nixos.hardware;
-      [
-        lenovo-thinkpad-x260
-        common-pc-laptop-ssd
-      ]
-      ++ (with tree.nixos.roles; [
+  hostConfig = {tree, ...}: {
+    imports =
+      (with tree.nixos.profiles; [
         graphical
-        kde
+        wireless
         laptop
       ])
-      ++ (with tree; [
-        kat.gui
-        kat.vscode
-        kat.kde
+      ++ (with tree.nixos.environments; [
+        kde
       ]);
+
+    home-manager.users.kat.imports = with tree.home.profiles; [
+      graphical
+      devops
+    ];
 
     fileSystems = {
       "/" = {
@@ -31,6 +26,10 @@ _: let
       };
     };
 
+    machine = {
+      cpuVendor = "intel";
+    };
+
     networking.networkmanager.wifi.backend = "iwd";
 
     swapDevices = [
@@ -39,7 +38,10 @@ _: let
 
     boot = {
       supportedFilesystems = ["xfs"];
-      initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/f0ea08b4-6af7-4d90-a2ad-edd5672a2105";
+      initrd = {
+        availableKernelModules = ["xhci_pci" "nvme" "usb_storage" "sd_mod" "sr_mod" "rtsx_usb_sdmmc"];
+        luks.devices."cryptroot".device = "/dev/disk/by-uuid/f0ea08b4-6af7-4d90-a2ad-edd5672a2105";
+      };
       loader = {
         efi = {
           canTouchEfiVariables = true;

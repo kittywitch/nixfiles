@@ -25,26 +25,30 @@
         "default"
       ];
     };
-    # Required for all-system common imports
+
     common.functor.enable = true;
-    # Re-map home directory profiles
-    kat.evaluateDefault = true;
-    "kat/user".evaluateDefault = true;
-    "kat/user/data".evaluate = true;
-    # Allow profile importing
+
+    "home/*".functor.enable = true;
+    "home/profiles/*".functor.enable = true;
+    "home/environments/*".functor.enable = true;
+    "home/user".evaluateDefault = true;
+    "home/user/data".evaluate = true;
+
     "nixos/*".functor.enable = true;
-    "nixos/roles/*".functor = {
+    "nixos/profiles/*".functor = {
       enable = true;
       excludes = [
         "scalpel"
       ];
     };
+
+    "darwin/*".functor.enable = true;
+
+    "nixos/environments/*".functor.enable = true;
+
     "systems/*".aliasDefault = true;
     "packages/*".aliasDefault = true;
-    "nixos/hardware".evaluateDefault = true;
-    "nixos/hardware/*".functor.enable = true;
-    "darwin/*".functor.enable = true;
-    "kat/*".functor.enable = true;
+
     # Various modules
     "modules/common" = {
       functor = {

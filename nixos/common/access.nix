@@ -13,20 +13,6 @@
       config.users.users);
   };
 in {
-  security.sudo.extraRules = [
-    {
-      users = ["deploy"];
-      commands = [
-        {
-          command = "ALL";
-          options = [
-            "NOPASSWD"
-            "SETENV"
-          ];
-        }
-      ];
-    }
-  ];
   users.users = {
     root = commonUser;
     deploy =

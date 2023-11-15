@@ -70,10 +70,13 @@
         }
         .${string.toLower config.type};
       modules = with tree; [
+        # per-OS modules
         tree.modules.${config.folder}
-        #tree.modules.common
+        # per-OS configuration
         tree.${config.folder}.common
-        tree.kat.user.${config.folder}
+        # per-OS user definition
+        tree.home.user.${config.folder}
+        # the base common module
         common
       ];
       builder =
