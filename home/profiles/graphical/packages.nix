@@ -35,7 +35,6 @@
       lm_sensors # Sensor Data
       cryptsetup # Encrypted block devices
       yubikey-manager # Yubikey
-      imv # Image viewer
       yt-dlp # Downloading media
       v4l-utils # Webcam
     ];

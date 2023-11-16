@@ -10,6 +10,7 @@
     source = "konachan";
     tags = [
       "rating:s"
+      "touhou"
       "score:>=50"
       "width:>=1500"
     ];
