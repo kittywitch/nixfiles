@@ -13,14 +13,16 @@ _: let
       ]
       ++ (with tree.nixos.roles; [
         server
-        web-server
-        postgres-server
-        matrix-homeserver
-        vaultwarden-server
-        minecraft-server
-        monitoring-server
+      ])
+      ++ (with tree.nixos.servers; [
+        web
+        postgres
+        matrix
+        vaultwarden
+        minecraft
+        grafana-stack
         public-directory
-        irc-client
+        web-irc-client
       ]);
 
     boot = {

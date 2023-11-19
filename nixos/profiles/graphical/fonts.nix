@@ -4,6 +4,7 @@
       font-awesome
       twitter-color-emoji
       iosevka-bin
+      monaspace
     ];
     enableDefaultPackages = true;
     fontDir.enable = true;

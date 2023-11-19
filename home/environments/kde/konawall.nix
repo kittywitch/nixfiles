@@ -12,6 +12,24 @@
     Terminal=False
     Type=Application
   '';
+  konawallConfig = {
+    interval = 300;
+    rotate = true;
+    source = "konachan";
+    tags = [
+      "rating:s"
+      "touhou"
+      "score:>=50"
+      "width:>=1500"
+    ];
+    logging = {
+      file = "INFO";
+      console = "DEBUG";
+    };
+  };
 in {
-  xdg.configFile."autostart/konawall.desktop".text = desktop_entry;
+  xdg.configFile = {
+    "konawall/config.toml".source = (pkgs.formats.toml {}).generate "konawall-config" konawallConfig;
+    "autostart/konawall.desktop".text = desktop_entry;
+  };
 }

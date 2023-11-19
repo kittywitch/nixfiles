@@ -1,5 +1,5 @@
 _: {
-  firewall = {
+  networking.firewall = {
     allowedUDPPorts = [5353]; # MDNS
     allowedUDPPortRanges = [
       {

@@ -10,10 +10,14 @@ _: let
         kde
       ]);
 
-    home-manager.users.kat.imports = with tree.home.profiles; [
-      graphical
-      devops
-    ];
+    home-manager.users.kat.imports =
+      (with tree.home.profiles; [
+        graphical
+        devops
+      ])
+      ++ (with tree.home.environments; [
+        kde
+      ]);
 
     fileSystems = {
       "/" = {
