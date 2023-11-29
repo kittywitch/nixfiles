@@ -5,12 +5,12 @@
   ...
 }: let
   konawallConfig = {
-    interval = 300;
+    interval = 3000;
     rotate = true;
     source = "konachan";
     tags = [
       "rating:s"
-      "touhou"
+      "nobody"
       "score:>=50"
       "width:>=1500"
     ];

@@ -6,6 +6,7 @@ _: let
   }: {
     imports = with tree.darwin; [
       orbstack
+      packages
     ];
 
     home-manager.users.kat.imports =
