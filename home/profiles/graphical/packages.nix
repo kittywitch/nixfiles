@@ -1,42 +1,40 @@
 {pkgs, ...}: {
-  config = {
-    home.packages = with pkgs; [
-      # Password manager
-      bitwarden
+  home.packages = with pkgs; [
+    # Password manager
+    bitwarden
 
-      # Task managers
-      btop
-      htop
+    # Task managers
+    btop
+    htop
 
-      # Mail
-      thunderbird
+    # Mail
+    thunderbird
 
-      # Music
-      spotify
+    # Music
+    spotify
 
-      # Chat
-      discord
-      nheko # Matrix
-      tdesktop # Telegram
-      dino # XMPP
-      signal-desktop
+    # Chat
+    discord
+    nheko # Matrix
+    tdesktop # Telegram
+    dino # XMPP
+    signal-desktop
 
-      # Exocortex
-      obsidian
+    # Exocortex
+    obsidian
 
-      # Archivery
-      unzip
-      zip
-      p7zip
+    # Archivery
+    unzip
+    zip
+    p7zip
 
-      # Misc
-      gimp-with-plugins # GIMP
-      exiftool # EXIF Stripping
-      lm_sensors # Sensor Data
-      cryptsetup # Encrypted block devices
-      yubikey-manager # Yubikey
-      yt-dlp # Downloading media
-      v4l-utils # Webcam
-    ];
-  };
+    # Misc
+    gimp-with-plugins # GIMP
+    exiftool # EXIF Stripping
+    lm_sensors # Sensor Data
+    cryptsetup # Encrypted block devices
+    yubikey-manager # Yubikey
+    yt-dlp # Downloading media
+    v4l-utils # Webcam
+  ];
 }

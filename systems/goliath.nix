@@ -11,15 +11,20 @@ _: let
     imports =
       (with tree.nixos.profiles; [
         graphical
+        wireless
         gaming
       ])
       ++ (with tree.nixos.environments; [
         kde
-      ])
-      ++ (with tree.home.profiles; [
-        devops
+      ]);
+
+    home-manager.users.kat.imports =
+      (with tree.home.profiles; [
         graphical
-        wireless
+        devops
+      ])
+      ++ (with tree.home.environments; [
+        kde
       ]);
 
     machine = {
@@ -44,14 +49,28 @@ _: let
 
     boot = {
       loader = {
-        systemd-boot.enable = true;
+        grub = {
+          enable = true;
+          efiSupport = true;
+          devices = ["nodev"];
+          enableCryptodisk = true;
+          useOSProber = true;
+          gfxmodeBios = "1920x1080";
+          gfxmodeEfi = "1920x1080";
+          memtest86.enable = true;
+          extraConfig = ''
+            set color_normal=black/black
+            set menu_color_normal=black/black
+            set menu_color_highlight=magenta/cyan
+          '';
+        };
         efi = {
           canTouchEfiVariables = true;
-          efiSysMountPoint = "/boot/efi";
+          efiSysMountPoint = "/boot";
         };
       };
       # Enable swap on luks
-      boot.initrd = {
+      initrd = {
         luks.devices = {
           "luks-111c4857-5d73-4e75-89c7-43be9b044ade".device = "/dev/disk/by-uuid/111c4857-5d73-4e75-89c7-43be9b044ade";
           "luks-111c4857-5d73-4e75-89c7-43be9b044ade".keyFile = "/crypto_keyfile.bin";
@@ -74,7 +93,7 @@ _: let
         device = "/dev/disk/by-uuid/cf7fc410-4e27-4797-8464-a409766928c1";
         fsType = "ext4";
       };
-      "/boot/efi" = {
+      "/boot" = {
         device = "/dev/disk/by-uuid/D0D8-F8BF";
         fsType = "vfat";
       };
