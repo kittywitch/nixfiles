@@ -118,6 +118,19 @@
       url = "github:arcnmx/nixexprs/master";
       flake = false;
     };
+    base16 = {
+      url = "github:arcnmx/base16.nix/flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    base16-data = {
+      url = "github:arcnmx/base16.nix/data";
+      inputs = {
+        base16.follows = "base16";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     # plasma manager
     plasma-manager = {
       url = "github:pjones/plasma-manager";

@@ -41,6 +41,12 @@
         "scalpel"
       ];
     };
+    "nixos/servers/*".functor = {
+      enable = true;
+      excludes = [
+        "scalpel"
+      ];
+    };
 
     "darwin/*".functor.enable = true;
 
@@ -61,17 +67,13 @@
     "modules/nixos" = {
       functor = {
         enable = true;
-        external = with inputs;
-          [
-            nix-index-database.nixosModules.nix-index
-            home-manager.nixosModules.home-manager
-            minecraft.nixosModules.minecraft-servers
-            sops-nix.nixosModules.sops
-          ]
-          ++ (with (import (inputs.arcexprs + "/modules")).nixos; [
-            base16
-            base16-shared
-          ]);
+        external = with inputs; [
+          nix-index-database.nixosModules.nix-index
+          home-manager.nixosModules.home-manager
+          minecraft.nixosModules.minecraft-servers
+          sops-nix.nixosModules.sops
+          base16.nixosModules.base16
+        ];
       };
     };
     "modules/darwin" = {
@@ -89,9 +91,9 @@
           [
             nix-index-database.hmModules.nix-index
             plasma-manager.homeManagerModules.plasma-manager
+            base16.homeModules.base16
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).home-manager; [
-            base16
             i3gopher
           ]);
       };

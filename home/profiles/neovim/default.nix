@@ -76,7 +76,7 @@ in {
           tree-sitter-scss
         ]))
       # Treesitter Plugins
-      nvim-ts-rainbow
+      rainbow-delimiters-nvim
       nvim-treesitter-context
       twilight-nvim
     ];

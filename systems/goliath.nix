@@ -57,12 +57,6 @@ _: let
           useOSProber = true;
           gfxmodeBios = "1920x1080";
           gfxmodeEfi = "1920x1080";
-          memtest86.enable = true;
-          extraConfig = ''
-            set color_normal=black/black
-            set menu_color_normal=black/black
-            set menu_color_highlight=magenta/cyan
-          '';
         };
         efi = {
           canTouchEfiVariables = true;

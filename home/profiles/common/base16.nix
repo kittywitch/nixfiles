@@ -1,19 +1,28 @@
-{lib, ...}: let
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: let
   inherit (lib.modules) mkMerge;
+  inherit (inputs.base16-data.lib.base16-data) schemeSources;
 in {
   base16 = {
-    vim.enable = false;
+    vim = {
+      enable = false;
+      template = inputs.base16-data.legacyPackages.${pkgs.system}.base16-templates.vim.withTemplateData;
+    };
     shell.enable = true;
-    schemes = mkMerge [
-      {
-        light = "atelier.atelier-cave-light";
-        dark = "atelier.atelier-cave";
-      }
-      {
-        dark.ansi.palette.background.alpha = "ee00";
-        light.ansi.palette.background.alpha = "d000";
-      }
-    ];
+    schemes = {
+      light = {
+        schemeData = schemeSources.atelier.schemes.atelier-sulphurpool-light;
+        ansi.palette.background.alpha = "d000";
+      };
+      dark = {
+        schemeData = schemeSources.atelier.schemes.atelier-cave;
+        ansi.palette.background.alpha = "ee00";
+      };
+    };
     defaultSchemeName = "light";
   };
 }

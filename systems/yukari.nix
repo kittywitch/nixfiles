@@ -11,7 +11,7 @@ _: let
       [
         (modulesPath + "/profiles/qemu-guest.nix")
       ]
-      ++ (with tree.nixos.roles; [
+      ++ (with tree.nixos.profiles; [
         server
       ])
       ++ (with tree.nixos.servers; [
@@ -19,7 +19,6 @@ _: let
         postgres
         matrix
         vaultwarden
-        minecraft
         grafana-stack
         public-directory
         web-irc-client

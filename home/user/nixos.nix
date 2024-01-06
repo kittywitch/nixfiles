@@ -2,6 +2,7 @@
   users.users.kat = {
     uid = 1000;
     isNormalUser = true;
+    linger = true;
     openssh.authorizedKeys = {
       inherit (tree.home.user.data) keys;
     };
@@ -13,6 +14,7 @@
       "plugdev"
       "input"
       "uinput"
+      "adbusers"
     ];
   };
 }

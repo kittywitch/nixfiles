@@ -4,11 +4,13 @@
   ...
 }: {
   environment.systemPackages = with pkgs; [
-    android-udev-rules
     jmtpfs
     dnsutils
     firefox
     usbutils
     inputs.konawall-py.packages.${pkgs.system}.konawall-py
+  ];
+  services.udev.packages = [
+    pkgs.android-udev-rules
   ];
 }
