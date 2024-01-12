@@ -8,7 +8,7 @@ locals {
     "sonarr",
     "radarr",
     "jackett",
-    "tatulli",
+    "tautulli",
     "bazarr",
     "ombi",
   ]
