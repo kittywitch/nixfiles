@@ -20,9 +20,6 @@
     dino # XMPP
     signal-desktop
 
-    # Exocortex
-    obsidian
-
     # Archivery
     unzip
     zip
