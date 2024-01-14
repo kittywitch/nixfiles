@@ -11,6 +11,7 @@ locals {
     "tautulli",
     "bazarr",
     "ombi",
+    "deluge",
   ]
 }
 

@@ -7,7 +7,7 @@
 }: let
   # The purpose of this file is to set up the host module which allows assigning of the system, e.g. aarch64-linux and the builder used with less pain.
   inherit (lib.modules) evalModules;
-  inherit (std) string types optional set;
+  inherit (std) string types optional set list;
   defaultSpecialArgs = {
     inherit inputs tree std;
   };
@@ -133,6 +133,10 @@
   tree.systems;
   processHost = name: cfg: let
     host = cfg.config;
+    serverLocations = {
+      mediabox = "10.1.1.167";
+      orb = "orb";
+    };
   in {
     deploy.nodes = set.merge [
       (set.optional (host.folder == "nixos") {
@@ -145,17 +149,22 @@
           magicRollback = false;
         };
       })
-      (set.optional (name != "renko" && host.folder == "nixos") {
+      (set.optional (!(list.elem name (set.keys serverLocations)) && host.folder == "nixos") {
         ${name} = {
           hostname = "${name}.inskip.me";
           sshUser = "deploy";
           sshOpts = ["-oControlMaster=no" "-oControlPath=/tmp/willneverexist" "-p" "${builtins.toString (builtins.head inputs.self.nixosConfigurations.${name}.config.services.openssh.ports)}"];
         };
       })
+      (set.optional ((list.elem name (set.keys serverLocations)) && host.folder == "nixos") {
+        ${name} = {
+          hostname = serverLocations.${name};
+          sshUser = "root";
+        };
+      })
       (set.optional (name == "renko" && host.folder == "nixos") {
         ${name} = {
           sshUser = "nixos";
-          hostname = "orb";
           fastConnection = true;
           sshOpts = ["-oControlMaster=no" "-oControlPath=/tmp/willneverexist" "-p" "32222"];
         };
