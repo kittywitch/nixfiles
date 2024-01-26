@@ -4,7 +4,6 @@
   inputs,
   ...
 }: let
-  inherit (lib.modules) mkMerge;
   inherit (inputs.base16-data.lib.base16-data) schemeSources;
 in {
   base16 = {

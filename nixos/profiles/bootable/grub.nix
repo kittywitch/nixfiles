@@ -1,8 +1,9 @@
 _: {
   boot.loader = {
-    timeout = -1;
+    timeout = null;
     grub = {
-      # theme = pkgs.nixos-grub2-theme; # so like, this turbo-breaks the fuck out of GRUB, i have no clue why?
+      enable = true;
+      useOSProber = true;
       splashImage = ./splash.jpg;
       extraConfig = ''
         set color_normal=black/black

@@ -9,6 +9,7 @@
     kubectl # kubectl
     k9s # cute k8s client, canines~
     kubernetes-helm # k8s package manager
+    kustomize # config management and patching, ...
 
     # AWS
 

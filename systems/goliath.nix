@@ -6,10 +6,40 @@ _: let
     pkgs,
     ...
   }: let
-    inherit (lib.modules) mkDefault;
+    inherit (lib.lists) singleton;
+    drives = {
+      root = {
+        raw = "/dev/disk/by-uuid/af144e7f-e35b-49e7-be90-ef7001cc2abd";
+        luks = "luks-af144e7f-e35b-49e7-be90-ef7001cc2abd";
+        result = {
+          device = "/dev/disk/by-uuid/cf7fc410-4e27-4797-8464-a409766928c1";
+          fsType = "ext4";
+        };
+      };
+      boot = rec {
+        raw = "/dev/disk/by-uuid/D0D8-F8BF";
+        result = {
+          device = raw;
+          fsType = "vfat";
+        };
+      };
+      swap = {
+        raw = "/dev/disk/by-uuid/111c4857-5d73-4e75-89c7-43be9b044ade";
+        luks = "luks-111c4857-5d73-4e75-89c7-43be9b044ade";
+        result = {
+          device = "/dev/disk/by-uuid/bebdb14c-4707-4e05-848f-5867764b7c27";
+        };
+      };
+    };
   in {
     imports =
-      (with tree.nixos.profiles; [
+      (with tree.nixos.hardware; [
+        amd_cpu
+        amd_gpu
+        b550m-itx-ac
+        uefi
+      ])
+      ++ (with tree.nixos.profiles; [
         graphical
         wireless
         gaming
@@ -27,71 +57,36 @@ _: let
         kde
       ]);
 
-    machine = {
-      cpuVendor = "amd";
-    };
-
-    # to-do: add this and kvm-amd to automation
-    hardware.cpu.amd.updateMicrocode = mkDefault config.hardware.enableRedistributableFirmware;
-
-    environment.systemPackages = with pkgs; [
-      fd # fd, better fine!
-      ripgrep # rg, better grep!
-      deadnix # dead-code scanner
-      alejandra # code formatter
-      statix # anti-pattern finder
-      deploy-rs.deploy-rs # deployment system
-      rnix-lsp # vscode nix extensions
-      terraform # terraform
-      kubectl
-      k9s
-    ];
-
     boot = {
       loader = {
         grub = {
-          enable = true;
-          efiSupport = true;
-          devices = ["nodev"];
           enableCryptodisk = true;
-          useOSProber = true;
-          gfxmodeBios = "1920x1080";
-          gfxmodeEfi = "1920x1080";
-        };
-        efi = {
-          canTouchEfiVariables = true;
-          efiSysMountPoint = "/boot";
         };
       };
-      # Enable swap on luks
       initrd = {
         luks.devices = {
-          "luks-111c4857-5d73-4e75-89c7-43be9b044ade".device = "/dev/disk/by-uuid/111c4857-5d73-4e75-89c7-43be9b044ade";
-          "luks-111c4857-5d73-4e75-89c7-43be9b044ade".keyFile = "/crypto_keyfile.bin";
-          "luks-af144e7f-e35b-49e7-be90-ef7001cc2abd".device = "/dev/disk/by-uuid/af144e7f-e35b-49e7-be90-ef7001cc2abd";
+          ${drives.swap.luks} = {
+            device = drives.swap.raw;
+            keyFile = "/crypto_keyfile.bin";
+          };
+          ${drives.root.luks}.device = drives.root.raw;
         };
-        availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
+        #
         secrets = {
           "/crypto_keyfile.bin" = null;
         };
+        availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
       };
-      kernelParams = [
-        "amdgpu.gpu_recovery=1"
-      ];
-      kernelModules = ["kvm-amd"];
+      kernelModules = ["nct6775"];
       supportedFilesystems = ["ntfs"];
     };
 
     fileSystems = {
-      "/" = {
-        device = "/dev/disk/by-uuid/cf7fc410-4e27-4797-8464-a409766928c1";
-        fsType = "ext4";
-      };
-      "/boot" = {
-        device = "/dev/disk/by-uuid/D0D8-F8BF";
-        fsType = "vfat";
-      };
+      "/" = drives.root.result;
+      "/boot" = drives.boot.result;
     };
+
+    swapDevices = singleton drives.swap.result;
 
     services.openssh = {
       hostKeys = [
@@ -109,15 +104,6 @@ _: let
         HostCertificate /var/lib/secrets/${config.networking.hostName}-osh-cert
         HostCertificate /var/lib/secrets/${config.networking.hostName}-osh-ed25519-cert
       '';
-    };
-
-    swapDevices = [
-      {device = "/dev/disk/by-uuid/bebdb14c-4707-4e05-848f-5867764b7c27";}
-    ];
-
-    networking = {
-      hostId = "dddbb888";
-      useDHCP = false;
     };
 
     system.stateVersion = "21.11";

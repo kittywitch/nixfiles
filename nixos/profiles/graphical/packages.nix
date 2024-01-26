@@ -8,6 +8,7 @@
     dnsutils
     firefox
     usbutils
+    plexamp
     inputs.konawall-py.packages.${pkgs.system}.konawall-py
   ];
   services.udev.packages = [

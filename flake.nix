@@ -139,23 +139,6 @@
         home-manager.follows = "home-manager";
       };
     };
-    # work
-    artemiscore = {
-      url = "git+ssh://git@github.com/Glamorous-ai/metaflow-core-plugin.git?ref=develop";
-      inputs = {
-        flake-utils.follows = "utils";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-    artemiscli = {
-      url = "git+ssh://git@github.com/Glamorous-ai/metaflow-cli-plugin.git";
-      inputs = {
-        artemiscore.follows = "artemiscore";
-        flake-utils.follows = "utils";
-        nixpkgs.follows = "nixpkgs";
-        std.follows = "std";
-      };
-    };
   };
   outputs = inputs: import ./outputs.nix {inherit inputs;};
 }

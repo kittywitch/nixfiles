@@ -64,6 +64,9 @@
     "nixos/hardware" = {
       external = inputs.nixos-hardware.outputs.nixosModules;
     };
+    "nixos/hardware/conditional" = {
+      functor.enable = true;
+    };
     "modules/nixos" = {
       functor = {
         enable = true;

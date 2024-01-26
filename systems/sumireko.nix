@@ -1,9 +1,5 @@
 _: let
-  hostConfig = {
-    tree,
-    pkgs,
-    ...
-  }: {
+  hostConfig = {tree, ...}: {
     imports = with tree.darwin; [
       orbstack
       packages
