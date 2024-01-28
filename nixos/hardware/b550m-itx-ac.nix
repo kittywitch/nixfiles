@@ -80,9 +80,9 @@
       ${pkgs.liquidctl}/bin/liquidctl --match clc set fan speed 20 0 30 0 40 10 50 50 60 75 70 100
     '';
   in {
-    wantedBy = ["multi-user.target"];
+    wantedBy = ["multi-user.target" "sleep.target"];
     description = "Set up the fan speeds for the system";
-    after = ["systemd-modules-load.service"];
+    after = ["systemd-modules-load.service" "suspend.target"];
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "${fanScript}/bin/fan";
