@@ -13,7 +13,7 @@
     Type=Application
   '';
   konawallConfig = {
-    interval = 300;
+    interval = 30 * 60;
     rotate = true;
     source = "konachan";
     tags = [

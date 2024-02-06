@@ -2,16 +2,13 @@
   programs.vscode = {
     enable = true;
     extensions = with pkgs.vscode-extensions; [
-      kamadorueda.alejandra
-      mkhl.direnv
-      mhutchie.git-graph
-      golang.go
-      hashicorp.terraform
-      arrterian.nix-env-selector
-      jnoortheen.nix-ide
       vscodevim.vim
       catppuccin.catppuccin-vsc
       github.copilot
+      kamadorueda.alejandra
+      mkhl.direnv
+      hashicorp.terraform
+      jnoortheen.nix-ide
     ];
     userSettings = {
       "nix.enableLanguageServer" = true;

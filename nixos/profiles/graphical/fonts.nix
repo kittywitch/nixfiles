@@ -5,6 +5,9 @@
       twitter-color-emoji
       iosevka-bin
       monaspace
+      corefonts
+      vistafonts
+      open-dyslexic
     ];
     enableDefaultPackages = true;
     fontDir.enable = true;

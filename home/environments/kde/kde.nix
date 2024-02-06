@@ -8,6 +8,9 @@ _: {
       "kdeglobals"."WM"."inactiveBackground" = "231,232,235";
       "kdeglobals"."WM"."inactiveBlend" = "231,232,235";
       "kdeglobals"."WM"."inactiveForeground" = "163,165,172";
+      "kdeglobals"."General"."BrowserApplication" = "firefox.desktop";
+      "kdeglobals"."General"."TerminalApplication" = "wezterm start --cwd .";
+      "kdeglobals"."General"."TerminalService" = "org.wezfurlong.wezterm.desktop";
       "kxkbrc"."Layout"."Options" = "terminate:ctrl_alt_bksp,ctrl:nocaps";
       "kxkbrc"."Layout"."ResetOldOptions" = true;
       "plasmarc"."Theme"."name" = "Arc";
