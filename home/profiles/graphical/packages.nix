@@ -15,6 +15,7 @@
 
     # Chat
     discord
+    gtkcord4
     nheko # Matrix
     tdesktop # Telegram
     dino # XMPP
@@ -31,7 +32,6 @@
     lm_sensors # Sensor Data
     cryptsetup # Encrypted block devices
     yubikey-manager # Yubikey
-    yt-dlp # Downloading media
     v4l-utils # Webcam
   ];
 }

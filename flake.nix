@@ -91,6 +91,8 @@
       url = "github:DavHau/pypi-deps-db";
       flake = false;
     };
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprsome.url = "github:kittywitch/hyprsome";
     # nixified python environments
     mach-nix = {
       url = "mach-nix/3.5.0";

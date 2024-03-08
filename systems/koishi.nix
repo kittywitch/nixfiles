@@ -12,7 +12,8 @@ _: let
         laptop
       ])
       ++ (with tree.nixos.environments; [
-        kde
+        #kde
+        hyprland
       ]);
 
     home-manager.users.kat.imports =
@@ -21,12 +22,16 @@ _: let
         devops
       ])
       ++ (with tree.home.environments; [
-        kde
+        #kde
+        hyprland
       ]);
 
     environment.systemPackages = with pkgs; [
       parsec-bin
     ];
+  
+  programs.adb.enable = true;
+  users.users.kat.extraGroups = ["adbusers"];
 
     fileSystems = {
       "/" = {

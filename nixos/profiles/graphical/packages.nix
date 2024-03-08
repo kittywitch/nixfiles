@@ -13,5 +13,6 @@
   ];
   services.udev.packages = [
     pkgs.android-udev-rules
+    pkgs.via
   ];
 }

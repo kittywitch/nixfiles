@@ -1,0 +1,84 @@
+*
+  padding: 0
+  margin: 0
+  border: none
+  border-radius: 0
+  background: none
+  font-family: "Iosevka", "Font Awesome 6 Free", "Font Awesome 6 Brands"
+  font-size: $font_size
+  text-shadow: none
+  box-shadow: none
+
+%widget_unpadded
+  transition: none
+  background: $base01
+  color: $base07
+  margin: 0 4px
+
+%widget
+  @extend %widget_unpadded
+  padding: 0 4px
+
+window#waybar
+  background: rgba($base00, 0.9)
+  border-bottom: 2px solid transparent
+
+// sway/workspaces
+#workspaces
+  @extend %widget_unpadded
+  button
+    color: $base06
+    &.focused
+      color: $base07
+      background: $base0D
+
+    &:hover
+      transition: none
+      box-shadow: inherit
+      text-shadow: inherit
+      background: $base06
+      color: $base0C
+
+
+// widgets
+#mode, window#waybar #window,
+#custom-clock, #mpris,
+#clock, #pulseaudio, #backlight, #network, #temperature, #battery, #idle_inhibitor, #tray, #tray menu
+  @extend %widget
+
+// hide when empty
+window#waybar.empty #window
+  opacity: 0
+
+
+// tooltips
+tooltip
+  background: rgba($base00, 0.9)
+  label
+    color: $base07
+
+// mpris player and state
+#mpris
+  &.spotify
+    background: #191414
+    color: #1DB954
+
+  &.paused
+    background: $base01
+    color: $base03
+
+/*.modules-left
+  #window
+  widget
+    label
+      margin: 0
+
+    &:first-child
+      margin-left: 0
+
+    &:last-child
+      margin-right: 0*/
+
+.modules-center
+
+.modules-right
