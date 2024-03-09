@@ -16,6 +16,11 @@ in {
     slurp
     grim
     swww
+    pavucontrol
+    hyprpicker
+    gnome.nautilus
+    brightnessctl
+    playerctl
     inputs.hyprsome.packages.${pkgs.system}.default
   ];
   home.sessionVariables = {
@@ -40,13 +45,15 @@ in {
       input = {
         kb_options = "ctrl:nocaps";
       };
-      monitor = [
-        "HDMI-A-2, 1920x1080, 0x0, 1"
-        "eDP-1, 1920x1080, 1920x0, 1"
-      ];
-      workspace = ["1,monitor:eDP-1,default:true"] ++ (list.map (workspace:
-        "${toString workspace},monitor:eDP-1"
-      ) (list.range 2 10)) ++ [ "11,monitor:DP-3,default:true"] ++ (list.map (workspace:
+      workspace = let
+        commonOptions = "gapsin:0,gapsout:0,rounding:false";
+      in
+        ["1,monitor:eDP-1,default:true,${commonOptions}"]
+        ++ (list.map (
+          workspace: "${toString workspace},monitor:eDP-1${commonOptions}"
+        ) (list.range 2 10));
+      /*
+                              ++ [ "11,monitor:DP-3,default:true"] ++ (list.map (workspace:
         "${toString workspace},monitor:DP-3"
       ) (list.range 12 20));
       /*list.concat (list.generate (
@@ -60,13 +67,21 @@ in {
             "${toString (x + 10)},monitor:DP-3"
           ]
         )
-        10);*/
+        10);
+      */
+      monitor = [
+        "eDP-1, 2256x1504, 0x0, 1"
+      ];
       exec-once = [
+        "${pkgs.hypridle}/bin/hypridle"
+        "${pkgs.udiskie}/bin/udiskie &"
+        "${pkgs.dbus}/bin/dbus-update-activation-environment --all"
         "${pkgs.libsForQt5.polkit-kde-agent}/bin/polkit-kde-agent"
         "${pkgs.networkmanagerapplet}/bin/nm-applet"
         "${pkgs.mako}/bin/mako"
         "${pkgs.swww}/bin/swww init"
         "${pkgs.systemd}/bin/systemctl --user restart waybar.service"
+        "${pkgs.pasystray}/bin/pasystray"
         "${inputs.konawall-py.packages.${pkgs.system}.konawall-py}/bin/konawall"
       ];
       xwayland = {
@@ -77,8 +92,19 @@ in {
         "$mod, mouse:273, resizewindow"
         "$mod ALT, mouse:272, resizewindow"
       ];
+      binde = [
+          ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
+          ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+          ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl -c backlight set 5%+"
+          ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl -c backlight set 5%-"
+      ];
       bind =
         [
+          ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          ", XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
+          ", XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
+          ", XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl prev"
+
           "$mod, F, exec, firefox"
           "$mod, R, exec, wofi -t wezterm -IS drun"
           "$mod SHIFT, R, exec, wofi -t wezterm -IS run"
@@ -93,7 +119,7 @@ in {
           "$mod SHIFT, P, changegroupactive, b"
           "$mod, R, togglesplit,"
           "$mod, T, togglefloating,"
-          "$mod, P, pseudo,"
+          "$mod SHIFT, P, pseudo,"
           "$mod ALT, ,resizeactive,"
           "$mod, Escape, exec, wlogout -p layer-shell"
           "$mod, L, exec, loginctl lock-session"
@@ -106,6 +132,9 @@ in {
           "$mod SHIFT, right, movewindow, r"
           "$mod SHIFT, up, movewindow, u"
           "$mod SHIFT, down, movewindow, d"
+
+          "$mod, P, exec, $[pkgs.hyprpicker}/bin/hyprpicker -na"
+
           "CTRL, Print, exec, grimblast --notify --cursor copysave output"
           "$mod SHIFT CTRL, R, exec, grimblast --notify --cursor copysave output"
 

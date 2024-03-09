@@ -15,6 +15,5 @@
     packages = [pkgs.tamzen];
     font = "Tamzen7x14";
     earlySetup = true;
-    keyMap = "uk";
   };
 }

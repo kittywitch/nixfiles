@@ -29,9 +29,8 @@
         "hyprland/window"
       ];
       modules-right = [
-        "network"
-        "temperature"
         "idle_inhibitor"
+        "power-profiles-daemon"
         "tray"
         "battery"
         "clock"
@@ -40,26 +39,33 @@
       # Modules Definition
       "hyprland/workspaces" = {
         format = "{icon}";
-        /*format-icons = {
+        /*
+          format-icons = {
           # https://fontawesome.com/v5/cheatsheet
           "1" = ""; # chats
           "2" = ""; # cloud (browser)
           "3" = ""; # music
           "4" = ""; # brain
           "5" = ""; # terminal >_
-        };*/
+        };
+        */
       };
       "hyprland/window" = {
         format = "{}";
         rewrite = {
-            "(.*) — Mozilla Firefox" = "🌎 $1";
-            "(.*) - fish" = "> [$1]";
+          "(.*) — Mozilla Firefox" = "🌎 $1";
+          "(.*) - fish" = "> [$1]";
         };
       };
       tray = {
         show-passive-items = true;
-        icon-size = 12;
+        icon-size = 24;
         spacing = 2;
+      };
+      power-profiles-daemon = {
+        format = "{profile}";
+        tooltip-format = "Power profile: {profile}\nDriver: {driver}";
+        tooltip = true;
       };
       mpris = {
         format = "{player_icon} {dynamic}";
@@ -74,23 +80,12 @@
           paused = "";
         };
       };
-      temperature = {
-        format = " {temperatureC}°C";
-        critical-threshold = 80;
-      };
       idle_inhibitor = {
         format = "{icon}";
         format-icons = {
           activated = "";
           deactivated = "";
         };
-      };
-      network = {
-        format-wifi = " {essid} ({signalStrength}%)";
-        format-ethernet = " {ipaddr}/{cidr}";
-        format-linked = " No IP";
-        format-disconnected = " Disconnected";
-        format-alt = "{ifname}: {ipaddr}/{cidr}";
       };
       clock = {
         format = "{:%F %H:%M %Z}";

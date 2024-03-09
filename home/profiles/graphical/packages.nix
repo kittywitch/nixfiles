@@ -15,8 +15,7 @@
 
     # Chat
     discord
-    gtkcord4
-    nheko # Matrix
+    fractal # Matrix
     tdesktop # Telegram
     dino # XMPP
     signal-desktop

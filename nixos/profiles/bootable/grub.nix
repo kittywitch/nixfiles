@@ -2,7 +2,7 @@ _: {
   boot.loader = {
     timeout = null;
     grub = {
-      enable = true;
+      enable = false;
       useOSProber = true;
       splashImage = ./splash.jpg;
       extraConfig = ''

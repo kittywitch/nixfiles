@@ -23,7 +23,7 @@ in {
           // {
             term_font = "Iosevka";
             font = "Iosevka";
-            font_size = "14px";
+            font_size = "12px";
           };
       };
       css_style = mkOption {
@@ -34,10 +34,11 @@ in {
   };
   config = mkIf (cfg.schemes != {}) {
     base16 = {
-      palette = set.fromList (set.mapToValues (k: v:
-        tuple.tuple2
-          k
-          "#${v.hex}"
+      palette = set.fromList (set.mapToValues (
+          k: v:
+            tuple.tuple2
+            k
+            "#${v.hex}"
         )
         (set.filter (n: _: string.hasPrefix "base" n)
           cfg.defaultScheme));

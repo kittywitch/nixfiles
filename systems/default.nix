@@ -3,6 +3,7 @@
   tree,
   lib,
   std,
+  pkgs,
   ...
 }: let
   # The purpose of this file is to set up the host module which allows assigning of the system, e.g. aarch64-linux and the builder used with less pain.
@@ -109,9 +110,13 @@
           macos = inputs.darwin.lib.darwinSystem;
         }
         .${string.toLower config.type};
-      specialArgs =
-        {
-          inherit machine;
+      specialArgs = let
+        nur = import inputs.nur {
+          pkgs = pkgs.${config.system};
+          nurpkgs = pkgs.${config.system};
+        };
+      in {
+          inherit machine nur;
           systemType = config.folder;
           inherit (config) system;
         }

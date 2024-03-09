@@ -1,7 +1,11 @@
-{ pkgs, lib, ... }: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   inherit (lib.attrsets) mapAttrsToList;
 in {
-    # TODO: remove the libs
+  # TODO: remove the libs
   programs.mpv = {
     enable = true;
     scripts = with pkgs.mpvScripts; [
@@ -15,20 +19,21 @@ in {
       vo = "gpu";
       volume-max = 200;
       opengl-waitvsync = true;
-       script-opts = builtins.concatStringsSep ","
+      script-opts =
+        builtins.concatStringsSep ","
         (mapAttrsToList (k: v: "${k}=${builtins.toString v}") {
-            ytdl_hook-ytdl_path = "${pkgs.yt-dlp}/bin/yt-dlp";
-            osc-layout = "slimbox";
-            osc-vidscale = "no";
-            osc-deadzonesize = 0.75;
-            osc-minmousemove = 4;
-            osc-hidetimeout = 2000;
-            osc-valign = 0.9;
-            osc-timems = "yes";
-            osc-seekbarstyle = "knob";
-            osc-seekbarkeyframes = "no";
-            osc-seekrangestyle = "slider";
-          });
+          ytdl_hook-ytdl_path = "${pkgs.yt-dlp}/bin/yt-dlp";
+          osc-layout = "slimbox";
+          osc-vidscale = "no";
+          osc-deadzonesize = 0.75;
+          osc-minmousemove = 4;
+          osc-hidetimeout = 2000;
+          osc-valign = 0.9;
+          osc-timems = "yes";
+          osc-seekbarstyle = "knob";
+          osc-seekbarkeyframes = "no";
+          osc-seekrangestyle = "slider";
+        });
     };
   };
 

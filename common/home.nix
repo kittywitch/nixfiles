@@ -5,6 +5,7 @@
   systemType,
   std,
   inputs,
+  nur,
   ...
 }: let
   inherit (std) list;
@@ -15,6 +16,8 @@ in {
     sharedModules = with tree;
       [
         modules.home
+        inputs.hyprlock.homeManagerModules.default
+        inputs.hypridle.homeManagerModules.default
       ]
       ++ list.optional (tree.${systemType} ? home) tree.${systemType}.home;
 
@@ -23,7 +26,7 @@ in {
     ];
 
     extraSpecialArgs = {
-      inherit tree machine std inputs;
+      inherit tree machine std inputs nur;
       parent = config;
     };
   };
