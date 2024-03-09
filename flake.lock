@@ -208,7 +208,7 @@
     "flakelibstd": {
       "inputs": {
         "nix-std": [
-          "flakelibstd"
+          "std"
         ]
       },
       "locked": {

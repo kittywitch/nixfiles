@@ -19,7 +19,7 @@
     };
     flakelibstd = {
       url = "github:flakelib/std";
-      inputs.nix-std.follows = "flakelibstd";
+      inputs.nix-std.follows = "std";
     };
     flakelib = {
       url = "github:flakelib/fl";

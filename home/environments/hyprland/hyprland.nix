@@ -133,7 +133,7 @@ in {
           "$mod SHIFT, up, movewindow, u"
           "$mod SHIFT, down, movewindow, d"
 
-          "$mod, P, exec, $[pkgs.hyprpicker}/bin/hyprpicker -na"
+          "$mod, P, exec, ${pkgs.hyprpicker}/bin/hyprpicker -na"
 
           "CTRL, Print, exec, grimblast --notify --cursor copysave output"
           "$mod SHIFT CTRL, R, exec, grimblast --notify --cursor copysave output"
