@@ -4,7 +4,7 @@ _: {
     settings = {
       "org/gnome/shell" = {
         favorite-apps = [
-          "brave-browser.desktop"
+          "firefox.desktop"
           "thunderbird.desktop"
           "nheko.desktop"
           "discord.desktop"

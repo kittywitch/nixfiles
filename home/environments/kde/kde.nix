@@ -11,9 +11,9 @@ _: {
       "kdeglobals"."General"."BrowserApplication" = "firefox.desktop";
       "kdeglobals"."General"."TerminalApplication" = "wezterm start --cwd .";
       "kdeglobals"."General"."TerminalService" = "org.wezfurlong.wezterm.desktop";
-      "kxkbrc"."Layout"."Options" = "terminate:ctrl_alt_bksp,ctrl:nocaps";
       "kxkbrc"."Layout"."ResetOldOptions" = true;
       "plasmarc"."Theme"."name" = "Arc";
+      "kxkbrc"."Layout"."Options" = "terminate:ctrl_alt_bksp,ctrl:hyper_capscontrol";
     };
   };
 }

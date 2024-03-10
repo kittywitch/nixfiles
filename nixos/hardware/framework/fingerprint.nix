@@ -1,21 +1,4 @@
-{
-  inputs,
-  tree,
-  pkgs,
-  ...
-}: {
-  imports =
-    (with tree.nixos.hardware; [
-      amd_cpu
-      amd_gpu
-      uefi
-    ])
-    ++ [
-      inputs.nixos-hardware.outputs.nixosModules.framework-13-7040-amd
-    ];
-  boot.initrd = {
-    availableKernelModules = ["nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod"];
-  };
+{ pkgs, ... }: {
   services = {
     fwupd = {
       enable = true;

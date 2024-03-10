@@ -28,16 +28,11 @@ in {
     SDL_VIDEODRIVER = "wayland";
     XDG_SESSION_TYPE = "wayland";
   };
-  systemd.user.services.swayidle.Install.WantedBy = lib.mkForce ["hyprland-session.target"];
   wayland.windowManager.hyprland = {
     enable = true;
     systemd = {
       enable = true;
       variables = ["--all"];
-      extraCommands = [
-        "systemctl --user stop graphical-session.target"
-        "systemctl --user start hyprland-session.target"
-      ];
     };
     xwayland.enable = true;
     settings = {
@@ -73,16 +68,16 @@ in {
         "eDP-1, 2256x1504, 0x0, 1"
       ];
       exec-once = [
+        "${pkgs.swww}/bin/swww init"
         "${pkgs.hypridle}/bin/hypridle"
-        "${pkgs.udiskie}/bin/udiskie &"
         "${pkgs.dbus}/bin/dbus-update-activation-environment --all"
         "${pkgs.libsForQt5.polkit-kde-agent}/bin/polkit-kde-agent"
         "${pkgs.networkmanagerapplet}/bin/nm-applet"
         "${pkgs.mako}/bin/mako"
-        "${pkgs.swww}/bin/swww init"
-        "${pkgs.systemd}/bin/systemctl --user restart waybar.service"
+        "${pkgs.udiskie}/bin/udiskie &"
         "${pkgs.pasystray}/bin/pasystray"
-        "${inputs.konawall-py.packages.${pkgs.system}.konawall-py}/bin/konawall"
+      ];
+      exec = [
       ];
       xwayland = {
         force_zero_scaling = true;

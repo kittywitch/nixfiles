@@ -2,13 +2,27 @@
   kittywitch,
   pkgs,
   config,
+  lib,
   ...
-}: {
-  systemd.user.services.waybar.Unit.X-Restart-Triggers = [
-    (builtins.hashString "md5" (builtins.toJSON config.programs.waybar.settings))
-  ];
+}: let
+  inherit (lib.modules) mkForce;
+in {
+  systemd.user.services.waybar = {
+    Install.WantedBy = lib.mkForce ["hyprland-session.target"];
+    Service = {
+      RestartSec = "1s";
+    };
+    Unit = {
+      After = ["hyprland-session.target"];
+      X-Restart-Triggers = [
+        (builtins.hashString "md5" (builtins.toJSON config.programs.waybar.settings))
+      ];
+    };
+  };
+
   programs.waybar = {
     enable = true;
+    systemd.enable = true;
     style = let
       template = kittywitch.sassTemplate {
         name = "waybar-style";
@@ -16,7 +30,6 @@
       };
     in
       template.source;
-    systemd.enable = true;
     settings.main = {
       layer = "top";
       position = "top";

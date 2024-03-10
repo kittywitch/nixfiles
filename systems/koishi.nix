@@ -35,7 +35,7 @@ _: let
 
       fileSystems = {
         "/" = {
-          device = "UUID=861e8815-9327-4e49-915b-73a3b0bdfa25";
+          device = "/dev/disk/by-uuid/861e8815-9327-4e49-915b-73a3b0bdfa25";
           fsType = "bcachefs";
         };
         "/boot" = {
