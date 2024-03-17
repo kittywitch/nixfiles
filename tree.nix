@@ -76,6 +76,7 @@
           minecraft.nixosModules.minecraft-servers
           sops-nix.nixosModules.sops
           base16.nixosModules.base16
+          lanzaboote.nixosModules.lanzaboote
         ];
       };
     };

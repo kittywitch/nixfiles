@@ -120,7 +120,7 @@
           "beacon.enabled" = false;
           "browser.search.geoip.url" = "";
           "browser.search.region" = "CA";
-          "browser.search.suggest.enabled" = false;
+          "browser.search.suggest.enabled" = true;
           "browser.search.update" = false;
           "browser.selfsupport.url" = "";
           "extensions.getAddons.cache.enabled" = false;

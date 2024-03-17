@@ -33,6 +33,10 @@ in {
     systemd = {
       enable = true;
       variables = ["--all"];
+      extraCommands = [
+        "systemctl --user stop graphical-session.target"
+        "systemctl --user start hyprland-session.target"
+      ];
     };
     xwayland.enable = true;
     settings = {
@@ -76,6 +80,8 @@ in {
         "${pkgs.mako}/bin/mako"
         "${pkgs.udiskie}/bin/udiskie &"
         "${pkgs.pasystray}/bin/pasystray"
+        "${pkgs.systemd}/bin/systemctl restart waybar --user"
+        "${pkgs.systemd}/bin/systemctl restart konawall-py --user"
       ];
       exec = [
       ];
@@ -112,9 +118,9 @@ in {
           "$mod, G, togglegroup,"
           "$mod SHIFT, N, changegroupactive, f"
           "$mod SHIFT, P, changegroupactive, b"
-          "$mod, R, togglesplit,"
           "$mod, T, togglefloating,"
-          "$mod SHIFT, P, pseudo,"
+          "$mod SHIFT, T, togglesplit,"
+          "$mod SHIFT, X, pseudo,"
           "$mod ALT, ,resizeactive,"
           "$mod, Escape, exec, wlogout -p layer-shell"
           "$mod, L, exec, loginctl lock-session"
@@ -127,6 +133,10 @@ in {
           "$mod SHIFT, right, movewindow, r"
           "$mod SHIFT, up, movewindow, u"
           "$mod SHIFT, down, movewindow, d"
+          "$mod ALT, left, movewindoworgroup, l"
+          "$mod ALT, right, movewindoworgroup, r"
+          "$mod ALT, up, movewindoworgroup, u"
+          "$mod ALT, down, movewindoworgroup, d"
 
           "$mod, P, exec, ${pkgs.hyprpicker}/bin/hyprpicker -na"
 

@@ -1,8 +1,9 @@
-_: {
-  boot.loader = {
+{config, lib, ... }: let
+    inherit (lib.modules) mkIf;
+ in {
+  boot.loader = mkIf (config.boot.loader.grub.enable) {
     timeout = null;
     grub = {
-      enable = false;
       useOSProber = true;
       splashImage = ./splash.jpg;
       extraConfig = ''

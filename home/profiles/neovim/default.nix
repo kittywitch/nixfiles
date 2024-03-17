@@ -56,6 +56,10 @@ in {
       bufferline-nvim
       # Language Server
       nvim-lspconfig
+      # tree
+      nui-nvim
+      neo-tree-nvim
+      # tree sitter
       (pkgs.vimPlugins.nvim-treesitter.withPlugins (_:
         with pkgs.tree-sitter-grammars; [
           tree-sitter-c

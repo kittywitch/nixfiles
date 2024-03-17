@@ -12,6 +12,7 @@ in {
   networking = {
     networkmanager = {
       enable = true;
+      wifi.backend = "iwd";
       connectionConfig = {
         "ipv6.ip6-privacy" = mkForce 0;
       };
