@@ -34,7 +34,6 @@
           refined-github
           stylus
           temporary-containers
-          tree-style-tab
           multi-account-containers
           ublock-origin
           violentmonkey
@@ -151,7 +150,13 @@
           "xpinstall.signatures.required" = false;
           "general.smoothScroll" = false;
           "general.warnOnAboutConfig" = false;
+          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         };
+        userChrome = ''
+#urlbar {
+  font-family: "Monaspace Krypton", monospace;
+}
+        '';
       };
     };
   };

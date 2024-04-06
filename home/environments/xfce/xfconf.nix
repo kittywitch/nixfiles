@@ -23,6 +23,7 @@ _: {
       };
       xfce4-notifyd = {
         "theme" = "Chicago95";
+        "notify-location" = "bottom-right";
       };
 
     };
