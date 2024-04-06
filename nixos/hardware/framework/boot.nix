@@ -4,7 +4,7 @@ _: {
       enable = true;
     };
     consoleLogLevel = 0;
-    kernelParams = [ "quiet" ];
+    kernelParams = ["quiet"];
     initrd = {
       verbose = false;
       systemd.enable = true;

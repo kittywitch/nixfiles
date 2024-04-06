@@ -115,7 +115,8 @@
           pkgs = pkgs.${config.system};
           nurpkgs = pkgs.${config.system};
         };
-      in {
+      in
+        {
           inherit machine nur;
           systemType = config.folder;
           inherit (config) system;

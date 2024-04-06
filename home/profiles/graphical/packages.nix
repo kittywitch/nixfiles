@@ -14,7 +14,6 @@
     spotify
 
     # Chat
-    discord
     fractal # Matrix
     tdesktop # Telegram
     dino # XMPP
@@ -26,7 +25,6 @@
     p7zip
 
     # Misc
-    gimp-with-plugins # GIMP
     exiftool # EXIF Stripping
     lm_sensors # Sensor Data
     cryptsetup # Encrypted block devices

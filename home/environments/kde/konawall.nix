@@ -4,7 +4,7 @@
   ...
 }: let
   konawallWithDelay = pkgs.writeShellScriptBin "konawall" ''
-  sleep 5 && ${inputs.konawall-py.packages.${pkgs.system}.konawall-py}/bin/konawall
+    sleep 5 && ${inputs.konawall-py.packages.${pkgs.system}.konawall-py}/bin/konawall
   '';
   desktop_entry = ''
     [Desktop Entry]

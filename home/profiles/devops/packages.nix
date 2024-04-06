@@ -20,7 +20,6 @@
     deadnix # nix dead-code scanner
     alejandra # nix code formatter
     statix # nix anti-pattern finder
-    rnix-lsp # vscode nix extensions
     deploy-rs.deploy-rs # deployment system
   ];
 }

@@ -27,6 +27,9 @@ _: {
         workspace-names = ["Main"];
         resize-with-right-button = true;
       };
+      "org/gnome/desktop/input-sources" = {
+        xkb-options = ["terminate:ctrl_alt_bksp" "caps:ctrl_modifier"];
+      };
     };
   };
 }

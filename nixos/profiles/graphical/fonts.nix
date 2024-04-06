@@ -8,6 +8,7 @@
       corefonts
       vistafonts
       open-dyslexic
+      chicago95
     ];
     enableDefaultPackages = true;
     fontDir.enable = true;

@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   services.hypridle = {
     enable = true;
     listeners = [
@@ -15,7 +15,6 @@
         timeout = 330;
         onTimeout = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
         onResume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
-
       }
       {
         timeout = 600;
