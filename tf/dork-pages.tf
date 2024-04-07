@@ -6,7 +6,7 @@ resource "cloudflare_pages_project" "dorkdev" {
   source {
     type = "github"
     config {
-        owner = "dorkdev"
+        owner = "kittywitch"
         repo_name = "dork.dev"
         production_branch = "site"
         deployments_enabled = true
