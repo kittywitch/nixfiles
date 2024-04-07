@@ -11,6 +11,7 @@ locals {
     kittywitch = cloudflare_zone.kittywitch_zone.id
   }
 }
+
 resource "cloudflare_zone" "dork_zone" {
   account_id = local.account_id
   paused     = false
