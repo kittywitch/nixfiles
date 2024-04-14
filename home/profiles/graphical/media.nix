@@ -13,7 +13,6 @@ in {
       paused
     ];
     config = {
-      gpu-context = "wayland";
       profile = "gpu-hq";
       hwdec = "auto";
       vo = "gpu";

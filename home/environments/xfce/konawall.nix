@@ -34,7 +34,7 @@ in {
       Restart = "on-failure";
       RestartSec = "1s";
     };
-    Install = {WantedBy = ["xfce4-session.target"];};
+    Install = {WantedBy = ["graphical-session.target"];};
   };
   xdg.configFile = {
     "konawall/config.toml".source = (pkgs.formats.toml {}).generate "konawall-config" konawallConfig;

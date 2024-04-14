@@ -2,19 +2,21 @@ keys:
 - &kat CD8CE78CB0B3BDD4 # https://inskip.me/pubkey.asc
 - &mew 65BD3044771CB6FB
 - &yukari age1n4kdchmkk3rfkaknxhveqr2ftprdpgwckutt23y6u8639lazzuks77tgav
+- &koishi age1nr0qds8w3gldmdvhwu0p6w2ys8f4sd0h3xy94h9dsafjzttaypxquzmswc
 creation_rules:
 - path_regex: terraform_secrets.yaml$
   shamir_threshold: 1
   key_groups:
   - pgp:
     - *kat
-- path_regex: roles/[^/]+/secrets\.yaml$
+- path_regex: nixos/profiles/[^/]+/.*\.yaml$
   shamir_threshold: 1
   key_groups:
   - pgp:
     - *kat
     age:
     - *yukari
+    - *koishi
 - path_regex: systems/.*\.yaml$
   shamir_threshold: 1
   key_groups:
@@ -22,6 +24,7 @@ creation_rules:
     - *kat
     age:
     - *yukari
+    - *koishi
 - path_regex: cluster/cluster.tfvars.sops$
   shamir_threshold: 1
   key_groups:
