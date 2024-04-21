@@ -3,7 +3,7 @@
     sopsFile = ./restic.yaml;
   };
   services.restic.backups = {
-    "${config.networking.hostName}/matrix" = {
+    "${config.networking.hostName}-matrix" = {
       paths = [
         "/var/lib/matrix-synapse"
         "/var/lib/mx-puppet-discord"
