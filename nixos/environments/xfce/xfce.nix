@@ -1,4 +1,5 @@
 { pkgs, ... }: {
+  services.gnome.gnome-keyring.enable = true;
   services.xserver = {
     enable = true;
     libinput.touchpad = {
