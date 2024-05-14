@@ -17,8 +17,14 @@
       whatsapp = {
       };
       bridge = {
+          encryption = {
+            allow = true;
+            default = true;
+            require = true;
+          };
         permissions = {
           "kittywit.ch" = "full";
+          "@whatsapp:kittywit.ch" = "admin";
           "@kat:kittywit.ch" = "admin";
         };
       };

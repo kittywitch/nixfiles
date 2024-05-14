@@ -1,4 +1,4 @@
-mautrix-signal-environment: ENC[AES256_GCM,data:eoRyc9dHVRPWkZjq4XIsKYbo9qy9xmA2KAEUffZ7rrfAB6z2tFPuIQDLbLpils73V63/hu6hwVT1Jprn+++GaAR/NogG1UqBBmv5N/sEjUXvUQJoNRGDNbZa+s/ttB40gfElpHr2F5lWqoE4zfvGdTH03QaVZKEfJKz3+VvCbI8JB/zeEK7Ze+bzzm8gXhmrsShAkWX+7jbboVCwvyX8L0UCjpaMLioORODPEWX8f8n9JpkoLgavlyCPDde18HxpReO1HV0=,iv:D8u528qWlgPAzekv9ZmeLtrSq9Az/ldRWMIAvZqiUh8=,tag:pJ1iD6QEcbupZfvPcFWaMw==,type:str]
+mautrix-signal-environment: ENC[AES256_GCM,data:BpCzruK8S1NBdszZaSalPKMkhSk+vpQKnLM+0USjo2j4awcjNnqsDSiV3rSsB3Zary3x456ZX5WCfYVCmFy6UmGP9LTw7OV7Y0nGpAsb6oKbAEMDcft4AbrNh4x2Z0Xc9fAlBE5UY4kmQW1HWTn8pxyV0+uwT7voNffzOujxss3YW6u6y7TlBZh4Y3uscR4Dm4yt9RBiAu1Tu8FJOPJW2VFQ16drQiQV4xfFusr8HIv1KiIJuNiyK+RWOPQGckiKz+aLAqdXShs=,iv:YP9Aw74CKfUsi/hSu3t+K7HHoEF6rXqpkqvr179l6sE=,tag:DDZxGvRiMgNYRU8C3wK60w==,type:str]
 sops:
     shamir_threshold: 1
     kms: []
@@ -24,8 +24,8 @@ sops:
             SndnKzY3R0MzV3pqbmxyYjNXV2p6bkEKS27XLdXlFy28qy6HlKlebp2/sqP4WKf1
             tCy/n4Dk8Gh+2Ss5+r+pqgoTHiZG/a6NqvJCpsxRsNxx+GZOpr6RcQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-04-21T21:52:05Z"
-    mac: ENC[AES256_GCM,data:BkNzMwxzX+ny7/Xn9eHScJKPu+VzzqISk2q1hTMKC62vV5xQ65d6MqDE86ljqEInQktX1DB+vExF8m4UFd0blmK6V2aK6ybT8GQWaojuzl149QKnZslhDFhijvfJL7qBZX3r3ovyQn8pobUrNHItlBWdyhFP1lCpxFufuX6zR4s=,iv:cL2q0S63wbq0rbA/ul6qqz0caCDEz9G3ic/ib+xV+xY=,tag:X4iMblIurYWsto1cyHEmKw==,type:str]
+    lastmodified: "2024-05-14T03:15:49Z"
+    mac: ENC[AES256_GCM,data:YKuPtzHtVqPeFKmm5OsR1btshycWB/++TLOEvjoMvIvsiFCo/YaPqyWebpSUOtvg2h/AwJY/6hPX15DPzDe4B2HePHDiiu5ItkspW3XJUkT30Ul4aAhE4hP0wotBQlYJro7mF41dejctLVpVi8V3zqTkr3nHgcMUa6EblUtPIWo=,iv:WsmM7VQrT0QIJjqQUsxW25jO3xSeLuAJEW6kiMQviW8=,tag:B1O/YWlL39PPoaOJNkl9yg==,type:str]
     pgp:
         - created_at: "2024-04-21T21:50:24Z"
           enc: |-

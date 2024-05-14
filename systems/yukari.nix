@@ -21,7 +21,7 @@ _: let
         vaultwarden
         grafana-stack
         public-directory
-        web-irc-client
+        weechat
       ]);
 
     boot = {

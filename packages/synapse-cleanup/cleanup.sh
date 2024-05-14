@@ -2,13 +2,14 @@
 set -eu
 set -o pipefail
 
-read -p "Enter the homeserver name, without https:// prefix: " HOMESERVER
-read -sp "Enter the admin user token required: " API_ID
+# Provide $HOMESERVER and $API_ID into the program via environment, or uncomment the two below lines:
+#read -p "Enter the homeserver name, without https:// prefix: " HOMESERVER
+#read -sp "Enter the admin user token required: " API_ID
 
 TEMPDIR=$(mktemp -d)
 
 echo -n "Starting synapse, just to make sure it is online for these requests"
-systemctl start matrix-synaps
+systemctl start matrix-synapse
 sleep 5
 
 echo -n "Collecting required room data"
@@ -36,11 +37,10 @@ for room_id in $rooms_to_clean; do
     curl --header "Authorization: Bearer ${API_ID}" -X POST -H "Content-Type: application/json" -d "{ \"delete_local_events\": true, \"purge_up_to_ts\": $ts }"  "https://${HOMESERVER}/_synapse/admin/v1/purge_history/\${room_id}"  
 don
 
-sudo -u matrix-synapse synapse_auto_compressor  -p "postgresql://matrix-synapse?user=matrix-synapse&host=/var/run/postgresql/"  -c 500 -n 100
-
 echo -n "Last optimization steps, database optimization, shutting down Synapse"
 systemctl stop matrix-synaps
 
+sudo -u matrix-synapse synapse_auto_compressor  -p "postgresql://matrix-synapse?user=matrix-synapse&host=/var/run/postgresql/"  -c 500 -n 100
 sudo -u postgres psql matrix-synapse -c "REINDEX (VERBOSE) DATABASE \"matrix-synapse\";"
 sudo -u postgres psql -c "VACUUM FULL VERBOSE;"
 

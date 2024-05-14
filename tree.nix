@@ -96,9 +96,11 @@
             nix-index-database.hmModules.nix-index
             plasma-manager.homeManagerModules.plasma-manager
             base16.homeModules.base16
+            inputs.sops-nix.homeManagerModules.sops
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).home-manager; [
             i3gopher
+            weechat
           ]);
       };
     };

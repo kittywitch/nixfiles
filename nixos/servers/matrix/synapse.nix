@@ -28,7 +28,6 @@ in {
         "/var/lib/matrix-synapse/discord-registration.yaml"
         "/var/lib/matrix-synapse/whatsapp-registration.yaml"
         "/var/lib/matrix-synapse/telegram-registration.yaml"
-        "/var/lib/matrix-synapse/signal-registration.yaml"
       ];
       log_config = pkgs.writeText "nya.yaml" ''
         version: 1

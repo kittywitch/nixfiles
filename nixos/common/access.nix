@@ -13,6 +13,9 @@
       config.users.users);
   };
 in {
+  security.pam.enableSSHAgentAuth = true;
+  security.sudo.enable = true;
+  security.pam.services.sudo.sshAgentAuth = true;
   users.users = {
     root = commonUser;
     deploy =

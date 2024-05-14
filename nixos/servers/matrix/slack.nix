@@ -1,10 +1,10 @@
 {config, ...}: {
-  sops.secrets.mautrix-signal-environment = {
-    sopsFile = ./signal.yaml;
+  sops.secrets.mautrix-slack-environment = {
+    sopsFile = ./slack.yaml;
   };
-  services.mautrix-signal = {
+  services.mautrix-slack = {
     enable = config.services.matrix-synapse.enable;
-    environmentFile = config.sops.secrets.mautrix-signal-environment.path;
+    environmentFile = config.sops.secrets.mautrix-slack-environment.path;
     settings = {
       homeserver = {
         domain = "kittywit.ch";
@@ -12,10 +12,9 @@
         software = "standard";
       };
       appservice = {
-        port = 9048;
-      ephemeral_events = false;
+          ephemeral_events = false;
       };
-      signal = {
+      slack = {
       };
       bridge = {
         history_sync = {
@@ -34,7 +33,7 @@
         permissions = {
           "kittywit.ch" = "full";
           "@kat:kittywit.ch" = "admin";
-          "@signal:kittywit.ch" = "admin";
+          "@slack:kittywit.ch" = "admin";
         };
       };
     };

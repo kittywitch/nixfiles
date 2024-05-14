@@ -16,13 +16,13 @@ in {
     sharedModules = with tree;
       [
         modules.home
-        inputs.hyprlock.homeManagerModules.default
-        inputs.hypridle.homeManagerModules.default
+        home.profiles.common
+        #inputs.hyprlock.homeManagerModules.default
+        #inputs.hypridle.homeManagerModules.default
       ]
       ++ list.optional (tree.${systemType} ? home) tree.${systemType}.home;
 
     users.kat.imports = with tree.home.profiles; [
-      common
     ];
 
     extraSpecialArgs = {

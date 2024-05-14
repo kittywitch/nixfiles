@@ -164,14 +164,6 @@
         hyprlang.follows = "hyprlang";
       };
     };
-    hypridle = {
-      url = "github:hyprwm/hypridle";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-        hyprlang.follows = "hyprlang";
-      };
-    };
     # nixified python environments
     mach-nix = {
       url = "mach-nix/3.5.0";

@@ -10,6 +10,7 @@
         "/var/lib/mautrix-whatsapp"
         "/var/lib/mautrix-signal"
         "/var/lib/mautrix-telegram"
+        "/var/lib/mautrix-slack"
       ];
       exclude = [
       ];

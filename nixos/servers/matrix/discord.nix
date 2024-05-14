@@ -7,7 +7,7 @@
         domain = "kittywit.ch";
         homeserverUrl = "https://yukari.gensokyo.zone";
       };
-      provisioning.whitelist = ["@kat:kittywit.ch"];
+      provisioning.whitelist = ["@.*:kittywit.ch"];
       relay.whitelist = ["@.*:kittywit.ch"];
     };
   };
