@@ -247,5 +247,5 @@ in
       restartTriggers = [ settingsFileUnsubstituted ];
     };
   };
-  meta.maintainers = with lib.maintainers; [ niklaskorz ];
+  meta.maintainers = with lib.maintainers; [ kittywitch ];
 }
