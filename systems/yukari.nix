@@ -22,6 +22,8 @@ _: let
         grafana-stack
         public-directory
         weechat
+        #tt-rss
+        #monica
       ]);
 
     boot = {

@@ -5,7 +5,7 @@ in {
         services.weechat.enable = true;
         programs.weechat = {
             enable = true;
-            config.weechat = with set.map (_: v: "colour${builtins.toString (list.unsafeHead v)}") inputs.base16.lib.base16.shell.mapping256; {
+            config.weechat = with config.base16.defaultScheme.map.ansiStr; {
                 look = {
                     mouse = true;
                     separator_horizontal = "";
