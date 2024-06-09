@@ -76,3 +76,14 @@ output "oci_compartment_bootstrap_child_compartment_key_state" {
   value = module.oci_compartment_bootstrap.child_compartment_key_state
   sensitive = true
 }
+
+# https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/terraformgettingstarted.htm
+# https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/terraformproviderconfiguration.htm
+provider "oci" {
+  alias = "oci_compartment"
+  private_key = module.oci_compartment_bootstrap.child_compartment_private_key
+  region           = var.oci_compartment_bootstrap_region
+  tenancy_ocid     = module.oci_compartment_bootstrap.child_compartment_id
+  user_ocid        = module.oci_compartment_bootstrap.child_user_id
+  fingerprint = module.oci_compartment_bootstrap.child_compartment_key_fingerprint
+}
