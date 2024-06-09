@@ -1,7 +1,5 @@
 locals {
-  takeover_ubuntu = yamlencode({
-
-  })
+  takeover_ubuntu = file("cloudinit_micro_ubuntu.yaml")
 }
 
 data "oci_core_images" "this" {
@@ -72,4 +70,8 @@ resource "oci_core_instance" "this" {
   lifecycle {
     ignore_changes = [source_details.0.source_id]
   }
+}
+
+locals {
+  micros = oci_core_instance.this
 }

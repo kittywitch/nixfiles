@@ -1,7 +1,5 @@
 locals {
-  takeover_oracle = yamlencode({
-
-  })
+  takeover_oracle = file("cloudinit_flex_oracle.yaml")
 }
 
 data "oci_core_images" "that" {
@@ -75,3 +73,6 @@ resource "oci_core_instance" "that" {
   }
 }
 
+locals {
+  flex = oci_core_instance.that
+}
