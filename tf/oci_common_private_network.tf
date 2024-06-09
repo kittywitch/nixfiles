@@ -1,3 +1,4 @@
+/*
 # https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/terraformgettingstarted.htm
 # https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/terraformproviderconfiguration.htm
 provider "oci" {
@@ -28,3 +29,4 @@ module "oci_common_private_network" {
     module.oci_compartment_bootstrap
   ]
 }
+*/
