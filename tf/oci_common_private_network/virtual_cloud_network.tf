@@ -20,6 +20,8 @@ resource "oci_core_vcn" "this" {
   cidr_blocks = var.cidr_blocks
   display_name = var.display_name
   dns_label = var.dns_label
+
+  is_ipv6enabled = true
 }
 
 locals {
