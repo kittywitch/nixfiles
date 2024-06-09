@@ -30,18 +30,6 @@ variable "micro_display_names" {
   type = list(string)
 }
 
-variable "ssh_authorized_keys" {
-  type = list(string)
-}
-
-variable "nsg_id" {
-  type = any
-}
-
-variable "subnet_id" {
-  type = any
-}
-
 resource "oci_core_instance" "this" {
   count = 2
 

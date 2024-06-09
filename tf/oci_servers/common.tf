@@ -24,6 +24,18 @@ variable "tenancy_ocid" {
   type = string
 }
 
+variable "ssh_authorized_keys" {
+  type = string
+}
+
+variable "nsg_id" {
+  type = any
+}
+
+variable "subnet_id" {
+  type = any
+}
+
 data "oci_identity_availability_domains" "this" {
   compartment_id = var.tenancy_ocid
 }
