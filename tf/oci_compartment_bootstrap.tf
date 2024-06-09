@@ -20,6 +20,10 @@ variable "oci_compartment_bootstrap_fingerprint" {
   type = string
 }
 
+variable "oci_compartment_bootstrap_user_email" {
+  type = string
+}
+
 # https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/terraformgettingstarted.htm
 # https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/terraformproviderconfiguration.htm
 provider "oci" {
@@ -36,6 +40,7 @@ module "oci_compartment_bootstrap" {
   source = "./oci_compartment_bootstrap"
 
   tenancy_ocid     = var.oci_compartment_bootstrap_tenancy_ocid
+  user_email = var.oci_compartment_bootstrap_user_email
 
   providers = {
     oci = oci.oci_root
