@@ -47,6 +47,8 @@ _: let
 
       services.printing.enable = true;
 
+      services.hardware.bolt.enable = true;
+
       swapDevices = [
         {device = "/dev/disk/by-uuid/04bd322e-dca0-43b8-b588-cc0ef1b1488e";}
       ];

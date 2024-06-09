@@ -27,6 +27,7 @@
           darkreader
           decentraleyes
           clearurls
+          sidebery
           df-youtube
           old-reddit-redirect
           privacy-badger

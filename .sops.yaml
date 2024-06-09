@@ -6,7 +6,7 @@ keys:
 - &koishi age1nr0qds8w3gldmdvhwu0p6w2ys8f4sd0h3xy94h9dsafjzttaypxquzmswc
 - &koishi_kat age18hpxz0ghvswv9k30cle73prvnzrsuczqh87jjdk9fl50j3ddndmq9xae0n
 creation_rules:
-- path_regex: terraform_secrets.yaml$
+- path_regex: tf/terraform.tfvars.sops$
   shamir_threshold: 1
   key_groups:
   - pgp:

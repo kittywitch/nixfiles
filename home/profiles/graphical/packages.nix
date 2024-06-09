@@ -18,6 +18,7 @@
     tdesktop # Telegram
     dino # XMPP
     signal-desktop
+    mumble
 
     # Archivery
     unzip

@@ -7,21 +7,21 @@ locals {
 }
 
 module "inskip-gmail" {
-    source = "./gmail-dns"
+    source = "./gmail_dns"
     cloudflare_api_key = var.cloudflare_api_key
     zone_id = local.zone_ids.inskip
     zone_name = local.zones.inskip
     dkim = local.dkims.inskip
 }
 module "dork-gmail" {
-    source = "./gmail-dns"
+    source = "./gmail_dns"
     cloudflare_api_key = var.cloudflare_api_key
     zone_id = local.zone_ids.dork
     zone_name = local.zones.dork
     dkim = local.dkims.dork
 }
 module "kittywitch-gmail" {
-    source = "./gmail-dns"
+    source = "./gmail_dns"
     cloudflare_api_key = var.cloudflare_api_key
     zone_id = local.zone_ids.kittywitch
     zone_name = local.zones.kittywitch
