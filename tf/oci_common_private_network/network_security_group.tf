@@ -5,15 +5,6 @@ resource "oci_core_network_security_group" "this" {
   display_name = oci_core_vcn.this.display_name
 }
 
-locals {
-  protocol_number = {
-    icmp   = 1
-    icmpv6 = 58
-    tcp    = 6
-    udp    = 17
-  }
-}
-
 resource "oci_core_network_security_group_security_rule" "icmp_in" {
   direction                 = "INGRESS"
   network_security_group_id = oci_core_network_security_group.this.id
