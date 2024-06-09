@@ -1,3 +1,7 @@
+variable "tenancy_ocid" {
+  type = string
+}
+
 variable "cidr_blocks" {
   type = list(string)
 }

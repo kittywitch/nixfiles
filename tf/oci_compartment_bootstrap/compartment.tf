@@ -1,3 +1,7 @@
+variable "tenancy_ocid" {
+  type = string
+}
+
 resource "oci_identity_compartment" "this" {
   # Compartment ID is Tenancy ID for this case
   compartment_id = var.tenancy_ocid
