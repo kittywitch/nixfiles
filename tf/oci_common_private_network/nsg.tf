@@ -14,11 +14,25 @@ locals {
   }
 }
 
-resource "oci_core_network_security_group_security_rule" "this" {
+resource "oci_core_network_security_group_security_rule" "icmp_in" {
   direction                 = "INGRESS"
   network_security_group_id = oci_core_network_security_group.this.id
   protocol                  = local.protocol_number.icmp
   source                    = "0.0.0.0/0"
+}
+
+resource "oci_core_network_security_group_security_rule" "ssh_in" {
+  direction                 = "INGRESS"
+  network_security_group_id = oci_core_network_security_group.this.id
+  protocol                  = local.protocol_number.tcp
+  source                    = "0.0.0.0/0"
+
+  tcp_options {
+    destination_port_range {
+      max = 22
+      min = 22
+    }
+  }
 }
 
 output "nsg_id" {
