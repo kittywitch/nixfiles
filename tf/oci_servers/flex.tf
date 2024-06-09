@@ -1,7 +1,3 @@
-locals {
-  takeover_oracle = file("cloudinit_flex_oracle.yaml")
-}
-
 data "oci_core_images" "that" {
   compartment_id = var.tenancy_ocid
 
@@ -14,7 +10,7 @@ data "oci_core_images" "that" {
 
 data "cloudinit_config" "that" {
   part {
-    content = local.takeover_oracle
+    content = file("${path.module}/cloudinit_flex_oracle.yaml")
   }
 }
 

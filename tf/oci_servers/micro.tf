@@ -1,7 +1,3 @@
-locals {
-  takeover_ubuntu = file("cloudinit_micro_ubuntu.yaml")
-}
-
 data "oci_core_images" "this" {
   compartment_id = var.tenancy_ocid
 
@@ -20,7 +16,7 @@ data "oci_core_images" "this" {
 
 data "cloudinit_config" "this" {
   part {
-    content = local.takeover_ubuntu
+    content = file("${path.module}/cloudinit_micro_ubuntu.yaml")
   }
 }
 
