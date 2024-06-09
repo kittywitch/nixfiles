@@ -21,3 +21,15 @@ module "oci_servers" {
     module.oci_compartment_bootstrap
   ]
 }
+
+output "daiyousei_public_ipv4" {
+  value = module.oci_servers.flex_public_ipv4
+}
+
+output "mei_public_ipv4" {
+  value = module.oci_servers.micro_public_ipv4s[0]
+}
+
+output "mai_public_ipv4" {
+  value = module.oci_servers.micro_public_ipv4s[1]
+}
