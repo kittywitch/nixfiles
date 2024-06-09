@@ -6,3 +6,11 @@ resource "oci_core_subnet" "this" {
   display_name = oci_core_vcn.this.display_name
   dns_label    = "subnet"
 }
+
+locals {
+  subnet = oci_core_subnet.this
+}
+
+output "subnet_id" {
+  value = local.subnet.id
+}

@@ -1,5 +1,4 @@
 locals {
-  display_name = ["Mei", "Mai"]
   takeover_ubuntu = yamlencode({
 
   })
@@ -27,6 +26,22 @@ data "cloudinit_config" "this" {
   }
 }
 
+variable "micro_display_names" {
+  type = list(string)
+}
+
+variable "ssh_authorized_keys" {
+  type = list(string)
+}
+
+variable "nsg_id" {
+  type = any
+}
+
+variable "subnet_id" {
+  type = any
+}
+
 resource "oci_core_instance" "this" {
   count = 2
 
@@ -34,11 +49,11 @@ resource "oci_core_instance" "this" {
   compartment_id = var.tenancy_ocid
   shape               = local.shapes.micro
 
-  display_name         = local.display_name[count.index]
+  display_name         = var.micro_display_names[count.index]
   preserve_boot_volume = false
 
   metadata = {
-    ssh_authorized_keys = var.ssh_public_key
+    ssh_authorized_keys = var.ssh_authorized_keys
     user_data           = data.cloudinit_config.this.rendered
   }
 
@@ -53,10 +68,10 @@ resource "oci_core_instance" "this" {
   }
 
   create_vnic_details {
-    display_name   = format("Ubuntu %d", count.index + 1)
-    hostname_label = format("ubuntu-%d", count.index + 1)
-    nsg_ids        = [oci_core_network_security_group.this.id]
-    subnet_id      = oci_core_subnet.this.id
+    display_name = var.micro_display_names[count.index]
+    hostname_label = lower(var.micro_display_names[count.index])
+    nsg_ids        = [var.nsg_id]
+    subnet_id      = var.subnet_id
   }
 
   source_details {

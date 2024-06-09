@@ -1,3 +1,9 @@
+locals {
+  takeover_oracle = yamlencode({
+
+  })
+}
+
 data "oci_core_images" "that" {
   compartment_id = var.tenancy_ocid
 
@@ -10,8 +16,16 @@ data "oci_core_images" "that" {
 
 data "cloudinit_config" "that" {
   part {
-    content = file("user-data-that.yaml")
+    content = local.takeover_oracle
   }
+}
+
+variable "flex_display_name" {
+  type = string
+}
+
+locals {
+  flex_hostname = lower(var.flex_display_name)
 }
 
 resource "oci_core_instance" "that" {
@@ -19,11 +33,11 @@ resource "oci_core_instance" "that" {
   compartment_id = var.tenancy_ocid
   shape               = local.shapes.flex
 
-  display_name         = "Oracle Linux"
+  display_name         = var.flex_display_name
   preserve_boot_volume = false
 
   metadata = {
-    ssh_authorized_keys = var.ssh_public_key
+    ssh_authorized_keys = var.ssh_authorized_keys
     user_data           = data.cloudinit_config.that.rendered
   }
 
@@ -39,10 +53,10 @@ resource "oci_core_instance" "that" {
 
   create_vnic_details {
     assign_public_ip = true
-    display_name     = "Oracle Linux"
-    hostname_label   = "oracle-linux"
-    nsg_ids          = [oci_core_network_security_group.this.id]
-    subnet_id        = oci_core_subnet.this.id
+    display_name     = var.flex_display_name
+    hostname_label   = local.flex_hostname
+    nsg_ids        = [var.nsg_id]
+    subnet_id      = var.subnet_id
   }
 
   shape_config {

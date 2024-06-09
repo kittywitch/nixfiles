@@ -20,6 +20,10 @@ locals {
   )
 }
 
+variable "tenancy_ocid" {
+  type = string
+}
+
 data "oci_identity_availability_domains" "this" {
   compartment_id = var.tenancy_ocid
 }

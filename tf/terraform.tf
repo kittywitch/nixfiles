@@ -24,7 +24,7 @@ terraform {
     }
   }
 
-  #/*
+  /*
   # Settings for local applies
   backend "remote" {
     hostname = "app.terraform.io"
@@ -33,9 +33,9 @@ terraform {
       name = "nixfiles-tf"
     }
   }
-  #*/
+  */
 
-  /*
+  #/*
   # Settings for remote applies
   cloud {
     organization = "kittywitch"
@@ -46,5 +46,5 @@ terraform {
       name = "nixfiles-tf"
     }
   }
-  */
+  #*/
 }
