@@ -12,4 +12,12 @@ module "oci_servers" {
   nsg_id              = module.oci_common_private_network.nsg_id
   ssh_authorized_keys = var.kat_pgp_ssh_public_key
   subnet_id           = module.oci_common_private_network.subnet_id
+
+  providers = {
+    oci = oci.oci_compartment
+  }
+
+  depends_on = [
+    module.oci_compartment_bootstrap
+  ]
 }

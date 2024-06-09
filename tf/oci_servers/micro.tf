@@ -56,6 +56,7 @@ resource "oci_core_instance" "this" {
   }
 
   create_vnic_details {
+    assign_public_ip = true
     display_name = var.micro_display_names[count.index]
     hostname_label = lower(var.micro_display_names[count.index])
     nsg_ids        = [var.nsg_id]
