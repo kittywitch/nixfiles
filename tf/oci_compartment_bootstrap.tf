@@ -44,24 +44,30 @@ module "oci_compartment_bootstrap" {
 
 output "oci_compartment_bootstrap_child_user_id" {
   value = module.oci_compartment_bootstrap.child_user_id
+  sensitive = true
 }
 
 output "oci_compartment_bootstrap_child_compartment_id" {
   value = module.oci_compartment_bootstrap.child_compartment_id
+  sensitive = true
 }
 
 output "oci_compartment_bootstrap_child_compartment_key_id" {
   value = module.oci_compartment_bootstrap.child_compartment_key_id
+  sensitive = true
 }
 
 output "oci_compartment_bootstrap_child_compartment_key_fingerprint" {
   value = module.oci_compartment_bootstrap.child_compartment_key_fingerprint
+  sensitive = true
 }
 
 output "oci_compartment_bootstrap_child_compartment_key_value" {
   value = module.oci_compartment_bootstrap.child_compartment_key_value
+  sensitive = true
 }
 
 output "oci_compartment_bootstrap_child_compartment_key_state" {
   value = module.oci_compartment_bootstrap.child_compartment_key_state
+  sensitive = true
 }
