@@ -9,3 +9,11 @@ locals {
   child_compartment_private_key = tls_private_key.this.private_key_pem
   child_compartment_public_key = tls_private_key.this.public_key_pem
 }
+
+output "child_compartment_private_key" {
+  value = local.child_compartment_private_key
+}
+
+output "child_compartment_public_key" {
+  value = local.child_compartment_public_key
+}
