@@ -30,7 +30,7 @@ terraform {
     hostname = "app.terraform.io"
     organization = "kittywitch"
     workspaces {
-      name = "nixfiles-tf"
+      name = "nixfiles"
     }
   }
   */
@@ -43,7 +43,7 @@ terraform {
     hostname = "app.terraform.io"
 
     workspaces {
-      name = "nixfiles-tf"
+      name = "nixfiles"
     }
   }
   #*/
