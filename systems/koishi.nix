@@ -20,7 +20,7 @@ _: let
         secureboot
       ])
       ++ (with tree.nixos.environments; [
-        xfce
+        kde
       ]);
     config = {
       home-manager.users.kat.imports =
@@ -29,7 +29,7 @@ _: let
           devops
         ])
         ++ (with tree.home.environments; [
-          xfce
+          kde
         ]);
 
       fileSystems = {
@@ -45,6 +45,30 @@ _: let
 
         boot.extraModprobeConfig = "options snd_hda_intel power_save=0";
 
+        programs.ssh.extraConfig = ''
+            Host daiyousei-build
+                HostName 140.238.156.121
+                User root
+                IdentityAgent /run/user/1000/gnupg/S.gpg-agent.ssh
+        '';
+
+        nix.buildMachines = [
+            {
+                hostName = "daiyousei-build";
+                system = "aarch64-linux";
+                protocol = "ssh-ng";
+                maxJobs = 100;
+                speedFactor = 1;
+                	 supportedFeatures = [ "benchmark" "big-parallel" "kvm" ];
+	 mandatoryFeatures = [ ];
+            }
+        ];
+
+        	nix.distributedBuilds = true;
+	# optional, useful when the builder has a faster internet connection than yours
+	nix.extraOptions = ''
+		builders-use-substitutes = true
+	'';
       services.printing.enable = true;
 
       services.hardware.bolt.enable = true;
@@ -54,7 +78,7 @@ _: let
       ];
 
       boot = {
-        supportedFilesystems = ["ntfs"];
+        supportedFilesystems = ["ntfs" "xfs"];
       };
 
       networking = {

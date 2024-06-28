@@ -142,6 +142,9 @@
     serverLocations = {
       mediabox = "10.1.1.167";
       orb = "orb";
+      daiyousei = "140.238.156.121";
+      mei = "150.230.28.111";
+      mai = "132.145.108.249";
     };
   in {
     deploy.nodes = set.merge [
@@ -149,7 +152,7 @@
         ${name} = {
           profiles.system = {
             user = "root";
-            path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos inputs.self.nixosConfigurations.${name};
+            path = inputs.deploy-rs.lib.${host.system}.activate.nixos inputs.self.nixosConfigurations.${name};
           };
           autoRollback = false;
           magicRollback = false;
@@ -166,6 +169,7 @@
         ${name} = {
           hostname = serverLocations.${name};
           sshUser = "root";
+          sshOpts = ["-oControlMaster=no" "-oControlPath=/tmp/willneverexist" "-p" "${builtins.toString (builtins.head inputs.self.nixosConfigurations.${name}.config.services.openssh.ports)}"];
         };
       })
       (set.optional (name == "renko" && host.folder == "nixos") {

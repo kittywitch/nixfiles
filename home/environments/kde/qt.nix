@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   qt = {
-    enable = true;
+    enable = false;
     platformTheme = "kde";
     style = {
       name = "arc";

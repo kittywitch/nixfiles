@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   gtk = {
-    enable = true;
+    enable = false;
     iconTheme = {
       name = "Numix-Square-Light";
       package = pkgs.numix-icon-theme-square;

@@ -19,7 +19,6 @@ _: let
         postgres
         matrix
         vaultwarden
-        grafana-stack
         public-directory
         weechat
         tt-rss

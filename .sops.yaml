@@ -16,7 +16,7 @@ creation_rules:
   key_groups:
   - pgp:
     - *kat
-  - age: &age_common
+    age: &age_common
     - *yukari
     - *yukari_kat
     - *koishi
