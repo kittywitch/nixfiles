@@ -5,6 +5,9 @@ keys:
 - &yukari_kat age1cnu37d5fqyahh9vvc4hj6z6k8ur9ksuefln7sr6g3emmn927eutqxdawuh
 - &koishi age1nr0qds8w3gldmdvhwu0p6w2ys8f4sd0h3xy94h9dsafjzttaypxquzmswc
 - &koishi_kat age18hpxz0ghvswv9k30cle73prvnzrsuczqh87jjdk9fl50j3ddndmq9xae0n
+- &mei age1xgy03g3vjydsxcl0qpdgm8rahjcjq95ucxfwlgr22zwjx3p7jf2s9jk6u5
+- &mai age1fv5dafs4n3r5n83qm2hfz7xmnflsz0xf9r3saralrptpgf8mvuxq4t8k3u
+- &daiyousei age120530yclr75k6nrzp6k5jjftj8j4q9v3533guupzk4ct86mjxszqg9e5t5
 creation_rules:
 - path_regex: tf/terraform.tfvars.sops$
   shamir_threshold: 1
@@ -21,6 +24,15 @@ creation_rules:
     - *yukari_kat
     - *koishi
     - *koishi_kat
+    - *mei
+    - *mai
+    - *daiyousei
+- path_regex: nixos/[^/]+/.*\.yaml
+  shamir_threshold: 1
+  key_groups:
+  - pgp:
+    - *kat
+    age: *age_common
 - path_regex: nixos/servers/[^/]+/.*\.yaml
   shamir_threshold: 1
   key_groups:

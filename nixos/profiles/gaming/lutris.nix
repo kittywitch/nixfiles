@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   hardware.opengl = {
     driSupport32Bit = true;
-    driSupport = true;
   };
   hardware.opengl.extraPackages = with pkgs; [
     rocm-opencl-icd

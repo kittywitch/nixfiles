@@ -24,7 +24,7 @@ in {
   programs.zsh = {
     enable = true;
     syntaxHighlighting.enable = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     initExtra = let
       zshOpts = [
         "auto_pushd"

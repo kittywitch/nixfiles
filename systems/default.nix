@@ -168,7 +168,7 @@
       (set.optional ((list.elem name (set.keys serverLocations)) && host.folder == "nixos") {
         ${name} = {
           hostname = serverLocations.${name};
-          sshUser = "root";
+          sshUser = "deploy";
           sshOpts = ["-oControlMaster=no" "-oControlPath=/tmp/willneverexist" "-p" "${builtins.toString (builtins.head inputs.self.nixosConfigurations.${name}.config.services.openssh.ports)}"];
         };
       })

@@ -13,7 +13,7 @@
       config.users.users);
   };
 in {
-  security.pam.enableSSHAgentAuth = true;
+  security.pam.sshAgentAuth.enable = true;
   security.sudo.enable = true;
   security.pam.services.sudo.sshAgentAuth = true;
   users.users = {
