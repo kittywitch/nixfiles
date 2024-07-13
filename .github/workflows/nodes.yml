@@ -31,64 +31,8 @@ jobs:
         args: -u .github/workflows/nodes.yml .ci/workflow.yml
         attrs: nixpkgs.diffutils
         command: diff
-  goliath:
-    name: goliath
-    runs-on: ubuntu-latest
-    steps:
-    - env:
-        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
-        DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
-        NF_CONFIG_ROOT: ${{ github.workspace }}
-        NF_UPDATE_CACHIX_PUSH: '1'
-        NF_UPDATE_GIT_COMMIT: '1'
-      id: goliath
-      name: Build goliath system closure
-      run: nix run .#nf-build-system -- nixosConfigurations.goliath.config.system.build.topLevel
-        goliath NixOS
-  koishi:
-    name: koishi
-    runs-on: ubuntu-latest
-    steps:
-    - env:
-        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
-        DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
-        NF_CONFIG_ROOT: ${{ github.workspace }}
-        NF_UPDATE_CACHIX_PUSH: '1'
-        NF_UPDATE_GIT_COMMIT: '1'
-      id: koishi
-      name: Build koishi system closure
-      run: nix run .#nf-build-system -- nixosConfigurations.koishi.config.system.build.topLevel
-        koishi NixOS
-  mai:
-    name: mai
-    runs-on: ubuntu-latest
-    steps:
-    - env:
-        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
-        DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
-        NF_CONFIG_ROOT: ${{ github.workspace }}
-        NF_UPDATE_CACHIX_PUSH: '1'
-        NF_UPDATE_GIT_COMMIT: '1'
-      id: mai
-      name: Build mai system closure
-      run: nix run .#nf-build-system -- nixosConfigurations.mai.config.system.build.topLevel
-        mai NixOS
-  mei:
-    name: mei
-    runs-on: ubuntu-latest
-    steps:
-    - env:
-        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
-        DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
-        NF_CONFIG_ROOT: ${{ github.workspace }}
-        NF_UPDATE_CACHIX_PUSH: '1'
-        NF_UPDATE_GIT_COMMIT: '1'
-      id: mei
-      name: Build mei system closure
-      run: nix run .#nf-build-system -- nixosConfigurations.mei.config.system.build.topLevel
-        mei NixOS
-  packages:
-    name: nodes-packages
+  flake-update:
+    name: nodes-flake-update
     runs-on: ubuntu-latest
     steps:
     - id: checkout
@@ -104,7 +48,7 @@ jobs:
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.packages.run.test
+        attrs: ci.job.flake-update.run.test
         command: ci-build-dirty
         quiet: false
         stdout: ${{ runner.temp }}/ci.build.dirty
@@ -112,7 +56,7 @@ jobs:
       name: nix test build
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.packages.run.test
+        attrs: ci.job.flake-update.run.test
         command: ci-build-realise
         ignore-exit-code: true
         quiet: false
@@ -123,7 +67,7 @@ jobs:
       name: nix test results
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.packages.run.test
+        attrs: ci.job.flake-update.run.test
         command: ci-build-summarise
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.dirty
@@ -135,10 +79,66 @@ jobs:
       name: nix test cache
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.packages.run.test
+        attrs: ci.job.flake-update.run.test
         command: ci-build-cache
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.cache
+  goliath:
+    name: goliath
+    runs-on: ubuntu-latest
+    steps:
+    - env:
+        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+        DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
+        NF_CONFIG_ROOT: ${{ github.workspace }}
+        NF_UPDATE_CACHIX_PUSH: '1'
+        NF_UPDATE_GIT_COMMIT: '1'
+      id: goliath
+      name: build system closure for goliath
+      run: nix run .#nf-build-system -- nixosConfigurations.goliath.config.system.build.topLevel
+        goliath NixOS
+  koishi:
+    name: koishi
+    runs-on: ubuntu-latest
+    steps:
+    - env:
+        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+        DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
+        NF_CONFIG_ROOT: ${{ github.workspace }}
+        NF_UPDATE_CACHIX_PUSH: '1'
+        NF_UPDATE_GIT_COMMIT: '1'
+      id: koishi
+      name: build system closure for koishi
+      run: nix run .#nf-build-system -- nixosConfigurations.koishi.config.system.build.topLevel
+        koishi NixOS
+  mai:
+    name: mai
+    runs-on: ubuntu-latest
+    steps:
+    - env:
+        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+        DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
+        NF_CONFIG_ROOT: ${{ github.workspace }}
+        NF_UPDATE_CACHIX_PUSH: '1'
+        NF_UPDATE_GIT_COMMIT: '1'
+      id: mai
+      name: build system closure for mai
+      run: nix run .#nf-build-system -- nixosConfigurations.mai.config.system.build.topLevel
+        mai NixOS
+  mei:
+    name: mei
+    runs-on: ubuntu-latest
+    steps:
+    - env:
+        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+        DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
+        NF_CONFIG_ROOT: ${{ github.workspace }}
+        NF_UPDATE_CACHIX_PUSH: '1'
+        NF_UPDATE_GIT_COMMIT: '1'
+      id: mei
+      name: build system closure for mei
+      run: nix run .#nf-build-system -- nixosConfigurations.mei.config.system.build.topLevel
+        mei NixOS
   yukari:
     name: yukari
     runs-on: ubuntu-latest
@@ -150,7 +150,7 @@ jobs:
         NF_UPDATE_CACHIX_PUSH: '1'
         NF_UPDATE_GIT_COMMIT: '1'
       id: yukari
-      name: Build yukari system closure
+      name: build system closure for yukari
       run: nix run .#nf-build-system -- nixosConfigurations.yukari.config.system.build.topLevel
         yukari NixOS
 name: nodes
@@ -158,7 +158,11 @@ name: nodes
   pull_request:
     paths:
     - '*'
+    - ci/nodes.nix
+    - .github/workflows/nodes.yml
   push:
     paths:
     - '*'
+    - ci/nodes.nix
+    - .github/workflows/nodes.yml
   workflow_dispatch: {}
