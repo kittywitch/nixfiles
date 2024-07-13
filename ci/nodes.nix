@@ -36,7 +36,7 @@ in {
             step.${name} = {
                   name = "build system closure for ${name}";
                   order = 500;
-                  run = "nix run .#nf-build-system -- nixosConfigurations.${name}.config.system.build.topLevel ${name} NixOS";
+                  run = "nix run .#nf-build-system -- nixosConfigurations.${name}.config.system.build.toplevel ${name} NixOS";
                   env = {
                     CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
                     DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
