@@ -3,6 +3,7 @@ env:
   CI_ALLOW_ROOT: '1'
   CI_CONFIG: ./ci/flake-cron.nix
   CI_PLATFORM: gh-actions
+  DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
 jobs:
   ci-check:
     name: flake-update check
@@ -45,6 +46,7 @@ jobs:
       uses: arcnmx/ci/actions/nix/install@v0.7
     - env:
         CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+        DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
         NF_CONFIG_ROOT: ${{ github.workspace }}
         NF_UPDATE_CACHIX_PUSH: '1'
         NF_UPDATE_GIT_COMMIT: '1'

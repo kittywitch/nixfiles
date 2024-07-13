@@ -11,7 +11,9 @@ with pkgs; let
   repoShell = mkShell {
     nativeBuildInputs =
       [
+        nf-build-system
         nf-update
+        nix
         fd # fd, better fine!
         ripgrep # rg, better grep!
         sops

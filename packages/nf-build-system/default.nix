@@ -7,6 +7,7 @@ wrapShellScriptBin "nf-build-system" ./build-system.sh {
     git
     cachix
     jq
+    nix
     curl
   ];
 }
