@@ -27,6 +27,18 @@ creation_rules:
     - *mei
     - *mai
     - *daiyousei
+- path_regex: ci/.*\.yaml
+  shamir_threshold: 1
+  key_groups:
+  - pgp:
+    - *kat
+    age: *age_common
+- path_regex: home/[^/]+/.*\.yaml
+  shamir_threshold: 1
+  key_groups:
+  - pgp:
+    - *kat
+    age: *age_common
 - path_regex: nixos/[^/]+/.*\.yaml
   shamir_threshold: 1
   key_groups:

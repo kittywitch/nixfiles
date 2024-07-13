@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   std,
+  lib,
   ...
 }:
 with pkgs; let
@@ -10,6 +11,7 @@ with pkgs; let
   repoShell = mkShell {
     nativeBuildInputs =
       [
+        nf-update
         fd # fd, better fine!
         ripgrep # rg, better grep!
         sops
@@ -23,6 +25,7 @@ with pkgs; let
         ''))
         repo.darwinConfigurations);
     shellHook = ''
+      export CI_PLATFORM="impure"
       sops
       echo -e "\e[39m\e[1m$USER@$REPO_HOSTNAME - \e[35m''$(realpath --relative-to=../ ./nixos/)\e[0m"
       echo -e "\e[35mRunning alejandra\e[0m"
