@@ -23,7 +23,7 @@ fi
 nf-actions-test -L
 
 if [[ -n ${NF_UPDATE_CACHIX_PUSH-} ]]; then
-	cachix push gensokyo-infrastructure "./${NF_ACTIONS_TEST_OUTLINK}"*/ &
+	cachix push kittywitch "./${NF_ACTIONS_TEST_OUTLINK}"*/ &
 	CACHIX_PUSH=$!
 fi
 
