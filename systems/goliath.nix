@@ -34,10 +34,7 @@ _: let
   in {
     imports =
       (with tree.nixos.hardware; [
-        amd_cpu
-        amd_gpu
         b550m-itx-ac
-        uefi
       ])
       ++ (with tree.nixos.profiles; [
         graphical

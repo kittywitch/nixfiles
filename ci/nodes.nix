@@ -11,7 +11,7 @@ with lib; {
     name = "nodes";
 
     jobs = let
-      enabledSystems = filterAttrs (_: system: system.config.ci.enable) channels.nixfiles.lib.systems;
+      enabledSystems = filterAttrs (_: system: system.config.nixpkgs.system == "x86_64-linux") channels.nixfiles.nixosConfigurations;
       mkSystemJob = name: system: nameValuePair "${name}" {
         tasks.system = {
           inputs = channels.nixfiles.nixosConfigurations.${name}.config.system.build.toplevel;
