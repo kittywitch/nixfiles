@@ -31,8 +31,8 @@ jobs:
         args: -u .github/workflows/nodes.yml .ci/workflow.yml
         attrs: nixpkgs.diffutils
         command: diff
-  flake-update:
-    name: nodes-flake-update
+  goliath:
+    name: nodes-goliath
     runs-on: ubuntu-latest
     steps:
     - id: checkout
@@ -44,11 +44,20 @@ jobs:
     - id: nix-install
       name: nix install
       uses: arcnmx/ci/actions/nix/install@v0.7
+    - env:
+        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+        DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
+        NF_CONFIG_ROOT: ${{ github.workspace }}
+        NF_UPDATE_CACHIX_PUSH: '1'
+      id: goliath
+      name: build system closure for goliath
+      run: nix run .#nf-build-system -- nixosConfigurations.goliath.config.system.build.topLevel
+        goliath NixOS
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.flake-update.run.test
+        attrs: ci.job.goliath.run.test
         command: ci-build-dirty
         quiet: false
         stdout: ${{ runner.temp }}/ci.build.dirty
@@ -56,7 +65,7 @@ jobs:
       name: nix test build
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.flake-update.run.test
+        attrs: ci.job.goliath.run.test
         command: ci-build-realise
         ignore-exit-code: true
         quiet: false
@@ -67,7 +76,7 @@ jobs:
       name: nix test results
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.flake-update.run.test
+        attrs: ci.job.goliath.run.test
         command: ci-build-summarise
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.dirty
@@ -79,80 +88,254 @@ jobs:
       name: nix test cache
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.flake-update.run.test
+        attrs: ci.job.goliath.run.test
         command: ci-build-cache
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.cache
-  goliath:
-    name: goliath
-    runs-on: ubuntu-latest
-    steps:
-    - env:
-        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
-        DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
-        NF_CONFIG_ROOT: ${{ github.workspace }}
-        NF_UPDATE_CACHIX_PUSH: '1'
-        NF_UPDATE_GIT_COMMIT: '1'
-      id: goliath
-      name: build system closure for goliath
-      run: nix run .#nf-build-system -- nixosConfigurations.goliath.config.system.build.topLevel
-        goliath NixOS
   koishi:
-    name: koishi
+    name: nodes-koishi
     runs-on: ubuntu-latest
     steps:
+    - id: checkout
+      name: git clone
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        submodules: false
+    - id: nix-install
+      name: nix install
+      uses: arcnmx/ci/actions/nix/install@v0.7
     - env:
         CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
         DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
         NF_CONFIG_ROOT: ${{ github.workspace }}
         NF_UPDATE_CACHIX_PUSH: '1'
-        NF_UPDATE_GIT_COMMIT: '1'
       id: koishi
       name: build system closure for koishi
       run: nix run .#nf-build-system -- nixosConfigurations.koishi.config.system.build.topLevel
         koishi NixOS
+    - id: ci-dirty
+      name: nix test dirty
+      uses: arcnmx/ci/actions/nix/run@v0.7
+      with:
+        attrs: ci.job.koishi.run.test
+        command: ci-build-dirty
+        quiet: false
+        stdout: ${{ runner.temp }}/ci.build.dirty
+    - id: ci-test
+      name: nix test build
+      uses: arcnmx/ci/actions/nix/run@v0.7
+      with:
+        attrs: ci.job.koishi.run.test
+        command: ci-build-realise
+        ignore-exit-code: true
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.dirty
+    - env:
+        CI_EXIT_CODE: ${{ steps.ci-test.outputs.exit-code }}
+      id: ci-summary
+      name: nix test results
+      uses: arcnmx/ci/actions/nix/run@v0.7
+      with:
+        attrs: ci.job.koishi.run.test
+        command: ci-build-summarise
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.dirty
+        stdout: ${{ runner.temp }}/ci.build.cache
+    - env:
+        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+      id: ci-cache
+      if: always()
+      name: nix test cache
+      uses: arcnmx/ci/actions/nix/run@v0.7
+      with:
+        attrs: ci.job.koishi.run.test
+        command: ci-build-cache
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.cache
   mai:
-    name: mai
+    name: nodes-mai
     runs-on: ubuntu-latest
     steps:
+    - id: checkout
+      name: git clone
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        submodules: false
+    - id: nix-install
+      name: nix install
+      uses: arcnmx/ci/actions/nix/install@v0.7
     - env:
         CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
         DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
         NF_CONFIG_ROOT: ${{ github.workspace }}
         NF_UPDATE_CACHIX_PUSH: '1'
-        NF_UPDATE_GIT_COMMIT: '1'
       id: mai
       name: build system closure for mai
       run: nix run .#nf-build-system -- nixosConfigurations.mai.config.system.build.topLevel
         mai NixOS
+    - id: ci-dirty
+      name: nix test dirty
+      uses: arcnmx/ci/actions/nix/run@v0.7
+      with:
+        attrs: ci.job.mai.run.test
+        command: ci-build-dirty
+        quiet: false
+        stdout: ${{ runner.temp }}/ci.build.dirty
+    - id: ci-test
+      name: nix test build
+      uses: arcnmx/ci/actions/nix/run@v0.7
+      with:
+        attrs: ci.job.mai.run.test
+        command: ci-build-realise
+        ignore-exit-code: true
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.dirty
+    - env:
+        CI_EXIT_CODE: ${{ steps.ci-test.outputs.exit-code }}
+      id: ci-summary
+      name: nix test results
+      uses: arcnmx/ci/actions/nix/run@v0.7
+      with:
+        attrs: ci.job.mai.run.test
+        command: ci-build-summarise
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.dirty
+        stdout: ${{ runner.temp }}/ci.build.cache
+    - env:
+        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+      id: ci-cache
+      if: always()
+      name: nix test cache
+      uses: arcnmx/ci/actions/nix/run@v0.7
+      with:
+        attrs: ci.job.mai.run.test
+        command: ci-build-cache
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.cache
   mei:
-    name: mei
+    name: nodes-mei
     runs-on: ubuntu-latest
     steps:
+    - id: checkout
+      name: git clone
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        submodules: false
+    - id: nix-install
+      name: nix install
+      uses: arcnmx/ci/actions/nix/install@v0.7
     - env:
         CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
         DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
         NF_CONFIG_ROOT: ${{ github.workspace }}
         NF_UPDATE_CACHIX_PUSH: '1'
-        NF_UPDATE_GIT_COMMIT: '1'
       id: mei
       name: build system closure for mei
       run: nix run .#nf-build-system -- nixosConfigurations.mei.config.system.build.topLevel
         mei NixOS
+    - id: ci-dirty
+      name: nix test dirty
+      uses: arcnmx/ci/actions/nix/run@v0.7
+      with:
+        attrs: ci.job.mei.run.test
+        command: ci-build-dirty
+        quiet: false
+        stdout: ${{ runner.temp }}/ci.build.dirty
+    - id: ci-test
+      name: nix test build
+      uses: arcnmx/ci/actions/nix/run@v0.7
+      with:
+        attrs: ci.job.mei.run.test
+        command: ci-build-realise
+        ignore-exit-code: true
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.dirty
+    - env:
+        CI_EXIT_CODE: ${{ steps.ci-test.outputs.exit-code }}
+      id: ci-summary
+      name: nix test results
+      uses: arcnmx/ci/actions/nix/run@v0.7
+      with:
+        attrs: ci.job.mei.run.test
+        command: ci-build-summarise
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.dirty
+        stdout: ${{ runner.temp }}/ci.build.cache
+    - env:
+        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+      id: ci-cache
+      if: always()
+      name: nix test cache
+      uses: arcnmx/ci/actions/nix/run@v0.7
+      with:
+        attrs: ci.job.mei.run.test
+        command: ci-build-cache
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.cache
   yukari:
-    name: yukari
+    name: nodes-yukari
     runs-on: ubuntu-latest
     steps:
+    - id: checkout
+      name: git clone
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        submodules: false
+    - id: nix-install
+      name: nix install
+      uses: arcnmx/ci/actions/nix/install@v0.7
     - env:
         CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
         DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
         NF_CONFIG_ROOT: ${{ github.workspace }}
         NF_UPDATE_CACHIX_PUSH: '1'
-        NF_UPDATE_GIT_COMMIT: '1'
       id: yukari
       name: build system closure for yukari
       run: nix run .#nf-build-system -- nixosConfigurations.yukari.config.system.build.topLevel
         yukari NixOS
+    - id: ci-dirty
+      name: nix test dirty
+      uses: arcnmx/ci/actions/nix/run@v0.7
+      with:
+        attrs: ci.job.yukari.run.test
+        command: ci-build-dirty
+        quiet: false
+        stdout: ${{ runner.temp }}/ci.build.dirty
+    - id: ci-test
+      name: nix test build
+      uses: arcnmx/ci/actions/nix/run@v0.7
+      with:
+        attrs: ci.job.yukari.run.test
+        command: ci-build-realise
+        ignore-exit-code: true
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.dirty
+    - env:
+        CI_EXIT_CODE: ${{ steps.ci-test.outputs.exit-code }}
+      id: ci-summary
+      name: nix test results
+      uses: arcnmx/ci/actions/nix/run@v0.7
+      with:
+        attrs: ci.job.yukari.run.test
+        command: ci-build-summarise
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.dirty
+        stdout: ${{ runner.temp }}/ci.build.cache
+    - env:
+        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
+      id: ci-cache
+      if: always()
+      name: nix test cache
+      uses: arcnmx/ci/actions/nix/run@v0.7
+      with:
+        attrs: ci.job.yukari.run.test
+        command: ci-build-cache
+        quiet: false
+        stdin: ${{ runner.temp }}/ci.build.cache
 name: nodes
 'on':
   pull_request:

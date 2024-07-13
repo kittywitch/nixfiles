@@ -40,7 +40,6 @@ in {
                   env = {
                     CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
                     DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
-                    NF_UPDATE_GIT_COMMIT = "1";
                     NF_UPDATE_CACHIX_PUSH = "1";
                     NF_CONFIG_ROOT = "\${{ github.workspace }}";
                   };
@@ -51,11 +50,13 @@ in {
         in nixosBuildJobs;
     };
 
-    jobs = {
-      flake-update = { ... }: {
-        imports = [ ./packages.nix ];
-      };
-    };
+    jobs = let
+         genericNixosBuildJob = name: system: nameValuePair "${name}" ({ ... }: {
+            imports = [ ./packages.nix ];
+         });
+         enabledNixosSystems = filterAttrs (_: system: system.config.ci.enable) channels.nixfiles.systems;
+         nixosBuildJobs = mapAttrs' genericNixosBuildJob enabledNixosSystems;
+     in nixosBuildJobs;
 
     ci.gh-actions.checkoutOptions = {
       fetch-depth = 0;
