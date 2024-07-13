@@ -15,7 +15,7 @@ with lib; {
       mkSystemJob = name: system: nameValuePair "${name}" {
         tasks.system = {
           inputs = channels.nixfiles.nixosConfigurations.${name}.config.system.build.toplevel;
-          warn = system.config.ci.allowFailure;
+          #warn = system.config.ci.allowFailure;
         };
       };
       systemJobs = mapAttrs' mkSystemJob enabledSystems;
