@@ -12,7 +12,7 @@ in {
     inherit (lib.options) mkOption;
   in {
     deploy = mkOption {
-      type = nullOr inputs.arcexprs.lib.json.types.attrs;
+      type = nullOr (import inputs.arcexprs {}).lib.json.types.attrs;
     };
   };
   config = {

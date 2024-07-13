@@ -9,7 +9,7 @@ in {
     enable =
       mkEnableOption "build via CI"
       // {
-        default = config.type == "NixOS";
+        default = config.type == "NixOS" && config.system == "x86_64-linux";
       };
     allowFailure = mkOption {
       type = bool;

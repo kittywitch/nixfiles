@@ -1,11 +1,23 @@
 #!/usr/bin/env bash
 set -eu
 
+DISCORD_WEBHOOK_LINK=${DISCORD_WEBHOOK_LINK:-""}
+
+# Helper functions
+send_discord_message() {
+    local message="$1"
+    local escaped_message=$(printf '%s' "$message" | jq -R -s '.')
+    curl -s -H "Accept: application/json" -H "Content-Type: application/json" \
+         -X POST --data "{\"content\": $escaped_message}" "$DISCORD_WEBHOOK_LINK"
+}
+
 if [[ -n ${CACHIX_SIGNING_KEY-} ]]; then
 	export NF_UPDATE_CACHIX_PUSH=1
 fi
 
 cd "$NF_CONFIG_ROOT"
+
+send_discord_message "Beginning flake update cron job"
 
 nix flake update "$@"
 
@@ -23,6 +35,7 @@ fi
 nf-actions-test -L
 
 if [[ -n ${NF_UPDATE_CACHIX_PUSH-} ]]; then
+  send_discord_message "Cachix pushing"
 	cachix push kittywitch "./${NF_ACTIONS_TEST_OUTLINK}"*/ &
 	CACHIX_PUSH=$!
 fi
@@ -44,6 +57,7 @@ git commit --message="chore(ci): flake update"
 
 if [[ ${GITHUB_REF-} = refs/heads/${NF_UPDATE_BRANCH-main} ]]; then
 	git push origin HEAD:${NF_UPDATE_BRANCH-main}
+  send_discord_message "Pushed a new commit!"
 fi
 
 wait ${CACHIX_PUSH-}

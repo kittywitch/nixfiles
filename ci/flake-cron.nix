@@ -12,7 +12,10 @@ in {
     name = "flake-update";
 
     gh-actions = {
-      env.CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
+      env = {
+          CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
+          DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
+      };
       on = let
         paths = [
           "default.nix" # sourceCache
@@ -40,6 +43,7 @@ in {
           run = "nix run .#nf-update";
           env = {
             CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
+            DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
             NF_UPDATE_GIT_COMMIT = "1";
             NF_UPDATE_CACHIX_PUSH = "1";
             NF_CONFIG_ROOT = "\${{ github.workspace }}";

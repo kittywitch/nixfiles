@@ -1,10 +1,10 @@
 {
   name,
   config,
-  meta,
+  tree,
   std,
-  Std,
   lib,
+  pkgs,
   inputs,
   ...
 }: let
@@ -28,7 +28,7 @@ in {
     };
     type = mkOption {
       description = "Operating system type of the host";
-      type = enum ["NixOS" "MacOS" "Darwin" "Linux" "Windows"];
+      type = enum ["NixOS" "MacOS" "Darwin" "Linux" "Windows" "Home"];
       default = "NixOS";
     };
     folder = mkOption {
@@ -64,6 +64,7 @@ in {
           macos = "darwin";
           darwin = "darwin";
           linux = "linux";
+          home = "linux";
         }
         .${string.toLower config.type};
     in "${config.arch}-${kernel}";
@@ -74,13 +75,18 @@ in {
         darwin = "darwin";
         linux = "linux";
         windows = "windows";
+        home = "home";
       }
       .${string.toLower config.type};
-    modules = mkIf (config.folder != "linux") [
+    modules = with tree; mkIf (config.folder != "linux") [
       # per-OS modules
-      meta.modules.${config.folder}
+      modules.${config.folder}
       # per-OS configuration
-      meta.${config.folder}.base
+      tree.${config.folder}.common
+      # per-OS user definition
+      home.user.${config.folder}
+      # true base module
+      common
     ];
     builder =
       {
@@ -97,7 +103,18 @@ in {
               }
               // args);
         in
-          sys;
+                     args: let
+              nixos = sys args;
+            in
+              nixos.extendModules {
+                modules =
+                  nixos.config.scalpels
+                  ++ [
+                    inputs.scalpel.nixosModules.scalpel
+                  ];
+                specialArgs = {prev = nixos;};
+              };
+        home = args: inputs.home-manager.lib.homeManagerConfiguration (args // { inherit pkgs; });
         darwin = inputs.darwin.lib.darwinSystem;
         macos = inputs.darwin.lib.darwinSystem;
       }
@@ -109,8 +126,7 @@ in {
       })
     config.builder);
     specialArgs = {
-      inherit name inputs std Std meta;
-      inherit (inputs.self.lib) gensokyo-zone;
+      inherit name inputs std tree;
       systemType = config.folder;
       system = config;
     };
