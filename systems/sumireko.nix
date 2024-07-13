@@ -22,7 +22,7 @@ _: let
   };
 in {
   arch = "aarch64";
-  type = "macOS";
+  type = "MacOS";
   modules = [
     hostConfig
   ];

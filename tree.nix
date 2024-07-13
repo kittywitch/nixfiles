@@ -67,6 +67,11 @@
     "nixos/hardware/conditional" = {
       functor.enable = true;
     };
+    "modules/system" = {
+      functor = {
+        enable = true;
+        };
+    };
     "modules/nixos" = {
       functor = {
         enable = true;
