@@ -64,7 +64,7 @@ nfgc() {
 		nix-collect-garbage -d
 	fi
 }
-
+nfsystem=$ALIAS
 nfinstallable="${NF_CONFIG_ROOT}#${SYSTEM_LINK}"
 init_nfargs "-$nfsystem"
 
