@@ -14,6 +14,8 @@ send_discord_message() {
          -X POST --data "{\"content\": $escaped_message}" "$DISCORD_WEBHOOK_LINK"
 }
 
+  send_discord_message "Starting ${SYSTEM_TYPE} system build for ${ALIAS}"
+
 if [[ -n ${CACHIX_SIGNING_KEY-} ]]; then
 	export NF_UPDATE_CACHIX_PUSH=1
 fi
