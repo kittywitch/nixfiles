@@ -31,8 +31,8 @@ jobs:
         args: -u .github/workflows/nodes.yml .ci/workflow.yml
         attrs: nixpkgs.diffutils
         command: diff
-  goliath:
-    name: nodes-goliath
+  nixos-goliath:
+    name: nodes-nixos-goliath
     runs-on: ubuntu-latest
     steps:
     - id: checkout
@@ -51,13 +51,13 @@ jobs:
         NF_UPDATE_CACHIX_PUSH: '1'
       id: goliath
       name: build system closure for goliath
-      run: nix run .#nf-build-system -- nixosConfigurations.goliath.config.system.build.topLevel
+      run: nix run .#nf-build-system -- nixosConfigurations.goliath.config.system.build.toplevel
         goliath NixOS
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.goliath.run.test
+        attrs: ci.job.nixos-goliath.run.test
         command: ci-build-dirty
         quiet: false
         stdout: ${{ runner.temp }}/ci.build.dirty
@@ -65,7 +65,7 @@ jobs:
       name: nix test build
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.goliath.run.test
+        attrs: ci.job.nixos-goliath.run.test
         command: ci-build-realise
         ignore-exit-code: true
         quiet: false
@@ -76,7 +76,7 @@ jobs:
       name: nix test results
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.goliath.run.test
+        attrs: ci.job.nixos-goliath.run.test
         command: ci-build-summarise
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.dirty
@@ -88,12 +88,12 @@ jobs:
       name: nix test cache
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.goliath.run.test
+        attrs: ci.job.nixos-goliath.run.test
         command: ci-build-cache
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.cache
-  koishi:
-    name: nodes-koishi
+  nixos-koishi:
+    name: nodes-nixos-koishi
     runs-on: ubuntu-latest
     steps:
     - id: checkout
@@ -112,13 +112,13 @@ jobs:
         NF_UPDATE_CACHIX_PUSH: '1'
       id: koishi
       name: build system closure for koishi
-      run: nix run .#nf-build-system -- nixosConfigurations.koishi.config.system.build.topLevel
+      run: nix run .#nf-build-system -- nixosConfigurations.koishi.config.system.build.toplevel
         koishi NixOS
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.koishi.run.test
+        attrs: ci.job.nixos-koishi.run.test
         command: ci-build-dirty
         quiet: false
         stdout: ${{ runner.temp }}/ci.build.dirty
@@ -126,7 +126,7 @@ jobs:
       name: nix test build
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.koishi.run.test
+        attrs: ci.job.nixos-koishi.run.test
         command: ci-build-realise
         ignore-exit-code: true
         quiet: false
@@ -137,7 +137,7 @@ jobs:
       name: nix test results
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.koishi.run.test
+        attrs: ci.job.nixos-koishi.run.test
         command: ci-build-summarise
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.dirty
@@ -149,12 +149,12 @@ jobs:
       name: nix test cache
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.koishi.run.test
+        attrs: ci.job.nixos-koishi.run.test
         command: ci-build-cache
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.cache
-  mai:
-    name: nodes-mai
+  nixos-mai:
+    name: nodes-nixos-mai
     runs-on: ubuntu-latest
     steps:
     - id: checkout
@@ -173,13 +173,13 @@ jobs:
         NF_UPDATE_CACHIX_PUSH: '1'
       id: mai
       name: build system closure for mai
-      run: nix run .#nf-build-system -- nixosConfigurations.mai.config.system.build.topLevel
+      run: nix run .#nf-build-system -- nixosConfigurations.mai.config.system.build.toplevel
         mai NixOS
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.mai.run.test
+        attrs: ci.job.nixos-mai.run.test
         command: ci-build-dirty
         quiet: false
         stdout: ${{ runner.temp }}/ci.build.dirty
@@ -187,7 +187,7 @@ jobs:
       name: nix test build
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.mai.run.test
+        attrs: ci.job.nixos-mai.run.test
         command: ci-build-realise
         ignore-exit-code: true
         quiet: false
@@ -198,7 +198,7 @@ jobs:
       name: nix test results
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.mai.run.test
+        attrs: ci.job.nixos-mai.run.test
         command: ci-build-summarise
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.dirty
@@ -210,12 +210,12 @@ jobs:
       name: nix test cache
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.mai.run.test
+        attrs: ci.job.nixos-mai.run.test
         command: ci-build-cache
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.cache
-  mei:
-    name: nodes-mei
+  nixos-mei:
+    name: nodes-nixos-mei
     runs-on: ubuntu-latest
     steps:
     - id: checkout
@@ -234,13 +234,13 @@ jobs:
         NF_UPDATE_CACHIX_PUSH: '1'
       id: mei
       name: build system closure for mei
-      run: nix run .#nf-build-system -- nixosConfigurations.mei.config.system.build.topLevel
+      run: nix run .#nf-build-system -- nixosConfigurations.mei.config.system.build.toplevel
         mei NixOS
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.mei.run.test
+        attrs: ci.job.nixos-mei.run.test
         command: ci-build-dirty
         quiet: false
         stdout: ${{ runner.temp }}/ci.build.dirty
@@ -248,7 +248,7 @@ jobs:
       name: nix test build
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.mei.run.test
+        attrs: ci.job.nixos-mei.run.test
         command: ci-build-realise
         ignore-exit-code: true
         quiet: false
@@ -259,7 +259,7 @@ jobs:
       name: nix test results
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.mei.run.test
+        attrs: ci.job.nixos-mei.run.test
         command: ci-build-summarise
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.dirty
@@ -271,12 +271,12 @@ jobs:
       name: nix test cache
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.mei.run.test
+        attrs: ci.job.nixos-mei.run.test
         command: ci-build-cache
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.cache
-  yukari:
-    name: nodes-yukari
+  nixos-yukari:
+    name: nodes-nixos-yukari
     runs-on: ubuntu-latest
     steps:
     - id: checkout
@@ -295,13 +295,13 @@ jobs:
         NF_UPDATE_CACHIX_PUSH: '1'
       id: yukari
       name: build system closure for yukari
-      run: nix run .#nf-build-system -- nixosConfigurations.yukari.config.system.build.topLevel
+      run: nix run .#nf-build-system -- nixosConfigurations.yukari.config.system.build.toplevel
         yukari NixOS
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.yukari.run.test
+        attrs: ci.job.nixos-yukari.run.test
         command: ci-build-dirty
         quiet: false
         stdout: ${{ runner.temp }}/ci.build.dirty
@@ -309,7 +309,7 @@ jobs:
       name: nix test build
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.yukari.run.test
+        attrs: ci.job.nixos-yukari.run.test
         command: ci-build-realise
         ignore-exit-code: true
         quiet: false
@@ -320,7 +320,7 @@ jobs:
       name: nix test results
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.yukari.run.test
+        attrs: ci.job.nixos-yukari.run.test
         command: ci-build-summarise
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.dirty
@@ -332,7 +332,7 @@ jobs:
       name: nix test cache
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
-        attrs: ci.job.yukari.run.test
+        attrs: ci.job.nixos-yukari.run.test
         command: ci-build-cache
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.cache

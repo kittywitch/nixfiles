@@ -6,7 +6,8 @@
 }:
 with lib; let
   pkgs = channels.nixpkgs;
- enabledNixosSystems = filterAttrs (_: system: system.config.ci.enable and system.config.type == "NixOS") channels.nixfiles.systems;
+ enabledNixosSystems = filterAttrs (_: system: system.config.ci.enable && system.config.type == "NixOS") channels.nixfiles.systems;
+ enabledHomeSystems = filterAttrs (_: system: system.config.ci.enable && system.config.type == "Home") channels.nixfiles.systems;
 in {
   imports = [ ./common.nix ];
   config = {
@@ -46,8 +47,22 @@ in {
                   };
              };
          };
+         genericHomeBuildJob = name: system: nameValuePair "home-${name}" {
+            step.${name} = {
+                  name = "build home closure for ${name}";
+                  order = 500;
+                  run = "nix run .#nf-build-system -- homeConfigurations.${name}.activationPackage ${name} Home";
+                  env = {
+                    CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
+                    DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
+                    NF_UPDATE_CACHIX_PUSH = "1";
+                    NF_CONFIG_ROOT = "\${{ github.workspace }}";
+                  };
+             };
+         };
+         homeBuildJobs = mapAttrs' genericHomeBuildJob enabledHomeSystems;
          nixosBuildJobs = mapAttrs' genericNixosBuildJob enabledNixosSystems;
-        in nixosBuildJobs;
+        in nixosBuildJobs // homeBuildJobs;
     };
 
     jobs = let
