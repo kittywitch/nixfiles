@@ -4,10 +4,10 @@
   channels,
   ...
 }: let
-  inherit (channels.nixfiles) packages legacyPackages;
+  inherit (channels.nixfiles) legacyPackages;
 in {
   tasks = {
-    devShell.inputs = with packages.x86_64-linux; [
+    devShell.inputs = with legacyPackages.x86_64-linux; [
       deploy-rs
       terraform tflint
       alejandra deadnix statix

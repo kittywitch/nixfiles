@@ -13,6 +13,7 @@ in
   {
     inherit inputs tree std pkgs formatter lib checks;
     legacyPackages = pkgs;
+    packages = pkgs;
   }
   // systems
   // shells
