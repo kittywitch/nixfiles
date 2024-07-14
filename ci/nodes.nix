@@ -67,10 +67,10 @@ in {
 
     jobs = let
          genericNixosBuildJob = name: system: nameValuePair "nixos-${name}" ({ ... }: {
-            imports = [ ./packages.nix ];
+            #imports = [ ./packages.nix ];
          });
          genericHomeBuildJob = name: system: nameValuePair "home-${name}" ({ ... }: {
-            imports = [ ./packages.nix ];
+            #imports = [ ./packages.nix ];
          });
          nixosBuildJobs = mapAttrs' genericNixosBuildJob enabledNixosSystems;
          homeBuildJobs = mapAttrs' genericHomeBuildJob enabledHomeSystems;
