@@ -107,6 +107,7 @@ _: let
   };
 in {
   arch = "x86_64";
+  ci.enable = false; # System currently not used
   type = "NixOS";
   modules = [
     hostConfig

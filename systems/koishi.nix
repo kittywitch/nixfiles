@@ -90,6 +90,7 @@ _: let
   };
 in {
   arch = "x86_64";
+  ci.enable = false; # Closure too large
   type = "NixOS";
   modules = [
     hostConfig
