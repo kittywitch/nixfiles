@@ -27,7 +27,7 @@ init_nfargs() {
 
     if [[ -n "${NF_ACTIONS_TEST_OUTLINK-}" || -n "${NF_UPDATE_CACHIX_PUSH-}" ]]; then
         nfargs+=(
-            -o "${NF_ACTIONS_TEST_OUTLINK-result}$nflinksuffix"
+            -o "${NF_ACTIONS_TEST_OUTLINK-result}" "$nflinksuffix"
         )
     else
         nfargs+=(
@@ -36,13 +36,16 @@ init_nfargs() {
     fi
 }
 
-nfgc() {
+perform_cachix_push() {
+    local nflinksuffix="-L"
+    if [[ -n ${NF_UPDATE_CACHIX_PUSH-} ]]; then
+        send_discord_message "Cachix pushing ${SYSTEM_TYPE} system build for ${ALIAS}"
+        cachix push kittywitch "./${NF_ACTIONS_TEST_OUTLINK-result}$nflinksuffix"*/
+    fi
+}
+
+perform_garbage_collection() {
     if [[ -n ${NF_ACTIONS_TEST_GC-} ]]; then
-        if [[ -n ${NF_UPDATE_CACHIX_PUSH-} ]]; then
-            send_discord_message "Cachix pushing ${SYSTEM_TYPE} system build for ${ALIAS}"
-            cachix push kittywitch "./${NF_ACTIONS_TEST_OUTLINK-result}$nflinksuffix"*/
-            rm -f "./${NF_ACTIONS_TEST_OUTLINK-result}$nflinksuffix"*
-        fi
         nix-collect-garbage -d
     fi
 }
@@ -100,14 +103,16 @@ else
         fi
     else
         send_discord_message "${SYSTEM_TYPE} system build of ${ALIAS} succeeded!"
-        nfgc
+        perform_cachix_push
+        perform_garbage_collection
     fi
 fi
 
 if [[ -n ${NF_ACTIONS_TEST_ASYNC-} ]]; then
     init_nfargs
     if nix build "${nfargs[@]}" "${NIX_BUILD_ARGS_ASYNC[@]}"; then
-        nfgc
+        perform_cachix_push
+        perform_garbage_collection
     else
         send_discord_message "Async build failure for ${nfsystem}, problem!"
         exit 1
