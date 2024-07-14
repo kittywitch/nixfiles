@@ -60,8 +60,8 @@ in {
                   };
              };
          };
-         homeBuildJobs = mapAttrs' genericHomeBuildJob enabledHomeSystems;
          nixosBuildJobs = mapAttrs' genericNixosBuildJob enabledNixosSystems;
+         homeBuildJobs = mapAttrs' genericHomeBuildJob enabledHomeSystems;
         in nixosBuildJobs // homeBuildJobs;
     };
 
@@ -69,8 +69,12 @@ in {
          genericNixosBuildJob = name: system: nameValuePair "nixos-${name}" ({ ... }: {
             imports = [ ./packages.nix ];
          });
+         genericHomeBuildJob = name: system: nameValuePair "home-${name}" ({ ... }: {
+            imports = [ ./packages.nix ];
+         });
          nixosBuildJobs = mapAttrs' genericNixosBuildJob enabledNixosSystems;
-     in nixosBuildJobs;
+         homeBuildJobs = mapAttrs' genericHomeBuildJob enabledHomeSystems;
+        in nixosBuildJobs // homeBuildJobs;
 
     ci.gh-actions.checkoutOptions = {
       fetch-depth = 0;
