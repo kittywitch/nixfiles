@@ -10,15 +10,11 @@ _: let
     imports =
       with tree.home.profiles; [
         common
-      ];
-    home-manager.users.kat = {
-        imports = with tree.home.profiles; [
         devops
         graphical
         neovim
         shell
         ];
-    };
   };
 in {
   arch = "x86_64";

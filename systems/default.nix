@@ -13,6 +13,7 @@
         tree.modules.system
       ];
       specialArgs = {
+        machine = name;
         inherit name inputs std tree pkgs;
       };
     })

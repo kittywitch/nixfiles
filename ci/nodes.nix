@@ -6,6 +6,7 @@
 }:
 with lib; let
   pkgs = channels.nixpkgs;
+ enabledNixosSystems = filterAttrs (_: system: system.config.ci.enable and system.config.type == "NixOS") channels.nixfiles.systems;
 in {
   imports = [ ./common.nix ];
   config = {
@@ -32,7 +33,7 @@ in {
         workflow_dispatch = {};
       };
       jobs = let
-         genericNixosBuildJob = name: system: nameValuePair "${name}" {
+         genericNixosBuildJob = name: system: nameValuePair "nixos-${name}" {
             step.${name} = {
                   name = "build system closure for ${name}";
                   order = 500;
@@ -45,16 +46,14 @@ in {
                   };
              };
          };
-         enabledNixosSystems = filterAttrs (_: system: system.config.ci.enable) channels.nixfiles.systems;
          nixosBuildJobs = mapAttrs' genericNixosBuildJob enabledNixosSystems;
         in nixosBuildJobs;
     };
 
     jobs = let
-         genericNixosBuildJob = name: system: nameValuePair "${name}" ({ ... }: {
+         genericNixosBuildJob = name: system: nameValuePair "nixos-${name}" ({ ... }: {
             imports = [ ./packages.nix ];
          });
-         enabledNixosSystems = filterAttrs (_: system: system.config.ci.enable) channels.nixfiles.systems;
          nixosBuildJobs = mapAttrs' genericNixosBuildJob enabledNixosSystems;
      in nixosBuildJobs;
 

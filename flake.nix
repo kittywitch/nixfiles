@@ -189,7 +189,6 @@
     # a bunch of modules (also arcnmx is good)
     arcexprs = {
       url = "github:arcnmx/nixexprs/master";
-      flake = false;
     };
     base16 = {
       url = "github:arcnmx/base16.nix/flake";

@@ -3,10 +3,8 @@
   tree,
   ...
 }:
-map (path: import "${path}/overlay.nix") [
-  inputs.arcexprs
-]
-++ [
+[
+  (final: prev: inputs.arcexprs.overlays.default final prev)
   inputs.darwin.overlays.default
   inputs.deploy-rs.overlay
   #inputs.hypridle.overlays.default
