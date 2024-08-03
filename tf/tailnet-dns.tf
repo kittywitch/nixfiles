@@ -6,7 +6,7 @@ locals {
 }
 
 resource "cloudflare_record" "tailscale_device_v4_record" {
-  for_each = { for device_name, device in local.tailscale_devices : split(".", device.name)[0] => device.addresses[0] if device.user == "kat@inskip.me" }
+  for_each = { for device_name, device in local.tailscale_devices : split(".", device.name)[0] => device.addresses[0] if device.user == "kat@gensokyo.zone" }
   name    = each.key
   proxied = false
   ttl     = 3600
@@ -16,7 +16,7 @@ resource "cloudflare_record" "tailscale_device_v4_record" {
 }
 
 resource "cloudflare_record" "tailscale_device_v6_record" {
-  for_each = { for device_name, device in local.tailscale_devices : split(".", device.name)[0] => device.addresses[1] if device.user == "kat@inskip.me" }
+  for_each = { for device_name, device in local.tailscale_devices : split(".", device.name)[0] => device.addresses[1] if device.user == "kat@gensokyo.zone" }
   name    = each.key
   proxied = false
   ttl     = 3600
