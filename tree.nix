@@ -70,7 +70,7 @@
     "modules/system" = {
       functor = {
         enable = true;
-        };
+      };
     };
     "modules/nixos" = {
       functor = {

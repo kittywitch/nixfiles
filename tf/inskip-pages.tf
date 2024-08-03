@@ -38,6 +38,6 @@ resource "cloudflare_record" "inskip_root_pages" {
   proxied = false
   ttl     = 3600
   type    = "CNAME"
-  value   = "${cloudflare_pages_project.inskip_root.name}.pages.dev"
+  value   = cloudflare_pages_project.inskip_root.subdomain
   zone_id = local.zone_ids.inskip
 }

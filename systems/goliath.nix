@@ -3,7 +3,6 @@ _: let
     config,
     lib,
     tree,
-    pkgs,
     ...
   }: let
     inherit (lib.lists) singleton;

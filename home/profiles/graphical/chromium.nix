@@ -1,6 +1,6 @@
-{ pkgs, ... }: {
-    # Backup browser! For aliexpress and things.
-    home.packages = [
-        #pkgs.ungoogled-chromium
-    ];
+_: {
+  # Backup browser! For aliexpress and things.
+  home.packages = [
+    #pkgs.ungoogled-chromium
+  ];
 }

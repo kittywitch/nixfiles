@@ -1,6 +1,5 @@
 {
   kittywitch,
-  pkgs,
   config,
   lib,
   ...

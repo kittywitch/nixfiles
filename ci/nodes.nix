@@ -5,18 +5,17 @@
   ...
 }:
 with lib; let
-  pkgs = channels.nixpkgs;
- enabledNixosSystems = filterAttrs (_: system: system.config.ci.enable && system.config.type == "NixOS") channels.nixfiles.systems;
- enabledHomeSystems = filterAttrs (_: system: system.config.ci.enable && system.config.type == "Home") channels.nixfiles.systems;
+  enabledNixosSystems = filterAttrs (_: system: system.config.ci.enable && system.config.type == "NixOS") channels.nixfiles.systems;
+  enabledHomeSystems = filterAttrs (_: system: system.config.ci.enable && system.config.type == "Home") channels.nixfiles.systems;
 in {
-  imports = [ ./common.nix ];
+  imports = [./common.nix];
   config = {
     name = "nodes";
 
     gh-actions = {
       env = {
-          CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
-          DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
+        CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
+        DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
       };
       on = let
         paths = [
@@ -34,47 +33,53 @@ in {
         workflow_dispatch = {};
       };
       jobs = let
-         genericNixosBuildJob = name: system: nameValuePair "nixos-${name}" {
+        genericNixosBuildJob = name: _system:
+          nameValuePair "nixos-${name}" {
             step.${name} = {
-                  name = "build system closure for ${name}";
-                  order = 500;
-                  run = "nix run .#nf-build-system -- nixosConfigurations.${name}.config.system.build.toplevel ${name} NixOS";
-                  env = {
-                    CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
-                    DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
-                    NF_UPDATE_CACHIX_PUSH = "1";
-                    NF_CONFIG_ROOT = "\${{ github.workspace }}";
-                  };
-             };
-         };
-         genericHomeBuildJob = name: system: nameValuePair "home-${name}" {
+              name = "build system closure for ${name}";
+              order = 500;
+              run = "nix run .#nf-build-system -- nixosConfigurations.${name}.config.system.build.toplevel ${name} NixOS";
+              env = {
+                CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
+                DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
+                NF_UPDATE_CACHIX_PUSH = "1";
+                NF_CONFIG_ROOT = "\${{ github.workspace }}";
+              };
+            };
+          };
+        genericHomeBuildJob = name: _system:
+          nameValuePair "home-${name}" {
             step.${name} = {
-                  name = "build home closure for ${name}";
-                  order = 500;
-                  run = "nix run .#nf-build-system -- homeConfigurations.${name}.activationPackage ${name} Home";
-                  env = {
-                    CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
-                    DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
-                    NF_UPDATE_CACHIX_PUSH = "1";
-                    NF_CONFIG_ROOT = "\${{ github.workspace }}";
-                  };
-             };
-         };
-         nixosBuildJobs = mapAttrs' genericNixosBuildJob enabledNixosSystems;
-         homeBuildJobs = mapAttrs' genericHomeBuildJob enabledHomeSystems;
-        in nixosBuildJobs // homeBuildJobs;
+              name = "build home closure for ${name}";
+              order = 500;
+              run = "nix run .#nf-build-system -- homeConfigurations.${name}.activationPackage ${name} Home";
+              env = {
+                CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
+                DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
+                NF_UPDATE_CACHIX_PUSH = "1";
+                NF_CONFIG_ROOT = "\${{ github.workspace }}";
+              };
+            };
+          };
+        nixosBuildJobs = mapAttrs' genericNixosBuildJob enabledNixosSystems;
+        homeBuildJobs = mapAttrs' genericHomeBuildJob enabledHomeSystems;
+      in
+        nixosBuildJobs // homeBuildJobs;
     };
 
     jobs = let
-         genericNixosBuildJob = name: system: nameValuePair "nixos-${name}" ({ ... }: {
-            #imports = [ ./packages.nix ];
-         });
-         genericHomeBuildJob = name: system: nameValuePair "home-${name}" ({ ... }: {
-            #imports = [ ./packages.nix ];
-         });
-         nixosBuildJobs = mapAttrs' genericNixosBuildJob enabledNixosSystems;
-         homeBuildJobs = mapAttrs' genericHomeBuildJob enabledHomeSystems;
-        in nixosBuildJobs // homeBuildJobs;
+      genericNixosBuildJob = name: _system:
+        nameValuePair "nixos-${name}" (_: {
+          #imports = [ ./packages.nix ];
+        });
+      genericHomeBuildJob = name: _system:
+        nameValuePair "home-${name}" (_: {
+          #imports = [ ./packages.nix ];
+        });
+      nixosBuildJobs = mapAttrs' genericNixosBuildJob enabledNixosSystems;
+      homeBuildJobs = mapAttrs' genericHomeBuildJob enabledHomeSystems;
+    in
+      nixosBuildJobs // homeBuildJobs;
 
     ci.gh-actions.checkoutOptions = {
       fetch-depth = 0;

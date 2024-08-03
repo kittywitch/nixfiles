@@ -3,7 +3,7 @@
     sopsFile = ./telegram.yaml;
   };
   services.mautrix-telegram = {
-    enable = config.services.matrix-synapse.enable;
+    inherit (config.services.matrix-synapse) enable;
     environmentFile = config.sops.secrets.mautrix-telegram-environment.path;
     settings = {
       homeserver = {

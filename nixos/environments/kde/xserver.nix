@@ -3,7 +3,11 @@
     xclip
     wl-clipboard
   ];
-    services.xserver.enable = true;
-    services.xserver.displayManager.gdm.enable = true;
-    services.desktopManager.plasma6.enable = true;
+  services = {
+    xserver = {
+      enable = true;
+      displayManager.gdm.enable = true;
+    };
+    desktopManager.plasma6.enable = true;
+  };
 }

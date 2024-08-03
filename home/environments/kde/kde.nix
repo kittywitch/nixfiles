@@ -1,51 +1,51 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   home.packages = with pkgs.kdePackages; [
-        kscreen
-        kwin
-        pkgs.xwayland
-        kscreen
-        libkscreen
-        kscreenlocker
-        kactivitymanagerd
-        kde-cli-tools
-        kglobalacceld # keyboard shortcut daemon
-        kwrited # wall message proxy, not to be confused with kwrite
-        baloo # system indexer
-        milou # search engine atop baloo
-        kdegraphics-thumbnailers # pdf etc thumbnailer
-        polkit-kde-agent-1 # polkit auth ui
-        plasma-desktop
-        plasma-workspace
-        drkonqi # crash handler
-        kde-inotify-survey # warns the user on low inotifywatch limits
+    kscreen
+    kwin
+    pkgs.xwayland
+    kscreen
+    libkscreen
+    kscreenlocker
+    kactivitymanagerd
+    kde-cli-tools
+    kglobalacceld # keyboard shortcut daemon
+    kwrited # wall message proxy, not to be confused with kwrite
+    baloo # system indexer
+    milou # search engine atop baloo
+    kdegraphics-thumbnailers # pdf etc thumbnailer
+    polkit-kde-agent-1 # polkit auth ui
+    plasma-desktop
+    plasma-workspace
+    drkonqi # crash handler
+    kde-inotify-survey # warns the user on low inotifywatch limits
 
-        # Application integration
-        libplasma # provides Kirigami platform theme
-        plasma-integration # provides Qt platform theme
-        kde-gtk-config # syncs KDE settings to GTK
+    # Application integration
+    libplasma # provides Kirigami platform theme
+    plasma-integration # provides Qt platform theme
+    kde-gtk-config # syncs KDE settings to GTK
 
-        # Artwork + themes
-        breeze
-        breeze-icons
-        breeze-gtk
-        ocean-sound-theme
-        plasma-workspace-wallpapers
-        pkgs.hicolor-icon-theme # fallback icons
-        qqc2-breeze-style
-        qqc2-desktop-style
+    # Artwork + themes
+    breeze
+    breeze-icons
+    breeze-gtk
+    ocean-sound-theme
+    plasma-workspace-wallpapers
+    pkgs.hicolor-icon-theme # fallback icons
+    qqc2-breeze-style
+    qqc2-desktop-style
 
-        # misc Plasma extras
-        kdeplasma-addons
-        pkgs.xdg-user-dirs # recommended upstream
+    # misc Plasma extras
+    kdeplasma-addons
+    pkgs.xdg-user-dirs # recommended upstream
 
-        # Plasma utilities
-        kmenuedit
-        kinfocenter
-        plasma-systemmonitor
-        ksystemstats
-        libksysguard
-        systemsettings
-        kcmutils
+    # Plasma utilities
+    kmenuedit
+    kinfocenter
+    plasma-systemmonitor
+    ksystemstats
+    libksysguard
+    systemsettings
+    kcmutils
   ];
   programs.plasma = {
     configFile = {

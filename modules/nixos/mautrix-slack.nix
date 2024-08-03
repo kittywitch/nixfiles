@@ -1,20 +1,20 @@
-{ lib
-, config
-, pkgs
-, ...
-}:
-let
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
   cfg = config.services.mautrix-slack;
   dataDir = "/var/lib/mautrix-slack";
   registrationFile = "${dataDir}/slack-registration.yaml";
   settingsFile = "${dataDir}/config.yaml";
   settingsFileUnsubstituted = settingsFormat.generate "mautrix-slack-config-unsubstituted.json" cfg.settings;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   appservicePort = 29335;
 
   # to be used with a list of lib.mkIf values
   optOneOf = lib.lists.findFirst (value: value.condition) (lib.mkIf false null);
-  mkDefaults = lib.mapAttrsRecursive (n: v: lib.mkDefault v);
+  mkDefaults = lib.mapAttrsRecursive (_n: v: lib.mkDefault v);
   defaultConfig = {
     homeserver.address = "http://localhost:8448";
     appservice = {
@@ -35,8 +35,8 @@ let
       displayname_template = "{{.RealName}} (S)";
       bot_displayname_template = "{{.Name}} (bot)";
       channel_name_template = "#{{.Name}}";
-      double_puppet_server_map = { };
-      login_shared_secret_map = { };
+      double_puppet_server_map = {};
+      login_shared_secret_map = {};
       command_prefix = "!slack";
       permissions."*" = "relay";
       relay.enabled = true;
@@ -50,15 +50,13 @@ let
       };
     };
   };
-
-in
-{
+in {
   options.services.mautrix-slack = {
     enable = lib.mkEnableOption "mautrix-slack, a Matrix-Signal puppeting bridge.";
 
     settings = lib.mkOption {
       apply = lib.recursiveUpdate defaultConfig;
-      type = settingsFormat.type;
+      inherit (settingsFormat) type;
       default = defaultConfig;
       description = ''
         {file}`config.yaml` configuration as a Nix attribute set.
@@ -113,7 +111,8 @@ in
 
     serviceDependencies = lib.mkOption {
       type = with lib.types; listOf str;
-      default = (lib.optional config.services.matrix-synapse.enable config.services.matrix-synapse.serviceUnit)
+      default =
+        (lib.optional config.services.matrix-synapse.enable config.services.matrix-synapse.serviceUnit)
         ++ (lib.optional config.services.matrix-conduit.enable "conduit.service");
       defaultText = lib.literalExpression ''
         (optional config.services.matrix-synapse.enable config.services.matrix-synapse.serviceUnit)
@@ -138,7 +137,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     users.users.mautrix-slack = {
       isSystemUser = true;
       group = "mautrix-slack";
@@ -146,13 +144,13 @@ in
       description = "Mautrix-Signal bridge user";
     };
 
-    users.groups.mautrix-slack = { };
+    users.groups.mautrix-slack = {};
 
     services.matrix-synapse = lib.mkIf cfg.registerToSynapse {
-      settings.app_service_config_files = [ registrationFile ];
+      settings.app_service_config_files = [registrationFile];
     };
     systemd.services.matrix-synapse = lib.mkIf cfg.registerToSynapse {
-      serviceConfig.SupplementaryGroups = [ "mautrix-slack" ];
+      serviceConfig.SupplementaryGroups = ["mautrix-slack"];
     };
 
     # Note: this is defined here to avoid the docs depending on `config`
@@ -169,11 +167,11 @@ in
     systemd.services.mautrix-slack = {
       description = "mautrix-slack, a Matrix-Signal puppeting bridge.";
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ] ++ cfg.serviceDependencies;
-      after = [ "network-online.target" ] ++ cfg.serviceDependencies;
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"] ++ cfg.serviceDependencies;
+      after = ["network-online.target"] ++ cfg.serviceDependencies;
       # ffmpeg is required for conversion of voice messages
-      path = [ pkgs.ffmpeg-headless ];
+      path = [pkgs.ffmpeg-headless];
 
       preStart = ''
         # substitute the settings file by environment variables
@@ -240,12 +238,12 @@ in
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
         SystemCallErrorNumber = "EPERM";
-        SystemCallFilter = [ "@system-service" ];
+        SystemCallFilter = ["@system-service"];
         Type = "simple";
         UMask = 0027;
       };
-      restartTriggers = [ settingsFileUnsubstituted ];
+      restartTriggers = [settingsFileUnsubstituted];
     };
   };
-  meta.maintainers = with lib.maintainers; [ kittywitch ];
+  meta.maintainers = with lib.maintainers; [kittywitch];
 }

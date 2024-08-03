@@ -5,7 +5,7 @@
 }: let
   inherit (lib.modules) mkIf;
 in {
-  boot.loader = mkIf (config.boot.loader.grub.enable) {
+  boot.loader = mkIf config.boot.loader.grub.enable {
     timeout = null;
     grub = {
       useOSProber = true;

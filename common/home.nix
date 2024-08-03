@@ -20,7 +20,7 @@ in {
       ++ list.optional (tree.${systemType} ? home) tree.${systemType}.home;
 
     users.kat.imports = with tree.home.profiles; [
-        common
+      common
     ];
 
     extraSpecialArgs = {

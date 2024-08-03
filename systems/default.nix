@@ -1,8 +1,10 @@
-{   inputs,
+{
+  inputs,
   tree,
   lib,
   std,
-  pkgs, }: let
+  pkgs,
+}: let
   # The purpose of this file is to set up the host module which allows assigning of the system, e.g. aarch64-linux and the builder used with less pain.
   inherit (lib.modules) evalModules;
   inherit (std) set;

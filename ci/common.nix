@@ -1,5 +1,4 @@
 {
-  lib,
   channels,
   config,
   ...
@@ -18,10 +17,12 @@
     };
   };
 
-  /*nix.config = {
+  /*
+    nix.config = {
     extra-platforms = ["aarch64-linux" "armv6l-linux" "armv7l-linux"];
     #extra-sandbox-paths = with channels.cipkgs; map (package: builtins.unsafeDiscardStringContext "${package}?") [bash qemu "/run/binfmt"];
-  };*/
+  };
+  */
 
   channels = {
     nixfiles.path = ../.;
@@ -39,8 +40,8 @@
       signingKey = null;
     };
     kittywitch = {
-     enable = true;
-     publicKey = "kittywitch.cachix.org-1:KIzX/G5cuPw5WgrXad6UnrRZ8UDr7jhXzRTK/lmqyK0=";
+      enable = true;
+      publicKey = "kittywitch.cachix.org-1:KIzX/G5cuPw5WgrXad6UnrRZ8UDr7jhXzRTK/lmqyK0=";
       signingKey = "mewp";
     };
   };

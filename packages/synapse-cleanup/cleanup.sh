@@ -41,7 +41,7 @@ main() {
     if [[ -z "$HOMESERVER" || -z "$API_ID" || -z "$DISCORD_WEBHOOK_LINK" ]]; then
         send_discord_message "Error: HOMESERVER, API_ID, and DISCORD_WEBHOOK_LINK must be set."
         exit 1
-    fi
+    }
 
     # Initial sizes and usage
     local db_before_size=$(get_db_size)
@@ -59,7 +59,7 @@ main() {
          "https://${HOMESERVER}/_synapse/admin/v1/rooms?limit=500" > "${TEMPDIR}/roomlist.json"
 
     jq '.rooms[] | select(.joined_local_members == 0) | .room_id' < "${TEMPDIR}/roomlist.json" > "${TEMPDIR}/to_purge.txt"
-    jq '.rooms[] | select(.joined_local_members != 0) | .room_id' < "${TEMPDIR}/roomlist.json" > "${TEMPDIR}/history_purge.txt"
+    jq -c '.rooms[] | select(.joined_local_members != 0) | .room_id' < "${TEMPDIR}/roomlist.json" > "${TEMPDIR}/history_purge.txt"
 
     local ts=$(( $(date --date="${MONTHS_TO_KEEP} month ago" +%s)*1000 ))
 
@@ -74,15 +74,18 @@ main() {
                  -H "Content-Type: application/json" -d "{}" \
                  "https://${HOMESERVER}/_synapse/admin/v2/rooms/${room_id}"
         fi
-    done < <(jq -r '.[]' "${TEMPDIR}/to_purge.txt")
+    done < "${TEMPDIR}/to_purge.txt"
 
     send_discord_message "Deleting unnecessary room history"
     while read -r room_id; do
-        curl --header "Authorization: Bearer ${API_ID}" -X POST \
-             -H "Content-Type: application/json" \
-             -d "{ \"delete_local_events\": true, \"purge_up_to_ts\": ${ts} }" \
-             "https://${HOMESERVER}/_synapse/admin/v1/purge_history/${room_id}"
-    done < <(jq -r '.[]' "${TEMPDIR}/history_purge.txt")
+        room_id=$(echo "$room_id" | tr -d '"')  # Remove quotes if present
+        if [ -n "${room_id}" ]; then
+            curl --header "Authorization: Bearer ${API_ID}" -X POST \
+                 -H "Content-Type: application/json" \
+                 -d "{ \"delete_local_events\": true, \"purge_up_to_ts\": ${ts} }" \
+                 "https://${HOMESERVER}/_synapse/admin/v1/purge_history/${room_id}"
+        fi
+    done < "${TEMPDIR}/history_purge.txt"
 
     send_discord_message "Performing database optimization"
     systemctl stop matrix-synapse

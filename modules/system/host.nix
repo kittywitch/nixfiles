@@ -79,18 +79,18 @@ in {
       }
       .${string.toLower config.type};
     modules = mkMerge [
-        (mkIf (config.folder != "linux") [
-          # per-OS modules
-          tree.modules.${config.folder}
-          # per-OS user definition
-          tree.home.user.${config.folder}
-        ])
-        (mkIf (config.folder != "linux" && config.folder != "home") [
-          # per-OS configuration
-          tree.${config.folder}.common
-          # true base module
-          tree.common
-        ])
+      (mkIf (config.folder != "linux") [
+        # per-OS modules
+        tree.modules.${config.folder}
+        # per-OS user definition
+        tree.home.user.${config.folder}
+      ])
+      (mkIf (config.folder != "linux" && config.folder != "home") [
+        # per-OS configuration
+        tree.${config.folder}.common
+        # true base module
+        tree.common
+      ])
     ];
     builder =
       {
@@ -107,23 +107,29 @@ in {
               }
               // args);
         in
-                     args: let
-              nixos = sys args;
-            in
-              nixos.extendModules {
-                modules =
-                  nixos.config.scalpels
-                  ++ [
-                    inputs.scalpel.nixosModules.scalpel
-                  ];
-                specialArgs = {prev = nixos;};
-              };
+          args: let
+            nixos = sys args;
+          in
+            nixos.extendModules {
+              modules =
+                nixos.config.scalpels
+                ++ [
+                  inputs.scalpel.nixosModules.scalpel
+                ];
+              specialArgs = {prev = nixos;};
+            };
         home = args: let
-            renamedArgs = set.rename "specialArgs" "extraSpecialArgs" args;
-            renamedArgsWithPkgs = renamedArgs // { inherit lib; pkgs = pkgs.${args.system}; };
-            attrsToRemove = [ "configuration" "username" "homeDirectory" "stateVersion" "extraModules" "system" ];
-            safeArgs = removeAttrs renamedArgsWithPkgs attrsToRemove;
-        in inputs.home-manager.lib.homeManagerConfiguration safeArgs;
+          renamedArgs = set.rename "specialArgs" "extraSpecialArgs" args;
+          renamedArgsWithPkgs =
+            renamedArgs
+            // {
+              inherit lib;
+              pkgs = pkgs.${args.system};
+            };
+          attrsToRemove = ["configuration" "username" "homeDirectory" "stateVersion" "extraModules" "system"];
+          safeArgs = removeAttrs renamedArgsWithPkgs attrsToRemove;
+        in
+          inputs.home-manager.lib.homeManagerConfiguration safeArgs;
         darwin = inputs.darwin.lib.darwinSystem;
         macos = inputs.darwin.lib.darwinSystem;
       }

@@ -2,8 +2,7 @@
   inputs,
   tree,
   ...
-}:
-[
+}: [
   (final: prev: inputs.arcexprs.overlays.default final prev)
   inputs.darwin.overlays.default
   inputs.deploy-rs.overlay

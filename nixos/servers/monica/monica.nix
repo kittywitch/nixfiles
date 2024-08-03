@@ -1,8 +1,8 @@
-{ config, ... }: {
+{config, ...}: {
   sops.secrets.monica_appkey = {
     sopsFile = ./secrets.yaml;
     owner = config.services.monica.user;
-    group = config.services.monica.group;
+    inherit (config.services.monica) group;
   };
   services.monica = {
     enable = true;

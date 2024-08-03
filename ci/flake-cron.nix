@@ -1,20 +1,17 @@
 {
   lib,
-  channels,
   config,
   ...
 }:
-with lib; let
-  pkgs = channels.nixpkgs;
-in {
-  imports = [ ./common.nix ];
+with lib; {
+  imports = [./common.nix];
   config = {
     name = "flake-update";
 
     gh-actions = {
       env = {
-          CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
-          DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
+        CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
+        DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
       };
       on = let
         paths = [
@@ -53,8 +50,8 @@ in {
     };
 
     jobs = {
-      flake-update = { ... }: {
-        imports = [ ./packages.nix ];
+      flake-update = {...}: {
+        imports = [./packages.nix];
       };
     };
 

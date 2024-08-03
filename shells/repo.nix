@@ -2,7 +2,6 @@
   pkgs,
   inputs,
   std,
-  lib,
   ...
 }:
 with pkgs; let

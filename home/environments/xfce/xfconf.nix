@@ -25,7 +25,6 @@ _: {
         "theme" = "Chicago95";
         "notify-location" = "bottom-right";
       };
-
     };
     enable = true;
   };

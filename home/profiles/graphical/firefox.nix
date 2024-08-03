@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  inputs,
-  nur,
-  ...
-}: {
+{nur, ...}: {
   home.sessionVariables = {
     BROWSER = "firefox";
   };
@@ -154,9 +148,9 @@
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         };
         userChrome = ''
-#urlbar {
-  font-family: "Monaspace Krypton", monospace;
-}
+          #urlbar {
+            font-family: "Monaspace Krypton", monospace;
+          }
         '';
       };
     };

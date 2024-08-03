@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+_: {
   programs.hyprlock = {
     enable = true;
     backgrounds = [

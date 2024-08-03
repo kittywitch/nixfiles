@@ -3,7 +3,7 @@
     sopsFile = ./whatsapp.yaml;
   };
   services.mautrix-whatsapp = {
-    enable = config.services.matrix-synapse.enable;
+    inherit (config.services.matrix-synapse) enable;
     environmentFile = config.sops.secrets.mautrix-whatsapp-environment.path;
     settings = {
       homeserver = {
@@ -17,11 +17,11 @@
       whatsapp = {
       };
       bridge = {
-          encryption = {
-            allow = true;
-            default = true;
-            require = true;
-          };
+        encryption = {
+          allow = true;
+          default = true;
+          require = true;
+        };
         permissions = {
           "kittywit.ch" = "full";
           "@whatsapp:kittywit.ch" = "admin";

@@ -1,6 +1,6 @@
 {config, ...}: {
   services.mx-puppet-discord = {
-    enable = config.services.matrix-synapse.enable;
+    inherit (config.services.matrix-synapse) enable;
     settings = {
       bridge = {
         bindAddress = "localhost";

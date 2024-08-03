@@ -6,8 +6,10 @@ _: {
     hashKnownHosts = true;
     compression = true;
     forwardAgent = true;
-    /*extraConfig = ''
+    /*
+      extraConfig = ''
         RemoteForward /run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra
-    '';*/
+    '';
+    */
   };
 }

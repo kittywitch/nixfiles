@@ -1,16 +1,16 @@
 {pkgs, ...}: {
-  hardware.opengl = {
-    driSupport32Bit = true;
+  hardware.graphics = {
+    enable32Bit = true;
+    extraPackages = with pkgs; [
+      rocm-opencl-icd
+      rocm-opencl-runtime
+      amdvlk
+    ];
+    extraPackages32 = with pkgs; [
+      driversi686Linux.amdvlk
+      driversi686Linux.mesa
+    ];
   };
-  hardware.opengl.extraPackages = with pkgs; [
-    rocm-opencl-icd
-    rocm-opencl-runtime
-    amdvlk
-  ];
-  hardware.opengl.extraPackages32 = with pkgs; [
-    driversi686Linux.amdvlk
-    driversi686Linux.mesa
-  ];
   environment.systemPackages = with pkgs; [
     (lutris.override {
       extraPkgs = pkgs: [

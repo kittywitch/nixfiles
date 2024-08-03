@@ -27,6 +27,7 @@ resource "cloudflare_pages_domain" "dorkdev_root" {
     account_id = local.account_id
     project_name = "dorkdev"
     domain = local.zones.dork
+
 }
 
 resource "cloudflare_record" "dorkdev_root_pages" {

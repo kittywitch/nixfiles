@@ -1,11 +1,5 @@
 _: let
-  hostConfig = {
-    tree,
-    pkgs,
-    lib,
-    inputs,
-    ...
-  }: {
+  hostConfig = {tree, ...}: {
     imports =
       (with tree.nixos.hardware; [
         framework
@@ -17,6 +11,7 @@ _: let
         laptop
         bcachefs
         sdr
+        virtualisation
         secureboot
       ])
       ++ (with tree.nixos.environments; [
@@ -43,32 +38,34 @@ _: let
         };
       };
 
-        boot.extraModprobeConfig = "options snd_hda_intel power_save=0";
+      boot.extraModprobeConfig = "options snd_hda_intel power_save=0";
 
-        programs.ssh.extraConfig = ''
-            Host daiyousei-build
-                HostName 140.238.156.121
-                User root
-                IdentityAgent /run/user/1000/gnupg/S.gpg-agent.ssh
-        '';
+      programs.ssh.extraConfig = ''
+        Host daiyousei-build
+            HostName 140.238.156.121
+            User root
+            IdentityAgent /run/user/1000/gnupg/S.gpg-agent.ssh
+      '';
 
-        nix.buildMachines = [
-            {
-                hostName = "daiyousei-build";
-                system = "aarch64-linux";
-                protocol = "ssh-ng";
-                maxJobs = 100;
-                speedFactor = 1;
-                	 supportedFeatures = [ "benchmark" "big-parallel" "kvm" ];
-	 mandatoryFeatures = [ ];
-            }
+      nix = {
+        buildMachines = [
+          {
+            hostName = "daiyousei-build";
+            system = "aarch64-linux";
+            protocol = "ssh-ng";
+            maxJobs = 100;
+            speedFactor = 1;
+            supportedFeatures = ["benchmark" "big-parallel" "kvm"];
+            mandatoryFeatures = [];
+          }
         ];
+        distributedBuilds = true;
+        extraOptions = ''
+          builders-use-substitutes = true
+        '';
+      };
 
-        	nix.distributedBuilds = true;
-	# optional, useful when the builder has a faster internet connection than yours
-	nix.extraOptions = ''
-		builders-use-substitutes = true
-	'';
+      # optional, useful when the builder has a faster internet connection than yours
       services.printing.enable = true;
 
       services.hardware.bolt.enable = true;

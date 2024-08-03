@@ -1,5 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, olm, libsignal-ffi }:
-
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  olm,
+}:
 buildGoModule rec {
   pname = "mautrix-slack";
   version = "2024-05-01";
@@ -23,7 +27,7 @@ buildGoModule rec {
     homepage = "https://github.com/mautrix/slack";
     description = "A Matrix-Slack puppeting bridge";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ kittywitch ];
+    maintainers = with maintainers; [kittywitch];
     mainProgram = "mautrix-slack";
   };
 }

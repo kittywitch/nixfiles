@@ -1,4 +1,8 @@
-{pkgs, lib, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   inherit (lib.modules) mkForce;
 in {
   environment.systemPackages = with pkgs; [

@@ -1,20 +1,12 @@
 _: let
-  hostConfig = {
-    lib,
-    tree,
-    modulesPath,
-    ...
-  }: let
-    inherit (lib.modules) mkDefault;
-  in {
-    imports =
-      with tree.home.profiles; [
-        common
-        devops
-        graphical
-        neovim
-        shell
-        ];
+  hostConfig = {tree, ...}: {
+    imports = with tree.home.profiles; [
+      common
+      devops
+      graphical
+      neovim
+      shell
+    ];
   };
 in {
   arch = "x86_64";

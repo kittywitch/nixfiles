@@ -1,12 +1,9 @@
 _: let
   hostConfig = {
-    lib,
     tree,
     modulesPath,
     ...
-  }: let
-    inherit (lib.modules) mkDefault;
-  in {
+  }: {
     imports =
       [
         (modulesPath + "/profiles/qemu-guest.nix")
@@ -18,6 +15,7 @@ _: let
         oracle_micro
       ])
       ++ (with tree.nixos.servers; [
+        rustdesk
       ]);
 
     system.stateVersion = "23.11";

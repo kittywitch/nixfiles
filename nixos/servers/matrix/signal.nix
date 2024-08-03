@@ -3,7 +3,7 @@
     sopsFile = ./signal.yaml;
   };
   services.mautrix-signal = {
-    enable = config.services.matrix-synapse.enable;
+    inherit (config.services.matrix-synapse) enable;
     environmentFile = config.sops.secrets.mautrix-signal-environment.path;
     settings = {
       homeserver = {
@@ -13,24 +13,24 @@
       };
       appservice = {
         port = 9048;
-      ephemeral_events = false;
+        ephemeral_events = false;
       };
       signal = {
       };
       bridge = {
         history_sync = {
-            request_full_sync = true;
+          request_full_sync = true;
         };
-         private_chat_portal_meta = true;
-          mute_bridging = true;
-          encryption = {
-            allow = true;
-            default = true;
-            require = true;
-          };
-          provisioning = {
-            shared_secret = "disable";
-          };
+        private_chat_portal_meta = true;
+        mute_bridging = true;
+        encryption = {
+          allow = true;
+          default = true;
+          require = true;
+        };
+        provisioning = {
+          shared_secret = "disable";
+        };
         permissions = {
           "kittywit.ch" = "full";
           "@kat:kittywit.ch" = "admin";
