@@ -32,5 +32,6 @@
     yubikey-manager # Yubikey
     v4l-utils # Webcam
     obsidian
+    remmina
   ];
 }

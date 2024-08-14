@@ -3,7 +3,7 @@
   tree,
   ...
 }: [
-  (final: prev: inputs.arcexprs.overlays.default final prev)
+  inputs.arcexprs.overlays.default
   inputs.darwin.overlays.default
   inputs.deploy-rs.overlay
   #inputs.hypridle.overlays.default

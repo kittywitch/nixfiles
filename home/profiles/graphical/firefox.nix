@@ -121,7 +121,7 @@
           "extensions.pocket.enabled" = false;
           "geo.enabled" = false;
           "geo.wifi.uri" = false;
-          "keyword.enabled" = false;
+          "keyword.enabled" = true;
           "media.getusermedia.screensharing.enabled" = false;
           "media.video_stats.enabled" = false;
           "device.sensors.enabled" = false;
