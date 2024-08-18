@@ -19,7 +19,6 @@ in {
       colorize_nicks
       title
       weechat-go
-      weechat-notify-send
       vimode-develop
       auto_away
       weechat-autosort

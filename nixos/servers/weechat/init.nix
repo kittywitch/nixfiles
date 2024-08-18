@@ -21,7 +21,6 @@ in {
           /matrix server add kittywitch-telegram yukari.gensokyo.zone
           /matrix server add kittywitch-whatsapp yukari.gensokyo.zone
           /matrix server add kittywitch-signal yukari.gensokyo.zone
-          /matrix server add kittywitch-slack yukari.gensokyo.zone
           /exec -sh -norc -oc cat ${config.sops.secrets.weechat-secret.path}
           /set irc.server.liberachat.tls_cert ${config.sops.secrets.liberachat-cert.path}
           /set irc.server.espernet.tls_cert ${config.sops.secrets.espernet-cert.path}
