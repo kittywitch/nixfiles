@@ -4,7 +4,9 @@ in {
   networking = {
     networkmanager.dns = mkForce "none";
     nameservers = [
-      "194.242.2.2#dns.mullvad.net"
+      "1.1.1.1#cloudflare-dns.com"
+      "1.0.0.1#cloudflare-dns.com"
+      "8.8.8.8#dns.google"
     ];
   };
   services.resolved = {
