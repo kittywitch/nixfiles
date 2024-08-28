@@ -16,15 +16,15 @@
         kernelModules = ["nvme"];
       };
     };
-    fileSystems = {
-      "/boot" = {
-        device = "/dev/disk/by-uuid/1F52-C11D";
-        fsType = "vfat";
-      };
-      "/" = {
-        device = "/dev/sda1";
-        fsType = "ext4";
-      };
+  };
+  fileSystems = {
+    "/boot" = {
+      device = "/dev/disk/by-uuid/1F52-C11D";
+      fsType = "vfat";
+    };
+    "/" = {
+      device = "/dev/sda1";
+      fsType = "ext4";
     };
   };
 }

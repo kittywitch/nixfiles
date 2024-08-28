@@ -34,7 +34,8 @@ in
     nixosConfigurations = {};
     homeConfigurations = {};
     darwinConfigurations = {};
-  } // {
+  }
+  // {
     systems = hostConfigs;
   }
   // set.merge (set.mapToValues processHost hostConfigs)
