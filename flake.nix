@@ -111,68 +111,6 @@
         sops-nix.follows = "sops-nix";
       };
     };
-    # dependency database for mach-nix
-    pypi-deps-db = {
-      url = "github:DavHau/pypi-deps-db";
-      flake = false;
-    };
-    hyprlang = {
-      url = "github:hyprwm/hyprlang";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-    xdph = {
-      url = "github:hyprwm/xdg-desktop-portal-hyprland";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-        hyprlang.follows = "hyprlang";
-        hyprland-protocols.follows = "hyprland-protocols";
-      };
-    };
-    hyprland-protocols = {
-      url = "github:hyprwm/hyprland-protocols";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-        hyprlang.follows = "hyprlang";
-        xdph.follows = "xdph";
-        hyprland-protocols.follows = "hyprland-protocols";
-      };
-    };
-    hyprsome = {
-      url = "github:kittywitch/hyprsome";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "utils";
-      };
-    };
-    hyprlock = {
-      url = "github:hyprwm/hyprlock";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-        hyprlang.follows = "hyprlang";
-      };
-    };
-    # nixified python environments
-    mach-nix = {
-      url = "mach-nix/3.5.0";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "utils";
-        pypi-deps-db.follows = "pypi-deps-db";
-      };
-    };
     # pre-computed nix-index
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
