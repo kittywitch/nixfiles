@@ -41,7 +41,7 @@ main() {
     if [[ -z "$HOMESERVER" || -z "$API_ID" || -z "$DISCORD_WEBHOOK_LINK" ]]; then
         send_discord_message "Error: HOMESERVER, API_ID, and DISCORD_WEBHOOK_LINK must be set."
         exit 1
-    }
+    fi
 
     # Initial sizes and usage
     local db_before_size=$(get_db_size)
