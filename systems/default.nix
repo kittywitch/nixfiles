@@ -30,6 +30,11 @@
     };
 in
   {
+    # Ensure the existence of keys that are operated over
+    nixosConfigurations = {};
+    homeConfigurations = {};
+    darwinConfigurations = {};
+  } // {
     systems = hostConfigs;
   }
   // set.merge (set.mapToValues processHost hostConfigs)
