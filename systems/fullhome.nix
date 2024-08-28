@@ -11,6 +11,7 @@ _: let
 in {
   arch = "x86_64";
   type = "Home";
+  ci.enable = false; # TODO: fix arcnmx/nixexprs overlay issue???
   modules = [
     hostConfig
   ];
