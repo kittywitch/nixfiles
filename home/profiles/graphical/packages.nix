@@ -33,5 +33,7 @@
     v4l-utils # Webcam
     obsidian
     remmina
+    veracrypt
+    gimp
   ];
 }

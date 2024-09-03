@@ -1,5 +1,9 @@
 _: let
-  hostConfig = {tree, ...}: {
+  hostConfig = {
+    tree,
+    config,
+    ...
+  }: {
     imports =
       (with tree.nixos.hardware; [
         framework
@@ -38,7 +42,10 @@ _: let
         };
       };
 
-      boot.extraModprobeConfig = "options snd_hda_intel power_save=0";
+      boot = {
+        extraModprobeConfig = "options snd_hda_intel power_save=0";
+        extraModulePackages = [config.boot.kernelPackages.v4l2loopback.out];
+      };
 
       programs.ssh.extraConfig = ''
         Host daiyousei-build
@@ -66,9 +73,16 @@ _: let
       };
 
       # optional, useful when the builder has a faster internet connection than yours
-      services.printing.enable = true;
-
-      services.hardware.bolt.enable = true;
+      services = {
+        printing.enable = true;
+        syncthing = {
+          enable = true;
+          openDefaultPorts = true;
+          user = "kat";
+          dataDir = "/home/kat";
+        };
+        hardware.bolt.enable = true;
+      };
 
       swapDevices = [
         {device = "/dev/disk/by-uuid/04bd322e-dca0-43b8-b588-cc0ef1b1488e";}
