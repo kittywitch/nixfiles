@@ -27,7 +27,7 @@ in {
       autoRollback = mkOptionDefault true;
       magicRollback = mkOptionDefault true;
       fastConnection = mkOptionDefault false;
-      hostname = mkOptionDefault "${name}.tail0b3cc1.ts.net";
+      hostname = mkOptionDefault "${name}.devices.inskip.me";
       profiles.system = {
         user = "root";
         path = inputs.deploy-rs.lib.${config.system}.activate.nixos inputs.self.nixosConfigurations.${name};

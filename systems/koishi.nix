@@ -75,6 +75,15 @@ _: let
       # optional, useful when the builder has a faster internet connection than yours
       services = {
         printing.enable = true;
+        ollama = {
+          enable = true;
+          acceleration = "rocm";
+          environmentVariables = {
+            #HCC_AMDGPU_TARGET = "gfx1031"; # used to be necessary, but doesn't seem to anymore
+            HSA_OVERRIDE_GFX_VERSION = "11.0.2";
+            HSA_ENABLE_SDMA = "0";
+          };
+        };
         syncthing = {
           enable = true;
           openDefaultPorts = true;
