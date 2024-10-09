@@ -2,6 +2,25 @@ resource "oci_core_default_security_list" "this" {
   manage_default_resource_id = local.vcn.default_security_list_id
 
   dynamic "ingress_security_rules" {
+    for_each = [
+      { from = 60000
+        to = 61000 }
+    ]
+    iterator = port
+    content {
+      protocol = local.protocol_number.udp
+      source = "0.0.0.0/0"
+
+      description = "Mosh traffic from any origin"
+
+      udp_options {
+        max = port.to
+        min = port.from
+      }
+    }
+  }
+
+  dynamic "ingress_security_rules" {
     for_each = [22, 80, 443]
     iterator = port
     content {

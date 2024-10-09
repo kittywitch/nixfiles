@@ -11,6 +11,8 @@ in {
     allowedTCPPorts = [(list.unsafeHead config.services.openssh.ports)];
   };
 
+  programs.mosh.enable = true;
+
   services.openssh = {
     enable = true;
     settings = {

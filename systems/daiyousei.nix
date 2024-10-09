@@ -21,6 +21,7 @@ _: let
   };
 in {
   arch = "aarch64";
+  deploy.hostname = "daiyousei.inskip.me";
   type = "NixOS";
   modules = [
     hostConfig
