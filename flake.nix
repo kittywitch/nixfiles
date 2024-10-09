@@ -105,8 +105,9 @@
     };
     # secrets templating
     scalpel = {
-      url = "github:polygon/scalpel";
+      url = "github:kittywitch/scalpel";
       inputs = {
+        flake-utils.follows = "utils";
         nixpkgs.follows = "nixpkgs";
         sops-nix.follows = "sops-nix";
       };

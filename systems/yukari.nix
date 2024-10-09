@@ -19,7 +19,6 @@ _: let
         postgres
         matrix
         public-directory
-        weechat
       ]);
 
     boot = {
