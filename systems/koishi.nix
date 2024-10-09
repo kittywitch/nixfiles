@@ -31,16 +31,22 @@ _: let
           kde
         ]);
 
-      fileSystems = {
-        "/" = {
-          device = "/dev/disk/by-uuid/861e8815-9327-4e49-915b-73a3b0bdfa25";
-          fsType = "bcachefs";
-        };
-        "/boot" = {
-          device = "/dev/disk/by-uuid/DD84-303D";
-          fsType = "vfat";
-        };
-      };
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/ea521d6e-386f-4e6d-adde-c4be376cf19b";
+      fsType = "xfs";
+    };
+
+  boot.initrd.luks.devices."cryptmapper".device = "/dev/disk/by-uuid/16296ac6-b8b2-4c4e-94f6-c06ea84d6fbb";
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/C6C8-14D2";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
+
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/7486e618-214b-47ff-87a7-0d53099a05b4"; }
+    ];
 
       boot = {
         extraModprobeConfig = "options snd_hda_intel power_save=0";
@@ -54,6 +60,7 @@ _: let
             IdentityAgent /run/user/1000/gnupg/S.gpg-agent.ssh
       '';
 
+  boot.loader.grub.useOSProber = true;
       nix = {
         buildMachines = [
           {
@@ -92,10 +99,6 @@ _: let
         };
         hardware.bolt.enable = true;
       };
-
-      swapDevices = [
-        {device = "/dev/disk/by-uuid/04bd322e-dca0-43b8-b588-cc0ef1b1488e";}
-      ];
 
       boot = {
         supportedFilesystems = ["ntfs" "xfs"];

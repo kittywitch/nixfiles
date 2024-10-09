@@ -33,3 +33,21 @@ output "mei_public_ipv4" {
 output "mai_public_ipv4" {
   value = module.oci_servers.micro_public_ipv4s[1]
 }
+
+locals {
+  server_ips = {
+    daiyousei = module.oci_servers.flex_public_ipv4
+    mei = module.oci_servers.micro_public_ipv4s[0]
+    mai = module.oci_servers.micro_public_ipv4s[1]
+  }
+}
+
+resource "cloudflare_record" "oci" {
+  for_each = local.server_ips
+  name    =   each.key
+  proxied = false
+  ttl     = 3600
+  type    = "CNAME"
+  value   = each.value
+  zone_id = local.zone_ids.inskip
+}

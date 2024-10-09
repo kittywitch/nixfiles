@@ -32,7 +32,7 @@
           shared_secret = "disable";
         };
         permissions = {
-          "kittywit.ch" = "full";
+          "kittywit.ch" = "user";
           "@kat:kittywit.ch" = "admin";
           "@signal:kittywit.ch" = "admin";
         };

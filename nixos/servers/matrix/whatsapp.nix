@@ -3,7 +3,7 @@
     sopsFile = ./whatsapp.yaml;
   };
   services.mautrix-whatsapp = {
-    inherit (config.services.matrix-synapse) enable;
+    #inherit (config.services.matrix-synapse) enable;
     environmentFile = config.sops.secrets.mautrix-whatsapp-environment.path;
     settings = {
       homeserver = {

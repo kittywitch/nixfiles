@@ -18,11 +18,8 @@ _: let
         web
         postgres
         matrix
-        vaultwarden
         public-directory
         weechat
-        tt-rss
-        monica
       ]);
 
     boot = {
@@ -78,6 +75,7 @@ _: let
 in {
   arch = "x86_64";
   type = "NixOS";
+  deploy.hostname = "yukari.gensokyo.zone";
   modules = [
     hostConfig
   ];

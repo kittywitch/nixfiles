@@ -8,6 +8,11 @@ in
   inputs.utils.lib.eachDefaultSystem (system: {
     pkgs = import inputs.nixpkgs {
       inherit system overlays;
-      config.allowUnfree = true;
+      config = {
+        allowUnfree = true;
+        permittedInsecurePackages = [
+            "olm-3.2.16"
+        ];
+      };
     };
   })

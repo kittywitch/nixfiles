@@ -3,7 +3,7 @@
     sopsFile = ./slack.yaml;
   };
   services.mautrix-slack = {
-    inherit (config.services.matrix-synapse) enable;
+    #inherit (config.services.matrix-synapse) enable;
     environmentFile = config.sops.secrets.mautrix-slack-environment.path;
     settings = {
       homeserver = {
