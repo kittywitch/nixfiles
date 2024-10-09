@@ -47,7 +47,7 @@ resource "cloudflare_record" "oci" {
   name    =   each.key
   proxied = false
   ttl     = 3600
-  type    = "CNAME"
+  type    = "A"
   value   = each.value
   zone_id = local.zone_ids.inskip
 }
