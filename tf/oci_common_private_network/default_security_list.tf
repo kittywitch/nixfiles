@@ -14,8 +14,8 @@ resource "oci_core_default_security_list" "this" {
       description = "Mosh traffic from any origin"
 
       udp_options {
-        max = port.to
-        min = port.from
+        max = port.value.to
+        min = port.value.from
       }
     }
   }
