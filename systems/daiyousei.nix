@@ -15,9 +15,9 @@ _: let
         oracle_flex
       ])
       ++ (with tree.nixos.servers; [
-            weechat
-            web
-        ]);
+        weechat
+        web
+      ]);
 
     system.stateVersion = "23.11";
   };
