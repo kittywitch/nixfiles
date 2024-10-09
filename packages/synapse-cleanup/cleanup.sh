@@ -90,6 +90,37 @@ main() {
     send_discord_message "Performing database optimization"
     systemctl stop matrix-synapse
 
+  sudo -u postgres psql <<_EOF
+BEGIN;
+
+DELETE
+FROM state_compressor_state AS scs
+WHERE NOT EXISTS
+    (SELECT *
+     FROM rooms AS r
+     WHERE r.room_id = scs.room_id);
+
+DELETE
+FROM state_compressor_state AS scs
+WHERE scs.room_id in
+    (SELECT DISTINCT room_id
+     FROM state_compressor_state AS scs2
+     WHERE scs2.current_head IS NOT NULL
+       AND NOT EXISTS
+         (SELECT *
+          FROM state_groups AS sg
+          WHERE sg.id = scs2.current_head));
+
+DELETE
+FROM state_compressor_progress AS scp
+WHERE NOT EXISTS
+    (SELECT *
+     FROM state_compressor_state AS scs
+     WHERE scs.room_id = scp.room_id);
+
+COMMIT;
+_EOF
+
     send_discord_message "Running synapse_auto_compressor"
     sudo -u matrix-synapse synapse_auto_compressor \
          -p "postgresql://matrix-synapse?user=matrix-synapse&host=/var/run/postgresql/" \
