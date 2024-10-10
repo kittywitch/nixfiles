@@ -11,6 +11,7 @@ MONTHS_TO_KEEP=1
 # Helper functions
 send_discord_message() {
     local message="$1"
+    echo "$message"
     local escaped_message=$(printf '%s' "$message" | jq -R -s '.')
     curl -s -H "Accept: application/json" -H "Content-Type: application/json" \
          -X POST --data "{\"content\": $escaped_message}" "$DISCORD_WEBHOOK_LINK"
@@ -89,8 +90,11 @@ main() {
 
     send_discord_message "Performing database optimization"
     systemctl stop matrix-synapse
+export PGHOST=/var/run/postgresql/
+export PGDATABASE=matrix-synapse
+export PGUSER=matrix-synapse
 
-  sudo -u postgres psql <<_EOF
+  sudo -u postgres psql matrix-synapse <<_EOF
 BEGIN;
 
 DELETE
