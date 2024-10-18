@@ -38,7 +38,7 @@ with lib; {
           name = "flake update build";
           order = 500;
           run = "nix run .#nf-update";
-          env = {
+  env = {
             CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
             DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
             NF_UPDATE_GIT_COMMIT = "1";
