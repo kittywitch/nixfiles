@@ -3,7 +3,7 @@
     sopsFile = ./signal.yaml;
   };
   services.mautrix-signal = {
-    inherit (config.services.matrix-synapse) enable;
+    #inherit (config.services.matrix-synapse) enable;
     environmentFile = config.sops.secrets.mautrix-signal-environment.path;
     settings = {
       homeserver = {

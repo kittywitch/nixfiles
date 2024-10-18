@@ -8,8 +8,9 @@
   };
   systemd = {
     services.synapse-cleanup = {
+      restartIfChanged = false;
       serviceConfig = {
-        Type = "oneshot";
+        Type = "exec";
         User = "root";
         EnvironmentFile = config.sops.secrets.synapse-cleanup-environment.path;
         ExecStart = "${pkgs.synapse-cleanup}/bin/synapse-cleanup";

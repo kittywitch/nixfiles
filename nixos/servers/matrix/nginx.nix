@@ -1,5 +1,5 @@
 {config, ...}: let
-  fqdn = "${config.networking.hostName}.${config.networking.domain}";
+  fqdn = "${config.networking.hostName}.inskip.me";
 in {
   services.nginx = {
     virtualHosts = {

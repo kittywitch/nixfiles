@@ -66,7 +66,7 @@ main() {
 
     send_discord_message "Cleaning up media store"
     curl --header "Authorization: Bearer ${API_ID}" -X POST \
-         "https://${HOMESERVER}/_synapse/admin/v1/media/delete?before_ts=${ts}"
+   "https://${HOMESERVER}/_synapse/admin/v1/media/delete?before_ts=${ts}&include_local=true"
 
     send_discord_message "Deleting empty rooms"
     while read -r room_id; do
@@ -100,7 +100,7 @@ BEGIN;
 DELETE
 FROM state_compressor_state AS scs
 WHERE NOT EXISTS
-    (SELECT *
+  (SELECT *
      FROM rooms AS r
      WHERE r.room_id = scs.room_id);
 
