@@ -2,7 +2,7 @@
   writeShellScriptBin,
   pkgs,
   inputs
-  makeBinPath,
+  makeBinPath
 }: let
   inherit (inputs.std) string list set;
   exports = ''
