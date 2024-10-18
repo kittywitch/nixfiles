@@ -1,8 +1,11 @@
 {
-  wrapShellScriptBin,
+  writeShellScriptBin,
   pkgs,
   inputs
+  makeBinPath,
+  lib
 }: let
+  inherit (inputs.self.lib.std) string list set;
   exports = ''
     export NF_CONFIG_ROOT=''${NF_CONFIG_ROOT-${toString ../.}}
   '';
