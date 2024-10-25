@@ -11,7 +11,7 @@ send_discord_message() {
          -X POST --data "{\"content\": $escaped_message}" "$DISCORD_WEBHOOK_LINK"
 }
 
-if [[ -n ${CACHIX_SIGNING_KEY-} ]]; then
+if [[ -n ${CACHIX_AUTH_TOKEN-} ]]; then
 	export NF_UPDATE_CACHIX_PUSH=1
 fi
 

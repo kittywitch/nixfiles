@@ -14,7 +14,7 @@ in {
 
     gh-actions = {
       env = {
-        CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
+        CACHIX_AUTH_TOKEN = "\${{ secrets.CACHIX_AUTH_TOKEN }}";
         DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
       };
       on = let
@@ -43,7 +43,7 @@ in {
           order = 500;
           run = "nix run .#nf-update";
   env = {
-            CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
+            CACHIX_AUTH_TOKEN = "\${{ secrets.CACHIX_AUTH_TOKEN }}";
             DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
             NF_UPDATE_GIT_COMMIT = "1";
             NF_UPDATE_CACHIX_PUSH = "1";

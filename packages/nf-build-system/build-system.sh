@@ -58,7 +58,7 @@ fi
 
 send_discord_message "Starting ${SYSTEM_TYPE} system build for ${ALIAS}"
 
-if [[ -n ${CACHIX_SIGNING_KEY-} ]]; then
+if [[ -n ${CACHIX_AUTH_TOKEN-} ]]; then
     export NF_UPDATE_CACHIX_PUSH=1
 fi
 
