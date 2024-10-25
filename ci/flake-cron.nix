@@ -17,7 +17,7 @@ with lib; let
   '';
   buildAllSystems = pkgs.writeShellScriptBin "build-systems" ''
       ${exportsSystems}
-      nix run .#nf-actions-test";
+      nix run .#nf-actions-test
   '';
 in {
   imports = [./common.nix];
