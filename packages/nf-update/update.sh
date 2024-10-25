@@ -32,15 +32,22 @@ echo "checking that nodes still build..." >&2
 if [[ -n ${NF_UPDATE_CACHIX_PUSH-} ]]; then
 	export NF_ACTIONS_TEST_OUTLINK=${NF_ACTIONS_TEST_OUTLINK-result}
 fi
-nix run .#nf-actions-test -- -L
+if [[ -z ${NF_UPDATE_SKIP-} ]]; then
+	send_discord_message "checking that nodes still build..."
+	if [[ -n ${NF_UPDATE_CACHIX_PUSH-} ]]; then
+		export NF_ACTIONS_TEST_OUTLINK=${NF_ACTIONS_TEST_OUTLINK-result}
+	fi
+  nix run .#nf-actions-test -- -L
+fi
 
-if [[ -n ${NF_UPDATE_CACHIX_PUSH-} ]]; then
+if [[ -n ${NF_UPDATE_CACHIX_PUSH-} && -v NF_ACTIONS_TEST_OUTLINK ]]; then
   send_discord_message "Cachix pushing"
 	cachix push kittywitch "./${NF_ACTIONS_TEST_OUTLINK}"*/ &
 	CACHIX_PUSH=$!
 fi
 
 if [[ -z ${NF_UPDATE_GIT_COMMIT-} ]]; then
+	wait ${CACHIX_PUSH-}
 	exit
 fi
 
