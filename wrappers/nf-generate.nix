@@ -15,6 +15,6 @@
       export PATH="$PATH:${makeBinPath [pkgs.jq]}"
       NF_INPUT_CI=${string.escapeShellArg inputs.ci}
       NF_CONFIG_FILES=(${string.concatMapSep " " string.escapeShellArg ci.workflowConfigs})
-      source ${../ci/generate.sh}
+      source ${./generate.sh}
     '';
 in nf-generate
