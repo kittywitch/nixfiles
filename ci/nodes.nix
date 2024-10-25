@@ -15,6 +15,7 @@ in {
     gh-actions = {
       env = {
         CACHIX_AUTH_TOKEN = "\${{ secrets.CACHIX_AUTH_TOKEN }}";
+        CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
         DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
       };
       on = let
@@ -41,6 +42,7 @@ in {
               run = "nix run .#nf-build-system -- nixosConfigurations.${name}.config.system.build.toplevel ${name} NixOS";
               env = {
                 CACHIX_AUTH_TOKEN = "\${{ secrets.CACHIX_AUTH_TOKEN }}";
+        CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
                 DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
                 NF_UPDATE_CACHIX_PUSH = "1";
                 NF_CONFIG_ROOT = "\${{ github.workspace }}";
@@ -55,6 +57,7 @@ in {
               run = "nix run .#nf-build-system -- homeConfigurations.${name}.activationPackage ${name} Home";
               env = {
                 CACHIX_AUTH_TOKEN = "\${{ secrets.CACHIX_AUTH_TOKEN }}";
+        CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
                 DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
                 NF_UPDATE_CACHIX_PUSH = "1";
                 NF_CONFIG_ROOT = "\${{ github.workspace }}";
