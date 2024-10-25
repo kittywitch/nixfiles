@@ -34,7 +34,7 @@ init_nfargs() {
 nfgc() {
 	if [[ -n ${NF_ACTIONS_TEST_GC-} ]]; then
 		if [[ -n ${NF_UPDATE_CACHIX_PUSH-} ]]; then
-			cachix push gensokyo-infrastructure "./${NF_ACTIONS_TEST_OUTLINK-result}$nflinksuffix"*/
+			cachix push kittywitch "./${NF_ACTIONS_TEST_OUTLINK-result}$nflinksuffix"*/
 			rm -f "./${NF_ACTIONS_TEST_OUTLINK-result}$nflinksuffix"*
 		fi
 		nix-collect-garbage -d
