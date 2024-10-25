@@ -1,10 +1,11 @@
 { inputs, pkgs, ... }: {
   programs.wezterm = {
     enable = true;
-    package = inputs.wezterm.outputs.packages.${pkgs.system}.default;
+    #package = inputs.wezterm.outputs.packages.${pkgs.system}.default;
     extraConfig = ''
             local wezterm = require 'wezterm';
             return {
+            front_end=‘WebGpu’,
               font = wezterm.font_with_fallback({
         -- /nix/store/rh47mw5pfp7w2nmkn8rlwjkmkzf11prq-monaspace-1.000/share/fonts/opentype/MonaspaceKrypton-Regular.otf, FontConfig
         "Monaspace Krypton",
