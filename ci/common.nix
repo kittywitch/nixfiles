@@ -26,6 +26,7 @@
 
   channels = {
     nixfiles.path = ../.;
+    std.path = "${channels.nixfiles.inputs.std}";
     nixpkgs.path = "${channels.nixfiles.inputs.nixpkgs}";
   };
 

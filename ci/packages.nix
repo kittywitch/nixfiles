@@ -9,6 +9,7 @@ in {
       alejandra
       deadnix
       statix
+      cachix
       ssh-to-age
     ];
   };

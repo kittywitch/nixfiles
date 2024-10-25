@@ -1,4 +1,4 @@
-resource "hcloud_primary_ip" "ipv4" {
+/*resource "hcloud_primary_ip" "ipv4" {
 	auto_delete = false
 	name = "yukari-v4-aef50a7"
 	datacenter = "hil-dc1"
@@ -47,4 +47,4 @@ resource "hcloud_rdns" "yukari-v6" {
     server_id  = hcloud_server.yukari.id
     ip_address = hcloud_server.yukari.ipv6_address
     dns_ptr    = "yukari.gensokyo.zone"
-}
+}*/

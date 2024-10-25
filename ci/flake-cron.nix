@@ -1,9 +1,25 @@
 {
   lib,
   config,
+  channels,
+  pkgs,
   ...
 }:
-with lib; {
+with lib; let
+  inherit (channels.std) string list set;
+  enabledNixosSystems = filterAttrs (_: system: system.config.ci.enable && system.config.type == "NixOS") channels.nixfiles.systems;
+  exportsSystems = let
+    warnSystems = set.filter (_: system: system.ci.allowFailure) enabledNixosSystems;
+    toSystems = systems: string.concatMapSep " " string.escapeShellArg (set.keys systems);
+  in ''
+    NF_NIX_SYSTEMS=(${toSystems nixosSystems})
+    NF_NIX_SYSTEMS_WARN=(${toSystems warnSystems})
+  '';
+  buildAllSystems = pkgs.writeShellScriptBin "build-systems" ''
+      ${exportsSystems}
+      nix run .#nf-actions-test";
+  '';
+in {
   imports = [./common.nix];
   config = {
     name = "flake-update";
@@ -37,7 +53,7 @@ with lib; {
         step.flake-update = {
           name = "flake update build";
           order = 500;
-          run = "nix run .#nf-update";
+          run = "${buildAllSystems}/bin/build-systems";
   env = {
             CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
             DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
