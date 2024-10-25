@@ -1,7 +1,7 @@
 env:
   CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
   CI_ALLOW_ROOT: '1'
-  CI_CONFIG: ./ci.nix
+  CI_CONFIG: ./ci/flake-cron.nix
   CI_PLATFORM: gh-actions
   DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
 jobs:
