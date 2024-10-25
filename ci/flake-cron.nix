@@ -12,7 +12,7 @@ with lib; let
     warnSystems = set.filter (_: system: system.ci.allowFailure) enabledNixosSystems;
     toSystems = systems: string.concatMapSep " " string.escapeShellArg (set.keys systems);
   in ''
-    NF_NIX_SYSTEMS=(${toSystems nixosSystems})
+    NF_NIX_SYSTEMS=(${toSystems enabledNixosSystems})
     NF_NIX_SYSTEMS_WARN=(${toSystems warnSystems})
   '';
   buildAllSystems = pkgs.writeShellScriptBin "build-systems" ''
