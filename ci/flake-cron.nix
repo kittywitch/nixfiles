@@ -9,7 +9,7 @@ with lib; let
   inherit (channels.std) string list set;
   enabledNixosSystems = filterAttrs (_: system: system.config.ci.enable && system.config.type == "NixOS") channels.nixfiles.systems;
   exportsSystems = let
-    warnSystems = set.filter (_: system: system.ci.allowFailure) enabledNixosSystems;
+    warnSystems = set.filter (_: system: system.config.ci.allowFailure) enabledNixosSystems;
     toSystems = systems: string.concatMapSep " " string.escapeShellArg (set.keys systems);
   in ''
     NF_NIX_SYSTEMS=(${toSystems enabledNixosSystems})
