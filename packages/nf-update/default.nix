@@ -8,6 +8,5 @@ wrapShellScriptBin "nf-update" ./update.sh {
     cachix
     jq
     curl
-    nf-actions-test
   ];
 }
