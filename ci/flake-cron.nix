@@ -41,7 +41,7 @@ in {
         step.flake-update = {
           name = "flake update build";
           order = 500;
-          run = "${buildAllSystems}/bin/build-systems";
+          run = "nix run .#nf-update";
   env = {
             CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
             DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
