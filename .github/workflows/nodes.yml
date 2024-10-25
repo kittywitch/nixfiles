@@ -1,7 +1,7 @@
 env:
   CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
   CI_ALLOW_ROOT: '1'
-  CI_CONFIG: ./ci/nodes.nix
+  CI_CONFIG: ./ci.nix
   CI_PLATFORM: gh-actions
   DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
 jobs:
@@ -150,67 +150,6 @@ jobs:
       uses: arcnmx/ci/actions/nix/run@v0.7
       with:
         attrs: ci.job.nixos-mei.run.test
-        command: ci-build-cache
-        quiet: false
-        stdin: ${{ runner.temp }}/ci.build.cache
-  nixos-yukari:
-    name: nodes-nixos-yukari
-    runs-on: ubuntu-latest
-    steps:
-    - id: checkout
-      name: git clone
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-        submodules: false
-    - id: nix-install
-      name: nix install
-      uses: arcnmx/ci/actions/nix/install@v0.7
-    - env:
-        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
-        DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
-        NF_CONFIG_ROOT: ${{ github.workspace }}
-        NF_UPDATE_CACHIX_PUSH: '1'
-      id: yukari
-      name: build system closure for yukari
-      run: nix run .#nf-build-system -- nixosConfigurations.yukari.config.system.build.toplevel
-        yukari NixOS
-    - id: ci-dirty
-      name: nix test dirty
-      uses: arcnmx/ci/actions/nix/run@v0.7
-      with:
-        attrs: ci.job.nixos-yukari.run.test
-        command: ci-build-dirty
-        quiet: false
-        stdout: ${{ runner.temp }}/ci.build.dirty
-    - id: ci-test
-      name: nix test build
-      uses: arcnmx/ci/actions/nix/run@v0.7
-      with:
-        attrs: ci.job.nixos-yukari.run.test
-        command: ci-build-realise
-        ignore-exit-code: true
-        quiet: false
-        stdin: ${{ runner.temp }}/ci.build.dirty
-    - env:
-        CI_EXIT_CODE: ${{ steps.ci-test.outputs.exit-code }}
-      id: ci-summary
-      name: nix test results
-      uses: arcnmx/ci/actions/nix/run@v0.7
-      with:
-        attrs: ci.job.nixos-yukari.run.test
-        command: ci-build-summarise
-        quiet: false
-        stdin: ${{ runner.temp }}/ci.build.dirty
-        stdout: ${{ runner.temp }}/ci.build.cache
-    - env:
-        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
-      id: ci-cache
-      if: always()
-      name: nix test cache
-      uses: arcnmx/ci/actions/nix/run@v0.7
-      with:
-        attrs: ci.job.nixos-yukari.run.test
         command: ci-build-cache
         quiet: false
         stdin: ${{ runner.temp }}/ci.build.cache

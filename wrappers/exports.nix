@@ -8,7 +8,7 @@
   enabledNixosSystems = set.filter (_: system: system.config.ci.enable && system.config.type == "NixOS") systems;
 in {
   exports = ''
-    export NF_CONFIG_ROOT=''${NF_CONFIG_ROOT-${toString ../../.}}
+    export NF_CONFIG_ROOT=''${NF_CONFIG_ROOT-${toString ../.}}
   '';
   exportsSystems = let
     warnSystems = set.filter (_: system: system.config.ci.allowFailure) enabledNixosSystems;
