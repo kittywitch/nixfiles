@@ -1,3 +1,0 @@
-[submodule "lpp"]
-	path = cluster/lpp
-	url = https://github.com/rancher/local-path-provisioner.git
