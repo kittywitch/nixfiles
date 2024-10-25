@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (inputs.std.lib) string list set;
-  systems = inputs.self.systems;
+  inherit (inputs.self) systems;
   enabledNixosSystems = set.filter (_: system: system.config.ci.enable && system.config.type == "NixOS") systems;
 in {
   exports = ''

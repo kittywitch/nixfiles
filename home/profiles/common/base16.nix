@@ -22,6 +22,6 @@ in {
         ansi.palette.background.alpha = "ee00";
       };
     };
-    defaultSchemeName = "dark";
+    defaultSchemeName = "light";
   };
 }
