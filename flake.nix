@@ -27,6 +27,10 @@
         flake-compat.follows = "flake-compat";
       };
     };
+    ci = {
+      url = "github:arcnmx/ci/v0.7";
+      flake = false;
+    };
     flakelibstd = {
       url = "github:flakelib/std";
       inputs.nix-std.follows = "std";

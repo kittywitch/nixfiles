@@ -10,6 +10,7 @@
   inherit (inputs.std.lib) string list set;
   packages = inputs.self.packages.${system};
   inherit (inputs.self.legacyPackages.${system}) pkgs;
+  inherit (import ../ci/nix.nix) ci;
     nf-generate = pkgs.writeShellScriptBin "nf-generate" ''
       ${exports}
       export PATH="$PATH:${makeBinPath [pkgs.jq]}"

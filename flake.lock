@@ -70,6 +70,23 @@
         "type": "github"
       }
     },
+    "ci": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1726101086,
+        "narHash": "sha256-veBakX/c/GfwzLtp62bcEm6Coype+03Hz8Aydi2b9xg=",
+        "owner": "arcnmx",
+        "repo": "ci",
+        "rev": "154533df13bc059400186a9d52e000363f0a3cb2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "arcnmx",
+        "ref": "v0.7",
+        "repo": "ci",
+        "type": "github"
+      }
+    },
     "crane": {
       "inputs": {
         "flake-compat": [
@@ -538,6 +555,7 @@
         "arcexprs": "arcexprs",
         "base16": "base16",
         "base16-data": "base16-data",
+        "ci": "ci",
         "darwin": "darwin",
         "deploy-rs": "deploy-rs",
         "empty": "empty",
