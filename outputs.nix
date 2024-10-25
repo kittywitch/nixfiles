@@ -12,7 +12,7 @@
   checks = set.map (_: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
 in
   {
-    inherit inputs tree std pkgs formatter lib checks;
+    inherit inputs tree std pkgs formatter lib checks wrappers;
     legacyPackages = pkgs;
     packages = pkgs // wrappers;
   }
