@@ -12,6 +12,7 @@
 
     # Music
     spotify
+    strawberry-qt6
 
     # Chat
     fractal # Matrix

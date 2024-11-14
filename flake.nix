@@ -28,11 +28,11 @@
       };
     };
     wezterm = {
-        url = "github:wez/wezterm/main?dir=nix";
-        inputs = {
-            nixpkgs.follows = "nixpkgs";
-            flake-utils.follows = "utils";
-        };
+      url = "github:wez/wezterm/main?dir=nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "utils";
+      };
     };
     ci = {
       url = "github:arcnmx/ci/v0.7";

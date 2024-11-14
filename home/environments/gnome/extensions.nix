@@ -15,7 +15,7 @@
         ];
       };
       "org/gnome/shell/extensions/date-menu-formatter" = {
-        pattern = "y-MM-dd kk:mm XXX";
+        pattern = "y-MM-dd HH:mm Z";
         "font-size" = "12";
       };
       "org/gnome/shell/extensions/vitals" = {
@@ -28,6 +28,7 @@
     space-bar
     user-themes
     tray-icons-reloaded
+    appindicator
     vitals
     dash-to-panel
     date-menu-formatter

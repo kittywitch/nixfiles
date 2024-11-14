@@ -57,7 +57,7 @@
       "kdeglobals"."WM"."inactiveBlend" = "231,232,235";
       "kdeglobals"."WM"."inactiveForeground" = "163,165,172";
       "kdeglobals"."General"."BrowserApplication" = "firefox.desktop";
-      "kdeglobals"."General"."TerminalApplication" = "wezterm start --cwd .";
+      "kdeglobals"."General"."TerminalApplication" = "konsole";
       "kdeglobals"."General"."TerminalService" = "org.wezfurlong.wezterm.desktop";
       "kxkbrc"."Layout"."ResetOldOptions" = true;
       "plasmarc"."Theme"."name" = "Arc";

@@ -3,7 +3,26 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let
+  konawallConfig = {
+    interval = 30 * 60;
+    rotate = true;
+    source = "konachan";
+    tags = [
+      "rating:s"
+      "touhou"
+      "score:>=50"
+      "width:>=1500"
+    ];
+    logging = {
+      file = "INFO";
+      console = "DEBUG";
+    };
+  };
+in {
+  xdg.configFile = {
+    "konawall/config.toml".source = (pkgs.formats.toml {}).generate "konawall-config" konawallConfig;
+  };
   systemd.user.services.konawall-py-gnome = {
     Unit = {
       Description = "konawall-py";

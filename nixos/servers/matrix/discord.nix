@@ -1,4 +1,4 @@
-{config, ...}: {
+_: {
   services.mx-puppet-discord = {
     #inherit (config.services.matrix-synapse) enable;
     settings = {

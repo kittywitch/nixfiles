@@ -19,7 +19,8 @@ _: let
         secureboot
       ])
       ++ (with tree.nixos.environments; [
-        kde
+        #kde
+        gnome
       ]);
     config = {
       home-manager.users.kat.imports =
@@ -28,27 +29,28 @@ _: let
           devops
         ])
         ++ (with tree.home.environments; [
-          kde
+          #kde
+          gnome
         ]);
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/ea521d6e-386f-4e6d-adde-c4be376cf19b";
-      fsType = "xfs";
-    };
+      fileSystems."/" = {
+        device = "/dev/disk/by-uuid/ea521d6e-386f-4e6d-adde-c4be376cf19b";
+        fsType = "xfs";
+      };
 
-  boot.initrd.luks.devices."cryptmapper".device = "/dev/disk/by-uuid/16296ac6-b8b2-4c4e-94f6-c06ea84d6fbb";
+      fileSystems."/boot" = {
+        device = "/dev/disk/by-uuid/C6C8-14D2";
+        fsType = "vfat";
+        options = ["fmask=0022" "dmask=0022"];
+      };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/C6C8-14D2";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-    };
-
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/7486e618-214b-47ff-87a7-0d53099a05b4"; }
-    ];
+      swapDevices = [
+        {device = "/dev/disk/by-uuid/7486e618-214b-47ff-87a7-0d53099a05b4";}
+      ];
 
       boot = {
+        initrd.luks.devices."cryptmapper".device = "/dev/disk/by-uuid/16296ac6-b8b2-4c4e-94f6-c06ea84d6fbb";
+        loader.grub.useOSProber = true;
         extraModprobeConfig = "options snd_hda_intel power_save=0";
         extraModulePackages = [config.boot.kernelPackages.v4l2loopback.out];
       };
@@ -60,7 +62,6 @@ _: let
             IdentityAgent /run/user/1000/gnupg/S.gpg-agent.ssh
       '';
 
-  boot.loader.grub.useOSProber = true;
       nix = {
         buildMachines = [
           {

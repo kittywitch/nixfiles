@@ -1,13 +1,9 @@
 {
   lib,
   config,
-  channels,
-  pkgs,
   ...
 }:
-with lib; let
-  inherit (channels.std) string list set;
-in {
+with lib; {
   imports = [./common.nix];
   config = {
     name = "flake-update";
@@ -43,9 +39,9 @@ in {
           name = "flake update build";
           order = 500;
           run = "nix run .#nf-update";
-  env = {
+          env = {
             CACHIX_AUTH_TOKEN = "\${{ secrets.CACHIX_AUTH_TOKEN }}";
-        CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
+            CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
             DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
             NF_UPDATE_GIT_COMMIT = "1";
             NF_UPDATE_CACHIX_PUSH = "1";

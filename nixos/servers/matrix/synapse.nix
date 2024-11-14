@@ -24,11 +24,13 @@ in {
       allow_guest_access = true;
       suppress_key_server_warning = true;
       use_appservice_legacy_authorization = true;
-      /*app_service_config_files = [
+      /*
+        app_service_config_files = [
         "/var/lib/matrix-synapse/discord-registration.yaml"
         "/var/lib/matrix-synapse/whatsapp-registration.yaml"
         "/var/lib/matrix-synapse/telegram-registration.yaml"
-      ];*/
+      ];
+      */
       log_config = pkgs.writeText "nya.yaml" ''
         version: 1
         formatters:

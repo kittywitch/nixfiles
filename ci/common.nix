@@ -17,7 +17,7 @@
     };
   };
 
-    nix.config.max-silent-time = 60 * 60;
+  nix.config.max-silent-time = 60 * 60;
   /*
     nix.config = {
     extra-platforms = ["aarch64-linux" "armv6l-linux" "armv7l-linux"];
