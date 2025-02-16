@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    questpatcher
     sidequest
     gsettings-desktop-schemas
   ];

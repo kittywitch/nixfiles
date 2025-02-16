@@ -32,6 +32,7 @@
         "network"
         "temperature"
         "idle_inhibitor"
+        "battery"
         "tray"
       ];
 
@@ -50,6 +51,7 @@
       "sway/window" = {
         format = "{}";
       };
+      battery = {};
       tray = {
         show-passive-items = true;
         icon-size = 12;

@@ -22,7 +22,7 @@ in {
   home-manager.sharedModules = [
     {
       xsession.preferStatusNotifierItems = true;
-      services.network-manager-applet.enable = true;
+      #services.network-manager-applet.enable = true;
     }
   ];
 }

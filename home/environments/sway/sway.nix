@@ -29,7 +29,7 @@ in {
     sessionVariables = {
       XDG_CURRENT_DESKTOP = "Unity";
       XDG_SESSION_TYPE = "wayland";
-      WLR_DRM_DEVICES = "/dev/dri/card0";
+      WLR_DRM_DEVICES = "/dev/dri/card1";
     };
     packages = with pkgs; [
       grim
@@ -123,8 +123,13 @@ in {
 
       input = {
         "*" = {
-          xkb_layout = "us_gbp_map";
           xkb_options = "compose:rctrl,ctrl:nocaps";
+        };
+      };
+
+      output = {
+        "*" = {
+          scale = "1.25";
         };
       };
 

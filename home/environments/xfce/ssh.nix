@@ -9,7 +9,7 @@ in {
 
   # Disable gnome-keyring ssh-agent
   xdg.configFile."autostart/gnome-keyring-ssh.desktop".text = ''
-    ${fileContents "${pkgs.gnome3.gnome-keyring}/etc/xdg/autostart/gnome-keyring-ssh.desktop"}
+    ${fileContents "${pkgs.gnome-keyring}/etc/xdg/autostart/gnome-keyring-ssh.desktop"}
     Hidden=true
   '';
 }

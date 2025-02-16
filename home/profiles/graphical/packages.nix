@@ -16,6 +16,7 @@
 
     # Chat
     fractal # Matrix
+    element-desktop
     tdesktop # Telegram
     dino # XMPP
     signal-desktop

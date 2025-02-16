@@ -10,8 +10,8 @@
     plexamp
     prusa-slicer
     super-slicer-beta
-    chromium
     inputs.konawall-py.packages.${pkgs.system}.konawall-py
+    barrier
   ];
   services.udev.packages = [
     pkgs.android-udev-rules

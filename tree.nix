@@ -61,9 +61,6 @@
         enable = true;
       };
     };
-    "nixos/hardware" = {
-      external = inputs.nixos-hardware.outputs.nixosModules;
-    };
     "nixos/hardware/conditional" = {
       functor.enable = true;
     };

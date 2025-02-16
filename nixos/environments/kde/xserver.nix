@@ -2,6 +2,9 @@
   environment.systemPackages = with pkgs; [
     xclip
     wl-clipboard
+    libsForQt5.qtstyleplugin-kvantum
+     qt6Packages.qtstyleplugin-kvantum
+
   ];
   services = {
     xserver = {

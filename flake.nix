@@ -2,6 +2,7 @@
   description = "Kat's Infrastructure";
   inputs = {
     systems.url = "github:nix-systems/default";
+    
     # to allow non-nix 2.4 evaluation
     flake-compat = {
       url = "github:edolstra/flake-compat";
@@ -18,7 +19,7 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.3.0";
+      url = "github:nix-community/lanzaboote/v0.4.1";
 
       # Optional but recommended to limit the size of your system closure.
       inputs = {

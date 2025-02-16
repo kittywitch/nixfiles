@@ -1,4 +1,7 @@
 {pkgs, ...}: {
+  home.sessionVariables = {
+    QT_QPA_PLATFORMTHEME = "qt5ct";
+  };
   home.packages = with pkgs.kdePackages; [
     kscreen
     kwin
@@ -60,7 +63,6 @@
       "kdeglobals"."General"."TerminalApplication" = "konsole";
       "kdeglobals"."General"."TerminalService" = "org.wezfurlong.wezterm.desktop";
       "kxkbrc"."Layout"."ResetOldOptions" = true;
-      "plasmarc"."Theme"."name" = "Arc";
       "kxkbrc"."Layout"."Options" = "terminate:ctrl_alt_bksp,ctrl:hyper_capscontrol";
     };
   };
