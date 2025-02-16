@@ -7,33 +7,30 @@ _: let
   }: let
     inherit (lib.lists) singleton;
     drives = {
-      root = {
-        raw = "/dev/disk/by-uuid/af144e7f-e35b-49e7-be90-ef7001cc2abd";
-        luks = "luks-af144e7f-e35b-49e7-be90-ef7001cc2abd";
+      root = rec {
+        raw = "/dev/disk/by-uuid/ca1a4c5f-3fe2-4259-a078-b49dca804f1a";
         result = {
-          device = "/dev/disk/by-uuid/cf7fc410-4e27-4797-8464-a409766928c1";
+          device = raw;
           fsType = "ext4";
         };
       };
       boot = rec {
-        raw = "/dev/disk/by-uuid/D0D8-F8BF";
+        raw = "/dev/disk/by-uuid/E1BE-2C63";
         result = {
           device = raw;
           fsType = "vfat";
         };
       };
-      swap = {
-        raw = "/dev/disk/by-uuid/111c4857-5d73-4e75-89c7-43be9b044ade";
-        luks = "luks-111c4857-5d73-4e75-89c7-43be9b044ade";
+      swap = rec {
+        raw = "/dev/disk/by-uuid/d1e46d2a-5e08-444c-b48e-17744c5edcff";
         result = {
-          device = "/dev/disk/by-uuid/bebdb14c-4707-4e05-848f-5867764b7c27";
+          device = raw;
         };
       };
     };
   in {
     imports =
       (with tree.nixos.hardware; [
-        b550m-itx-ac
       ])
       ++ (with tree.nixos.profiles; [
         graphical
@@ -51,29 +48,28 @@ _: let
       ])
       ++ (with tree.home.environments; [
         kde
-      ]);
+     ]);
+hardware.opengl.enable = true;
+
+  services.xserver.videoDrivers = ["nvidia"];
+
+
+hardware.nvidia = {
+  package = config.boot.kernelPackages.nvidiaPackages.latest;
+  nvidiaSettings = true;
+  modesetting.enable = true;
+  open = true;
+};
 
     boot = {
       loader = {
-        grub = {
-          enableCryptodisk = true;
-        };
+        systemd-boot.enable = true;
+        efi.canTouchEfiVariables = true;
       };
       initrd = {
-        luks.devices = {
-          ${drives.swap.luks} = {
-            device = drives.swap.raw;
-            keyFile = "/crypto_keyfile.bin";
-          };
-          ${drives.root.luks}.device = drives.root.raw;
-        };
-        #
-        secrets = {
-          "/crypto_keyfile.bin" = null;
-        };
         availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
       };
-      kernelModules = ["nct6775"];
+      kernelModules = ["nct6775" "kvm-amd"];
       supportedFilesystems = ["ntfs"];
     };
 
@@ -84,29 +80,10 @@ _: let
 
     swapDevices = singleton drives.swap.result;
 
-    services.openssh = {
-      hostKeys = [
-        {
-          bits = 4096;
-          path = "/var/lib/secrets/${config.networking.hostName}-osh-pk";
-          type = "rsa";
-        }
-        {
-          path = "/var/lib/secrets/${config.networking.hostName}-ed25519-osh-pk";
-          type = "ed25519";
-        }
-      ];
-      extraConfig = ''
-        HostCertificate /var/lib/secrets/${config.networking.hostName}-osh-cert
-        HostCertificate /var/lib/secrets/${config.networking.hostName}-osh-ed25519-cert
-      '';
-    };
-
     system.stateVersion = "21.11";
   };
 in {
   arch = "x86_64";
-  ci.enable = false; # System currently not used
   type = "NixOS";
   modules = [
     hostConfig

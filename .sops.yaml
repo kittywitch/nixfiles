@@ -8,6 +8,7 @@ keys:
 - &mei age1xgy03g3vjydsxcl0qpdgm8rahjcjq95ucxfwlgr22zwjx3p7jf2s9jk6u5
 - &mai age1fv5dafs4n3r5n83qm2hfz7xmnflsz0xf9r3saralrptpgf8mvuxq4t8k3u
 - &daiyousei age120530yclr75k6nrzp6k5jjftj8j4q9v3533guupzk4ct86mjxszqg9e5t5
+- &goliath age1c4atxfp05u7zm875s6q8p82ve96rqqpq9smktxlur8pk2yc3qvgql46dp9
 creation_rules:
 - path_regex: tf/terraform.tfvars.sops$
   shamir_threshold: 1
@@ -27,6 +28,7 @@ creation_rules:
     - *mei
     - *mai
     - *daiyousei
+    - *goliath
 - path_regex: ci/.*\.yaml
   shamir_threshold: 1
   key_groups:

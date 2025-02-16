@@ -50,18 +50,32 @@
     systemsettings
     kcmutils
   ];
+  xdg.configFile."Kvantum/kvantum.kvconfig".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {
+    General.theme = "commonalitysol";
+  };
   programs.plasma = {
+    enable = true;
+    workspace = {
+      colorScheme = "CommonalitySol";
+      theme = "CommonalitySol";
+    };
+    fonts = let
+      katFont = {
+        family = "Monaspace Krypton";
+        pointSize = 10;
+      };
+    in {
+      general = katFont;
+      fixedWidth = katFont;
+      small = katFont // {pointSize = 8;};
+      toolbar = katFont;
+      menu = katFont;
+      windowTitle = katFont;
+    };
     configFile = {
       "kded5rc"."PlasmaBrowserIntegration"."shownCount" = 1;
-      "kdeglobals"."WM"."activeBackground" = "231,232,235";
-      "kdeglobals"."WM"."activeBlend" = "231,232,235";
-      "kdeglobals"."WM"."activeForeground" = "92,97,108";
-      "kdeglobals"."WM"."inactiveBackground" = "231,232,235";
-      "kdeglobals"."WM"."inactiveBlend" = "231,232,235";
-      "kdeglobals"."WM"."inactiveForeground" = "163,165,172";
       "kdeglobals"."General"."BrowserApplication" = "firefox.desktop";
       "kdeglobals"."General"."TerminalApplication" = "konsole";
-      "kdeglobals"."General"."TerminalService" = "org.wezfurlong.wezterm.desktop";
       "kxkbrc"."Layout"."ResetOldOptions" = true;
       "kxkbrc"."Layout"."Options" = "terminate:ctrl_alt_bksp,ctrl:hyper_capscontrol";
     };
