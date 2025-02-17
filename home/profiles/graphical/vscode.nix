@@ -9,10 +9,11 @@
       mkhl.direnv
       hashicorp.terraform
       jnoortheen.nix-ide
+      pkgs.outrun
     ];
     userSettings = {
       "nix.enableLanguageServer" = true;
-      "workbench.colorTheme" = "Catppuccin Latte";
+      "workbench.colorTheme" = "Outrun Night";
       "editor.suggest.preview" = true;
       "[nix]" = {
         "editor.defaultFormatter" = "kamadorueda.alejandra";

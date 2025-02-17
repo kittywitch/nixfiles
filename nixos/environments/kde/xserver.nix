@@ -6,10 +6,14 @@
     qt6Packages.qtstyleplugin-kvantum
     commonalitysol
   ];
+  environment.plasma6.excludePackages = with pkgs; [konsole];
   services = {
+    displayManager.sddm = {
+      enable = true;
+      theme = "CommonalitySol";
+    };
     xserver = {
       enable = true;
-      displayManager.gdm.enable = true;
     };
     desktopManager.plasma6.enable = true;
   };

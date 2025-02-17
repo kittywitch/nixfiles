@@ -14,11 +14,11 @@ in {
     shell.enable = true;
     schemes = {
       light = {
-        schemeData = schemeSources.atelier.schemes.atelier-sulphurpool-light;
+        schemeData = schemeSources.atelier.schemes.atelier-heath-light;
         ansi.palette.background.alpha = "d000";
       };
       dark = {
-        schemeData = schemeSources.atelier.schemes.atelier-cave;
+        schemeData = schemeSources.outrun.schemes.outrun-dark;
         ansi.palette.background.alpha = "ee00";
       };
     };

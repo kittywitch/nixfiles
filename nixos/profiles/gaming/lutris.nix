@@ -12,6 +12,8 @@
         pkgs.winetricks
         pkgs.jansson
         pkgs.samba
+        pkgs.mangohud
+        pkgs.vkbasalt
       ];
       extraLibraries = pkgs: [
         pkgs.jansson
@@ -19,6 +21,9 @@
         pkgs.xz
       ];
     })
+
+    vkbasalt
+    mangohud
 
     # support 32-bit only
     wine

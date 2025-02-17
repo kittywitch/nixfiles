@@ -4,13 +4,13 @@
   ...
 }: {
   programs.wezterm = {
-    enable = false;
+    enable = true;
     package = inputs.wezterm.outputs.packages.${pkgs.system}.default;
     extraConfig = ''
             local wezterm = require 'wezterm';
             return {
               font = wezterm.font_with_fallback({
-
+        "Monaspace Krypton",
         -- <built-in>, BuiltIn
         "JetBrains Mono",
 
@@ -24,7 +24,7 @@
 
       }),
       window_decorations = "TITLE | RESIZE",
-      enable_wayland = false,
+      enable_wayland = true,
       warn_about_missing_glyphs = false,
               font_size = 10.0,
               check_for_updates = false,

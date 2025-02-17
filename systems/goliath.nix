@@ -31,7 +31,7 @@ _: let
   in {
     imports =
       (with tree.nixos.hardware; [
-      ])
+        ])
       ++ (with tree.nixos.profiles; [
         graphical
         wireless
@@ -48,18 +48,16 @@ _: let
       ])
       ++ (with tree.home.environments; [
         kde
-     ]);
-hardware.opengl.enable = true;
+      ]);
 
-  services.xserver.videoDrivers = ["nvidia"];
+    services.xserver.videoDrivers = ["nvidia"];
 
-
-hardware.nvidia = {
-  package = config.boot.kernelPackages.nvidiaPackages.latest;
-  nvidiaSettings = true;
-  modesetting.enable = true;
-  open = true;
-};
+    hardware.nvidia = {
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
+      nvidiaSettings = true;
+      modesetting.enable = true;
+      open = true;
+    };
 
     boot = {
       loader = {

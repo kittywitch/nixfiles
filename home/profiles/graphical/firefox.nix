@@ -30,6 +30,7 @@
           stylus
           temporary-containers
           multi-account-containers
+          dearrow
           ublock-origin
           violentmonkey
         ];
