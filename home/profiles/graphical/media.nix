@@ -1,9 +1,11 @@
 {
   pkgs,
   lib,
+  inputs,
   ...
 }: let
   inherit (lib.attrsets) mapAttrsToList;
+  ytdlp = inputs.nixpkgs-current.legacyPackages.x86_64-linux.yt-dlp;
 in {
   # TODO: remove the libs
   programs.mpv = {
@@ -21,7 +23,7 @@ in {
       script-opts =
         builtins.concatStringsSep ","
         (mapAttrsToList (k: v: "${k}=${builtins.toString v}") {
-          ytdl_hook-ytdl_path = "${pkgs.yt-dlp}/bin/yt-dlp";
+          ytdl_hook-ytdl_path = "${ytdlp}/bin/yt-dlp";
           osc-layout = "slimbox";
           osc-vidscale = "no";
           osc-deadzonesize = 0.75;
@@ -40,7 +42,7 @@ in {
     yt = "mpv --ytdl-format='bestvideo[height<=?720][fps<=?30][vcodec!=?vp9]+bestaudio/best[height<=720]'"; # Laptop doesn't like above 720p :c
   };
   home.packages = with pkgs; [
-    yt-dlp # Watch videos from multiple sources without having to use a browser for it
+    ytdlp # Watch videos from multiple sources without having to use a browser for it
     ytcc # Subscriptions manager and RSS feed exporter for YouTube
   ];
 }

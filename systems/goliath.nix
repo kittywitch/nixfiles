@@ -41,6 +41,7 @@ _: let
         kde
       ]);
 
+    zramSwap.enable = true;
     home-manager.users.kat.imports =
       (with tree.home.profiles; [
         graphical

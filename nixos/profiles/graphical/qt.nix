@@ -1,7 +1,7 @@
 _: {
   qt = {
     enable = true;
-    platformTheme = "qt5ct";
-    style = "kvantum";
+    #platformTheme = "qt5ct";
+    #style = "kvantum";
   };
 }

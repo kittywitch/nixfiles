@@ -21,11 +21,15 @@
     plasma-workspace
     drkonqi # crash handler
     kde-inotify-survey # warns the user on low inotifywatch limits
+    pkgs.plasma-applet-commandoutput
 
     # Application integration
     libplasma # provides Kirigami platform theme
     plasma-integration # provides Qt platform theme
     kde-gtk-config # syncs KDE settings to GTK
+
+    qt6ct
+    pkgs.libsForQt5.qt5ct
 
     # Artwork + themes
     breeze
@@ -73,7 +77,6 @@
       windowTitle = katFont;
     };
     configFile = {
-      "kded5rc"."PlasmaBrowserIntegration"."shownCount" = 1;
       "kdeglobals"."General"."BrowserApplication" = "firefox.desktop";
       "kdeglobals"."General"."TerminalApplication" = "konsole";
       "kxkbrc"."Layout"."ResetOldOptions" = true;

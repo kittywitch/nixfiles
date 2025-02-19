@@ -2,7 +2,7 @@
   description = "Kat's Infrastructure";
   inputs = {
     systems.url = "github:nix-systems/default";
-    
+
     # to allow non-nix 2.4 evaluation
     flake-compat = {
       url = "github:edolstra/flake-compat";
@@ -17,6 +17,14 @@
     # self-explanatory
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
+    };
+    nixpkgs-current = {
+      url = "github:nixos/nixpkgs/nixos-unstable";
+    };
+    solaar = {
+      # ewww flakehub ;;
+      url = "https://flakehub.com/f/Svenum/Solaar-flake/*.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";

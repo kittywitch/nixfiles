@@ -3,6 +3,7 @@
   stdenvNoCC,
   fetchgit,
   openssh,
+  findutils,
   ...
 }:
 stdenvNoCC.mkDerivation rec {
@@ -20,6 +21,7 @@ stdenvNoCC.mkDerivation rec {
   };
 
   dontBuild = true;
+  dontCheckForBrokenSymlinks = true;
 
   installPhase = ''
     runHook preInstall
