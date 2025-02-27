@@ -38,7 +38,7 @@ _: let
         gaming
       ])
       ++ (with tree.nixos.environments; [
-        kde
+        i3
       ]);
 
     zramSwap.enable = true;
@@ -48,7 +48,7 @@ _: let
         devops
       ])
       ++ (with tree.home.environments; [
-        kde
+        i3
       ]);
 
     services.xserver.videoDrivers = ["nvidia"];
@@ -58,6 +58,7 @@ _: let
       nvidiaSettings = true;
       modesetting.enable = true;
       open = true;
+      powerManagement.enable = true;
     };
 
     boot = {
@@ -77,7 +78,13 @@ _: let
       "/boot" = drives.boot.result;
     };
 
-    swapDevices = singleton drives.swap.result;
+    swapDevices = [
+      drives.swap.result
+      {
+        device = "/swapfile";
+        size = 16 * 1024; # 16GB
+      }
+    ];
 
     system.stateVersion = "21.11";
   };

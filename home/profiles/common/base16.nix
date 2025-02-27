@@ -14,14 +14,14 @@ in {
     shell.enable = true;
     schemes = {
       light = {
-        schemeData = schemeSources.atelier.schemes.atelier-heath-light;
+        schemeData = schemeSources.tinted.schemes.catppuccin-latte;
         ansi.palette.background.alpha = "d000";
       };
       dark = {
-        schemeData = schemeSources.outrun.schemes.outrun-dark;
+        schemeData = schemeSources.tinted.schemes.catppuccin-mocha;
         ansi.palette.background.alpha = "ee00";
       };
     };
-    defaultSchemeName = "dark";
+    defaultSchemeName = "light";
   };
 }

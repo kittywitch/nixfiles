@@ -2,7 +2,7 @@
   description = "Kat's Infrastructure";
   inputs = {
     systems.url = "github:nix-systems/default";
-
+    catppuccin.url = "github:catppuccin/nix";
     # to allow non-nix 2.4 evaluation
     flake-compat = {
       url = "github:edolstra/flake-compat";
@@ -16,9 +16,6 @@
     empty.url = "github:input-output-hk/empty-flake";
     # self-explanatory
     nixpkgs = {
-      url = "github:nixos/nixpkgs/nixos-unstable";
-    };
-    nixpkgs-current = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
     solaar = {
@@ -97,6 +94,7 @@
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
     };
+    neorg-overlay.url = "github:nvim-neorg/nixpkgs-neorg-overlay";
     # file structure -> attrset
     tree = {
       url = "github:kittywitch/tree";

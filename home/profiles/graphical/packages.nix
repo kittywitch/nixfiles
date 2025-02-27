@@ -21,7 +21,7 @@
     dino # XMPP
     signal-desktop
     mumble
-
+    keymapp
     # Archivery
     unzip
     zip

@@ -26,7 +26,7 @@
       window_decorations = "TITLE | RESIZE",
       enable_wayland = true,
       warn_about_missing_glyphs = false,
-              font_size = 10.0,
+              font_size = 12.0,
               check_for_updates = false,
               enable_tab_bar = false
             }

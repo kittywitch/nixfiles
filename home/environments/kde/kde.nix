@@ -1,6 +1,9 @@
 {pkgs, ...}: {
   home.sessionVariables = {
-    QT_QPA_PLATFORMTHEME = "qt5ct";
+    QT_QPA_PLATFORMTHEME = "qt6ct";
+    #XDG_BACKEND = "x11";
+    XDG_CURRENT_DESKTOP = "kde";
+    #GDK_BACKEND = "x11";
   };
   home.packages = with pkgs.kdePackages; [
     kscreen
@@ -54,14 +57,9 @@
     systemsettings
     kcmutils
   ];
-  xdg.configFile."Kvantum/kvantum.kvconfig".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {
-    General.theme = "commonalitysol";
-  };
   programs.plasma = {
     enable = true;
     workspace = {
-      colorScheme = "CommonalitySol";
-      theme = "CommonalitySol";
     };
     fonts = let
       katFont = {
@@ -80,7 +78,7 @@
       "kdeglobals"."General"."BrowserApplication" = "firefox.desktop";
       "kdeglobals"."General"."TerminalApplication" = "konsole";
       "kxkbrc"."Layout"."ResetOldOptions" = true;
-      "kxkbrc"."Layout"."Options" = "terminate:ctrl_alt_bksp,ctrl:hyper_capscontrol";
+      "kxkbrc"."Layout"."Options" = "terminate:ctrl_alt_bksp,ctrl:capscontrol";
     };
   };
 }

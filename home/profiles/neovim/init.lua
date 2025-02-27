@@ -9,30 +9,30 @@ local api = vim.api   -- Lua API
 -----------------------------------------------------------
 -- Base16
 -----------------------------------------------------------
-vim.g.base16colorspace = 256
-vim.g.base16background = "@defaultSchemeName@"
-g.base16_shell_path = "@base16ShellPath@"
-vim.cmd("colorscheme base16-@defaultSchemeSlug@")
-g.colors_name = "@defaultSchemeSlug@"
+--vim.g.base16colorspace = 256
+--vim.g.base16background = "@defaultSchemeName@"
+--g.base16_shell_path = "@base16ShellPath@"
+--vim.cmd("colorscheme base16-@defaultSchemeSlug@")
+--g.colors_name = "@defaultSchemeSlug@"
 
-local base16 = {
-	base00 = "@base00@",
-	base01 = "@base01@",
-	base02 = "@base02@",
-	base03 = "@base03@",
-	base04 = "@base04@",
-	base05 = "@base05@",
-	base06 = "@base06@",
-	base07 = "@base07@",
-	base08 = "@base08@",
-	base09 = "@base09@",
-	base0A = "@base0A@",
-	base0B = "@base0B@",
-	base0C = "@base0C@",
-	base0D = "@base0D@",
-	base0E = "@base0E@",
-	base0F = "@base0F@"
-}
+--local base16 = {
+--	base00 = "@base00@",
+--	base01 = "@base01@",
+--	base02 = "@base02@",
+--	base03 = "@base03@",
+--	base04 = "@base04@",
+--	base05 = "@base05@",
+--	base06 = "@base06@",
+--	base07 = "@base07@",
+--	base08 = "@base08@",
+--	base09 = "@base09@",
+--	base0A = "@base0A@",
+--	base0B = "@base0B@",
+--	base0C = "@base0C@",
+--	base0D = "@base0D@",
+--	base0E = "@base0E@",
+--	base0F = "@base0F@"
+--}
 
 api.nvim_create_autocmd("vimenter", {
 	command = "highlight Normal guibg=NONE ctermbg=NONE"
@@ -74,6 +74,8 @@ opt.laststatus = 3                            -- Set global statusline
 opt.cursorline = true                         -- Highlight cursor screenline
 opt.cmdheight = 1                             -- Command entry line height
 opt.hlsearch = true                           -- Highlight matches with last search pattern
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
 
 -----------------------------------------------------------
 -- Tabs, indent
@@ -184,23 +186,22 @@ api.nvim_create_autocmd('BufWritePre', {
 	command = 'lua vim.lsp.buf.formatting_sync()'
 })
 
---[[
 -- neorg
 require('neorg').setup {
 	-- Tell Neorg what modules to load
 	load = {
 		['core.defaults'] = {}, -- Load all the default modules
-		['core.norg.concealer'] = {}, -- Allows for use of icons
-		['core.norg.dirman'] = { -- Manage your directories with Neorg
+		['core.concealer'] = {}, -- Allows for use of icons
+		['core.dirman'] = { -- Manage your directories with Neorg
 			config = {
-				engine = 'nvim-cmp',
 				workspaces = {
-					home = '~/neorg'
-				}
+					notes = '~/Notes',
+				},
+				default_workspace = "notes",
 			}
 		}
 	},
-}]]--
+}
 
 -- telescope
 local telescope = require('telescope.builtin')
@@ -298,7 +299,7 @@ require('bufferline').setup {
 	}
 }
 
-local barColor = base16.base00;
+--local barColor = base16.base00;
 
 local highlightItems = {
 	BufferLineFill = "bg",
@@ -310,13 +311,13 @@ local highlightItems = {
 
 local commandString = ""
 
-for item, ground in pairs(highlightItems) do
-	commandString = "highlight " .. item .. " cterm" .. ground .. "=" .. barColor .. " | " .. commandString
-end
+--for item, ground in pairs(highlightItems) do
+--	commandString = "highlight " .. item .. " cterm" .. ground .. "=" .. barColor .. " | " .. commandString
+--end
 
-api.nvim_create_autocmd("ColorScheme", {
-	command = commandString;
-})
+--api.nvim_create_autocmd("ColorScheme", {
+--	command = commandString;
+--})
 
 -- hop
 local hop = require('hop')
@@ -338,3 +339,5 @@ end, {remap=true})
 vim.keymap.set("", "F", function()
 	hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
 end, {remap=true})
+
+vim.cmd("colorscheme catppuccin-latte")

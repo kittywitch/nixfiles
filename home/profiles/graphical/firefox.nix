@@ -9,7 +9,7 @@
       main = {
         id = 0;
         isDefault = true;
-        extensions = with nur.repos.rycee.firefox-addons; [
+        extensions.packages = with nur.repos.rycee.firefox-addons; [
           sponsorblock
           link-cleaner
           canvasblocker

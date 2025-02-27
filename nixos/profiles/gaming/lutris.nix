@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   hardware.graphics = {
     enable32Bit = true;
     extraPackages32 = with pkgs; [

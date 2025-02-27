@@ -8,13 +8,12 @@
     dnsutils
     usbutils
     plexamp
-    prusa-slicer
     super-slicer-beta
-    inputs.konawall-py.packages.${pkgs.system}.konawall-py
     barrier
   ];
   services.udev.packages = [
     pkgs.android-udev-rules
+    pkgs.zsa-udev-rules
     pkgs.via
   ];
 }

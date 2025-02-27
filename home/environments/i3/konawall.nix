@@ -1,20 +1,9 @@
 {
   inputs,
   pkgs,
+  config,
   ...
 }: let
-  konawallWithDelay = pkgs.writeShellScriptBin "konawally" ''
-    sleep 5 && XDG_BACKEND=x11 GDK_BACKEND=x11 ${inputs.konawall-py.packages.${pkgs.system}.konawall-py}/bin/konawall
-  '';
-  desktop_entry = ''
-    [Desktop Entry]
-    Exec=${konawallWithDelay}/bin/konawally
-    Icon=
-    Name=konawall
-    Path=
-    Terminal=False
-    Type=Application
-  '';
   konawallConfig = {
     interval = 30 * 60;
     rotate = true;
@@ -32,11 +21,22 @@
   };
 in {
   home.packages = [
-    konawallWithDelay
     inputs.konawall-py.packages.${pkgs.system}.konawall-py
   ];
   xdg.configFile = {
     "konawall/config.toml".source = (pkgs.formats.toml {}).generate "konawall-config" konawallConfig;
-    "autostart/konawall.desktop".text = desktop_entry;
+  };
+  systemd.user.services.konawall-py-gnome = {
+    Unit = {
+      Description = "konawall-py";
+      X-Restart-Triggers = [(toString config.xdg.configFile."konawall/config.toml".source)];
+      After = ["graphical-session.target" "network-online.target"];
+    };
+    Service = {
+      ExecStart = "${inputs.konawall-py.packages.${pkgs.system}.konawall-py}/bin/konawall";
+      Restart = "on-failure";
+      RestartSec = "1s";
+    };
+    Install = {WantedBy = ["graphical-session.target"];};
   };
 }

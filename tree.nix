@@ -80,6 +80,7 @@
           base16.nixosModules.base16
           lanzaboote.nixosModules.lanzaboote
           solaar.nixosModules.default
+          catppuccin.nixosModules.catppuccin
         ];
       };
     };
@@ -99,11 +100,13 @@
             nix-index-database.hmModules.nix-index
             plasma-manager.homeManagerModules.plasma-manager
             base16.homeModules.base16
+            catppuccin.homeManagerModules.catppuccin
             inputs.sops-nix.homeManagerModules.sops
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).home-manager; [
             i3gopher
             weechat
+            syncplay
           ]);
       };
     };
