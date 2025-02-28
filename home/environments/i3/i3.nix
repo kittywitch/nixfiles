@@ -29,20 +29,34 @@ in {
       other_modifier = "Mod1";
       mod = modifier;
       mod2 = other_modifier;
+      workspaceNames = {
+        "1" = "";
+        "2" = "";
+        "11" = "";
+        "12" = "";
+        "13" = "";
+      };
+      workspaceNamer = num: let
+        numStr = builtins.toString num;
+    in if numStr ? workspaceNames then "${numStr}:${numStr} ${workspaceNames.numStr}" else "${numStr}:${numStr}";
     in {
       inherit modifier;
-      fonts = [
-        "Monaspace Krypton"
-        "FontAwesome 6"
-      ];
+      fonts = {
+        size = 10.0;
+        style = "Regular";
+        names = [
+          "Monaspace Krypton"
+          "FontAwesome 6"
+        ];
+      };
       startup = [
         { command = "~/.screenlayout/main.sh"; }
         { command = "blueman-applet"; }
       ];
       keybindings = let
         bindWorkspace = key: workspace: {
-          "${mod}+${key}" = "workspace number ${workspace}";
-          "${mod}+shift+${key}" = "move container to workspace number ${workspace}";
+          "${mod}+${key}" = "workspace number ${workspaceNamer workspace}";
+          "${mod}+shift+${key}" = "move container to workspace number ${workspaceNamer workspace}";
         };
         mapDefaultAttrs = e: mapAttrs (_: mkDefault) e;
          workspaceBindings =
@@ -54,9 +68,9 @@ in {
           ]
           ++ list.imap (i: v: bindWorkspace v "${toString (11 + i)}") (list.map (n: "F${builtins.toString n}") (std.list.range 1 12));
           normalBindings = {
-        "Print" = "exec --no-startup-id maim \"/home/$USER/Pictures/$(date)\"";
-        "${mod2}+Print" = "exec --no-startup-id maim --window $(xdotool getactivewindow) \"/home/$USER/Pictures/$(date)\"";
-        "Shift+Print" = "exec --no-startup-id maim --select \"/home/$USER/Pictures/$(date)\"";
+        "Print" = "exec --no-startup-id maim \"/home/$USER/Pictures/$(date).png\"";
+        "${mod2}+Print" = "exec --no-startup-id maim --window $(xdotool getactivewindow) \"/home/$USER/Pictures/Screenshots/$(date).png\"";
+        "Shift+Print" = "exec --no-startup-id maim --select \"/home/$USER/Pictures/Screenshots/$(date).png\"";
 
         "Ctrl+Print" = "exec --no-startup-id maim | xclip -selection clipboard -t image/png";
         "Ctrl+${mod2}+Print" = "exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png";
@@ -69,6 +83,18 @@ in {
         "${mod}+Shift+Tab" = "exec ${config.services.i3gopher.focus-last}";
       };
       in mkMerge (map mapDefaultAttrs ([ normalBindings  ] ++ workspaceBindings));
+      assigns = {
+        ${workspaceNamer 2} = [
+          {
+            class = "^steam_app_default$";
+          }
+        ];
+        ${workspaceNamer 13} = [
+          {
+            class = "^Spotify$";
+          }
+        ];
+      };
       workspaceAutoBackAndForth = true;
       colors = {
         focused = {
@@ -118,7 +144,7 @@ in {
               "FontAwesome 6 Free"
               "FontAwesome 6 Brands"
             ];
-            size = "8";
+            size = 10.0;
           };
           colors = {
             background = "$base";
@@ -149,6 +175,9 @@ in {
             };
           };
           trayOutput = "primary";
+          extraConfig = ''
+            strip_workspace_numbers yes
+          '';
           statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ${config.xdg.configHome}/i3status-rust/config-gaybar.toml";
         }
       ];

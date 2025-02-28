@@ -9,6 +9,7 @@
       driversi686Linux.mesa
     ];
   };
+programs.gamescope.enable = true;
   environment.systemPackages = with pkgs; [
     (lutris.override {
       extraPkgs = pkgs: [

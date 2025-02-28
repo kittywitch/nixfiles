@@ -12,11 +12,8 @@
 
     # Music
     spotify
-    strawberry-qt6
 
     # Chat
-    fractal # Matrix
-    element-desktop
     tdesktop # Telegram
     dino # XMPP
     signal-desktop

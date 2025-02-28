@@ -7,10 +7,12 @@
   konawallConfig = {
     interval = 30 * 60;
     rotate = true;
-    source = "konachan";
+    api_key = "odD1Jo17zKWBYq8kMciskPWf";
+    source = "e621";
     tags = [
       #"rating:s"
-      "touhou"
+      #"touhou"
+      "-male"
       "score:>=50"
       "width:>=1500"
     ];
