@@ -11,6 +11,7 @@
     tags = [
       #"rating:s"
       #"touhou"
+      "-my_little_pony"
       "ratio:>=1.3"
       "-muscular_male"
       "-model_sheet"
