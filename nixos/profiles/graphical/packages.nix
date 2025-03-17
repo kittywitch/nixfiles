@@ -9,7 +9,6 @@
     usbutils
     plexamp
     super-slicer-beta
-    barrier
   ];
   services.udev.packages = [
     pkgs.android-udev-rules

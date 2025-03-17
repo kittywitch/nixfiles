@@ -19,9 +19,9 @@ in {
       };
       dark = {
         schemeData = schemeSources.tinted.schemes.catppuccin-mocha;
-        ansi.palette.background.alpha = "ee00";
+        ansi.palette.background.alpha = "d000";
       };
     };
-    defaultSchemeName = "light";
+    defaultSchemeName = "dark";
   };
 }

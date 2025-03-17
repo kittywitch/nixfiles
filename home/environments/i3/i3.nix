@@ -1,12 +1,12 @@
 {
-  pkgs,
-  lib,
+pkgs,
+lib,
 std,
-  config,
-  ...
+config,
+...
 }:
 let
-   inherit (std) list;
+  inherit (std) list;
   inherit (lib.modules) mkMerge;
   inherit (lib) mkOptionDefault mkDefault mapAttrs;
 in {
@@ -19,16 +19,18 @@ in {
   services.i3gopher.enable = true;
   xsession.windowManager.i3 = {
     enable = true;
-    package = pkgs.i3-gaps;
-      extraConfig = ''
-        workspace 1 output DP-2
-        workspace 11 output HDMI-0
-      '';
+    extraConfig = ''
+      workspace 1 output DP-2
+      workspace 11 output HDMI-0
+      for_window [class="^steam_app_default$"] floating enable
+    '';
     config = let
       modifier = "Mod4";
       other_modifier = "Mod1";
       mod = modifier;
       mod2 = other_modifier;
+      
+      runCommand = "${config.programs.rofi.finalPackage}/bin/rofi -show combi -modes combi";
       workspaceNames = {
         "1" = "";
         "2" = "";
@@ -38,7 +40,14 @@ in {
       };
       workspaceNamer = num: let
         numStr = builtins.toString num;
-    in if numStr ? workspaceNames then "${numStr}:${numStr} ${workspaceNames.numStr}" else "${numStr}:${numStr}";
+      in if numStr ? workspaceNames then "${numStr}:${numStr} ${workspaceNames.numStr}" else "${numStr}:${numStr}";
+
+      lockCommand = "sh -c '${pkgs.i3lock-fancy-rapid}/bin/i3lock 5 3 & sleep 5 && xset dpms force off'";
+
+      actionMode = "(l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown";
+      gapsMode = "Gaps: (o) outer, (i) inner";
+      gapsOuterMode = "Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)";
+      gapsInnerMode = "Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)";
     in {
       inherit modifier;
       fonts = {
@@ -49,17 +58,19 @@ in {
           "FontAwesome 6"
         ];
       };
+
       startup = [
         { command = "~/.screenlayout/main.sh"; }
         { command = "blueman-applet"; }
       ];
+
       keybindings = let
         bindWorkspace = key: workspace: {
           "${mod}+${key}" = "workspace number ${workspaceNamer workspace}";
           "${mod}+shift+${key}" = "move container to workspace number ${workspaceNamer workspace}";
         };
         mapDefaultAttrs = e: mapAttrs (_: mkDefault) e;
-         workspaceBindings =
+        workspaceBindings =
           list.map (v: bindWorkspace v "${v}") (list.map builtins.toString (list.range 1 9))
           ++ [
             (
@@ -67,35 +78,97 @@ in {
             )
           ]
           ++ list.imap (i: v: bindWorkspace v "${toString (11 + i)}") (list.map (n: "F${builtins.toString n}") (std.list.range 1 12));
-          normalBindings = {
-        "Print" = "exec --no-startup-id maim \"/home/$USER/Pictures/$(date).png\"";
-        "${mod2}+Print" = "exec --no-startup-id maim --window $(xdotool getactivewindow) \"/home/$USER/Pictures/Screenshots/$(date).png\"";
-        "Shift+Print" = "exec --no-startup-id maim --select \"/home/$USER/Pictures/Screenshots/$(date).png\"";
+        normalBindings = {
+          "Print" = "exec --no-startup-id maim \"/home/$USER/Pictures/$(date).png\"";
+          "${mod2}+Print" = "exec --no-startup-id maim --window $(xdotool getactivewindow) \"/home/$USER/Pictures/Screenshots/$(date).png\"";
+          "Shift+Print" = "exec --no-startup-id maim --select \"/home/$USER/Pictures/Screenshots/$(date).png\"";
 
-        "Ctrl+Print" = "exec --no-startup-id maim | xclip -selection clipboard -t image/png";
-        "Ctrl+${mod2}+Print" = "exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png";
-        "Ctrl+Shift+Print" = "exec --no-startup-id maim --select | xclip -selection clipboard -t image/png";
-        "${mod}+p" = "exec ${pkgs.dmenu}/bin/dmenu_run";
-        "${mod}+x" = "exec sh -c '${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png'";
-        "${mod}+Shift+x" = "exec sh -c '${pkgs.i3lock}/bin/i3lock -c 222222 & sleep 5 && xset dpms force of'";
-        "${mod}+Return" = "exec ${config.programs.wezterm.package}/bin/wezterm";
-        "${mod}+Tab" = "workspace back_and_forth";
-        "${mod}+Shift+Tab" = "exec ${config.services.i3gopher.focus-last}";
-      };
+          "Ctrl+Print" = "exec --no-startup-id maim | xclip -selection clipboard -t image/png";
+          "Ctrl+${mod2}+Print" = "exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png";
+          "Ctrl+Shift+Print" = "exec --no-startup-id maim --select | xclip -selection clipboard -t image/png";
+
+          "${mod}+r" = "exec ${runCommand}";
+          "${mod}+p" = "mode resize";
+          "${mod}+x" = "exec sh -c '${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png'";
+          "${mod}+Shift+x" = "exec ${lockCommand}";
+          "${mod}+Return" = "exec ${config.programs.wezterm.package}/bin/wezterm";
+          "${mod}+Tab" = "workspace back_and_forth";
+          "${mod}+Shift+Tab" = "exec ${config.services.i3gopher.focus-last}";
+          "${mod}+Shift+g" = ''mode "${gapsMode}"'';
+          "${mod}+Delete" = ''mode "${actionMode}"'';
+        };
       in mkMerge (map mapDefaultAttrs ([ normalBindings  ] ++ workspaceBindings));
+
       assigns = {
-        ${workspaceNamer 2} = [
+        /*${workspaceNamer 2} = [
           {
             class = "^steam_app_default$";
           }
-        ];
+        ];*/
         ${workspaceNamer 13} = [
           {
             class = "^Spotify$";
           }
         ];
       };
+      modes = let
+        defaultPath = {
+          "Return" = "mode default";
+          "Escape" = "mode default";
+          "${mod}+z" = "mode default";
+        };
+      in {
+        ${gapsOuterMode} =
+          defaultPath
+          // {
+            "equal" = "gaps outer current plus 5";
+            "minus" = "gaps outer current minus 5";
+            "0" = "gaps outer current set 0";
+            "plus" = "gaps outer all plus 5";
+            "Shift+minus" = "gaps outer all minus 5";
+            "Shift+0" = "gaps outer all set 0";
+          };
+        ${gapsInnerMode} =
+          defaultPath
+          // {
+            "equal" = "gaps inner current plus 5";
+            "minus" = "gaps inner current minus 5";
+            "0" = "gaps inner current set 0";
+            "plus" = "gaps inner all plus 5";
+            "Shift+minus" = "gaps inner all minus 5";
+            "Shift+0" = "gaps inner all set 0";
+          };
+        ${gapsMode} =
+          defaultPath
+          // {
+            "o" = "mode '${gapsOuterMode}'";
+            "i" = "mode '${gapsInnerMode}'";
+          };
+        ${actionMode} =
+          defaultPath
+          // {
+            "l" = "exec ${lockCommand}, mode default";
+            "e" = "exec swaymsg exit, mode default";
+            "s" = "exec systemctl suspend, mode default";
+            "h" = "exec systemctl hibernate, mode default";
+            "r" = "exec systemctl reboot, mode default";
+            "Shift+s" = "exec systemctl shutdown, mode default";
+          };
+        resize =
+          defaultPath
+          // {
+            "a" = "resize shrink width 4 px or 4 ppt";
+            "s" = "resize shrink height 4 px or 4 ppt";
+            "w" = "resize grow height 4 px or 4 ppt";
+            "d" = "resize grow width 4 px or 4 ppt";
+            "Left" = "resize shrink width 4 px or 4 ppt";
+            "Down" = "resize shrink height 4 px or 4 ppt";
+            "Up" = "resize grow height 4 px or 4 ppt";
+            "Right" = "resize grow width 4 px or 4 ppt";
+          };
+      };
       workspaceAutoBackAndForth = true;
+
       colors = {
         focused = {
           border = "$lavender";
@@ -132,8 +205,9 @@ in {
           indicator = "$overlay0";
           childBorder = "$overlay0";
         };
-        background = "$base";
+        background = "$base00";
       };
+
       bars = [
         {
           # as if anyone was questioning that,
@@ -144,10 +218,10 @@ in {
               "FontAwesome 6 Free"
               "FontAwesome 6 Brands"
             ];
-            size = 10.0;
+            size = 9.0;
           };
           colors = {
-            background = "$base";
+            background = "$base00";
             statusline = "$text";
             separator = "$text";
             focusedBackground = "$base";

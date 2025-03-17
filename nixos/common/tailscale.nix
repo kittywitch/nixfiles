@@ -30,7 +30,7 @@ in {
     sops.secrets.tailscale-key = mkIf cfg.enable {
       sopsFile = ./secrets.yaml;
     };
-    systemd.services.tailscale-autoconnect = mkIf cfg.enable rec {
+/*    systemd.services.tailscale-autoconnect = mkIf cfg.enable rec {
       description = "Automatic connection to Tailscale";
 
       # make sure tailscale is running before trying to connect to tailscale
@@ -72,6 +72,6 @@ in {
           # otherwise authenticate with tailscale
           ${getExe tailscale} up ${advertiseExitNode} -authkey $(cat ${config.sops.secrets.tailscale-key.path})
         '';
-    };
+    };*/
   };
 }

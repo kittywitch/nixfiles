@@ -4,7 +4,6 @@
     extensions = with pkgs.vscode-extensions; [
       vscodevim.vim
       catppuccin.catppuccin-vsc
-      github.copilot
       kamadorueda.alejandra
       mkhl.direnv
       hashicorp.terraform

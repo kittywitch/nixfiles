@@ -8,6 +8,7 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
+    rbw-bitw.url = "github:arcnmx/rbw/bitw-v1.12.x";
     # better than nixpkgs.lib
     std = {
       url = "github:chessai/nix-std";
@@ -18,6 +19,23 @@
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
+    infrastructure = {
+      url = "github:gensokyo-zone/infrastructure/main";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        arcexprs.follows = "arcexprs";
+        flakelib.follows = "flakelib";
+        sops-nix.follows = "sops-nix";
+        home-manager.follows = "home-manager";
+        flake-utils.follows = "empty";
+        website.follows = "empty";
+        ci.follows = "empty";
+        deploy-rs.follows = "empty";
+        flake-compat.follows = "empty";
+        barcodebuddy.follows = "empty";
+      };
+    };
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     solaar = {
       # ewww flakehub ;;
       url = "https://flakehub.com/f/Svenum/Solaar-flake/*.tar.gz";

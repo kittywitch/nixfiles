@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     calibre
-    okular
+    pkgs.kdePackages.okular
   ];
 }

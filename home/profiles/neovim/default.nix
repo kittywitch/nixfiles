@@ -11,6 +11,7 @@
       name = "init.lua";
       src = ./init.lua;
       base16ShellPath = config.base16.shell.package;
+      catppuccin_flavour = config.catppuccin.flavor;
       inherit (config.base16) defaultSchemeName;
       defaultSchemeSlug = config.base16.defaultScheme.slug;
     }

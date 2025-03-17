@@ -2,37 +2,45 @@ _: let
   hostConfig = {
     config,
     lib,
+    pkgs,
     tree,
     ...
   }: let
     inherit (lib.lists) singleton;
+    inherit (lib.attrsets) nameValuePair listToAttrs;
+    
+      datasets = [
+      "root"
+      "nix"
+      "games"
+      "home"
+      "var"
+    ];
+    datasetEntry = dataset: nameValuePair (if dataset == "root" then "/" else "/${dataset}") {
+      device = "zpool/${dataset}";
+      fsType = "zfs";
+      options = [ "zfsutils" ];
+    };
+    datasetEntries = listToAttrs (map datasetEntry datasets);
+
     drives = {
-      root = rec {
-        raw = "/dev/disk/by-uuid/ca1a4c5f-3fe2-4259-a078-b49dca804f1a";
-        result = {
-          device = raw;
-          fsType = "ext4";
-        };
-      };
       boot = rec {
-        raw = "/dev/disk/by-uuid/E1BE-2C63";
+        raw = "/dev/disk/by-uuid/C494-AA77";
         result = {
           device = raw;
           fsType = "vfat";
         };
       };
       swap = rec {
-        raw = "/dev/disk/by-uuid/d1e46d2a-5e08-444c-b48e-17744c5edcff";
+        raw = "/dev/disk/by-partuuid/e18a5e2a-4888-4d74-b3af-855a70c6b7f9";
         result = {
           device = raw;
+          randomEncryption = true;
         };
       };
     };
   in {
-    imports =
-      (with tree.nixos.hardware; [
-        ])
-      ++ (with tree.nixos.profiles; [
+    imports = (with tree.nixos.profiles; [
         graphical
         wireless
         gaming
@@ -41,7 +49,6 @@ _: let
         i3
       ]);
 
-    zramSwap.enable = true;
     home-manager.users.kat.imports =
       (with tree.home.profiles; [
         graphical
@@ -50,6 +57,8 @@ _: let
       ++ (with tree.home.environments; [
         i3
       ]);
+
+    networking.hostId = "c3b94e85";
 
     services.xserver.videoDrivers = ["nvidia"];
 
@@ -61,7 +70,10 @@ _: let
       powerManagement.enable = true;
     };
 
+    zramSwap.enable = true;
+
     boot = {
+      zfs.requestEncryptionCredentials = true;
       loader = {
         systemd-boot.enable = true;
         efi.canTouchEfiVariables = true;
@@ -70,22 +82,20 @@ _: let
         availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
       };
       kernelModules = ["nct6775" "kvm-amd"];
-      supportedFilesystems = ["ntfs"];
+      supportedFilesystems = ["ntfs" "zfs"];
     };
 
-    fileSystems = {
-      "/" = drives.root.result;
+    fileSystems = datasetEntries // {
       "/boot" = drives.boot.result;
     };
 
     swapDevices = [
-      drives.swap.result
-      {
-        device = "/swapfile";
-        size = 16 * 1024; # 16GB
-      }
+        drives.swap.result
     ];
 
+    environment.systemPackages = with pkgs; [
+     ledfx
+    ];
     system.stateVersion = "21.11";
   };
 in {

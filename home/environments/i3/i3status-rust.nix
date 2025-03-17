@@ -16,7 +16,7 @@ _: {
           }
           {
             block = "memory";
-            format = " $icon $mem_total_used_percents.eng(w:2) ";
+            format = " $icon $mem_used_percents.eng(w:2) $zram_comp_ratio ";
           }
           {
             block = "memory";

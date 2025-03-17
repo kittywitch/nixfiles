@@ -78,9 +78,11 @@
           minecraft.nixosModules.minecraft-servers
           sops-nix.nixosModules.sops
           base16.nixosModules.base16
+          infrastructure.nixosModules.default
           lanzaboote.nixosModules.lanzaboote
           solaar.nixosModules.default
           catppuccin.nixosModules.catppuccin
+          chaotic.nixosModules.default
         ];
       };
     };
@@ -102,6 +104,7 @@
             base16.homeModules.base16
             catppuccin.homeManagerModules.catppuccin
             inputs.sops-nix.homeManagerModules.sops
+            chaotic.homeManagerModules.default
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).home-manager; [
             i3gopher

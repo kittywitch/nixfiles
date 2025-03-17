@@ -9,9 +9,21 @@
     rotate = true;
     source = "e621";
     tags = [
-      #"rating:s"
+      "rating:s"
       #"touhou"
-      "-my_little_pony"
+      "-large_breasts"
+      "-scalie"
+      #"-my_little_pony"
+      "-sonic_the_hedgehog"
+      "-amputee"
+      "-inflation"
+      "-pool_toy"
+      "-cuckold"
+      "-gore"
+      "-human"
+      "-animated"
+      "-hyper"
+      "-death"
       "ratio:>=1.3"
       "-muscular_male"
       "-model_sheet"
