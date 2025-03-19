@@ -17,30 +17,25 @@ in {
     xclip
   ];
   services.i3gopher.enable = true;
-  xsession.windowManager.i3 = {
-    enable = true;
-    extraConfig = ''
-      workspace 1 output DP-2
-      workspace 11 output HDMI-0
-      for_window [class="^steam_app_default$"] floating enable
-    '';
-    config = let
+  xsession.windowManager.i3 = let
       modifier = "Mod4";
       other_modifier = "Mod1";
       mod = modifier;
       mod2 = other_modifier;
-      
       runCommand = "${config.programs.rofi.finalPackage}/bin/rofi -show combi -modes combi";
       workspaceNames = {
-        "1" = "";
-        "2" = "";
-        "11" = "";
-        "12" = "";
-        "13" = "";
+        "1" = " Term";
+        "2" = " GW2";
+        "3" = " GW1";
+        "4" = " Web";
+        "11" = " IM";
+        "12" = " Web";
+        "13" = " Media";
+        "14" = " Music";
       };
       workspaceNamer = num: let
         numStr = builtins.toString num;
-      in if numStr ? workspaceNames then "${numStr}:${numStr} ${workspaceNames.numStr}" else "${numStr}:${numStr}";
+      in if workspaceNames ? ${numStr} then "${numStr}:${workspaceNames.${numStr}}" else "${numStr}:${numStr}";
 
       lockCommand = "sh -c '${pkgs.i3lock-fancy-rapid}/bin/i3lock 5 3 & sleep 5 && xset dpms force off'";
 
@@ -49,6 +44,32 @@ in {
       gapsOuterMode = "Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)";
       gapsInnerMode = "Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)";
     in {
+    enable = true;
+    extraConfig = ''
+      workspace 1 output DP-2 gaps inner 10
+      workspace 2 output DP-2
+      workspace 3 output DP-2
+      workspace 4 output DP-2
+      workspace 5 output DP-2
+      workspace 5 output DP-2
+      workspace 6 output DP-2
+      workspace 7 output DP-2
+      workspace 8 output DP-2
+      workspace 9 output DP-2
+      workspace 0 output DP-2
+      workspace 11 output HDMI-0
+      workspace 12 output HDMI-0
+      workspace 13 output HDMI-0
+      workspace 14 output HDMI-0
+      workspace 15 output HDMI-0
+      workspace 16 output HDMI-0
+      workspace 17 output HDMI-0
+      workspace 18 output HDMI-0
+      workspace 19 output HDMI-0
+      workspace 20 output HDMI-0
+      for_window [class="^steam_app_default$"] floating enable
+    '';
+    config = {
       inherit modifier;
       fonts = {
         size = 10.0;
@@ -100,12 +121,24 @@ in {
       in mkMerge (map mapDefaultAttrs ([ normalBindings  ] ++ workspaceBindings));
 
       assigns = {
-        /*${workspaceNamer 2} = [
+        ${workspaceNamer 2} = [
           {
             class = "^steam_app_default$";
+            title = "^Guild Wars 2$";
           }
-        ];*/
-        ${workspaceNamer 13} = [
+        ];
+        ${workspaceNamer 3} = [
+          {
+            class = "^steam_app_default$";
+            title = "^Guild Wars$";
+          }
+        ];
+        ${workspaceNamer 11} = [
+          {
+            class = "^Discord$";
+          }
+        ];
+        ${workspaceNamer 14} = [
           {
             class = "^Spotify$";
           }
@@ -141,8 +174,8 @@ in {
         ${gapsMode} =
           defaultPath
           // {
-            "o" = "mode '${gapsOuterMode}'";
-            "i" = "mode '${gapsInnerMode}'";
+            "o" = ''mode "${gapsOuterMode}"'';
+            "i" = ''mode "${gapsInnerMode}"'';
           };
         ${actionMode} =
           defaultPath
@@ -218,7 +251,7 @@ in {
               "FontAwesome 6 Free"
               "FontAwesome 6 Brands"
             ];
-            size = 9.0;
+            size = 10.0;
           };
           colors = {
             background = "$base00";

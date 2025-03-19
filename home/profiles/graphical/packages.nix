@@ -32,6 +32,8 @@
     v4l-utils # Webcam
     obsidian
     remmina
+    alsa-utils
+    pwvucontrol
     veracrypt
     gimp
   ];

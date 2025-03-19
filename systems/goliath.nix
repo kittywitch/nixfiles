@@ -94,7 +94,9 @@ _: let
     ];
 
     environment.systemPackages = with pkgs; [
-     ledfx
+      ledfx
+      openrgb
+      nvtopPackages.nvidia
     ];
     system.stateVersion = "21.11";
   };

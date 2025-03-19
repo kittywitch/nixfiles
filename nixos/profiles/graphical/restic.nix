@@ -20,7 +20,7 @@
       ];
       initialize = true;
       passwordFile = config.sops.secrets.restic-password-file.path;
-      repository = "sftp:u401227@u401227.your-storagebox.de:/restic/koishi";
+      repository = "sftp:u401227@u401227.your-storagebox.de:/restic/${config.networking.hostName}";
       timerConfig = {
         OnCalendar = "00:05";
         RandomizedDelaySec = "5h";

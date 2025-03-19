@@ -9,31 +9,38 @@
       main = {
         id = 0;
         isDefault = true;
-        extensions.packages = with nur.repos.rycee.firefox-addons; [
-          sponsorblock
-          link-cleaner
-          canvasblocker
-          a11ycss
-          view-image
-          wappalyzer
-          auto-tab-discard
-          bitwarden
-          darkreader
-          decentraleyes
-          clearurls
-          sidebery
-          df-youtube
-          old-reddit-redirect
-          privacy-badger
-          reddit-enhancement-suite
-          refined-github
-          stylus
-          temporary-containers
-          multi-account-containers
-          dearrow
-          ublock-origin
-          violentmonkey
-        ];
+        extensions = {
+          packages = with nur.repos.rycee.firefox-addons; [
+            sponsorblock
+            link-cleaner
+            canvasblocker
+            a11ycss
+            view-image
+            wappalyzer
+            auto-tab-discard
+            bitwarden
+            darkreader
+            decentraleyes
+            clearurls
+            sidebery
+            df-youtube
+            old-reddit-redirect
+            privacy-badger
+            reddit-enhancement-suite
+            refined-github
+            stylus
+            temporary-containers
+            multi-account-containers
+            dearrow
+            ublock-origin
+            betterttv
+            violentmonkey
+            return-youtube-dislikes
+            iina-open-in-mpv
+          ];
+          settings = {
+          };
+        };
         settings = {
           # Derived from https://github.com/arcnmx/home/blob/9eb1cd4dd43883e1a0c6a2a55c00d7c3bede1776/cfg/firefox/default.nix#L7
           # and https://git.ztn.sh/zotan/snowleopard/src/branch/dev/assets/prefs.js
