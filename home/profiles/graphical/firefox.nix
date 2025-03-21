@@ -54,7 +54,6 @@ in {
             darkreader
             decentraleyes
             clearurls
-            sidebery
             df-youtube
             old-reddit-redirect
             privacy-badger
@@ -62,7 +61,6 @@ in {
             move-unloaded-tabs-for-tst
             tab-unload-for-tree-style-tab
             tst-bookmarks-subpanel
-            tst-active-tab-on-scroll-bar
             tst-indent-line
             tst-tab-search
             tst-wheel-and-double
