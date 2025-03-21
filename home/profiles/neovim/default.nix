@@ -19,7 +19,6 @@
     (set.filter (var: _: string.hasInfix "base" var) config.base16.defaultScheme));
 in {
   home.sessionVariables = mkIf config.programs.neovim.enable {EDITOR = "nvim";};
-
   programs.neovim = {
     enable = true;
     vimAlias = true;
@@ -57,6 +56,7 @@ in {
       bufferline-nvim
       # Language Server
       nvim-lspconfig
+      rustaceanvim
       # tree
       nui-nvim
       neo-tree-nvim
@@ -95,5 +95,8 @@ in {
       clangStdenv.cc
     ];
   };
-  xdg.configFile."nvim/init.lua".source = initLua;
+  xdg.configFile = {
+    "nvim/init.lua".source = initLua;
+    "nvim/after/ftplugin/rust.lua".source = ./rust.lua;
+  };
 }

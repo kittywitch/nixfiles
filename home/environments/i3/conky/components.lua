@@ -184,7 +184,6 @@ end
 -- GPU Display
 function conky_gpu_section()
   gpus = gpu_csv_query()
-  -- TODO: Replace NVIDIA-SMI separate calls with all 1 call and a CSV parsing
   local text = ""
   for idx, gpu in pairs(gpus) do
     for i=1,#gpu do

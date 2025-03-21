@@ -1,14 +1,46 @@
-{nur, ...}: {
+{pkgs, nur, ...}: let
+  defaultFont = "Monaspace Krypton";
+in {
   home.sessionVariables = {
     BROWSER = "firefox";
   };
 
+  home.packages = [ pkgs.ff2mpv-rust ];
   programs.firefox = {
+    nativeMessagingHosts = [
+      pkgs.ff2mpv-rust
+    ];
     enable = true;
     profiles = {
       main = {
         id = 0;
         isDefault = true;
+        containers = {
+          main = {
+            name = "Main";
+            id = 0;
+            color = "turquoise";
+            icon = "pet";
+          };
+          gay = {
+            name = "Gay";
+            id = 1;
+            color = "purple";
+            icon = "pet";
+          };
+          work = {
+            name = "Work";
+            id = 2;
+            color = "pink";
+            icon = "briefcase";
+          };
+          banking = {
+            name = "Banking";
+            id = 3;
+            color = "turquoise";
+          };
+        };
+        containersForce = true;
         extensions = {
           packages = with nur.repos.rycee.firefox-addons; [
             sponsorblock
@@ -26,6 +58,15 @@
             df-youtube
             old-reddit-redirect
             privacy-badger
+            tree-style-tab
+            move-unloaded-tabs-for-tst
+            tab-unload-for-tree-style-tab
+            tst-bookmarks-subpanel
+            tst-active-tab-on-scroll-bar
+            tst-indent-line
+            tst-tab-search
+            tst-wheel-and-double
+            tst-more-tree-commands
             reddit-enhancement-suite
             refined-github
             stylus
@@ -36,12 +77,64 @@
             betterttv
             violentmonkey
             return-youtube-dislikes
-            iina-open-in-mpv
+            ff2mpv
           ];
+          force = true;
           settings = {
+            "uBlock@raymondhill.net".settings = {
+              selectedFilterLists = [
+                "user-filters"
+                "ublock-filters"
+                "ublock-badware"
+                "ublock-privacy"
+                "ublock-quick-fixes"
+                "ublock-unbreak"
+                "easylist"
+                "adguard-generic"
+                "adguard-mobile"
+                "easyprivacy"
+                "adguard-spyware"
+                "adguard-spyware-url"
+                "urlhaus-1"
+                "plowe-0"
+                "fanboy-cookiemonster"
+                "ublock-cookies-easylist"
+                "adguard-cookies"
+                "ublock-cookies-adguard"
+                "fanboy-social"
+                "adguard-social"
+                "easylist-chat"
+                "easylist-newsletters"
+                "easylist-notifications"
+                "easylist-annoyances"
+                "adguard-mobile-app-banners"
+                "adguard-other-annoyances"
+                "adguard-popup-overlays"
+                "adguard-widgets"
+                "ublock-annoyances"
+              ];
+            };
+            "treestyletab@piro.sakura.ne.jp".settings = {
+              cachedExternalAddons = [
+                "tst-active-tab-on-scrollbar@piro.sakura.ne.jp"
+                "tst-indent-line@piro.sakura.ne.jp"
+              ];
+              faviconizePinnedTabs = false;
+              lastSelectedSubPanelProviderId = "tst-bookmarks-subpanel@piro.sakura.ne.jp";
+              showExpertOptions = true;
+              skipCollapsedTabsForTabSwitchingShortcuts = true;
+              tabPreviewTooltip = true;
+            };
           };
         };
         settings = {
+          # Stylin'
+          font = {
+            default = {
+              x-western = defaultFont;
+              x-unicode = defaultFont;
+            };
+          };
           # Derived from https://github.com/arcnmx/home/blob/9eb1cd4dd43883e1a0c6a2a55c00d7c3bede1776/cfg/firefox/default.nix#L7
           # and https://git.ztn.sh/zotan/snowleopard/src/branch/dev/assets/prefs.js
           "services.sync.engine.prefs" = false;
@@ -157,7 +250,19 @@
         };
         userChrome = ''
           #urlbar {
-            font-family: "Monaspace Krypton", monospace;
+            font-family: "${defaultFont}", monospace;
+          }
+          /* Hide horizontal tabs at the top of the window */
+          #main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar {
+            opacity: 0;
+            pointer-events: none;
+          }
+          #main-window #TabsToolbar {
+              visibility: collapse !important;
+          }
+          /* Hide the "Tree Style Tab" header at the top of the sidebar */
+          #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
+            display: none;
           }
         '';
       };

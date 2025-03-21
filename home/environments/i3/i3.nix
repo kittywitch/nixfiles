@@ -15,6 +15,7 @@ in {
     pcmanfm
     pavucontrol
     xclip
+    obs-studio
   ];
   services.i3gopher.enable = true;
   xsession.windowManager.i3 = let
@@ -136,6 +137,11 @@ in {
         ${workspaceNamer 11} = [
           {
             class = "^Discord$";
+          }
+        ];
+        ${workspaceNamer 13} = [
+          {
+            class = "^mpv$";
           }
         ];
         ${workspaceNamer 14} = [
