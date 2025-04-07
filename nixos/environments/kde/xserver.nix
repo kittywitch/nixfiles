@@ -2,9 +2,7 @@
   environment.systemPackages = with pkgs; [
     xclip
     wl-clipboard
-    kwin-blishhud-shader
   ];
-  environment.plasma6.excludePackages = with pkgs; [konsole];
   services = {
     displayManager.sddm = {
       enable = true;

@@ -19,25 +19,22 @@ _: let
         secureboot
       ])
       ++ (with tree.nixos.environments; [
-        i3
-        #sway
+      #sway
         #xfce
-        #openbox
-        #kde
-        #gnome
+            #openbox
+          kde
+          #gnome
       ]);
     config = {
       home-manager.users.kat.imports =
         (with tree.home.profiles; [
           graphical
-          devops
         ])
         ++ (with tree.home.environments; [
-          i3
-          #xfce
-          #sway
-          #kde
-          #gnome
+        #xfce
+        #sway
+          kde
+            #gnome
         ]);
 
       fileSystems."/" = {

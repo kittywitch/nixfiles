@@ -1,13 +1,9 @@
 {pkgs, ...}: {
   home.sessionVariables = {
-    QT_QPA_PLATFORMTHEME = "qt6ct";
-    #XDG_BACKEND = "x11";
-    XDG_CURRENT_DESKTOP = "kde";
-    #GDK_BACKEND = "x11";
+    QT_QPA_PLATFORMTHEME = "qt5ct";
   };
   home.packages = with pkgs.kdePackages; [
     kscreen
-    kwin
     pkgs.xwayland
     kscreen
     libkscreen
@@ -24,15 +20,11 @@
     plasma-workspace
     drkonqi # crash handler
     kde-inotify-survey # warns the user on low inotifywatch limits
-    pkgs.plasma-applet-commandoutput
 
     # Application integration
     libplasma # provides Kirigami platform theme
     plasma-integration # provides Qt platform theme
     kde-gtk-config # syncs KDE settings to GTK
-
-    qt6ct
-    pkgs.libsForQt5.qt5ct
 
     # Artwork + themes
     breeze
@@ -58,27 +50,18 @@
     kcmutils
   ];
   programs.plasma = {
-    enable = true;
-    workspace = {
-    };
-    fonts = let
-      katFont = {
-        family = "Monaspace Krypton";
-        pointSize = 10;
-      };
-    in {
-      general = katFont;
-      fixedWidth = katFont;
-      small = katFont // {pointSize = 8;};
-      toolbar = katFont;
-      menu = katFont;
-      windowTitle = katFont;
-    };
     configFile = {
+      "kded5rc"."PlasmaBrowserIntegration"."shownCount" = 1;
+      "kdeglobals"."WM"."activeBackground" = "231,232,235";
+      "kdeglobals"."WM"."activeBlend" = "231,232,235";
+      "kdeglobals"."WM"."activeForeground" = "92,97,108";
+      "kdeglobals"."WM"."inactiveBackground" = "231,232,235";
+      "kdeglobals"."WM"."inactiveBlend" = "231,232,235";
+      "kdeglobals"."WM"."inactiveForeground" = "163,165,172";
       "kdeglobals"."General"."BrowserApplication" = "firefox.desktop";
-      "kdeglobals"."General"."TerminalApplication" = "konsole";
+      "kdeglobals"."General"."TerminalService" = "org.wezfurlong.wezterm.desktop";
       "kxkbrc"."Layout"."ResetOldOptions" = true;
-      "kxkbrc"."Layout"."Options" = "terminate:ctrl_alt_bksp,ctrl:capscontrol";
+      "kxkbrc"."Layout"."Options" = "terminate:ctrl_alt_bksp,ctrl:hyper_capscontrol";
     };
   };
 }

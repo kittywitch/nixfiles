@@ -14,7 +14,6 @@ in {
   };
   config = {
     boot = {
-      kernelPackages = pkgs.linuxPackages_latest;
       supportedFilesystems = ["bcachefs"];
     };
   };
