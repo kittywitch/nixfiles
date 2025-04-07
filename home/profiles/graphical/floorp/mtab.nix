@@ -74,7 +74,7 @@
           useCustomEngine = false;
         };
         title = {
-          defaultTitle = "mtab";
+          defaultTitle = "Mew Tab";
           dynamic = { enabled = true; };
           faviconType = "default";
         };
