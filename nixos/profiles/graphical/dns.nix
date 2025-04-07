@@ -11,7 +11,7 @@ in {
     ];
   };
   services.resolved = {
-    enable = true;
+    enable = false;
     domains = ["~."];
     dnssec = "false";
     extraConfig = ''
