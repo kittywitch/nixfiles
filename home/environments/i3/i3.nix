@@ -15,7 +15,6 @@ in {
     pcmanfm
     pavucontrol
     xclip
-    obs-studio
   ];
   services.i3gopher.enable = true;
   xsession.windowManager.i3 = let

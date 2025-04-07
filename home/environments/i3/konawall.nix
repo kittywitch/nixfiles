@@ -10,6 +10,7 @@
     source = "e621";
     tags = [
       "rating:s"
+      "-five_nights_at_freddy's"
       #"touhou"
       "-large_breasts"
       "-scalie"

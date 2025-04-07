@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    sidequest
     gsettings-desktop-schemas
   ];
   programs.adb.enable = true;

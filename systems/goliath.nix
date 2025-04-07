@@ -8,7 +8,6 @@ _: let
   }: let
     inherit (lib.lists) singleton;
     inherit (lib.attrsets) nameValuePair listToAttrs;
-    
       datasets = [
       "root"
       "nix"
@@ -19,7 +18,7 @@ _: let
     datasetEntry = dataset: nameValuePair (if dataset == "root" then "/" else "/${dataset}") {
       device = "zpool/${dataset}";
       fsType = "zfs";
-      options = [ "zfsutils" ];
+      options = [ "zfsutil" ];
     };
     datasetEntries = listToAttrs (map datasetEntry datasets);
 
@@ -52,7 +51,6 @@ _: let
     home-manager.users.kat.imports =
       (with tree.home.profiles; [
         graphical
-        devops
       ])
       ++ (with tree.home.environments; [
         i3

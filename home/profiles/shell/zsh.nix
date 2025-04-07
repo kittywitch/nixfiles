@@ -1,10 +1,12 @@
 {
+  self,
   config,
   lib,
   std,
   pkgs,
   ...
 }: let
+  inherit (lib.attrsets) nameValuePair listToAttrs;
   inherit (lib.modules) mkMerge mkIf;
   inherit (std) string list serde;
 in {
@@ -90,7 +92,15 @@ in {
         else ""
       }
     '';
-    shellAliases = mkMerge [
+    shellAliases = let
+      packages = [
+        "sidequest"
+      ];
+      flake = self;
+      makeAliasForBin = package: nameValuePair package "nix run kat#${package}";
+      packages' = builtins.listToAttrs (map makeAliasForBin packages);
+    in mkMerge [
+      packages'
       {
         nixdirfmt = "nixpkgs-fmt $(fd -e nix)";
         dmesg = "dmesg -HP";
