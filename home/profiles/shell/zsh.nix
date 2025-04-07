@@ -95,6 +95,7 @@ in {
     shellAliases = let
       packages = [
         "sidequest"
+        "ungoogled-chromium"
       ];
       flake = self;
       makeAliasForBin = package: nameValuePair package "nix run kat#${package}";

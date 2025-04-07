@@ -1,5 +1,8 @@
-{ ... }: {
-  programs.firefox.profiles.main = {
+{ config, lib, ... }: let
+  inherit (lib.attrsets) listToAttrs nameValuePair;
+  inherit (lib.modules) mkMerge;
+in {
+  programs.floorp.profiles.main = {
     containersForce = true;
     containers = {
       main = {

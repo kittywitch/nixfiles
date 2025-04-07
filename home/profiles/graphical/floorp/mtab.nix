@@ -1,5 +1,5 @@
 { nur, ... }: {
-  programs.firefox.profiles.main.extensions = {
+  programs.floorp.profiles.main.extensions = {
     packages = with nur.repos.rycee.firefox-addons; [
       mtab
     ];

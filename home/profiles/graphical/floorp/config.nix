@@ -1,5 +1,5 @@
 _: {
-  programs.firefox.profiles.main.settings = {
+  programs.floorp.profiles.main.settings = {
     # Derived from https://github.com/arcnmx/home/blob/9eb1cd4dd43883e1a0c6a2a55c00d7c3bede1776/cfg/firefox/default.nix#L7
     # and https://git.ztn.sh/zotan/snowleopard/src/branch/dev/assets/prefs.js
     "services.sync.engine.prefs" = false;

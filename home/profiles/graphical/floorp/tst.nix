@@ -1,5 +1,5 @@
 { nur, ... }: {
-  programs.firefox.profiles.main = {
+  programs.floorp.profiles.main = {
     extensions = {
       packages = with nur.repos.rycee.firefox-addons; [
         tree-style-tab
