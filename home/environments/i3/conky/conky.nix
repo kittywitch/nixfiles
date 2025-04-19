@@ -21,6 +21,7 @@
     Service = {
       Restart = "always";
       RestartSec = "3";
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 5";
       ExecStart = toString ([ "${pkgs.conky}/bin/conky"]);
     };
 
