@@ -10,10 +10,14 @@
     plexamp
     super-slicer-beta
     nvidia-vaapi-driver
+    nv-codec-headers-12
   ];
   programs.obs-studio = {
     enable = true;
     enableVirtualCamera = true;
+    package = pkgs.obs-studio.override {
+      cudaSupport = true;
+    };
     plugins = with pkgs.obs-studio-plugins; [
       obs-vaapi
     ];

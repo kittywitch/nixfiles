@@ -50,12 +50,12 @@ in {
       nvim-web-devicons
       # Completion
       nvim-cmp
+      cmp-git
+      cmp-nvim-lsp
       # Fuzzy Finder
       telescope-nvim
       # Buffers
       bufferline-nvim
-      # Language Server
-      nvim-lspconfig
       rustaceanvim
       # tree
       nui-nvim
@@ -86,8 +86,6 @@ in {
       twilight-nvim
     ];
     extraPackages = with pkgs; [
-      # For nvim-lspconfig, Terraform Language Server
-      terraform-ls
       # For tree-sitter
       tree-sitter
       nodejs

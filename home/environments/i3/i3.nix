@@ -45,30 +45,19 @@ in {
       gapsInnerMode = "Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)";
     in {
     enable = true;
-    extraConfig = ''
-      workspace 1 output DP-2 gaps inner 10
-      workspace 2 output DP-2
-      workspace 3 output DP-2
-      workspace 4 output DP-2
-      workspace 5 output DP-2
-      workspace 5 output DP-2
-      workspace 6 output DP-2
-      workspace 7 output DP-2
-      workspace 8 output DP-2
-      workspace 9 output DP-2
-      workspace 0 output DP-2
-      workspace 11 output HDMI-0
-      workspace 12 output HDMI-0
-      workspace 13 output HDMI-0
-      workspace 14 output HDMI-0
-      workspace 15 output HDMI-0
-      workspace 16 output HDMI-0
-      workspace 17 output HDMI-0
-      workspace 18 output HDMI-0
-      workspace 19 output HDMI-0
-      workspace 20 output HDMI-0
+    extraConfig = let
+        displayWorkspace = display: workspace: ''
+          workspace "${workspaceNamer (builtins.toString workspace)}" output ${display}
+        '';
+        displayBindings = list.map (v: displayWorkspace "DP-2" v) (list.range 1 9)
+          ++ [ (displayWorkspace "DP-2" 10) ]
+          ++ list.map (v: displayWorkspace "HDMI-0" (11+v)) (list.range 1 12);
+        displayBindingsStr = lib.concatLines displayBindings;
+      in ''
+      ${displayBindingsStr}
       for_window [class="^steam_app_default$"] floating enable
     '';
+
     config = {
       inherit modifier;
       fonts = {
@@ -81,8 +70,8 @@ in {
       };
 
       startup = [
-        { command = "~/.screenlayout/main.sh"; }
-        { command = "blueman-applet"; }
+        { command = "~/.screenlayout/main.sh"; notification = false; }
+        { command = "blueman-applet"; notification = false; }
       ];
 
       keybindings = let
@@ -108,13 +97,13 @@ in {
           "Ctrl+${mod2}+Print" = "exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png";
           "Ctrl+Shift+Print" = "exec --no-startup-id maim --select | xclip -selection clipboard -t image/png";
 
-          "${mod}+r" = "exec ${runCommand}";
+          "${mod}+r" = "exec --no-startup-id ${runCommand}";
           "${mod}+p" = "mode resize";
-          "${mod}+x" = "exec sh -c '${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png'";
+          "${mod}+x" = "exec --no-startup-id sh -c '${pkgs.maim}/bin/maim -s | xclip -selection clipboard -t image/png'";
           "${mod}+Shift+x" = "exec ${lockCommand}";
-          "${mod}+Return" = "exec ${config.programs.wezterm.package}/bin/wezterm";
+          "${mod}+Return" = "exec --no-startup-id ${config.programs.wezterm.package}/bin/wezterm";
           "${mod}+Tab" = "workspace back_and_forth";
-          "${mod}+Shift+Tab" = "exec ${config.services.i3gopher.focus-last}";
+          "${mod}+Shift+Tab" = "exec --no-startup-id ${config.services.i3gopher.focus-last}";
           "${mod}+Shift+g" = ''mode "${gapsMode}"'';
           "${mod}+Delete" = ''mode "${actionMode}"'';
         };
