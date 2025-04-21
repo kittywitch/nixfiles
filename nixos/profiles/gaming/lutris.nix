@@ -11,11 +11,12 @@
   };
 programs.gamescope = {
     enable = true;
-    package = pkgs.gamescope_git;
+    package = pkgs.gamescope;
   };
   environment.systemPackages = with pkgs; [
     (lutris.override {
       extraPkgs = pkgs: [
+        pkgs.gamescope
         pkgs.libnghttp2
         pkgs.winetricks
         pkgs.jansson

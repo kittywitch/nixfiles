@@ -13,7 +13,4 @@ in {
     vesktop
     #betterdiscordctl
   ];
-  xdg.configFile."discord/settings.json".text = toJSON {} {
-    "SKIP_HOST_UPDATE" = true;
-  };
 }

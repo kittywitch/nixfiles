@@ -60,6 +60,8 @@ in {
       # tree
       nui-nvim
       neo-tree-nvim
+      # Session management
+      resession-nvim
       # tree sitter
       (pkgs.vimPlugins.nvim-treesitter.withPlugins (_:
         with pkgs.tree-sitter-grammars; [
