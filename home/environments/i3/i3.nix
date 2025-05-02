@@ -55,7 +55,7 @@ in {
         displayBindingsStr = lib.concatLines displayBindings;
       in ''
       ${displayBindingsStr}
-      for_window [class="^steam_app_default$"] floating enable, fullscreen disable
+      for_window [class="^steam_app_default$"] floating enable, fullscreen disable, resize set width 3840 px height 2132 px, move position center, border pixel 1
     '';
 
     config = {
