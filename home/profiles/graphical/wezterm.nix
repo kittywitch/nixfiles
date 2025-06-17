@@ -24,7 +24,7 @@
 
       }),
       window_decorations = "TITLE | RESIZE",
-      enable_wayland = true,
+      enable_wayland = false,
       warn_about_missing_glyphs = false,
               font_size = 12.0,
               check_for_updates = false,

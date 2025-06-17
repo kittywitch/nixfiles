@@ -11,6 +11,7 @@
     super-slicer-beta
     nvidia-vaapi-driver
     nv-codec-headers-12
+    inputs.push2talk.defaultPackage.${pkgs.system}
   ];
   programs.obs-studio = {
     enable = true;
@@ -20,6 +21,11 @@
     };
     plugins = with pkgs.obs-studio-plugins; [
       obs-vaapi
+      obs-tuna
+      obs-source-clone
+      obs-pipewire-audio-capture
+      input-overlay
+      obs-vkcapture
     ];
   };
   services.udev.packages = [

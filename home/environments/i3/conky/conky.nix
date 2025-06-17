@@ -1,7 +1,7 @@
 { config, pkgs, ... }: {
   home.packages = with pkgs; [
     jq
-    conky
+    
   ];
 
   xdg.configFile.conky = {
@@ -22,7 +22,7 @@
       Restart = "always";
       RestartSec = "3";
       ExecStartPre = "${pkgs.coreutils}/bin/sleep 5";
-      ExecStart = toString ([ "${pkgs.conky}/bin/conky"]);
+      ExecStart = toString ([ "${(pkgs.conky.override { nvidiaSupport = true; })}/bin/conky"]);
     };
 
     Install.WantedBy = [ "graphical-session.target" ];

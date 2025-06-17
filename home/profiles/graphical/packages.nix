@@ -10,9 +10,6 @@
     # Mail
     thunderbird
 
-    # Music
-    spotify
-
     # Chat
     tdesktop # Telegram
     dino # XMPP
@@ -35,6 +32,8 @@
     alsa-utils
     pwvucontrol
     veracrypt
+    deluge
     gimp
+    xarchiver
   ];
 }

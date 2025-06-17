@@ -1,16 +1,20 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [pulsemixer];
+  environment.systemPackages = with pkgs; [pulsemixer pwvucontrol];
 
   services.pulseaudio.enable = false;
 
   security.rtkit.enable = true;
-
-  services.pipewire.extraConfig.pipewire-pulse."92-subpar-latency" = {
-    pulse.properties = {
-        pulse.min.req = "1024/48000";
-        pulse.default.req = "1024/48000";
-        pulse.min.quantum = "1024/48000";
-    };
+  services.pipewire.extraConfig.pipewire-pulse."91-discord-latency" = {
+    pulse.rules = [
+      {
+        matches = [ { "application.process.binary" = "Discord"; } ];
+        actions = {
+            update-props = {
+              "pulse.min.quantum" = "1024/48000";
+            };
+        };
+      }
+    ];
   };
   services.pipewire = {
     enable = true;

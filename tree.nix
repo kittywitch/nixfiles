@@ -83,6 +83,11 @@
           solaar.nixosModules.default
           catppuccin.nixosModules.catppuccin
           chaotic.nixosModules.default
+          nixpkgs-xr.nixosModules.nixpkgs-xr
+          spicetify-nix.nixosModules.spicetify
+          inputs.nix-gaming.nixosModules.ntsync
+          inputs.nix-gaming.nixosModules.pipewireLowLatency
+          inputs.nix-gaming.nixosModules.platformOptimizations
         ];
       };
     };
@@ -105,6 +110,7 @@
             catppuccin.homeManagerModules.catppuccin
             inputs.sops-nix.homeManagerModules.sops
             chaotic.homeManagerModules.default
+            spicetify-nix.homeManagerModules.spicetify
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).home-manager; [
             i3gopher

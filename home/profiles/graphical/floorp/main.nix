@@ -18,6 +18,7 @@ in {
         containersForce = true;
         extensions = {
           packages = with nur.repos.rycee.firefox-addons; [
+            pronoundb
             sponsorblock
             link-cleaner
             canvasblocker

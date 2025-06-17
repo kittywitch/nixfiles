@@ -1,0 +1,15 @@
+@import url("https://aushevahmad.github.io/awesome-css/modules/custom-bar-prompt.css");
+@import url("https://raw.githubusercontent.com/tom22k/discord-css/main/Themes/HideNitroUpsellV2.css");
+@import url("https://minidiscordthemes.github.io/Snippets/AltTextImprovements/main.css");
+
+:root {
+    /* do you want to see your quests/billing/nitro settings? */
+    /* yes, I want to see it -> --billing: block !important; */
+    /* no, hide it -> --billing: none; */
+    --billing: none;
+    /* do you want to see server boosting/server shop upsell? */
+    /* yes, I want to see it -> --boosting: block !important; */
+    /* no, hide it -> --boosting: none; */
+    --boosting: none;
+    --prompt-text: "be silly :3";
+}

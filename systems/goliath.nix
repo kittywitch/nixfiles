@@ -46,6 +46,7 @@ _: let
       ])
       ++ (with tree.nixos.environments; [
         i3
+        hyprland
       ]);
 
     home-manager.users.kat.imports =
@@ -54,10 +55,39 @@ _: let
       ])
       ++ (with tree.home.environments; [
         i3
+        hyprland
       ]);
 
     networking.hostId = "c3b94e85";
 
+  home-manager.users.kat.wayland.windowManager.hyprland.settings.monitor = [
+    "DP-2, 3840x2160, 0x0, 1"
+    "HDMI-A-1, 1920x1080, auto-right, 1"
+      ];
+
+      programs.ssh.extraConfig = ''
+        Host daiyousei-build
+            HostName 140.238.156.121
+            User root
+            IdentityAgent /run/user/1000/gnupg/S.gpg-agent.ssh
+      '';
+      nix = {
+        buildMachines = [
+          {
+            hostName = "daiyousei-build";
+            system = "aarch64-linux";
+            protocol = "ssh-ng";
+            maxJobs = 100;
+            speedFactor = 1;
+            supportedFeatures = ["benchmark" "big-parallel" "kvm"];
+            mandatoryFeatures = [];
+          }
+        ];
+        distributedBuilds = true;
+        extraOptions = ''
+          builders-use-substitutes = true
+        '';
+      };
     services.xserver.videoDrivers = ["nvidia"];
 
     hardware.nvidia = {
@@ -98,6 +128,7 @@ _: let
     ];
 
     environment.systemPackages = with pkgs; [
+      kdePackages.qttools
       ledfx
       openrgb
       nvtopPackages.nvidia

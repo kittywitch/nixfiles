@@ -13,12 +13,21 @@
     std = {
       url = "github:chessai/nix-std";
     };
+      nix-gaming.url = "github:fufexan/nix-gaming";
+
+    hyprland.url = "github:hyprwm/Hyprland";
+    split-monitor-workspaces = {
+      url = "github:Duckonaut/split-monitor-workspaces";
+      inputs.hyprland.follows = "hyprland"; # <- make sure this line is present for the plugin to work as intended
+    };
+    nix-proton-cachyos.url = "github:kittywitch/nix-proton-cachyos";
     # used for overriding unwanted flake inputs
     empty.url = "github:input-output-hk/empty-flake";
     # self-explanatory
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
+    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     infrastructure = {
       url = "github:gensokyo-zone/infrastructure/main";
       inputs = {
@@ -49,6 +58,14 @@
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "utils";
         flake-compat.follows = "flake-compat";
+      };
+    };
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    push2talk = {
+      url = "github:cyrinux/push2talk/main";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "utils";
       };
     };
     wezterm = {

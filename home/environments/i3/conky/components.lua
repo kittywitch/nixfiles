@@ -54,13 +54,25 @@ function cpu_sct()
 end
 
 
+function conky_mem_section()
+  local mem_tpl = tpl([[
+    ${lua fmt h1 RAM} ${hr}
+
+    ${color grey}Usage:$color $mem/$memmax - $memperc% ${membar 4}
+    ${color grey}Easy-to-free:$color ${memeasyfree}
+  ]])
+end
+
+function conky_storage_section()
+end
+
 function conky_cpu_section()
   local cpu_tpl = tpl([[
 ${lua fmt h1 CPU} ${hr}
 ${color grey}Variety:$color {%= cpu_model() %} {%= cpu_sct() %}
 ${cpugraph}
 ${color grey}Frequency:$color ${freq_g} GHz
-${color grey}Usage:$color $cpu%
+${color grey}Usage:$color $cpu% ${cpubar 4}
 ]])
   return conky_parse(cpu_tpl({ cpu_model = cpu_model, cpu_sct = cpu_sct }))
 end
@@ -77,19 +89,20 @@ local query_headers = {
   "fan.speed",
   "utilization.gpu",
   "utilization.memory",
+  "memory.used",
+  "clocks.current.graphics",
+  "clocks.current.memory",
+  "temperature.gpu",
+  "clocks.current.sm",
+  "clocks.current.video",
+  "memory.total",
   "utilization.encoder",
   "utilization.decoder",
-  "clocks.current.graphics",
-  "clocks.current.sm",
-  "clocks.current.memory",
-  "clocks.current.video",
-  "memory.used",
-  "memory.total",
-  "temperature.gpu",
 }
 local gpu_display_templates = {
   index = "${lua fmt h1 GPU %s} ${hr}",
   default = "${lua fmt item %s} %s",
+  hasbar = "${lua fmt item %s} %s ${nvidiabar %s %s}",
 }
 local gpu_header_aliases = {
   ["name"] = "Card",
@@ -106,6 +119,15 @@ local gpu_header_aliases = {
   ["memory.used"] = "Memory Used",
   ["memory.total"] = "Memory Total",
   ["temperature.gpu"] = "Temperature",
+};
+local gpu_header_to_nvidiabar = {
+  --[[["fan.speed"] = "fanlevel",
+  ["utilization.gpu"] = "gpuutil",
+  ["utilization.memory"] = "memutil",
+  ["clocks.current.graphics"] = "gpufreq",
+  ["clocks.current.memory"] = "memfreq",
+  ["temperature.gpu"] = "temp",
+  ["memory.used"] = "mem",]]--
 };
 -- Reverse index
 local query_headers_index = {}
@@ -171,7 +193,12 @@ function gpu_csv_query()
       if gpu_display_templates[cur_header.clean] ~= nil then
         display = string.format(gpu_display_templates[cur_header.clean], data_sf)
       else
-        display = string.format(gpu_display_templates.default, gpu_header_aliases[cur_header.clean], data_sf)
+        if gpu_header_to_nvidiabar[cur_header.clean] ~= nil then
+          local nvidiabar = gpu_header_to_nvidiabar[cur_header.clean]
+          display = string.format(gpu_display_templates.hasbar, gpu_header_aliases[cur_header.clean], data_sf, nvidiabar, i)
+        else
+            display = string.format(gpu_display_templates.default, gpu_header_aliases[cur_header.clean], data_sf)
+        end
       end
       current_gpu[display_idx] = display
     end

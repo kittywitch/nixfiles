@@ -278,6 +278,13 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
   end,
 })
 
+-- hardtime
+vim.notify = require("notify")
+--[[require("hardtime").setup({
+  disable_mouse = false,
+  disabled_keys = {},
+})]]--
+
 -- telescope
 local telescope = require('telescope.builtin')
 

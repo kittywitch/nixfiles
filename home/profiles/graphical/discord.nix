@@ -8,9 +8,10 @@ in {
   home.packages = with pkgs; [
     (discord-krisp.override {
       withOpenASAR = true;
-      withVencord = true; # can do this here too
+      withVencord = false; # can do this here too
     })
-    vesktop
+    #legcord
+    dorion
     #betterdiscordctl
   ];
 }
