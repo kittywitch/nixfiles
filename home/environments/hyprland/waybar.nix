@@ -12,9 +12,17 @@ _: {
 }
 
 window#waybar {
-    background: @theme_base_color;
-    border-bottom: 1px solid @unfocused_borders;
-    color: @theme_text_color;
+  all:unset;
+}
+
+
+.modules-left, .modules-right, .modules-center {
+  background: alpha(@base, 0.9);
+  box-shadow: 0px 0px 2px rgba(0,0,0,0.6);
+  color: @text;
+  padding: 5px;
+  margin: 2px 4px;
+  border: 1px solid @lavender;
 }
 
 tooltip {
@@ -25,15 +33,36 @@ tooltip label {
   color: white;
 }
 
+#workspaces {
+  border-right: 1px solid @surface2;
+}
+
+
 #workspaces button.persistent {
-  background: shade(@insensitive_bg_color, 0.5);
-  color: shade(@insensitive_fg_color, 0.5);
+  background: @theme_unfocused_bg_color;
+  color: @subtext1;
 }
 
 #workspaces button {
-    padding: 0 5px;
-    background: @theme_unfocused_bg_color;
+    padding: 2px 5px;
+    background: @surface0;
     border-bottom: 3px solid transparent;
+}
+
+#workspaces button.empty {
+  background: @crust;
+  color: @subtext1;
+}
+
+#workspaces button.visible {
+    background: @pink;
+    color: @theme_selected_fg_color;
+    border-bottom: 3px solid @rosewater;
+}
+
+#workspaces button.urgent {
+  background: @red;
+  color: @theme_selected_fg_color;
 }
 
 #workspaces button.active, #workspaces button.focused {
@@ -42,9 +71,34 @@ tooltip label {
     border-bottom: 3px solid white;
 }
 
-#mode, #clock, #battery, #idle_inhibitor, #tray, #window, #wireplumber, #bluetooth, #mpris {
+#window {
+  padding: 0 10px;
+}
+
+window#waybar.empty #window {
+  padding: 0px;
+  margin: 0px;
+}
+
+#mode, #clock, #battery, #idle_inhibitor, #tray, #wireplumber, #bluetooth, #mpris {
     padding: 0 5px;
     margin: 0 5px;
+}
+
+#mpris {
+  color: @mantle;
+}
+
+#mpris.playing {
+  background-color: @lavender;
+}
+
+#mpris.paused {
+  background-color: @mauve;
+}
+
+#mpris.stopped {
+  background-color: @rosewater;
 }
 
 #mode {
@@ -52,8 +106,7 @@ tooltip label {
     border-bottom: 3px solid white;
 }
 
-#clock, #mpris {
-    background-color: #64727D;
+#clock {
 }
 
 #battery {
@@ -84,9 +137,8 @@ tooltip label {
 }
     '';
     settings.main = {
-  layer = "top";
-  position = "top";
-  height = 24;
+      layer = "top";
+      position = "top";
       modules-left = [
         "hyprland/workspaces"
         "hyprland/submap"
@@ -111,9 +163,22 @@ tooltip label {
 
       bluetooth = {
         on-click = "blueman-manager";
+        format = " {status}";
+        format-connected-battery = " {device_alias} {device_battery_percentage}%";
+        format-connected = " {num_connections} connected";
+        tooltip-format = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
+        tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
+        tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
+        tooltip-format-enumerate-connected-battery = "{device_alias}\t{device_address}\t{device_battery_percentage}%";
       };
+
+      tray = {
+        spacing = 4;
+      };
+
       clock = {
         format = "{:%F %H:%M %Z}";
+        interval = 60;
       };
     };
   };

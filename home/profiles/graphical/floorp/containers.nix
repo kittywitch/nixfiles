@@ -2,7 +2,7 @@
   inherit (lib.attrsets) listToAttrs nameValuePair;
   inherit (lib.modules) mkMerge;
 in {
-  programs.floorp.profiles.main = {
+  programs.firefox.profiles.main = {
     containersForce = true;
     containers = {
       main = {

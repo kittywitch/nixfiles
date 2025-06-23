@@ -1,5 +1,5 @@
 _: {
   programs.hyprlock = {
-    enable = true;
+    enable = false;
   };
 }

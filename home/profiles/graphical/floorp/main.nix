@@ -2,11 +2,11 @@
   defaultFont = "Monaspace Krypton";
 in {
   home.sessionVariables = {
-    BROWSER = "floorp";
+    BROWSER = "firefox";
   };
 
   home.packages = [ pkgs.ff2mpv-rust ];
-  programs.floorp = {
+  programs.firefox = {
     nativeMessagingHosts = [
       pkgs.ff2mpv-rust
     ];

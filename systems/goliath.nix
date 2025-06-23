@@ -45,7 +45,6 @@ _: let
         gaming
       ])
       ++ (with tree.nixos.environments; [
-        i3
         hyprland
       ]);
 

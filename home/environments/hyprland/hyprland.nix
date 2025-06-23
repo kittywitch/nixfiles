@@ -42,6 +42,7 @@ ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
     systemd = {
       enable = true;
       variables = ["--all"];
+      enableXdgAutostart = true;
       extraCommands = [
         "systemctl --user stop graphical-session.target"
         "systemctl --user start hyprland-session.target"
@@ -85,9 +86,15 @@ ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
         "ELECTRON_OZONE_PLATFORM_HINT,auto"
         "LIBVA_DRIVER_NAME,nvidia"
         "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-        "QT_QPA_PLATFORM,wayland"
+        "QT_QPA_PLATFORM,wayland;xcb"
+        "MOZ_ENABLE_WAYLAND,1"
+        "NIXOS_OZONE_WL,1"
+        "XDG_CURRENT_DESKTOP,Hyprland"
+        "GDK_BACKEND,wayland,x11"
+        "CLUTTER_BACKEND,wayland"
         "__NV_DISABLE_EXPLICIT_SYNC,1"
       ];
+      debug.disable_logs = false;
       exec-once = [
         "${pkgs.swww}/bin/swww init"
         "${pkgs.hypridle}/bin/hypridle"

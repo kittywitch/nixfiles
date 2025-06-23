@@ -1,5 +1,5 @@
 { nur, ... }: {
-  programs.floorp.profiles.main = {
+  programs.firefox.profiles.main = {
     extensions = {
       packages = with nur.repos.rycee.firefox-addons; [
         tree-style-tab
@@ -22,6 +22,7 @@
           showExpertOptions = true;
           skipCollapsedTabsForTabSwitchingShortcuts = true;
           tabPreviewTooltip = true;
+          "__ConfigsMigration__userValeusSameToDefaultAreCleared" = true;
         };
       };
     };

@@ -15,7 +15,12 @@
     };
       nix-gaming.url = "github:fufexan/nix-gaming";
 
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland = {
+      url = "github:hyprwm/Hyprland/v0.49.0";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     split-monitor-workspaces = {
       url = "github:Duckonaut/split-monitor-workspaces";
       inputs.hyprland.follows = "hyprland"; # <- make sure this line is present for the plugin to work as intended
@@ -27,6 +32,7 @@
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
+    clipboard-sync.url = "github:dnut/clipboard-sync";
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     infrastructure = {
       url = "github:gensokyo-zone/infrastructure/main";
