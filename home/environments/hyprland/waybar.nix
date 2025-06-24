@@ -80,7 +80,7 @@ window#waybar.empty #window {
   margin: 0px;
 }
 
-#mode, #clock, #battery, #idle_inhibitor, #tray, #wireplumber, #bluetooth, #mpris {
+#mode, #clock, #battery, #idle_inhibitor, #tray, #wireplumber, #bluetooth, #backlight, #mpris {
     padding: 0 5px;
     margin: 0 5px;
 }
@@ -110,8 +110,6 @@ window#waybar.empty #window {
 }
 
 #battery {
-    background-color: #ffffff;
-    color: black;
 }
 
 #battery.charging {
@@ -157,19 +155,46 @@ window#waybar.empty #window {
         "wireplumber"
         "idle_inhibitor"
         "power-profiles-daemon"
+        "backlight"
         "battery"
         "tray"
       ];
 
+      idle_inhibitor = {
+        format = "idin {icon}";
+        format-icons = {
+          activated = "active";
+          deactivated = "inactive";
+        };
+      };
+
       bluetooth = {
         on-click = "blueman-manager";
-        format = " {status}";
-        format-connected-battery = " {device_alias} {device_battery_percentage}%";
-        format-connected = " {num_connections} connected";
+        format = "bt {status}";
+        format-connected-battery = "bt {device_alias} {device_battery_percentage}%";
+        format-connected = "bt {num_connections} connected";
         tooltip-format = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
         tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
         tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
         tooltip-format-enumerate-connected-battery = "{device_alias}\t{device_address}\t{device_battery_percentage}%";
+      };
+
+      wireplumber = {
+        format = "vol {volume}%";
+        max-volume = 150;
+      };
+      backlight = {
+        format = "bl {percent}%";
+      };
+      battery = {
+        format = "bat {capacity}%";
+        format-tooltip = "{power}W, {timeTo}, {health}%";
+        interval = 60;
+
+        states = {
+          warning = 30;
+          critical = 15;
+        };
       };
 
       tray = {

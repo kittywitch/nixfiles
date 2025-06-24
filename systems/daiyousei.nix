@@ -16,7 +16,7 @@ _: let
       ])
       ++ (with tree.nixos.servers; [
         weechat
-        matrix
+        #matrix
         postgres
         web
       ]);
