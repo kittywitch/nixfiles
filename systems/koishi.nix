@@ -22,7 +22,7 @@ _: let
       #sway
         #xfce
             #openbox
-          kde
+          hyprland
           #gnome
       ]);
     config = {
@@ -33,7 +33,7 @@ _: let
         ++ (with tree.home.environments; [
         #xfce
         #sway
-          kde
+          hyprland
             #gnome
         ]);
 
@@ -51,7 +51,9 @@ _: let
       swapDevices = [
         {device = "/dev/disk/by-uuid/7486e618-214b-47ff-87a7-0d53099a05b4";}
       ];
-
+      home-manager.users.kat.wayland.windowManager.hyprland.settings.monitor = [
+        "eDP-1, preferred, 0x0, 1"
+      ];
       boot = {
         initrd.luks.devices."cryptmapper".device = "/dev/disk/by-uuid/16296ac6-b8b2-4c4e-94f6-c06ea84d6fbb";
         loader.grub.useOSProber = true;

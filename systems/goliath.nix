@@ -53,7 +53,6 @@ _: let
         graphical
       ])
       ++ (with tree.home.environments; [
-        i3
         hyprland
       ]);
 
