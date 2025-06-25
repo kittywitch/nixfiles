@@ -10,10 +10,10 @@ terraform {
       source = "oracle/oci"
       version = "5.45.0"
     }
-    hcloud = {
+    /*hcloud = {
       source = "hetznercloud/hcloud"
       version = "1.38.2"
-    }
+    }*/
     tailscale = {
       source = "tailscale/tailscale"
       version = "0.13.7"
