@@ -7,9 +7,9 @@ in {
         local.enable = mkDefault (config.networking.hostName == "goliath");
       };
       nix = {
-        enable = true;
-        cache.infrastructure.enable = true;
-        builder.enable = true;
+      #  enable = true;
+      #cache.infrastructure.enable = true;
+      # builder.enable = true;
       };
       kyuuto = {
         enable = mkDefault true;

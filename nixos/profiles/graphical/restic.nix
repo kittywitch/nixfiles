@@ -16,7 +16,7 @@
       exclude = [
       ];
       extraOptions = [
-        "sftp.command='ssh u401227@u401227.your-storagebox.de -i ${config.sops.secrets.restic-ssh-keyfile.path} -s sftp'"
+        "sftp.command='ssh -p 23 u401227@u401227.your-storagebox.de -i ${config.sops.secrets.restic-ssh-keyfile.path} -s sftp'"
       ];
       pruneOpts = [
         "--keep-daily 7"
@@ -25,7 +25,7 @@
       ];
       initialize = true;
       passwordFile = config.sops.secrets.restic-password-file.path;
-      repository = "sftp:u401227@u401227.your-storagebox.de:/restic/${config.networking.hostName}";
+      repository = "sftp:u401227@u401227.your-storagebox.de:/home/restic/${config.networking.hostName}";
       timerConfig = {
         OnCalendar = "12:00";
         RandomizedDelaySec = "2h";

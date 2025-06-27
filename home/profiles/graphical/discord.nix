@@ -10,8 +10,8 @@ in {
       withOpenASAR = true;
       withVencord = false; # can do this here too
     })
-    #legcord
-    dorion
+    legcord
+    #dorion
     #betterdiscordctl
   ];
 }

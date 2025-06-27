@@ -1,22 +1,55 @@
 _: let
   hostConfig = {
     tree,
+    pkgs,
+    lib,
     config,
     ...
-  }: {
+  }: let
+    inherit (lib.lists) singleton;
+    inherit (lib.attrsets) nameValuePair listToAttrs;
+      datasets = [
+      "root"
+      "nix"
+      "games"
+      "home"
+      "var"
+    ];
+    datasetEntry = dataset: nameValuePair (if dataset == "root" then "/" else "/${dataset}") {
+      device = "zpool/${dataset}";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+    };
+    datasetEntries = listToAttrs (map datasetEntry datasets);
+
+    drives = {
+      boot = rec {
+        raw = "/dev/disk/by-uuid/BEDB-489E";
+        result = {
+          device = raw;
+          fsType = "vfat";
+        };
+      };
+      swap = rec {
+        raw = "/dev/disk/by-partuuid/cba02f4a-a90d-44e3-81a8-46bb4500112e";
+        result = {
+          device = raw;
+          randomEncryption = true;
+        };
+      };
+    };
+  in {
     imports =
       (with tree.nixos.hardware; [
         framework
       ])
       ++ (with tree.nixos.profiles; [
         graphical
-        gaming
         wireless
         laptop
-        bcachefs
-        sdr
-        virtualisation
-        secureboot
+          sdr
+          #virtualisation
+          #secureboot
       ])
       ++ (with tree.nixos.environments; [
       #sway
@@ -28,7 +61,7 @@ _: let
     config = {
       home-manager.users.kat.imports =
         (with tree.home.profiles; [
-          graphical
+            graphical
         ])
         ++ (with tree.home.environments; [
         #xfce
@@ -37,31 +70,35 @@ _: let
             #gnome
         ]);
 
-      fileSystems."/" = {
-        device = "/dev/disk/by-uuid/ea521d6e-386f-4e6d-adde-c4be376cf19b";
-        fsType = "xfs";
-      };
+    fileSystems = datasetEntries // {
+      "/boot" = drives.boot.result;
+    };
 
-      fileSystems."/boot" = {
-        device = "/dev/disk/by-uuid/C6C8-14D2";
-        fsType = "vfat";
-        options = ["fmask=0022" "dmask=0022"];
-      };
+    swapDevices = [
+        drives.swap.result
+    ];
+    boot.loader = {
+      systemd-boot.enable = lib.mkForce false;
+    };
 
-      swapDevices = [
-        {device = "/dev/disk/by-uuid/7486e618-214b-47ff-87a7-0d53099a05b4";}
-      ];
       home-manager.users.kat = {
         wayland.windowManager.hyprland.settings.monitor = [
           "eDP-1, preferred, 0x0, 1"
         ];
       };
       boot = {
-        initrd.luks.devices."cryptmapper".device = "/dev/disk/by-uuid/16296ac6-b8b2-4c4e-94f6-c06ea84d6fbb";
         loader.grub.useOSProber = true;
         extraModprobeConfig = "options snd_hda_intel power_save=0";
         extraModulePackages = [config.boot.kernelPackages.v4l2loopback.out];
       };
+
+    services.scx = {
+      enable = true;
+      package = pkgs.scx_git.full;
+      scheduler = "scx_lavd";
+    };
+
+    zramSwap.enable = true;
 
       programs.ssh.extraConfig = ''
         Host daiyousei-build
@@ -105,6 +142,7 @@ _: let
       };
 
       networking = {
+        hostId = "9ef75c48";
         useDHCP = false;
       };
 
@@ -113,6 +151,7 @@ _: let
   };
 in {
   arch = "x86_64";
+  deploy.hostname = "10.1.1.68";
   ci.enable = false; # Closure too large
   type = "NixOS";
   modules = [

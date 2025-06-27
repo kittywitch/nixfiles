@@ -106,6 +106,8 @@ ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
         "${pkgs.pasystray}/bin/pasystray"
         "${pkgs.systemd}/bin/systemctl restart waybar --user"
         "${pkgs.systemd}/bin/systemctl restart konawall-py --user"
+        "legcord --enable-features=WaylandLinuxDrmSyncobj,UseOzonePlatform --ozone-platform=wayland"
+        "spotify --enable-features=WaylandLinuxDrmSyncobj,UseOzonePlatform --ozone-platform=wayland"
       ];
       plugin.split-monitor-workspaces = {
         count = 10;
