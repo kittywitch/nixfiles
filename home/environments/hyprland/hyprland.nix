@@ -82,17 +82,10 @@ ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
         10);
       */
       env = [
-        "NVD_BACKEND,direct"
-        "ELECTRON_OZONE_PLATFORM_HINT,auto"
-        "LIBVA_DRIVER_NAME,nvidia"
-        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-        "QT_QPA_PLATFORM,wayland;xcb"
         "MOZ_ENABLE_WAYLAND,1"
-        "NIXOS_OZONE_WL,1"
         "XDG_CURRENT_DESKTOP,Hyprland"
         "GDK_BACKEND,wayland,x11"
         "CLUTTER_BACKEND,wayland"
-        "__NV_DISABLE_EXPLICIT_SYNC,1"
       ];
       debug.disable_logs = false;
       exec-once = [

@@ -58,10 +58,21 @@ _: let
 
     networking.hostId = "c3b94e85";
 
-  home-manager.users.kat.wayland.windowManager.hyprland.settings.monitor = [
+  home-manager.users.kat.wayland.windowManager.hyprland.settings = {
+      monitor = [
     "DP-2, 3840x2160, 0x0, 1"
     "HDMI-A-1, 1920x1080, auto-right, 1"
       ];
+      env = [
+        "NVD_BACKEND,direct"
+        "ELECTRON_OZONE_PLATFORM_HINT,auto"
+        "LIBVA_DRIVER_NAME,nvidia"
+        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        "NIXOS_OZONE_WL,1"
+        "__NV_DISABLE_EXPLICIT_SYNC,1"
+        "QT_QPA_PLATFORM,wayland;xcb"
+      ];
+    };
 
       programs.ssh.extraConfig = ''
         Host daiyousei-build
