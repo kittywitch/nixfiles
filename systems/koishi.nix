@@ -47,6 +47,7 @@ _: let
         graphical
         wireless
         laptop
+          gaming
           sdr
           #virtualisation
           #secureboot

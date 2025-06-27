@@ -15,9 +15,6 @@ programs.gamescope = {
   };
   environment.systemPackages = with pkgs; [
     (lutris.override {
-      extraLinkLines = let
-      proton-cachyos = inputs.nix-proton-cachyos.packages.${pkgs.system}.proton-cachyos;
-        in ''ln -sf ${proton-cachyos}/share/steam $out/share'';
       extraPkgs = pkgs: [
         pkgs.gamescope
         pkgs.libnghttp2
@@ -29,7 +26,6 @@ programs.gamescope = {
         pkgs.vkbasalt
         pkgs.umu-launcher
         pkgs.xdg-desktop-portal
-        inputs.nix-proton-cachyos.packages.${pkgs.system}.proton-cachyos
       ];
       extraLibraries = pkgs: [
         pkgs.libunwind
@@ -38,7 +34,6 @@ programs.gamescope = {
         pkgs.jansson
         pkgs.samba
         pkgs.xz
-        inputs.nix-proton-cachyos.packages.x86_64-linux.proton-cachyos
       ];
     })
 

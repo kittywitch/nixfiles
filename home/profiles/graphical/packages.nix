@@ -8,7 +8,7 @@
     htop
 
     # Mail
-    thunderbird
+    #thunderbird
 
     # Chat
     tdesktop # Telegram
