@@ -99,6 +99,13 @@ _: let
       scheduler = "scx_lavd";
     };
 
+        virtualisation.virtualbox.host = {
+          enable = true;
+          enableExtensionPack = true;
+          enableKvm = true;
+          addNetworkInterface = false;
+        };
+
     zramSwap.enable = true;
 
       programs.ssh.extraConfig = ''
