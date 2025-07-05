@@ -4,6 +4,7 @@ in {
   catppuccin = {
     enable = true;
     flavor = "frappe";
+    firefox.profiles = mkForce {};
     gtk = {
       enable = true;
       icon.enable = true;

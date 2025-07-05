@@ -1,5 +1,7 @@
 {
   std,
+  parent,
+  lib,
   pkgs,
   inputs,
   ...
@@ -19,7 +21,9 @@ in {
     brightnessctl
     playerctl
     glib
+    pcmanfm
   ];
+  services.hyprpolkitagent.enable = true;
   services.swww.enable = true;
   wayland.windowManager.hyprland = let
     import-gsettings = pkgs.writeShellScriptBin "import-gsettings" ''
@@ -40,7 +44,7 @@ ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
   in {
     enable = true;
     systemd = {
-      enable = true;
+      enable = false;
       variables = ["--all"];
       enableXdgAutostart = true;
       extraCommands = [
@@ -54,9 +58,30 @@ ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
       inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
     ];
     settings = {
+      # TODO: break it up
+      windowrule = let
+      in [
+        "suppressevent fullscreen, class:steam_app_default"
+        "workspace 2, class:steam_app_default"
+        "suppressevent maximize, class:.*"
+  
+        "tile, class:battle\.net\.exe"
+
+        "renderunfocused, class:discord, initialTitle:Discord"
+
+        "unset, title:Wine System Tray"
+        "workspace special:hidden silent, title:Wine System Tray"
+        "noinitialfocus, title:Wine System Tray"
+      ];
       "$mod" = "SUPER";
       input = {
         kb_options = "ctrl:nocaps";
+        accel_profile = "flat";
+        sensitivity = 1.0;
+        scroll_factor = 1.0;
+      };
+      cursor = {
+        use_cpu_buffer = true;
       };
       workspace = let
         commonOptions = "gapsin:0,gapsout:0,rounding:false";
@@ -87,6 +112,7 @@ ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
         "GDK_BACKEND,wayland,x11"
         "CLUTTER_BACKEND,wayland"
       ];
+      render.direct_scanout = false;
       debug.disable_logs = false;
       exec-once = [
         "${pkgs.swww}/bin/swww init"
@@ -123,14 +149,22 @@ ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
         "$mod, mouse:273, resizewindow"
         "$mod ALT, mouse:272, resizewindow"
       ];
+      bindl = [
+          ", XF86AudioPlay, exec, playerctl play-pause"
+          ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+      ];
       binde = [
         ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
         ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
         ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl -c backlight set 5%+"
         ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl -c backlight set 5%-"
       ];
-      bind =
-        [
+      bind = let
+        uwsmCmd = lib.optionalString parent.programs.uwsm.enable "uwsm app -- ";
+        uwsmApp = cmd: uwsmCmd + cmd;
+        uwsmSingleApp = cmd: "pgrep ${cmd} || ${uwsmCmd + cmd}";
+      in [
           ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
           ", XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
           ", XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
@@ -138,12 +172,17 @@ ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
 
           "$mod, R, exec, wofi -t wezterm -IS drun"
           "$mod SHIFT, R, exec, wofi -t wezterm -IS run"
-          "$mod, Return, exec, wezterm"
-          ", Print, exec, grimblast copy area"
+          "$mod, RETURN,  exec, ${uwsmApp "wezterm"}"
+          "$mod, W,  exec, ${uwsmApp "firefox"}"
+          "$mod, E,  exec, ${uwsmApp "pcmanfm"}"
+          ", Print, exec, ${uwsmSingleApp "grimblast"} copy area"
+          "CTRL ALT, DELETE, exec, ${uwsmApp "hyprctl kill"}"
+          "CTRL ALT SHIFT, DELETE, exec, loginctl terminate-user \"\""
 
           "$mod SHIFT, E, exec, pkill Hyprland"
           "$mod SHIFT, Q, killactive,"
-          "$mod, F, fullscreen,"
+          "$mod, F, fullscreenstate, 2 -1" # dont inform
+          "$mod SHIFT, F, fullscreenstate, -1 2" # do inform
           "$mod, G, togglegroup,"
           "$mod SHIFT, N, changegroupactive, f"
           "$mod SHIFT, P, changegroupactive, b"
@@ -152,7 +191,7 @@ ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
           "$mod SHIFT, X, pseudo,"
           "$mod ALT, ,resizeactive,"
           "$mod, Escape, exec, wlogout -p layer-shell"
-          "$mod, L, exec, loginctl lock-session"
+          "$mod, L, exec, ${uwsmSingleApp "hyprlock"}"
 
           "$mod, left, movefocus, l"
           "$mod, right, movefocus, r"
@@ -169,11 +208,11 @@ ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
 
           "$mod, P, exec, ${pkgs.hyprpicker}/bin/hyprpicker -na"
 
-          "CTRL, Print, exec, grimblast --notify --cursor copysave output"
-          "$mod SHIFT CTRL, R, exec, grimblast --notify --cursor copysave output"
+          "CTRL, Print, exec, ${uwsmSingleApp "grimblast"} --notify --cursor copysave output"
+          "$mod SHIFT CTRL, R, exec, ${uwsmSingleApp "grimblast"} --notify --cursor copysave output"
 
-          "ALT, Print, exec, grimblast --notify --cursor copysave screen"
-          "$mod SHIFT ALT, R, exec, grimblast --notify --cursor copysave screen"
+          "ALT, Print, exec, ${uwsmSingleApp "grimblast"} --notify --cursor copysave screen"
+          "$mod SHIFT ALT, R, exec, ${uwsmSingleApp "grimblast"} --notify --cursor copysave screen"
 
           "$mod, bracketleft, workspace, m-1"
           "$mod, bracketright, workspace, m+1"

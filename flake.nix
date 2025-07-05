@@ -2,7 +2,8 @@
   description = "Kat's Infrastructure";
   inputs = {
     systems.url = "github:nix-systems/default";
-    catppuccin.url = "github:catppuccin/nix";
+    # TODO: https://github.com/catppuccin/nix/issues/601
+    catppuccin.url = "github:catppuccin/nix";#/194881dd2ad6303bc2d49f9ce484d127372d7465";
     # to allow non-nix 2.4 evaluation
     flake-compat = {
       url = "github:edolstra/flake-compat";
@@ -54,6 +55,22 @@
       # ewww flakehub ;;
       url = "https://flakehub.com/f/Svenum/Solaar-flake/*.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nh = {
+      url = "github:nix-community/nh";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    moonlight = {
+      url = "github:moonlight-mod/moonlight";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprlock = {
+      url = "github:hyprwm/hyprlock";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
     };
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";

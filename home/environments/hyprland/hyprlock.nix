@@ -1,5 +1,10 @@
-_: {
+{ inputs, pkgs, ... }: {
   programs.hyprlock = {
-    enable = false;
+    enable = true;
+    package = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
+
+    settings = {
+      animations.enabled = false;
+    };
   };
 }

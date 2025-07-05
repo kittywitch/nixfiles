@@ -4,7 +4,7 @@ _: {
     enableZshIntegration = true;
     settings = {
       time = {
-        disable = false;
+        disabled = false;
       };
     };
   };
