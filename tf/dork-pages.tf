@@ -8,12 +8,17 @@ resource "cloudflare_pages_project" "dorkdev" {
     config {
         owner = "kittywitch"
         repo_name = "dork.dev"
-        production_branch = "site"
+        production_branch = "main"
         deployments_enabled = true
         pr_comments_enabled = false
         production_deployment_enabled = true
 
     }
+  }
+  build_config {
+    build_command = "zola build"
+    destination_dir = "public"
+    #root_dir = "/"
   }
   lifecycle {
     ignore_changes = [

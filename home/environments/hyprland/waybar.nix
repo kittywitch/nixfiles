@@ -137,6 +137,8 @@ window#waybar.empty #window {
     settings.main = {
       layer = "top";
       position = "top";
+      mode = "dock";
+      exclusive = true;
       modules-left = [
         "hyprland/workspaces"
         "hyprland/submap"

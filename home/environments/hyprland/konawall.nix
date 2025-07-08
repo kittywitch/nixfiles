@@ -9,9 +9,11 @@
     rotate = true;
     source = "e621";
     tags = [
-      "rating:s"
+      "-rating:s"
+      "-male/male"
       "-five_nights_at_freddy's"
       #"touhou"
+      "-male"
       "-large_breasts"
       "-scalie"
       #"-my_little_pony"

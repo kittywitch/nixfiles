@@ -112,6 +112,7 @@
             inputs.sops-nix.homeManagerModules.sops
             chaotic.homeManagerModules.default
             spicetify-nix.homeManagerModules.spicetify
+            inputs.moonlight.homeModules.default
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).home-manager; [
             i3gopher
