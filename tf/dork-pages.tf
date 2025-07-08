@@ -21,6 +21,8 @@ resource "cloudflare_pages_project" "dorkdev" {
     #root_dir = "/"
   }
   deployment_configs {
+    preview {
+    }
     production {
       environment_variables = {
         UNSTABLE_PRE_BUILD = "asdf plugin add zola https://github.com/salasrod/asdf-zola && asdf install zola 0.20.0 && asdf global zola 0.20.0"
