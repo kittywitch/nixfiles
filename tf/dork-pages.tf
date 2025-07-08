@@ -1,7 +1,7 @@
 resource "cloudflare_pages_project" "dorkdev" {
   account_id = local.account_id
   name = "dorkdev"
-  production_branch = "site"
+  production_branch = "main"
 
   source {
     type = "github"
@@ -19,6 +19,14 @@ resource "cloudflare_pages_project" "dorkdev" {
     build_command = "zola build"
     destination_dir = "public"
     #root_dir = "/"
+  }
+  deployment_configs {
+    production {
+      environment_variables = {
+        UNSTABLE_PRE_BUILD = "asdf plugin add zola https://github.com/salasrod/asdf-zola && asdf install zola 0.20.0 && asdf global zola 0.20.0"
+        ZOLA_VERSION = "0.20.0"
+      }
+    }
   }
   lifecycle {
     ignore_changes = [
