@@ -28,7 +28,7 @@ resource "oci_core_instance" "this" {
   count = 2
 
   availability_domain = local.availability_domain_micro
-  compartment_id = var.tenancy_ocid
+  compartment_id      = var.tenancy_ocid
   shape               = local.shapes.micro
 
   display_name         = var.micro_display_names[count.index]
@@ -51,10 +51,10 @@ resource "oci_core_instance" "this" {
 
   create_vnic_details {
     assign_public_ip = true
-    display_name = var.micro_display_names[count.index]
-    hostname_label = lower(var.micro_display_names[count.index])
-    nsg_ids        = [var.nsg_id]
-    subnet_id      = var.subnet_id
+    display_name     = var.micro_display_names[count.index]
+    hostname_label   = lower(var.micro_display_names[count.index])
+    nsg_ids          = [var.nsg_id]
+    subnet_id        = var.subnet_id
   }
 
   source_details {

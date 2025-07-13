@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
-    home.packages = [
-        pkgs.magic-wormhole
-    ];
+{pkgs, ...}: {
+  home.packages = [
+    pkgs.magic-wormhole
+  ];
 }

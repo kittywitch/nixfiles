@@ -10,7 +10,7 @@
     };
     systems.url = "github:nix-systems/default";
     # TODO: https://github.com/catppuccin/nix/issues/601
-    catppuccin.url = "github:catppuccin/nix";#/194881dd2ad6303bc2d49f9ce484d127372d7465";
+    catppuccin.url = "github:catppuccin/nix"; #/194881dd2ad6303bc2d49f9ce484d127372d7465";
     flake-parts.url = "github:hercules-ci/flake-parts";
     # to allow non-nix 2.4 evaluation
     flake-compat = {

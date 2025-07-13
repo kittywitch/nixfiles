@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   ...
 }: let
   inherit (lib.types) submodule loaOf;

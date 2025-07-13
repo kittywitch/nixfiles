@@ -5,8 +5,8 @@ variable "tenancy_ocid" {
 resource "oci_identity_compartment" "this" {
   # Compartment ID is Tenancy ID for this case
   compartment_id = var.tenancy_ocid
-  description = "Compartment for Terraform usage"
-  name = "kittywitch-tf"
+  description    = "Compartment for Terraform usage"
+  name           = "kittywitch-tf"
 
 }
 

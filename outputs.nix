@@ -16,7 +16,7 @@ in
     legacyPackages = pkgs;
     packages = set.merge [pkgs wrappers.packages];
     checks = checks // formatting.checks;
-    formatter = formatting.formatter;
+    inherit (formatting) formatter;
   }
   // systems
   // shells

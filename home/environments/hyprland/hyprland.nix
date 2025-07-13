@@ -27,19 +27,19 @@ in {
   services.swww.enable = true;
   wayland.windowManager.hyprland = let
     import-gsettings = pkgs.writeShellScriptBin "import-gsettings" ''
-# usage: import-gsettings
-config="''${XDG_CONFIG_HOME:-$HOME/.config}/gtk-3.0/settings.ini"
-if [ ! -f "$config" ]; then exit 1; fi
+      # usage: import-gsettings
+      config="''${XDG_CONFIG_HOME:-$HOME/.config}/gtk-3.0/settings.ini"
+      if [ ! -f "$config" ]; then exit 1; fi
 
-gnome_schema="org.gnome.desktop.interface"
-gtk_theme="$(grep 'gtk-theme-name' "$config" | sed 's/.*\s*=\s*//')"
-icon_theme="$(grep 'gtk-icon-theme-name' "$config" | sed 's/.*\s*=\s*//')"
-cursor_theme="$(grep 'gtk-cursor-theme-name' "$config" | sed 's/.*\s*=\s*//')"
-font_name="$(grep 'gtk-font-name' "$config" | sed 's/.*\s*=\s*//')"
-${pkgs.glib}/bin/gsettings set "$gnome_schema" gtk-theme "$gtk_theme"
-${pkgs.glib}/bin/gsettings set "$gnome_schema" icon-theme "$icon_theme"
-${pkgs.glib}/bin/gsettings set "$gnome_schema" cursor-theme "$cursor_theme"
-${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
+      gnome_schema="org.gnome.desktop.interface"
+      gtk_theme="$(grep 'gtk-theme-name' "$config" | sed 's/.*\s*=\s*//')"
+      icon_theme="$(grep 'gtk-icon-theme-name' "$config" | sed 's/.*\s*=\s*//')"
+      cursor_theme="$(grep 'gtk-cursor-theme-name' "$config" | sed 's/.*\s*=\s*//')"
+      font_name="$(grep 'gtk-font-name' "$config" | sed 's/.*\s*=\s*//')"
+      ${pkgs.glib}/bin/gsettings set "$gnome_schema" gtk-theme "$gtk_theme"
+      ${pkgs.glib}/bin/gsettings set "$gnome_schema" icon-theme "$icon_theme"
+      ${pkgs.glib}/bin/gsettings set "$gnome_schema" cursor-theme "$cursor_theme"
+      ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
     '';
   in {
     enable = true;
@@ -56,12 +56,11 @@ ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     settings = {
       # TODO: break it up
-      windowrule = let
-      in [
+      windowrule = [
         "suppressevent fullscreen, class:steam_app_default"
         "workspace 2, class:steam_app_default"
         "suppressevent maximize, class:.*"
-  
+
         "tile, class:battle\.net\.exe"
 
         "renderunfocused, class:discord, initialTitle:Discord"
@@ -87,21 +86,23 @@ ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
         ++ (list.map (
           workspace: "${toString workspace},monitor:DP-1${commonOptions}"
         ) (list.range 2 10))
-         ++ [ "11,monitor:DP-2,default:true"] ++ (list.map (
+        ++ ["11,monitor:DP-2,default:true"]
+        ++ (list.map (
           workspace: "${toString workspace},monitor:DP-2${commonOptions}"
         ) (list.range 12 20));
-      /*list.concat (list.generate (
-          x: let
-            ws = let
-              c = (x + 1) / 10;
-            in
-              builtins.toString (x + 1 - (c * 10));
-          in [
-            "${toString x},monitor:DP-1"
-            "${toString (x + 10)},monitor:DP-2${commonOptions}"
-          ]
-        )
-        10);
+      /*
+      list.concat (list.generate (
+        x: let
+          ws = let
+            c = (x + 1) / 10;
+          in
+            builtins.toString (x + 1 - (c * 10));
+        in [
+          "${toString x},monitor:DP-1"
+          "${toString (x + 10)},monitor:DP-2${commonOptions}"
+        ]
+      )
+      10);
       */
       env = [
         "MOZ_ENABLE_WAYLAND,1"
@@ -141,9 +142,9 @@ ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
         "$mod ALT, mouse:272, resizewindow"
       ];
       bindl = [
-          ", XF86AudioPlay, exec, playerctl play-pause"
-          ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-          ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        ", XF86AudioPlay, exec, playerctl play-pause"
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
       ];
       binde = [
         ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
@@ -155,7 +156,8 @@ ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
         uwsmCmd = lib.optionalString parent.programs.uwsm.enable "uwsm app -- ";
         uwsmApp = cmd: uwsmCmd + cmd;
         uwsmSingleApp = cmd: "pgrep ${cmd} || ${uwsmCmd + cmd}";
-      in [
+      in
+        [
           ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
           ", XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
           ", XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
@@ -226,9 +228,17 @@ ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
               in [
                 "$mod, ${ws}, workspace, ${toString (x + 1)}"
                 "$mod SHIFT, ${ws}, movetoworkspacesilent, ${toString (x + 1)}"
-                "$mod, F${if ws == "0" then "10" else ws}, workspace, ${toString (x + 11)}"
-                "$mod SHIFT, F${if ws == "0" then "10" else ws}, movetoworkspacesilent, ${toString (x + 11)}"
-  
+                "$mod, F${
+                  if ws == "0"
+                  then "10"
+                  else ws
+                }, workspace, ${toString (x + 11)}"
+                "$mod SHIFT, F${
+                  if ws == "0"
+                  then "10"
+                  else ws
+                }, movetoworkspacesilent, ${toString (x + 11)}"
+
                 "$mod ALT, ${ws}, split-workspace, ${toString (x + 1)}"
               ]
             )

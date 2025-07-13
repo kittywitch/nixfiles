@@ -1,6 +1,5 @@
 {
   inputs,
-  pkgs,
   ...
 }:
 inputs.flake-utils.lib.eachDefaultSystem (system: let

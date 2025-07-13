@@ -66,7 +66,9 @@ in {
           linux = "linux";
           home = "linux";
         }
-        .${string.toLower config.type};
+        .${
+          string.toLower config.type
+        };
     in "${config.arch}-${kernel}";
     folder =
       {
@@ -77,7 +79,9 @@ in {
         windows = "windows";
         home = "home";
       }
-      .${string.toLower config.type};
+      .${
+        string.toLower config.type
+      };
     modules = mkMerge [
       (mkIf (config.folder != "linux") [
         # per-OS modules
@@ -107,7 +111,7 @@ in {
               }
               // args);
         in
-          args: sys args;
+          sys;
         home = args: let
           renamedArgs = set.rename "specialArgs" "extraSpecialArgs" args;
           renamedArgsWithPkgs =
@@ -123,7 +127,9 @@ in {
         darwin = inputs.darwin.lib.darwinSystem;
         macos = inputs.darwin.lib.darwinSystem;
       }
-      .${string.toLower config.type}
+      .${
+        string.toLower config.type
+      }
       or null;
     built = mkOptionDefault (mapNullable (builder:
       builder {

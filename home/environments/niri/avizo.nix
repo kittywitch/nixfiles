@@ -1,4 +1,4 @@
-{ config, ... }: {
+{config, ...}: {
   services.avizo = {
     enable = true;
     settings = {

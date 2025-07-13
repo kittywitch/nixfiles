@@ -1,4 +1,9 @@
-{ lib, pkgs, inputs, ... }: let
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: let
   inherit (lib) mkForce;
   qtct = ''
     [Appearance]
@@ -176,7 +181,7 @@ in {
       gnomeShellTheme = mkForce false;
     };
   };
-  dconf.settings = mkForce { };
+  dconf.settings = mkForce {};
   gtk.enable = true;
   # https://git.gay/olivia/fur/src/branch/main/modules/home/theming/qt/default.nix
   qt = {

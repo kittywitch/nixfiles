@@ -1,4 +1,4 @@
-{ nur, ... }: {
+{nur, ...}: {
   programs.firefox.profiles.main.extensions = {
     packages = with nur.repos.rycee.firefox-addons; [
       ublock-origin

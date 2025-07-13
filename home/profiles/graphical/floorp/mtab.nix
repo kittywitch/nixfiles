@@ -1,4 +1,4 @@
-{ nur, ... }: {
+{nur, ...}: {
   programs.firefox.profiles.main.extensions = {
     packages = with nur.repos.rycee.firefox-addons; [
       mtab
@@ -28,7 +28,7 @@
           userDefinedCols = null;
         };
         extras = {
-          snow = { enabled = "off"; };
+          snow = {enabled = "off";};
         };
         hotkeys = {
           activationKey = " ";
@@ -46,9 +46,9 @@
           textColor = "#ffffff";
           textSize = 3.75;
           type = "afternoon-morning";
-          weather = { unitsType = "f"; };
+          weather = {unitsType = "f";};
         };
-        options = { showOptionsButton = true; };
+        options = {showOptionsButton = true;};
         search = {
           assist = {
             conversions = true;
@@ -75,7 +75,7 @@
         };
         title = {
           defaultTitle = "Mew Tab";
-          dynamic = { enabled = true; };
+          dynamic = {enabled = true;};
           faviconType = "default";
         };
         ui = {
@@ -92,7 +92,7 @@
           highlightColor = "#ffffff20";
           style = "glass";
         };
-        user = { name = "kat"; };
+        user = {name = "kat";};
         wallpaper = {
           enabled = false;
           filters = {

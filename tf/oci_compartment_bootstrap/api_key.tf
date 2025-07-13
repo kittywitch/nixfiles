@@ -1,6 +1,6 @@
 resource "oci_identity_api_key" "this" {
   key_value = local.child_compartment_public_key
-  user_id = local.child_compartment_user
+  user_id   = local.child_compartment_user
 }
 
 locals {

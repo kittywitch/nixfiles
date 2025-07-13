@@ -10,7 +10,7 @@
   inputs.neorg-overlay.overlays.default
   inputs.niri.overlays.niri
   (import tree.packages.default {inherit inputs tree;})
-  (final: prev: {
-    wivrn = prev.wivrn.override { cudaSupport = true; };
+  (_final: prev: {
+    wivrn = prev.wivrn.override {cudaSupport = true;};
   })
 ]

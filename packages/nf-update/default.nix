@@ -5,10 +5,11 @@
   cachix,
   jq,
   nix,
-  curl
+  curl,
 }: let
   inherit (lib) makeBinPath;
-in writeShellScriptBin "nf-update" ''
+in
+  writeShellScriptBin "nf-update" ''
     export PATH="$PATH:${lib.makeBinPath [
       git
       cachix
@@ -17,4 +18,4 @@ in writeShellScriptBin "nf-update" ''
       curl
     ]}"
     exec ${./update.sh} "$@"
-''
+  ''

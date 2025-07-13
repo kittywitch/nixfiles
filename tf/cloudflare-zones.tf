@@ -1,13 +1,13 @@
 locals {
   account_id = "0467b993b65d8fd4a53fe24ed2fbb2a1"
   zones = {
-    dork = "dork.dev"
-    inskip = "inskip.me"
+    dork       = "dork.dev"
+    inskip     = "inskip.me"
     kittywitch = "kittywit.ch"
   }
   zone_ids = {
-    dork = cloudflare_zone.dork_zone.id
-    inskip = cloudflare_zone.inskip_zone.id
+    dork       = cloudflare_zone.dork_zone.id
+    inskip     = cloudflare_zone.inskip_zone.id
     kittywitch = cloudflare_zone.kittywitch_zone.id
   }
 }

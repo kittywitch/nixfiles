@@ -4,12 +4,12 @@ resource "oci_core_default_security_list" "this" {
   dynamic "ingress_security_rules" {
     for_each = [
       { from = 60000
-        to = 61000 }
+      to = 61000 }
     ]
     iterator = port
     content {
       protocol = local.protocol_number.udp
-      source = "0.0.0.0/0"
+      source   = "0.0.0.0/0"
 
       description = "Mosh traffic from any origin"
 

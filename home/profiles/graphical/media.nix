@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  inputs,
   ...
 }: let
   inherit (lib.attrsets) mapAttrsToList;

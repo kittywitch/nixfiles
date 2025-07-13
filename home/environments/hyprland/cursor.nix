@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   home.pointerCursor = {
     enable = true;
     package = pkgs.graphite-cursors;

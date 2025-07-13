@@ -1,5 +1,4 @@
 {
-  lib,
   stdenv,
   fetchFromGitHub,
   extra-cmake-modules,

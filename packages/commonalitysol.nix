@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchgit,
   openssh,
-  findutils,
   ...
 }:
 stdenvNoCC.mkDerivation rec {

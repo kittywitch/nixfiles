@@ -14,7 +14,7 @@
     "context.properties" = [
       {
         name = "libpipewire-module-protocol-pulse";
-        args = { };
+        args = {};
       }
     ];
     "pulse.properties" = {
@@ -33,11 +33,11 @@
   services.pipewire.extraConfig.pipewire-pulse."91-discord-latency" = {
     pulse.rules = [
       {
-        matches = [ { "application.process.binary" = "Discord"; } ];
+        matches = [{"application.process.binary" = "Discord";}];
         actions = {
-            update-props = {
-              "pulse.min.quantum" = "1024/48000";
-            };
+          update-props = {
+            "pulse.min.quantum" = "1024/48000";
+          };
         };
       }
     ];

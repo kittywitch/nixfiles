@@ -1,4 +1,4 @@
-{ nur, ... }: {
+{nur, ...}: {
   programs.firefox.profiles.main = {
     extensions = {
       packages = with nur.repos.rycee.firefox-addons; [
@@ -27,18 +27,18 @@
       };
     };
     userChrome = ''
-          /* Hide horizontal tabs at the top of the window */
-          #main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar {
-            opacity: 0;
-            pointer-events: none;
-          }
-          #main-window #TabsToolbar {
-              visibility: collapse !important;
-          }
-          /* Hide the "Tree Style Tab" header at the top of the sidebar */
-          #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
-            display: none;
-          }
+      /* Hide horizontal tabs at the top of the window */
+      #main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar {
+        opacity: 0;
+        pointer-events: none;
+      }
+      #main-window #TabsToolbar {
+          visibility: collapse !important;
+      }
+      /* Hide the "Tree Style Tab" header at the top of the sidebar */
+      #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
+        display: none;
+      }
     '';
   };
 }

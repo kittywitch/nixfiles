@@ -1,17 +1,17 @@
 resource "cloudflare_pages_project" "kittywitch" {
-  account_id = local.account_id
-  name = "kittywitch"
+  account_id        = local.account_id
+  name              = "kittywitch"
   production_branch = "main"
 
   source {
     type = "github"
     config {
-        owner = "kittywitch"
-        repo_name = "kittywit.ch"
-        production_branch = "main"
-        deployments_enabled = true
-        pr_comments_enabled = false
-        production_deployment_enabled = true
+      owner                         = "kittywitch"
+      repo_name                     = "kittywit.ch"
+      production_branch             = "main"
+      deployments_enabled           = true
+      pr_comments_enabled           = false
+      production_deployment_enabled = true
 
     }
   }
@@ -24,9 +24,9 @@ resource "cloudflare_pages_project" "kittywitch" {
 }
 
 resource "cloudflare_pages_domain" "kittywitch_root" {
-    account_id = local.account_id
-    project_name = "kittywitch"
-    domain = local.zones.kittywitch
+  account_id   = local.account_id
+  project_name = "kittywitch"
+  domain       = local.zones.kittywitch
 }
 
 resource "cloudflare_record" "kittywitch_root_pages" {

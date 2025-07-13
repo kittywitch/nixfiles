@@ -48,7 +48,7 @@
     libksysguard
     systemsettings
     kcmutils
-  pkgs.plasma-applet-commandoutput
+    pkgs.plasma-applet-commandoutput
   ];
   programs.plasma = {
     configFile = {

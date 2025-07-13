@@ -7,14 +7,14 @@
 }: let
   inherit (lib.modules) mkIf;
   inherit (std) string set;
-  initLua = (pkgs.replaceVars ./init.lua ({
+  initLua = pkgs.replaceVars ./init.lua ({
       base16ShellPath = config.base16.shell.package;
       catppuccin_flavour = config.catppuccin.flavor;
       inherit (config.base16) defaultSchemeName;
       defaultSchemeSlug = config.base16.defaultScheme.slug;
     }
     // set.map (_: col: string.justifyRight 2 "0" (builtins.toString col.ansiIndex))
-    (set.filter (var: _: string.hasInfix "base" var) config.base16.defaultScheme)));
+    (set.filter (var: _: string.hasInfix "base" var) config.base16.defaultScheme));
 in {
   home.sessionVariables = mkIf config.programs.neovim.enable {EDITOR = "nvim";};
   programs.neovim = {

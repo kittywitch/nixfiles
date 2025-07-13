@@ -6,20 +6,24 @@ _: let
     config,
     ...
   }: let
-    inherit (lib.lists) singleton;
     inherit (lib.attrsets) nameValuePair listToAttrs;
-      datasets = [
+    datasets = [
       "root"
       "nix"
       "games"
       "home"
       "var"
     ];
-    datasetEntry = dataset: nameValuePair (if dataset == "root" then "/" else "/${dataset}") {
-      device = "zpool/${dataset}";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-    };
+    datasetEntry = dataset:
+      nameValuePair (
+        if dataset == "root"
+        then "/"
+        else "/${dataset}"
+      ) {
+        device = "zpool/${dataset}";
+        fsType = "zfs";
+        options = ["zfsutil"];
+      };
     datasetEntries = listToAttrs (map datasetEntry datasets);
 
     drives = {
@@ -48,30 +52,32 @@ _: let
         quiet-boot
         wireless
         laptop
-          gaming
-          sdr
-          #virtualisation
-          #secureboot
+        gaming
+        sdr
+        #virtualisation
+        #secureboot
       ])
       ++ (with tree.nixos.environments; [
-          niri
+        niri
       ]);
     config = {
       home-manager.users.kat.imports =
         (with tree.home.profiles; [
-            graphical
+          graphical
         ])
         ++ (with tree.home.environments; [
-            niri
+          niri
         ]);
 
-    fileSystems = datasetEntries // {
-      "/boot" = drives.boot.result;
-    };
+      fileSystems =
+        datasetEntries
+        // {
+          "/boot" = drives.boot.result;
+        };
 
-    swapDevices = [
+      swapDevices = [
         drives.swap.result
-    ];
+      ];
 
       home-manager.users.kat = {
         wayland.windowManager.hyprland.settings.monitor = [
@@ -87,20 +93,20 @@ _: let
         extraModulePackages = [config.boot.kernelPackages.v4l2loopback.out];
       };
 
-    services.scx = {
-      enable = true;
-      package = pkgs.scx_git.full;
-      scheduler = "scx_lavd";
-    };
+      services.scx = {
+        enable = true;
+        package = pkgs.scx_git.full;
+        scheduler = "scx_lavd";
+      };
 
-        virtualisation.virtualbox.host = {
-          enable = true;
-          enableExtensionPack = true;
-          enableKvm = true;
-          addNetworkInterface = false;
-        };
+      virtualisation.virtualbox.host = {
+        enable = true;
+        enableExtensionPack = true;
+        enableKvm = true;
+        addNetworkInterface = false;
+      };
 
-    zramSwap.enable = true;
+      zramSwap.enable = true;
 
       programs.ssh.extraConfig = ''
         Host daiyousei-build

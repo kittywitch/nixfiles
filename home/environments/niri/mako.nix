@@ -5,7 +5,6 @@
   ...
 }: let
   inherit (config.base16) palette;
-  inherit (lib.modules) mkForce;
 in {
   systemd.user.services = {
     mako = {

@@ -1,5 +1,5 @@
 resource "cloudflare_record" "gmail_mx_1_aspmx" {
-  name    = var.zone_name
+  name     = var.zone_name
   priority = 1
   proxied  = false
   ttl      = 3600
@@ -9,7 +9,7 @@ resource "cloudflare_record" "gmail_mx_1_aspmx" {
 }
 
 resource "cloudflare_record" "gmail_mx_5_alt1" {
-  name    = var.zone_name
+  name     = var.zone_name
   priority = 5
   proxied  = false
   ttl      = 3600
@@ -19,7 +19,7 @@ resource "cloudflare_record" "gmail_mx_5_alt1" {
 }
 
 resource "cloudflare_record" "gmail_mx_5_alt2" {
-  name    = var.zone_name
+  name     = var.zone_name
   priority = 5
   proxied  = false
   ttl      = 3600
@@ -29,7 +29,7 @@ resource "cloudflare_record" "gmail_mx_5_alt2" {
 }
 
 resource "cloudflare_record" "gmail_mx_10_alt3" {
-  name    = var.zone_name
+  name     = var.zone_name
   priority = 10
   proxied  = false
   ttl      = 3600
@@ -38,7 +38,7 @@ resource "cloudflare_record" "gmail_mx_10_alt3" {
   zone_id  = var.zone_id
 }
 resource "cloudflare_record" "gmail_mx_10_alt4" {
-  name    = var.zone_name
+  name     = var.zone_name
   priority = 10
   proxied  = false
   ttl      = 3600
@@ -53,7 +53,7 @@ resource "cloudflare_record" "gmail_dkim" {
   ttl     = 3600
   type    = "TXT"
   value   = var.dkim
-  zone_id  = var.zone_id
+  zone_id = var.zone_id
 }
 
 resource "cloudflare_record" "gmail_spf" {
@@ -62,5 +62,5 @@ resource "cloudflare_record" "gmail_spf" {
   ttl     = 3600
   type    = "TXT"
   value   = "v=spf1 include:_spf.google.com -all"
-  zone_id  = var.zone_id
+  zone_id = var.zone_id
 }

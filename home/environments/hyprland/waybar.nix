@@ -3,136 +3,136 @@ _: {
     enable = true;
     systemd.enable = true;
     style = ''
-* {
-    border: none;
-    border-radius: 0;
-    font-family: Monaspace Krypton, monospace;
-    font-size: 13px;
-    min-height: 0;
-}
+      * {
+          border: none;
+          border-radius: 0;
+          font-family: Monaspace Krypton, monospace;
+          font-size: 13px;
+          min-height: 0;
+      }
 
-window#waybar {
-  all:unset;
-}
-
-
-.modules-left, .modules-right, .modules-center {
-  background: alpha(@base, 0.9);
-  box-shadow: 0px 0px 2px rgba(0,0,0,0.6);
-  color: @text;
-  padding: 5px;
-  margin: 2px 4px;
-  border: 1px solid @lavender;
-}
-
-tooltip {
-  background: rgba(43, 48, 59, 0.5);
-  border: 1px solid rgba(100, 114, 125, 0.5);
-}
-tooltip label {
-  color: white;
-}
-
-#workspaces {
-  border-right: 1px solid @surface2;
-}
+      window#waybar {
+        all:unset;
+      }
 
 
-#workspaces button.persistent {
-  background: @theme_unfocused_bg_color;
-  color: @subtext1;
-}
+      .modules-left, .modules-right, .modules-center {
+        background: alpha(@base, 0.9);
+        box-shadow: 0px 0px 2px rgba(0,0,0,0.6);
+        color: @text;
+        padding: 5px;
+        margin: 2px 4px;
+        border: 1px solid @lavender;
+      }
 
-#workspaces button {
-    padding: 2px 5px;
-    background: @surface0;
-    border-bottom: 3px solid transparent;
-}
+      tooltip {
+        background: rgba(43, 48, 59, 0.5);
+        border: 1px solid rgba(100, 114, 125, 0.5);
+      }
+      tooltip label {
+        color: white;
+      }
 
-#workspaces button.empty {
-  background: @crust;
-  color: @subtext1;
-}
+      #workspaces {
+        border-right: 1px solid @surface2;
+      }
 
-#workspaces button.visible {
-    background: @pink;
-    color: @theme_selected_fg_color;
-    border-bottom: 3px solid @rosewater;
-}
 
-#workspaces button.urgent {
-  background: @red;
-  color: @theme_selected_fg_color;
-}
+      #workspaces button.persistent {
+        background: @theme_unfocused_bg_color;
+        color: @subtext1;
+      }
 
-#workspaces button.active, #workspaces button.focused {
-    background: @theme_selected_bg_color;
-    color: @theme_selected_fg_color;
-    border-bottom: 3px solid white;
-}
+      #workspaces button {
+          padding: 2px 5px;
+          background: @surface0;
+          border-bottom: 3px solid transparent;
+      }
 
-#window {
-  padding: 0 10px;
-}
+      #workspaces button.empty {
+        background: @crust;
+        color: @subtext1;
+      }
 
-window#waybar.empty #window {
-  padding: 0px;
-  margin: 0px;
-}
+      #workspaces button.visible {
+          background: @pink;
+          color: @theme_selected_fg_color;
+          border-bottom: 3px solid @rosewater;
+      }
 
-#mode, #clock, #battery, #idle_inhibitor, #tray, #wireplumber, #bluetooth, #backlight, #mpris {
-    padding: 0 5px;
-    margin: 0 5px;
-}
+      #workspaces button.urgent {
+        background: @red;
+        color: @theme_selected_fg_color;
+      }
 
-#mpris {
-  color: @mantle;
-}
+      #workspaces button.active, #workspaces button.focused {
+          background: @theme_selected_bg_color;
+          color: @theme_selected_fg_color;
+          border-bottom: 3px solid white;
+      }
 
-#mpris.playing {
-  background-color: @lavender;
-}
+      #window {
+        padding: 0 10px;
+      }
 
-#mpris.paused {
-  background-color: @mauve;
-}
+      window#waybar.empty #window {
+        padding: 0px;
+        margin: 0px;
+      }
 
-#mpris.stopped {
-  background-color: @rosewater;
-}
+      #mode, #clock, #battery, #idle_inhibitor, #tray, #wireplumber, #bluetooth, #backlight, #mpris {
+          padding: 0 5px;
+          margin: 0 5px;
+      }
 
-#mode {
-    background: #64727D;
-    border-bottom: 3px solid white;
-}
+      #mpris {
+        color: @mantle;
+      }
 
-#clock {
-}
+      #mpris.playing {
+        background-color: @lavender;
+      }
 
-#battery {
-}
+      #mpris.paused {
+        background-color: @mauve;
+      }
 
-#battery.charging {
-    color: white;
-    background-color: #26A65B;
-}
+      #mpris.stopped {
+        background-color: @rosewater;
+      }
 
-@keyframes blink {
-    to {
-        background-color: #ffffff;
-        color: black;
-    }
-}
+      #mode {
+          background: #64727D;
+          border-bottom: 3px solid white;
+      }
 
-#battery.warning:not(.charging) {
-    background: #f53c3c;
-    color: white;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: steps(12);
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
+      #clock {
+      }
+
+      #battery {
+      }
+
+      #battery.charging {
+          color: white;
+          background-color: #26A65B;
+      }
+
+      @keyframes blink {
+          to {
+              background-color: #ffffff;
+              color: black;
+          }
+      }
+
+      #battery.warning:not(.charging) {
+          background: #f53c3c;
+          color: white;
+          animation-name: blink;
+          animation-duration: 0.5s;
+          animation-timing-function: steps(12);
+          animation-iteration-count: infinite;
+          animation-direction: alternate;
+      }
     '';
     settings.main = {
       layer = "top";
@@ -149,7 +149,6 @@ window#waybar.empty #window {
         "clock"
         "mpris"
       ];
-
 
       modules-right = [
         "privacy"

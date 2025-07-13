@@ -1,7 +1,7 @@
-{ config, lib, ... }: let
-  inherit (lib.attrsets) listToAttrs nameValuePair;
-  inherit (lib.modules) mkMerge;
-in {
+{
+  lib,
+  ...
+}: {
   programs.firefox.profiles.main = {
     containersForce = true;
     containers = {
@@ -31,4 +31,3 @@ in {
     };
   };
 }
-

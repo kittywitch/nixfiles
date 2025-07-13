@@ -1,10 +1,11 @@
-{pkgs, ... }: {
+{pkgs, ...}: {
   programs.envision = {
     enable = true;
     openFirewall = true; # This is set true by default
   };
 
-  /*services.wivrn = {
+  /*
+    services.wivrn = {
     enable = true;
     openFirewall = true;
     package = pkgs.wivrn.override { cudaSupport = true; };
@@ -30,7 +31,8 @@
         #];
       };
     };
-  };*/
+  };
+  */
 
   environment.systemPackages = with pkgs; [
     wlx-overlay-s
@@ -39,7 +41,7 @@
   ];
 
   networking.firewall = {
-    allowedTCPPorts = [ 9757 ];
-    allowedUDPPorts = [ 9757 ];
+    allowedTCPPorts = [9757];
+    allowedUDPPorts = [9757];
   };
 }

@@ -1,11 +1,15 @@
-{pkgs, nur, ...}: let
+{
+  pkgs,
+  nur,
+  ...
+}: let
   defaultFont = "Monaspace Krypton";
 in {
   home.sessionVariables = {
     BROWSER = "firefox";
   };
 
-  home.packages = [ pkgs.ff2mpv-rust ];
+  home.packages = [pkgs.ff2mpv-rust];
   programs.firefox = {
     nativeMessagingHosts = [
       pkgs.ff2mpv-rust

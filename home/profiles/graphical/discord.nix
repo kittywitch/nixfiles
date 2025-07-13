@@ -2,9 +2,7 @@
   pkgs,
   lib,
   ...
-}: let
-  inherit (lib.generators) toJSON;
-in {
+}: {
   home.packages = with pkgs; [
     (discord-krisp.override {
       withOpenASAR = true;

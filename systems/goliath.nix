@@ -7,20 +7,24 @@ _: let
     inputs,
     ...
   }: let
-    inherit (lib.lists) singleton;
     inherit (lib.attrsets) nameValuePair listToAttrs;
-      datasets = [
+    datasets = [
       "root"
       "nix"
       "games"
       "home"
       "var"
     ];
-    datasetEntry = dataset: nameValuePair (if dataset == "root" then "/" else "/${dataset}") {
-      device = "zpool/${dataset}";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-    };
+    datasetEntry = dataset:
+      nameValuePair (
+        if dataset == "root"
+        then "/"
+        else "/${dataset}"
+      ) {
+        device = "zpool/${dataset}";
+        fsType = "zfs";
+        options = ["zfsutil"];
+      };
     datasetEntries = listToAttrs (map datasetEntry datasets);
 
     drives = {
@@ -40,15 +44,17 @@ _: let
       };
     };
   in {
-    imports = (with tree.nixos.profiles; [
+    imports =
+      (with tree.nixos.profiles; [
         graphical
         wireless
         gaming
       ])
       ++ (with tree.nixos.environments; [
-          #hyprland
-          niri
-      ]) ++ (with inputs.nixos-hardware.outputs.nixosModules; [
+        #hyprland
+        niri
+      ])
+      ++ (with inputs.nixos-hardware.outputs.nixosModules; [
         common-pc
         common-pc-ssd
         common-cpu-amd
@@ -62,17 +68,17 @@ _: let
         graphical
       ])
       ++ (with tree.home.environments; [
-          #hyprland
-          niri
+        #hyprland
+        niri
       ]);
 
     networking.hostId = "c3b94e85";
 
     home-manager.users.kat.programs.niri.settings = {
       outputs = {
-          "LG Electronics LG Ultra HD 0x0001AC91" = {
-            scale = 1.25;
-          };
+        "LG Electronics LG Ultra HD 0x0001AC91" = {
+          scale = 1.25;
+        };
       };
       environment = {
         NVD_BACKEND = "direct";
@@ -83,29 +89,29 @@ _: let
       };
     };
 
-      programs.ssh.extraConfig = ''
-        Host daiyousei-build
-            HostName 140.238.156.121
-            User root
-            IdentityAgent /run/user/1000/gnupg/S.gpg-agent.ssh
+    programs.ssh.extraConfig = ''
+      Host daiyousei-build
+          HostName 140.238.156.121
+          User root
+          IdentityAgent /run/user/1000/gnupg/S.gpg-agent.ssh
+    '';
+    nix = {
+      buildMachines = [
+        {
+          hostName = "daiyousei-build";
+          system = "aarch64-linux";
+          protocol = "ssh-ng";
+          maxJobs = 100;
+          speedFactor = 1;
+          supportedFeatures = ["benchmark" "big-parallel" "kvm"];
+          mandatoryFeatures = [];
+        }
+      ];
+      distributedBuilds = true;
+      extraOptions = ''
+        builders-use-substitutes = true
       '';
-      nix = {
-        buildMachines = [
-          {
-            hostName = "daiyousei-build";
-            system = "aarch64-linux";
-            protocol = "ssh-ng";
-            maxJobs = 100;
-            speedFactor = 1;
-            supportedFeatures = ["benchmark" "big-parallel" "kvm"];
-            mandatoryFeatures = [];
-          }
-        ];
-        distributedBuilds = true;
-        extraOptions = ''
-          builders-use-substitutes = true
-        '';
-      };
+    };
     services.xserver.videoDrivers = ["nvidia"];
 
     hardware.nvidia = {
@@ -134,16 +140,18 @@ _: let
         availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
       };
       kernelModules = ["nct6775" "kvm-amd"];
-        extraModulePackages = [config.boot.kernelPackages.v4l2loopback.out];
+      extraModulePackages = [config.boot.kernelPackages.v4l2loopback.out];
       supportedFilesystems = ["ntfs" "zfs"];
     };
 
-    fileSystems = datasetEntries // {
-      "/boot" = drives.boot.result;
-    };
+    fileSystems =
+      datasetEntries
+      // {
+        "/boot" = drives.boot.result;
+      };
 
     swapDevices = [
-        drives.swap.result
+      drives.swap.result
     ];
 
     environment.systemPackages = with pkgs; [

@@ -1,10 +1,6 @@
 {
-  stdenv,
   lib,
   fetchFromGitHub,
-  pkg-config,
-  cmake,
-  setuptools,
   python,
 }: let
   cppyy = python.buildPythonPackage rec {
@@ -26,4 +22,5 @@
       license = licenses.bsd3Lbnl;
     };
   };
-in cppyy
+in
+  cppyy

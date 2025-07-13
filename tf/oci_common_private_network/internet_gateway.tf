@@ -1,7 +1,7 @@
 resource "oci_core_internet_gateway" "this" {
-  display_name = "internet"
+  display_name   = "internet"
   compartment_id = var.tenancy_ocid
-  vcn_id = local.vcn.id
+  vcn_id         = local.vcn.id
 }
 
 locals {

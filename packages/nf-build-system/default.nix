@@ -5,10 +5,11 @@
   cachix,
   jq,
   nix,
-  curl
+  curl,
 }: let
   inherit (lib) makeBinPath;
-in writeShellScriptBin "nf-build-system" ''
+in
+  writeShellScriptBin "nf-build-system" ''
     export PATH="$PATH:${lib.makeBinPath [
       git
       cachix
@@ -17,4 +18,4 @@ in writeShellScriptBin "nf-build-system" ''
       curl
     ]}"
     exec ${./build-system.sh} "$@"
-''
+  ''

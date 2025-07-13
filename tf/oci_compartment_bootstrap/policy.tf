@@ -10,7 +10,7 @@ ANY { request.operation = 'CreateNetworkSecurityGroup', request.operation = 'Del
 resource "oci_identity_policy" "terraform-admin" {
   compartment_id = var.tenancy_ocid
 
-  name = "terraform-admin"
+  name        = "terraform-admin"
   description = "terraform-admin"
 
   statements = [

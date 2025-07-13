@@ -24,7 +24,7 @@ locals {
 
 resource "oci_core_instance" "that" {
   availability_domain = data.oci_identity_availability_domains.this.availability_domains.0.name
-  compartment_id = var.tenancy_ocid
+  compartment_id      = var.tenancy_ocid
   shape               = local.shapes.flex
 
   display_name         = var.flex_display_name
@@ -49,8 +49,8 @@ resource "oci_core_instance" "that" {
     assign_public_ip = true
     display_name     = var.flex_display_name
     hostname_label   = local.flex_hostname
-    nsg_ids        = [var.nsg_id]
-    subnet_id      = var.subnet_id
+    nsg_ids          = [var.nsg_id]
+    subnet_id        = var.subnet_id
   }
 
   shape_config {

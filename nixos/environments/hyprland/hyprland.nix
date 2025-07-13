@@ -1,7 +1,11 @@
-{ pkgs, inputs, ... }: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   programs.hyprland = {
     enable = true;
-    withUWSM  = true;
+    withUWSM = true;
     package = inputs.hyprland.packages."${pkgs.system}".hyprland;
     portalPackage = inputs.hyprland.packages."${pkgs.system}".xdg-desktop-portal-hyprland;
   };
@@ -14,9 +18,11 @@
   '';
 
   services.clipboard-sync.enable = true;
-  /*services.displayManager.sddm = {
+  /*
+    services.displayManager.sddm = {
     enable = true;
     package = pkgs.kdePackages.sddm;
     wayland.enable = true;
-  };*/
+  };
+  */
 }

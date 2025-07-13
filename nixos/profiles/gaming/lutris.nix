@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   ...
 }: {
   hardware.graphics = {
@@ -9,7 +8,7 @@
       driversi686Linux.mesa
     ];
   };
-programs.gamescope = {
+  programs.gamescope = {
     enable = true;
     package = pkgs.gamescope;
   };

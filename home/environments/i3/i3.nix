@@ -1,14 +1,13 @@
 {
-pkgs,
-lib,
-std,
-config,
-...
-}:
-let
+  pkgs,
+  lib,
+  std,
+  config,
+  ...
+}: let
   inherit (std) list;
   inherit (lib.modules) mkMerge;
-  inherit (lib) mkOptionDefault mkDefault mapAttrs;
+  inherit (lib) mkDefault mapAttrs;
 in {
   home.packages = with pkgs; [
     maim
@@ -18,42 +17,46 @@ in {
   ];
   services.i3gopher.enable = true;
   xsession.windowManager.i3 = let
-      modifier = "Mod4";
-      other_modifier = "Mod1";
-      mod = modifier;
-      mod2 = other_modifier;
-      runCommand = "${config.programs.rofi.finalPackage}/bin/rofi -show combi -modes combi";
-      workspaceNames = {
-        "1" = " Term";
-        "2" = " GW2";
-        "3" = " GW1";
-        "4" = " Web";
-        "11" = " IM";
-        "12" = " Web";
-        "13" = " Media";
-        "14" = " Music";
-      };
-      workspaceNamer = num: let
-        numStr = builtins.toString num;
-      in if workspaceNames ? ${numStr} then "${numStr}:${workspaceNames.${numStr}}" else "${numStr}:${numStr}";
+    modifier = "Mod4";
+    other_modifier = "Mod1";
+    mod = modifier;
+    mod2 = other_modifier;
+    runCommand = "${config.programs.rofi.finalPackage}/bin/rofi -show combi -modes combi";
+    workspaceNames = {
+      "1" = " Term";
+      "2" = " GW2";
+      "3" = " GW1";
+      "4" = " Web";
+      "11" = " IM";
+      "12" = " Web";
+      "13" = " Media";
+      "14" = " Music";
+    };
+    workspaceNamer = num: let
+      numStr = builtins.toString num;
+    in
+      if workspaceNames ? ${numStr}
+      then "${numStr}:${workspaceNames.${numStr}}"
+      else "${numStr}:${numStr}";
 
-      lockCommand = "sh -c '${pkgs.i3lock-fancy-rapid}/bin/i3lock 5 3 & sleep 5 && xset dpms force off'";
+    lockCommand = "sh -c '${pkgs.i3lock-fancy-rapid}/bin/i3lock 5 3 & sleep 5 && xset dpms force off'";
 
-      actionMode = "(l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown";
-      gapsMode = "Gaps: (o) outer, (i) inner";
-      gapsOuterMode = "Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)";
-      gapsInnerMode = "Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)";
-    in {
+    actionMode = "(l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown";
+    gapsMode = "Gaps: (o) outer, (i) inner";
+    gapsOuterMode = "Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)";
+    gapsInnerMode = "Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)";
+  in {
     enable = true;
     extraConfig = let
-        displayWorkspace = display: workspace: ''
-          workspace "${workspaceNamer (builtins.toString workspace)}" output ${display}
-        '';
-        displayBindings = list.map (v: displayWorkspace "DP-2" v) (list.range 1 9)
-          ++ [ (displayWorkspace "DP-2" 10) ]
-          ++ list.map (v: displayWorkspace "HDMI-0" (11+v)) (list.range 1 12);
-        displayBindingsStr = lib.concatLines displayBindings;
-      in ''
+      displayWorkspace = display: workspace: ''
+        workspace "${workspaceNamer (builtins.toString workspace)}" output ${display}
+      '';
+      displayBindings =
+        list.map (v: displayWorkspace "DP-2" v) (list.range 1 9)
+        ++ [(displayWorkspace "DP-2" 10)]
+        ++ list.map (v: displayWorkspace "HDMI-0" (11 + v)) (list.range 1 12);
+      displayBindingsStr = lib.concatLines displayBindings;
+    in ''
       ${displayBindingsStr}
       for_window [class="^steam_app_default$"] floating enable, fullscreen disable, resize set width 3840 px height 2132 px, move position center, border pixel 1
     '';
@@ -70,8 +73,14 @@ in {
       };
 
       startup = [
-        { command = "~/.screenlayout/main.sh"; notification = false; }
-        { command = "blueman-applet"; notification = false; }
+        {
+          command = "~/.screenlayout/main.sh";
+          notification = false;
+        }
+        {
+          command = "blueman-applet";
+          notification = false;
+        }
       ];
 
       keybindings = let
@@ -107,7 +116,8 @@ in {
           "${mod}+Shift+g" = ''mode "${gapsMode}"'';
           "${mod}+Delete" = ''mode "${actionMode}"'';
         };
-      in mkMerge (map mapDefaultAttrs ([ normalBindings  ] ++ workspaceBindings));
+      in
+        mkMerge (map mapDefaultAttrs ([normalBindings] ++ workspaceBindings));
 
       assigns = {
         ${workspaceNamer 2} = [
@@ -255,7 +265,7 @@ in {
             focusedStatusline = "$text";
             focusedSeparator = "$base";
             focusedWorkspace = {
-              border ="$base";
+              border = "$base";
               background = "$mauve";
               text = "$crust";
             };

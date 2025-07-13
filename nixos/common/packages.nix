@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
-    environment.systemPackages = [
-        pkgs.magic-wormhole
-    ];
+{pkgs, ...}: {
+  environment.systemPackages = [
+    pkgs.magic-wormhole
+  ];
 }
