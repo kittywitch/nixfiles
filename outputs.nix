@@ -6,15 +6,17 @@
   systems = import ./systems {inherit inputs tree lib std pkgs;};
   shells = import ./shells {inherit inputs tree lib std pkgs;};
   inherit (import ./pkgs.nix {inherit inputs tree overlay;}) pkgs;
-  formatter = import ./formatter.nix {inherit inputs pkgs;};
+  formatting = import ./formatting.nix {inherit inputs pkgs;};
   wrappers = import ./wrappers {inherit inputs;};
   inherit (std) set;
   checks = set.map (_: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
 in
   {
-    inherit inputs tree std pkgs formatter lib checks;
+    inherit inputs tree std pkgs lib;
     legacyPackages = pkgs;
     packages = set.merge [pkgs wrappers.packages];
+    checks = checks // formatting.checks;
+    formatter = formatting.formatter;
   }
   // systems
   // shells

@@ -28,7 +28,7 @@ in {
     enable = true;
     syntaxHighlighting.enable = true;
     autosuggestion.enable = true;
-    initExtra = let
+    initContent = let
       zshOpts = [
         "auto_pushd"
         "pushd_ignore_dups"

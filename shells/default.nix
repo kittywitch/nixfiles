@@ -8,7 +8,7 @@
 }: let
   inherit (std) set;
 in
-  inputs.utils.lib.eachDefaultSystem (system: {
+  inputs.flake-utils.lib.eachDefaultSystem (system: {
     devShells = let
       shells = set.map (_: path:
         import path {

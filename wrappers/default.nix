@@ -1,5 +1,5 @@
 {inputs, ...} @ args:
-inputs.utils.lib.eachDefaultSystem (system: let
+inputs.flake-utils.lib.eachDefaultSystem (system: let
   newArgs = args // {inherit system;};
 in {
   packages = {

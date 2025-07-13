@@ -54,11 +54,7 @@ _: let
           #secureboot
       ])
       ++ (with tree.nixos.environments; [
-      #sway
-        #xfce
-            #openbox
-          hyprland
-          #gnome
+          niri
       ]);
     config = {
       home-manager.users.kat.imports =
@@ -66,10 +62,7 @@ _: let
             graphical
         ])
         ++ (with tree.home.environments; [
-        #xfce
-        #sway
-          hyprland
-            #gnome
+            niri
         ]);
 
     fileSystems = datasetEntries // {

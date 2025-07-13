@@ -1,6 +1,9 @@
 {
   description = "Kat's Infrastructure";
   inputs = {
+    rust-overlay.url = "github:oxalica/rust-overlay";
+    rust.url = "github:arcnmx/nixexprs-rust";
+    treefmt-nix.url = "github:numtide/treefmt-nix";
     lix-module = {
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.2-1.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -8,6 +11,7 @@
     systems.url = "github:nix-systems/default";
     # TODO: https://github.com/catppuccin/nix/issues/601
     catppuccin.url = "github:catppuccin/nix";#/194881dd2ad6303bc2d49f9ce484d127372d7465";
+    flake-parts.url = "github:hercules-ci/flake-parts";
     # to allow non-nix 2.4 evaluation
     flake-compat = {
       url = "github:edolstra/flake-compat";
@@ -20,12 +24,6 @@
     };
     nix-gaming.url = "github:fufexan/nix-gaming";
 
-    hyprland = {
-      url = "github:hyprwm/Hyprland/v0.49.0";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
     # used for overriding unwanted flake inputs
     empty.url = "github:input-output-hk/empty-flake";
     # self-explanatory
@@ -87,26 +85,30 @@
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
 
-      # Optional but recommended to limit the size of your system closure.
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "utils";
         flake-compat.follows = "flake-compat";
       };
+    };
+    catppuccin-qtct = {
+      type = "github";
+      owner = "catppuccin";
+      repo = "qt5ct";
+      flake = false;
     };
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     push2talk = {
       url = "github:cyrinux/push2talk/main";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "utils";
+        flake-utils.follows = "flake-utils";
       };
     };
     wezterm = {
       url = "github:wez/wezterm/main?dir=nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "utils";
+        flake-utils.follows = "flake-utils";
       };
     };
     ci = {
@@ -127,7 +129,7 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         nixpkgs.follows = "nixpkgs";
-        utils.follows = "utils";
+        utils.follows = "flake-utils";
       };
     };
     # self-explanatory
@@ -147,19 +149,10 @@
       url = "github:cmacrae/spacebar/v1.4.0";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "utils";
+        flake-utils.follows = "flake-utils";
       };
     };
-    # WSL host
-    wsl = {
-      url = "github:nix-community/NixOS-WSL";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "utils";
-        flake-compat.follows = "flake-compat";
-      };
-    };
-    utils = {
+    flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
     };
@@ -177,7 +170,7 @@
       url = "github:kittywitch/konawall-py";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "utils";
+        flake-utils.follows = "flake-utils";
       };
     };
     # hardware quirks
@@ -187,7 +180,6 @@
       url = "github:Mic92/sops-nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        nixpkgs-stable.follows = "nixpkgs";
       };
     };
     # pre-computed nix-index
@@ -199,7 +191,7 @@
       url = "github:Infinidoge/nix-minecraft";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "utils";
+        flake-utils.follows = "flake-utils";
         flake-compat.follows = "flake-compat";
       };
     };
