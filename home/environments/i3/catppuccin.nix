@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   ...
 }: let
   inherit (config.catppuccin) sources;

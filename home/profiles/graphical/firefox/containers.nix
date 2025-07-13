@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}: {
+_: {
   programs.firefox.profiles.main = {
     containersForce = true;
     containers = {

@@ -27,14 +27,7 @@ with pkgs; let
         repo.darwinConfigurations);
     shellHook = ''
       export CI_PLATFORM="impure"
-      sops
       echo -e "\e[39m\e[1m$USER@$REPO_HOSTNAME - \e[35m''$(realpath --relative-to=../ ./nixos/)\e[0m"
-      echo -e "\e[35mRunning alejandra\e[0m"
-      alejandra -cq $(fd -e nix)
-      echo -e "\e[35mRunning statix\e[0m"
-      statix check
-      echo -e "\e[35mRunning deadnix\e[0m"
-      deadnix
     '';
   };
 in
