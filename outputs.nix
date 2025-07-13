@@ -14,7 +14,7 @@ in
   {
     inherit inputs tree std pkgs lib;
     legacyPackages = pkgs;
-    packages = set.merge [pkgs wrappers.packages];
+    #packages = set.merge [pkgs wrappers.packages];
     checks = checks // formatting.checks;
     inherit (formatting) formatter;
   }

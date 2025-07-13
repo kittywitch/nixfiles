@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   inputs,
@@ -181,8 +182,6 @@ in {
       gnomeShellTheme = mkForce false;
     };
   };
-  dconf.settings = mkForce {};
-  gtk.enable = true;
   # https://git.gay/olivia/fur/src/branch/main/modules/home/theming/qt/default.nix
   qt = {
     enable = true;

@@ -1,5 +1,5 @@
 {inputs, ...}: let
-  inherit (inputs.std.lib) string set;
+  inherit (inputs.std.lib.Std.compat) string set;
   inherit (inputs.self) systems;
   enabledNixosSystems = set.filter (_: system: system.config.ci.enable && system.config.type == "NixOS") systems;
 in {

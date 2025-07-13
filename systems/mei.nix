@@ -13,9 +13,6 @@ _: let
       ])
       ++ (with tree.nixos.hardware; [
         oracle_micro
-      ])
-      ++ (with tree.nixos.servers; [
-        rustdesk
       ]);
 
     system.stateVersion = "23.11";

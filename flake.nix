@@ -1,41 +1,94 @@
 {
   description = "Kat's Infrastructure";
   inputs = {
-    rust-overlay.url = "github:oxalica/rust-overlay";
-    rust.url = "github:arcnmx/nixexprs-rust";
-    treefmt-nix.url = "github:numtide/treefmt-nix";
+    nixpkgs-lib.url = "github:nix-community/nixpkgs.lib";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    rust = {
+      url = "github:arcnmx/nixexprs-rust";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     lix-module = {
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.2-1.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
     };
     systems.url = "github:nix-systems/default";
     # TODO: https://github.com/catppuccin/nix/issues/601
-    catppuccin.url = "github:catppuccin/nix"; #/194881dd2ad6303bc2d49f9ce484d127372d7465";
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs-lib";
+    };
     # to allow non-nix 2.4 evaluation
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
     };
-    rbw-bitw.url = "github:arcnmx/rbw/bitw-v1.12.x";
+    rbw-bitw = {
+      url = "github:arcnmx/rbw/bitw-v1.12.x";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flakelib.follows = "flakelib";
+        rust.follows = "rust";
+      };
+    };
     # better than nixpkgs.lib
-    std = {
+    nix-std = {
       url = "github:chessai/nix-std";
     };
-    nix-gaming.url = "github:fufexan/nix-gaming";
-
+    nix-gaming = {
+      url = "github:fufexan/nix-gaming";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
     # used for overriding unwanted flake inputs
     empty.url = "github:input-output-hk/empty-flake";
     # self-explanatory
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
-    clipboard-sync.url = "github:dnut/clipboard-sync";
-    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
+    clipboard-sync = {
+      url = "github:dnut/clipboard-sync";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    nixpkgs-xr = {
+      url = "github:nix-community/nixpkgs-xr";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        flake-compat.follows = "flake-compat";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
     infrastructure = {
       url = "github:gensokyo-zone/infrastructure/main";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        nixpkgs-2405.follows = "empty";
         arcexprs.follows = "arcexprs";
         flakelib.follows = "flakelib";
         sops-nix.follows = "sops-nix";
@@ -43,22 +96,53 @@
         flake-utils.follows = "empty";
         website.follows = "empty";
         ci.follows = "empty";
+        systemd2mqtt.follows = "empty";
         deploy-rs.follows = "empty";
         flake-compat.follows = "empty";
         barcodebuddy.follows = "empty";
+        tree.follows = "tree";
       };
     };
     nixos-cli = {
       type = "github";
       owner = "nix-community";
       repo = "nixos-cli";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+        nix-options-doc.follows = "empty";
+      };
     };
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    chaotic = {
+      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        rust-overlay.follows = "rust-overlay";
+        home-manager.follows = "home-manager";
+      };
+    };
+    flake-utils-plus = {
+      url = "github:gytis-ivaskevicius/flake-utils-plus";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+      };
+    };
     solaar = {
       # ewww flakehub ;;
       url = "https://flakehub.com/f/Svenum/Solaar-flake/*.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+        snowfall-lib.follows = "snowfall-lib";
+      };
+    };
+    snowfall-lib = {
+        url = "github:snowfallorg/lib";
+        inputs = {
+          nixpkgs.follows = "nixpkgs";
+          flake-utils-plus.follows = "flake-utils-plus";
+          flake-compat.follows = "flake-compat";
+        };
     };
     nh = {
       url = "github:nix-community/nh";
@@ -69,25 +153,25 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nixpkgs-stable.follows = "nixpkgs";
+        niri-stable.follows = "empty";
+        xwayland-satellite-stable.follows = "empty";
       };
     };
     moonlight = {
       url = "github:moonlight-mod/moonlight";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hyprlock = {
-      url = "github:hyprwm/hyprlock";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
+        flake-utils.follows = "flake-utils";
       };
     };
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
 
       inputs = {
+        flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
+        rust-overlay.follows = "rust-overlay";
       };
     };
     catppuccin-qtct = {
@@ -96,12 +180,25 @@
       repo = "qt5ct";
       flake = false;
     };
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs = {
+        systems.follows = "systems";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    naersk = {
+      url = "github:nix-community/naersk";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     push2talk = {
       url = "github:cyrinux/push2talk/main";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
+        naersk.follows = "naersk";
       };
     };
     wezterm = {
@@ -109,19 +206,20 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
+        rust-overlay.follows = "rust-overlay";
       };
     };
     ci = {
       url = "github:arcnmx/ci/v0.7";
       flake = false;
     };
-    flakelibstd = {
+    std = {
       url = "github:flakelib/std";
-      inputs.nix-std.follows = "std";
+      inputs.nix-std.follows = "nix-std";
     };
     flakelib = {
       url = "github:flakelib/fl";
-      inputs.std.follows = "flakelibstd";
+      inputs.std.follows = "std";
     };
     # deployments
     deploy-rs = {
@@ -144,23 +242,40 @@
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # status bar
-    spacebar = {
-      url = "github:cmacrae/spacebar/v1.4.0";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
-    };
     flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
     };
-    neorg-overlay.url = "github:nvim-neorg/nixpkgs-neorg-overlay";
+    neorg-overlay = {
+      url = "github:nvim-neorg/nixpkgs-neorg-overlay";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        norg.follows = "norg";
+        norg-meta.follows = "norg-meta";
+      };
+    };
+    norg = {
+      url = "github:kittywitch/tree-sitter-norg/dev";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+    norg-meta = {
+      url = "github:kittywitch/tree-sitter-norg-meta";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        flake-compat.follows = "flake-compat";
+      };
+    };
     # file structure -> attrset
     tree = {
       url = "github:kittywitch/tree";
       inputs = {
+        nix-std.follows = "nix-std";
         std.follows = "std";
         nixpkgs.follows = "nixpkgs";
       };
@@ -197,7 +312,7 @@
     };
     # a bunch of modules (also arcnmx is good)
     arcexprs = {
-      url = "github:arcnmx/nixexprs/master";
+      url = "github:kittywitch/arcexprs/master";
     };
     base16 = {
       url = "github:arcnmx/base16.nix/flake";
@@ -214,15 +329,14 @@
         flakelib.follows = "flakelib";
       };
     };
-    # plasma manager
-    plasma-manager = {
-      url = "github:pjones/plasma-manager";
+    nur = {
+      url = "github:nix-community/NUR";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
+        treefmt-nix.follows = "treefmt-nix";
+        flake-parts.follows = "flake-parts";
       };
     };
-    nur.url = "github:nix-community/NUR";
   };
   outputs = inputs: import ./outputs.nix {inherit inputs;};
 }

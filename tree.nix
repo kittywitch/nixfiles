@@ -109,7 +109,6 @@
         external = with inputs;
           [
             nix-index-database.hmModules.nix-index
-            plasma-manager.homeManagerModules.plasma-manager
             base16.homeModules.base16
             catppuccin.homeModules.catppuccin
             inputs.sops-nix.homeManagerModules.sops

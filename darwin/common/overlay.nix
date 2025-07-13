@@ -5,7 +5,6 @@
 }: {
   nixpkgs = {
     overlays = [
-      inputs.spacebar.overlay.${system}
     ];
   };
 }

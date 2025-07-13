@@ -4,10 +4,5 @@ _: let
     sopsFile = ./secrets.yaml;
   };
 in {
-  sops.secrets.cloudflare_email = secretConfig;
-  sops.secrets.cloudflare_api_key = secretConfig;
-
-  scalpels = [
-    ./scalpel.nix
-  ];
+  sops.secrets.acme_credentials = secretConfig;
 }

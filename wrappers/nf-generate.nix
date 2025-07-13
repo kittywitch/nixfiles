@@ -7,7 +7,7 @@
   exportFile = import ./exports.nix args;
   inherit (exportFile) exports;
   inherit (lib.strings) makeBinPath;
-  inherit (inputs.std.lib) string;
+  inherit (inputs.std.lib.Std.compat) string;
   inherit (inputs.self.legacyPackages.${system}) pkgs;
   inherit (import ../ci/nix.nix) ci;
   nf-generate = pkgs.writeShellScriptBin "nf-generate" ''

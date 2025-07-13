@@ -15,7 +15,7 @@ in {
         enable = true;
       };
     };
-    scripts = with pkgs.weechatScripts; [
+    scripts = with inputs.arcexprs.legacyPackages.${pkgs.system}.weechatScripts; with pkgs.weechatScripts; [
       colorize_nicks
       title
       weechat-go
