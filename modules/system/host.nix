@@ -107,17 +107,7 @@ in {
               }
               // args);
         in
-          args: let
-            nixos = sys args;
-          in
-            nixos.extendModules {
-              modules =
-                nixos.config.scalpels
-                ++ [
-                  inputs.scalpel.nixosModules.scalpel
-                ];
-              specialArgs = {prev = nixos;};
-            };
+          args: sys args;
         home = args: let
           renamedArgs = set.rename "specialArgs" "extraSpecialArgs" args;
           renamedArgsWithPkgs =

@@ -1,12 +1,20 @@
 {
-  wrapShellScriptBin,
-  pkgs,
-}:
-wrapShellScriptBin "nf-update" ./update.sh {
-  depsRuntimePath = with pkgs; [
-    git
-    cachix
-    jq
-    curl
-  ];
-}
+  lib,
+  writeShellScriptBin,
+  git,
+  cachix,
+  jq,
+  nix,
+  curl
+}: let
+  inherit (lib) makeBinPath;
+in writeShellScriptBin "nf-update" ''
+    export PATH="$PATH:${lib.makeBinPath [
+      git
+      cachix
+      jq
+      nix
+      curl
+    ]}"
+    exec ${./update.sh} "$@"
+''

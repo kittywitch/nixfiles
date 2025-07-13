@@ -1,13 +1,20 @@
 {
-  wrapShellScriptBin,
-  pkgs,
-}:
-wrapShellScriptBin "nf-build-system" ./build-system.sh {
-  depsRuntimePath = with pkgs; [
-    git
-    cachix
-    jq
-    nix
-    curl
-  ];
-}
+  lib,
+  writeShellScriptBin,
+  git,
+  cachix,
+  jq,
+  nix,
+  curl
+}: let
+  inherit (lib) makeBinPath;
+in writeShellScriptBin "nf-build-system" ''
+    export PATH="$PATH:${lib.makeBinPath [
+      git
+      cachix
+      jq
+      nix
+      curl
+    ]}"
+    exec ${./build-system.sh} "$@"
+''

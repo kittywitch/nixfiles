@@ -10,7 +10,8 @@ in {
     enable = true;
     scripts = with pkgs.mpvScripts; [
       sponsorblock
-      paused
+      mpris
+      uosc
     ];
     config = {
       profile = "gpu-hq";

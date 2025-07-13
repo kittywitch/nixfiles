@@ -4,7 +4,7 @@
     htop
     btop
     # disk usage
-    duc-cli
+    duc
     # nix formatting
     nixpkgs-fmt
     # show type of files

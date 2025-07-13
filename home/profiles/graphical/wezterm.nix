@@ -7,29 +7,28 @@
     enable = true;
     package = inputs.wezterm.outputs.packages.${pkgs.system}.default;
     extraConfig = ''
-            local wezterm = require 'wezterm';
-            return {
-              font = wezterm.font_with_fallback({
-        "Monaspace Krypton",
-        -- <built-in>, BuiltIn
-        "JetBrains Mono",
-
-        -- /nix/store/mc76mhlam0rggcgx3z695025phl07pi1-noto-fonts-color-emoji-2.042/share/fonts/noto/NotoColorEmoji.ttf, FontConfig
-        -- Assumed to have Emoji Presentation
-        -- Pixel sizes: [128]
-        "Noto Color Emoji",
-
-        -- <built-in>, BuiltIn
-        "Symbols Nerd Font Mono",
-
-      }),
-      window_decorations = "TITLE | RESIZE",
-      enable_wayland = false,
-      warn_about_missing_glyphs = false,
-              font_size = 12.0,
-              check_for_updates = false,
-              enable_tab_bar = false
-            }
+          local wezterm = require 'wezterm';
+          local config = {}
+          config.font = wezterm.font_with_fallback({
+                    "Monaspace Krypton",
+                    "JetBrains Mono",
+                    "Noto Color Emoji",
+                    "Symbols Nerd Font Mono",
+          })
+          config.window_padding = {
+            left = 8,
+            right = 8,
+            top = 8,
+            bottom = 8,
+          }
+          config.use_fancy_tab_bar = true
+          config.tab_bar_at_bottom = true
+          config.hide_mouse_cursor_when_typing = false
+          config.window_decorations = "TITLE | RESIZE"
+          config.warn_about_missing_glyphs = false
+          config.font_size = 12.0
+          config.check_for_updates = false
+          return config
     '';
   };
 }

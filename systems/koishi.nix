@@ -45,6 +45,7 @@ _: let
       ])
       ++ (with tree.nixos.profiles; [
         graphical
+        quiet-boot
         wireless
         laptop
           gaming
@@ -78,9 +79,6 @@ _: let
     swapDevices = [
         drives.swap.result
     ];
-    boot.loader = {
-      systemd-boot.enable = lib.mkForce false;
-    };
 
       home-manager.users.kat = {
         wayland.windowManager.hyprland.settings.monitor = [
@@ -88,7 +86,10 @@ _: let
         ];
       };
       boot = {
-        loader.grub.useOSProber = true;
+        loader = {
+          grub.useOSProber = true;
+          systemd-boot.enable = lib.mkForce false;
+        };
         extraModprobeConfig = "options snd_hda_intel power_save=0";
         extraModulePackages = [config.boot.kernelPackages.v4l2loopback.out];
       };

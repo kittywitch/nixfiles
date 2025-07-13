@@ -54,9 +54,6 @@ ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
     };
     xwayland.enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    plugins = [
-      inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
-    ];
     settings = {
       # TODO: break it up
       windowrule = let
@@ -128,12 +125,6 @@ ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
         "legcord --enable-features=WaylandLinuxDrmSyncobj,UseOzonePlatform --ozone-platform=wayland"
         "spotify --enable-features=WaylandLinuxDrmSyncobj,UseOzonePlatform --ozone-platform=wayland"
       ];
-      plugin.split-monitor-workspaces = {
-        count = 10;
-        keep_focused = 0;
-        enable_notifications = 0;
-        enable_persistent_workspaces = 1;
-      };
       group.groupbar = {
         font_family = "Monaspace Krypton";
         font_size = 12;
@@ -239,9 +230,6 @@ ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
                 "$mod SHIFT, F${if ws == "0" then "10" else ws}, movetoworkspacesilent, ${toString (x + 11)}"
   
                 "$mod ALT, ${ws}, split-workspace, ${toString (x + 1)}"
-                "$mod SHIFT ALT, ${ws}, split-movetoworkspacesilent, ${toString (x + 1)}"
-                "$mod ALT, F${if ws == "0" then "10" else ws}, split-workspace, ${toString (x + 11)}"
-                "$mod SHIFT ALT, F${if ws == "0" then "10" else ws}, split-movetoworkspacesilent, ${toString (x + 11)}"
               ]
             )
             10)

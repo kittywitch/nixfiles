@@ -89,6 +89,9 @@
           inputs.nix-gaming.nixosModules.pipewireLowLatency
           inputs.nix-gaming.nixosModules.platformOptimizations
           inputs.clipboard-sync.nixosModules.default
+          inputs.niri.nixosModules.niri
+          inputs.lix-module.nixosModules.default
+          inputs.nixos-cli.nixosModules.nixos-cli
         ];
       };
     };
@@ -108,7 +111,7 @@
             nix-index-database.hmModules.nix-index
             plasma-manager.homeManagerModules.plasma-manager
             base16.homeModules.base16
-            catppuccin.homeManagerModules.catppuccin
+            catppuccin.homeModules.catppuccin
             inputs.sops-nix.homeManagerModules.sops
             chaotic.homeManagerModules.default
             spicetify-nix.homeManagerModules.spicetify

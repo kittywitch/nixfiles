@@ -4,6 +4,7 @@ _: let
     lib,
     pkgs,
     tree,
+    inputs,
     ...
   }: let
     inherit (lib.lists) singleton;
@@ -45,7 +46,15 @@ _: let
         gaming
       ])
       ++ (with tree.nixos.environments; [
-        hyprland
+          #hyprland
+          niri
+      ]) ++ (with inputs.nixos-hardware.outputs.nixosModules; [
+        common-pc
+        common-pc-ssd
+        common-cpu-amd
+        common-cpu-amd-pstate
+        common-cpu-amd-zenpower
+        common-gpu-nvidia-nonprime
       ]);
 
     home-manager.users.kat.imports =
@@ -53,25 +62,25 @@ _: let
         graphical
       ])
       ++ (with tree.home.environments; [
-        hyprland
+          #hyprland
+          niri
       ]);
 
     networking.hostId = "c3b94e85";
 
-  home-manager.users.kat.wayland.windowManager.hyprland.settings = {
-      monitor = [
-    "DP-2, 3840x2160, 0x0, 1"
-    "HDMI-A-1, 1920x1080, auto-right, 1"
-      ];
-      env = [
-        "NVD_BACKEND,direct"
-        "ELECTRON_OZONE_PLATFORM_HINT,auto"
-        "LIBVA_DRIVER_NAME,nvidia"
-        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-        "NIXOS_OZONE_WL,1"
-        "__NV_DISABLE_EXPLICIT_SYNC,1"
-        "QT_QPA_PLATFORM,wayland;xcb"
-      ];
+    home-manager.users.kat.programs.niri.settings = {
+      outputs = {
+          "LG Electronics LG Ultra HD 0x0001AC91" = {
+            scale = 1.25;
+          };
+      };
+      environment = {
+        NVD_BACKEND = "direct";
+        ELECTRON_OZONE_PLATFORM_HINT = "auto";
+        LIBVA_DRIVER_NAME = "nvidia";
+        NIXOS_OZONE_WL = "1";
+        QT_QTA_PLATFORM = "wayland;xcb";
+      };
     };
 
       programs.ssh.extraConfig = ''

@@ -3,6 +3,7 @@
   config,
   lib,
   std,
+  inputs,
   pkgs,
   ...
 }: let
@@ -119,7 +120,7 @@ in {
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=3,bold";
       ZSH_AUTOSUGGEST_USE_ASYNC = 1;
     };
-    plugins = with pkgs.zsh-plugins; (list.map (plugin: plugin.zshPlugin) [
+    plugins = with inputs.arcexprs.legacyPackages.${pkgs.system}.zsh-plugins; (list.map (plugin: plugin.zshPlugin) [
       tab-title
       vim-mode
       evil-registers

@@ -1,8 +1,4 @@
-{inputs, pkgs, ...}: {
-  programs.nh = {
-    enable = true;
-    package = inputs.nh.packages.${pkgs.system}.nh;
-  };
+{ pkgs, ...}: {
   nix = {
     gc = {
       automatic = true;
@@ -14,5 +10,9 @@
         "deploy"
       ];
     };
+    package = pkgs.lix;
+  };
+  system = {
+    rebuild.enableNg = true;
   };
 }

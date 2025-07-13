@@ -1,6 +1,10 @@
 {
   description = "Kat's Infrastructure";
   inputs = {
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.2-1.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     systems.url = "github:nix-systems/default";
     # TODO: https://github.com/catppuccin/nix/issues/601
     catppuccin.url = "github:catppuccin/nix";#/194881dd2ad6303bc2d49f9ce484d127372d7465";
@@ -14,17 +18,13 @@
     std = {
       url = "github:chessai/nix-std";
     };
-      nix-gaming.url = "github:fufexan/nix-gaming";
+    nix-gaming.url = "github:fufexan/nix-gaming";
 
     hyprland = {
       url = "github:hyprwm/Hyprland/v0.49.0";
       inputs = {
         nixpkgs.follows = "nixpkgs";
       };
-    };
-    split-monitor-workspaces = {
-      url = "github:Duckonaut/split-monitor-workspaces";
-      inputs.hyprland.follows = "hyprland"; # <- make sure this line is present for the plugin to work as intended
     };
     # used for overriding unwanted flake inputs
     empty.url = "github:input-output-hk/empty-flake";
@@ -50,6 +50,12 @@
         barcodebuddy.follows = "empty";
       };
     };
+    nixos-cli = {
+      type = "github";
+      owner = "nix-community";
+      repo = "nixos-cli";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     solaar = {
       # ewww flakehub ;;
@@ -60,7 +66,13 @@
       url = "github:nix-community/nh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs";
+      };
+    };
     moonlight = {
       url = "github:moonlight-mod/moonlight";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -176,15 +188,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nixpkgs-stable.follows = "nixpkgs";
-      };
-    };
-    # secrets templating
-    scalpel = {
-      url = "github:kittywitch/scalpel";
-      inputs = {
-        flake-utils.follows = "utils";
-        nixpkgs.follows = "nixpkgs";
-        sops-nix.follows = "sops-nix";
       };
     };
     # pre-computed nix-index
