@@ -1325,11 +1325,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1752404418,
-        "narHash": "sha256-uf5+w/i0w+2VbNEll9ZRxYSfAbfBC+xfmKjjgREiPro=",
+        "lastModified": 1752404984,
+        "narHash": "sha256-5UGgP+bym2awH/x+qsE9J87k+epfhT8Hk1ADiIP9CZM=",
         "owner": "kittywitch",
         "repo": "konawall-py",
-        "rev": "9ca077bc1ebc2d0a36176716950db719e9e075c0",
+        "rev": "44723fe32d988855087fd9f178a264f0b5aabf15",
         "type": "github"
       },
       "original": {

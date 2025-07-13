@@ -12,7 +12,7 @@ with pkgs; let
       [
         nf-build-system
         nf-update
-        nix
+        lix
         fd # fd, better fine!
         ripgrep # rg, better grep!
         sops
