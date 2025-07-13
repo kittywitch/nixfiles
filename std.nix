@@ -1,6 +1,6 @@
 {inputs, ...}: let
   std = let
-    baseStd = inputs.std.lib.Std.compat // { inherit (inputs.std.lib.Std.std) tuple; };
+    baseStd = inputs.std.lib.Std.compat // {inherit (inputs.std.lib.Std.std) tuple;};
     inherit (baseStd) set function list bool types optional tuple;
     mergeWith = let
       append = {

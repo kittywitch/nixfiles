@@ -1,7 +1,4 @@
-{
-  config,
-  ...
-}: {
+{config, ...}: {
   catppuccin.cursors.enable = true;
   home.pointerCursor = {
     dotIcons.enable = true;

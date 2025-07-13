@@ -137,12 +137,12 @@
       };
     };
     snowfall-lib = {
-        url = "github:snowfallorg/lib";
-        inputs = {
-          nixpkgs.follows = "nixpkgs";
-          flake-utils-plus.follows = "flake-utils-plus";
-          flake-compat.follows = "flake-compat";
-        };
+      url = "github:snowfallorg/lib";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils-plus.follows = "flake-utils-plus";
+        flake-compat.follows = "flake-compat";
+      };
     };
     nh = {
       url = "github:nix-community/nh";

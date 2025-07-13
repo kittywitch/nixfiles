@@ -1,8 +1,4 @@
-{
-  inputs,
-  system,
-  ...
-}: {
+_: {
   nixpkgs = {
     overlays = [
     ];

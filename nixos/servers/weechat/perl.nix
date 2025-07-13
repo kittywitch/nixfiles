@@ -1,11 +1,16 @@
-{pkgs, inputs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   home-manager.users.kat.programs.weechat = {
     plugins = {
       perl = {
         enable = true;
       };
     };
-    scripts = with inputs.arcexprs.legacyPackages.${pkgs.system}.weechatScripts; with pkgs.weechatScripts; [
+    scripts = with inputs.arcexprs.legacyPackages.${pkgs.system}.weechatScripts;
+    with pkgs.weechatScripts; [
       highmon
       parse_relayed_msg
     ];

@@ -1,4 +1,4 @@
-{ config, ... }: {
+{config, ...}: {
   security.acme = {
     defaults = {
       dnsProvider = "cloudflare";

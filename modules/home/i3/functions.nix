@@ -196,7 +196,8 @@ with lib; rec {
     level ? 1,
   }: let
     prefix = concatStringsSep "" (lib.genList (_x: " ") (level * 2));
-  in lib.imap1 (i: v: "${
+  in
+    lib.imap1 (i: v: "${
       if includesWrapper && (i == 1 || i == (lib.length list))
       then v
       else "${prefix}${v}"

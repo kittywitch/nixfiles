@@ -7,7 +7,6 @@
   shells = import ./shells {inherit inputs tree lib std pkgs;};
   inherit (import ./pkgs.nix {inherit inputs tree overlay;}) pkgs;
   formatting = import ./formatting.nix {inherit inputs pkgs;};
-  wrappers = import ./wrappers {inherit inputs;};
   inherit (std) set;
   checks = set.map (_: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
 in

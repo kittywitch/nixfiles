@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}: let
+{lib, ...}: let
   inherit (lib.types) submodule loaOf;
   inherit (lib.modules) mkDefault mkAfter;
   inherit (lib.options) mkOption;

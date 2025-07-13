@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   programs.niri.settings.spawn-at-startup = let
     import-gsettings = pkgs.writeShellScriptBin "import-gsettings" ''
       # usage: import-gsettings
