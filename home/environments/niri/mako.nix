@@ -23,10 +23,6 @@ in {
     enable = true;
     settings = {
       font = "Monaspace Krypton 10";
-      defaultTimeout = 3000;
-      borderColor = palette.base08;
-      backgroundColor = "${palette.base00}BF";
-      textColor = palette.base05;
     };
   };
 }

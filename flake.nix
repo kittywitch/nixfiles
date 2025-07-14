@@ -312,10 +312,11 @@
     };
     # a bunch of modules (also arcnmx is good)
     arcexprs = {
-      url = "github:arcnmx/nixexprs/master";
+      url = "github:kittywitch/arcexprs/master";
+      #url = "github:arcnmx/nixexprs/master";
     };
     base16 = {
-      url = "github:arcnmx/base16.nix/flake";
+      url = "github:kittywitch/base16.nix/flake";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flakelib.follows = "flakelib";

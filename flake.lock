@@ -5,17 +5,17 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1752415765,
-        "narHash": "sha256-bNoZ0uNtrnOFNwMCXwn/LXUGMeF1JtB1uOXVd9o68nY=",
-        "owner": "arcnmx",
-        "repo": "nixexprs",
-        "rev": "9550baa43a7fb2358fca8c498aacb5f3efb49b89",
+        "lastModified": 1752468338,
+        "narHash": "sha256-JpV8ROSZydkPJHh/UjErk/YnVpnvrf4LegzZP4Dudew=",
+        "owner": "kittywitch",
+        "repo": "arcexprs",
+        "rev": "ec4452b08272248386e371b1d0c236a60fe2c4d5",
         "type": "github"
       },
       "original": {
-        "owner": "arcnmx",
+        "owner": "kittywitch",
         "ref": "master",
-        "repo": "nixexprs",
+        "repo": "arcexprs",
         "type": "github"
       }
     },
@@ -29,15 +29,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1716575596,
-        "narHash": "sha256-F+0nBhI4OfM8XtZ/Usb90c4oerEob1bENWXgb+lMjvg=",
-        "owner": "arcnmx",
+        "lastModified": 1752468274,
+        "narHash": "sha256-kE3/hdulqBns7ze1r1p8AlIHIU/yxgeEMCadYZJjKck=",
+        "owner": "kittywitch",
         "repo": "base16.nix",
-        "rev": "13b838df99d8694005d479388f7389b441c7e820",
+        "rev": "5cc4c252a8218767ee9e5001a7addd6dc4eea073",
         "type": "github"
       },
       "original": {
-        "owner": "arcnmx",
+        "owner": "kittywitch",
         "ref": "flake",
         "repo": "base16.nix",
         "type": "github"
@@ -77,11 +77,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1751636951,
-        "narHash": "sha256-07ZP0hEF7HVqGdDc7hgP3jOduNznFt71Lqb3xgXXQWI=",
+        "lastModified": 1752227483,
+        "narHash": "sha256-eetITGJfURryoHY5gfuE9/4sEV9aSgzhPxgsQgofNa8=",
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "09e2be240370f27312a44633d852732b66cb8f01",
+        "rev": "5f431aac1a4038c385e6de2d2384d943e4802d61",
         "type": "github"
       },
       "original": {
