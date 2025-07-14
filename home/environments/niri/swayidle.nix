@@ -1,7 +1,4 @@
-{
-  config,
-  ...
-}: {
+{config, ...}: {
   services.swayidle = {
     enable = true;
     timeouts = [

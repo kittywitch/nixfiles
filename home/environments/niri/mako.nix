@@ -1,7 +1,4 @@
-{
-  config,
-  ...
-}: {
+_: {
   services.mako = {
     enable = true;
     settings = {
