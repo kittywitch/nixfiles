@@ -79,11 +79,6 @@ _: let
         drives.swap.result
       ];
 
-      home-manager.users.kat = {
-        wayland.windowManager.hyprland.settings.monitor = [
-          "eDP-1, preferred, 0x0, 1"
-        ];
-      };
       boot = {
         loader = {
           grub.useOSProber = true;
