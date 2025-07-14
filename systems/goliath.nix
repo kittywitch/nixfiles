@@ -47,6 +47,7 @@ _: let
     imports =
       (with tree.nixos.profiles; [
         graphical
+        quiet-boot
         wireless
         gaming
       ])

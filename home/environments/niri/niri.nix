@@ -26,6 +26,7 @@ in {
       };
       gestures.hot-corners.enable = false;
       input = {
+        workspace-auto-back-and-forth = true;
         keyboard = {
           xkb = {
             options = "compose:rctrl,ctrl:nocaps";
@@ -38,7 +39,8 @@ in {
           dwt = true;
           dwtp = true;
         };
-        focus-follows-mouse.enable = true;
+        # i think this causes issues with games
+        #focus-follows-mouse.enable = true;
       };
       layout = {
         background-color = config.palette.base.hex;

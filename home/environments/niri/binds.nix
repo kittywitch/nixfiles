@@ -144,7 +144,8 @@ in {
           "XF86AudioPlay".action.spawn = ["${pkgs.playerctl}/bin/playerctl" "play-pause"];
           "XF86AudioNext".action.spawn = ["${pkgs.playerctl}/bin/playerctl" "next"];
           "XF86AudioPrev".action.spawn = ["${pkgs.playerctl}/bin/playerctl" "prev"];
-          "Mod+T".action.spawn = ["${config.programs.wezterm.package}/bin/wezterm"];
+          "Mod+Return".action.spawn = ["${config.programs.wezterm.package}/bin/wezterm"];
+          "Mod+T".action.toggle-window-floating = {};
           "Mod+D".action.spawn = ["${config.programs.wofi.package}/bin/wofi" "-t" "wezterm" "-IS" "drun"];
           "Mod+Shift+D".action.spawn = ["${config.programs.wofi.package}/bin/wofi" "-t" "wezterm" "-IS" "run"];
           "Mod+Escape".action.spawn = ["${config.programs.wlogout.package}/bin/wlogout" "-p" "layer-shell"];
