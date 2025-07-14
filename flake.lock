@@ -5,17 +5,17 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1752473264,
+        "lastModified": 1752473542,
         "narHash": "sha256-PhowmGOEqpVHSijrb/5f2HHwaH2uaGxS6kWQKdGyIgM=",
-        "owner": "kittywitch",
-        "repo": "arcexprs",
-        "rev": "fed3d7a889571f065741db910b0e0435a23af2e6",
+        "owner": "arcnmx",
+        "repo": "nixexprs",
+        "rev": "194e3d4a292d441187f2f386120b1b07db3dc72e",
         "type": "github"
       },
       "original": {
-        "owner": "kittywitch",
+        "owner": "arcnmx",
         "ref": "master",
-        "repo": "arcexprs",
+        "repo": "nixexprs",
         "type": "github"
       }
     },
@@ -29,15 +29,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1752471575,
+        "lastModified": 1752473330,
         "narHash": "sha256-HJZosSUcwX7HuGWyRkhBJQ1ToUkPzRzakM4ozoZmeTY=",
-        "owner": "kittywitch",
+        "owner": "arcnmx",
         "repo": "base16.nix",
-        "rev": "f038c00bc1a4750340e3ade44063d67e4408db44",
+        "rev": "dda216bd4d4bcd2460ae274cefb9584f9f7843d0",
         "type": "github"
       },
       "original": {
-        "owner": "kittywitch",
+        "owner": "arcnmx",
         "ref": "flake",
         "repo": "base16.nix",
         "type": "github"
@@ -118,11 +118,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1752471889,
-        "narHash": "sha256-4xKCC4pqhjmuY9LxRbNT9ej3LVvsqrSSlukK5ADMbiY=",
+        "lastModified": 1752507097,
+        "narHash": "sha256-/JlfJOzHs7tJpFp6bw1AF7hO9FMMgLjQgtCaIK/jA2M=",
         "owner": "kittywitch",
         "repo": "nyx",
-        "rev": "96406d53afbeb672c842a01b21e135ca19a262c3",
+        "rev": "721f290b311f88eef85e8415f445fe5f90bf9155",
         "type": "github"
       },
       "original": {

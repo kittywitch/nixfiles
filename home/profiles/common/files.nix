@@ -1,0 +1,3 @@
+_: {
+  home.clobberAllFiles = true;
+}
