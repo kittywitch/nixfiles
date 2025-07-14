@@ -64,7 +64,50 @@ _: let
         common-gpu-nvidia-nonprime
       ]);
 
-    home-manager.users.kat.imports =
+    home-manager.users.kat = {
+      programs = {
+        konawall-py.settings = {
+          source = "e621";
+          tags = [
+            "-rating:s"
+            "-male/male"
+            "-five_nights_at_freddy's"
+            #"touhou"
+            "-male"
+            "-large_breasts"
+            "-scalie"
+            #"-my_little_pony"
+            "-sonic_the_hedgehog"
+            "-amputee"
+            "-inflation"
+            "-pool_toy"
+            "-cuckold"
+            "-gore"
+            "-human"
+            "-animated"
+            "-hyper"
+            "-death"
+            "ratio:>=1.3"
+            "-muscular_male"
+            "-model_sheet"
+          ];
+        };
+        niri.settings = {
+          outputs = {
+            "LG Electronics LG Ultra HD 0x0001AC91" = {
+              scale = 1.25;
+            };
+          };
+          environment = {
+            NVD_BACKEND = "direct";
+            ELECTRON_OZONE_PLATFORM_HINT = "auto";
+            LIBVA_DRIVER_NAME = "nvidia";
+            NIXOS_OZONE_WL = "1";
+            QT_QTA_PLATFORM = "wayland;xcb";
+          };
+        };
+      };
+      imports =
       (with tree.home.profiles; [
         graphical
       ])
@@ -72,23 +115,9 @@ _: let
         #hyprland
         niri
       ]);
+    };
 
     networking.hostId = "c3b94e85";
-
-    home-manager.users.kat.programs.niri.settings = {
-      outputs = {
-        "LG Electronics LG Ultra HD 0x0001AC91" = {
-          scale = 1.25;
-        };
-      };
-      environment = {
-        NVD_BACKEND = "direct";
-        ELECTRON_OZONE_PLATFORM_HINT = "auto";
-        LIBVA_DRIVER_NAME = "nvidia";
-        NIXOS_OZONE_WL = "1";
-        QT_QTA_PLATFORM = "wayland;xcb";
-      };
-    };
 
     programs.ssh.extraConfig = ''
       Host daiyousei-build

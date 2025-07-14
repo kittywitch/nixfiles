@@ -61,13 +61,28 @@ _: let
         niri
       ]);
     config = {
-      home-manager.users.kat.imports =
+      home-manager.users.kat = {
+        programs = {
+          konawall-py.settings = {
+            source = "konachan";
+            tags = [
+              "-rating:s"
+            ];
+          };
+          niri.settings = {
+            outputs = {
+              "eDP-1".scale = 1.25;
+            };
+          };
+        };
+        imports =
         (with tree.home.profiles; [
           graphical
         ])
         ++ (with tree.home.environments; [
           niri
         ]);
+      };
 
       fileSystems =
         datasetEntries
