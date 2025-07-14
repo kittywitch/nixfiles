@@ -1,5 +1,4 @@
 {
-  pkgs,
   config,
   ...
 }: {
@@ -8,10 +7,6 @@
     timeouts = [
       {
         timeout = 180;
-        command = "${pkgs.libnotify}/bin/notify-send 'Locking in 5 seconds from now.'";
-      }
-      {
-        timeout = 185;
         command = "${config.programs.swaylock.package}/bin/swaylock* -f";
       }
       {

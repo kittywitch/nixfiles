@@ -5,11 +5,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1752468338,
-        "narHash": "sha256-JpV8ROSZydkPJHh/UjErk/YnVpnvrf4LegzZP4Dudew=",
+        "lastModified": 1752473264,
+        "narHash": "sha256-PhowmGOEqpVHSijrb/5f2HHwaH2uaGxS6kWQKdGyIgM=",
         "owner": "kittywitch",
         "repo": "arcexprs",
-        "rev": "ec4452b08272248386e371b1d0c236a60fe2c4d5",
+        "rev": "fed3d7a889571f065741db910b0e0435a23af2e6",
         "type": "github"
       },
       "original": {
@@ -29,11 +29,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1752468274,
-        "narHash": "sha256-kE3/hdulqBns7ze1r1p8AlIHIU/yxgeEMCadYZJjKck=",
+        "lastModified": 1752471575,
+        "narHash": "sha256-HJZosSUcwX7HuGWyRkhBJQ1ToUkPzRzakM4ozoZmeTY=",
         "owner": "kittywitch",
         "repo": "base16.nix",
-        "rev": "5cc4c252a8218767ee9e5001a7addd6dc4eea073",
+        "rev": "f038c00bc1a4750340e3ade44063d67e4408db44",
         "type": "github"
       },
       "original": {
@@ -77,17 +77,14 @@
         ]
       },
       "locked": {
-        "lastModified": 1752227483,
-        "narHash": "sha256-eetITGJfURryoHY5gfuE9/4sEV9aSgzhPxgsQgofNa8=",
-        "owner": "catppuccin",
-        "repo": "nix",
-        "rev": "5f431aac1a4038c385e6de2d2384d943e4802d61",
-        "type": "github"
+        "lastModified": 1752485319,
+        "narHash": "sha256-JRbBPnjJjHM8ZCOBo2H0GP9B3D5UGsyvXw44sZvJ6UM=",
+        "path": "/home/kat/Projects/catppuccin",
+        "type": "path"
       },
       "original": {
-        "owner": "catppuccin",
-        "repo": "nix",
-        "type": "github"
+        "path": "/home/kat/Projects/catppuccin",
+        "type": "path"
       }
     },
     "catppuccin-qtct": {
@@ -121,15 +118,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1751549328,
-        "narHash": "sha256-Pzh9+N0palTIX+O2NygrUmMS8omB86SnYthLwE5cu5g=",
-        "owner": "chaotic-cx",
+        "lastModified": 1752471889,
+        "narHash": "sha256-4xKCC4pqhjmuY9LxRbNT9ej3LVvsqrSSlukK5ADMbiY=",
+        "owner": "kittywitch",
         "repo": "nyx",
-        "rev": "53209f5724858da5e3e5db3db404c325b4da5414",
+        "rev": "96406d53afbeb672c842a01b21e135ca19a262c3",
         "type": "github"
       },
       "original": {
-        "owner": "chaotic-cx",
+        "owner": "kittywitch",
         "ref": "nyxpkgs-unstable",
         "repo": "nyx",
         "type": "github"
@@ -539,11 +536,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1751529406,
-        "narHash": "sha256-jwKDHyUycp678zDYa5Hyfq3msO73YMXdZPxp96dU7po=",
+        "lastModified": 1752340638,
+        "narHash": "sha256-9+vBdRt/jg8fAll1VD3NXBibkRq9F8Wq/mW45I5jlvc=",
         "owner": "Jovian-Experiments",
         "repo": "Jovian-NixOS",
-        "rev": "b2e5ce654e4f5bf8905c2e07a96dcf4966e6277d",
+        "rev": "1129c951dcc2a269a12cb74d64bd64e44e724ecb",
         "type": "github"
       },
       "original": {

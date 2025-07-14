@@ -30,7 +30,8 @@
     systems.url = "github:nix-systems/default";
     # TODO: https://github.com/catppuccin/nix/issues/601
     catppuccin = {
-      url = "github:catppuccin/nix";
+      url = "path:/home/kat/Projects/catppuccin";
+      #url = "github:catppuccin/nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
       };
@@ -114,7 +115,8 @@
       };
     };
     chaotic = {
-      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+      #url = "path:/home/kat/Projects/nyx";
+      url = "github:kittywitch/nyx/nyxpkgs-unstable";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         rust-overlay.follows = "rust-overlay";
