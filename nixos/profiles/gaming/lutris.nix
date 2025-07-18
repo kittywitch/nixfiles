@@ -5,11 +5,13 @@
       driversi686Linux.mesa
     ];
   };
+  services.flatpak.enable = true;
   programs.gamescope = {
     enable = true;
     package = pkgs.gamescope;
   };
   environment.systemPackages = with pkgs; [
+    protonplus
     (lutris.override {
       extraPkgs = pkgs: [
         pkgs.gamescope

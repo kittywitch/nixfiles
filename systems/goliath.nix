@@ -69,7 +69,7 @@ _: let
         konawall-py.settings = {
           source = "e621";
           tags = [
-            "-rating:s"
+            "rating:s"
             "-male/male"
             "-five_nights_at_freddy's"
             #"touhou"
@@ -95,7 +95,7 @@ _: let
         niri.settings = {
           outputs = {
             "LG Electronics LG Ultra HD 0x0001AC91" = {
-              scale = 1.25;
+              scale = 1.0;
             };
           };
           environment = {
@@ -110,6 +110,7 @@ _: let
       imports =
       (with tree.home.profiles; [
         graphical
+        gaming
       ])
       ++ (with tree.home.environments; [
         #hyprland

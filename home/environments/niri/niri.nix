@@ -72,6 +72,9 @@ in {
           color = config.palette.crust.hex;
         };
       };
+      debug = {
+        wait-for-frame-completion-in-pipewire = {};
+      };
       workspaces = {
         browser = {};
         chat = {};

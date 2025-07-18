@@ -66,7 +66,7 @@ _: let
           konawall-py.settings = {
             source = "konachan";
             tags = [
-              "-rating:s"
+              "-rating:e"
             ];
           };
           niri.settings = {

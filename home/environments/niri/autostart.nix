@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, config, ...}: {
   programs.niri.settings.spawn-at-startup = let
     import-gsettings = pkgs.writeShellScriptBin "import-gsettings" ''
       # usage: import-gsettings
@@ -53,12 +53,35 @@
     # program autostart
     {
       command = [
-        "firefox"
+        "${pkgs.dbus}/bin/dbus-update-activation-environment"
+        "--all"
       ];
     }
     {
       command = [
         "discord"
+        "--enable-features=WaylandLinuxDrmSyncobj,UseOzonePlatform"
+        "--ozone-platform=wayland"
+      ];
+    }
+    {
+      command = [
+        "${pkgs.udiskie}/bin/udiskie"
+      ];
+    }
+    {
+      command = [
+        "${pkgs.pasystray}/bin/pasystray"
+      ];
+    }
+    {
+      command = [
+        "${pkgs.networkmanagerapplet}/bin/nm-applet"
+      ];
+    }
+    {
+      command = [
+        "firefox"
       ];
     }
   ];

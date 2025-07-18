@@ -28,6 +28,7 @@ _: {
     {
       matches = [{app-id = "^steam_app_default$";}];
       open-on-workspace = "vidya";
+      open-floating = true;
     }
     {
       matches = [{app-id = "^spotify$";}];
