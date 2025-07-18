@@ -71,7 +71,7 @@ _: let
           };
           niri.settings = {
             outputs = {
-              "eDP-1".scale = 1.25;
+              "eDP-1".scale = 1.00;
             };
           };
         };

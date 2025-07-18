@@ -138,11 +138,16 @@ in {
           "Mod+Shift+P".action.power-off-monitors = {};
 
           # Kat
-          "XF86MonBrightnessUp".action.spawn = ["${pkgs.brightnessctl}/bin/brightnessctl" "-c" "backlight" "set" "5%+"];
-          "XF86MonBrightnessDown".action.spawn = ["${pkgs.brightnessctl}/bin/brightnessctl" "-c" "backlight" "set" "5%-"];
-          "XF86AudioRaiseVolume".action.spawn = ["wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"];
-          "XF86AudioLowerVolume".action.spawn = ["wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"];
-          "XF86AudioMute".action.spawn = ["wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"];
+          "XF86MonBrightnessUp".action.spawn = ["${config.services.avizo.package}/bin/lightctl" "up"];
+          "XF86MonBrightnessDown".action.spawn = ["${config.services.avizo.package}/bin/lightctl" "down"];
+          "XF86AudioRaiseVolume".action.spawn = ["${config.services.avizo.package}/bin/volumectl" "-u" "up"];
+          "XF86AudioLowerVolume".action.spawn = ["${config.services.avizo.package}/bin/volumectl" "-u" "down"];
+          "XF86AudioMute".action.spawn = ["${config.services.avizo.package}/bin/volumectl" "toggle-mute"];
+          #"XF86MonBrightnessUp".action.spawn = ["${pkgs.brightnessctl}/bin/brightnessctl" "-c" "backlight" "set" "5%+"];
+          #"XF86MonBrightnessDown".action.spawn = ["${pkgs.brightnessctl}/bin/brightnessctl" "-c" "backlight" "set" "5%-"];
+          #"XF86AudioRaiseVolume".action.spawn = ["wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"];
+          #"XF86AudioLowerVolume".action.spawn = ["wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"];
+          #"XF86AudioMute".action.spawn = ["wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"];
           "XF86AudioPlay".action.spawn = ["${pkgs.playerctl}/bin/playerctl" "play-pause"];
           "XF86AudioNext".action.spawn = ["${pkgs.playerctl}/bin/playerctl" "next"];
           "XF86AudioPrev".action.spawn = ["${pkgs.playerctl}/bin/playerctl" "prev"];

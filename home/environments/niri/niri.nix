@@ -8,6 +8,7 @@
 in {
   home.packages = with pkgs; [
     wl-clipboard
+    pamixer
     wlr-randr
     wl-screenrec
     slurp
