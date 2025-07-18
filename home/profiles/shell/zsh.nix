@@ -14,7 +14,8 @@ in {
     # programs.zsh.enableAutosuggestions only includes nix-zsh-autocompletions
     zsh-completions
     fortune
-    neofetch
+    hyfetch
+    fastfetch
     ponysay
   ];
 

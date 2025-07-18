@@ -8,6 +8,9 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak/?ref=latest";
+    };
     rust = {
       url = "github:arcnmx/nixexprs-rust";
       inputs = {
@@ -75,6 +78,10 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
       };
+    };
+    zen-browser = {
+      url = "github:MarceColl/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs-xr = {
       url = "github:nix-community/nixpkgs-xr";

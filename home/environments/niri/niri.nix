@@ -15,6 +15,7 @@ in {
     grim
     pavucontrol
     brightnessctl
+    nautilus
     playerctl
     glib
     pcmanfm
@@ -85,7 +86,7 @@ in {
       environment = {
         MOZ_ENABLE_WAYLAND = "1";
         XDG_CURRENT_DESKTOP = "niri";
-        GDK_BACKEND = "wayland,x11";
+        GDK_BACKEND = "wayland";
         CLUTTER_BACKEND = "wayland";
       };
       xwayland-satellite = {

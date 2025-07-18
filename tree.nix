@@ -92,6 +92,7 @@
           inputs.niri.nixosModules.niri
           inputs.lix-module.nixosModules.default
           inputs.nixos-cli.nixosModules.nixos-cli
+          inputs.nix-flatpak.nixosModules.nix-flatpak
         ];
       };
     };
@@ -115,6 +116,7 @@
             chaotic.homeManagerModules.default
             spicetify-nix.homeManagerModules.spicetify
             inputs.moonlight.homeModules.default
+            inputs.nix-flatpak.homeManagerModules.nix-flatpak
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).home-manager; [
             i3gopher
