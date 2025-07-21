@@ -1,12 +1,14 @@
 {
   config,
+  parent,
   pkgs,
   lib,
   std,
   ...
 }: let
   inherit (std) list;
-  inherit (lib.modules) mkMerge;
+  inherit (lib.meta) getExe getExe';
+  inherit (lib.modules) mkMerge mkIf;
 in {
   programs.niri.settings.binds = let
     bindWorkspace = key: workspace: {
@@ -20,12 +22,32 @@ in {
           bindWorkspace "0" 10
         )
       ];
-  in
-    mkMerge (workspaceBindings
-      ++ [
-        {
-          # Transcribed: https://github.com/sodiboo/niri-flake/issues/483
-          # thank you Pacman99 you chad :3
+    # See tip near https://github.com/sodiboo/niri-flake/blob/main/docs.md#user-content-programsnirisettingsbindsnameaction
+    sh = config.lib.niri.actions.spawn "sh" "-c";
+    #                                                    ▀▀█
+    #   ▄▄▄▄    ▄▄▄    ▄ ▄▄   ▄▄▄    ▄▄▄   ▄ ▄▄    ▄▄▄     █
+    #   █▀ ▀█  █▀  █   █▀  ▀ █   ▀  █▀ ▀█  █▀  █  ▀   █    █
+    #   █   █  █▀▀▀▀   █      ▀▀▀▄  █   █  █   █  ▄▀▀▀█    █
+    #   ██▄█▀  ▀█▄▄▀   █     ▀▄▄▄▀  ▀█▄█▀  █   █  ▀▄▄▀█    ▀▄▄
+    #   █
+    #   ▀
+    #
+    personalBindings = {
+      "Mod+Return".action = sh ''${getExe config.programs.wezterm.package}'';
+      "Mod+T".action.toggle-window-floating = {};
+      "Mod+D".action = sh ''${getExe config.programs.fuzzel.package} -T "${getExe config.programs.wezterm.package} start"'';
+      "Mod+Escape".action = sh ''${getExe config.programs.wlogout.package} -p layer-shell'';
+      "Mod+Shift+Escape".action = sh ''${getExe config.programs.swaylock.package} -f'';
+    };
+    #            ▄                  █
+    #    ▄▄▄   ▄▄█▄▄   ▄▄▄    ▄▄▄   █   ▄
+    #   █   ▀    █    █▀ ▀█  █▀  ▀  █ ▄▀
+    #    ▀▀▀▄    █    █   █  █      █▀█
+    #   ▀▄▄▄▀    ▀▄▄  ▀█▄█▀  ▀█▄▄▀  █  ▀▄
+    #
+    stockBindings = {
+          # Taken from https://github.com/sodiboo/niri-flake/issues/483
+
           "Mod+Q".action.close-window = {};
           "Mod+O".action.toggle-overview = {};
 
@@ -136,28 +158,69 @@ in {
           # Powers off the monitors. To turn them back on, do any input like
           # moving the mouse or pressing any other key.
           "Mod+Shift+P".action.power-off-monitors = {};
-
-          # Kat
-          "XF86MonBrightnessUp".action.spawn = ["${config.services.avizo.package}/bin/lightctl" "up"];
-          "XF86MonBrightnessDown".action.spawn = ["${config.services.avizo.package}/bin/lightctl" "down"];
-          "XF86AudioRaiseVolume".action.spawn = ["${config.services.avizo.package}/bin/volumectl" "-u" "up"];
-          "XF86AudioLowerVolume".action.spawn = ["${config.services.avizo.package}/bin/volumectl" "-u" "down"];
-          "XF86AudioMute".action.spawn = ["${config.services.avizo.package}/bin/volumectl" "toggle-mute"];
-          #"XF86MonBrightnessUp".action.spawn = ["${pkgs.brightnessctl}/bin/brightnessctl" "-c" "backlight" "set" "5%+"];
-          #"XF86MonBrightnessDown".action.spawn = ["${pkgs.brightnessctl}/bin/brightnessctl" "-c" "backlight" "set" "5%-"];
-          #"XF86AudioRaiseVolume".action.spawn = ["wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"];
-          #"XF86AudioLowerVolume".action.spawn = ["wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"];
-          #"XF86AudioMute".action.spawn = ["wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"];
-          "XF86AudioPlay".action.spawn = ["${pkgs.playerctl}/bin/playerctl" "play-pause"];
-          "XF86AudioNext".action.spawn = ["${pkgs.playerctl}/bin/playerctl" "next"];
-          "XF86AudioPrev".action.spawn = ["${pkgs.playerctl}/bin/playerctl" "prev"];
-          "Mod+Return".action.spawn = ["${config.programs.wezterm.package}/bin/wezterm"];
-          "Mod+T".action.toggle-window-floating = {};
-          "Mod+D".action.spawn = ["${config.programs.wofi.package}/bin/wofi" "-t" "wezterm" "-IS" "drun"];
-          "Mod+Shift+D".action.spawn = ["${config.programs.wofi.package}/bin/wofi" "-t" "wezterm" "-IS" "run"];
-          "Mod+Escape".action.spawn = ["${config.programs.wlogout.package}/bin/wlogout" "-p" "layer-shell"];
-          "Mod+Shift+Escape".action.spawn = ["${config.programs.swaylock.package}/bin/swaylock" "-f"];
-          #"Print".action.spawn = ["${pkgs.grimblast}/bin/grimblast" "copy" "area"];
-        }
-      ]);
+    };
+    #                     █    ▀
+    #   ▄▄▄▄▄   ▄▄▄    ▄▄▄█  ▄▄▄     ▄▄▄
+    #   █ █ █  █▀  █  █▀ ▀█    █    ▀   █
+    #   █ █ █  █▀▀▀▀  █   █    █    ▄▀▀▀█
+    #   █ █ █  ▀█▄▄▀  ▀█▄██  ▄▄█▄▄  ▀▄▄▀█
+    #
+    mediaBindingsCommon = {
+      "XF86AudioPlay".action = sh ''${getExe pkgs.playerctl} play-pause'';
+      "XF86AudioNext".action = sh ''${getExe pkgs.playerctl} next'';
+      "XF86AudioPrev".action = sh ''${getExe pkgs.playerctl} prev'';
+    };
+    mediaBindingsAvizo = let
+        lightctl = getExe' config.services.avizo.package "lightctl";
+        volumectl = getExe' config.services.avizo.package "volumectl";
+      in mkIf config.services.avizo.enable {
+      "XF86MonBrightnessUp".action = sh ''${lightctl} up'';
+      "XF86MonBrightnessDown".action = sh ''${volumectl} down'';
+      "XF86AudioRaiseVolume" = {
+        allow-when-locked = true;
+        action = sh ''${volumectl} -u up'';
+      };
+      "XF86AudioLowerVolume" = {
+        allow-when-locked = true;
+        action = sh ''${volumectl} -u down'';
+      };
+      "XF86AudioMute" = {
+        allow-when-locked = true;
+        action = sh ''${volumectl} toggle-mute'';
+      };
+    };
+    mediaBindingsSwayOSD = let
+        swayosd-client = getExe' config.services.swayosd.package "swayosd-client";
+      in mkIf config.services.swayosd.enable {
+      "XF86MonBrightnessUp".action = sh ''${swayosd-client} --brightness raise'';
+      "XF86MonBrightnessDown".action = sh ''${swayosd-client} --brightness lower'';
+      "XF86AudioRaiseVolume" = {
+        allow-when-locked = true;
+        action = sh ''${swayosd-client} --output-volume 2'';
+      };
+      "XF86AudioLowerVolume" = {
+        allow-when-locked = true;
+        action = sh ''${swayosd-client} --output-volume -2'';
+      };
+      "XF86AudioMute" = {
+        allow-when-locked = true;
+        action = sh ''${swayosd-client} --output-volume mute-toggle'';
+      };
+    };
+    mediaBindingsAvizoless = mkIf (!(config.services.avizo.enable || config.services.swayosd.enable)) {
+          "XF86MonBrightnessUp".action = sh ''${getExe pkgs.brightnessctl} -c backlight set 5%+'';
+          "XF86MonBrightnessDown".action = sh ''${getExe pkgs.brightnessctl} -c backlight set 5%-'';
+          "XF86AudioRaiseVolume".action = sh ''${parent.services.wireplumber.package}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+'';
+          "XF86AudioLowerVolume".action = sh ''${parent.services.wireplumber.package}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-'';
+          "XF86AudioMute".action = sh ''${parent.services.wireplumber.package}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle'';
+    };
+  in
+    mkMerge (workspaceBindings ++ [
+        stockBindings
+        personalBindings
+        mediaBindingsCommon
+        mediaBindingsAvizo
+        mediaBindingsSwayOSD
+        mediaBindingsAvizoless
+    ]);
 }

@@ -1,6 +1,6 @@
 {config, ...}: {
   services.avizo = {
-    enable = true;
+    enable = false;
     settings = {
       default = {
         block-count = 100;

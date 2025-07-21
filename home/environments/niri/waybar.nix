@@ -178,7 +178,9 @@ _: {
         tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
         tooltip-format-enumerate-connected-battery = "{device_alias}\t{device_address}\t{device_battery_percentage}%";
       };
-
+      mpris = {
+        ignored-players = ["firefox"];
+      };
       wireplumber = {
         format = "vol {volume}%";
         max-volume = 150;

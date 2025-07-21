@@ -6,11 +6,11 @@
   defaultFont = "Monaspace Krypton";
 in {
   home.sessionVariables = {
-    BROWSER = "firefox";
+    BROWSER = "zen";
   };
 
   home.packages = [pkgs.ff2mpv-rust];
-  programs.firefox = {
+  programs.zen-browser = {
     nativeMessagingHosts = [
       pkgs.ff2mpv-rust
     ];
@@ -22,6 +22,7 @@ in {
         containersForce = true;
         extensions = {
           packages = with nur.repos.rycee.firefox-addons; [
+            display-_anchors
             pronoundb
             sponsorblock
             link-cleaner

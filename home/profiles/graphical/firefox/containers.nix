@@ -1,5 +1,5 @@
 _: {
-  programs.firefox.profiles.main = {
+  programs.zen-browser.profiles.main = {
     containersForce = true;
     containers = {
       main = {

@@ -117,6 +117,7 @@
             spicetify-nix.homeManagerModules.spicetify
             inputs.moonlight.homeModules.default
             inputs.nix-flatpak.homeManagerModules.nix-flatpak
+            inputs.zen-browser.homeModules.default
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).home-manager; [
             i3gopher
