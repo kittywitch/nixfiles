@@ -24,10 +24,11 @@
       };
     };
     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.2-1.tar.gz";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
+      url = "git+https://git.lix.systems/lix-project/nixos-module";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.lix = {
+        url = "git+https://git.lix.systems/lix-project/lix";
+        inputs.nixpkgs.follows = "nixpkgs";
       };
     };
     systems.url = "github:nix-systems/default";
@@ -71,7 +72,9 @@
     empty.url = "github:input-output-hk/empty-flake";
     # self-explanatory
     nixpkgs = {
-      url = "github:nixos/nixpkgs/nixos-unstable";
+      follows = "chaotic/nixpkgs";
+      #url = "github:nixos/nixpkgs/nixos-unstable";
+      #inputs.nixpkgs.follows = "chaotic/nixpkgs";
     };
     clipboard-sync = {
       url = "github:dnut/clipboard-sync";
@@ -125,7 +128,7 @@
       #url = "path:/home/kat/Projects/nyx";
       url = "github:kittywitch/nyx/nyxpkgs-unstable";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        #nixpkgs.follows = "nixpkgs";
         rust-overlay.follows = "rust-overlay";
         home-manager.follows = "home-manager";
       };

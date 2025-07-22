@@ -76,6 +76,7 @@ in {
       };
       debug = {
         wait-for-frame-completion-in-pipewire = {};
+        deactivate-unfocused-windows = {};
       };
       workspaces = {
         browser = {};

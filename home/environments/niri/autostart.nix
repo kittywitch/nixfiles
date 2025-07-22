@@ -1,4 +1,6 @@
-{pkgs, config, ...}: {
+{pkgs, config, lib, ...}: let
+  inherit (lib.meta) getExe getExe';
+in {
   programs.niri.settings.spawn-at-startup = let
     import-gsettings = pkgs.writeShellScriptBin "import-gsettings" ''
       # usage: import-gsettings
@@ -15,15 +17,16 @@
       ${pkgs.glib}/bin/gsettings set "$gnome_schema" cursor-theme "$cursor_theme"
       ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
     '';
+    systemctl = getExe' pkgs.systemd "systemctl";
   in [
     {
       command = [
-        "${import-gsettings}/bin/import-gsettings"
+        "${getExe import-gsettings}"
       ];
     }
     {
       command = [
-        "${pkgs.systemd}/bin/systemctl"
+        "${systemctl}"
         "--user"
         "start"
         "waybar.service"
@@ -31,7 +34,7 @@
     }
     {
       command = [
-        "${pkgs.systemd}/bin/systemctl"
+        "${systemctl}"
         "--user"
         "restart"
         "konawall-py.service"
@@ -39,7 +42,7 @@
     }
     {
       command = [
-        "${pkgs.systemd}/bin/systemctl"
+        "${systemctl}"
         "--user"
         "start"
         "mako.service"
@@ -53,7 +56,12 @@
     # program autostart
     {
       command = [
-        "${pkgs.dbus}/bin/dbus-update-activation-environment"
+        "${getExe' config.programs.niriswitcher.package "niriswitcher"}"
+      ];
+    }
+    {
+      command = [
+        "${getExe' pkgs.dbus "dbus-update-activation-environment"}"
         "--all"
       ];
     }
@@ -66,17 +74,17 @@
     }
     {
       command = [
-        "${pkgs.udiskie}/bin/udiskie"
+        "${getExe pkgs.udiskie}"
       ];
     }
     {
       command = [
-        "${pkgs.pasystray}/bin/pasystray"
+        "${getExe pkgs.pasystray}"
       ];
     }
     {
       command = [
-        "${pkgs.networkmanagerapplet}/bin/nm-applet"
+        "${getExe pkgs.networkmanagerapplet}"
       ];
     }
     {

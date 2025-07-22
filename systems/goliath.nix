@@ -69,8 +69,9 @@ _: let
         konawall-py.settings = {
           source = "e621";
           tags = [
-            "rating:s"
-            "-male/male"
+            "-rating:s"
+            #"-male/male"
+            "-overweight_male"
             "-five_nights_at_freddy's"
             #"touhou"
             "-male"
@@ -110,7 +111,6 @@ _: let
       imports =
       (with tree.home.profiles; [
         graphical
-        gaming
       ])
       ++ (with tree.home.environments; [
         #hyprland

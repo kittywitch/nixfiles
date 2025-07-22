@@ -9,6 +9,7 @@
     extraConfig = ''
       local wezterm = require 'wezterm';
       local config = {}
+      config.front_end = "OpenGL"
       config.font = wezterm.font_with_fallback({
                 "Monaspace Krypton",
                 "JetBrains Mono",

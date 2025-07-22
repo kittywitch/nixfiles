@@ -6,7 +6,7 @@
     })
   ];
 
-  programs.moonlight-mod = {
+  programs.moonlight = {
     enable = true;
   };
 }
