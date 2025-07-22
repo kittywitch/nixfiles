@@ -36,6 +36,5 @@ cd tf/
 terraform plan
 
 # update nodes CI
-# obtain storepath from nix run github:arcnmx/ci/v0.7 >~<
- nix run --argstr config "./ci/nodes.nix" -f "/nix/store/frf40m951652jv6qqkzfhr6n6r332gk9-source" run.gh-actions-generate --show-trace
+CI_PLATFORM=impure nix run -f https://github.com/arcnmx/ci/archive/v0.7.tar.gz run.gh-actions-generate --arg config ./ci/nodes.nix
 ```
