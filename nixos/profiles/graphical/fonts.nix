@@ -8,6 +8,7 @@
       corefonts
       vistafonts
       open-dyslexic
+      ubuntu-sans
     ];
     enableDefaultPackages = true;
     fontDir.enable = true;

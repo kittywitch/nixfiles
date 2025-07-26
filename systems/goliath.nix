@@ -69,7 +69,7 @@ _: let
         konawall-py.settings = {
           source = "e621";
           tags = [
-            "-rating:s"
+            "rating:s"
             #"-male/male"
             "-overweight_male"
             "-five_nights_at_freddy's"

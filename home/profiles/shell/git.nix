@@ -13,6 +13,9 @@
     inherit (tree.home.user.data) userName userEmail;
     package = pkgs.gitAndTools.gitFull;
     enable = true;
+    delta = {
+      enable = true;
+    };
     extraConfig = {
       init = {defaultBranch = "main";};
       protocol.gcrypt.allow = "always";

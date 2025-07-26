@@ -8,8 +8,9 @@
     htop
 
     # Mail
-    #thunderbird
+    thunderbird
 
+    aseprite
     # Chat
     tdesktop # Telegram
     dino # XMPP

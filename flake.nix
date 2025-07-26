@@ -24,12 +24,12 @@
       };
     };
     lix-module = {
-      url = "git+https://git.lix.systems/lix-project/nixos-module";
+      url = "git+https://git.lix.systems/lix-project/nixos-module?ref=release-2.93";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.lix = {
-        url = "git+https://git.lix.systems/lix-project/lix";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
+      #inputs.lix = {
+      #  url = "git+https://git.lix.systems/lix-project/lix";
+      #  inputs.nixpkgs.follows = "nixpkgs";
+      #};
     };
     systems.url = "github:nix-systems/default";
     # TODO: https://github.com/catppuccin/nix/issues/601

@@ -63,6 +63,10 @@ in {
       nvim-notify
       # Session management
       resession-nvim
+      # obsidian vault support for neovim
+      obsidian-nvim
+      # commentry
+      vim-commentary
       # tree sitter
       (pkgs.vimPlugins.nvim-treesitter.withPlugins (_:
         with pkgs.tree-sitter-grammars; [

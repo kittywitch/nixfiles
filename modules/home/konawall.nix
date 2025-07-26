@@ -2,6 +2,7 @@
   inherit (lib.options) mkOption mkEnableOption mkPackageOption;
   inherit (lib.types) submodule path nullOr;
   inherit (lib.modules) mkIf;
+  inherit (lib.meta) getExe';
   cfg = config.programs.konawall-py;
 in {
   options.programs.konawall-py = {
@@ -31,7 +32,7 @@ in {
         After = ["graphical-session.target" "network-online.target"];
       };
       Service = {
-        ExecStart = "${cfg.package}/bin/konawall";
+        ExecStart = "${getExe' cfg.package "gui"}";
         Restart = "on-failure";
         RestartSec = "1s";
         EnvironmentFile = cfg.environmentFile;

@@ -11,8 +11,6 @@
     file
     # command monitoring
     pv
-    # cat but better
-    bat
     # sed replacement
     sd
     # sops
