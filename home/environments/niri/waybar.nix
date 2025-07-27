@@ -19,7 +19,7 @@ _: {
       .modules-left, .modules-right, .modules-center {
         background: alpha(@base00, 0.9);
         box-shadow: 0px 0px 2px rgba(0,0,0,0.6);
-        color: @text;
+        color: @base05;
         padding: 5px;
         margin: 2px 4px;
         border: 1px solid @base04;
@@ -34,24 +34,25 @@ _: {
       }
 
       #workspaces {
-        border-right: 1px solid @surface2;
+        border-right: 1px solid @base04;
       }
 
 
       #workspaces button.persistent {
-        background: @theme_unfocused_bg_color;
-        color: @subtext1;
+        background: @base01;
+        color: @base05;
       }
 
       #workspaces button {
           padding: 2px 5px;
-          background: @surface0;
+          background: @base01;
+          color: @base07;
           border-bottom: 3px solid transparent;
       }
 
       #workspaces button.empty {
-        background: @base01;
-        color: @base05;
+        background: @base04;
+        color: @base01;
       }
 
       #workspaces button.visible {
@@ -62,12 +63,12 @@ _: {
 
       #workspaces button.urgent {
         background: @base08;
-        color: @theme_selected_fg_color;
+        color: @base00;
       }
 
       #workspaces button.active, #workspaces button.focused {
-          background: @theme_selected_bg_color;
-          color: @theme_selected_fg_color;
+          background: @base0E;
+          color: @base00;
           border-bottom: 3px solid @base0E;
       }
 
@@ -86,11 +87,11 @@ _: {
       }
 
       #mpris {
-        color: @mantle;
+        color: @base0A;
       }
 
       #custom-notification {
-        font-size: 200%;
+        font-size: 150%;
       }
 
       #mpris.playing {

@@ -8,7 +8,7 @@ in {
   home.sessionVariables = {
     BROWSER = "zen";
   };
-
+  stylix.targets.zen-browser.profileNames = [ "main" ];
   home.packages = [pkgs.ff2mpv-rust];
   programs.zen-browser = {
     nativeMessagingHosts = [
@@ -52,11 +52,6 @@ in {
           ];
           force = true;
         };
-        userChrome = ''
-          #urlbar {
-            font-family: "${defaultFont}", monospace;
-          }
-        '';
       };
     };
   };
