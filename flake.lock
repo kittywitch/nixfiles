@@ -1565,7 +1565,7 @@
       },
       "original": {
         "type": "tarball",
-        "url": "https://flakehub.com/f/Svenum/Solaar-flake/%2A.tar.gz"
+        "url": "https://flakehub.com/f/Svenum/Solaar-flake/0.1.2.tar.gz"
       }
     },
     "sops-nix": {
