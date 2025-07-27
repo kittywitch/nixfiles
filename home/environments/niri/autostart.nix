@@ -45,7 +45,7 @@ in {
         "${systemctl}"
         "--user"
         "start"
-        "mako.service"
+        "swaync.service"
       ];
     }
     #{

@@ -80,13 +80,17 @@ _: {
         margin: 0px;
       }
 
-      #mode, #clock, #battery, #idle_inhibitor, #tray, #wireplumber, #bluetooth, #backlight, #mpris {
+      #mode, #custom-notification, #clock, #battery, #idle_inhibitor, #tray, #wireplumber, #bluetooth, #backlight, #mpris {
           padding: 0 5px;
           margin: 0 5px;
       }
 
       #mpris {
         color: @mantle;
+      }
+
+      #custom-notification {
+        font-size: 200%;
       }
 
       #mpris.playing {
@@ -159,6 +163,7 @@ _: {
         "backlight"
         "battery"
         "tray"
+        "custom/notification"
       ];
 
       idle_inhibitor = {
@@ -203,7 +208,26 @@ _: {
       tray = {
         spacing = 4;
       };
-
+      "custom/notification" = {
+        tooltip = false;
+        format = "{} {icon}";
+        "format-icons" = {
+          notification = "󱅫";
+          none = "";
+          "dnd-notification" = " ";
+          "dnd-none" = "󰂛";
+          "inhibited-notification" = " ";
+          "inhibited-none" = "";
+          "dnd-inhibited-notification" = " ";
+          "dnd-inhibited-none" = " ";
+        };
+        "return-type" = "json";
+        "exec-if" = "which swaync-client";
+        exec = "swaync-client -swb";
+        "on-click" = "sleep 0.1 && swaync-client -t -sw";
+        "on-click-right" = "sleep 0.1 && swaync-client -d -sw";
+        escape = true;
+      };
       clock = {
         format = "{:%F %H:%M %Z}";
         interval = 60;
