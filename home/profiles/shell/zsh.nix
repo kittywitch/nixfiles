@@ -13,10 +13,6 @@ in {
   home.packages = with pkgs; [
     # programs.zsh.enableAutosuggestions only includes nix-zsh-autocompletions
     zsh-completions
-    fortune
-    hyfetch
-    fastfetch
-    ponysay
   ];
 
     #xdg.configFile."kattheme_immutable.json".text = serde.toJSON rec {
@@ -61,7 +57,7 @@ in {
         ''
       }
       PROMPT_EOL_MARK='''
-        ZSH_TAB_TITLE_ADDITIONAL_TERMS='wezterm'
+        ZSH_TAB_TITLE_ADDITIONAL_TERMS='alacritty'
         ZSH_TAB_TITLE_ENABLE_FULL_COMMAND=true
         zmodload -i zsh/complist
         h=()

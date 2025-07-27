@@ -67,9 +67,9 @@ _: {
       }
 
       #workspaces button.active, #workspaces button.focused {
-          background: @base0E;
+          background: @base0C;
           color: @base00;
-          border-bottom: 3px solid @base0E;
+          border-bottom: 3px solid @base0C;
       }
 
       #window {
@@ -87,7 +87,7 @@ _: {
       }
 
       #mpris {
-        color: @base0A;
+        color: @base00;
       }
 
       #custom-notification {
@@ -95,21 +95,21 @@ _: {
       }
 
       #mpris.playing {
-        background-color: @base0E;
+        background-color: @base0B;
       }
 
       #mpris.paused {
-        background-color: @base09;
+        background-color: @base0A;
       }
 
       #mpris.stopped {
-        background-color: @base08;
+        background-color: @base09;
       }
 
       #mode {
           background: @base07;
-          border-bottom: 3px solid @base0E;
-          color: @base06;
+          border-bottom: 3px solid @base0D;
+          color: @base02;
       }
 
       #clock {
@@ -119,20 +119,20 @@ _: {
       }
 
       #battery.charging {
-          color: white;
-          background-color: #26A65B;
+          color: @base00;
+          background-color: @base0B;
       }
 
       @keyframes blink {
           to {
-              background-color: #ffffff;
-              color: black;
+              background-color: @base00;
+              color: @base07;
           }
       }
 
       #battery.warning:not(.charging) {
-          background: #f53c3c;
-          color: white;
+          background: @base0F;
+          color: @base00;
           animation-name: blink;
           animation-duration: 0.5s;
           animation-timing-function: steps(12);

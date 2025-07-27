@@ -33,9 +33,9 @@ in {
     #   ▀
     #
     personalBindings = {
-      "Mod+Return".action = sh ''${getExe config.programs.wezterm.package}'';
+      "Mod+Return".action = sh ''${getExe config.programs.alacritty.package}'';
       "Mod+T".action.toggle-window-floating = {};
-      "Mod+D".action = sh ''${getExe config.programs.fuzzel.package} -T "${getExe config.programs.wezterm.package} start"'';
+      "Mod+D".action = sh ''${getExe config.programs.fuzzel.package} -T "${getExe config.programs.alacritty.package} --command"'';
       "Mod+Escape".action = sh ''${getExe config.programs.wlogout.package} -p layer-shell'';
       "Mod+Shift+Escape".action = sh ''${getExe config.programs.swaylock.package} -f'';
       "Alt+Tab" = {

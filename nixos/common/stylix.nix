@@ -13,6 +13,12 @@
       name = "Bibata-Modern-Ice";
       size = 32;
     };
+    opacity = {
+      desktop = 1.0;
+      applications = 1.0;
+      terminal = 0.8;
+      popups = 0.8;
+    };
     fonts = {
       sansSerif = {
         name = "Jost";

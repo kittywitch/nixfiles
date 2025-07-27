@@ -34,5 +34,18 @@ _: {
       matches = [{app-id = "^spotify$";}];
       open-on-workspace = "media";
     }
+    {
+      matches = [
+        {
+          app-id = "steam";
+          title = "^notificationtoasts_\d+_desktop$";
+        }
+      ];
+      default-floating-position = {
+        x = 10;
+        y = 10;
+        relative-to = "top-right";
+      };
+    }
   ];
 }
