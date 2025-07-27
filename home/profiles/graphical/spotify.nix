@@ -17,15 +17,15 @@ in {
     ];
     experimentalFeatures = true;
     windowManagerPatch = true;
-    colorScheme = "CatppuccinMocha";
-    theme =
-      spicePkgs.themes.text
-      // {
-        additionalCss = ''
-          :root {
-            --font-family: 'Monaspace Krypton', monospace;
-          }
-        '';
-      };
+    #colorScheme = "CatppuccinMocha";
+    #theme =
+    #  spicePkgs.themes.text
+    #    // {
+    #    additionalCss = ''
+    #      :root {
+    #       --font-family: 'Monaspace Krypton', monospace;
+    #      }
+    #    '';
+    #   };
   };
 }

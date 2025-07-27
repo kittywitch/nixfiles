@@ -1,3 +1,7 @@
+@inity@
+
+MiniBase16.config.use_cterm = true
+
 -----------------------------------------------------------
 -- Variables
 -----------------------------------------------------------
@@ -5,44 +9,6 @@ local g = vim.g       -- Global variables
 local opt = vim.opt   -- Set options (global/buffer/windows-scoped)
 local wo = vim.wo     -- Window local variables
 local api = vim.api   -- Lua API
-
------------------------------------------------------------
--- Base16
------------------------------------------------------------
---vim.g.base16colorspace = 256
---vim.g.base16background = "@defaultSchemeName@"
---g.base16_shell_path = "@base16ShellPath@"
---vim.cmd("colorscheme base16-@defaultSchemeSlug@")
---g.colors_name = "@defaultSchemeSlug@"
-
---local base16 = {
---	base00 = "@base00@",
---	base01 = "@base01@",
---	base02 = "@base02@",
---	base03 = "@base03@",
---	base04 = "@base04@",
---	base05 = "@base05@",
---	base06 = "@base06@",
---	base07 = "@base07@",
---	base08 = "@base08@",
---	base09 = "@base09@",
---	base0A = "@base0A@",
---	base0B = "@base0B@",
---	base0C = "@base0C@",
---	base0D = "@base0D@",
---	base0E = "@base0E@",
---	base0F = "@base0F@"
---}
-
-api.nvim_create_autocmd("vimenter", {
-	command = "highlight Normal guibg=NONE ctermbg=NONE"
-})
-api.nvim_create_autocmd("SourcePost", {
-	command = "highlight Normal     ctermbg=NONE guibg=NONE | " ..
-		"highlight LineNr     ctermbg=NONE guibg=NONE | " ..
-		"highlight SignColumn ctermbg=NONE guibg=NONE"
-})
-
 
 -----------------------------------------------------------
 -- General
@@ -421,5 +387,3 @@ end, {remap=true})
 vim.keymap.set("", "F", function()
 	hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
 end, {remap=true})
-
-vim.cmd("colorscheme catppuccin-@catppuccin_flavour@")

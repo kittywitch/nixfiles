@@ -9,6 +9,7 @@
       vistafonts
       open-dyslexic
       ubuntu-sans
+      jost
     ];
     enableDefaultPackages = true;
     fontDir.enable = true;

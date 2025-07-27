@@ -8,22 +8,23 @@
   inherit (lib.modules) mkIf;
   inherit (std) string set;
   initLua = pkgs.replaceVars ./init.lua ({
-      base16ShellPath = config.base16.shell.package;
-      catppuccin_flavour = config.catppuccin.flavor;
-      inherit (config.base16) defaultSchemeName;
-      defaultSchemeSlug = config.base16.defaultScheme.slug;
-    }
-    // set.map (_: col: string.justifyRight 2 "0" (builtins.toString col.ansiIndex))
-    (set.filter (var: _: string.hasInfix "base" var) config.base16.defaultScheme));
+    inity = config.programs.neovim.generatedConfigs.lua;
+  });
 in {
+  stylix.targets.neovim = {
+    enable = true;
+    transparentBackground = {
+      main = true;
+      signColumn = true;
+      numberLine = true;
+    };
+  };
   home.sessionVariables = mkIf config.programs.neovim.enable {EDITOR = "nvim";};
   programs.neovim = {
     enable = true;
     vimAlias = true;
     viAlias = true;
     plugins = with pkgs.vimPlugins; [
-      # Base16 manual
-      config.base16.vim.plugin
       # Libraries
       plenary-nvim
       # Disables and re-enables highlighting when searching
@@ -42,8 +43,6 @@ in {
       hop-nvim
       # org-mode for vim
       neorg
-      # base16
-      config.base16.vim.plugin
       # Fonts
       nvim-web-devicons
       # Completion

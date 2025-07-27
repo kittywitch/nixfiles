@@ -1,5 +1,4 @@
 {config, ...}: {
-  catppuccin.cursors.enable = true;
   home.pointerCursor = {
     dotIcons.enable = true;
     x11 = {
@@ -7,6 +6,5 @@
       defaultCursor = config.home.pointerCursor.name;
     };
     gtk.enable = true;
-    size = 32;
   };
 }

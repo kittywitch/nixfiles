@@ -19,10 +19,10 @@ in {
     ponysay
   ];
 
-  xdg.configFile."kattheme_immutable.json".text = serde.toJSON rec {
-    default = config.base16.defaultSchemeName;
-    current = default;
-  };
+    #xdg.configFile."kattheme_immutable.json".text = serde.toJSON rec {
+    #default = config.base16.defaultSchemeName;
+    #current = default;
+  #};
 
   programs.zsh = {
     enable = true;

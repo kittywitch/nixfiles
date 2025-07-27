@@ -9,7 +9,7 @@ in {
     timeout = null;
     grub = {
       useOSProber = true;
-      splashImage = ./splash.jpg;
+      #splashImage = ./splash.jpg;
       extraConfig = ''
         set color_normal=black/black
         set menu_color_normal=black/black

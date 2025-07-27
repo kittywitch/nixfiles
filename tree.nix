@@ -77,22 +77,21 @@
           home-manager.nixosModules.home-manager
           minecraft.nixosModules.minecraft-servers
           sops-nix.nixosModules.sops
-          base16.nixosModules.base16
           infrastructure.nixosModules.default
           lanzaboote.nixosModules.lanzaboote
           solaar.nixosModules.default
-          catppuccin.nixosModules.catppuccin
           chaotic.nixosModules.default
           nixpkgs-xr.nixosModules.nixpkgs-xr
           spicetify-nix.nixosModules.spicetify
-          inputs.nix-gaming.nixosModules.ntsync
-          inputs.nix-gaming.nixosModules.pipewireLowLatency
-          inputs.nix-gaming.nixosModules.platformOptimizations
-          inputs.clipboard-sync.nixosModules.default
-          inputs.niri.nixosModules.niri
-          inputs.lix-module.nixosModules.default
-          inputs.nixos-cli.nixosModules.nixos-cli
-          inputs.nix-flatpak.nixosModules.nix-flatpak
+          nix-gaming.nixosModules.ntsync
+          nix-gaming.nixosModules.pipewireLowLatency
+          nix-gaming.nixosModules.platformOptimizations
+          clipboard-sync.nixosModules.default
+          niri.nixosModules.niri
+          lix-module.nixosModules.default
+          nixos-cli.nixosModules.nixos-cli
+          nix-flatpak.nixosModules.nix-flatpak
+          stylix.nixosModules.stylix
         ];
       };
     };
@@ -110,14 +109,13 @@
         external = with inputs;
           [
             nix-index-database.homeModules.nix-index
-            base16.homeModules.base16
-            catppuccin.homeModules.catppuccin
-            inputs.sops-nix.homeManagerModules.sops
+            sops-nix.homeManagerModules.sops
             chaotic.homeManagerModules.default
             spicetify-nix.homeManagerModules.spicetify
-            inputs.moonlight.homeModules.default
-            inputs.nix-flatpak.homeManagerModules.nix-flatpak
-            inputs.zen-browser.homeModules.default
+            moonlight.homeModules.default
+            nix-flatpak.homeManagerModules.nix-flatpak
+            zen-browser.homeModules.default
+            stylix.homeModules.stylix
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).home-manager; [
             i3gopher

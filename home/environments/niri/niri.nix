@@ -20,6 +20,7 @@ in {
     glib
     pcmanfm
   ];
+  stylix.targets.niri.enable = true;
   programs.niri = {
     settings = {
       cursor = {
@@ -45,7 +46,6 @@ in {
         #focus-follows-mouse.enable = true;
       };
       layout = {
-        background-color = config.palette.base.hex;
         gaps = 10;
         always-center-single-column = true;
         preset-column-widths = [
@@ -60,18 +60,13 @@ in {
         border = {
           enable = true;
           width = 2;
-          active.color = config.palette.surface0.hex;
-          inactive.color = config.palette.surface0.hex;
-          urgent.color = config.palette.red.hex;
         };
         focus-ring = {
           enable = false;
           width = 2;
-          active.color = config.palette.${config.catppuccin.accent}.hex;
         };
         shadow = {
           enable = true;
-          color = config.palette.crust.hex;
         };
       };
       debug = {

@@ -26,7 +26,8 @@ in {
       urlgrab
       unread_buffer
     ];
-    config.plugins.var = with set.map (_: v: "colour${builtins.toString (list.unsafeHead v)}") inputs.base16.lib.base16.shell.mapping256; {
+    config.plugins.var = {
+      #config.plugins.var = with set.map (_: v: "colour${builtins.toString (list.unsafeHead v)}") inputs.base16.lib.base16.shell.mapping256; {
       python = {
         vimode = {
           copy_clipboard_cmd = "wl-copy";
@@ -51,16 +52,16 @@ in {
             "/" = "i/";
           };
           user_search_mapping = "?";
-          mode_indicator_cmd_color_bg = base01;
-          mode_indicator_cmd_color = base04;
-          mode_indicator_insert_color_bg = base01;
-          mode_indicator_insert_color = base04;
-          mode_indicator_normal_color_bg = base01;
-          mode_indicator_normal_color = base04;
-          mode_indicator_replace_color_bg = base01;
-          mode_indicator_replace_color = base0E;
-          mode_indicator_search_color_bg = base0E;
-          mode_indicator_search_color = base04;
+          #mode_indicator_cmd_color_bg = base01;
+          #mode_indicator_cmd_color = base04;
+          #mode_indicator_insert_color_bg = base01;
+          #mode_indicator_insert_color = base04;
+          #mode_indicator_normal_color_bg = base01;
+          #mode_indicator_normal_color = base04;
+          #mode_indicator_replace_color_bg = base01;
+          #mode_indicator_replace_color = base0E;
+          #mode_indicator_search_color_bg = base0E;
+          #mode_indicator_search_color = base04;
           no_warn = true;
         };
         title = {

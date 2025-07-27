@@ -1,6 +1,6 @@
 _: {
   services.mako = {
-    enable = true;
+    enable = false;
     settings = {
       font = "Monaspace Krypton 10";
     };

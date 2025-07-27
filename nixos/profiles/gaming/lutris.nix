@@ -13,24 +13,24 @@
     protonplus
     (lutris.override {
       extraPkgs = pkgs: [
-        pkgs.gamescope
-        pkgs.libnghttp2
-        pkgs.winetricks
-        pkgs.jansson
-        pkgs.samba
-        pkgs.gvfs
-        pkgs.mangohud
-        pkgs.vkbasalt
-        pkgs.umu-launcher
-        pkgs.xdg-desktop-portal
+        #pkgs.gamescope
+        #pkgs.libnghttp2
+        #pkgs.winetricks
+        #pkgs.jansson
+        #pkgs.samba
+        #pkgs.gvfs
+        #pkgs.mangohud
+        #pkgs.vkbasalt
+        #pkgs.umu-launcher
+        #pkgs.xdg-desktop-portal
       ];
       extraLibraries = pkgs: [
-        pkgs.libunwind
-        pkgs.xdg-desktop-portal
-        pkgs.gvfs
-        pkgs.jansson
-        pkgs.samba
-        pkgs.xz
+        #pkgs.libunwind
+        #pkgs.xdg-desktop-portal
+        #pkgs.gvfs
+        #pkgs.jansson
+        #pkgs.samba
+        #pkgs.xz
       ];
     })
 

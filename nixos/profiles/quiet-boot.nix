@@ -10,5 +10,5 @@ _: {
       systemd.enable = true;
     };
   };
-  catppuccin.plymouth.enable = true;
+  stylix.targets.plymouth.enable = true;
 }

@@ -74,7 +74,7 @@ in {
     }
     {
       command = [
-        "${getExe pkgs.udiskie}"
+        "${getExe' pkgs.udiskie "udiskie"}"
       ];
     }
     {

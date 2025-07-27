@@ -17,12 +17,12 @@ _: {
 
 
       .modules-left, .modules-right, .modules-center {
-        background: alpha(@base, 0.9);
+        background: alpha(@base00, 0.9);
         box-shadow: 0px 0px 2px rgba(0,0,0,0.6);
         color: @text;
         padding: 5px;
         margin: 2px 4px;
-        border: 1px solid @lavender;
+        border: 1px solid @base04;
       }
 
       tooltip {
@@ -50,25 +50,25 @@ _: {
       }
 
       #workspaces button.empty {
-        background: @crust;
-        color: @subtext1;
+        background: @base01;
+        color: @base05;
       }
 
       #workspaces button.visible {
-          background: @pink;
-          color: @theme_selected_fg_color;
-          border-bottom: 3px solid @rosewater;
+          background: @base02;
+          color: @base04;
+          border-bottom: 3px solid @base0C;
       }
 
       #workspaces button.urgent {
-        background: @red;
+        background: @base08;
         color: @theme_selected_fg_color;
       }
 
       #workspaces button.active, #workspaces button.focused {
           background: @theme_selected_bg_color;
           color: @theme_selected_fg_color;
-          border-bottom: 3px solid white;
+          border-bottom: 3px solid @base0E;
       }
 
       #window {
@@ -90,20 +90,21 @@ _: {
       }
 
       #mpris.playing {
-        background-color: @lavender;
+        background-color: @base0E;
       }
 
       #mpris.paused {
-        background-color: @mauve;
+        background-color: @base09;
       }
 
       #mpris.stopped {
-        background-color: @rosewater;
+        background-color: @base08;
       }
 
       #mode {
-          background: #64727D;
-          border-bottom: 3px solid white;
+          background: @base07;
+          border-bottom: 3px solid @base0E;
+          color: @base06;
       }
 
       #clock {

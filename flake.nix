@@ -31,15 +31,16 @@
       #  inputs.nixpkgs.follows = "nixpkgs";
       #};
     };
-    systems.url = "github:nix-systems/default";
-    # TODO: https://github.com/catppuccin/nix/issues/601
-    catppuccin = {
-      url = "path:/home/kat/Projects/catppuccin";
-      #url = "github:catppuccin/nix";
+    stylix = {
+      url = "github:nix-community/stylix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        nur.follows = "nur";
+        flake-parts.follows = "flake-parts";
+        systems.follows = "systems";
       };
     };
+    systems.url = "github:nix-systems/default";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs-lib";
@@ -185,12 +186,6 @@
         flake-compat.follows = "flake-compat";
         rust-overlay.follows = "rust-overlay";
       };
-    };
-    catppuccin-qtct = {
-      type = "github";
-      owner = "catppuccin";
-      repo = "qt5ct";
-      flake = false;
     };
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
@@ -346,7 +341,6 @@
       url = "github:nix-community/NUR";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
         flake-parts.follows = "flake-parts";
       };
     };

@@ -1,0 +1,33 @@
+{ pkgs, ... }: {
+  stylix = {
+    enable = true;
+    targets = {
+      grub.useWallpaper = false;
+    };
+    homeManagerIntegration = {
+      followSystem = true;
+      autoImport = false;
+    };
+    cursor = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+      size = 32;
+    };
+    fonts = {
+      sansSerif = {
+        name = "Jost";
+        package = pkgs.jost;
+      };
+      serif = {
+        name = "Libre Baskerville";
+        package = pkgs.libre-baskerville;
+      };
+      monospace = {
+        name = "Monaspace Krypton";
+        package = pkgs.monaspace;
+      };
+    };
+    autoEnable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
+  };
+}
