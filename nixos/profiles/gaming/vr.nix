@@ -35,9 +35,9 @@
   */
 
   environment.systemPackages = with pkgs; [
-    wlx-overlay-s
-    monado-vulkan-layers
-    bs-manager
+    #wlx-overlay-s
+    #monado-vulkan-layers
+    #bs-manager
   ];
 
   networking.firewall = {

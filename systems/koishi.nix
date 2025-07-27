@@ -53,9 +53,6 @@ _: let
         wireless
         laptop
         gaming
-        sdr
-        #virtualisation
-        #secureboot
       ])
       ++ (with tree.nixos.environments; [
         niri
@@ -66,7 +63,7 @@ _: let
           konawall-py.settings = {
             source = "konachan";
             tags = [
-              "-rating:e"
+              "rating:s"
             ];
           };
           niri.settings = {
@@ -107,13 +104,6 @@ _: let
         enable = true;
         package = pkgs.scx_git.full;
         scheduler = "scx_lavd";
-      };
-
-      virtualisation.virtualbox.host = {
-        enable = true;
-        enableExtensionPack = true;
-        enableKvm = true;
-        addNetworkInterface = false;
       };
 
       zramSwap.enable = true;

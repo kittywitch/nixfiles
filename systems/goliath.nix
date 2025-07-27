@@ -66,6 +66,9 @@ _: let
 
     home-manager.users.kat = {
       programs = {
+        obs-studio.package = pkgs.obs-studio.override {
+          cudaSupport = true;
+        };
         konawall-py.settings = {
           source = "e621";
           tags = [
@@ -143,6 +146,8 @@ _: let
         builders-use-substitutes = true
       '';
     };
+
+
     services.xserver.videoDrivers = ["nvidia"];
 
     hardware.nvidia = {
@@ -190,6 +195,8 @@ _: let
       ledfx
       openrgb
       nvtopPackages.nvidia
+      nvidia-vaapi-driver
+      nv-codec-headers-12
     ];
     system.stateVersion = "21.11";
   };

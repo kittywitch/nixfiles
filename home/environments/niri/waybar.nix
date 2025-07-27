@@ -164,7 +164,7 @@ _: {
         "backlight"
         "battery"
         "tray"
-        "custom/notification"
+        #"custom/notification"
       ];
 
       idle_inhibitor = {

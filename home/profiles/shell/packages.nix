@@ -28,5 +28,7 @@
     rsync
     wget
     whois
+    # nix-search
+    nix-search-cli
   ];
 }
