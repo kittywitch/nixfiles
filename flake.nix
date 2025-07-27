@@ -142,7 +142,7 @@
     };
     solaar = {
       # ewww flakehub ;;
-      url = "https://flakehub.com/f/Svenum/Solaar-flake/*.tar.gz";
+      url = "https://flakehub.com/f/Svenum/Solaar-flake/0.1.2.tar.gz";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
