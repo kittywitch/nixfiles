@@ -1561,7 +1561,7 @@
         "rev": "808a089a32a2c0f436f106fc554215c4930b3c69",
         "revCount": 67,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/Svenum/Solaar-flake/0.1.2/019444d0-161f-78ca-a740-5eee5d09f672/source.tar.gz?rev=808a089a32a2c0f436f106fc554215c4930b3c69&revCount=67"
+        "url": "https://api.flakehub.com/f/pinned/Svenum/Solaar-flake/0.1.2/019444d0-161f-78ca-a740-5eee5d09f672/source.tar.gz"
       },
       "original": {
         "type": "tarball",
