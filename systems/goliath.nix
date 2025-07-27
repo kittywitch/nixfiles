@@ -203,6 +203,7 @@ _: let
 in {
   arch = "x86_64";
   type = "NixOS";
+  ci.enable = false; # Closure too large
   modules = [
     hostConfig
   ];
