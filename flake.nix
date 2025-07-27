@@ -141,8 +141,9 @@
       };
     };
     solaar = {
+      url = "github:Svenum/Solaar-flake";
       # ewww flakehub ;;
-      url = "https://flakehub.com/f/Svenum/Solaar-flake/0.1.2.tar.gz";
+      #url = "https://flakehub.com/f/Svenum/Solaar-flake/0.1.2.tar.gz";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
