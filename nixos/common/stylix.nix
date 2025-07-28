@@ -1,4 +1,7 @@
 { pkgs, ... }: {
+  environment.systemPackages = [
+    pkgs.adwaita-icon-theme
+  ];
   stylix = {
     enable = true;
     targets = {

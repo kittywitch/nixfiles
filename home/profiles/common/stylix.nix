@@ -1,4 +1,7 @@
 { pkgs, ... }: {
+  home.packages = [
+    pkgs.adwaita-icon-theme
+  ];
   stylix = {
     enable = true;
     cursor = {

@@ -75,6 +75,7 @@ in {
       };
       workspaces = {
         browser = {};
+        mail = {};
         chat = {};
         vidya = {};
         media = {};

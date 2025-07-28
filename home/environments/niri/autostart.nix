@@ -67,7 +67,7 @@ in {
     }
     {
       command = [
-        "discord"
+        "${getExe' config.programs.vesktop.package "vesktop"}"
         "--enable-features=WaylandLinuxDrmSyncobj,UseOzonePlatform"
         "--ozone-platform=wayland"
       ];

@@ -825,29 +825,6 @@
         "type": "github"
       }
     },
-    "moonlight": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1752617499,
-        "narHash": "sha256-LVXO+V182R2KmNfTJjpYx/yYk97+Kvzul7gzSM72JJM=",
-        "owner": "moonlight-mod",
-        "repo": "moonlight",
-        "rev": "694b353a772ee2d0be218b2158a28bf71dbdaddd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "moonlight-mod",
-        "repo": "moonlight",
-        "type": "github"
-      }
-    },
     "naersk": {
       "inputs": {
         "fenix": "fenix",
@@ -1421,7 +1398,6 @@
         "lanzaboote": "lanzaboote",
         "lix-module": "lix-module",
         "minecraft": "minecraft",
-        "moonlight": "moonlight",
         "naersk": "naersk",
         "neorg-overlay": "neorg-overlay",
         "nh": "nh",

@@ -81,7 +81,7 @@ _: {
         margin: 0px;
       }
 
-      #mode, #custom-notification, #clock, #battery, #idle_inhibitor, #tray, #wireplumber, #bluetooth, #backlight, #mpris {
+      #mode, #custom-notification, #custom-nvidia-vram, #clock, #battery, #idle_inhibitor, #tray, #wireplumber, #bluetooth, #backlight, #mpris {
           padding: 0 5px;
           margin: 0 5px;
       }
@@ -92,6 +92,9 @@ _: {
 
       #custom-notification {
         font-size: 150%;
+      }
+
+      #custom-nvidia-vram {
       }
 
       #mpris.playing {
@@ -164,7 +167,7 @@ _: {
         "backlight"
         "battery"
         "tray"
-        #"custom/notification"
+        "custom/notification"
       ];
 
       idle_inhibitor = {

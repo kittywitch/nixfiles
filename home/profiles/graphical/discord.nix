@@ -1,12 +1,14 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    (discord-krisp.override {
-      withOpenASAR = true;
-      withMoonlight = true;
-    })
-  ];
-
-  programs.moonlight = {
+  stylix.targets.vesktop.enable = false;
+  programs.vesktop = {
     enable = true;
+    settings = {
+      autoUpdate = false;
+      autoUpdateNotification = false;
+      notifyAboutUpdates = false;
+      disableMinSize = true;
+      plugins = {
+      };
+    };
   };
 }

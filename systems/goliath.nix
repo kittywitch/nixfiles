@@ -8,6 +8,7 @@ _: let
     ...
   }: let
     inherit (lib.attrsets) nameValuePair listToAttrs;
+    inherit (lib.meta) getExe';
     datasets = [
       "root"
       "nix"
@@ -95,6 +96,18 @@ _: let
             "-muscular_male"
             "-model_sheet"
           ];
+        };
+        programs.waybar.settings.main = {
+          modules-center = [
+            "custom/nvidia-vram"
+          ];
+          "custom/nvidia-vram" = {
+              tooltip = false;
+              format = "nvidia {}";
+              interval = 1;
+              exec = "${getExe' pkgs.nvidia-smi "nvidia-smi"} --query-gpu=memory.used,memory.total,pstate --format=csv,noheader,nounits";
+              return-type = "";
+            };
         };
         niri.settings = {
           outputs = {

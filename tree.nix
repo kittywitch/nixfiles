@@ -112,7 +112,6 @@
             sops-nix.homeManagerModules.sops
             chaotic.homeManagerModules.default
             spicetify-nix.homeManagerModules.spicetify
-            moonlight.homeModules.default
             nix-flatpak.homeManagerModules.nix-flatpak
             zen-browser.homeModules.default
             stylix.homeModules.stylix

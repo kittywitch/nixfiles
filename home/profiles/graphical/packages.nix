@@ -7,9 +7,6 @@
     btop
     htop
 
-    # Mail
-    thunderbird
-
     aseprite
     # Chat
     tdesktop # Telegram

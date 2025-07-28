@@ -171,13 +171,6 @@
         xwayland-satellite-stable.follows = "empty";
       };
     };
-    moonlight = {
-      url = "github:moonlight-mod/moonlight";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
-    };
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
 
