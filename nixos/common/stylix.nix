@@ -20,6 +20,7 @@
       popups = 0.8;
     };
     image = ./stylix.png;
+    polarity = "light";
     fonts = {
       sansSerif = {
         name = "Jost";

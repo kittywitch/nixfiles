@@ -6,6 +6,13 @@
       name = "Bibata-Modern-Ice";
       size = 32;
     };
+    image = ./stylix.png;
+    icons = {
+      enable = true;
+      light = "MoreWaita";
+      dark = "MoreWaita";
+      package = pkgs.morewaita-icon-theme;
+    };
     fonts = {
       sansSerif = {
         name = "Jost";
@@ -21,6 +28,7 @@
       };
     };
     autoEnable = true;
+    polarity = "light";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/sakura.yaml";
   };
 }
