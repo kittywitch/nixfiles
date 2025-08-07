@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   services.solaar = {
-    enable = truem
+    enable = true;
     window = "hide";
     package = pkgs.solaar;
     batteryIcons = "regular";
