@@ -167,8 +167,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nixpkgs-stable.follows = "nixpkgs";
-        niri-stable.follows = "empty";
-        xwayland-satellite-stable.follows = "empty";
       };
     };
     lanzaboote = {

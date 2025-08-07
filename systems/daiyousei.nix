@@ -22,14 +22,6 @@
         web
       ]);
 
-    home-manager.sharedModules = [
-        {
-          programs.niri = {
-            package = pkgs.niri;
-          };
-        }
-    ];
-
     system.stateVersion = "23.11";
   };
 in {
