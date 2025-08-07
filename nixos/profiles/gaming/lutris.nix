@@ -34,6 +34,8 @@
       ];
     })
 
+    wine
+    wine64
     vkbasalt
     mangohud
     umu-launcher

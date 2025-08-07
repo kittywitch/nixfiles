@@ -38,12 +38,14 @@ in {
       "Mod+D".action = sh ''${getExe config.programs.fuzzel.package} -T "${getExe config.programs.alacritty.package} --command"'';
       "Mod+Escape".action = sh ''${getExe config.programs.wlogout.package} -p layer-shell'';
       "Mod+Shift+Escape".action = sh ''${getExe config.programs.swaylock.package} -f'';
-      "Alt+Tab" = {
-      repeat = false;
+      "Mod+Alt+Tab" = {
+      #repeat = false;
+      cooldown-ms = 150;
       action.spawn = ["${getExe' pkgs.glib "gdbus"}" "call" "--session" "--dest" "io.github.isaksamsten.Niriswitcher" "--object-path" "/io/github/isaksamsten/Niriswitcher" "--method" "io.github.isaksamsten.Niriswitcher.application"];
       };
-      "Alt+Shift+Tab" = {
-        repeat = false;
+      "Mod+Alt+Shift+Tab" = {
+        cooldown-ms = 150;
+        #repeat = false;
         action.spawn = ["${getExe' pkgs.glib "gdbus"}" "call" "--session" "--dest" "io.github.isaksamsten.Niriswitcher" "--object-path" "/io/github/isaksamsten/Niriswitcher" "--method" "io.github.isaksamsten.Niriswitcher.application"];
       };
     };

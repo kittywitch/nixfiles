@@ -39,6 +39,6 @@
       };
     };
     autoEnable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/sakura.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine-dawn.yaml";
   };
 }

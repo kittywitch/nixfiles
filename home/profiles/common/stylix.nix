@@ -16,6 +16,12 @@
       dark = "MoreWaita";
       package = pkgs.morewaita-icon-theme;
     };
+    opacity = {
+      desktop = 1.0;
+      applications = 1.0;
+      terminal = 0.8;
+      popups = 0.8;
+    };
     fonts = {
       sansSerif = {
         name = "Jost";
@@ -32,6 +38,6 @@
     };
     autoEnable = true;
     polarity = "light";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/sakura.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine-dawn.yaml";
   };
 }

@@ -74,7 +74,17 @@ in {
     }
     {
       command = [
+        "${getExe' config.programs.thunderbird.package "thunderbird"}"
+      ];
+    }
+    {
+      command = [
         "${getExe' pkgs.udiskie "udiskie"}"
+      ];
+    }
+    {
+      command = [
+        "${getExe' pkgs.easyeffects "easyeffects"}"
       ];
     }
     {

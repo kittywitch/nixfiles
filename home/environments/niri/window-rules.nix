@@ -14,7 +14,11 @@ _: {
     }
 
     {
-      matches = [{app-id = "^firefox$";}];
+      matches = [
+        {app-id = "^firefox$";}
+        {app-id = "^zen-beta$";}
+        {app-id = "^zen$";}
+      ];
       open-on-workspace = "browser";
     }
     {
@@ -22,17 +26,39 @@ _: {
         {app-id = "^vesktop$";}
         {app-id = "^discord$";}
         {app-id = "^org.telegram.desktop$";}
+        {app-id = "^Signal$";}
       ];
       open-on-workspace = "chat";
     }
     {
-      matches = [{app-id = "^steam_app_default$";}];
+      matches = [
+        {app-id = "^steam_app_default$";}
+        {app-id = "^net.lutris.Lutris$";}
+      ];
       open-on-workspace = "vidya";
       open-floating = true;
     }
     {
-      matches = [{app-id = "^spotify$";}];
+      matches = [
+        {app-id = "^spotify$";}
+        {title = "^ncspot$";}
+      ];
       open-on-workspace = "media";
+    }
+    {
+      matches = [
+        {app-id = "^thunderbird$";}
+      ];
+      open-on-workspace = "mail";
+    }
+    {
+      matches = [
+        {app-id="^com.github.wwmm.easyeffects$";}
+        {app-id="^.blueman-manager-wrapped$";}
+        {app-id="^org.pulseaudio.pavucontrol$";}
+        {app-id="^com.saivert.pwvucontrol$";}
+      ];
+      open-on-workspace = "audio";
     }
     {
       matches = [

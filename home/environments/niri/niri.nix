@@ -79,6 +79,7 @@ in {
         chat = {};
         vidya = {};
         media = {};
+        audio = {};
       };
       environment = {
         MOZ_ENABLE_WAYLAND = "1";
