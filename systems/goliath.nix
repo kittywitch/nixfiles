@@ -97,7 +97,7 @@ _: let
             "-model_sheet"
           ];
         };
-        programs.waybar.settings.main = {
+        waybar.settings.main = {
           modules-center = [
             "custom/nvidia-vram"
           ];
@@ -105,7 +105,7 @@ _: let
               tooltip = false;
               format = "nvidia {}";
               interval = 1;
-              exec = "${getExe' pkgs.nvidia-smi "nvidia-smi"} --query-gpu=memory.used,memory.total,pstate --format=csv,noheader,nounits";
+              exec = "${getExe' config.hardware.nvidia.package "nvidia-smi"} --query-gpu=memory.used,memory.total,pstate --format=csv,noheader,nounits";
               return-type = "";
             };
         };
@@ -113,6 +113,13 @@ _: let
           outputs = {
             "LG Electronics LG Ultra HD 0x0001AC91" = {
               scale = 1.0;
+            };
+            "PNP(XXX) Beyond TV 0x00010000" = {
+              mode = {
+                width = 2560;
+                height = 1440;
+                refresh = 119.998;
+              };
             };
           };
           environment = {

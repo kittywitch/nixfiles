@@ -11,6 +11,7 @@
   };
   environment.systemPackages = with pkgs; [
     protonplus
+    gamescope-wsi
     (lutris.override {
       extraPkgs = pkgs: [
         #pkgs.gamescope

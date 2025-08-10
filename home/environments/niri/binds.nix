@@ -35,7 +35,7 @@ in {
     personalBindings = {
       "Mod+Return".action = sh ''${getExe config.programs.alacritty.package}'';
       "Mod+T".action.toggle-window-floating = {};
-      "Mod+D".action = sh ''${getExe config.programs.fuzzel.package} -T "${getExe config.programs.alacritty.package} --command"'';
+      "Mod+D".action = sh ''${getExe config.programs.fuzzel.package} -D no -T "${getExe config.programs.alacritty.package} --command"'';
       "Mod+Escape".action = sh ''${getExe config.programs.wlogout.package} -p layer-shell'';
       "Mod+Shift+Escape".action = sh ''${getExe config.programs.swaylock.package} -f'';
       "Mod+Alt+Tab" = {

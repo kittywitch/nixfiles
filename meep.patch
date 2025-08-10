@@ -1,0 +1,122 @@
+diff --git a/flake.lock b/flake.lock
+index b7b8e97c..200d0fbd 100644
+--- a/flake.lock
++++ b/flake.lock
+@@ -931,9 +931,7 @@
+     },
+     "niri": {
+       "inputs": {
+-        "niri-stable": [
+-          "empty"
+-        ],
++        "niri-stable": "niri-stable",
+         "niri-unstable": "niri-unstable",
+         "nixpkgs": [
+           "nixpkgs"
+@@ -941,9 +939,7 @@
+         "nixpkgs-stable": [
+           "nixpkgs"
+         ],
+-        "xwayland-satellite-stable": [
+-          "empty"
+-        ],
++        "xwayland-satellite-stable": "xwayland-satellite-stable",
+         "xwayland-satellite-unstable": "xwayland-satellite-unstable"
+       },
+       "locked": {
+@@ -960,6 +956,23 @@
+         "type": "github"
+       }
+     },
++    "niri-stable": {
++      "flake": false,
++      "locked": {
++        "lastModified": 1748151941,
++        "narHash": "sha256-z4viQZLgC2bIJ3VrzQnR+q2F3gAOEQpU1H5xHtX/2fs=",
++        "owner": "YaLTeR",
++        "repo": "niri",
++        "rev": "8ba57fcf25d2fc9565131684a839d58703f1dae7",
++        "type": "github"
++      },
++      "original": {
++        "owner": "YaLTeR",
++        "ref": "v25.05.1",
++        "repo": "niri",
++        "type": "github"
++      }
++    },
+     "niri-unstable": {
+       "flake": false,
+       "locked": {
+@@ -1854,6 +1867,23 @@
+         "type": "github"
+       }
+     },
++    "xwayland-satellite-stable": {
++      "flake": false,
++      "locked": {
++        "lastModified": 1748488455,
++        "narHash": "sha256-IiLr1alzKFIy5tGGpDlabQbe6LV1c9ABvkH6T5WmyRI=",
++        "owner": "Supreeeme",
++        "repo": "xwayland-satellite",
++        "rev": "3ba30b149f9eb2bbf42cf4758d2158ca8cceef73",
++        "type": "github"
++      },
++      "original": {
++        "owner": "Supreeeme",
++        "ref": "v0.6",
++        "repo": "xwayland-satellite",
++        "type": "github"
++      }
++    },
+     "xwayland-satellite-unstable": {
+       "flake": false,
+       "locked": {
+diff --git a/nixos/profiles/gaming/lutris.nix b/nixos/profiles/gaming/lutris.nix
+index 6176dd69..4d6ea927 100644
+--- a/nixos/profiles/gaming/lutris.nix
++++ b/nixos/profiles/gaming/lutris.nix
+@@ -11,6 +11,7 @@
+   };
+   environment.systemPackages = with pkgs; [
+     protonplus
++    gamescope-wsi
+     (lutris.override {
+       extraPkgs = pkgs: [
+         #pkgs.gamescope
+diff --git a/systems/goliath.nix b/systems/goliath.nix
+index 0f50296f..b77690de 100644
+--- a/systems/goliath.nix
++++ b/systems/goliath.nix
+@@ -97,7 +97,7 @@ _: let
+             "-model_sheet"
+           ];
+         };
+-        programs.waybar.settings.main = {
++        waybar.settings.main = {
+           modules-center = [
+             "custom/nvidia-vram"
+           ];
+@@ -105,7 +105,7 @@ _: let
+               tooltip = false;
+               format = "nvidia {}";
+               interval = 1;
+-              exec = "${getExe' pkgs.nvidia-smi "nvidia-smi"} --query-gpu=memory.used,memory.total,pstate --format=csv,noheader,nounits";
++              exec = "${getExe' config.hardware.nvidia.package "nvidia-smi"} --query-gpu=memory.used,memory.total,pstate --format=csv,noheader,nounits";
+               return-type = "";
+             };
+         };
+@@ -114,6 +114,13 @@ _: let
+             "LG Electronics LG Ultra HD 0x0001AC91" = {
+               scale = 1.0;
+             };
++            "PNP(XXX) Beyond TV 0x00010000" = {
++              mode = {
++                width = 2560;
++                height = 1440;
++                refresh = 119.998;
++              };
++            };
+           };
+           environment = {
+             NVD_BACKEND = "direct";
