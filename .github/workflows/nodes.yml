@@ -53,8 +53,8 @@ jobs:
         NF_UPDATE_CACHIX_PUSH: '1'
       id: home-base
       name: build home closure for home-base
-      run: nix run .#nf-build-system -- homeConfigurations.home-base.activationPackage
-        home-base Home
+      run: /nix/store/7na5z8aj8r49sxip38d3g82xazan39fb-lix-2.91.3/bin/nix run .#nf-build-system
+        -- homeConfigurations.home-base.activationPackage home-base Home
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@v0.7
@@ -115,8 +115,8 @@ jobs:
         NF_UPDATE_CACHIX_PUSH: '1'
       id: home-graphical
       name: build home closure for home-graphical
-      run: nix run .#nf-build-system -- homeConfigurations.home-graphical.activationPackage
-        home-graphical Home
+      run: /nix/store/7na5z8aj8r49sxip38d3g82xazan39fb-lix-2.91.3/bin/nix run .#nf-build-system
+        -- homeConfigurations.home-graphical.activationPackage home-graphical Home
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@v0.7
@@ -177,8 +177,8 @@ jobs:
         NF_UPDATE_CACHIX_PUSH: '1'
       id: home-neovim
       name: build home closure for home-neovim
-      run: nix run .#nf-build-system -- homeConfigurations.home-neovim.activationPackage
-        home-neovim Home
+      run: /nix/store/7na5z8aj8r49sxip38d3g82xazan39fb-lix-2.91.3/bin/nix run .#nf-build-system
+        -- homeConfigurations.home-neovim.activationPackage home-neovim Home
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@v0.7
@@ -239,8 +239,8 @@ jobs:
         NF_UPDATE_CACHIX_PUSH: '1'
       id: home-shell
       name: build home closure for home-shell
-      run: nix run .#nf-build-system -- homeConfigurations.home-shell.activationPackage
-        home-shell Home
+      run: /nix/store/7na5z8aj8r49sxip38d3g82xazan39fb-lix-2.91.3/bin/nix run .#nf-build-system
+        -- homeConfigurations.home-shell.activationPackage home-shell Home
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@v0.7
@@ -301,8 +301,8 @@ jobs:
         NF_UPDATE_CACHIX_PUSH: '1'
       id: mai
       name: build system closure for mai
-      run: nix run .#nf-build-system -- nixosConfigurations.mai.config.system.build.toplevel
-        mai NixOS
+      run: /nix/store/7na5z8aj8r49sxip38d3g82xazan39fb-lix-2.91.3/bin/nix run .#nf-build-system
+        -- nixosConfigurations.mai.config.system.build.toplevel mai NixOS
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@v0.7
@@ -363,8 +363,8 @@ jobs:
         NF_UPDATE_CACHIX_PUSH: '1'
       id: mei
       name: build system closure for mei
-      run: nix run .#nf-build-system -- nixosConfigurations.mei.config.system.build.toplevel
-        mei NixOS
+      run: /nix/store/7na5z8aj8r49sxip38d3g82xazan39fb-lix-2.91.3/bin/nix run .#nf-build-system
+        -- nixosConfigurations.mei.config.system.build.toplevel mei NixOS
     - id: ci-dirty
       name: nix test dirty
       uses: arcnmx/ci/actions/nix/run@v0.7

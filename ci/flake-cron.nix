@@ -1,5 +1,6 @@
 {
   lib,
+  channels,
   config,
   ...
 }:
@@ -38,7 +39,7 @@ with lib; {
         step.flake-update = {
           name = "flake update build";
           order = 500;
-          run = "nix run .#nf-update";
+          run = "${channels.nixpkgs.lix}/bin/nix run .#nf-update";
           env = {
             CACHIX_AUTH_TOKEN = "\${{ secrets.CACHIX_AUTH_TOKEN }}";
             CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
