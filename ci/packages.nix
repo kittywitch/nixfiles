@@ -5,6 +5,7 @@ in {
     devShell.inputs = with legacyPackages.x86_64-linux; [
       deploy-rs
       terraform
+      lix
       tflint
       alejandra
       deadnix
