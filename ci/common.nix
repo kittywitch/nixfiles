@@ -3,6 +3,7 @@
   config,
   ...
 }: {
+  bootstrap.packages.nix = channels.nixpkgs.lix;
   nixpkgs.args = {
     localSystem = "x86_64-linux";
     config = {

@@ -4,7 +4,7 @@
   git,
   cachix,
   jq,
-  nix,
+  lix,
   curl,
 }: let
   inherit (lib) makeBinPath;
@@ -14,7 +14,7 @@ in
       git
       cachix
       jq
-      nix
+      lix
       curl
     ]}"
     exec ${./build-system.sh} "$@"
