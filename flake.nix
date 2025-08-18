@@ -61,7 +61,7 @@
     };
     # to allow non-nix 2.4 evaluation
     flake-compat = {
-      url = "https://git.lix.systems/lix-project/flake-compat/archive/main.tar.gz";
+      url = "git+https://git.lix.systems/lix-project/flake-compat?ref=main";
       flake = false;
     };
     rbw-bitw = {
