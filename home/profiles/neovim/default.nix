@@ -1,15 +1,13 @@
 {
   config,
   lib,
-  std,
   pkgs,
   ...
 }: let
   inherit (lib.modules) mkIf;
-  inherit (std) string set;
-  initLua = pkgs.replaceVars ./init.lua ({
+  initLua = pkgs.replaceVars ./init.lua {
     inity = config.programs.neovim.generatedConfigs.lua;
-  });
+  };
 in {
   stylix.targets.neovim = {
     enable = true;

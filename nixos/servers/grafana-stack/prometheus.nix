@@ -23,7 +23,6 @@
       };
     };
     ruleFiles = [
-      ./synapse-v2.rules
     ];
     scrapeConfigs = [
       {
@@ -35,14 +34,6 @@
         static_configs = [
           {
             targets = ["home.gensokyo.zone:443"];
-          }
-        ];
-      }
-      {
-        job_name = "${config.networking.hostName}-minecraft";
-        static_configs = [
-          {
-            targets = ["127.0.0.1:25585"];
           }
         ];
       }
@@ -98,15 +89,6 @@
               "inskip.me"
               "gensokyo.zone"
             ];
-          }
-        ];
-      }
-      {
-        job_name = "${config.networking.hostName}-synapse";
-        metrics_path = "/_synapse/metrics";
-        static_configs = [
-          {
-            targets = ["[::1]:8009"];
           }
         ];
       }

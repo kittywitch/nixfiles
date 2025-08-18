@@ -6,7 +6,8 @@ DISCORD_WEBHOOK_LINK=${DISCORD_WEBHOOK_LINK:-""}
 # Helper functions
 send_discord_message() {
   local message="$1"
-  local escaped_message=$(printf '%s' "$message" | jq -R -s '.')
+  local escaped_message
+  escaped_message=$(printf '%s' "$message" | jq -R -s '.')
   curl -s -H "Accept: application/json" -H "Content-Type: application/json" \
     -X POST --data "{\"content\": $escaped_message}" "$DISCORD_WEBHOOK_LINK"
 }
@@ -47,7 +48,7 @@ if [[ -n ${NF_UPDATE_CACHIX_PUSH-} && -v NF_ACTIONS_TEST_OUTLINK ]]; then
 fi
 
 if [[ -z ${NF_UPDATE_GIT_COMMIT-} ]]; then
-  wait ${CACHIX_PUSH-}
+  wait "${CACHIX_PUSH-}"
   exit
 fi
 
@@ -63,8 +64,8 @@ env \
   git commit --message="chore(ci): flake update"
 
 if [[ ${GITHUB_REF-} = refs/heads/${NF_UPDATE_BRANCH-main} ]]; then
-  git push origin HEAD:${NF_UPDATE_BRANCH-main}
+  git push origin "HEAD:${NF_UPDATE_BRANCH-main}"
   send_discord_message "Pushed a new commit!"
 fi
 
-wait ${CACHIX_PUSH-}
+wait "${CACHIX_PUSH-}"

@@ -45,7 +45,7 @@ _: let
   in {
     imports =
       (with tree.nixos.hardware; [
-      ])
+        ])
       ++ (with tree.nixos.profiles; [
         graphical
       ])
@@ -63,12 +63,12 @@ _: let
           };
         };
         imports =
-        (with tree.home.profiles; [
-          graphical
-        ])
-        ++ (with tree.home.environments; [
-          niri
-        ]);
+          (with tree.home.profiles; [
+            graphical
+          ])
+          ++ (with tree.home.environments; [
+            niri
+          ]);
       };
 
       fileSystems =

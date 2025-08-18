@@ -1,4 +1,8 @@
-{pkgs, config, lib, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib.modules) mkForce;
 in {
   programs.regreet = {

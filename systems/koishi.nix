@@ -73,12 +73,12 @@ _: let
           };
         };
         imports =
-        (with tree.home.profiles; [
-          graphical
-        ])
-        ++ (with tree.home.environments; [
-          niri
-        ]);
+          (with tree.home.profiles; [
+            graphical
+          ])
+          ++ (with tree.home.environments; [
+            niri
+          ]);
       };
 
       fileSystems =

@@ -8,6 +8,13 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     nix-flatpak = {
       url = "github:gmodena/nix-flatpak/?ref=latest";
     };
@@ -30,6 +37,13 @@
       #  url = "git+https://git.lix.systems/lix-project/lix";
       #  inputs.nixpkgs.follows = "nixpkgs";
       #};
+    };
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
     };
     stylix = {
       url = "github:nix-community/stylix";
@@ -126,8 +140,7 @@
       };
     };
     chaotic = {
-      #url = "path:/home/kat/Projects/nyx";
-      url = "github:kittywitch/nyx/nyxpkgs-unstable";
+      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
       inputs = {
         #nixpkgs.follows = "nixpkgs";
         rust-overlay.follows = "rust-overlay";
@@ -190,14 +203,6 @@
       url = "github:nix-community/naersk";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-      };
-    };
-    push2talk = {
-      url = "github:cyrinux/push2talk/main";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-        naersk.follows = "naersk";
       };
     };
     wezterm = {

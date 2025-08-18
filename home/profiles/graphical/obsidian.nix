@@ -13,7 +13,7 @@ _: {
         readableLineLength = true;
       };
       appearance = {
-        monospaceFontFamily =  "Iosevka,Consolas";
+        monospaceFontFamily = "Iosevka,Consolas";
         textFontFamily = "Ubuntu Sans";
         interfaceFontFamily = "Monaspace Krypton";
         baseFontSize = 16;

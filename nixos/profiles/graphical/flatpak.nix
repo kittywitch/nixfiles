@@ -1,6 +1,6 @@
 _: {
   home-manager.sharedModules = [
-    ({ config, ... }: {
+    ({config, ...}: {
       xdg.systemDirs.data = [
         "/var/lib/flatpak/exports/share"
         "/home/${config.home.username}/.local/share/flatpak/exports/share/"
@@ -14,7 +14,10 @@ _: {
       onCalendar = "weekly";
     };
     remotes = [
-      { name = "flathub"; location = "https://dl.flathub.org/repo/flathub.flatpakrepo"; }
+      {
+        name = "flathub";
+        location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+      }
     ];
   };
 }

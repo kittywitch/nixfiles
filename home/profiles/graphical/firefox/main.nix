@@ -2,13 +2,11 @@
   pkgs,
   nur,
   ...
-}: let
-  defaultFont = "Monaspace Krypton";
-in {
+}: {
   home.sessionVariables = {
     BROWSER = "zen";
   };
-  stylix.targets.zen-browser.profileNames = [ "main" ];
+  stylix.targets.zen-browser.profileNames = ["main"];
   home.packages = [pkgs.ff2mpv-rust];
   programs.zen-browser = {
     nativeMessagingHosts = [
@@ -49,6 +47,7 @@ in {
             return-youtube-dislikes
             ff2mpv
             terms-of-service-didnt-read
+            web-clipper-obsidian
           ];
           force = true;
         };

@@ -4,17 +4,38 @@
   inherit (inputs.nixpkgs) lib;
   overlay = import ./packages {inherit inputs tree;};
   systems = import ./systems {inherit inputs tree lib std pkgs;};
-  shells = import ./shells {inherit inputs tree lib std pkgs;};
+  shells = import ./shells {inherit inputs tree lib std pkgs checks;};
   inherit (import ./pkgs.nix {inherit inputs tree overlay;}) pkgs;
   formatting = import ./formatting.nix {inherit inputs pkgs;};
   inherit (std) set;
-  checks = set.map (_: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
+  forAllSystems = lib.genAttrs inputs.flake-utils.lib.defaultSystems;
+  checks = let
+    git-hooks = system:
+      inputs.git-hooks.lib.${system}.run {
+        src = ./.;
+        hooks = {
+          treefmt = {
+            enable = true;
+            packageOverrides = {treefmt = formatting.formatter.${system};};
+          };
+          flake-checker.enable = true;
+          ripsecrets.enable = true;
+          pre-commit-hook-ensure-sops.enable = true;
+        };
+      };
+    format = formatting.checks;
+    deploy = set.map (_: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
+  in
+    forAllSystems (system: {
+      deploy = deploy.${system};
+      format = format.${system};
+      git-hooks = git-hooks system;
+    });
 in
   {
-    inherit inputs tree std pkgs lib;
+    inherit inputs tree std pkgs lib checks;
     legacyPackages = pkgs;
     #packages = set.merge [pkgs wrappers.packages];
-    checks = checks // formatting.checks;
     inherit (formatting) formatter;
   }
   // systems

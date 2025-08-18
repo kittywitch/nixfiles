@@ -1,4 +1,9 @@
-{pkgs, config, lib, ...}: let
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
   inherit (lib.meta) getExe getExe';
 in {
   programs.niri.settings.spawn-at-startup = let

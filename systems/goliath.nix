@@ -8,7 +8,6 @@ _: let
     ...
   }: let
     inherit (lib.attrsets) nameValuePair listToAttrs;
-    inherit (lib.meta) getExe';
     datasets = [
       "root"
       "nix"
@@ -98,21 +97,41 @@ _: let
           ];
         };
         waybar.settings.main = {
-          modules-center = [
+          modules-right = [
             "custom/nvidia-vram"
           ];
           "custom/nvidia-vram" = {
-              tooltip = false;
-              format = "nvidia {}";
-              interval = 1;
-              exec = "${getExe' config.hardware.nvidia.package "nvidia-smi"} --query-gpu=memory.used,memory.total,pstate --format=csv,noheader,nounits";
-              return-type = "";
-            };
+            tooltip = false;
+            format = "vram {}";
+            interval = 1;
+            exec = let
+              inherit (lib.meta) getExe;
+              inherit (pkgs) writeShellScriptBin bc;
+              nvidia-vram = writeShellScriptBin "nvidia-vram" ''
+                  export PATH="$PATH:${lib.makeBinPath [
+                  config.hardware.nvidia.package
+                  bc
+                ]}"
+                exec ${../packages/nvidia-vram/nvidia-vram.sh} "$@"
+              '';
+            in "${getExe nvidia-vram}";
+            return-type = "";
+          };
         };
         niri.settings = {
           outputs = {
             "LG Electronics LG Ultra HD 0x0001AC91" = {
               scale = 1.0;
+              position = {
+                x = 1920;
+                y = 0;
+              };
+            };
+            "Samsung Electric Company SAMSUNG Unknown" = {
+              position = {
+                x = 0;
+                y = 0;
+              };
             };
             "PNP(XXX) Beyond TV 0x00010000" = {
               mode = {
@@ -132,13 +151,13 @@ _: let
         };
       };
       imports =
-      (with tree.home.profiles; [
-        graphical
-      ])
-      ++ (with tree.home.environments; [
-        #hyprland
-        niri
-      ]);
+        (with tree.home.profiles; [
+          graphical
+        ])
+        ++ (with tree.home.environments; [
+          #hyprland
+          niri
+        ]);
     };
 
     networking.hostId = "c3b94e85";
@@ -166,7 +185,6 @@ _: let
         builders-use-substitutes = true
       '';
     };
-
 
     services.xserver.videoDrivers = ["nvidia"];
 

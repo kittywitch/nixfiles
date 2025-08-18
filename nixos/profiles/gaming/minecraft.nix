@@ -1,8 +1,8 @@
 {pkgs, ...}: {
   programs.java = {
-    enable = false;
+    enable = true;
   };
   environment.systemPackages = with pkgs; [
-    #prismlauncher
+    prismlauncher
   ];
 }

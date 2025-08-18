@@ -3,7 +3,8 @@
     services.weechat.enable = true;
     programs.weechat = {
       enable = true;
-      config.weechat = { #with config.base16.defaultScheme.map.ansiStr; {
+      config.weechat = {
+        #with config.base16.defaultScheme.map.ansiStr; {
         look = {
           mouse = true;
           separator_horizontal = "";

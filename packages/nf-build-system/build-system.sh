@@ -10,7 +10,8 @@ SYSTEM_TYPE=${3:-""}
 send_discord_message() {
   local message="$1"
   if [[ -n "$DISCORD_WEBHOOK_LINK" ]]; then
-    local escaped_message=$(printf '%s' "$message" | jq -R -s '.')
+    local escaped_message
+    escaped_message=$(printf '%s' "$message" | jq -R -s '.')
     curl -s -H "Accept: application/json" -H "Content-Type: application/json" \
       -X POST --data "{\"content\": $escaped_message}" "$DISCORD_WEBHOOK_LINK"
   else

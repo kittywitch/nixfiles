@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   xdg = {
     enable = true;
     autostart.enable = true;

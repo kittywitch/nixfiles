@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   home.packages = [
     pkgs.adwaita-icon-theme
   ];
@@ -19,7 +19,7 @@
     opacity = {
       desktop = 1.0;
       applications = 1.0;
-      terminal = 0.8;
+      terminal = 0.9;
       popups = 0.8;
     };
     fonts = {

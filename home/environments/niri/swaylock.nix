@@ -6,7 +6,7 @@
       screenshots = true;
       indicator = true;
       clock = true;
-      grace = 2;
+      grace = 10;
       fade-in = 2;
       effect-blur = "7x5";
       effect-vignette = "0.5:0.5";

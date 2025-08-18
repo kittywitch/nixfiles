@@ -8,16 +8,16 @@
 }: let
   inherit (lib.attrsets) nameValuePair listToAttrs;
   inherit (lib.modules) mkMerge mkIf;
-  inherit (std) string list serde;
+  inherit (std) string list;
 in {
   home.packages = with pkgs; [
     # programs.zsh.enableAutosuggestions only includes nix-zsh-autocompletions
     zsh-completions
   ];
 
-    #xdg.configFile."kattheme_immutable.json".text = serde.toJSON rec {
-    #default = config.base16.defaultSchemeName;
-    #current = default;
+  #xdg.configFile."kattheme_immutable.json".text = serde.toJSON rec {
+  #default = config.base16.defaultSchemeName;
+  #current = default;
   #};
 
   programs.zsh = {

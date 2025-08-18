@@ -53,10 +53,10 @@ _: {
     }
     {
       matches = [
-        {app-id="^com.github.wwmm.easyeffects$";}
-        {app-id="^.blueman-manager-wrapped$";}
-        {app-id="^org.pulseaudio.pavucontrol$";}
-        {app-id="^com.saivert.pwvucontrol$";}
+        {app-id = "^com.github.wwmm.easyeffects$";}
+        {app-id = "^.blueman-manager-wrapped$";}
+        {app-id = "^org.pulseaudio.pavucontrol$";}
+        {app-id = "^com.saivert.pwvucontrol$";}
       ];
       open-on-workspace = "audio";
     }

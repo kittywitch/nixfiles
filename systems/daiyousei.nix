@@ -1,5 +1,5 @@
-{ lib, pkgs, ... }: let
-  inherit (lib.modules) mkForce;
+{lib, ...} @ specyArgs: let
+  inherit (lib.attrsets) removeAttrs;
   hostConfig = {
     tree,
     modulesPath,
@@ -9,6 +9,10 @@
       [
         (modulesPath + "/profiles/qemu-guest.nix")
       ]
+      ++ (with tree.nixos; [
+        container-host
+        microvm-host
+      ])
       ++ (with tree.nixos.profiles; [
         server
       ])
@@ -21,6 +25,29 @@
         postgres
         web
       ]);
+
+    # TODO: Add config.microvm.stateDir to backup schedule?
+    # TODO: figure out updateFlake?
+    microvm = {
+      host.enable = true;
+      vms = {
+        syncthing = {
+          autostart = true;
+          specialArgs = removeAttrs specyArgs ["config" "pkgs" "lib"];
+          config = {
+            imports = [
+              tree.nixos.servers.syncthing
+            ];
+            services = {
+              syncthing = {
+                enable = true;
+              };
+            };
+          };
+          restartIfChanged = true;
+        };
+      };
+    };
 
     system.stateVersion = "23.11";
   };

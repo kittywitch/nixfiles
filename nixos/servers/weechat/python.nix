@@ -1,13 +1,10 @@
 {
   config,
   pkgs,
-  std,
   inputs,
-  lib,
   ...
 }: let
   inherit (builtins) toJSON;
-  inherit (std) list set;
 in {
   home-manager.users.kat.programs.weechat = {
     plugins = {

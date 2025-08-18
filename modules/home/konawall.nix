@@ -1,4 +1,10 @@
-{ inputs, lib, pkgs, config, ... }: let
+{
+  inputs,
+  lib,
+  pkgs,
+  config,
+  ...
+}: let
   inherit (lib.options) mkOption mkEnableOption mkPackageOption;
   inherit (lib.types) submodule path nullOr;
   inherit (lib.modules) mkIf;

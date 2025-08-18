@@ -1,7 +1,4 @@
-{
-  config,
-  ...
-}: {
+{config, ...}: {
   sops.secrets.konawall-py-env = {
     sopsFile = ./konawall.yaml;
   };

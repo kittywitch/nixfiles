@@ -92,6 +92,7 @@
           nixos-cli.nixosModules.nixos-cli
           nix-flatpak.nixosModules.nix-flatpak
           stylix.nixosModules.stylix
+          microvm.nixosModules.host
         ];
       };
     };

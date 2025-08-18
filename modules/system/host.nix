@@ -13,7 +13,7 @@
   inherit (std) string set;
 in {
   options = let
-    inherit (lib.types) str listOf attrs unspecified enum;
+    inherit (lib.types) str listOf attrs nullOr unspecified enum bool;
     inherit (lib.options) mkOption;
   in {
     name = mkOption {
@@ -54,6 +54,18 @@ in {
     built = mkOption {
       type = unspecified;
       internal = true;
+    };
+    microVM = {
+      state = mkOption {
+        description = "Does this system exist as a guest MicroVM?";
+        type = bool;
+        default = false;
+      };
+      host = mkOption {
+        description = "The hostname that is the host of this guest MicroVM";
+        type = nullOr str;
+        default = null;
+      };
     };
   };
   config = {

@@ -13,7 +13,7 @@
     protonplus
     gamescope-wsi
     (lutris.override {
-      extraPkgs = pkgs: [
+      extraPkgs = _pkgs: [
         #pkgs.gamescope
         #pkgs.libnghttp2
         #pkgs.winetricks
@@ -25,7 +25,7 @@
         #pkgs.umu-launcher
         #pkgs.xdg-desktop-portal
       ];
-      extraLibraries = pkgs: [
+      extraLibraries = _pkgs: [
         #pkgs.libunwind
         #pkgs.xdg-desktop-portal
         #pkgs.gvfs

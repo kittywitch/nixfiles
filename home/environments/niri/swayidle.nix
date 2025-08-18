@@ -3,11 +3,11 @@
     enable = true;
     timeouts = [
       {
-        timeout = 180;
+        timeout = 600;
         command = "${config.programs.swaylock.package}/bin/swaylock* -f";
       }
       {
-        timeout = 600;
+        timeout = 1200;
         command = "${config.programs.niri.package}/bin/niri msg action power-off-monitors";
       }
     ];
