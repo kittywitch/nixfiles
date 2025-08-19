@@ -3,6 +3,7 @@ _: let
     imports = with tree.home.profiles; [
       common
       shell
+      ci
     ];
   };
 in {

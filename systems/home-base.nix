@@ -2,6 +2,7 @@ _: let
   hostConfig = {tree, ...}: {
     imports = with tree.home.profiles; [
       common
+      ci
     ];
   };
 in {

@@ -11,7 +11,7 @@ with pkgs; let
     nativeBuildInputs = [
       nf-build-system
       nf-update
-      lix
+      pkgs.lix
       fd # fd, better fine!
       ripgrep # rg, better grep!
       sops
