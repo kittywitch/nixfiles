@@ -1,20 +1,14 @@
 {pkgs, ...}: {
-  programs.envision = {
-    enable = false;
-    openFirewall = true; # This is set true by default
-  };
-
-  /*
-    services.wivrn = {
+  services.wivrn = {
     enable = true;
     openFirewall = true;
-    package = pkgs.wivrn.override { cudaSupport = true; };
+    package = pkgs.wivrn.override {cudaSupport = true;};
     defaultRuntime = true;
     config = {
       enable = true;
       json = {
-        scale = [ 0.5 0.5 ];
-        bitrate = 300*1000;
+        scale = [0.5 0.5];
+        bitrate = 300 * 1000;
         encoders = [
           {
             encoder = "nvenc";
@@ -32,12 +26,11 @@
       };
     };
   };
-  */
 
   environment.systemPackages = with pkgs; [
-    #wlx-overlay-s
-    #monado-vulkan-layers
-    #bs-manager
+    wlx-overlay-s
+    monado-vulkan-layers
+    bs-manager
   ];
 
   networking.firewall = {

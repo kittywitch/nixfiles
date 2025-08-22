@@ -10,6 +10,7 @@ keys:
 - &daiyousei age120530yclr75k6nrzp6k5jjftj8j4q9v3533guupzk4ct86mjxszqg9e5t5
 - &goliath age1c4atxfp05u7zm875s6q8p82ve96rqqpq9smktxlur8pk2yc3qvgql46dp9
 - &goliath_kat age1rjldv3fn3q686647exmcukthr32gmp6s3axs0lhyenvru9ajp9rs24ukvz
+- &syncthing age1p9v6xaujkdat2tsc2mc4gxpg9hjr4suvwryuat95z2c53xhsyfxq0gf594
 creation_rules:
 - path_regex: tf/terraform.tfvars.sops$
   shamir_threshold: 1
@@ -31,6 +32,7 @@ creation_rules:
     - *daiyousei
     - *goliath
     - *goliath_kat
+    - *syncthing
 - path_regex: ci/.*\.yaml
   shamir_threshold: 1
   key_groups:
@@ -38,6 +40,12 @@ creation_rules:
     - *kat
     age: *age_common
 - path_regex: home/[^/]+/.*\.yaml
+  shamir_threshold: 1
+  key_groups:
+  - pgp:
+    - *kat
+    age: *age_common
+- path_regex: microvms/[^/]+/.*\.yaml
   shamir_threshold: 1
   key_groups:
   - pgp:

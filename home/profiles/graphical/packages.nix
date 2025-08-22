@@ -25,7 +25,6 @@
     cryptsetup # Encrypted block devices
     yubikey-manager # Yubikey
     v4l-utils # Webcam
-    obsidian
     remmina
     alsa-utils
     pwvucontrol

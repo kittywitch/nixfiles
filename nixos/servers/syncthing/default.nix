@@ -4,9 +4,9 @@
   lib,
   ...
 }: let
-  inherit (lib.modules) mkOption;
+  inherit (lib.options) mkOption;
   inherit (lib.types) str nullOr;
-  inherit (lib.attrsets) filterAttrs mapAttrs;
+  inherit (lib.attrsets) filterAttrs mapAttrs mapAttrs' nameValuePair;
   enabledHosts = filterAttrs (_n: v: v.config.services.syncthing.enable) self.nixosConfigurations;
   enabledSyncthings = mapAttrs (_n: _v: config.services.syncthing) enabledHosts;
   enabledDevices = mapAttrs' (_n: v: (nameValuePair v.device_name {id = v.device_id;})) enabledSyncthings;
@@ -44,8 +44,8 @@ in {
       # `syncthing generate --no-default-folder --config meep/`
       # I hope this helps! That's what the content of those secrets are from.
 
-      key = sops.secrets.syncthing-key.path;
-      cert = sops.secrets.syncthing-cert.path;
+      key = config.sops.secrets.syncthing-key.path;
+      cert = config.sops.secrets.syncthing-cert.path;
     };
   };
 }

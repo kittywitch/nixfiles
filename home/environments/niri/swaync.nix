@@ -1,5 +1,13 @@
 _: {
   stylix.targets.swaync.enable = true;
+  systemd.user.services.swaync = {
+    Service = {
+      Environment = [
+        "GSK_RENDERER=gl"
+        "GTK_DISABLE_VULKAN=1"
+      ];
+    };
+  };
   services.swaync = {
     enable = true;
     settings = {

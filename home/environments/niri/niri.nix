@@ -70,16 +70,36 @@ in {
         };
       };
       debug = {
-        wait-for-frame-completion-in-pipewire = {};
         deactivate-unfocused-windows = {};
       };
       workspaces = {
-        browser = {};
-        mail = {};
-        chat = {};
-        vidya = {};
-        media = {};
-        audio = {};
+        "01-notes" = {
+          name = "notes";
+        };
+        "02-chat" = {
+          name = "chat";
+        };
+        "03-browser" = {
+          name = "browser";
+        };
+        "04-code" = {
+          name = "code";
+        };
+        "05-term" = {
+          name = "term";
+        };
+        "06-mail" = {
+          name = "mail";
+        };
+        "07-game" = {
+          name = "game";
+        };
+        "08-video" = {
+          name = "video";
+        };
+        "09-audio" = {
+          name = "audio";
+        };
       };
       environment = {
         MOZ_ENABLE_WAYLAND = "1";

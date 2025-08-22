@@ -23,89 +23,97 @@ in {
       ${pkgs.glib}/bin/gsettings set "$gnome_schema" font-name "$font_name"
     '';
     systemctl = getExe' pkgs.systemd "systemctl";
-  in [
-    {
+    packageExe' = pkgAttr: getExe' pkgs.${pkgAttr} pkgAttr;
+    packageExe = pkgAttr: getExe pkgs.${pkgAttr};
+    packageCommand = attr: {
       command = [
-        "${getExe import-gsettings}"
+        (packageExe attr)
       ];
-    }
-    {
+    };
+    packageCommand' = attr: {
       command = [
-        "${systemctl}"
-        "--user"
-        "start"
-        "waybar.service"
+        (packageExe' attr)
       ];
-    }
-    {
-      command = [
-        "${systemctl}"
-        "--user"
-        "restart"
-        "konawall-py.service"
-      ];
-    }
-    {
-      command = [
-        "${systemctl}"
-        "--user"
-        "start"
-        "swaync.service"
-      ];
-    }
-    #{
-    #  command = [
-    #    "${pkgs.xwayland-satellite}/bin/xwayland-satellite"
-    #  ];
-    #}
-    # program autostart
-    {
-      command = [
-        "${getExe' config.programs.niriswitcher.package "niriswitcher"}"
-      ];
-    }
-    {
-      command = [
-        "${getExe' pkgs.dbus "dbus-update-activation-environment"}"
-        "--all"
-      ];
-    }
-    {
-      command = [
-        "${getExe' config.programs.vesktop.package "vesktop"}"
-        "--enable-features=WaylandLinuxDrmSyncobj,UseOzonePlatform"
-        "--ozone-platform=wayland"
-      ];
-    }
-    {
-      command = [
-        "${getExe' config.programs.thunderbird.package "thunderbird"}"
-      ];
-    }
-    {
-      command = [
-        "${getExe' pkgs.udiskie "udiskie"}"
-      ];
-    }
-    {
-      command = [
-        "${getExe' pkgs.easyeffects "easyeffects"}"
-      ];
-    }
-    {
-      command = [
-        "${getExe pkgs.pasystray}"
-      ];
-    }
-    {
-      command = [
-        "${getExe pkgs.networkmanagerapplet}"
-      ];
-    }
-    {
-      command = [
-        "firefox"
-      ];
-    }
-  ];
+    };
+    packages' = [
+      "udiskie"
+      "easyeffects"
+      "pasystray"
+    ];
+    packages = [
+      "pasystray"
+      "pavucontrol"
+      "networkmanagerapplet"
+    ];
+    packageCommands = let
+      packageCommands' = map packageCommand' packages';
+      packageCommands'' = map packageCommand packages;
+    in
+      packageCommands' ++ packageCommands'';
+  in
+    packageCommands
+    ++ [
+      {
+        command = [
+          "${getExe import-gsettings}"
+        ];
+      }
+      {
+        command = [
+          "${systemctl}"
+          "--user"
+          "restart"
+          "waybar.service"
+        ];
+      }
+      {
+        command = [
+          "${systemctl}"
+          "--user"
+          "restart"
+          "konawall-py.service"
+        ];
+      }
+      {
+        command = [
+          "${systemctl}"
+          "--user"
+          "restart"
+          "swaync.service"
+        ];
+      }
+      {
+        command = [
+          "${getExe' config.programs.niriswitcher.package "niriswitcher"}"
+        ];
+      }
+      {
+        command = [
+          "${getExe' pkgs.dbus "dbus-update-activation-environment"}"
+          "--all"
+        ];
+      }
+      {
+        command = [
+          "discord"
+          "--enable-features=WaylandLinuxDrmSyncobj,UseOzonePlatform"
+          "--ozone-platform=wayland"
+        ];
+      }
+      {
+        command = [
+          "thunderbird"
+        ];
+      }
+      {
+        command = [
+          "obsidian"
+        ];
+      }
+      {
+        command = [
+          "zen-beta"
+        ];
+      }
+    ];
 }

@@ -28,6 +28,8 @@
 
     common.functor.enable = true;
 
+    "microvms/*".functor.enable = true;
+
     "home/*".functor.enable = true;
     "home/profiles/*".functor.enable = true;
     "home/environments/*".functor.enable = true;

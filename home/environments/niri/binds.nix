@@ -38,16 +38,18 @@ in {
       "Mod+D".action = sh ''${getExe config.programs.fuzzel.package} -D no -T "${getExe config.programs.alacritty.package} --command"'';
       "Mod+Escape".action = sh ''${getExe config.programs.wlogout.package} -p layer-shell'';
       "Mod+Shift+Escape".action = sh ''${getExe config.programs.swaylock.package} -f'';
-      "Mod+Alt+Tab" = {
+      "Mod+Tab" = {
         #repeat = false;
         cooldown-ms = 150;
         action.spawn = ["${getExe' pkgs.glib "gdbus"}" "call" "--session" "--dest" "io.github.isaksamsten.Niriswitcher" "--object-path" "/io/github/isaksamsten/Niriswitcher" "--method" "io.github.isaksamsten.Niriswitcher.application"];
       };
-      "Mod+Alt+Shift+Tab" = {
+      "Mod+Shift+Tab" = {
         cooldown-ms = 150;
         #repeat = false;
         action.spawn = ["${getExe' pkgs.glib "gdbus"}" "call" "--session" "--dest" "io.github.isaksamsten.Niriswitcher" "--object-path" "/io/github/isaksamsten/Niriswitcher" "--method" "io.github.isaksamsten.Niriswitcher.application"];
       };
+      "Mod+Shift+Ctrl+Page_Down".action.move-workspace-to-monitor-previous = {};
+      "Mod+Shift+Ctrl+Page_Up".action.move-workspace-to-monitor-next = {};
     };
     #            ▄                  █
     #    ▄▄▄   ▄▄█▄▄   ▄▄▄    ▄▄▄   █   ▄

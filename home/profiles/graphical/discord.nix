@@ -1,7 +1,12 @@
-_: {
+{pkgs, ...}: {
   stylix.targets.vesktop.enable = false;
+  home.packages = [
+    (pkgs.discord.override {
+      withVencord = true;
+    })
+  ];
   programs.vesktop = {
-    enable = true;
+    enable = false;
     settings = {
       autoUpdate = false;
       autoUpdateNotification = false;

@@ -1,34 +1,25 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    # task managers
+    watchexec
     htop
     btop
-    # disk usage
-    duc
-    # nix formatting
+    gdu
     nixpkgs-fmt
-    # show type of files
     file
-    # command monitoring
     pv
-    # sed replacement
     sd
-    # sops
     sops
-    # find replacement
     fd
-    # ripgrep / grep replacement
     ripgrep
-    # rename with sed
     rename
-    # remote tmux
     tmate
-    # remote utilities
     socat
     rsync
     wget
     whois
-    # nix-search
+    jc
+    hyperfine
+    poop
     nix-search-cli
   ];
 }
