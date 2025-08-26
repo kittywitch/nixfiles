@@ -51,8 +51,15 @@ _: {
   # Allow inbound traffic for the DHCP server
   networking.firewall.allowedUDPPorts = [67];
 
-  users.users = {
-    # allow container access to zvol
-    container.extraGroups = ["disk"];
+  users = {
+    groups.container = {};
+    users = {
+      # allow container access to zvol
+      container = {
+        isSystemUser = true;
+        group = "container";
+        extraGroups = ["disk"];
+      };
+    };
   };
 }
