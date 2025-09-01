@@ -48,6 +48,7 @@
             ff2mpv
             terms-of-service-didnt-read
             web-clipper-obsidian
+            yomitan
           ];
           force = true;
         };

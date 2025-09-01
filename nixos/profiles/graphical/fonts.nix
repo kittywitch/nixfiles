@@ -2,6 +2,7 @@
   fonts = {
     packages = with pkgs; [
       font-awesome
+      noto-fonts-cjk-sans
       twitter-color-emoji
       iosevka-bin
       monaspace

@@ -6,7 +6,6 @@
   pkgs,
   ...
 }: let
-  inherit (lib.attrsets) nameValuePair listToAttrs;
   inherit (lib.modules) mkMerge mkIf;
   inherit (std) string list;
 in {
@@ -89,29 +88,20 @@ in {
         else ""
       }
     '';
-    shellAliases = let
-      packages = [
-        "sidequest"
-        "ungoogled-chromium"
-      ];
-      makeAliasForBin = package: nameValuePair package "nix run kat#${package}";
-      packages' = builtins.listToAttrs (map makeAliasForBin packages);
-    in
-      mkMerge [
-        packages'
-        {
-          nixdirfmt = "nixpkgs-fmt $(fd -e nix)";
-          dmesg = "dmesg -HP";
-          hg = "history 0 | rg";
-        }
-        (mkIf pkgs.hostPlatform.isLinux {
-          sys = "systemctl";
-          sysu = "systemctl --user";
-          logu = "journalctl --user";
-          log = "journalctl";
-          lg = "log --no-pager | rg";
-        })
-      ];
+    shellAliases = mkMerge [
+      {
+        nixdirfmt = "nixpkgs-fmt $(fd -e nix)";
+        dmesg = "dmesg -HP";
+        hg = "history 0 | rg";
+      }
+      (mkIf pkgs.hostPlatform.isLinux {
+        sys = "systemctl";
+        sysu = "systemctl --user";
+        logu = "journalctl --user";
+        log = "journalctl";
+        lg = "log --no-pager | rg";
+      })
+    ];
     localVariables = {
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=3,bold";
       ZSH_AUTOSUGGEST_USE_ASYNC = 1;

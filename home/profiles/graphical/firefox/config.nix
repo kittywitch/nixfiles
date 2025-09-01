@@ -2,7 +2,11 @@ _: {
   programs.zen-browser.profiles.main.settings = {
     "zen.welcome-screen.seen" = true;
     "zen.watermark.enabled" = false;
-
+    "browser.ml.chat.enabled" = false;
+    "extensions.ml.enabled" = false;
+    "browser.ml.linkPreview.enabled" = false;
+    "browser.tabs.groups.smart.enabled" = false;
+    "browser.tabs.groups.smart.userEnabled" = false;
     # Derived from https://github.com/arcnmx/home/blob/9eb1cd4dd43883e1a0c6a2a55c00d7c3bede1776/cfg/firefox/default.nix#L7
     # and https://git.ztn.sh/zotan/snowleopard/src/branch/dev/assets/prefs.js
     "services.sync.engine.prefs" = false;

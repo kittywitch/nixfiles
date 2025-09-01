@@ -98,6 +98,7 @@ in {
           "discord"
           "--enable-features=WaylandLinuxDrmSyncobj,UseOzonePlatform"
           "--ozone-platform=wayland"
+          "--enable-wayland-ime"
         ];
       }
       {
