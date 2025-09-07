@@ -1,5 +1,7 @@
 _: {
   programs.zen-browser.profiles.main.settings = {
+    "browser.tabs.allow_transparent_browser" = true;
+
     "zen.welcome-screen.seen" = true;
     "zen.watermark.enabled" = false;
     "browser.ml.chat.enabled" = false;

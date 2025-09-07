@@ -225,30 +225,6 @@ require('neorg').setup {
 	},
 }
 
--- session managemenet
-
-require("resession").setup({
-  autosave = {
-    enabled = true,
-    interval = 60,
-    notify = true,
-  },
-})
-
-vim.api.nvim_create_autocmd("VimLeavePre", {
-  callback = function()
-    -- Always save a special session named "last"
-    resession.save("last")
-  end,
-})
-
--- hardtime
-vim.notify = require("notify")
---[[require("hardtime").setup({
-  disable_mouse = false,
-  disabled_keys = {},
-})]]--
-
 -- telescope
 local telescope = require('telescope.builtin')
 

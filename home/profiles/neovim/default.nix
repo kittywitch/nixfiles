@@ -55,11 +55,6 @@ in {
       # tree
       nui-nvim
       neo-tree-nvim
-      # hardtime
-      hardtime-nvim
-      nvim-notify
-      # Session management
-      resession-nvim
       # obsidian vault support for neovim
       obsidian-nvim
       # commentry
