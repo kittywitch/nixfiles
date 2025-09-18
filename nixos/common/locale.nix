@@ -8,7 +8,7 @@
       "en_CA.UTF-8/UTF-8"
       "en_GB.UTF-8/UTF-8"
       "en_US.UTF-8/UTF-8"
-      "en_DK.UTF-8/UTF-8"
+      "ja_JP.UTF-8/UTF-8"
     ];
   };
   console = {

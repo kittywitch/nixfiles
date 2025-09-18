@@ -76,10 +76,15 @@
     nix-std = {
       url = "github:chessai/nix-std";
     };
+    ida-pro-overlay = {
+      #url = "github:msanft/ida-pro-overlay";
+      url = "path:/home/kat/src/ida-pro-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        #nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
       };
     };
