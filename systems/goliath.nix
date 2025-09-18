@@ -50,6 +50,7 @@ _: let
         quiet-boot
         wireless
         gaming
+        dev
       ])
       ++ (with tree.nixos.environments; [
         #hyprland
