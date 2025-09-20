@@ -77,8 +77,8 @@
       url = "github:chessai/nix-std";
     };
     ida-pro-overlay = {
-      #url = "github:msanft/ida-pro-overlay";
-      url = "path:/home/kat/src/ida-pro-overlay";
+      url = "github:kittywitch/ida-pro-overlay";
+      #url = "path:/home/kat/src/ida-pro-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-gaming = {
