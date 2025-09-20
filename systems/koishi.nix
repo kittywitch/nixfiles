@@ -91,13 +91,19 @@ _: let
         drives.swap.result
       ];
 
+      hardware.framework.enableKmod = false;
+
       boot = {
         loader = {
           grub.useOSProber = true;
           systemd-boot.enable = lib.mkForce false;
         };
+        kernelModules = ["cros_ec" "cros_ec_lpcs"];
         extraModprobeConfig = "options snd_hda_intel power_save=0";
-        extraModulePackages = [config.boot.kernelPackages.v4l2loopback.out];
+        extraModulePackages = with config.boot.kernelPackages; [
+          config.boot.kernelPackages.v4l2loopback.out
+          framework-laptop-kmod
+        ];
       };
 
       services.scx = {
