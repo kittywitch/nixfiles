@@ -12,8 +12,8 @@ in {
       sidequest
     ];
     aliaser = package:
-      pkgs.writeShellScriptBin package.name ''
-        ${getExe config.nix.package} run nixpkgs#${package.name} -- "$@"
+      pkgs.writeShellScriptBin package.pname ''
+        ${getExe config.nix.package} run nixpkgs#${package.pname} -- "$@"
       '';
   in
     map aliaser packages;

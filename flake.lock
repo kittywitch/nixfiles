@@ -659,14 +659,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1758196882,
-        "narHash": "sha256-TbYNkdSo5j0d5ODWVoh6ZIziIKNGpLQckZWr0SeTwmQ=",
-        "path": "/home/kat/src/ida-pro-overlay",
-        "type": "path"
+        "lastModified": 1758197306,
+        "narHash": "sha256-GKTo+HBswsF0zB/aFtGmXOo21u3Xja6ffCJaQRF+x/I=",
+        "owner": "kittywitch",
+        "repo": "ida-pro-overlay",
+        "rev": "cb612510be4ba421517b2c5e152ab4343d709c4a",
+        "type": "github"
       },
       "original": {
-        "path": "/home/kat/src/ida-pro-overlay",
-        "type": "path"
+        "owner": "kittywitch",
+        "repo": "ida-pro-overlay",
+        "type": "github"
       }
     },
     "infrastructure": {

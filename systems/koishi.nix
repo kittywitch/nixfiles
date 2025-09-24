@@ -165,7 +165,7 @@ _: let
   };
 in {
   arch = "x86_64";
-  deploy.hostname = "10.1.1.68";
+  deploy.hostname = "10.1.1.171";
   ci.enable = false; # Closure too large
   type = "NixOS";
   modules = [

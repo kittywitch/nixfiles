@@ -71,32 +71,38 @@ _: let
           cudaSupport = true;
         };
         konawall-py.settings = {
-          source = "e621";
+          source = "konachan";
           tags = [
-            "rating:s"
-            #"-male/male"
-            "-overweight_male"
-            "-five_nights_at_freddy's"
-            #"touhou"
-            "-male"
-            "-large_breasts"
-            "-scalie"
-            #"-my_little_pony"
-            "-sonic_the_hedgehog"
-            "-amputee"
-            "-inflation"
-            "-pool_toy"
-            "-cuckold"
-            "-gore"
-            "-human"
-            "-animated"
-            "-hyper"
-            "-death"
-            "ratio:>=1.3"
-            "-muscular_male"
-            "-model_sheet"
+            "rating:e"
           ];
         };
+        # konawall-py.settings = {
+        #   source = "e621";
+        #   tags = [
+        #     "rating:s"
+        #     #"-male/male"
+        #     "-overweight_male"
+        #     "-five_nights_at_freddy's"
+        #     #"touhou"
+        #     "-male"
+        #     "-large_breasts"
+        #     "-scalie"
+        #     #"-my_little_pony"
+        #     "-sonic_the_hedgehog"
+        #     "-amputee"
+        #     "-inflation"
+        #     "-pool_toy"
+        #     "-cuckold"
+        #     "-gore"
+        #     "-human"
+        #     "-animated"
+        #     "-hyper"
+        #     "-death"
+        #     "ratio:>=1.3"
+        #     "-muscular_male"
+        #     "-model_sheet"
+        #   ];
+        # };
         waybar.settings.main = {
           modules-right = [
             "custom/nvidia-vram"

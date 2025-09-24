@@ -70,7 +70,7 @@ in {
         };
       };
       debug = {
-        deactivate-unfocused-windows = {};
+        #deactivate-unfocused-windows = {};
       };
       workspaces = {
         "01-notes" = {
