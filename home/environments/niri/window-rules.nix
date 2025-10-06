@@ -15,18 +15,39 @@ _: {
 
     {
       matches = [
-        {app-id = "^firefox$";}
-        {app-id = "^zen-beta$";}
-        {app-id = "^zen$";}
+        {
+          app-id = "^firefox$";
+          at-startup = true;
+        }
+        {
+          app-id = "^zen-beta$";
+          at-startup = true;
+        }
+        {
+          app-id = "^zen$";
+          at-startup = true;
+        }
       ];
       open-on-workspace = "browser";
     }
     {
       matches = [
-        {app-id = "^vesktop$";}
-        {app-id = "^discord$";}
-        {app-id = "^org.telegram.desktop$";}
-        {app-id = "^Signal$";}
+        {
+          app-id = "^vesktop$";
+          at-startup = true;
+        }
+        {
+          app-id = "^discord$";
+          at-startup = true;
+        }
+        {
+          app-id = "^org.telegram.desktop$";
+          at-startup = true;
+        }
+        {
+          app-id = "^Signal$";
+          at-startup = true;
+        }
       ];
       open-on-workspace = "chat";
     }

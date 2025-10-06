@@ -1,6 +1,4 @@
-{lib, ...}: let
-  inherit (lib.generators) toJSON;
-
+_: let
   mullvadSettings = builtins.toJSON {
     allow_lan = true;
     auto_connect = true;

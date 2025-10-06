@@ -1,4 +1,4 @@
-{config, ...}: {
+_: {
   home-manager.users.kat.programs.weechat.config.buflist = {
     format = {
       indent = " "; # default "  "

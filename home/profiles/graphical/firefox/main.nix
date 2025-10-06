@@ -30,6 +30,7 @@
             wappalyzer
             auto-tab-discard
             bitwarden
+            asbplayer
             darkreader
             decentraleyes
             clearurls

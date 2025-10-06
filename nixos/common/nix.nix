@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+_: {
   nix = {
     gc = {
       automatic = true;
@@ -10,7 +10,7 @@
         "deploy"
       ];
     };
-    package = pkgs.lix;
+    #package = pkgs.lixPackageSets.stable.lix;
   };
   system = {
     rebuild.enableNg = true;

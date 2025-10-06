@@ -1,3 +1,3 @@
 {pkgs, ...}: {
-  nix.package = pkgs.lix;
+  nix.package = pkgs.lixPackageSets.stable.lix;
 }

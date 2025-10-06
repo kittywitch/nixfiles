@@ -1,6 +1,5 @@
 {
   cfg,
-  config,
   lib,
   moduleName,
 }:

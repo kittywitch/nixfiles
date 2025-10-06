@@ -1,4 +1,4 @@
-{config, ...}: {
+_: {
   home-manager.users.kat = {
     services.weechat.enable = true;
     programs.weechat = {

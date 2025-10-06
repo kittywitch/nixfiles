@@ -7,6 +7,6 @@
 in
   mkIf config.programs.waybar.enable {
     systemd.user.services.waybar.Unit.X-Restart-Triggers = [
-      (builtins.toString config.programs.waybar.style)
+      (builtins.hashString "sha256" config.programs.waybar.style)
     ];
   }

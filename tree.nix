@@ -89,7 +89,6 @@
           nix-gaming.nixosModules.platformOptimizations
           clipboard-sync.nixosModules.default
           niri.nixosModules.niri
-          lix-module.nixosModules.default
           nixos-cli.nixosModules.nixos-cli
           nix-flatpak.nixosModules.nix-flatpak
           stylix.nixosModules.stylix

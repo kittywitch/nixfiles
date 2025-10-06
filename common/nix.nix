@@ -2,6 +2,7 @@
   config,
   lib,
   std,
+  pkgs,
   inputs,
   ...
 }: let
@@ -13,6 +14,7 @@ in {
     nixPath = set.mapToValues (name: flake: "${name}=${flake.outPath}") inputs';
     registry = set.map (_: flake: {inherit flake;}) inputs';
 
+    package = pkgs.lixPackageSets.stable.lix;
     settings = {
       experimental-features = list.optional (versionAtLeast config.nix.package.version "2.4") "nix-command flakes";
       substituters = ["https://arc.cachix.org" "https://kittywitch.cachix.org" "https://nix-gaming.cachix.org" "https://nix-community.cachix.org"];

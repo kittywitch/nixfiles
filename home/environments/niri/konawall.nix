@@ -8,6 +8,7 @@
       interval = 30 * 60;
       rotate = true;
       tags = [
+        "rating:s"
         "score:>=100"
         "width:>=1500"
       ];
