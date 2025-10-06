@@ -84,14 +84,17 @@ battlenet() {
   if [ "$#" -ge 1 ]; then
     case $1 in
         (sc1|s1|sc)
-        proton_runner "$GAME_EXE" "--exec=\"launch S1\"" ;;
+        proton_runner "$GAME_EXE" "--exec=\"launch S1\""
+        ;;
         (sc2|s2)
-        proton_runner "$GAME_EXE" "--exec=\"launch S2\"" ;;
+        proton_runner "$GAME_EXE" "--exec=\"launch S2\""
+        ;;
         (wc3|w3)
         # TODO: build and ship a custom patched wine for this... jfc
         export STAGING_SHARED_MEMORY=1
         export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
-        proton_runner "$GAME_EXE" "--exec=\"launch W3\"" ;;
+        proton_runner "$GAME_EXE" "--exec=\"launch W3\""
+        ;;
     esac
   else
     proton_runner "$GAME_EXE"
@@ -133,12 +136,14 @@ main() {
       VN_DIR="C:/KEY/KANON_SE_ALL"
       VN_EXE="./REALLIVE.exe"
       VN_ARCH="x86"
-      vn "$VN_DIR" "$VN_EXE" "$VN_ARCH" ;;
+      vn "$VN_DIR" "$VN_EXE" "$VN_ARCH"
+      ;;
       (hanahira)
       VN_DIR="C:/hanahira"
       VN_EXE="./HANA9.exe"
       VN_ARCH="x86"
-      vn "$VN_DIR" "$VN_EXE" "$VN_ARCH" ;;
+      vn "$VN_DIR" "$VN_EXE" "$VN_ARCH"
+      ;;
       (gw2)
       WINEPREFIX="${GAMES_DIR}/guild-wars-2";
       GAMEDIR="${WINEPREFIX}/drive_c/Program Files/Guild Wars 2"
@@ -149,7 +154,8 @@ main() {
         PROTONPATH="$PROTON_CACHYOS"
       fi
       proton_setup
-      proton_runner "$GAME_EXE" "-autologin" "-windowed" ;;
+      proton_runner "$GAME_EXE" "-autologin" "-windowed"
+      ;;
       (gw|gw1)
       WINEPREFIX="${GAMES_DIR}/guild-wars";
       GAMEDIR="${WINEPREFIX}/drive_c/Program Files/Guild Wars"
@@ -160,19 +166,23 @@ main() {
         PROTONPATH="$PROTON_GE"
       fi
       proton_setup
-      proton_runner "$GAME_EXE" "-lodfull" "-bmp" "-dsound" ;;
+      proton_runner "$GAME_EXE" "-lodfull" "-bmp" "-dsound"
+      ;;
       (bnet|battlenet)
       if [ $DEFAULT_PROTON -ne 0 ]; then
         PROTONPATH="$PROTON_GE"
       fi
-      battlenet ;;
+      battlenet
+      ;;
       (sc1|s1|sc|sc2|s2|wc3|w3)
       if [ $DEFAULT_PROTON -ne 0 ]; then
         PROTONPATH="$PROTON_GE"
       fi
-      battlenet "${GAME}" ;;
+      battlenet "${GAME}"
+      ;;
       (*)
-      echo "Unhandled case for \$GAME: \"${GAME}\"" ;;
+      echo "Unhandled case for \$GAME: \"${GAME}\""
+      ;;
   esac
 }
 
