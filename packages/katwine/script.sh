@@ -88,6 +88,7 @@ battlenet() {
         (sc2|s2)
         proton_runner "$GAME_EXE" "--exec=\"launch S2\"" ;;
         (wc3|w3)
+        # TODO: build and ship a custom patched wine for this... jfc
         export STAGING_SHARED_MEMORY=1
         export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
         proton_runner "$GAME_EXE" "--exec=\"launch W3\"" ;;
