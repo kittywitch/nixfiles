@@ -51,7 +51,7 @@ proton_setup() {
 #
 
 wine_runner() {
-  env TZ="$TZ_IN" LC_ALL="$LC_IN" WINEARCH="$WINEARCH" WINEPREFIX="$WINEPREFIX" wine "$@"
+  env WINEARCH="$WINEARCH" WINEPREFIX="$WINEPREFIX" wine "$@"
 }
 
 proton_runner() {
@@ -71,8 +71,8 @@ proton_runner() {
 vn() {
   WINEPREFIX="${GAMES_DIR}/VNs"
   cd "$WINEPREFIX"
-  LC_IN="ja_JP.UTF-8"
-  TZ_IN="Asia/Tokyo"
+  export LC_ALL="ja_JP.UTF-8"
+  export TZ="Asia/Tokyo"
   wine_runner "./drive_c/cmd.exe" /k "C:/script.bat" "$@"
 }
 
@@ -80,20 +80,24 @@ battlenet() {
   WINEPREFIX="${GAMES_DIR}/battlenet"
   GAMEDIR="${WINEPREFIX}/drive_c/Program Files (x86)/Battle.net"
   GAME_EXE="${GAMEDIR}/Battle.net.exe"
-  proton_setup
+  system_conf
+  proton_conf
+  dxvk_conf
+  caches_conf
   if [ "$#" -ge 1 ]; then
     case $1 in
         (sc1|s1|sc)
-        proton_runner "$GAME_EXE" "--exec=\"launch S1\""
+        proton_runner "$GAME_EXE" "--in-process-gpu" "--exec=\"launch S1\""
         ;;
         (sc2|s2)
-        proton_runner "$GAME_EXE" "--exec=\"launch S2\""
+        proton_runner "$GAME_EXE" "--in-process-gpu" "--exec=\"launch S2\""
         ;;
         (wc3|w3)
         # TODO: build and ship a custom patched wine for this... jfc
         export STAGING_SHARED_MEMORY=1
         export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
-        proton_runner "$GAME_EXE" "--exec=\"launch W3\""
+        proton_runner "$GAME_EXE" "--in-process-gpu" "--exec=\"launch W3\""
+        #proton_runner "${WINEPREFIX}/drive_c/Program Files (x86)/Warcraft III/_retail_/x86_64/Warcraft III.exe" "-launch"
         ;;
     esac
   else
@@ -130,6 +134,8 @@ main() {
   fi
 
   export PROTON_LOG=1
+  export WINEDEBUG="+warn"
+  export WINEUSERSANDBOX=1
 
   case "$GAME" in
       (kanon)

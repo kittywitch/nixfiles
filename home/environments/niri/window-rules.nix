@@ -53,6 +53,19 @@ _: {
     }
     {
       matches = [
+        {
+          app-id = "steam";
+          title = "^notificationtoasts_\d+_desktop$";
+        }
+      ];
+      default-floating-position = {
+        x = 10;
+        y = 10;
+        relative-to = "bottom-right";
+      };
+    }
+    {
+      matches = [
         {app-id = "^steam_app_default$";}
         {app-id = "^net.lutris.Lutris$";}
       ];

@@ -58,17 +58,22 @@
       PROTON_GE = "${inputs.chaotic.packages.${pkgs.system}.proton-ge-custom.out}/bin";
     };
   };
+  # https://lutris.net/games/install/25450/view
+  # Dissection:
+  # * nvapi disables,
+  # * registry key for Win7 in version
   systemd.user.services.wc3 = {
     description = "Warcraft 3";
     serviceConfig = {
-      ExecStart = "${pkgs.katwine}/bin/katwine wc3 wc3";
+      ExecStart = "${pkgs.katwine}/bin/katwine wc3";
       Type = "simple";
     };
     environment = {
       PROTON_CACHYOS = "${inputs.chaotic.packages.${pkgs.system}.proton-cachyos_x86_64_v3.out}/bin";
       PROTON_GE = "${inputs.chaotic.packages.${pkgs.system}.proton-ge-custom.out}/bin";
-      #PROTON_WC3 = "/home/kat/.local/share/Steam/compatibilitytools.d/GE-Proton10-3";
-      PROTON_WC3 = "/home/kat/.local/share/Steam/steamapps/common/Proton - Experimental";
+      #PROTON_WC3 = "/home/kat/.local/share/Steam/compatibilitytools.d/GE-Proton10-1";
+      #PROTON_WC3 = "/home/kat/.local/share/Steam/compatibilitytools.d/Proton-Tkg-2367";
+      #PROTON_WC3 = "/home/kat/.local/share/Steam/steamapps/common/Proton - Experimental";
     };
   };
   systemd.user.services.kanon = {

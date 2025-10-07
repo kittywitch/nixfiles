@@ -70,6 +70,8 @@ in {
         };
       };
       debug = {
+        honor-xdg-activation-with-invalid-serial = {};
+        #strict-new-window-focus-policy = {};
         #deactivate-unfocused-windows = {};
       };
       workspaces = {
