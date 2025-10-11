@@ -20,7 +20,7 @@ _: {
           at-startup = true;
         }
         {
-          app-id = "^zen-beta$";
+          app-id = "^librewolf$";
           at-startup = true;
         }
         {

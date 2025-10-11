@@ -101,20 +101,5 @@ in {
           "--enable-wayland-ime"
         ];
       }
-      {
-        command = [
-          "thunderbird"
-        ];
-      }
-      {
-        command = [
-          "obsidian"
-        ];
-      }
-      {
-        command = [
-          "zen-beta"
-        ];
-      }
     ];
 }

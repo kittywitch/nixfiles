@@ -1,5 +1,5 @@
 _: {
-  programs.zen-browser.profiles.main = {
+  programs.librewolf.profiles.main = {
     containersForce = true;
     containers = {
       main = {

@@ -80,11 +80,16 @@ battlenet() {
   WINEPREFIX="${GAMES_DIR}/battlenet"
   GAMEDIR="${WINEPREFIX}/drive_c/Program Files (x86)/Battle.net"
   GAME_EXE="${GAMEDIR}/Battle.net.exe"
+  GAME_LAUNCHER_EXE="${GAMEDIR}/Battle.net Launcher.exe"
   system_conf
   proton_conf
   dxvk_conf
   caches_conf
+  # Start the battley net thing
+  proton_runner "$GAME_LAUNCHER_EXE" &
   if [ "$#" -ge 1 ]; then
+    # wait a little bit for it to warm up
+    sleep 5
     case $1 in
         (sc1|s1|sc)
         proton_runner "$GAME_EXE" "--in-process-gpu" "--exec=\"launch S1\""
@@ -92,16 +97,29 @@ battlenet() {
         (sc2|s2)
         proton_runner "$GAME_EXE" "--in-process-gpu" "--exec=\"launch S2\""
         ;;
+        (wc1|w1)
+        proton_runner "$GAME_EXE" "--in-process-gpu" "--exec=\"launch W1\""
+        ;;
+        (wc2|w2)
+        proton_runner "$GAME_EXE" "--in-process-gpu" "--exec=\"launch W2\""
+        ;;
+        (wc1r|w1r|wcr)
+        proton_runner "$GAME_EXE" "--in-process-gpu" "--exec=\"launch W1R\""
+        ;;
+        (wc2r|w2r)
+        proton_runner "$GAME_EXE" "--in-process-gpu" "--exec=\"launch W2R\""
+        ;;
         (wc3|w3)
         # TODO: build and ship a custom patched wine for this... jfc
+        # https://lutris.net/games/install/25450/view
+        # Dissection:
+        # * nvapi disables,
+        # * registry key for Win7 in version
         export STAGING_SHARED_MEMORY=1
         export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
         proton_runner "$GAME_EXE" "--in-process-gpu" "--exec=\"launch W3\""
-        #proton_runner "${WINEPREFIX}/drive_c/Program Files (x86)/Warcraft III/_retail_/x86_64/Warcraft III.exe" "-launch"
         ;;
     esac
-  else
-    proton_runner "$GAME_EXE"
   fi
 }
 

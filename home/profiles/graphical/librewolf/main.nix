@@ -6,9 +6,12 @@
   home.sessionVariables = {
     BROWSER = "zen";
   };
-  #stylix.targets.zen-browser.profileNames = ["main"];
+  stylix.targets.librewolf = {
+    colorTheme.enable = true;
+    profileNames = ["main"];
+  };
   home.packages = [pkgs.ff2mpv-rust];
-  programs.zen-browser = {
+  programs.librewolf = {
     nativeMessagingHosts = [
       pkgs.ff2mpv-rust
     ];

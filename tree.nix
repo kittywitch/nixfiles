@@ -114,7 +114,6 @@
             chaotic.homeManagerModules.default
             spicetify-nix.homeManagerModules.spicetify
             nix-flatpak.homeManagerModules.nix-flatpak
-            zen-browser.homeModules.default
             stylix.homeModules.stylix
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).home-manager; [

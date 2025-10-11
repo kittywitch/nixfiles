@@ -7,6 +7,10 @@ _: {
       persistent = true;
     };
   };
-  # adds to nixpkgs.overlay, made irrelevant due to `home-manager.useGlobalPkgs`
-  #chaotic.nyx.overlay.enable = false;
+  services.home-manager.autoExpire = {
+    enable = true;
+    frequency = "weekly";
+    store.cleanup = true;
+    timestamp = "-7 days";
+  };
 }

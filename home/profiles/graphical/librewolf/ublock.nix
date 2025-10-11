@@ -1,5 +1,5 @@
 {nur, ...}: {
-  programs.zen-browser.profiles.main.extensions = {
+  programs.librewolf.profiles.main.extensions = {
     packages = with nur.repos.rycee.firefox-addons; [
       ublock-origin
     ];
