@@ -15,9 +15,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    nix-flatpak = {
-      url = "github:gmodena/nix-flatpak/?ref=latest";
-    };
     rust = {
       url = "github:arcnmx/nixexprs-rust";
       inputs = {

@@ -90,7 +90,6 @@
           clipboard-sync.nixosModules.default
           niri.nixosModules.niri
           nixos-cli.nixosModules.nixos-cli
-          nix-flatpak.nixosModules.nix-flatpak
           stylix.nixosModules.stylix
           microvm.nixosModules.host
         ];
@@ -113,7 +112,6 @@
             sops-nix.homeManagerModules.sops
             chaotic.homeManagerModules.default
             spicetify-nix.homeManagerModules.spicetify
-            nix-flatpak.homeManagerModules.nix-flatpak
             stylix.homeModules.stylix
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).home-manager; [

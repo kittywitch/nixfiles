@@ -50,7 +50,6 @@ in {
     package = pkgs.gamescope;
   };
   environment.systemPackages = with pkgs; [
-    protonplus
     gamescope-wsi
     mangohud
     vkbasalt

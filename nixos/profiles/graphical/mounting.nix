@@ -1,6 +1,9 @@
-_: {
+{pkgs, ...}: {
   services = {
-    gvfs.enable = true;
+    gvfs = {
+      enable = true;
+      package = pkgs.gvfs;
+    };
     udisks2.enable = true;
     devmon.enable = true;
   };
