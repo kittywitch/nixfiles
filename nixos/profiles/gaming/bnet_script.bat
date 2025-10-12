@@ -14,4 +14,4 @@ timeout /t 60 /nobreak > NUL
 
 echo "Launching game within Battle.net..."
 start /b %BNET_EXE% --exec="launch %GAME%"
-REM exit
+exit
