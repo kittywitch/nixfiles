@@ -92,6 +92,7 @@
           nixos-cli.nixosModules.nixos-cli
           stylix.nixosModules.stylix
           microvm.nixosModules.host
+          mewtris.nixosModules.mewtris
         ];
       };
     };

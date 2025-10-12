@@ -773,6 +773,30 @@
         "type": "github"
       }
     },
+    "mewtris": {
+      "inputs": {
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "nix-std": [
+          "nix-std"
+        ]
+      },
+      "locked": {
+        "lastModified": 1760252779,
+        "narHash": "sha256-6CZQ43gEb+TVsgdhUEeFyZGwpfHAgMlMKEsczz6+yp4=",
+        "owner": "kittywitch",
+        "repo": "mewtris",
+        "rev": "d63e69689cc65dfc26ef4e65359023001b5cfe89",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kittywitch",
+        "ref": "main",
+        "repo": "mewtris",
+        "type": "github"
+      }
+    },
     "microvm": {
       "inputs": {
         "flake-utils": [
@@ -1382,6 +1406,7 @@
         "infrastructure": "infrastructure",
         "konawall-py": "konawall-py",
         "lanzaboote": "lanzaboote",
+        "mewtris": "mewtris",
         "microvm": "microvm",
         "minecraft": "minecraft",
         "naersk": "naersk",

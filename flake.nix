@@ -304,6 +304,13 @@
         flake-compat.follows = "flake-compat";
       };
     };
+    mewtris = {
+      url = "github:kittywitch/mewtris/main";
+      inputs = {
+        nix-std.follows = "nix-std";
+        flake-compat.follows = "flake-compat";
+      };
+    };
     # a bunch of modules (also arcnmx is good)
     arcexprs = {
       #url = "github:kittywitch/arcexprs/master";

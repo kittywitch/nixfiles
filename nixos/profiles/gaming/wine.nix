@@ -126,11 +126,11 @@ in {
         // rec {
           inherit long_name;
           prefixFolder = gameStorage + "/VNs";
-          gameFolder = prefixFolder;
-          gameExecutable = "./drive_c/cmd.exe";
+          gameFolder = prefixFolder + "/drive_c";
+          gameExecutable = "C:\\cmd.exe";
           gameArguments = [
             "/k"
-            "C:/script.bat"
+            "script.bat"
           ];
           environment = {
             VN_DIR = vnDir;
@@ -259,16 +259,6 @@ in {
     mangohud
     vkbasalt
   ];
-  #systemd.user.services =
-  #  mapAttrs (k: v: {
-  #    description = v;
-  #    serviceConfig = {
-  #      ExecStart = "${getExe pkgs.katwine} ${k}";
-  #      Type = "simple";
-  #    };
-  #    inherit environment;
-  #  })
-  #  games;
 
   home-manager.users.kat.home.file = {
     "Games/battlenet/drive_c/script.bat".source = ./bnet_script.bat;
