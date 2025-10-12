@@ -8,12 +8,12 @@
   curl,
 }:
 writeShellScriptBin "nf-build-system" ''
-  export PATH="$PATH:${lib.makeBinPath [
+  export PATH="${lib.makeBinPath [
     git
     cachix
     jq
     lixPackageSets.stable.lix
     curl
-  ]}"
+  ]}:$PATH"
   exec ${./build-system.sh} "$@"
 ''
