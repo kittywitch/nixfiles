@@ -20,6 +20,10 @@ in {
       PROTON_GE = "${inputs.chaotic.packages.${pkgs.system}.proton-ge-custom.out}/bin";
       WINE_TKG = pkgs.wine-tkg;
     };
+    pathPackages = with pkgs; [
+      mangohud
+      vkbasalt
+    ];
     runnerEnvironments = {
       common = {
         PROTON_LOG = builtins.toString 1;
@@ -130,12 +134,12 @@ in {
           gameExecutable = "C:\\cmd.exe";
           gameArguments = [
             "/k"
-            "script.bat"
+            "C:/script.bat"
+            vnDir
+            vnExe
+            vnArch
           ];
           environment = {
-            VN_DIR = vnDir;
-            VN_EXE = vnExe;
-            VN_ARCH = vnArch;
             TZ = "Asia/Tokyo";
             LC_ALL = "ja_JP.UTF-8";
           };
