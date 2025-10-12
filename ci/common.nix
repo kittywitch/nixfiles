@@ -1,5 +1,5 @@
 {channels, ...}: {
-  bootstrap.packages.nix = channels.nixpkgs.lix;
+  bootstrap.packages.nix = channels.nixpkgs.lixPackageSets.stable.lix;
   nixpkgs.args = {
     localSystem = "x86_64-linux";
     config = {
