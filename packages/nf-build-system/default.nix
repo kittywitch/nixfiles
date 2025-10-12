@@ -4,7 +4,7 @@
   git,
   cachix,
   jq,
-  lix,
+  lixPackageSets,
   curl,
 }:
 writeShellScriptBin "nf-build-system" ''
@@ -12,7 +12,7 @@ writeShellScriptBin "nf-build-system" ''
     git
     cachix
     jq
-    lix
+    lixPackageSets.stable.lix
     curl
   ]}"
   exec ${./build-system.sh} "$@"

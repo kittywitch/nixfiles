@@ -4,7 +4,7 @@
   git,
   cachix,
   jq,
-  lix,
+  lixPackageSets,
   curl,
 }:
 writeShellScriptBin "nf-update" ''
@@ -12,7 +12,7 @@ writeShellScriptBin "nf-update" ''
     git
     cachix
     jq
-    lix
+    lixPackageSets.stable.lix
     curl
   ]}"
   exec ${./update.sh} "$@"
