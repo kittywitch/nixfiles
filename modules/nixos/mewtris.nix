@@ -4,13 +4,15 @@
   lib,
   std,
   ...
-}: {
+}: let
+  inherit (lib.meta) getExe';
+in {
   options.mewtris = let
-    inherit (lib.types) path attrsOf submodule str nullOr enum either package bool lines listOf;
+    inherit (lib.types) path attrsOf submodule str nullOr enum either package lines listOf;
     inherit (lib.options) mkEnableOption mkOption;
-    inherit (lib.meta) getExe';
   in {
     enable = mkEnableOption "Enable mewtris";
+    createDesktopItems = mkEnableOption "Create XDG desktop items for starting, stopping and killing all the installed mewtris games, for use with dmenu or wofi for example";
     umuLauncher = mkOption {
       description = "umu-launcher package";
       type = package;
@@ -82,11 +84,6 @@
             description = "What arguments do we run the game with?";
             type = listOf str;
             default = [];
-          };
-          battleNetGame = mkOption {
-            description = "Is this a battle.net game? Not used for battle.net itself!";
-            type = bool;
-            default = false;
           };
           prefixArch = mkOption {
             description = "Wine prefix architecture";
@@ -179,9 +176,6 @@
                   ])}"
                   ${cfg.globalPrerun}
                   ${config.prerun}
-                  ${optionalString config.battleNetGame ''
-                    "${protonLauncher}" "${config.gameFolder}/Battle.net Launcher.exe" &
-                  ''}
                   cd "${config.gameFolder}"
                   "${protonLauncher}" "${config.gameExecutable}" ${escapeShellArgs config.gameArguments}
                 '';
@@ -196,13 +190,35 @@
   };
   config = let
     cfg = config.mewtris;
-    inherit (lib.lists) singleton concatMap;
+    inherit (lib.lists) singleton concatMap concatLists;
     inherit (lib.strings) replaceStrings;
-    inherit (lib.attrsets) mapAttrs nameValuePair mapAttrs' attrNames attrValues;
+    inherit (lib.attrsets) mapAttrs nameValuePair mapAttrs' attrNames attrValues mapAttrsToList;
     inherit (lib.modules) mkIf;
     inherit (std.set) merge;
   in
     mkIf cfg.enable {
+      environment.systemPackages = mkIf cfg.createDesktopItems (concatLists (mapAttrsToList (_k: v: let
+          start = pkgs.makeDesktopItem {
+            inherit (v) name;
+            desktopName = v.long_name;
+            exec = "${getExe' pkgs.systemd "systemctl"} --user start ${v.name}";
+          };
+          stop = pkgs.makeDesktopItem {
+            name = "${v.name}-stop";
+            desktopName = "Stop ${v.long_name}";
+            exec = "${getExe' pkgs.systemd "systemctl"} --user stop ${v.name}";
+          };
+          kill = pkgs.makeDesktopItem {
+            name = "${v.name}-kill";
+            desktopName = "Kill ${v.long_name}";
+            exec = "${getExe' pkgs.systemd "systemctl"} --user kill --signal=SIGKILL ${v.name}";
+          };
+        in [
+          start
+          stop
+          kill
+        ])
+        config.mewtris.games));
       systemd.user.services = mapAttrs' (_k: v:
         nameValuePair v.name {
           description = v.long_name;

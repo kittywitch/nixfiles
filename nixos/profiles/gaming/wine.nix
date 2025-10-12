@@ -9,9 +9,11 @@
   cfg = config.mewtris;
 in {
   mewtris = let
+    inherit (lib.strings) concatStringsSep;
     gameStorage = "/home/kat/Games";
   in {
     enable = true;
+    createDesktopItems = true;
     inherit gameStorage;
     runnerVariants = {
       PROTON_CACHYOS = "${inputs.chaotic.packages.${pkgs.system}.proton-cachyos_x86_64_v3.out}/bin";
@@ -21,7 +23,15 @@ in {
     runnerEnvironments = {
       common = {
         PROTON_LOG = builtins.toString 1;
-        WINEDEBUG = "+warn";
+        WINEDEBUG = concatStringsSep "," [
+          "+warn"
+          "+timestamp"
+          "+pid"
+          "+tid"
+          "+seh"
+          "+debugstr"
+          "+module"
+        ];
         WINEUSERSANDBOX = builtins.toString 1;
       };
       dxvk = {
@@ -38,9 +48,7 @@ in {
         __GL_SHADER_DISK_CACHE = builtins.toString 1;
         __GL_SHADER_DISK_CACHE_PATH = builtins.placeholder "prefix";
       };
-      mangohud = let
-        inherit (lib.strings) concatStringsSep;
-      in {
+      mangohud = {
         MANGOHUD = builtins.toString 1;
         MANGOHUD_CONFIG = concatStringsSep "," [
           "no_display"
@@ -91,18 +99,24 @@ in {
       battlenet = {
         long_name,
         launchArg,
-      }: (protonCommon
-        // rec {
-          inherit long_name;
-          battleNetGame = false;
-          prefixFolder = gameStorage + "/battlenet";
-          gameFolder = prefixFolder + "/drive_c/Program Files (x86)/Battle.net";
-          gameExecutable = gameFolder + "/Battle.net.exe";
+      }: let
+        prefixFolder = gameStorage + "/battlenet";
+        gameFolder' = "C:\\Program Files (x86)\\Battle.net";
+        gameExecutable' = "Battle.net.exe";
+      in
+        protonCommon
+        // {
+          inherit long_name prefixFolder;
+          gameFolder = prefixFolder;
+          gameExecutable = "./drive_c/cmd.exe";
           gameArguments = [
-            "--in-process-gpu"
-            "--exec=\"launch ${launchArg}\""
+            "/k"
+            "C:/script.bat"
+            gameFolder'
+            gameExecutable'
+            launchArg
           ];
-        });
+        };
       vn = {
         long_name,
         vnDir,
@@ -257,6 +271,8 @@ in {
   #  games;
 
   home-manager.users.kat.home.file = {
+    "Games/battlenet/drive_c/script.bat".source = ./bnet_script.bat;
+    "Games/battlenet/drive_c/cmd.exe".source = ./reactos_cmd.exe;
     # https://learnjapanese.moe/vn-linux/
     "Games/VNs/drive_c/script.bat".source = ./vn_script.bat;
     "Games/VNs/drive_c/cmd.exe".source = ./reactos_cmd.exe;
