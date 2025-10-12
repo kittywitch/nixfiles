@@ -52,6 +52,8 @@ perform_garbage_collection() {
 }
 
 # Main script
+nix --version
+
 if [[ -z "$SYSTEM_LINK" || -z "$ALIAS" || -z "$SYSTEM_TYPE" ]]; then
   echo "Usage: $0 <SYSTEM_LINK> <ALIAS> <SYSTEM_TYPE>" >&2
   exit 1
