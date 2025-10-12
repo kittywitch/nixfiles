@@ -63,6 +63,7 @@ in {
       };
       proton = {
         PROTON_USE_NTSYNC = builtins.toString 1;
+        PRESSURE_VESSEL_FILESYSTEMS_RW = "/games";
       };
     };
     winTimezoneVariant = "PST8PDT";
@@ -93,7 +94,7 @@ in {
       }: (protonCommon
         // rec {
           inherit long_name;
-          battleNetGame = true;
+          battleNetGame = false;
           prefixFolder = gameStorage + "/battlenet";
           gameFolder = prefixFolder + "/drive_c/Program Files (x86)/Battle.net";
           gameExecutable = gameFolder + "/Battle.net.exe";
@@ -121,6 +122,8 @@ in {
             VN_DIR = vnDir;
             VN_EXE = vnExe;
             VN_ARCH = vnArch;
+            TZ = "Asia/Tokyo";
+            LC_ALL = "ja_JP.UTF-8";
           };
         });
     in {

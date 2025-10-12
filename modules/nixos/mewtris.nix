@@ -143,6 +143,13 @@
             }
             (mkIf (config.runner == "wine") {
               startLine = pkgs.writeShellScript "${config.name}" ''
+                export PATH="$PATH:${lib.makeBinPath (with pkgs; [
+                  coreutils
+                  umu-launcher
+                  mangohud
+                  vkbasalt
+                  wine-tkg
+                ])}"
                 ${cfg.globalPrerun}
                 ${config.prerun}
                 ${optionalString (config.gameFolder != null) ''
@@ -163,6 +170,13 @@
                 protonLauncher = getExe' cfg.umuLauncher "umu-run";
               in
                 pkgs.writeShellScript "${config.name}" ''
+                  export PATH="$PATH:${lib.makeBinPath (with pkgs; [
+                    coreutils
+                    umu-launcher
+                    mangohud
+                    vkbasalt
+                    wine-tkg
+                  ])}"
                   ${cfg.globalPrerun}
                   ${config.prerun}
                   ${optionalString config.battleNetGame ''
