@@ -10,3 +10,5 @@ data/
 .terraform.lock.hcl
 .idea/
 __pycache__/
+tf/terraform.tfvars
+tf/terraform.tfstate.backup

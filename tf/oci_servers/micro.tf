@@ -27,7 +27,7 @@ variable "micro_display_names" {
 resource "oci_core_instance" "this" {
   count = 2
 
-  availability_domain = local.availability_domain_micro
+  availability_domain = "dBWL:CA-TORONTO-1-AD-1"
   compartment_id      = var.tenancy_ocid
   shape               = local.shapes.micro
 
@@ -64,7 +64,10 @@ resource "oci_core_instance" "this" {
   }
 
   lifecycle {
-    ignore_changes = [source_details.0.source_id]
+    ignore_changes = [
+      metadata,
+      source_details.0.source_id
+    ]
   }
 }
 

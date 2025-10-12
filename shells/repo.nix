@@ -8,6 +8,7 @@ with pkgs; let
   git-hooks = systemless-git-hooks pkgs.system;
   repoShell = mkShell {
     nativeBuildInputs = [
+      opentofu
       nf-build-system
       nf-update
       pkgs.lix

@@ -23,7 +23,7 @@ locals {
 }
 
 resource "oci_core_instance" "that" {
-  availability_domain = data.oci_identity_availability_domains.this.availability_domains.0.name
+  availability_domain = "dBWL:CA-TORONTO-1-AD-1" #data.oci_identity_availability_domains.this.availability_domains.0.name
   compartment_id      = var.tenancy_ocid
   shape               = local.shapes.flex
 
@@ -65,7 +65,10 @@ resource "oci_core_instance" "that" {
   }
 
   lifecycle {
-    ignore_changes = [source_details.0.source_id]
+    ignore_changes = [
+      metadata,
+      source_details.0.source_id
+    ]
   }
 }
 

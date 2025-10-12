@@ -1,3 +1,7 @@
+variable "passphrase" {
+  sensitive = true
+}
+
 terraform {
   required_providers {
     # Vendor: Hashicorp
@@ -23,28 +27,23 @@ terraform {
       version = "4.4.0"
     }
   }
+  encryption {
+    method "unencrypted" "migrate" {}
 
-  /*
-  # Settings for local applies
-  backend "remote" {
-    hostname = "app.terraform.io"
-    organization = "kittywitch"
-    workspaces {
-      name = "nixfiles"
+    key_provider "pbkdf2" "kw" {
+      passphrase = var.passphrase
+    }
+
+    method "aes_gcm" "kw" {
+      keys = key_provider.pbkdf2.kw
+    }
+
+    state {
+      method = method.aes_gcm.kw
+
+      fallback {
+        method = method.unencrypted.migrate
+      }
     }
   }
-  */
-
-  #/*
-  # Settings for remote applies
-  cloud {
-    organization = "kittywitch"
-    ## Required for Terraform Enterprise; Defaults to app.terraform.io for Terraform Cloud
-    hostname = "app.terraform.io"
-
-    workspaces {
-      name = "nixfiles"
-    }
-  }
-  #*/
 }
