@@ -34,15 +34,12 @@ in {
         workflow_dispatch = {};
       };
       jobs = let
-        lix' = channels.nixpkgs.lixPackageSets.stable.lix;
-        inherit (lib.meta) getExe;
-        lix = getExe lix';
         genericNixosBuildJob = name: _system:
           nameValuePair "nixos-${name}" {
             step.${name} = {
               name = "build system closure for ${name}";
               order = 500;
-              run = "${lix} run .#nf-build-system -- nixosConfigurations.${name}.config.system.build.toplevel ${name} NixOS";
+              run = "nix run .#nf-build-system -- nixosConfigurations.${name}.config.system.build.toplevel ${name} NixOS";
               env = {
                 CACHIX_AUTH_TOKEN = "\${{ secrets.CACHIX_AUTH_TOKEN }}";
                 CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
@@ -57,7 +54,7 @@ in {
             step.${name} = {
               name = "build home closure for ${name}";
               order = 500;
-              run = "${lix} run .#nf-build-system -- homeConfigurations.${name}.activationPackage ${name} Home";
+              run = "nix run .#nf-build-system -- homeConfigurations.${name}.activationPackage ${name} Home";
               env = {
                 CACHIX_AUTH_TOKEN = "\${{ secrets.CACHIX_AUTH_TOKEN }}";
                 CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
