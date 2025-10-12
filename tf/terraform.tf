@@ -28,8 +28,6 @@ terraform {
     }
   }
   encryption {
-    method "unencrypted" "migrate" {}
-
     key_provider "pbkdf2" "kw" {
       passphrase = var.passphrase
     }
@@ -40,10 +38,6 @@ terraform {
 
     state {
       method = method.aes_gcm.kw
-
-      fallback {
-        method = method.unencrypted.migrate
-      }
     }
   }
 }
