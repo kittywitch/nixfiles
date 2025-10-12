@@ -19,6 +19,7 @@ in {
       PROTON_CACHYOS = "${inputs.chaotic.packages.${pkgs.system}.proton-cachyos_x86_64_v3.out}/bin";
       PROTON_GE = "${inputs.chaotic.packages.${pkgs.system}.proton-ge-custom.out}/bin";
       WINE_TKG = pkgs.wine-tkg;
+      WINE_CACHYOS = pkgs.wine-cachyos;
     };
     pathPackages = with pkgs; [
       mangohud
@@ -34,7 +35,8 @@ in {
           "+tid"
           "+seh"
           "+debugstr"
-          "+module"
+          #"+module"
+          "trace:-module"
         ];
         WINEUSERSANDBOX = builtins.toString 1;
       };
@@ -130,7 +132,7 @@ in {
         // rec {
           inherit long_name;
           prefixFolder = gameStorage + "/VNs";
-          gameFolder = prefixFolder + "/drive_c";
+          gameFolder = prefixFolder;
           gameExecutable = "C:\\cmd.exe";
           gameArguments = [
             "/k"
@@ -264,11 +266,50 @@ in {
     vkbasalt
   ];
 
-  home-manager.users.kat.home.file = {
-    "Games/battlenet/drive_c/script.bat".source = ./bnet_script.bat;
-    "Games/battlenet/drive_c/cmd.exe".source = ./reactos_cmd.exe;
-    # https://learnjapanese.moe/vn-linux/
-    "Games/VNs/drive_c/script.bat".source = ./vn_script.bat;
-    "Games/VNs/drive_c/cmd.exe".source = ./reactos_cmd.exe;
-  };
+  home-manager.users.kat.home.file = let
+    inherit (lib.attrsets) listToAttrs nameValuePair attrNames;
+    inherit (lib.lists) concatMap;
+    dxvks = {
+      "x64" = pkgs.dxvk-w32;
+      "x32" = pkgs.dxvk-w64;
+    };
+    pfxes = [
+      "Games/VNs/drive_c/windows"
+    ];
+    arches = {
+      "x32" = "system32";
+      "x64" = "syswow64";
+    };
+    files = [
+      "d3d8.dll"
+      "d3d9.dll"
+      "d3d10core.dll"
+      "d3d11.dll"
+      "dxgi.dll"
+    ];
+    dxvkLinker = pfx: arch: file: let
+      dxvk = dxvks.${arch};
+    in
+      nameValuePair "${pfx}/${arches.${arch}}/${file}" {
+        source = "${dxvk}/bin/${file}";
+      };
+  in
+    (listToAttrs (concatMap (
+        pfx:
+          concatMap (
+            arch:
+              concatMap (
+                file: [(dxvkLinker pfx arch file)]
+              )
+              files
+          ) (attrNames arches)
+      )
+      pfxes))
+    // {
+      "Games/battlenet/drive_c/script.bat".source = ./bnet_script.bat;
+      "Games/battlenet/drive_c/cmd.exe".source = ./reactos_cmd.exe;
+      # https://learnjapanese.moe/vn-linux/
+      "Games/VNs/drive_c/script.bat".source = ./vn_script.bat;
+      "Games/VNs/drive_c/cmd.exe".source = ./reactos_cmd.exe;
+    };
 }

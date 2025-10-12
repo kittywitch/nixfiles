@@ -306,6 +306,7 @@
     };
     mewtris = {
       url = "github:kittywitch/mewtris/main";
+      #url = "path:/home/kat/src/mewtris";
       inputs = {
         nix-std.follows = "nix-std";
         flake-compat.follows = "flake-compat";
