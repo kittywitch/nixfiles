@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   programs.swaylock = {
-    enable = true;
+    enable = false;
     package = pkgs.swaylock-effects;
     settings = {
       screenshots = true;

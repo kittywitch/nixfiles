@@ -19,7 +19,7 @@
     opacity = {
       desktop = 1.0;
       applications = 1.0;
-      terminal = 1.0;
+      terminal = 0.9;
       popups = 0.8;
     };
     fonts = {
@@ -38,6 +38,6 @@
     };
     autoEnable = true;
     polarity = "light";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/monokai.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
   };
 }

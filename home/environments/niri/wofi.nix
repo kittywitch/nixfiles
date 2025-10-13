@@ -1,6 +1,6 @@
 _: {
   programs.wofi = {
-    enable = true;
+    enable = false;
     settings = {
       insensitive = true;
       allow_images = true;

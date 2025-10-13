@@ -1,10 +1,18 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  parent,
+  ...
+}: let
+  inherit (lib.meta) getExe;
+  noctalia = "${getExe parent.services.noctalia-shell.package} ipc call";
+in {
   services.swayidle = {
     enable = true;
     timeouts = [
       {
         timeout = 600;
-        command = "${config.programs.swaylock.package}/bin/swaylock* -f";
+        command = "${noctalia} lockScreen toggle";
       }
       {
         timeout = 1200;
@@ -14,7 +22,7 @@
     events = [
       {
         event = "before-sleep";
-        command = "${config.programs.swaylock.package}/bin/swaylock* -f";
+        command = "${noctalia} lockScreen toggle";
       }
     ];
   };

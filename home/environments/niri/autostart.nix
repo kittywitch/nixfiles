@@ -38,12 +38,12 @@ in {
     packages' = [
       "udiskie"
       "easyeffects"
-      "pasystray"
+      #"pasystray"
     ];
     packages = [
-      "pasystray"
-      "pavucontrol"
-      "networkmanagerapplet"
+      #"pasystray"
+      #"pavucontrol"
+      #"networkmanagerapplet"
     ];
     packageCommands = let
       packageCommands' = map packageCommand' packages';

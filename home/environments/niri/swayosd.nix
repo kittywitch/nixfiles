@@ -49,7 +49,7 @@ _:
 #in
 {
   services.swayosd = {
-    enable = true;
+    enable = false;
     #stylePath = theme;
   };
 }

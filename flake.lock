@@ -1254,6 +1254,29 @@
         "type": "github"
       }
     },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "quickshell": "quickshell",
+        "systems": "systems_2"
+      },
+      "locked": {
+        "lastModified": 1760277691,
+        "narHash": "sha256-gJ/hLrA7+Nmt0e+K6l0G1ZcFJJKfW4XLmBdwE+yEYKQ=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "rev": "14af84ffbe3b944d589519dff72996d6bd527f16",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "ref": "main",
+        "repo": "noctalia-shell",
+        "type": "github"
+      }
+    },
     "norg": {
       "inputs": {
         "flake-compat": [
@@ -1357,6 +1380,27 @@
         "type": "github"
       }
     },
+    "quickshell": {
+      "inputs": {
+        "nixpkgs": [
+          "noctalia",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1753595452,
+        "narHash": "sha256-vqkSDvh7hWhPvNjMjEDV4KbSCv2jyl2Arh73ZXe274k=",
+        "ref": "refs/heads/master",
+        "rev": "a5431dd02dc23d9ef1680e67777fed00fe5f7cda",
+        "revCount": 665,
+        "type": "git",
+        "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
+      }
+    },
     "rbw-bitw": {
       "inputs": {
         "flakelib": [
@@ -1424,6 +1468,7 @@
         ],
         "nixpkgs-lib": "nixpkgs-lib",
         "nixpkgs-xr": "nixpkgs-xr",
+        "noctalia": "noctalia",
         "norg": "norg",
         "norg-meta": "norg-meta",
         "nur": "nur",
@@ -1436,7 +1481,7 @@
         "spicetify-nix": "spicetify-nix",
         "std": "std",
         "stylix": "stylix",
-        "systems": "systems_2",
+        "systems": "systems_3",
         "tree": "tree",
         "treefmt-nix": "treefmt-nix",
         "wezterm": "wezterm"
@@ -1704,6 +1749,21 @@
       }
     },
     "systems_2": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_3": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",

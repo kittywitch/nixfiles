@@ -220,8 +220,10 @@ _: let
       initrd = {
         availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
       };
-      kernelModules = ["nct6775" "kvm-amd"];
-      extraModulePackages = [config.boot.kernelPackages.v4l2loopback.out];
+      kernelModules = ["nct6775" "kvm-amd" "k10temp"];
+      extraModulePackages = with config.boot.kernelPackages; [
+        v4l2loopback.out
+      ];
       supportedFilesystems = ["ntfs" "zfs"];
     };
 

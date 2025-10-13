@@ -304,6 +304,10 @@
         flake-compat.follows = "flake-compat";
       };
     };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     mewtris = {
       url = "github:kittywitch/mewtris/main";
       #url = "path:/home/kat/src/mewtris";

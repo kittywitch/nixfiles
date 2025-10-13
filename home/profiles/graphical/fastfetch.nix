@@ -44,8 +44,6 @@ _: {
         "display"
         "terminal"
         "break"
-        "chassis"
-        "board"
         {
           type = "cpu";
           showPeCoreCount = true;
@@ -65,35 +63,12 @@ _: {
         "break"
         "disk"
         "zpool"
-        {
-          type = "physicaldisk";
-          temp = true;
-        }
         "lm"
         "wm"
         "theme"
         "wmtheme"
         "icons"
-        "font"
         "cursor"
-        "terminal"
-        "terminalfont"
-        "terminalsize"
-        "terminaltheme"
-        "break"
-        {
-          type = "weather";
-          timeout = 1000;
-        }
-        "dns"
-        "break"
-        "break"
-        "bluetooth"
-        "break"
-        "player"
-        "media"
-        "break"
-        "colors"
       ];
     };
   };

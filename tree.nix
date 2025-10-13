@@ -93,6 +93,7 @@
           stylix.nixosModules.stylix
           microvm.nixosModules.host
           mewtris.nixosModules.mewtris
+          noctalia.nixosModules.default
         ];
       };
     };
@@ -114,6 +115,7 @@
             chaotic.homeManagerModules.default
             spicetify-nix.homeManagerModules.spicetify
             stylix.homeModules.stylix
+            noctalia.homeModules.default
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).home-manager; [
             i3gopher

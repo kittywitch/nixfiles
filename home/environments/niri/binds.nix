@@ -22,6 +22,7 @@ in {
           bindWorkspace "0" 10
         )
       ];
+    noctalia = "${getExe parent.services.noctalia-shell.package} ipc call";
     # See tip near https://github.com/sodiboo/niri-flake/blob/main/docs.md#user-content-programsnirisettingsbindsnameaction
     sh = config.lib.niri.actions.spawn "sh" "-c";
     #                                                    ▀▀█
@@ -35,9 +36,13 @@ in {
     personalBindings = {
       "Mod+Return".action = sh ''${getExe config.programs.alacritty.package}'';
       "Mod+T".action.toggle-window-floating = {};
-      "Mod+D".action = sh ''${getExe config.programs.fuzzel.package} -D no -T "${getExe config.programs.alacritty.package} --command"'';
-      "Mod+Escape".action = sh ''${getExe config.programs.wlogout.package} -p layer-shell'';
-      "Mod+Shift+Escape".action = sh ''${getExe config.programs.swaylock.package} -f'';
+      #"Mod+D".action = sh ''${getExe config.programs.fuzzel.package} -D no -T "${getExe config.programs.alacritty.package} --command"'';
+      "Mod+D".action = sh ''${noctalia} launcher toggle'';
+      "Mod+Shift+D".action = sh ''${noctalia} launcher clipboard'';
+      #"Mod+Escape".action = sh ''${getExe config.programs.wlogout.package} -p layer-shell'';
+      "Mod+Escape".action = sh ''${noctalia} sessionMenu toggle'';
+      #"Mod+Shift+Escape".action = sh ''${getExe config.programs.swaylock.package} -f'';
+      "Mod+Shift+Escape".action = sh ''${noctalia} lockScreen toggle'';
       "Mod+Tab" = {
         #repeat = false;
         cooldown-ms = 150;
@@ -221,7 +226,31 @@ in {
           action = sh ''${swayosd-client} --output-volume mute-toggle'';
         };
       };
-    mediaBindingsAvizoless = mkIf (!(config.services.avizo.enable || config.services.swayosd.enable)) {
+    mediaBindingsNoctalia = let
+      vol = "${noctalia} volume";
+      bl = "${noctalia} brightness";
+    in
+      mkIf config.programs.noctalia-shell.enable {
+        "XF86MonBrightnessUp".action = sh ''${bl} increase'';
+        "XF86MonBrightnessDown".action = sh ''${bl} decrease'';
+        "XF86AudioRaiseVolume" = {
+          allow-when-locked = true;
+          action = sh ''${vol} increase'';
+        };
+        "XF86AudioLowerVolume" = {
+          allow-when-locked = true;
+          action = sh ''${vol} decrease'';
+        };
+        "XF86AudioMute" = {
+          allow-when-locked = true;
+          action = sh ''${vol} muteOutput'';
+        };
+        "Shift+XF86AudioMute" = {
+          allow-when-locked = true;
+          action = sh ''${vol} muteInput'';
+        };
+      };
+    mediaBindingsAvizoless = mkIf (!(config.services.avizo.enable || config.programs.noctalia-shell.enable || config.services.swayosd.enable)) {
       "XF86MonBrightnessUp".action = sh ''${getExe pkgs.brightnessctl} -c backlight set 5%+'';
       "XF86MonBrightnessDown".action = sh ''${getExe pkgs.brightnessctl} -c backlight set 5%-'';
       "XF86AudioRaiseVolume".action = sh ''${parent.services.wireplumber.package}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+'';
@@ -235,6 +264,7 @@ in {
         personalBindings
         mediaBindingsCommon
         mediaBindingsAvizo
+        mediaBindingsNoctalia
         mediaBindingsSwayOSD
         mediaBindingsAvizoless
       ]);
