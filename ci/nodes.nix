@@ -18,7 +18,6 @@ in {
         CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
         DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
         NIX_CONFIG = "\${{ secrets.NIX_CONFIG }}";
-        NIX_INSTALLER = "--daemon";
       };
       on = let
         paths = [
@@ -38,6 +37,7 @@ in {
       jobs = let
         genericNixosBuildJob = name: _system:
           nameValuePair "nixos-${name}" {
+            step.nix-install."with".daemon = true;
             step.${name} = {
               name = "build system closure for ${name}";
               order = 500;
@@ -50,6 +50,7 @@ in {
           };
         genericHomeBuildJob = name: _system:
           nameValuePair "home-${name}" {
+            step.nix-install."with".daemon = true;
             step.${name} = {
               name = "build home closure for ${name}";
               order = 500;

@@ -6,7 +6,6 @@ env:
   CI_PLATFORM: gh-actions
   DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
   NIX_CONFIG: ${{ secrets.NIX_CONFIG }}
-  NIX_INSTALLER: --daemon
 jobs:
   ci-check:
     name: nodes check
@@ -47,6 +46,8 @@ jobs:
     - id: nix-install
       name: nix install
       uses: arcnmx/ci/actions/nix/install@v0.7
+      with:
+        daemon: true
     - env:
         NF_CONFIG_ROOT: ${{ github.workspace }}
         NF_UPDATE_CACHIX_PUSH: '1'
@@ -106,6 +107,8 @@ jobs:
     - id: nix-install
       name: nix install
       uses: arcnmx/ci/actions/nix/install@v0.7
+      with:
+        daemon: true
     - env:
         NF_CONFIG_ROOT: ${{ github.workspace }}
         NF_UPDATE_CACHIX_PUSH: '1'
@@ -165,6 +168,8 @@ jobs:
     - id: nix-install
       name: nix install
       uses: arcnmx/ci/actions/nix/install@v0.7
+      with:
+        daemon: true
     - env:
         NF_CONFIG_ROOT: ${{ github.workspace }}
         NF_UPDATE_CACHIX_PUSH: '1'
@@ -224,6 +229,8 @@ jobs:
     - id: nix-install
       name: nix install
       uses: arcnmx/ci/actions/nix/install@v0.7
+      with:
+        daemon: true
     - env:
         NF_CONFIG_ROOT: ${{ github.workspace }}
         NF_UPDATE_CACHIX_PUSH: '1'
@@ -283,6 +290,8 @@ jobs:
     - id: nix-install
       name: nix install
       uses: arcnmx/ci/actions/nix/install@v0.7
+      with:
+        daemon: true
     - env:
         NF_CONFIG_ROOT: ${{ github.workspace }}
         NF_UPDATE_CACHIX_PUSH: '1'
@@ -342,6 +351,8 @@ jobs:
     - id: nix-install
       name: nix install
       uses: arcnmx/ci/actions/nix/install@v0.7
+      with:
+        daemon: true
     - env:
         NF_CONFIG_ROOT: ${{ github.workspace }}
         NF_UPDATE_CACHIX_PUSH: '1'

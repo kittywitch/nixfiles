@@ -13,7 +13,6 @@ with lib; {
         CACHIX_AUTH_TOKEN = "\${{ secrets.CACHIX_AUTH_TOKEN }}";
         CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
         DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
-        NIX_INSTALLER = "--daemon";
         NIX_CONFIG = "\${{ secrets.NIX_CONFIG }}";
       };
       on = let
@@ -37,6 +36,7 @@ with lib; {
         workflow_dispatch = {};
       };
       jobs.flake-update = {
+        step.nix-install."with".daemon = true;
         step.flake-update = {
           name = "flake update build";
           order = 500;

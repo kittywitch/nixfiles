@@ -15,8 +15,7 @@ _: let
         oracle_micro
       ])
       ++ (with tree.nixos.servers; [
-        forgejo-runner
-      ]);
+        ]);
 
     system.stateVersion = "23.11";
   };
