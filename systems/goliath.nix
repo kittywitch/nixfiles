@@ -56,6 +56,9 @@ _: let
         #hyprland
         niri
       ])
+      ++ (with tree.nixos.servers; [
+        forgejo-runner
+      ])
       ++ (with inputs.nixos-hardware.outputs.nixosModules; [
         common-pc
         common-pc-ssd

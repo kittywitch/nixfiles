@@ -21,6 +21,8 @@ _: let
       ++ (with tree.nixos.servers; [
         weechat
         #matrix
+        forgejo
+        forgejo-runner
         postgres
         web
       ]);
