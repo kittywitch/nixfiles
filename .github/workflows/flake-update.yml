@@ -6,6 +6,7 @@ env:
   CI_PLATFORM: gh-actions
   DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
   NIX_CONFIG: ${{ secrets.NIX_CONFIG }}
+  NIX_INSTALLER: --daemon
 jobs:
   ci-check:
     name: flake-update check
@@ -47,13 +48,9 @@ jobs:
       name: nix install
       uses: arcnmx/ci/actions/nix/install@v0.7
     - env:
-        CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
-        DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
         NF_CONFIG_ROOT: ${{ github.workspace }}
         NF_UPDATE_CACHIX_PUSH: '1'
         NF_UPDATE_GIT_COMMIT: '1'
-        NIX_CONFIG: ${{ secrets.NIX_CONFIG }}
       id: flake-update
       name: flake update build
       run: nix run .#nf-update

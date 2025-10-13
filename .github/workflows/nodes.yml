@@ -6,6 +6,7 @@ env:
   CI_PLATFORM: gh-actions
   DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
   NIX_CONFIG: ${{ secrets.NIX_CONFIG }}
+  NIX_INSTALLER: --daemon
 jobs:
   ci-check:
     name: nodes check
@@ -47,12 +48,8 @@ jobs:
       name: nix install
       uses: arcnmx/ci/actions/nix/install@v0.7
     - env:
-        CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
-        DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
         NF_CONFIG_ROOT: ${{ github.workspace }}
         NF_UPDATE_CACHIX_PUSH: '1'
-        NIX_CONFIG: ${{ secrets.NIX_CONFIG }}
       id: home-base
       name: build home closure for home-base
       run: nix run .#nf-build-system -- homeConfigurations.home-base.activationPackage
@@ -110,12 +107,8 @@ jobs:
       name: nix install
       uses: arcnmx/ci/actions/nix/install@v0.7
     - env:
-        CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
-        DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
         NF_CONFIG_ROOT: ${{ github.workspace }}
         NF_UPDATE_CACHIX_PUSH: '1'
-        NIX_CONFIG: ${{ secrets.NIX_CONFIG }}
       id: home-graphical
       name: build home closure for home-graphical
       run: nix run .#nf-build-system -- homeConfigurations.home-graphical.activationPackage
@@ -173,12 +166,8 @@ jobs:
       name: nix install
       uses: arcnmx/ci/actions/nix/install@v0.7
     - env:
-        CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
-        DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
         NF_CONFIG_ROOT: ${{ github.workspace }}
         NF_UPDATE_CACHIX_PUSH: '1'
-        NIX_CONFIG: ${{ secrets.NIX_CONFIG }}
       id: home-neovim
       name: build home closure for home-neovim
       run: nix run .#nf-build-system -- homeConfigurations.home-neovim.activationPackage
@@ -236,12 +225,8 @@ jobs:
       name: nix install
       uses: arcnmx/ci/actions/nix/install@v0.7
     - env:
-        CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
-        DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
         NF_CONFIG_ROOT: ${{ github.workspace }}
         NF_UPDATE_CACHIX_PUSH: '1'
-        NIX_CONFIG: ${{ secrets.NIX_CONFIG }}
       id: home-shell
       name: build home closure for home-shell
       run: nix run .#nf-build-system -- homeConfigurations.home-shell.activationPackage
@@ -299,12 +284,8 @@ jobs:
       name: nix install
       uses: arcnmx/ci/actions/nix/install@v0.7
     - env:
-        CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
-        DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
         NF_CONFIG_ROOT: ${{ github.workspace }}
         NF_UPDATE_CACHIX_PUSH: '1'
-        NIX_CONFIG: ${{ secrets.NIX_CONFIG }}
       id: mai
       name: build system closure for mai
       run: nix run .#nf-build-system -- nixosConfigurations.mai.config.system.build.toplevel
@@ -362,12 +343,8 @@ jobs:
       name: nix install
       uses: arcnmx/ci/actions/nix/install@v0.7
     - env:
-        CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-        CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
-        DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
         NF_CONFIG_ROOT: ${{ github.workspace }}
         NF_UPDATE_CACHIX_PUSH: '1'
-        NIX_CONFIG: ${{ secrets.NIX_CONFIG }}
       id: mei
       name: build system closure for mei
       run: nix run .#nf-build-system -- nixosConfigurations.mei.config.system.build.toplevel
