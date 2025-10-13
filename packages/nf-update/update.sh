@@ -1,15 +1,20 @@
 #!/usr/bin/env bash
 set -eu
 
-DISCORD_WEBHOOK_LINK=${DISCORD_WEBHOOK_LINK:-""}
+CI_NOTIFY_LINK="${CI_NOTIFY_LINK:-""}"
+CI_NOTIFY_TOKEN="${CI_NOTIFY_TOKEN:-""}"
 
 # Helper functions
-send_discord_message() {
-  local message="$1"
-  local escaped_message
-  escaped_message=$(printf '%s' "$message" | jq -R -s '.')
-  curl -s -H "Accept: application/json" -H "Content-Type: application/json" \
-    -X POST --data "{\"content\": $escaped_message}" "$DISCORD_WEBHOOK_LINK"
+send_notification() {
+  local priority="$1"
+  local tag="$2"
+  local message="$3"
+  curl -s -X POST \
+    -H "Authorization: Bearer ${CI_NOTIFY_TOKEN}" \
+    -H "prio:${priority}" \
+    -H "tags:${tag}" \
+    -d "$message" \
+    "${CI_NOTIFY_LINK}"
 }
 
 if [[ -n ${CACHIX_AUTH_TOKEN-} ]]; then
@@ -18,7 +23,7 @@ fi
 
 cd "$NF_CONFIG_ROOT"
 
-send_discord_message "Beginning flake update cron job"
+send_notification "low" "gear" "Beginning flake update cron job"
 
 nix flake update "$@"
 
@@ -34,7 +39,7 @@ if [[ -n ${NF_UPDATE_CACHIX_PUSH-} ]]; then
   export NF_ACTIONS_TEST_OUTLINK=${NF_ACTIONS_TEST_OUTLINK-result}
 fi
 if [[ -z ${NF_UPDATE_SKIP-} ]]; then
-  send_discord_message "checking that nodes still build..."
+  send_notification "low" "information_source" "Checking that nodes still build..."
   if [[ -n ${NF_UPDATE_CACHIX_PUSH-} ]]; then
     export NF_ACTIONS_TEST_OUTLINK=${NF_ACTIONS_TEST_OUTLINK-result}
   fi
@@ -42,7 +47,7 @@ if [[ -z ${NF_UPDATE_SKIP-} ]]; then
 fi
 
 if [[ -n ${NF_UPDATE_CACHIX_PUSH-} && -v NF_ACTIONS_TEST_OUTLINK ]]; then
-  send_discord_message "Cachix pushing"
+  send_notification "low" "floppy_disk" "Cachix pushing"
   cachix push kittywitch "./${NF_ACTIONS_TEST_OUTLINK}"*/ &
   CACHIX_PUSH=$!
 fi
@@ -65,7 +70,7 @@ env \
 
 if [[ ${GITHUB_REF-} = refs/heads/${NF_UPDATE_BRANCH-main} ]]; then
   git push origin "HEAD:${NF_UPDATE_BRANCH-main}"
-  send_discord_message "Pushed a new commit!"
+  send_notification "low" "white_check_mark" "Pushed a new commit!"
 fi
 
 wait "${CACHIX_PUSH-}"

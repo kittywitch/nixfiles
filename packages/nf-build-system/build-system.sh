@@ -1,22 +1,23 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DISCORD_WEBHOOK_LINK=${DISCORD_WEBHOOK_LINK:-""}
+CI_NOTIFY_LINK="${CI_NOTIFY_LINK:-""}"
+CI_NOTIFY_TOKEN="${CI_NOTIFY_TOKEN:-""}"
 SYSTEM_LINK=${1:-""}
 ALIAS=${2:-""}
 SYSTEM_TYPE=${3:-""}
 
 # Helper functions
-send_discord_message() {
-  local message="$1"
-  if [[ -n "$DISCORD_WEBHOOK_LINK" ]]; then
-    local escaped_message
-    escaped_message=$(printf '%s' "$message" | jq -R -s '.')
-    curl -s -H "Accept: application/json" -H "Content-Type: application/json" \
-      -X POST --data "{\"content\": $escaped_message}" "$DISCORD_WEBHOOK_LINK"
-  else
-    echo "Discord message (not sent): $message"
-  fi
+send_notification() {
+  local priority="$1"
+  local tag="$2"
+  local message="$3"
+  curl -s -X POST \
+    -H "Authorization: Bearer ${CI_NOTIFY_TOKEN}" \
+    -H "prio:${priority}" \
+    -H "tags:${tag}" \
+    -d "$message" \
+    "${CI_NOTIFY_LINK}"
 }
 
 init_nfargs() {
@@ -40,7 +41,7 @@ init_nfargs() {
 perform_cachix_push() {
   local nflinksuffix="-L"
   if [[ -n ${NF_UPDATE_CACHIX_PUSH-} ]]; then
-    send_discord_message "Cachix pushing ${SYSTEM_TYPE} system build for ${ALIAS}"
+    send_notification "low" "floppy_disk" "Cachix pushing ${SYSTEM_TYPE} system build for ${ALIAS}"
     cachix push kittywitch "./${NF_ACTIONS_TEST_OUTLINK-result}$nflinksuffix"*/
   fi
 }
@@ -59,7 +60,7 @@ if [[ -z "$SYSTEM_LINK" || -z "$ALIAS" || -z "$SYSTEM_TYPE" ]]; then
   exit 1
 fi
 
-send_discord_message "Starting ${SYSTEM_TYPE} system build for ${ALIAS}"
+send_notification "low" "gear" "Starting ${SYSTEM_TYPE} system build for ${ALIAS}"
 
 if [[ -n ${CACHIX_AUTH_TOKEN-} ]]; then
   export NF_UPDATE_CACHIX_PUSH=1
@@ -98,14 +99,14 @@ else
 
   if ! nix build "$nfinstallable" "${nfargs[@]}"; then
     if [[ -n $nfwarn ]]; then
-      send_discord_message "Build failure allowed for ${nfsystem}, ignoring..."
+      send_notification "default" "warning" "Build failure allowed for ${nfsystem}, ignoring..."
       echo "Build failure allowed for ${nfsystem}, ignoring..." >&2
     else
-      send_discord_message "Build failure for ${nfsystem}, problem!"
+      send_notification "default" "warning" "Build failure for ${nfsystem}, problem!"
       exit 1
     fi
   else
-    send_discord_message "${SYSTEM_TYPE} system build of ${ALIAS} succeeded!"
+    send_notification "low" "white_check_mark" "${SYSTEM_TYPE} system build of ${ALIAS} succeeded!"
     perform_cachix_push
     perform_garbage_collection
   fi
@@ -117,7 +118,7 @@ if [[ -n ${NF_ACTIONS_TEST_ASYNC-} ]]; then
     perform_cachix_push
     perform_garbage_collection
   else
-    send_discord_message "Async build failure for ${nfsystem}, problem!"
+    send_notification "default" "warning" "Async build failure for ${nfsystem}, problem!"
     exit 1
   fi
 fi
