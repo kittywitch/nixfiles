@@ -42,26 +42,27 @@
           # tokenFile should be in format TOKEN=<secret>, since it's EnvironmentFile for systemd
           tokenFile = config.sops.secrets.forgejo-runner-token.path;
           labels = let
+            prefix = "docker://ghcr.io/catthehacker/ubuntu:act-";
             arches = {
               x86_64-linux = [
-                "ubuntu-latest:docker://node:16-bullseye"
-                "ubuntu-22.04:docker://node:16-bullseye"
-                "ubuntu-20.04:docker://node:16-bullseye"
-                "ubuntu-18.04:docker://node:16-buster"
+                "ubuntu-latest:${prefix}-latest"
+                "ubuntu-22.04:${prefix}-22.04"
+                "ubuntu-20.04:${prefix}-20.04"
+                "ubuntu-18.04:${prefix}-18.04"
                 "nixos-latest:docker://nixos/nix"
-                "ubuntu-latest-x86_64:docker://node:16-bullseye"
-                "ubuntu-22.04-x86_64:docker://node:16-bullseye"
-                "ubuntu-20.04_x86_64:docker://node:16-bullseye"
-                "ubuntu-18.04-x86_64:docker://node:16-buster"
+                "ubuntu-latest-x86_64:${prefix}-latest"
+                "ubuntu-22.04-x86_64:${prefix}-22.04"
+                "ubuntu-20.04_x86_64:${prefix}-20.04"
+                "ubuntu-18.04-x86_64:${prefix}-18.04"
                 "nixos-latest-x86_64:docker://nixos/nix"
                 ## optionally provide native execution on the host:
                 # "native:host"
               ];
               aarch64-linux = [
-                "ubuntu-latest-aarch64:docker://node:16-bullseye"
-                "ubuntu-22.04-aarch64:docker://node:16-bullseye"
-                "ubuntu-20.04_aarch64:docker://node:16-bullseye"
-                "ubuntu-18.04-aarch64:docker://node:16-buster"
+                "ubuntu-latest-aarch64:${prefix}-latest"
+                "ubuntu-22.04-aarch64:${prefix}-22.04"
+                "ubuntu-20.04_aarch64:${prefix}-20.04"
+                "ubuntu-18.04-aarch64:${prefix}-18.04"
                 "nixos-latest-aarch64:docker://nixos/nix"
               ];
             };

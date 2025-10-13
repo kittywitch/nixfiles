@@ -5,6 +5,9 @@ in {
   services.forgejo = {
     enable = true;
     settings = {
+      DEFAULT = {
+        APP_NAME = "kittywitch forge";
+      };
       server = {
         DOMAIN = domain;
         ROOT_URL = "https://${domain}";
