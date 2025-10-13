@@ -17,6 +17,7 @@ in {
         CACHIX_AUTH_TOKEN = "\${{ secrets.CACHIX_AUTH_TOKEN }}";
         CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
         DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
+        NIX_CONFIG = "\${{ secrets.NIX_CONFIG }}";
       };
       on = let
         paths = [
@@ -41,6 +42,7 @@ in {
               order = 500;
               run = "nix run .#nf-build-system -- nixosConfigurations.${name}.config.system.build.toplevel ${name} NixOS";
               env = {
+                NIX_CONFIG = "\${{ secrets.NIX_CONFIG }}";
                 CACHIX_AUTH_TOKEN = "\${{ secrets.CACHIX_AUTH_TOKEN }}";
                 CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
                 DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
@@ -56,6 +58,7 @@ in {
               order = 500;
               run = "nix run .#nf-build-system -- homeConfigurations.${name}.activationPackage ${name} Home";
               env = {
+                NIX_CONFIG = "\${{ secrets.NIX_CONFIG }}";
                 CACHIX_AUTH_TOKEN = "\${{ secrets.CACHIX_AUTH_TOKEN }}";
                 CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
                 DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";

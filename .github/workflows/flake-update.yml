@@ -5,6 +5,7 @@ env:
   CI_CONFIG: ./ci/flake-cron.nix
   CI_PLATFORM: gh-actions
   DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
+  NIX_CONFIG: ${{ secrets.NIX_CONFIG }}
 jobs:
   ci-check:
     name: flake-update check
@@ -52,6 +53,7 @@ jobs:
         NF_CONFIG_ROOT: ${{ github.workspace }}
         NF_UPDATE_CACHIX_PUSH: '1'
         NF_UPDATE_GIT_COMMIT: '1'
+        NIX_CONFIG: ${{ secrets.NIX_CONFIG }}
       id: flake-update
       name: flake update build
       run: nix run .#nf-update

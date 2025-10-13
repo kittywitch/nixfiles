@@ -13,6 +13,7 @@ with lib; {
         CACHIX_AUTH_TOKEN = "\${{ secrets.CACHIX_AUTH_TOKEN }}";
         CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
         DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
+        NIX_CONFIG = "\${{ secrets.NIX_CONFIG }}";
       };
       on = let
         paths = [
@@ -46,6 +47,7 @@ with lib; {
             NF_UPDATE_GIT_COMMIT = "1";
             NF_UPDATE_CACHIX_PUSH = "1";
             NF_CONFIG_ROOT = "\${{ github.workspace }}";
+            NIX_CONFIG = "\${{ secrets.NIX_CONFIG }}";
           };
         };
       };
