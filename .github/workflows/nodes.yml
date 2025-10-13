@@ -3,8 +3,9 @@ env:
   CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
   CI_ALLOW_ROOT: '1'
   CI_CONFIG: ./ci/nodes.nix
+  CI_NOTIFY_LINK: ${{ secrets.CI_NOTIFY_LINK }}
+  CI_NOTIFY_TOKEN: ${{ secrets.CI_NOTIFY_TOKEN }}
   CI_PLATFORM: gh-actions
-  DISCORD_WEBHOOK_LINK: ${{ secrets.DISCORD_WEBHOOK_LINK }}
   NIX_CONFIG: ${{ secrets.NIX_CONFIG }}
 jobs:
   ci-check:
