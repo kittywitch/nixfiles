@@ -16,7 +16,8 @@ in {
       env = {
         CACHIX_AUTH_TOKEN = "\${{ secrets.CACHIX_AUTH_TOKEN }}";
         CACHIX_SIGNING_KEY = "\${{ secrets.CACHIX_SIGNING_KEY }}";
-        DISCORD_WEBHOOK_LINK = "\${{ secrets.DISCORD_WEBHOOK_LINK }}";
+        CI_NOTIFY_LINK = "\${{ secrets.CI_NOTIFY_LINK }}";
+        CI_NOTIFY_TOKEN = "\${{ secrets.CI_NOTIFY_TOKEN }}";
         NIX_CONFIG = "\${{ secrets.NIX_CONFIG }}";
       };
       on = let
