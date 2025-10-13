@@ -42,7 +42,7 @@
           # tokenFile should be in format TOKEN=<secret>, since it's EnvironmentFile for systemd
           tokenFile = config.sops.secrets.forgejo-runner-token.path;
           labels = let
-            prefix = "docker://ghcr.io/catthehacker/ubuntu:act-";
+            prefix = "docker://ghcr.io/catthehacker/ubuntu:act";
             arches = {
               x86_64-linux = [
                 "ubuntu-latest:${prefix}-latest"
