@@ -40,9 +40,10 @@ in {
       "Mod+D".action = sh ''${noctalia} launcher toggle'';
       "Mod+Shift+D".action = sh ''${noctalia} launcher clipboard'';
       #"Mod+Escape".action = sh ''${getExe config.programs.wlogout.package} -p layer-shell'';
-      "Mod+Escape".action = sh ''${noctalia} sessionMenu toggle'';
+      "Mod+Escape".action = sh ''${noctalia} controlCenter toggle'';
+      "Mod+Shift+Escape".action = sh ''${noctalia} sessionMenu toggle'';
       #"Mod+Shift+Escape".action = sh ''${getExe config.programs.swaylock.package} -f'';
-      "Mod+Shift+Escape".action = sh ''${noctalia} lockScreen toggle'';
+      "Mod+L".action = sh ''${noctalia} lockScreen toggle'';
       "Mod+Tab" = {
         #repeat = false;
         cooldown-ms = 150;
@@ -72,19 +73,11 @@ in {
       "Mod+Down".action.focus-window-down = {};
       "Mod+Up".action.focus-window-up = {};
       "Mod+Right".action.focus-column-right = {};
-      "Mod+H".action.focus-column-left = {};
-      "Mod+J".action.focus-window-down = {};
-      "Mod+K".action.focus-window-up = {};
-      "Mod+L".action.focus-column-right = {};
 
       "Mod+Ctrl+Left".action.move-column-left = {};
       "Mod+Ctrl+Down".action.move-window-down = {};
       "Mod+Ctrl+Up".action.move-window-up = {};
       "Mod+Ctrl+Right".action.move-column-right = {};
-      "Mod+Ctrl+H".action.move-column-left = {};
-      "Mod+Ctrl+J".action.move-window-down = {};
-      "Mod+Ctrl+K".action.move-window-up = {};
-      "Mod+Ctrl+L".action.move-column-right = {};
 
       "Mod+Home".action.focus-column-first = {};
       "Mod+End".action.focus-column-last = {};
@@ -95,19 +88,11 @@ in {
       "Mod+Shift+Down".action.focus-monitor-down = {};
       "Mod+Shift+Up".action.focus-monitor-up = {};
       "Mod+Shift+Right".action.focus-monitor-right = {};
-      "Mod+Shift+H".action.focus-monitor-left = {};
-      "Mod+Shift+J".action.focus-monitor-down = {};
-      "Mod+Shift+K".action.focus-monitor-up = {};
-      "Mod+Shift+L".action.focus-monitor-right = {};
 
       "Mod+Shift+Ctrl+Left".action.move-column-to-monitor-left = {};
       "Mod+Shift+Ctrl+Down".action.move-column-to-monitor-down = {};
       "Mod+Shift+Ctrl+Up".action.move-column-to-monitor-up = {};
       "Mod+Shift+Ctrl+Right".action.move-column-to-monitor-right = {};
-      "Mod+Shift+Ctrl+H".action.move-column-to-monitor-left = {};
-      "Mod+Shift+Ctrl+J".action.move-column-to-monitor-down = {};
-      "Mod+Shift+Ctrl+K".action.move-column-to-monitor-up = {};
-      "Mod+Shift+Ctrl+L".action.move-column-to-monitor-right = {};
 
       "Mod+Page_Down".action.focus-workspace-down = {};
       "Mod+Page_Up".action.focus-workspace-up = {};
