@@ -16,7 +16,6 @@
 
   nix.config = {
     max-silent-time = 60 * 60;
-    build-users-group = "";
   };
   /*
     nix.config = {
