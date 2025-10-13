@@ -35,6 +35,7 @@ in {
               showAlbumArt = true;
               showVisualizer = true;
               scrollingMode = "always";
+              autoHide = true;
               # check if this works,
               # if not, rewrite their system for it o.o
               widgetWidth = 300;
