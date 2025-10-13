@@ -37,7 +37,10 @@ in {
       jobs = let
         genericNixosBuildJob = name: _system:
           nameValuePair "nixos-${name}" {
-            step.nix-install."with".daemon = true;
+            step.nix-install."with" = {
+              daemon = true;
+              #github-access-token = "\${{ secrets.GITHUB_TOKEN }}";
+            };
             step.${name} = {
               name = "build system closure for ${name}";
               order = 500;

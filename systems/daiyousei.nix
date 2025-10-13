@@ -23,6 +23,7 @@ _: let
         #matrix
         forgejo
         forgejo-runner
+        ntfy
         postgres
         web
       ]);
