@@ -166,6 +166,9 @@ _: let
 in {
   arch = "x86_64";
   deploy.hostname = "10.1.1.171";
+  colmena.tags = [
+    "personal"
+  ];
   ci.enable = false; # Closure too large
   type = "NixOS";
   modules = [

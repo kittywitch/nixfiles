@@ -250,6 +250,9 @@ _: let
 in {
   arch = "x86_64";
   type = "NixOS";
+  colmena.tags = [
+    "personal"
+  ];
   ci.enable = false; # Closure too large
   modules = [
     hostConfig

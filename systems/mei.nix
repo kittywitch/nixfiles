@@ -20,6 +20,10 @@ _: let
 in {
   arch = "x86_64";
   type = "NixOS";
+  colmena.tags = [
+    "server"
+    "oci"
+  ];
   modules = [
     hostConfig
   ];

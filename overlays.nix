@@ -13,7 +13,12 @@
       colmena
       ;
   })
+  inputs.colmena.overlays.default
   inputs.ida-pro-overlay.overlays.default
+  # To get this not to garbage collect, make sure to create a gcroot by manually
+  # building the package with an output (anywhere you want, really). You can't
+  # then delete that output, however, or rename or move it. So place it somewhere
+  # you're ok with it being.
   (final: prev: {
     ida-pro-kat = prev.callPackage final.ida-pro {
       runfile = final.requireFile {

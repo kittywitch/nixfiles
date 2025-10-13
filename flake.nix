@@ -224,6 +224,7 @@
         utils.follows = "flake-utils";
       };
     };
+    colmena.url = "github:zhaofengli/colmena";
     # self-explanatory
     home-manager = {
       url = "github:nix-community/home-manager/master";

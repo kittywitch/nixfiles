@@ -47,6 +47,10 @@ in {
       type = attrs;
       internal = true;
     };
+    pkgs = mkOption {
+      type = unspecified;
+      internal = true;
+    };
     builder = mkOption {
       type = unspecified;
       internal = true;
@@ -148,6 +152,7 @@ in {
         inherit (config) system modules specialArgs;
       })
     config.builder);
+    pkgs = pkgs.${config.system};
     specialArgs = {
       inherit name inputs std tree;
       systemType = config.folder;

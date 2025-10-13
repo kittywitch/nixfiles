@@ -6,6 +6,7 @@
   systems = import ./systems {inherit inputs tree lib std pkgs;};
   shells = import ./shells {inherit inputs tree lib std pkgs checks;};
   inherit (import ./pkgs.nix {inherit inputs tree overlay;}) pkgs;
+  colmena = import ./colmena.nix {inherit inputs systems lib;};
   formatting = import ./formatting.nix {inherit inputs pkgs;};
   inherit (std) set;
   forAllSystems = lib.genAttrs inputs.flake-utils.lib.defaultSystems;
@@ -37,6 +38,7 @@ in
     legacyPackages = pkgs;
     #packages = set.merge [pkgs wrappers.packages];
     inherit (formatting) formatter;
+    inherit (colmena) colmenaHive colmena;
   }
   // systems
   // shells

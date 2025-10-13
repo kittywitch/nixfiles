@@ -52,8 +52,12 @@ _: let
   };
 in {
   arch = "aarch64";
-  deploy.hostname = "daiyousei.inskip.me";
   type = "NixOS";
+  deploy.hostname = "daiyousei.inskip.me";
+  colmena.tags = [
+    "server"
+    "oci"
+  ];
   modules = [
     hostConfig
   ];
