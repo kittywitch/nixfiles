@@ -42,3 +42,12 @@ resource "cloudflare_record" "ntfy" {
   value   = "daiyousei.inskip.me"
   zone_id = local.zone_ids.kittywitch
 }
+
+resource "cloudflare_record" "kuma" {
+  name    = "kuma"
+  proxied = false
+  ttl     = 3600
+  type    = "CNAME"
+  value   = "mei.inskip.me"
+  zone_id = local.zone_ids.kittywitch
+}

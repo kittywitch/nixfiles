@@ -4,7 +4,7 @@
   ...
 }: {
   home.sessionVariables = {
-    BROWSER = "zen";
+    BROWSER = "librewolf";
   };
   stylix.targets.librewolf = {
     colorTheme.enable = true;

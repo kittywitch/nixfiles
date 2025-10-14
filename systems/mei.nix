@@ -15,7 +15,9 @@ _: let
         oracle_micro
       ])
       ++ (with tree.nixos.servers; [
-        ]);
+        uptime-kuma
+        web
+      ]);
 
     system.stateVersion = "23.11";
   };
