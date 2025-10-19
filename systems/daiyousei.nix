@@ -1,5 +1,6 @@
 _: let
   hostConfig = {
+    pkgs,
     tree,
     modulesPath,
     ...
@@ -27,6 +28,10 @@ _: let
         postgres
         web
       ]);
+
+    environment.systemPackages = [
+      pkgs.numix-icon-theme
+    ];
 
     # TODO: Add config.microvm.stateDir to backup schedule?
     # TODO: figure out updateFlake?

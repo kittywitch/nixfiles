@@ -50,6 +50,7 @@ _: let
         quiet-boot
         wireless
         gaming
+        performance
         dev
       ])
       ++ (with tree.nixos.environments; [
@@ -172,30 +173,6 @@ _: let
 
     networking.hostId = "c3b94e85";
 
-    programs.ssh.extraConfig = ''
-      Host daiyousei-build
-          HostName 140.238.156.121
-          User root
-          IdentityAgent /run/user/1000/gnupg/S.gpg-agent.ssh
-    '';
-    nix = {
-      buildMachines = [
-        {
-          hostName = "daiyousei-build";
-          system = "aarch64-linux";
-          protocol = "ssh-ng";
-          maxJobs = 100;
-          speedFactor = 1;
-          supportedFeatures = ["benchmark" "big-parallel" "kvm"];
-          mandatoryFeatures = [];
-        }
-      ];
-      distributedBuilds = true;
-      extraOptions = ''
-        builders-use-substitutes = true
-      '';
-    };
-
     services.xserver.videoDrivers = ["nvidia"];
 
     hardware.nvidia = {
@@ -205,14 +182,6 @@ _: let
       open = true;
       powerManagement.enable = true;
     };
-
-    services.scx = {
-      enable = false;
-      package = pkgs.scx_git.full;
-      scheduler = "scx_lavd";
-    };
-
-    zramSwap.enable = true;
 
     boot = {
       zfs.requestEncryptionCredentials = true;

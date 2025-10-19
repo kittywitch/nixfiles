@@ -1,7 +1,6 @@
 _: let
   hostConfig = {
     tree,
-    pkgs,
     lib,
     config,
     ...
@@ -53,6 +52,7 @@ _: let
         wireless
         laptop
         gaming
+        performance
       ])
       ++ (with tree.nixos.environments; [
         niri
@@ -104,39 +104,6 @@ _: let
           config.boot.kernelPackages.v4l2loopback.out
           framework-laptop-kmod
         ];
-      };
-
-      services.scx = {
-        enable = true;
-        package = pkgs.scx_git.full;
-        scheduler = "scx_lavd";
-      };
-
-      zramSwap.enable = true;
-
-      programs.ssh.extraConfig = ''
-        Host daiyousei-build
-            HostName 140.238.156.121
-            User root
-            IdentityAgent /run/user/1000/gnupg/S.gpg-agent.ssh
-      '';
-
-      nix = {
-        buildMachines = [
-          {
-            hostName = "daiyousei-build";
-            system = "aarch64-linux";
-            protocol = "ssh-ng";
-            maxJobs = 100;
-            speedFactor = 1;
-            supportedFeatures = ["benchmark" "big-parallel" "kvm"];
-            mandatoryFeatures = [];
-          }
-        ];
-        distributedBuilds = true;
-        extraOptions = ''
-          builders-use-substitutes = true
-        '';
       };
 
       # optional, useful when the builder has a faster internet connection than yours
