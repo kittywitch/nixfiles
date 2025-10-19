@@ -3,7 +3,7 @@
     Host daiyousei-build
         HostName daiyousei.inskip.me
         User root
-        IdentityAgent /run/user/${config.users.users.kat.uid}/gnupg/S.gpg-agent.ssh
+        IdentityAgent /run/user/${toString config.users.users.kat.uid}/gnupg/S.gpg-agent.ssh
         ControlMaster auto
         ControlPath ${config.users.users.kat.home}/.ssh/master-%r@%n:%p
         ControlPersist 10m
