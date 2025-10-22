@@ -113,7 +113,6 @@ in {
         # konawall
         enabled = false;
         directory = "";
-        enableMultiMonitorDirectories = false;
         setWallpaperOnAllMonitors = true;
         defaultWallpaper = "";
         fillMode = "crop";
@@ -197,8 +196,8 @@ in {
         preferredPlayer = "";
       };
       ui = {
-        fontDefault = config.stylix.fonts.sansSerif;
-        fontFixed = config.stylix.fonts.monospace;
+        fontDefault = "CozetteCrossedSevenVector";
+        fontFixed = "CozetteCrossedSevenVector";
         fontDefaultScale = 1;
         fontFixedScale = 1;
         monitorsScaling = [

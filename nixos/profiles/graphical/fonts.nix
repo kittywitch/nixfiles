@@ -1,15 +1,13 @@
 {pkgs, ...}: {
   fonts = {
     packages = with pkgs; [
-      font-awesome
       noto-fonts-cjk-sans
       twitter-color-emoji
-      iosevka-bin
-      monaspace
       corefonts
       vistafonts
       open-dyslexic
       ubuntu-sans
+      monaspace
       jost
     ];
     enableDefaultPackages = true;

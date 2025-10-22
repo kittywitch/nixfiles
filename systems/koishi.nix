@@ -19,6 +19,10 @@ _: let
         then "/"
         else "/${dataset}"
       ) {
+        neededForBoot =
+          if builtins.elem dataset ["home"]
+          then true
+          else false;
         device = "zpool/${dataset}";
         fsType = "zfs";
         options = ["zfsutil"];
@@ -34,10 +38,10 @@ _: let
         };
       };
       swap = rec {
-        raw = "/dev/disk/by-partuuid/cba02f4a-a90d-44e3-81a8-46bb4500112e";
+        raw = "/dev/disk/by-id/nvme-CT1000P5PSSD8_22343AC9A481-part2";
         result = {
           device = raw;
-          randomEncryption = true;
+          randomEncryption = false; # fix hibernation
         };
       };
     };
@@ -91,12 +95,18 @@ _: let
         drives.swap.result
       ];
 
+      powerManagement.enable = true;
+
       hardware.framework.enableKmod = false;
 
       boot = {
         loader = {
           grub.useOSProber = true;
           systemd-boot.enable = lib.mkForce false;
+        };
+        zfs = {
+          forceImportRoot = false;
+          allowHibernation = true;
         };
         kernelModules = ["cros_ec" "cros_ec_lpcs"];
         extraModprobeConfig = "options snd_hda_intel power_save=0";

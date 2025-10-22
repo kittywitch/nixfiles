@@ -22,22 +22,22 @@
       terminal = 0.9;
       popups = 0.8;
     };
+    polarity = "dark";
     fonts = {
       sansSerif = {
-        name = "Jost";
-        package = pkgs.jost;
+        name = "CozetteCrossedSevenVector";
+        package = pkgs.cozette;
       };
       serif = {
         name = "Libre Baskerville";
         package = pkgs.libre-baskerville;
       };
       monospace = {
-        name = "Monaspace Krypton";
-        package = pkgs.monaspace;
+        name = "CozetteCrossedSevenVector";
+        package = pkgs.cozette;
       };
     };
     autoEnable = true;
-    polarity = "light";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
   };
 }

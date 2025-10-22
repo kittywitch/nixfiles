@@ -3,9 +3,6 @@ _: {
     enable = true;
     settings = {
       logo = {
-        type = "chafa";
-        source = ./nixowos.png;
-        height = 32;
         padding = {
           right = 2;
         };
