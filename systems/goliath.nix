@@ -184,9 +184,6 @@ _: let
     };
 
     boot = {
-      extraModulePackages = with config.boot.kernelPackages; [
-        config.boot.kernelPackages.v4l2loopback.out
-      ];
       loader = {
         systemd-boot.enable = true;
         efi.canTouchEfiVariables = true;

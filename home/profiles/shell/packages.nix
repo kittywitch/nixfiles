@@ -1,8 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     watchexec
-    htop
-    btop
     gdu
     nixpkgs-fmt
     file
@@ -10,7 +8,6 @@
     sd
     sops
     fd
-    ripgrep
     rename
     tmate
     socat
@@ -21,5 +18,26 @@
     hyperfine
     poop
     nix-search-cli
+    pandoc
+    slides
+    sc-im
+    asciinema
+    bandwhich
+    pciutils
+    bingrep
+    chafa
+    dust
+    eva
+    gfold
+    kmon
+    lemmeknow
+    lnav
+    pastel
+    pipe-rename
+    procs
+    tz
+    tre
+    tmpmail
+    wikit
   ];
 }

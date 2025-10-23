@@ -94,6 +94,7 @@
           microvm.nixosModules.host
           mewtris.nixosModules.mewtris
           noctalia.nixosModules.default
+          ucodenix.nixosModules.default
         ];
       };
     };

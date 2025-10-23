@@ -161,6 +161,7 @@
         flake-compat.follows = "flake-compat";
       };
     };
+    ucodenix.url = "github:e-tho/ucodenix";
     nh = {
       url = "github:nix-community/nh";
       inputs.nixpkgs.follows = "nixpkgs";

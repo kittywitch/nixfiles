@@ -1,6 +1,13 @@
-{lib, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   inherit (lib.modules) mkDefault mkMerge;
 in {
+  home.packages = [
+    pkgs.gpg-tui
+  ];
   services.gpg-agent = {
     enable = mkDefault true;
     enableExtraSocket = true;

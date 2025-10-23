@@ -90,7 +90,8 @@ in {
     '';
     shellAliases = mkMerge [
       {
-        nixdirfmt = "nixpkgs-fmt $(fd -e nix)";
+        cat = "bat";
+        top = "btm";
         dmesg = "dmesg -HP";
         hg = "history 0 | rg";
       }

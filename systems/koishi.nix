@@ -2,7 +2,6 @@ _: let
   hostConfig = {
     tree,
     lib,
-    config,
     ...
   }: let
     inherit (lib.attrsets) nameValuePair listToAttrs;
@@ -97,23 +96,17 @@ _: let
 
       powerManagement.enable = true;
 
-      hardware.framework.enableKmod = false;
-
       boot = {
         loader = {
           grub.useOSProber = true;
-          systemd-boot.enable = lib.mkForce false;
+          #systemd-boot.enable = lib.mkForce false;
+          systemd-boot.enable = true;
         };
         zfs = {
           forceImportRoot = false;
           allowHibernation = true;
         };
         kernelModules = ["cros_ec" "cros_ec_lpcs"];
-        extraModprobeConfig = "options snd_hda_intel power_save=0";
-        extraModulePackages = with config.boot.kernelPackages; [
-          config.boot.kernelPackages.v4l2loopback.out
-          framework-laptop-kmod
-        ];
       };
 
       # optional, useful when the builder has a faster internet connection than yours
