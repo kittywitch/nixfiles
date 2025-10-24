@@ -24,7 +24,6 @@
     asciinema
     bandwhich
     pciutils
-    bingrep
     chafa
     dust
     eva

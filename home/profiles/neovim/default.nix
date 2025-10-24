@@ -23,6 +23,7 @@ in {
     vimAlias = true;
     viAlias = true;
     plugins = with pkgs.vimPlugins; [
+      nvim-lspconfig
       # Libraries
       plenary-nvim
       # Disables and re-enables highlighting when searching

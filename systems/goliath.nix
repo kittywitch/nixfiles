@@ -77,7 +77,7 @@ _: let
         konawall-py.settings = {
           source = "konachan";
           tags = [
-            "rating:-e"
+            "-rating:e"
           ];
         };
         # konawall-py.settings = {

@@ -3,6 +3,7 @@
     jmtpfs
     dnsutils
     usbutils
+    imagemagick
   ];
   services.udev.packages = [
     pkgs.android-udev-rules
