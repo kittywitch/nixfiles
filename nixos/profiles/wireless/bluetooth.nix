@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [bluez5-experimental];
+  environment.systemPackages = with pkgs; [bluez5-experimental bluetuith];
 
   services.pipewire.wireplumber.configPackages = [
     (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/10-bluez.conf" ''
@@ -18,6 +18,8 @@
     settings = {
       General = {
         Enable = "Source,Sink,Media,Socket";
+        Experimental = true;
+        KernelExperimental = true;
       };
     };
   };

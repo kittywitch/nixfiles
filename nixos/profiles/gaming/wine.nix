@@ -27,17 +27,8 @@ in {
     ];
     runnerEnvironments = {
       common = {
+        # inherit WINEDEBUG;
         PROTON_LOG = builtins.toString 1;
-        WINEDEBUG = concatStringsSep "," [
-          "+warn"
-          "+timestamp"
-          "+pid"
-          "+tid"
-          "+seh"
-          "+debugstr"
-          #"+module"
-          "trace:-module"
-        ];
         WINEUSERSANDBOX = builtins.toString 1;
       };
       dxvk = {
@@ -85,6 +76,7 @@ in {
       protonCommon = {
         runner = "proton";
         variant = "PROTON_GE";
+        enableGamemode = true;
         environments = [
           "common"
           "proton"
@@ -169,7 +161,10 @@ in {
 
       gw1 = mkMerge [
         protonCommon
+        #wineCommon
         rec {
+          #variant = mkForce "PROTON_CACHYOS";
+          #variant = mkForce "PROTON_GE";
           long_name = "Guild Wars 1";
           prefixFolder = gameStorage + "/guild-wars";
           gameFolder = prefixFolder + "/drive_c/Program Files/Guild Wars";
@@ -256,6 +251,9 @@ in {
       driversi686Linux.mesa
     ];
   };
+  programs.gamemode = {
+    enable = true;
+  };
   programs.gamescope = {
     enable = true;
     package = pkgs.gamescope;
@@ -275,6 +273,7 @@ in {
     };
     pfxes = [
       "Games/VNs/drive_c/windows"
+      "Games/guild-wars/drive_c/windows"
     ];
     arches = {
       "x32" = "system32";

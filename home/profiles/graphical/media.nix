@@ -41,6 +41,6 @@ in {
   };
   home.packages = with pkgs; [
     yt-dlp # Watch videos from multiple sources without having to use a browser for it
-    ytcc # Subscriptions manager and RSS feed exporter for YouTube
+    ytcc #  Subscriptions manager and RSS feed exporter for YouTube # TODO: Broken: 2025-10-28
   ];
 }

@@ -39,7 +39,6 @@
             clearurls
             df-youtube
             old-reddit-redirect
-            privacy-badger
             reddit-enhancement-suite
             refined-github
             stylus

@@ -196,8 +196,8 @@ in {
         preferredPlayer = "";
       };
       ui = {
-        fontDefault = "CozetteCrossedSevenVector";
-        fontFixed = "CozetteCrossedSevenVector";
+        fontDefault = "Atkinson Hyperlegible Next";
+        fontFixed = "Atkinson Hyperlegible Mono";
         fontDefaultScale = 1;
         fontFixedScale = 1;
         monitorsScaling = [

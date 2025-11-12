@@ -19,7 +19,8 @@
             enable = true;
             packageOverrides = {treefmt = formatting.formatter.${system};};
           };
-          flake-checker.enable = true;
+          # TODO: remove when cmake 4 changes aren't FUCKED
+          #flake-checker.enable = true;
           ripsecrets.enable = true;
           pre-commit-hook-ensure-sops.enable = true;
         };

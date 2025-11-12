@@ -81,7 +81,7 @@
     empty.url = "github:input-output-hk/empty-flake";
     # self-explanatory
     nixpkgs = {
-      follows = "chaotic/nixpkgs";
+      follows = "chaotic/nixpkgs"; # TODO: replace follows
       #url = "github:nixos/nixpkgs/nixos-unstable";
       #inputs.nixpkgs.follows = "chaotic/nixpkgs";
     };
@@ -267,6 +267,14 @@
         flake-compat.follows = "flake-compat";
       };
     };
+    fzfdapter = {
+      url = "github:kittywitch/fzfdapter";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        flake-compat.follows = "flake-compat";
+      };
+    };
     # file structure -> attrset
     tree = {
       url = "github:kittywitch/tree";
@@ -343,6 +351,17 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
+      };
+    };
+    slimevr-wrangler-src = {
+      url = "github:kittywitch/slimevr-wrangler";
+      flake = false;
+    };
+    slimevr-wrangler = {
+      url = "github:kittywitch/slimevr-wrangler-flake";
+      inputs = {
+        #nixpkgs.follows = "nixpkgs";
+        slimevr-wrangler-src.follows = "slimevr-wrangler-src";
       };
     };
   };

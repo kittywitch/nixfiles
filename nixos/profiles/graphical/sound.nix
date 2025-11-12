@@ -1,4 +1,16 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  bitrate_int = 48 * 1000;
+  bitrate = toString bitrate_int;
+  ll_quant_int = 512;
+  ll_quant = toString ll_quant_int;
+  ml_quant_int = 1024;
+  ml_quant = toString hl_quant_int;
+  hl_quant_int = 2048;
+  hl_quant = toString hl_quant_int;
+  minQuant = "${ll_quant}/${bitrate}";
+  midQuant = "${ml_quant}/${bitrate}";
+  maxQuant = "${hl_quant}/${bitrate}";
+in {
   environment.systemPackages = with pkgs; [pulsemixer pwvucontrol easyeffects];
 
   services = {
@@ -12,10 +24,10 @@
       extraConfig = {
         pipewire."92-low-latency" = {
           "context.properties" = {
-            "default.clock.rate" = 48000;
-            "default.clock.quantum" = 256;
-            "default.clock.min-quantum" = 256;
-            "default.clock.max-quantum" = 256;
+            "default.clock.rate" = bitrate_int;
+            "default.clock.quantum" = ml_quant_int;
+            "default.clock.min-quantum" = ll_quant_int;
+            "default.clock.max-quantum" = hl_quant_int;
           };
         };
         pipewire-pulse = {
@@ -25,7 +37,7 @@
                 matches = [{"application.process.binary" = "Discord";}];
                 actions = {
                   update-props = {
-                    "pulse.min.quantum" = "1024/48000";
+                    "pulse.min.quantum" = midQuant;
                   };
                 };
               }
@@ -39,14 +51,14 @@
               }
             ];
             "pulse.properties" = {
-              "pulse.min.req" = "512/48000";
-              "pulse.default.req" = "512/48000";
-              "pulse.max.req" = "512/48000";
-              "pulse.min.quantum" = "512/48000";
-              "pulse.max.quantum" = "512/48000";
+              "pulse.min.req" = minQuant;
+              "pulse.default.req" = midQuant;
+              "pulse.max.req" = maxQuant;
+              "pulse.min.quantum" = minQuant;
+              "pulse.max.quantum" = maxQuant;
             };
             "stream.properties" = {
-              "node.latency" = "256/48000";
+              "node.latency" = minQuant;
               "resample.quality" = 1;
             };
           };

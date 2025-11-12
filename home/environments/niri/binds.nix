@@ -37,8 +37,8 @@ in {
       "Mod+Return".action = sh ''${getExe config.programs.alacritty.package}'';
       "Mod+T".action.toggle-window-floating = {};
       #"Mod+D".action = sh ''${getExe config.programs.fuzzel.package} -D no -T "${getExe config.programs.alacritty.package} --command"'';
-      "Mod+D".action = sh ''${noctalia} launcher toggle'';
-      "Mod+Shift+D".action = sh ''${noctalia} launcher clipboard'';
+      #"Mod+D".action = sh ''${noctalia} launcher toggle'';
+      #"Mod+Shift+D".action = sh ''${noctalia} launcher clipboard'';
       #"Mod+Escape".action = sh ''${getExe config.programs.wlogout.package} -p layer-shell'';
       "Mod+Escape".action = sh ''${noctalia} controlCenter toggle'';
       "Mod+Shift+Escape".action = sh ''${noctalia} sessionMenu toggle'';

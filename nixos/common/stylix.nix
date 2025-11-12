@@ -26,16 +26,16 @@
     polarity = "dark";
     fonts = {
       sansSerif = {
-        name = "CozetteCrossedSevenVector";
-        package = pkgs.cozette;
+        name = "Atkinson Hyperlegible Next";
+        package = pkgs.atkinson-hyperlegible-next;
       };
       serif = {
         name = "Libre Baskerville";
         package = pkgs.libre-baskerville;
       };
       monospace = {
-        name = "CozetteCrossedSevenVector";
-        package = pkgs.cozette;
+        name = "Atkinson Hyperlegible Mono";
+        package = pkgs.atkinson-hyperlegible-mono;
       };
     };
     autoEnable = true;

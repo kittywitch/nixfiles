@@ -10,8 +10,10 @@ in
       inherit system overlays;
       config = {
         allowUnfree = true;
+        android_sdk.accept_license = true;
         permittedInsecurePackages = [
           "olm-3.2.16"
+          "mbedtls-2.28.10"
         ];
       };
     };

@@ -7,7 +7,7 @@
       waylandFrontend = true;
       addons = with pkgs; [
         fcitx5-anthy
-        fcitx5-gtk
+        fcitx5-gtk # TODO: Broken: 2025-10-28
       ];
     };
   };
