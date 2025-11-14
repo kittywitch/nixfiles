@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  inputs,
   ...
 }: {
   services.wivrn = {
@@ -46,14 +47,29 @@
     };
   };
 
+  # SlimeVR ports
+  networking.firewall = let
+    slimevr = {
+      tcp = [6969 8266 35903];
+      udp = [21110];
+    };
+    wivrn = let
+      single = 9757;
+    in {
+      tcp = single;
+      udp = single;
+    };
+  in {
+    allowedUDPPorts = slimevr.udp ++ wivrn.udp;
+    allowedTCPPorts = slimevr.tcp ++ wivrn.tcp;
+  };
+
   environment.systemPackages = with pkgs; [
     wlx-overlay-s
     monado-vulkan-layers
     bs-manager
+    slimevr
+    slimevr-server
+    inputs.slimevr-wrangler.packages.${pkgs.system}.slimevr-wrangler
   ];
-
-  networking.firewall = {
-    allowedTCPPorts = [9757];
-    allowedUDPPorts = [9757];
-  };
 }

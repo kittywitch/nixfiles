@@ -1,18 +1,7 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     gsettings-desktop-schemas
-    slimevr
-    slimevr-server
-    inputs.slimevr-wrangler.packages.${pkgs.system}.slimevr-wrangler
   ];
-  networking.firewall = {
-    allowedUDPPorts = [6969 8266 35903];
-    allowedTCPPorts = [21110];
-  };
   programs.adb.enable = true;
   users.users.kat.extraGroups = ["adbusers"];
   services.udev.extraRules = ''

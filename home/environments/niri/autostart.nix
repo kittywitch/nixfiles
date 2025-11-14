@@ -60,6 +60,12 @@ in {
       }
       {
         command = [
+          (packageExe' "easyeffects")
+          "-w"
+        ];
+      }
+      {
+        command = [
           "${systemctl}"
           "--user"
           "restart"

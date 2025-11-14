@@ -1772,15 +1772,16 @@
     "slimevr-wrangler-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1739406050,
-        "narHash": "sha256-WAawquYowpv5kWYI295vy3mQX/45aVC0ntqnsmr8CTw=",
+        "lastModified": 1762928617,
+        "narHash": "sha256-zldS5AZqe+0agfkJvyMjxbh5k8Sy/P30/Swy71Y7Fio=",
         "owner": "kittywitch",
         "repo": "slimevr-wrangler",
-        "rev": "208f90768505c1c9e7bb670df27568df7a251e54",
+        "rev": "75a939d344bcaaf7d6bb4b3fc820f496655ef7d8",
         "type": "github"
       },
       "original": {
         "owner": "kittywitch",
+        "ref": "fix-mac-casing",
         "repo": "slimevr-wrangler",
         "type": "github"
       }

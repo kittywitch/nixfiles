@@ -354,7 +354,7 @@
       };
     };
     slimevr-wrangler-src = {
-      url = "github:kittywitch/slimevr-wrangler";
+      url = "github:kittywitch/slimevr-wrangler/fix-mac-casing";
       flake = false;
     };
     slimevr-wrangler = {
