@@ -123,7 +123,35 @@ end
 -----------------------------------------------------------
 
 -- lualine
-require('lualine').setup{}
+require('lualine').setup({
+  options = {
+    theme = bubbles_theme,
+    component_separators = '',
+    section_separators = { left = '', right = '' },
+  },
+  sections = {
+    lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
+    lualine_b = { 'filename', 'branch', 'diff' },
+    lualine_c = {
+      '%=', --[[ add your center components here in place of this comment ]]
+    },
+    lualine_x = { 'overseer' },
+    lualine_y = { 'filetype', 'progress' },
+    lualine_z = {
+      { 'location', separator = { right = '' }, left_padding = 2 },
+    },
+  },
+  inactive_sections = {
+    lualine_a = { 'filename' },
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = { 'location' },
+  },
+  tabline = {},
+  extensions = {},
+})
 
 -- nvim-cmp
 vim.diagnostic.config({
@@ -225,6 +253,12 @@ require('neorg').setup {
 	},
 }
 
+-- overseer
+require("overseer").setup()
+
+-- auto-session
+require("auto-session").setup({})
+
 -- telescope
 local telescope = require('telescope.builtin')
 
@@ -280,6 +314,18 @@ require("twilight").setup {
 		"if_statement",
 	},
 }
+
+-- Aerial overview (skimming and quick nav)
+require("aerial").setup({
+  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+  on_attach = function(bufnr)
+    -- Jump forwards/backwards with '{' and '}'
+    vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+    vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+  end,
+})
+-- You probably also want to set a keymap to toggle aerial
+vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
 
 -- bufferline
 require('bufferline').setup {
@@ -362,3 +408,25 @@ vim.keymap.set("", "F", function()
 	hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
 end, {remap=true})
 
+-- https://github.com/zk-org/zk-nvim
+require("zk").setup({
+      -- Can be "telescope", "fzf", "fzf_lua", "minipick", "snacks_picker",
+      -- or select" (`vim.ui.select`).
+      picker = "telescope",
+
+      lsp = {
+        -- `config` is passed to `vim.lsp.start(config)`
+        config = {
+          name = "zk",
+          cmd = { "zk", "lsp" },
+          filetypes = { "markdown" },
+          -- on_attach = ...
+          -- etc, see `:h vim.lsp.start()`
+        },
+
+        -- automatically attach buffers in a zk notebook that match the given filetypes
+        auto_attach = {
+          enabled = true,
+        },
+      },
+  })

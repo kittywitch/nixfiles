@@ -353,6 +353,19 @@
         flake-parts.follows = "flake-parts";
       };
     };
+    nix-search-tv = {
+      url = "github:3timeslazy/nix-search-tv";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+      };
+    };
     slimevr-wrangler-src = {
       url = "github:kittywitch/slimevr-wrangler/fix-mac-casing";
       flake = false;

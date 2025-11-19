@@ -53,11 +53,19 @@ in {
       # Buffers
       bufferline-nvim
       rustaceanvim
+      # session
+      auto-session
+      # zk
+      zk-nvim
+      # task runner
+      overseer-nvim
       # tree
       nui-nvim
       neo-tree-nvim
       # obsidian vault support for neovim
       obsidian-nvim
+      # aerial (skimming and quick nav)
+      aerial-nvim
       # commentry
       vim-commentary
       # tree sitter

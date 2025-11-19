@@ -32,6 +32,9 @@
 
     "home/*".functor.enable = true;
     "home/profiles/*".functor.enable = true;
+    "home/profiles/nixvim".functor.excludes = [
+      "plugins"
+    ];
     "home/environments/*".functor.enable = true;
     "home/user".evaluateDefault = true;
     "home/user/data".evaluate = true;
@@ -117,6 +120,7 @@
             spicetify-nix.homeManagerModules.spicetify
             stylix.homeModules.stylix
             noctalia.homeModules.default
+            nixvim.homeModules.nixvim
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).home-manager; [
             i3gopher

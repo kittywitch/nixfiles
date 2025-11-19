@@ -60,3 +60,12 @@ resource "cloudflare_record" "stream" {
   value   = "daiyousei.inskip.me"
   zone_id = local.zone_ids.kittywitch
 }
+
+resource "cloudflare_record" "music" {
+  name    = "music"
+  proxied = false
+  ttl     = 3600
+  type    = "CNAME"
+  value   = "daiyousei.inskip.me"
+  zone_id = local.zone_ids.kittywitch
+}

@@ -3,10 +3,24 @@
   lib,
   inputs,
   ...
-}: {
+}: let
+  inherit (lib.lists) singleton;
+  inherit (lib.meta) getExe';
+in {
+  systemd.user.services.wlx-overlay-s = {
+    description = "wlx-overlay-s";
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = getExe' pkgs.wlx-overlay-s "wlx-overlay-s";
+    };
+  };
   services.wivrn = {
     enable = true;
     openFirewall = true;
+    steam.importOXRRuntimes = true;
+    monadoEnvironment = {
+      XRT_COMPOSITOR_COMPUTE = "1";
+    };
     package = pkgs.wivrn.overrideAttrs (old: rec {
       cudaSupport = true;
       version = "84e5203be3019278925ac03708567f2982360f8a";
@@ -28,7 +42,8 @@
       enable = true;
       json = {
         scale = [0.5 0.5];
-        bitrate = 300 * 1000;
+        bit-depth = 10;
+        bitrate = 50000 * 1000;
         encoders = [
           {
             encoder = "nvenc";
@@ -54,7 +69,7 @@
       udp = [21110];
     };
     wivrn = let
-      single = 9757;
+      single = singleton 9757;
     in {
       tcp = single;
       udp = single;
@@ -68,6 +83,16 @@
     wlx-overlay-s
     monado-vulkan-layers
     bs-manager
+    vrcx
+    appimage-run
+    (unityhub.override {
+      extraLibs = unityhubPkgs: [
+        (unityhubPkgs.runCommand "libxml2-fake-old-abi" {} ''
+          mkdir -p "$out/lib"
+          ln -s "${unityhubPkgs.lib.getLib unityhubPkgs.libxml2}/lib/libxml2.so" "$out/lib/libxml2.so.2"
+        '')
+      ];
+    })
     slimevr
     slimevr-server
     inputs.slimevr-wrangler.packages.${pkgs.system}.slimevr-wrangler
