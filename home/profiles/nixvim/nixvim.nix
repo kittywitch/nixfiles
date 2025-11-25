@@ -9,6 +9,7 @@
 in {
   programs.nixvim = {
     enable = true;
+    defaultEditor = true;
     imports = [
       tree.home.profiles.nixvim.plugins
     ];
@@ -87,6 +88,8 @@ in {
         (genAttrs pluginsToGen (_: basePlugin))
         {
           auto-session.settings = {
+            auto_save = true;
+            auto_create = true;
             bypass_save_filetypes = ["startup"];
             close_filetypes_on_save = ["startup"];
           };

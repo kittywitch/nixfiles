@@ -156,6 +156,20 @@ in {
       };
 
       #
+      # VRChat utilities
+      #
+
+      vrosc = mkMerge [
+        protonCommon
+        rec {
+          long_name = "VR OSC";
+          prefixFolder = gameStorage + "/Steam Library/steamapps/compatdata/438100";
+          gameFolder = gameStorage + "/Steam Library/steamapps/common/VRChat";
+          gameExecutable = gameFolder + "/VROSCSetup.exe";
+        }
+      ];
+
+      #
       # Guild Warses
       #
 
