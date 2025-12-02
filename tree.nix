@@ -30,6 +30,10 @@
 
     "microvms/*".functor.enable = true;
 
+    "nixvim".functor.enable = true;
+    "nixvim/*".functor.enable = true;
+    "nixvim/plugins/*".functor.enable = true;
+
     "home/*".functor.enable = true;
     "home/profiles/*".functor.enable = true;
     "home/profiles/nixvim".functor.excludes = [

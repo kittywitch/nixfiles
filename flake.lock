@@ -975,11 +975,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762128458,
-        "narHash": "sha256-3HzJXCdXVNP+FxIeXRYit/fkNoDw7h2P47898Szokto=",
+        "lastModified": 1764310947,
+        "narHash": "sha256-iOzr6zahmX+bb/OXQopueTKc8Ae7ZGz//9MlavuNsCU=",
         "owner": "kittywitch",
         "repo": "mewtris",
-        "rev": "22e623f0a1689e98f0d3217c23c22b59aabf6bf1",
+        "rev": "d6cce244bd3bed11bea2d01ace6340ede9fccc22",
         "type": "github"
       },
       "original": {

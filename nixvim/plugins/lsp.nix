@@ -1,4 +1,9 @@
-{lib, ...}: let
+{
+  lib,
+  std,
+  ...
+}: let
+  inherit (std) set;
   inherit (lib.attrsets) genAttrs;
 in {
   lsp.servers = let
@@ -6,15 +11,29 @@ in {
       enable = true;
       activate = true;
     };
+    disablePackage = {
+      package = null;
+    };
     serversToGen = [
       "rust_analyzer"
       "nixd"
       "zk"
+      "gleam"
+      "luau_lsp"
+      "stylua"
+    ];
+    disabledPackageServers = [
+      "rust_analyzer"
+      "luau_lsp"
+      "stylua"
     ];
   in
-    (genAttrs serversToGen (_: baseServer))
-    // {
-    };
+    set.merge [
+      (genAttrs serversToGen (_: baseServer))
+      (genAttrs disabledPackageServers (_: disablePackage))
+      {
+      }
+    ];
   plugins = let
     pluginsToGen = [
       "lspconfig"

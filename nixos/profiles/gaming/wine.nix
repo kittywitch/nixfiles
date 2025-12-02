@@ -8,6 +8,9 @@
   inherit (lib.modules) mkMerge mkForce;
   cfg = config.mewtris;
 in {
+  # Future notes for kat:
+  # dotnet40 dotnet48 vcrun2010 vcrun2012 vcrun2018
+  # set msvcr110.dll to native
   mewtris = let
     inherit (lib.strings) concatStringsSep;
     gameStorage = "/home/kat/Games";
@@ -18,6 +21,9 @@ in {
     runnerVariants = {
       PROTON_CACHYOS = "${inputs.chaotic.packages.${pkgs.system}.proton-cachyos_x86_64_v3.out}/bin";
       PROTON_GE = "${inputs.chaotic.packages.${pkgs.system}.proton-ge-custom.out}/bin";
+      PROTON_EXPERIMENTAL = "/games/Steam Library/steamapps/common/Proton - Experimental";
+      PROTON_HOTFIX = "/games/Steam Library/steamapps/common/Proton Hotfix/";
+      PROTON_VRC = "/home/kat/.local/share/Steam/compatibilitytools.d/GE-Proton10-20-rtsp19/";
       WINE_TKG = pkgs.wine-tkg;
       WINE_CACHYOS = pkgs.wine-cachyos;
     };
@@ -27,7 +33,6 @@ in {
     ];
     runnerEnvironments = {
       common = {
-        # inherit WINEDEBUG;
         PROTON_LOG = builtins.toString 1;
         WINEUSERSANDBOX = builtins.toString 1;
       };
@@ -68,7 +73,8 @@ in {
       };
       proton = {
         PROTON_USE_NTSYNC = builtins.toString 1;
-        PRESSURE_VESSEL_FILESYSTEMS_RW = "/games";
+        PRESSURE_VESSEL_IMPORT_OPENXR_1_RUNTIMES = "1";
+        PRESSURE_VESSEL_FILESYSTEMS_RW = "/games:$XDG_RUNTIME_DIR/wivrn_comp_ipc:$XDG_RUNTIME_DIR/wivrn/comp_ipc:$XDG_RUNTIME_DIR/monado_comp_ipc";
       };
     };
     winTimezoneVariant = "PST8PDT";
@@ -84,6 +90,11 @@ in {
           "mangohud"
           "shaderCache"
         ];
+      };
+      vrCommon = {
+        variant = lib.mkForce "PROTON_GE";
+        environment = {
+        };
       };
       wineCommon = {
         runner = "wine";
@@ -205,6 +216,42 @@ in {
       ];
 
       #
+      # Bethesda
+      #
+
+      f4vr = mkMerge [
+        protonCommon
+        vrCommon
+        rec {
+          enableGamemode = lib.mkForce false;
+          long_name = "Fallout 4 VR";
+          prefixFolder = gameStorage + "/Fallout-4-VR";
+          gameFolder = prefixFolder + "/drive_c/Modding/MO2";
+          gameExecutable = gameFolder + "/ModOrganizer.exe";
+          environments = ["vkbasalt"];
+          environment = {
+            WINEDLLOVERRIDES = "xaudio2_7=n,b";
+          };
+        }
+      ];
+
+      skyrimvr = mkMerge [
+        protonCommon
+        vrCommon
+        rec {
+          enableGamemode = lib.mkForce false;
+          long_name = "Skyrim VR";
+          prefixFolder = gameStorage + "/Skyrim-VR";
+          gameFolder = prefixFolder + "/drive_c/Modding/MO2";
+          gameExecutable = gameFolder + "/ModOrganizer.exe";
+          environments = ["vkbasalt"];
+          environment = {
+            WINEDLLOVERRIDES = "xaudio2_7=n,b";
+          };
+        }
+      ];
+
+      #
       # Battle.net games
       #
 
@@ -276,8 +323,27 @@ in {
     gamescope-wsi
     mangohud
     vkbasalt
+    umu-launcher
   ];
 
+  systemd.user.services = let
+    inherit (lib.attrsets) genAttrs;
+  in
+    genAttrs [
+      "f4vr"
+      "skyrimvr"
+    ] (_g: {
+      serviceConfig = {
+        #ProtectHome = true;
+        #BindPaths = (list.optionals (g == "f4vr") [
+        #  "/home/kat/Games/Fallout-4-VR"
+        #  "/games/Fallout\\ 4\\ VR"
+        #]) ++ (list.optionals (g == "skyrimvr") [
+        #  "/home/kat/Games/Skyrim-VR"
+        #  "/games/SkyrimVR"
+        #]);
+      };
+    });
   home-manager.users.kat.home.file = let
     inherit (lib.attrsets) listToAttrs nameValuePair attrNames;
     inherit (lib.lists) concatMap;
@@ -288,6 +354,8 @@ in {
     pfxes = [
       "Games/VNs/drive_c/windows"
       "Games/guild-wars/drive_c/windows"
+      "Games/Fallout-4-VR/drive_c/windows"
+      "Games/Skyrim-VR/drive_c/windows"
     ];
     arches = {
       "x32" = "system32";
@@ -300,6 +368,15 @@ in {
       "d3d11.dll"
       "dxgi.dll"
     ];
+    vkd3d = pkgs.vkd3d-proton;
+    vkd3d_files = [
+      "libvkd3d-proton-d3d12.so"
+      "libvkd3d-proton-d3d12core.so"
+    ];
+    vkd3dLinker = pfx: arch: file:
+      nameValuePair "${pfx}/${arches.${arch}}/${file}" {
+        source = "${vkd3d}/lib/${file}";
+      };
     dxvkLinker = pfx: arch: file: let
       dxvk = dxvks.${arch};
     in
@@ -311,10 +388,14 @@ in {
         pfx:
           concatMap (
             arch:
-              concatMap (
-                file: [(dxvkLinker pfx arch file)]
-              )
-              files
+              (concatMap (
+                  file: [(dxvkLinker pfx arch file)]
+                )
+                files)
+              ++ (concatMap (
+                  file: [(vkd3dLinker pfx arch file)]
+                )
+                vkd3d_files)
           ) (attrNames arches)
       )
       pfxes))
