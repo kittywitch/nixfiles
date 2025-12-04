@@ -18,9 +18,7 @@ _: let
       kernelModules = ["kvm-amd"];
       loader.grub = {
         enable = true;
-        device = [
-          "/dev/disk/by-uuid/8B8C-6502"
-        ];
+        device = "/dev/disk/by-uuid/8B8C-6502";
       };
     };
 
