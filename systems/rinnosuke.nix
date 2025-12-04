@@ -16,6 +16,9 @@ _: let
     boot = {
       initrd.availableKernelModules = ["ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod"];
       kernelModules = ["kvm-amd"];
+      loader.grub.devices = [
+        "/dev/disk/by-uuid/8B8C-6502"
+      ];
     };
 
     fileSystems = {
