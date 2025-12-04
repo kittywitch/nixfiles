@@ -95,6 +95,7 @@
           nix-gaming.nixosModules.pipewireLowLatency
           nix-gaming.nixosModules.platformOptimizations
           clipboard-sync.nixosModules.default
+          niri.nixosModules.niri
           nixos-cli.nixosModules.nixos-cli
           stylix.nixosModules.stylix
           microvm.nixosModules.host
