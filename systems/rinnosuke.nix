@@ -18,7 +18,7 @@ _: let
       kernelModules = ["kvm-amd"];
       loader.grub = {
         enable = true;
-        device = "/dev/disk/by-uuid/EE23-9347";
+        device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0";
       };
     };
 
