@@ -51,6 +51,7 @@
     # to allow non-nix 2.4 evaluation
     flake-compat = {
       url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
+      type = "tarball";
       flake = false;
     };
     rbw-bitw = {
