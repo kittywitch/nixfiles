@@ -1,6 +1,8 @@
 _: let
   hostConfig = {
     tree,
+    pkgs,
+    utils,
     lib,
     ...
   }: let
@@ -37,9 +39,9 @@ _: let
         };
       };
       swap = rec {
-        raw = "/dev/disk/by-id/nvme-CT1000P5PSSD8_22343AC9A481-part2";
         result = {
-          device = raw;
+          device = "/dev/mapper/cryptswap";
+          options = ["x-systemd.device-timeout=15s" "nofail" "x-systemd.wants=systemd-cryptsetup@cryptswap.service"];
           randomEncryption = false; # fix hibernation
         };
       };
@@ -56,6 +58,7 @@ _: let
         laptop
         gaming
         performance
+        secureboot
       ])
       ++ (with tree.nixos.environments; [
         niri
@@ -88,19 +91,87 @@ _: let
         datasetEntries
         // {
           "/boot" = drives.boot.result;
+          "/boot-keystore" = {
+            #neededForBoot = true;
+            device = "/dev/mapper/boot-keystore";
+            fsType = "ext4";
+            noCheck = true;
+            options = ["ro"];
+          };
         };
+
+      systemd.enableEmergencyMode = true;
+      boot.initrd = {
+        systemd = {
+          emergencyAccess = true;
+          mounts = let
+            inherit (utils) escapeSystemdPath;
+            # maybe add a require for the /dev/mapper
+            sysrooty = escapeSystemdPath "/sysroot";
+            requiredBy = [
+              "${sysrooty}.mount"
+            ]; #"systemd-cryptsetup@cryptswap.service" ];
+            requires = ["systemd-cryptsetup@boot-keystore.service"];
+          in [
+            {
+              where = "/boot-keystore";
+              what = "/dev/mapper/boot-keystore";
+              type = "ext4";
+              options = "ro";
+              unitConfig = {
+              };
+              before = requiredBy;
+              wantedBy = requiredBy;
+              inherit requires;
+              after = requires;
+            }
+            {
+              where = "/sysroot/boot-keystore";
+              what = "/boot-keystore";
+              type = "none";
+              options = "bind";
+              unitConfig = {
+                RequiresMountsFor = [
+                  "/boot-keystore"
+                  "/sysroot"
+                ];
+              };
+            }
+          ];
+        };
+        luks.devices = {
+          "boot-keystore".device = "/dev/disk/by-uuid/d80f77bb-fd82-43dd-9aa4-05da8d2b6154";
+          "cryptswap" = {
+            device = "/dev/disk/by-uuid/94948ee7-8c89-4b60-bd8c-68171b488d19";
+            keyFile = "/boot-keystore/swapkey";
+          };
+        };
+      };
+
+      environment.etc.crypttab = let
+        raw = "/dev/disk/by-uuid/94948ee7-8c89-4b60-bd8c-68171b488d19";
+      in {
+        mode = "0600";
+        text = ''
+          cryptswap ${raw} /boot-keystore/swapkey keyfile-timeout=5s
+        '';
+      };
+
+      #boot.resumeDevice = "/dev/mapper/cryptswap";
 
       swapDevices = [
         drives.swap.result
+      ];
+
+      environment.systemPackages = [
+        pkgs.e2fsprogs
       ];
 
       powerManagement.enable = true;
 
       boot = {
         loader = {
-          grub.useOSProber = true;
           #systemd-boot.enable = lib.mkForce false;
-          systemd-boot.enable = true;
         };
         zfs = {
           forceImportRoot = false;

@@ -93,7 +93,7 @@ resource "cloudflare_record" "webmail" {
   proxied = false
   ttl     = 3600
   type    = "CNAME"
-  value   = "rinnosukeinskip.me"
+  value   = "rinnosuke.inskip.me"
   zone_id = local.zone_ids.kittywitch
 }
 
