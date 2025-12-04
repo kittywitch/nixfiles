@@ -4,7 +4,7 @@
   ...
 }: {
   home.packages = with pkgs; [
-    gitAndTools.git-remote-gcrypt
+    git-remote-gcrypt
     git-crypt
     git-revise
     radicle-tui
@@ -16,7 +16,7 @@
     };
     git = {
       inherit (tree.home.user.data) userName userEmail;
-      package = pkgs.gitAndTools.gitFull;
+      package = pkgs.gitFull;
       enable = true;
       delta = {
         enable = true;

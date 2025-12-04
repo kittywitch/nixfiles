@@ -331,6 +331,7 @@
     arcexprs = {
       #url = "github:kittywitch/arcexprs/master";
       url = "github:arcnmx/nixexprs/master";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     base16 = {
       url = "github:arcnmx/base16.nix/flake";

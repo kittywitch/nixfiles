@@ -12,3 +12,8 @@ variable "dkim" {
 variable "zone_name" {
   type = string
 }
+
+variable "enable" {
+  type    = bool
+  default = true
+}

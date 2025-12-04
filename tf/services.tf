@@ -88,6 +88,15 @@ resource "cloudflare_record" "music" {
   zone_id = local.zone_ids.kittywitch
 }
 
+resource "cloudflare_record" "webmail" {
+  name    = "webmail"
+  proxied = false
+  ttl     = 3600
+  type    = "CNAME"
+  value   = "rinnosukeinskip.me"
+  zone_id = local.zone_ids.kittywitch
+}
+
 resource "cloudflare_record" "dork_mail_mx" {
   name     = "@"
   proxied  = false
@@ -107,4 +116,86 @@ resource "cloudflare_record" "dork_mail_spf" {
   zone_id = local.zone_ids.dork
 }
 
+resource "cloudflare_record" "dork_mail_dkim" {
+  name    = "rinnosuke._domainkey"
+  proxied = false
+  ttl     = 10800
+  type    = "TXT"
+  value   = "v=DKIM1; k=rsa; s=email; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsfSxe5JNdrSyHoPuESnOles7KxP5NtHD60YZ7SXLANNkEb8/tSHmg4nGqLhqKrA7+gcrurjowibDYs4hAM/ozkMNch53n2ZVKRl1ExMSRAPlGl5ZNCGGYVuRQlTMGvek2tIp3GbxafGF6QWSG1sA63fI9pxGosf/qc3wX5gtHxmKB9jn1Q6d9SDuJN72StIRjl81zaJFQJswvKx5keNvbW9oOP/xBVFPbnNZq52f/MsIpo4R33Vk0CrFvj5lnEKh5t6Bx1XUpJnkzQE934h+x1B+ypLkAPpLw4VnbDBMNc/ZkGbfJuM9YsasoEYgeoAtWKkyJV2WKZfppo1pUtR7swIDAQAB"
+  zone_id = local.zone_ids.dork
+}
 
+resource "cloudflare_record" "dork_mail_dmarc" {
+  name    = "_dmarc"
+  proxied = false
+  ttl     = 10800
+  type    = "TXT"
+  value   = "v=DMARC1; p=none"
+  zone_id = local.zone_ids.dork
+}
+
+resource "cloudflare_record" "dork_mail_submission_autodiscover" {
+  name    = "_submission._tcp"
+  proxied = false
+  ttl     = 3600
+  type    = "SRV"
+
+  data {
+    service  = "_submissions"
+    proto    = "_tcp"
+    priority = 5
+    weight   = 0
+    port     = 587
+    target   = "rinnosuke.inskip.me"
+  }
+  zone_id = local.zone_ids.dork
+}
+resource "cloudflare_record" "dork_mail_submissions_autodiscover" {
+  name    = "_submissions._tcp"
+  proxied = false
+  ttl     = 3600
+  type    = "SRV"
+
+  data {
+    service  = "_submissions"
+    proto    = "_tcp"
+    priority = 5
+    weight   = 0
+    port     = 465
+    target   = "rinnosuke.inskip.me"
+  }
+  zone_id = local.zone_ids.dork
+}
+
+resource "cloudflare_record" "dork_mail_imap_autodiscover" {
+  name    = "_imap._tcp"
+  proxied = false
+  ttl     = 3600
+  type    = "SRV"
+
+  data {
+    service  = "_imap"
+    proto    = "_tcp"
+    priority = 5
+    weight   = 0
+    port     = 143
+    target   = "rinnosuke.inskip.me"
+  }
+  zone_id = local.zone_ids.dork
+}
+resource "cloudflare_record" "dork_mail_imaps_autodiscover" {
+  name    = "_imaps._tcp"
+  proxied = false
+  ttl     = 3600
+  type    = "SRV"
+
+  data {
+    service  = "_imaps"
+    proto    = "_tcp"
+    priority = 5
+    weight   = 0
+    port     = 993
+    target   = "rinnosuke.inskip.me"
+  }
+  zone_id = local.zone_ids.dork
+}

@@ -28,4 +28,21 @@
   };
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "security@inskip.me";
+
+  services.roundcube = {
+    enable = true;
+    # this is the url of the vhost, not necessarily the same as the fqdn of
+    # the mailserver
+    hostName = "webmail.dork.dev";
+    extraConfig = ''
+      $config['imap_host'] = "ssl://${config.mailserver.fqdn}";
+      $config['smtp_host'] = "ssl://${config.mailserver.fqdn}";
+      $config['smtp_user'] = "%u";
+      $config['smtp_pass'] = "%p";
+    '';
+  };
+
+  services.nginx.enable = true;
+
+  networking.firewall.allowedTCPPorts = [80 443];
 }

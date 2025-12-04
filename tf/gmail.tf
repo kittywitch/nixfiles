@@ -13,13 +13,14 @@ module "inskip-gmail" {
   zone_name          = local.zones.inskip
   dkim               = local.dkims.inskip
 }
-/*module "dork-gmail" {
+module "dork-gmail" {
+  enable             = false
   source             = "./gmail_dns"
   cloudflare_api_key = var.cloudflare_api_key
   zone_id            = local.zone_ids.dork
   zone_name          = local.zones.dork
   dkim               = local.dkims.dork
-}*/
+}
 module "kittywitch-gmail" {
   source             = "./gmail_dns"
   cloudflare_api_key = var.cloudflare_api_key
