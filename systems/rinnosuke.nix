@@ -11,6 +11,9 @@ _: let
       ]
       ++ (with tree.nixos.profiles; [
         server
+      ])
+      ++ (with tree.nixos.servers; [
+        mail
       ]);
 
     boot = {
@@ -40,13 +43,25 @@ _: let
     ];
 
     networking = {
-      interfaces.ens18.ipv4.addresses = [
-        {
-          address = "154.12.117.50";
-          prefixLength = 27;
-        }
-      ];
+      interfaces.ens18 = {
+        ipv4.addresses = [
+          {
+            address = "154.12.117.50";
+            prefixLength = 27;
+          }
+        ];
+        ipv6.addresses = [
+          {
+            address = "2602:ffd5:1:301::1a";
+            prefixLength = 64;
+          }
+        ];
+      };
       defaultGateway = "154.12.117.33";
+      defaultGateway6 = {
+        address = "2602:ffd5:1:100::1";
+        interface = "ens18";
+      };
       nameservers = [
         "1.1.1.1"
       ];

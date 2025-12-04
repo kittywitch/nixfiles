@@ -82,6 +82,7 @@
       functor = {
         enable = true;
         external = with inputs; [
+          simple-nixos-mailserver.nixosModules.default
           nix-index-database.nixosModules.nix-index
           home-manager.nixosModules.home-manager
           minecraft.nixosModules.minecraft-servers

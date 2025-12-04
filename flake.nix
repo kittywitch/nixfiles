@@ -374,9 +374,13 @@
     slimevr-wrangler = {
       url = "github:kittywitch/slimevr-wrangler-flake";
       inputs = {
-        #nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs";
         slimevr-wrangler-src.follows = "slimevr-wrangler-src";
       };
+    };
+    simple-nixos-mailserver = {
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
   outputs = inputs: import ./outputs.nix {inherit inputs;};

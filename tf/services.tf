@@ -1,3 +1,21 @@
+resource "cloudflare_record" "rinnosuke_v4" {
+  name    = "rinnosuke"
+  proxied = false
+  ttl     = 3600
+  type    = "A"
+  value   = "154.12.117.50"
+  zone_id = local.zone_ids.inskip
+}
+
+resource "cloudflare_record" "rinnosuke_v6" {
+  name    = "rinnosuke"
+  proxied = false
+  ttl     = 3600
+  type    = "AAAA"
+  value   = "2602:ffd5:1:301::1a"
+  zone_id = local.zone_ids.inskip
+}
+
 resource "cloudflare_record" "bluesky_did" {
   name    = "_atproto"
   proxied = false
@@ -69,3 +87,24 @@ resource "cloudflare_record" "music" {
   value   = "daiyousei.inskip.me"
   zone_id = local.zone_ids.kittywitch
 }
+
+resource "cloudflare_record" "dork_mail_mx" {
+  name     = "@"
+  proxied  = false
+  ttl      = 3600
+  type     = "MX"
+  priority = 10
+  value    = "rinnosuke.inskip.me"
+  zone_id  = local.zone_ids.dork
+}
+
+resource "cloudflare_record" "dork_mail_spf" {
+  name    = "@"
+  proxied = false
+  ttl     = 10800
+  type    = "TXT"
+  value   = "v=spf1 a:rinnosuke.inskip.me -all"
+  zone_id = local.zone_ids.dork
+}
+
+

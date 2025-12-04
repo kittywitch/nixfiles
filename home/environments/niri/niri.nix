@@ -6,9 +6,6 @@
 }: let
   inherit (lib.meta) getExe;
 in {
-  imports = [
-    niri.hmModules.niri
-  ];
   home.packages = with pkgs; [
     wl-clipboard
     pamixer
