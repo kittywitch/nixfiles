@@ -18,7 +18,7 @@ _: let
       kernelModules = ["kvm-amd"];
       loader.grub = {
         enable = true;
-        device = "/dev/disk/by-uuid/8B8C-6502";
+        device = "/dev/disk/by-uuid/EE23-9347";
       };
     };
 
@@ -29,7 +29,7 @@ _: let
       };
 
       "/boot" = {
-        device = "/dev/disk/by-uuid/8B8C-6502";
+        device = "/dev/disk/by-uuid/EE23-9347";
         fsType = "vfat";
         options = ["fmask=0777" "dmask=0777"];
       };
