@@ -75,32 +75,35 @@ in {
         #deactivate-unfocused-windows = {};
       };
       workspaces = {
-        "01-notes" = {
-          name = "notes";
+        "01" = {
+          name = "一";
         };
-        "02-chat" = {
-          name = "chat";
+        "02" = {
+          name = "二";
         };
-        "03-browser" = {
-          name = "browser";
+        "03" = {
+          name = "三";
         };
-        "04-code" = {
-          name = "code";
+        "04" = {
+          name = "四";
         };
-        "05-term" = {
-          name = "term";
+        "05" = {
+          name = "五";
         };
-        "06-mail" = {
-          name = "mail";
+        "06" = {
+          name = "六";
         };
-        "07-game" = {
-          name = "game";
+        "07" = {
+          name = "七";
         };
-        "08-video" = {
-          name = "video";
+        "08" = {
+          name = "八";
         };
-        "09-audio" = {
-          name = "audio";
+        "09" = {
+          name = "九";
+        };
+        "10" = {
+          name = "十";
         };
       };
       environment = {
