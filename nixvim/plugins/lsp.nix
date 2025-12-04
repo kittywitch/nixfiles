@@ -1,6 +1,7 @@
 {
   lib,
   std,
+  pkgs,
   ...
 }: let
   inherit (std) set;
@@ -37,6 +38,7 @@ in {
   plugins = let
     pluginsToGen = [
       "lspconfig"
+      "treesitter"
       "cmp"
       "cmp-clippy"
       "cmp-cmdline"
@@ -54,7 +56,29 @@ in {
       autoLoad = true;
     };
   in
-    genAttrs pluginsToGen (_: basePlugin);
+    set.merge [
+      (genAttrs pluginsToGen (_: basePlugin))
+      {
+        treesitter = {
+          grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+            bash
+            json
+            make
+            markdown
+            regex
+            toml
+            xml
+            yaml
+            gleam
+            nix
+          ];
+          settings = {
+            highlight.enable = true;
+            indent.enable = true;
+          };
+        };
+      }
+    ];
   diagnostic.settings = {
     virtual_text = true;
     virtual_lines = true;
