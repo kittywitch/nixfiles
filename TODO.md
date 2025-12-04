@@ -1,5 +1,8 @@
 # To-dos
 
+- [ ] Make personal homepage o:
+- [ ] Make my own quickshell config
+
 ## New service deployments
 
 - [ ] Fauna
@@ -12,3 +15,4 @@
 - [ ] Move away from gmail fully
 - [ ] Move away from Discord primarily
 - [ ] Move away from Spotify fully
+- [ ] Move away from Cloudflare for DNS and hosting

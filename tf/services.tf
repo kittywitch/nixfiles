@@ -94,7 +94,7 @@ resource "cloudflare_record" "webmail" {
   ttl     = 3600
   type    = "CNAME"
   value   = "rinnosuke.inskip.me"
-  zone_id = local.zone_ids.kittywitch
+  zone_id = local.zone_ids.dork
 }
 
 resource "cloudflare_record" "dork_mail_mx" {
@@ -121,7 +121,7 @@ resource "cloudflare_record" "dork_mail_dkim" {
   proxied = false
   ttl     = 10800
   type    = "TXT"
-  value   = "v=DKIM1; k=rsa; s=email; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsfSxe5JNdrSyHoPuESnOles7KxP5NtHD60YZ7SXLANNkEb8/tSHmg4nGqLhqKrA7+gcrurjowibDYs4hAM/ozkMNch53n2ZVKRl1ExMSRAPlGl5ZNCGGYVuRQlTMGvek2tIp3GbxafGF6QWSG1sA63fI9pxGosf/qc3wX5gtHxmKB9jn1Q6d9SDuJN72StIRjl81zaJFQJswvKx5keNvbW9oOP/xBVFPbnNZq52f/MsIpo4R33Vk0CrFvj5lnEKh5t6Bx1XUpJnkzQE934h+x1B+ypLkAPpLw4VnbDBMNc/ZkGbfJuM9YsasoEYgeoAtWKkyJV2WKZfppo1pUtR7swIDAQAB"
+  value   = "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsfSxe5JNdrSyHoPuESnOles7KxP5NtHD60YZ7SXLANNkEb8/tSHmg4nGqLhqKrA7+gcrurjowibDYs4hAM/ozkMNch53n2ZVKRl1ExMSRAPlGl5ZNCGGYVuRQlTMGvek2tIp3GbxafGF6QWSG1sA63fI9pxGosf/qc3wX5gtHxmKB9jn1Q6d9SDuJN72StIRjl81zaJFQJswvKx5keNvbW9oOP/xBVFPbnNZq52f/MsIpo4R33Vk0CrFvj5lnEKh5t6Bx1XUpJnkzQE934h+x1B+ypLkAPpLw4VnbDBMNc/ZkGbfJuM9YsasoEYgeoAtWKkyJV2WKZfppo1pUtR7swIDAQAB"
   zone_id = local.zone_ids.dork
 }
 

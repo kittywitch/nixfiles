@@ -4,11 +4,12 @@
   ...
 }: {
   boot.extraModulePackages = with config.boot.kernelPackages; [
-    v4l2loopback
+    # TODO: check if working post 2025-12-04
+    #v4l2loopback
   ];
   programs.obs-studio = {
     enable = true;
-    enableVirtualCamera = true;
+    #enableVirtualCamera = true;
     plugins = with pkgs.obs-studio-plugins; [
       #obs-vaapi
       #obs-tuna

@@ -4,7 +4,7 @@
       noto-fonts-cjk-sans
       twitter-color-emoji
       corefonts
-      vistafonts
+      vista-fonts
       open-dyslexic
       ubuntu-sans
       monaspace

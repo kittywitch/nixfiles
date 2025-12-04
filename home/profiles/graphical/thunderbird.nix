@@ -23,6 +23,24 @@ _: {
         flavor = "gmail.com";
       };
   in {
+    main =
+      mainEnable
+      // katIdentity
+      // {
+        flavor = "plain";
+        userName = "kat@dork.dev";
+        address = "kat@dork.dev";
+        imap = {
+          tls.enable = true;
+          host = "rinnosuke.inskip.me";
+          port = 993;
+        };
+        smtp = {
+          tls.enable = true;
+          host = "rinnosuke.inskip.me";
+          port = 465;
+        };
+      };
     primary =
       gmailAccount
       // katIdentity

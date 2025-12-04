@@ -56,7 +56,6 @@ _: let
         quiet-boot
         wireless
         laptop
-        gaming
         performance
         secureboot
       ])

@@ -44,16 +44,16 @@ in {
       "Mod+Shift+Escape".action = sh ''${noctalia} sessionMenu toggle'';
       #"Mod+Shift+Escape".action = sh ''${getExe config.programs.swaylock.package} -f'';
       "Mod+L".action = sh ''${noctalia} lockScreen toggle'';
-      "Mod+Tab" = {
-        #repeat = false;
-        cooldown-ms = 150;
-        action.spawn = ["${getExe' pkgs.glib "gdbus"}" "call" "--session" "--dest" "io.github.isaksamsten.Niriswitcher" "--object-path" "/io/github/isaksamsten/Niriswitcher" "--method" "io.github.isaksamsten.Niriswitcher.application"];
-      };
-      "Mod+Shift+Tab" = {
-        cooldown-ms = 150;
-        #repeat = false;
-        action.spawn = ["${getExe' pkgs.glib "gdbus"}" "call" "--session" "--dest" "io.github.isaksamsten.Niriswitcher" "--object-path" "/io/github/isaksamsten/Niriswitcher" "--method" "io.github.isaksamsten.Niriswitcher.application"];
-      };
+      #"Mod+Tab" = {
+      #  #repeat = false;
+      #  cooldown-ms = 150;
+      #  action.spawn = ["${getExe' pkgs.glib "gdbus"}" "call" "--session" "--dest" "io.github.isaksamsten.Niriswitcher" "--object-path" "/io/github/isaksamsten/Niriswitcher" "--method" "io.github.isaksamsten.Niriswitcher.application"];
+      #};
+      #"Mod+Shift+Tab" = {
+      #  cooldown-ms = 150;
+      #  #repeat = false;
+      #  action.spawn = ["${getExe' pkgs.glib "gdbus"}" "call" "--session" "--dest" "io.github.isaksamsten.Niriswitcher" "--object-path" "/io/github/isaksamsten/Niriswitcher" "--method" "io.github.isaksamsten.Niriswitcher.application"];
+      #};
       "Mod+Shift+Ctrl+Page_Down".action.move-workspace-to-monitor-previous = {};
       "Mod+Shift+Ctrl+Page_Up".action.move-workspace-to-monitor-next = {};
     };

@@ -14,7 +14,7 @@ in {
         backgroundOpacity = 0.9;
         monitors = [];
         density = "comfortable";
-        showCapsule = true;
+        showCapsule = false;
         floating = true;
         marginVertical = 0.25;
         marginHorizontal = 0.25;
@@ -22,7 +22,8 @@ in {
           left = [
             {
               id = "Workspace";
-              labelMode = "name";
+              labelMode = "index+name";
+              characterCount = 10;
             }
             {
               id = "ActiveWindow";
@@ -30,6 +31,11 @@ in {
             }
           ];
           center = [
+          ];
+          right = [
+            {
+              id = "Tray";
+            }
             {
               id = "MediaMini";
               showAlbumArt = true;
@@ -39,30 +45,6 @@ in {
               # check if this works,
               # if not, rewrite their system for it o.o
               widgetWidth = 300;
-            }
-            {
-              id = "Clock";
-              formatHorizontal = "yyyy-MM-dd HH:mm t";
-            }
-            {
-              id = "NightLight";
-            }
-            {
-              id = "DarkMode";
-            }
-            {
-              id = "KeepAwake";
-            }
-            {
-              id = "ScreenRecorder";
-            }
-          ];
-          right = [
-            {
-              id = "SystemMonitor";
-            }
-            {
-              id = "Tray";
             }
             {
               id = "NotificationHistory";
@@ -77,7 +59,24 @@ in {
               id = "Brightness";
             }
             {
+              id = "NightLight";
+            }
+            {
+              id = "DarkMode";
+            }
+            {
+              id = "KeepAwake";
+            }
+            {
+              id = "ScreenRecorder";
+            }
+            {
+              id = "Clock";
+              formatHorizontal = "yyyy-MM-dd HH:mm t";
+            }
+            {
               id = "ControlCenter";
+              useDistroLogo = true;
             }
           ];
         };

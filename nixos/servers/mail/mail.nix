@@ -8,6 +8,8 @@
     fqdn = "rinnosuke.inskip.me";
     domains = ["dork.dev"];
 
+    fullTextSearch.enable = true;
+
     # A list of all login accounts. To create the password hashes, use
     # nix-shell -p mkpasswd --run 'mkpasswd -sm bcrypt'
     loginAccounts = {

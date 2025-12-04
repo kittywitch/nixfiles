@@ -1,8 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     anki
-    # Password manager
-    bitwarden
 
     # Task managers
     btop
@@ -10,8 +8,7 @@
 
     aseprite
     # Chat
-    tdesktop # Telegram
-    dino # XMPP
+    telegram-desktop # Telegram
     signal-desktop
     mumble
     keymapp

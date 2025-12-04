@@ -26,16 +26,16 @@
     polarity = "dark";
     fonts = {
       sansSerif = {
-        name = "Atkinson Hyperlegible Next";
-        package = pkgs.atkinson-hyperlegible-next;
+        name = "M+2 Nerd Font";
+        package = pkgs.nerd-fonts."m+";
       };
       serif = {
         name = "Libre Baskerville";
         package = pkgs.libre-baskerville;
       };
       monospace = {
-        name = "Atkinson Hyperlegible Mono";
-        package = pkgs.atkinson-hyperlegible-mono;
+        name = "M+1Code Nerd Font Mono";
+        package = pkgs.nerd-fonts."m+";
       };
     };
     autoEnable = true;
