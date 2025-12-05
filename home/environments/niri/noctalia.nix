@@ -22,8 +22,8 @@ in {
           left = [
             {
               id = "Workspace";
-              labelMode = "index+name";
-              characterCount = 10;
+              labelMode = "label";
+              #characterCount = 10;
             }
             {
               id = "ActiveWindow";

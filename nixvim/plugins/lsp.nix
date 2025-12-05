@@ -20,6 +20,7 @@ in {
       "nixd"
       "zk"
       "gleam"
+      "qmlls"
       "luau_lsp"
       "stylua"
     ];
@@ -64,6 +65,7 @@ in {
             bash
             json
             make
+            qml
             markdown
             regex
             toml

@@ -30,7 +30,7 @@ _: {
     "browser.warnOnQuit" = false;
     "browser.quitShortcut.disabled" = true;
     "browser.startup.homepage" = "about:blank";
-    "browser.contentblocking.category" = "strict";
+    "browser.contentblocking.category" = "standard"; # change for adnauseum: 2025-12-04
     "browser.discovery.enabled" = false;
     "browser.tabs.multiselect" = true;
     "browser.tabs.remote.separatedMozillaDomains" = "";
