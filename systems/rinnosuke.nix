@@ -53,14 +53,14 @@ _: let
         ipv6.addresses = [
           {
             address = "2602:ffd5:1:301::1a";
-            prefixLength = 64;
+            prefixLength = 36;
           }
         ];
       };
       defaultGateway = "154.12.117.33";
       defaultGateway6 = {
         address = "2602:ffd5:1:100::1";
-        interface = "ens18";
+        interface = "ens19";
       };
       nameservers = [
         "1.1.1.1"

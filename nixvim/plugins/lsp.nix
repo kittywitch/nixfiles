@@ -34,6 +34,9 @@ in {
       (genAttrs serversToGen (_: baseServer))
       (genAttrs disabledPackageServers (_: disablePackage))
       {
+        qmlls.config = {
+          cmd = "-E";
+        };
       }
     ];
   plugins = let
@@ -65,7 +68,6 @@ in {
             bash
             json
             make
-            qml
             markdown
             regex
             toml

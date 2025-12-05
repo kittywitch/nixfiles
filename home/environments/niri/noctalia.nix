@@ -1,10 +1,16 @@
 {
   config,
   lib,
+  pkgs,
+  inputs,
   ...
 }: let
   inherit (lib.meta) getExe;
 in {
+  home.packages = [
+    pkgs.quickshell
+    inputs.qml-niri.packages.${pkgs.system}.default
+  ];
   programs.noctalia-shell = {
     enable = true;
     settings = {

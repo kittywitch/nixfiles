@@ -137,6 +137,11 @@ _: let
                 x = 1920;
                 y = 0;
               };
+              mode = {
+                width = 2560;
+                height = 1440;
+                refresh = 59.951;
+              };
             };
             "Samsung Electric Company SAMSUNG Unknown" = {
               position = {

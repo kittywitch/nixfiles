@@ -29,6 +29,21 @@ in {
             "default.clock.min-quantum" = ll_quant_int;
             "default.clock.max-quantum" = hl_quant_int;
           };
+          "context.modules" = [
+            {
+              name = "libpipewire-module-rt";
+              flags = [
+                "ifexists"
+                "nofail"
+              ];
+              args = {
+                "nice.level" = -15;
+                "rt.prio" = 88;
+                "rt.time.soft" = 200000;
+                "rt.time.hard" = 200000;
+              };
+            }
+          ];
         };
         pipewire-pulse = {
           "91-discord-latency" = {

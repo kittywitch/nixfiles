@@ -24,8 +24,8 @@ in {
       PROTON_EXPERIMENTAL = "/games/Steam Library/steamapps/common/Proton - Experimental";
       PROTON_HOTFIX = "/games/Steam Library/steamapps/common/Proton Hotfix/";
       PROTON_VRC = "/home/kat/.local/share/Steam/compatibilitytools.d/GE-Proton10-20-rtsp19/";
-      WINE_TKG = pkgs.wine-tkg;
-      WINE_CACHYOS = pkgs.wine-cachyos;
+      WINE_TKG = inputs.nix-gaming.packages.${pkgs.system}.wine-tkg;
+      WINE_CACHYOS = inputs.nix-gaming.packages.${pkgs.system}.wine-cachyos;
     };
     pathPackages = with pkgs; [
       mangohud
@@ -347,9 +347,11 @@ in {
   home-manager.users.kat.home.file = let
     inherit (lib.attrsets) listToAttrs nameValuePair attrNames;
     inherit (lib.lists) concatMap;
-    dxvks = {
-      "x64" = pkgs.dxvk-w32;
-      "x32" = pkgs.dxvk-w64;
+    dxvks = let
+      gaming = inputs.nix-gaming.packages.${pkgs.system};
+    in {
+      "x64" = gaming.dxvk-w32;
+      "x32" = gaming.dxvk-w64;
     };
     pfxes = [
       "Games/VNs/drive_c/windows"

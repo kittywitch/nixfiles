@@ -93,8 +93,6 @@
           chaotic.nixosModules.default
           nixpkgs-xr.nixosModules.nixpkgs-xr
           spicetify-nix.nixosModules.spicetify
-          nix-gaming.nixosModules.pipewireLowLatency
-          nix-gaming.nixosModules.platformOptimizations
           clipboard-sync.nixosModules.default
           nixos-cli.nixosModules.nixos-cli
           stylix.nixosModules.stylix

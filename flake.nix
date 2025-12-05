@@ -86,6 +86,10 @@
       #url = "github:nixos/nixpkgs/nixos-unstable";
       #inputs.nixpkgs.follows = "chaotic/nixpkgs";
     };
+    qml-niri = {
+      url = "github:juuyokka/qml-niri/feat-nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     clipboard-sync = {
       url = "github:dnut/clipboard-sync";
       inputs = {

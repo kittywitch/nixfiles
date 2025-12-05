@@ -38,7 +38,6 @@
   inputs.darwin.overlays.default
   inputs.deploy-rs.overlays.default
   inputs.neorg-overlay.overlays.default
-  inputs.nix-gaming.overlays.default
   inputs.niri.overlays.niri
   (import tree.packages.default {inherit inputs tree;})
   (_final: prev: {

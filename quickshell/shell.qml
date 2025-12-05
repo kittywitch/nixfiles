@@ -1,48 +1,22 @@
 import Quickshell
 import Quickshell.Io
 import QtQuick
+import Niri 0.1
 
-Scope {
-  id: root
-  property string time
+import "root:/Modules"
 
-  Variants {
-    model: Quickshell.screens
+ShellRoot{
+    id: root
 
-    PanelWindow {
-      required property var modelData
-      screen: modelData
+    Niri {
+        id: niri
+        Component.onCompleted: connect()
 
-      anchors {
-        top: true
-        left: true
-        right: true
-      }
-
-      implicitHeight: 30
-
-      Text {
-        font.family: "M+2 Nerd Font Regular"
-        anchors.centerIn: parent
-        text: root.time
-      }
+        onConnected: console.info("Connected to niri")
+        onErrorOccurred: function(error) {
+            console.error("Niri error:", error)
+        }
     }
-  }
 
-  Process {
-    id: dateProc
-    command: ["date", "+%F %T %Z"]
-    running: true
-
-    stdout: StdioCollector {
-      onStreamFinished: root.time = this.text
-    }
-  }
-
-  Timer {
-    interval: 1000
-    running: true
-    repeat: true
-    onTriggered: dateProc.running = true
-  }
+    LazyLoader{ active: true; component: Bar{} }
 }
