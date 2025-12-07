@@ -12,7 +12,7 @@
 - [ ] Jellyfin
 - [ ] Immich
 - [ ] Prosody
-- [ ] continuwuation or tuwunnel
+- [x] continuwuation
 
 ## Migrations
 

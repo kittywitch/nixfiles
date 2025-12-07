@@ -14,6 +14,7 @@ _: let
       ])
       ++ (with tree.nixos.servers; [
         mail
+        continuwuity
       ]);
 
     boot = {

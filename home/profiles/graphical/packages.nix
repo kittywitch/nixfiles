@@ -10,6 +10,7 @@
     # Chat
     telegram-desktop # Telegram
     signal-desktop
+    fluffychat
     mumble
     keymapp
     # Archivery

@@ -53,6 +53,7 @@ _: let
     #  };
     #};
 
+    security.acme.defaults.email = "acme@inskip.me";
     system.stateVersion = "23.11";
   };
 in {
