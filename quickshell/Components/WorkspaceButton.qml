@@ -31,19 +31,23 @@ Item {
 
   function get_color() {
     if (modelData.isUrgent) {
-      return Settings.base0F
+      return [Stylix.base08, Stylix.base00]
     }
     if (modelData.isFocused) {
-      return Settings.base0E
+      return [Stylix.base0F, Stylix.base00]
     }
     if (modelData.isActive) {
-      return Settings.base0C
+      return [Stylix.base0C, Stylix.base00]
     }
     if (modelData.activeWindowId > 0) {
-      return Settings.base0F
+      return [Stylix.base0D, Stylix.base00]
     }
-    return Settings.lighterBg
+    return [Stylix.base02, Stylix.base04]
   }
+
+  property var colors: get_color()
+  property color bg: root.colors[0]
+  property color fg: root.colors[1]
 
   visible: isVisible
   implicitHeight: 25
@@ -51,12 +55,13 @@ Item {
 
   Rectangle {
     anchors.fill: parent
-    color: get_color()
+    color: bg
     radius: 5
 
     Text {
       anchors.centerIn: parent
-      color: Settings.defaultBg
+      verticalAlignment: Text.AlignVCenter;
+      color: fg
       text: gen_text()
       font.pixelSize: 20
     }

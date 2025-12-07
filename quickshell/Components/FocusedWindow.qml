@@ -7,22 +7,13 @@ import "root:/Helpers"
 
 RowLayout {
   id: root
-  property string title: get_text()
+  property string title: niri.focusedWindow?.title ?? ""
   property string icon_path: get_icon()
   property string app_id: get_app_id()
 
   function get_app_id() {
     var app_id = niri.focusedWindow?.appId;
-    return app_id
-  }
-
-  function get_text() {
-    var full_title = niri.focusedWindow?.title ?? "";
-    var shortened_title = full_title.substring(0, 20);
-    if (full_title.length > 20) {
-      shortened_title += "…"
-    }
-    return shortened_title
+    return app_id ?? ""
   }
 
   function get_icon() {
@@ -32,18 +23,30 @@ RowLayout {
     }
   }
 
+  visible: title != ""
   spacing: 10
 
   Image {
-    anchors.verticalCenter: parent.verticalCenter
+    Layout.alignment: Qt.AlignVCenter;
     source: icon_path
-    visible: title != ""
     sourceSize.width: 24
     sourceSize.height: 24
     smooth: true
   }
-  Text {
-    text: title
-    color: Settings.defaultFg
+
+  Item {
+    Layout.alignment: Qt.AlignVCenter;
+    implicitWidth: 300
+    height: parent.height
+    Text {
+      anchors {
+        centerIn: parent
+      }
+      verticalAlignment: Text.AlignVCenter;
+      width: parent.width
+      text: title
+      color: Stylix.base05
+      elide: Text.ElideRight
+    }
   }
 }

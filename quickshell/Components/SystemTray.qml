@@ -9,15 +9,16 @@ import "root:/DataSources"
 RowLayout {
   id: systray
 
+  anchors.centerIn: parent
   Layout.alignment: Qt.AlignCenter
+  property string openItemId
 
   Repeater {
     model: SystemTray.items
 
     delegate: Item {
-      id: delagate
+      id: delegateItem
       required property SystemTrayItem modelData
-      property var openItem
 
       width: 24
       height: 24
@@ -30,10 +31,21 @@ RowLayout {
       }
 
       MouseArea {
+        id: ma
         anchors.fill: parent
         hoverEnabled: true
 
-        onClicked: popupLoader.item.visible = !popupLoader.item.visible
+        onClicked: function(mouseEvent) {
+          var m = delegateItem.QsWindow.mapFromItem(delegateItem, mouseEvent.x, mouseEvent.y);
+          var offset = popupLoader.item.width / 2.0;
+          popupLoader.clicky = m.x - offset;
+          if (openItemId == modelData.id) {
+            openItemId = null
+          } else {
+            openItemId = modelData.id
+          }
+          //popupLoader.item.visible = !popupLoader.item.visible
+        }
       }
 
       QsMenuOpener {
@@ -44,22 +56,27 @@ RowLayout {
       LazyLoader {
         id: popupLoader
 
+        property real clicky
+
         loading: true
 
         PopupWindow {
           id: popup
-          anchor.window: delagate.QsWindow.window
-          anchor.rect.x: parentWindow.width * 1.15
-          anchor.rect.y: parentWindow.height / 1.25
+          anchor.window: delegateItem.QsWindow.window
+          anchor.rect.x: popupLoader.clicky
+          anchor.rect.y: if (visible) { parentWindow.height } else { systray.height }
 
+          visible: openItemId == modelData.id
           color: "transparent"
 
-          implicitWidth: 200
-          implicitHeight: 200
+          property real childHeight: 5
+
+          implicitWidth: 300
+          implicitHeight: childHeight
 
           Rectangle {
             anchors.fill: parent
-            color: Settings.colors.background
+            color: Stylix.base02
             radius: 5
           }
 
@@ -79,43 +96,23 @@ RowLayout {
 
             ScrollBar.horizontal: ScrollBar {}
 
-            delegate: Item {
+            delegate: Loader {
               required property QsMenuHandle modelData
+              id: trayItemLoader
 
               width: parent.width
-              height: 40
 
-              Rectangle {
-                anchors {
-                  fill: parent
-                  leftMargin: 5
-                  rightMargin: 5
+              Component.onCompleted: {
+                if (modelData.text != null && modelData.text != "") {
+                  trayItemLoader.setSource("SystemTrayButton.qml", {
+                    "modelData": modelData,
+                  })
+                  childHeight += 30
+                } else {
+                  trayItemLoader.setSource("SystemTraySeparator.qml", {})
+                  childHeight += 2
                 }
-
-                color: Settings.colors.backgroundLighter
-                radius: 5
-
-                Text {
-                  anchors.centerIn: parent
-                  text: modelData.text
-                  color: Settings.colors.foreground
-                  font.pointSize: 12
-                }
-
-                MouseArea {
-                  anchors.fill: parent
-                  hoverEnabled: true
-
-                  onClicked: mouse => {
-                    modelData.triggered();
-                    // TODO: moar
-                    var idx = ObjectModel.indexOf(modelData);
-                    if (openItem && openItem.idx != idx) {
-
-                    }
-                    popup.visible = false;
-                  }
-                }
+                childHeight += 5
               }
             }
           }

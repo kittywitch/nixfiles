@@ -35,7 +35,7 @@ Scope {
         id: bar
         anchors.fill: parent
         radius: 10
-        color: Settings.defaultBg
+        color: Stylix.base00
 
         RowLayout {
           anchors {
@@ -70,7 +70,7 @@ Scope {
 
           spacing: 15
 
-          SystemTray {}
+          SystemTrayWrapper {}
           Clock {}
           DistroIcon {}
         }
