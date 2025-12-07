@@ -44,7 +44,6 @@ RowLayout {
           } else {
             openItemId = modelData.id
           }
-          //popupLoader.item.visible = !popupLoader.item.visible
         }
       }
 
