@@ -20,7 +20,7 @@ Item {
     hoverEnabled: true
 
     onClicked: function(mouseEvent) {
-      var m = root.QsWindow.mapFromItem(ma, mouseEvent.x, mouseEvent.y);
+      var m = root.QsWindow.mapFromItem(ma, ma.width/2.0, ma.height/2.0);
       var offset = wrapperPopup.width / 2.0;
       wrapperPopup.clicky = m.x - offset;
       wrapperPopup.visible = !wrapperPopup.visible

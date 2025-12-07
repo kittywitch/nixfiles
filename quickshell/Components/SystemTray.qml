@@ -36,7 +36,7 @@ RowLayout {
         hoverEnabled: true
 
         onClicked: function(mouseEvent) {
-          var m = delegateItem.QsWindow.mapFromItem(delegateItem, mouseEvent.x, mouseEvent.y);
+          var m = delegateItem.QsWindow.mapFromItem(delegateItem, delegateItem.width/2.0, delegateItem.height/2.0);
           var offset = popupLoader.item.width / 2.0;
           popupLoader.clicky = m.x - offset;
           if (openItemId == modelData.id) {
