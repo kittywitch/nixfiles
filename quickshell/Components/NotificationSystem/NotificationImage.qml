@@ -20,6 +20,6 @@ ClippingWrapperRectangle {
     fillMode: Image.PreserveAspectFit
     Layout.preferredWidth: 80
     Layout.preferredHeight: parent.height
-    source: image
+    source: image.replace("file://", "")
   }
 }

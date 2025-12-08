@@ -5,6 +5,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import "root:/DataSources"
 import "root:/Components"
+import "root:/Components/NotificationSystem"
 
 Scope {
   id: root
@@ -70,9 +71,9 @@ Scope {
 
           spacing: 15
 
-          NotificationDisplay {}
           SystemTrayWrapper {}
           Clock {}
+          NotificationDisplay {}
           DistroIcon {}
         }
       }

@@ -13,17 +13,16 @@ RowLayout {
   required property Notification modelData_
   IconImage {
     function getIcon() {
-      console.log(modelData_.appIcon)
       if (modelData_.appIcon != "") {
-        return Quickshell.iconPath(modelData_.appIcon)
+        return Quickshell.iconPath(modelData_.appIcon.replace("file://", ""))
       } else {
-        return iconForId(modelData_.appName)
+        return ThemeIcons.iconForAppId(modelData_.appName)
       }
     }
     width: 24
     height: 24
-    visible: modelData_.appIcon != ""
-    source: Quickshell.iconPath(modelData_.appIcon)
+    visible: source != ""
+    source: getIcon()
   }
   Text {
     font.bold: true

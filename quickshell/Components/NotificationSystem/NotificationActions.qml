@@ -13,33 +13,27 @@ RowLayout {
   required property Notification modelData_
 
   Layout.minimumHeight: 0
-  Layout.preferredHeight: modelData_.actions != [] ? 30 : 0
-  visible: modelData_.actions != []
+  Layout.preferredHeight: modelData_.actions.length > 0 ? 30 : 0
+  visible: modelData_.actions.length > 0
   spacing: 5
   Repeater {
     model: modelData_.actions
 
-    Item {
-      required property NotificationAction actionData
+    delegate: Item {
+      required property NotificationAction modelData
 
       width: 100
       height: 30
 
-      anchors {
-        left: parent.left
-        leftMargin: 5
-        top: parent.top
-        topMargin: 5
-      }
-
       Rectangle {
         anchors.fill: parent
-        color: Stylix.base02
+        color: Stylix.base00
         radius: 5
 
         Text {
-          text: actionData.text
+          text: modelData.text
           color: Stylix.base05
+          anchors.centerIn: parent
           font.pixelSize: 12
 
           anchors {
@@ -51,7 +45,7 @@ RowLayout {
 
         MouseArea {
           anchors.fill: parent
-          onClicked: actionData.invoke()
+          onClicked: modelData.invoke()
         }
       }
     }
