@@ -3,6 +3,8 @@
 - [ ] Make personal homepage o:
 - [ ] Figure out storing bookmarks, lists, data ...
 - [ ] Look into Matrix and Fedi accounts and setting up app(s)
+    - [ ] matrix.org or nix.dev
+    - [ ] Desktop
 - [ ] Test performance for virtual machines on laptop and desktop
 
 ## New service deployments
@@ -10,7 +12,7 @@
 - [ ] Fauna
 - [ ] Jellyfin
 - [ ] Immich
-- [ ] Prosody
+- [x] Prosody
 - [x] continuwuation
 
 ## Quickshell
