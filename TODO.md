@@ -34,6 +34,7 @@
 - [ ] VRAM usage
 - [ ] Lockscreen
 - [ ] Konawall / booru API integration?
+- [ ] Tooltip type that doesn't suck
 
 ## Migrations
 
