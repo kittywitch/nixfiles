@@ -23,10 +23,11 @@ Singleton {
     for (const notification of notificationServer.trackedNotifications.values) {
       notification.tracked = false;
     }
+    list.length = 0;
   }
 
   // TODO: use signal
-  property list<Notification> list: notificationServer.trackedNotifications.values.filter(notification => notification.tracked)
+  property list<Notification> list: notificationServer.trackedNotifications.values.filter(notification => notification.tracked).reverse()
   signal notification(Notification notification)
 
   IpcHandler {
