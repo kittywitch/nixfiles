@@ -12,9 +12,6 @@ Item {
   width: parent.width
   height: 30
 
-  property real text_point_size: 12
-  property real length: width / text_point_size
-
   Rectangle {
     anchors {
       fill: parent
@@ -33,7 +30,7 @@ Item {
       horizontalAlignment: Text.AlignHCenter
       text: modelData?.text ?? ""
       color: Stylix.base05
-      font.pointSize: text_point_size
+      font.pointSize: 12
       elide: Text.ElideRight
     }
 

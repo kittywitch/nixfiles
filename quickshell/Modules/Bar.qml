@@ -70,6 +70,7 @@ Scope {
 
           spacing: 15
 
+          NotificationDisplay {}
           SystemTrayWrapper {}
           Clock {}
           DistroIcon {}

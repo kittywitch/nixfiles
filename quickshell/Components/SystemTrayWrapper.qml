@@ -8,10 +8,11 @@ Item {
   Layout.alignment: Qt.AlignVCenter;
   implicitWidth: 25
   implicitHeight: parent.height
+  property list<string> textStates: ["", ""]
   Text {
     id: texty
     anchors.centerIn: parent
-    text: ""
+    text: textStates[0]
     color: Stylix.base05
   }
   MouseArea {
@@ -23,7 +24,9 @@ Item {
       var m = root.QsWindow.mapFromItem(ma, ma.width/2.0, ma.height/2.0);
       var offset = wrapperPopup.width / 2.0;
       wrapperPopup.clicky = m.x - offset;
-      wrapperPopup.visible = !wrapperPopup.visible
+      wrapperPopup.visible = !wrapperPopup.visible;
+
+      texty.text = root.textStates[wrapperPopup.visible ? 1 : 0];
     }
   }
   PopupWindow {
@@ -32,11 +35,14 @@ Item {
     anchor.window: root.QsWindow.window
     anchor.rect.y: parentWindow.height
     anchor.rect.x: clicky
-    width: systray.width + 10
-    height: systray.height + 10
+    implicitWidth: systray.width + 10
+    implicitHeight: systray.height + 10
+    color: "transparent"
     Rectangle {
       anchors.fill: parent
       color: Stylix.base01
+      bottomLeftRadius: 5
+      bottomRightRadius: 5
       SystemTray {
         id: systray
       }
