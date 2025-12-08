@@ -33,16 +33,15 @@ Item {
     property real clicky
     id: wrapperPopup
     anchor.window: root.QsWindow.window
-    anchor.rect.y: parentWindow.height
+    anchor.rect.y: parentWindow?.height ?? 0
     anchor.rect.x: clicky
     implicitWidth: systray.width + 10
-    implicitHeight: systray.height + 10
+    implicitHeight: systray?.height + 10
     color: "transparent"
     Rectangle {
       anchors.fill: parent
       color: Stylix.base01
-      bottomLeftRadius: 5
-      bottomRightRadius: 5
+      radius: 5
       SystemTray {
         id: systray
       }

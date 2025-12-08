@@ -1,11 +1,14 @@
 import Quickshell
 import Quickshell.Io
+import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import "root:/DataSources"
 import "root:/Components"
-import "root:/Components/NotificationSystem"
+import "root:/Components/WorkspaceControl"
+import "root:/Components/SystemTray"
+import "root:/Components/NotificationArea"
 
 Scope {
   id: root
@@ -34,7 +37,13 @@ Scope {
 
       Rectangle {
         id: bar
-        anchors.fill: parent
+        anchors {
+          top: parent.top
+          left: parent.left
+          bottom: parent.bottom
+        }
+
+        MarginWrapperManager { margin: 10 }
         radius: 10
         color: Stylix.base00
 
@@ -54,10 +63,21 @@ Scope {
           }
           FocusedWindow {}
         }
+      }
 
         RowLayout {
           anchors.centerIn: parent
           spacing: 20
+        }
+      Rectangle {
+        MarginWrapperManager { margin: 10 }
+        id: bar3
+        radius: 10
+        color: Stylix.base00
+        anchors {
+          top: parent.top
+          right: parent.right
+          bottom: parent.bottom
         }
 
         RowLayout {
@@ -71,6 +91,7 @@ Scope {
 
           spacing: 15
 
+          Battery {}
           SystemTrayWrapper {}
           Clock {}
           NotificationDisplay {}
