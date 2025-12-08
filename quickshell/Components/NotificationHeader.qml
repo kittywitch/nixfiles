@@ -26,6 +26,7 @@ RowLayout {
     source: Quickshell.iconPath(modelData_.appIcon)
   }
   Text {
+    font.bold: true
     elide: Text.ElideRight
     text: modelData_.summary
     color: Stylix.base05

@@ -81,8 +81,9 @@ Item {
           anchors.fill: parent
           RowLayout {
             Layout.alignment: Qt.AlignHCenter
-            spacing: 5
+            spacing: 10
             Text {
+              font.bold: true
               Layout.preferredHeight: 26
               Layout.alignment: Qt.AlignVCenter
               verticalAlignment: Text.AlignVCenter
@@ -123,58 +124,62 @@ Item {
               }
             }
           }
-          ListView {
-            id: notificationList
-            model: Notifications.list
-            spacing: 10
-            ScrollBar.vertical: ScrollBar {}
-            Layout.alignment: Qt.AlignCenter
-            Layout.preferredWidth: parent.width
-            Layout.preferredHeight: parent.height
+          ClippingRectangle {
+              color: "transparent"
+              Layout.alignment: Qt.AlignBottom
+              Layout.preferredWidth: parent.width
+              Layout.preferredHeight: parent.height - 24
+              ListView {
+                anchors.fill: parent
+              id: notificationList
+              model: Notifications.list
+              spacing: 10
+              ScrollBar.vertical: ScrollBar {}
 
-            delegate: Item {
-              required property Notification modelData
+              delegate: Item {
+                required property Notification modelData
 
-              height: 100
-              width: 400//notificationList.width
+                height: 100
+                width: 400
 
-              Rectangle {
-                id: indivNotif
-                color: Stylix.base02
-                radius: 5
-                anchors {
-                  fill: parent
-                  leftMargin: 5
-                  rightMargin: 5
-                }
-                RowLayout {
-                anchors {
-                  fill: parent
-                }
-                  NotificationImage {
-                    image: modelData.image
+                Rectangle {
+                  id: indivNotif
+                  color: Stylix.base02
+                  radius: 5
+                  anchors {
+                    fill: parent
+                    leftMargin: 5
+                    rightMargin: 5
                   }
-                  ColumnLayout {
-                    Layout.leftMargin: 5
-                    Layout.rightMargin: 5
-                    Layout.fillWidth: true
-                    NotificationHeader {
-                      modelData_: modelData
+                  RowLayout {
+                    anchors {
+                      fill: parent
                     }
-                    Text {
-                      font.pointSize: 10
-                      wrapMode: Text.WordWrap
+                    NotificationImage {
+                      image: modelData.image
+                    }
+                    ColumnLayout {
+                      Layout.leftMargin: 5
+                      Layout.rightMargin: 5
                       Layout.fillWidth: true
-                      Layout.preferredWidth: modelData.image != "" ? indivNotif.width - 80 : indivNotif.width
-                      Layout.maximumWidth: indivNotif.width
-                      elide: Text.ElideRight
-                      text: modelData.body
-                      color: Stylix.base05
+                      NotificationHeader {
+                        modelData_: modelData
+                      }
+                      Text {
+                        font.pointSize: 10
+                        wrapMode: Text.WordWrap
+                        Layout.fillWidth: true
+                        Layout.preferredWidth: modelData.image != "" ? indivNotif.width - 80 : indivNotif.width
+                        Layout.maximumWidth: indivNotif.width
+                        elide: Text.ElideRight
+                        text: modelData.body
+                        color: Stylix.base05
+                      }
                     }
-                  }
                     NotificationActions {
                       modelData_: modelData
                     }
+                  }
                 }
               }
             }
