@@ -37,6 +37,7 @@ Item {
     MouseArea {
       anchors.fill: parent
       hoverEnabled: true
+      acceptedButtons: Qt.LeftButton | Qt.RightButton
 
       onClicked: mouse => {
         modelData.triggered();

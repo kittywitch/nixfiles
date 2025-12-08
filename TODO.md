@@ -2,7 +2,6 @@
 
 - [ ] Make personal homepage o:
 - [ ] Figure out storing bookmarks, lists, data ...
-- [ ] Make my own quickshell config
 - [ ] Look into Matrix and Fedi accounts and setting up app(s)
 - [ ] Test performance for virtual machines on laptop and desktop
 
@@ -13,6 +12,26 @@
 - [ ] Immich
 - [ ] Prosody
 - [x] continuwuation
+
+## Quickshell
+
+- [x] Clock
+- [x] Stylix
+- [x] Workspaces
+    - [x] State Colours
+- [x] System Tray
+- [x] Notification Area
+- [x] Active Window Title & Icon
+- [x] Battery
+- [ ] Pipewire
+- [ ] Bluetooth
+- [ ] Control Area
+    - [x] NixOS Logo button
+    - [ ] User icon & username
+    - [ ] Media Widgets
+- [ ] VRAM usage
+- [ ] Lockscreen
+- [ ] Konawall / booru API integration?
 
 ## Migrations
 

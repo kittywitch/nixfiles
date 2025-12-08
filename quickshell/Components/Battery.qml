@@ -52,8 +52,6 @@ Loader {
       return getTimeLeft(mainBat.timeToEmpty, false)
     } else if (mainBat.timeToFull != 0) {
       return getTimeLeft(mainBat.timeToFull, true)
-    } else {
-      return "full!"
     }
   }
 
