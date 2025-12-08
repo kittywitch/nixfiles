@@ -11,6 +11,7 @@
     telegram-desktop # Telegram
     signal-desktop
     fluffychat
+    dino
     mumble
     keymapp
     # Archivery

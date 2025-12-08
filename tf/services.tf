@@ -199,3 +199,89 @@ resource "cloudflare_record" "dork_mail_imaps_autodiscover" {
   }
   zone_id = local.zone_ids.dork
 }
+
+resource "cloudflare_record" "kittywitch_xmpp_server" {
+  name    = "_xmpp-server._tcp"
+  proxied = false
+  ttl     = 3600
+  type    = "SRV"
+
+  data {
+    service  = "_xmpp-server"
+    proto    = "_tcp"
+    priority = 5
+    weight   = 0
+    port     = 5269
+    target   = "rinnosuke.inskip.me"
+  }
+  zone_id = local.zone_ids.kittywitch
+}
+
+resource "cloudflare_record" "kittywitch_xmpp_server_ssl" {
+  name    = "_xmpps-server._tcp"
+  proxied = false
+  ttl     = 3600
+  type    = "SRV"
+
+  data {
+    service  = "_xmpps-server"
+    proto    = "_tcp"
+    priority = 5
+    weight   = 0
+    port     = 5269
+    target   = "rinnosuke.inskip.me"
+  }
+  zone_id = local.zone_ids.kittywitch
+}
+
+resource "cloudflare_record" "kittywitch_xmpp_client" {
+  name    = "_xmpp-client._tcp"
+  proxied = false
+  ttl     = 3600
+  type    = "SRV"
+
+  data {
+    service  = "_xmpp-server"
+    proto    = "_tcp"
+    priority = 5
+    weight   = 0
+    port     = 5222
+    target   = "rinnosuke.inskip.me"
+  }
+  zone_id = local.zone_ids.kittywitch
+}
+
+resource "cloudflare_record" "kittywitch_xmpp_client_ssl" {
+  name    = "_xmpps-client._tcp"
+  proxied = false
+  ttl     = 3600
+  type    = "SRV"
+
+  data {
+    service  = "_xmpps-client"
+    proto    = "_tcp"
+    priority = 5
+    weight   = 0
+    port     = 5223
+    target   = "rinnosuke.inskip.me"
+  }
+  zone_id = local.zone_ids.kittywitch
+}
+
+resource "cloudflare_record" "xmpp" {
+  name    = "xmpp"
+  proxied = false
+  ttl     = 3600
+  type    = "CNAME"
+  value   = "rinnosuke.inskip.me"
+  zone_id = local.zone_ids.kittywitch
+}
+
+resource "cloudflare_record" "xmpp_upload" {
+  name    = "xmpp.upload"
+  proxied = false
+  ttl     = 3600
+  type    = "CNAME"
+  value   = "rinnosuke.inskip.me"
+  zone_id = local.zone_ids.kittywitch
+}

@@ -1,6 +1,7 @@
 _: let
   hostConfig = {
     tree,
+    config,
     modulesPath,
     ...
   }: {
@@ -53,6 +54,21 @@ _: let
     #  };
     #};
 
+    services.nginx.virtualHosts = let
+      vHost = {
+        extraConfig = ''
+          add_header Content-Type text/plain;
+          return 200 "meep?";
+        '';
+      };
+    in {
+      ${config.networking.fqdn} = {
+        enableACME = true;
+        forceSSL = true;
+        default = true;
+      };
+      "localhost" = vHost;
+    };
     security.acme.defaults.email = "acme@inskip.me";
     system.stateVersion = "23.11";
   };
