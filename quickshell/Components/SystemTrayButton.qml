@@ -15,8 +15,8 @@ Item {
   Rectangle {
     anchors {
       fill: parent
-      leftMargin: 10
-      rightMargin: 10
+      leftMargin: 5
+      rightMargin: 5
     }
 
     color: Stylix.base01
