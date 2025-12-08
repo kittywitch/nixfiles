@@ -65,7 +65,7 @@ Item {
       id: wrapperPopup
       visible: false
       anchor.window: root.QsWindow.window
-      anchor.rect.y: parentWindow.height
+      anchor.rect.y: parentWindow?.height ?? 0
       anchor.rect.x: clicky
       color: "transparent"
 
@@ -140,151 +140,41 @@ Item {
 
               Rectangle {
                 id: indivNotif
+                color: Stylix.base02
+                radius: 5
                 anchors {
                   fill: parent
                   leftMargin: 5
                   rightMargin: 5
                 }
-                color: Stylix.base02
-                ColumnLayout {
-                  anchors {
-                    fill: parent
-                    leftMargin: 5
-                    rightMargin: 5
+                RowLayout {
+                anchors {
+                  fill: parent
+                }
+                  NotificationImage {
+                    image: modelData.image
                   }
-                  RowLayout {
-                    spacing: 5
-                    ClippingWrapperRectangle {
-                      radius: 5
-                      Layout.minimumWidth: 0
-                      Layout.minimumHeight: 0
-                      Layout.maximumWidth: 60
-                      Layout.preferredWidth: 60
-                      Layout.preferredHeight: 60
-                      Layout.leftMargin: 5
-                      Layout.rightMargin: 5
-                      visible: modelData.image != ""
-                      Image {
-                        fillMode: Image.PreserveAspectCrop
-                        Layout.minimumWidth: 0
-                        Layout.minimumHeight: 0
-                        Layout.preferredWidth: 60
-                        Layout.preferredHeight: 60
-                        source: modelData.image
-                      }
+                  ColumnLayout {
+                    Layout.leftMargin: 5
+                    Layout.rightMargin: 5
+                    Layout.fillWidth: true
+                    NotificationHeader {
+                      modelData_: modelData
                     }
-                    ColumnLayout {
-                      spacing: 5
-                      RowLayout {
-                        spacing: 5
-                        IconImage {
-                          function getIcon() {
-                            console.log(modelData.appIcon)
-                            if (modelData.appIcon != "") {
-                              return Quickshell.iconPath(modelData.appIcon)
-                            } else {
-                              return iconForId(modelData.appName)
-                            }
-                          }
-                          width: 24
-                          height: 24
-                          visible: modelData.appIcon != ""
-                          source: Quickshell.iconPath(modelData.appIcon)
-                        }
-                        Text {
-                          elide: Text.ElideRight
-                          text: modelData.summary
-                          color: Stylix.base05
-                        }
-                        Text {
-                          id: dismiss
-                          text: "󱏩"
-                          color: Stylix.base08
-                          font.pixelSize: 16
-
-                          ToolTip {
-                            id: dismissTooltip
-                            visible: false
-                            delay: 500
-                            timeout: 1000
-                            text: "Dismiss notification"
-                          }
-
-                          HoverHandler {
-                            id: dismissHover
-                            onHoveredChanged: {
-                              dismissTooltip.visible = hovered
-                            }
-                          }
-
-                          Layout.topMargin: 5
-                          Layout.rightMargin: 10
-
-                          MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                              modelData.dismiss();
-                              if (Notifications.list.length <= 0) {
-                                popup.visible = false;
-                              }
-                            }
-                          }
-                        }
-                      }
-                      Text {
-                        font.pointSize: 10
-                        wrapMode: Text.WordWrap
-                        elide: Text.ElideRight
-                        text: modelData.body
-                        color: Stylix.base05
-                      }
+                    Text {
+                      font.pointSize: 10
+                      wrapMode: Text.WordWrap
+                      Layout.fillWidth: true
+                      Layout.preferredWidth: modelData.image != "" ? indivNotif.width - 80 : indivNotif.width
+                      Layout.maximumWidth: indivNotif.width
+                      elide: Text.ElideRight
+                      text: modelData.body
+                      color: Stylix.base05
                     }
                   }
-                  RowLayout {
-                    Layout.minimumHeight: 0
-                    visible: modelData.actions != []
-                    spacing: 5
-                    Repeater {
-                      model: modelData.actions
-
-                      Item {
-                        required property NotificationAction actionData
-
-                        width: 400
-                        height: 30
-
-                        anchors {
-                          left: parent.left
-                          leftMargin: 5
-                          top: parent.top
-                          topMargin: 5
-                        }
-
-                        Rectangle {
-                          anchors.fill: parent
-                          color: Stylix.base02
-                          radius: 5
-
-                          Text {
-                            text: actionData.text
-                            color: Stylix.base05
-                            font.pixelSize: 12
-
-                            anchors {
-                              left: parent.left
-                              leftMargin: 10
-                              verticalCenter: parent.verticalCenter
-                            }
-                          }
-
-                          MouseArea {
-                            anchors.fill: parent
-                            onClicked: actionData.invoke()
-                          }
-                        }
-                      }
+                    NotificationActions {
+                      modelData_: modelData
                     }
-                  }
                 }
               }
             }
