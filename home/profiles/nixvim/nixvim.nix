@@ -9,6 +9,9 @@
     };
   };
 in {
+  xdg.mimeApps.defaultApplications = {
+    "text/plain" = "nvim.desktop";
+  };
   programs.nixvim = {
     enable = true;
     defaultEditor = true;

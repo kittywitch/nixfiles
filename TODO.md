@@ -6,6 +6,7 @@
     - [ ] matrix.org or nix.dev
     - [ ] Desktop
 - [ ] Test performance for virtual machines on laptop and desktop
+- [ ] Clean up password manager
 
 ## New service deployments
 

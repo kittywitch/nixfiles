@@ -62,6 +62,25 @@
         rust.follows = "rust";
       };
     };
+    vicinae = {
+      url = "github:vicinaehq/vicinae";
+      inputs = {
+        systems.follows = "systems";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    vicinae-rbw = {
+      url = "github:kittywitch/vicinae-rbw";
+      flake = false;
+    };
+    vicinae-extensions = {
+      url = "github:vicinaehq/extensions";
+      inputs = {
+        systems.follows = "systems";
+        nixpkgs.follows = "nixpkgs";
+        vicinae.follows = "vicinae";
+      };
+    };
     # better than nixpkgs.lib
     nix-std = {
       url = "github:chessai/nix-std";

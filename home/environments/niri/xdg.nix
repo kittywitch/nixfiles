@@ -13,7 +13,6 @@
       enable = true;
       defaultApplications = {
         "inode/directory" = "pcmanfm.desktop";
-        "text/plain" = "nvim.desktop";
       };
     };
   };

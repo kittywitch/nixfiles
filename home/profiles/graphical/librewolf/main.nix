@@ -28,6 +28,7 @@
             sponsorblock
             link-cleaner
             canvasblocker
+            brotab
             a11ycss
             view-image
             wappalyzer

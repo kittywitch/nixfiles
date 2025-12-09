@@ -1,20 +1,58 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  inherit (lib.attrsets) genAttrs;
+in {
+  xdg.mimeApps.defaultApplications = let
+    genDefault = application: types: genAttrs types (_: application);
+    imageTypes = map (x: "image/${x}") [
+      "apng"
+      "avif"
+      "bmp"
+      "gif"
+      "heic"
+      "heif"
+      "jpeg"
+      "png"
+      "svg+xml"
+      "webp"
+    ];
+    videoTypes = map (x: "video/${x}") [
+      "AV1"
+      "H264"
+      "H265"
+      "matroska"
+      "mp4"
+      "MPV"
+      "mpeg"
+      "ogg"
+      "VP8"
+      "VP9"
+    ];
+    imageDefaults = genDefault "imv.desktop" imageTypes;
+    videoDefaults = genDefault "mpv.desktop" videoTypes;
+    combinedDefaults = imageDefaults // videoDefaults;
+  in
+    combinedDefaults;
   home.packages = with pkgs; [
     anki
 
-    # Task managers
-    btop
-    htop
-
+    # Imagery
     aseprite
+    imv
+    gimp
+
     # Chat
     telegram-desktop # Telegram
     signal-desktop
     fluffychat
     dino
     mumble
-    keymapp
+
     # Archivery
+    xarchiver
     unzip
     zip
     p7zip
@@ -30,7 +68,5 @@
     pwvucontrol
     veracrypt
     deluge
-    gimp
-    xarchiver
   ];
 }

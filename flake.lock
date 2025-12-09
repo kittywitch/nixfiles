@@ -2004,6 +2004,9 @@
         "tree": "tree",
         "treefmt-nix": "treefmt-nix_3",
         "ucodenix": "ucodenix",
+        "vicinae": "vicinae",
+        "vicinae-extensions": "vicinae-extensions",
+        "vicinae-rbw": "vicinae-rbw",
         "wezterm": "wezterm"
       }
     },
@@ -2574,6 +2577,71 @@
       "original": {
         "owner": "e-tho",
         "repo": "ucodenix",
+        "type": "github"
+      }
+    },
+    "vicinae": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1765272078,
+        "narHash": "sha256-etv2HJA9OWvTkjnrjaNSqvebu9gWLIGPYb9PWr4qkfM=",
+        "owner": "vicinaehq",
+        "repo": "vicinae",
+        "rev": "32cf6b1f82e007cddba9c9ae037eff670219cd55",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vicinaehq",
+        "repo": "vicinae",
+        "type": "github"
+      }
+    },
+    "vicinae-extensions": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ],
+        "vicinae": [
+          "vicinae"
+        ]
+      },
+      "locked": {
+        "lastModified": 1765122409,
+        "narHash": "sha256-CR4yU44yKqQHOuS5i/ca+05K90sKfcZ+7uoARjrOOJo=",
+        "owner": "vicinaehq",
+        "repo": "extensions",
+        "rev": "6e0c6e9eec288a577183998fb24bc8134b236e5d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vicinaehq",
+        "repo": "extensions",
+        "type": "github"
+      }
+    },
+    "vicinae-rbw": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1765285656,
+        "narHash": "sha256-ncZmIQw89KRof41ZrgAvt2L+UjIHGy11EMq767Nw5yg=",
+        "owner": "kittywitch",
+        "repo": "vicinae-rbw",
+        "rev": "ae004193b80bf38a0bd66dae37a82c8308191163",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kittywitch",
+        "repo": "vicinae-rbw",
         "type": "github"
       }
     },

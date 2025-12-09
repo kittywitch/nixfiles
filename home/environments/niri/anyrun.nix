@@ -1,19 +1,8 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{config, ...}: let
   cfg = config.programs.anyrun;
-  inherit (lib.meta) getExe;
 in {
-  programs.niri.settings.binds = {
-    "Mod+D".action = let
-      sh = config.lib.niri.actions.spawn "sh" "-c";
-    in
-      sh (getExe cfg.package);
-  };
   programs.anyrun = {
-    enable = true;
+    enable = false;
     config = {
       x = {fraction = 0.5;};
       y = {fraction = 0.3;};
