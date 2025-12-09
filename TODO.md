@@ -1,5 +1,6 @@
 # To-dos
 
+- [ ] Centralized/synchronized notes, bookmarks, ... all in one
 - [ ] Make personal homepage o:
 - [ ] Figure out storing bookmarks, lists, data ...
 - [ ] Look into Matrix and Fedi accounts and setting up app(s)
