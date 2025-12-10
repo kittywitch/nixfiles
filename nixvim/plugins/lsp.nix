@@ -70,6 +70,7 @@ in {
           grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
             bash
             json
+            elixir
             make
             markdown
             regex

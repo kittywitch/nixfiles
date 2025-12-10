@@ -13,6 +13,15 @@
   programs = {
     jujutsu = {
       enable = true;
+      settings = {
+        user = with tree.home.user.data; {
+          name = userName;
+          email = userEmail;
+        };
+      };
+    };
+    jjui = {
+      enable = true;
     };
     delta = {
       enable = true;
