@@ -20,13 +20,16 @@ in {
       "nixd"
       "zk"
       "gleam"
+      "elixirls"
       "qmlls"
+      "somesass"
       "luau_lsp"
       "stylua"
     ];
     disabledPackageServers = [
       "rust_analyzer"
       "luau_lsp"
+      "elixirls"
       "stylua"
     ];
   in
