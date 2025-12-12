@@ -34,6 +34,10 @@
         flake-utils.follows = "flake-utils";
       };
     };
+    nix-doom-emacs-unstraightened = {
+      url = "github:marienz/nix-doom-emacs-unstraightened";
+      inputs.nixpkgs.follows = "";
+    };
     stylix = {
       url = "github:nix-community/stylix";
       inputs = {

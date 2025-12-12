@@ -116,6 +116,7 @@
         enable = true;
         external = with inputs;
           [
+            nix-doom-emacs-unstraightened.hmModule
             nix-index-database.homeModules.nix-index
             sops-nix.homeManagerModules.sops
             chaotic.homeManagerModules.default
