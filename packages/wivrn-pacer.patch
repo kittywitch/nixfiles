@@ -1,0 +1,13 @@
+diff --git a/server/driver/app_pacer.cpp b/server/driver/app_pacer.cpp
+index 5748a6c..4255b29 100644
+--- a/server/driver/app_pacer.cpp
++++ b/server/driver/app_pacer.cpp
+@@ -34,7 +34,7 @@ class app_pacer : public u_pacing_app
+ 	int64_t frame_id = 0;
+ 	int64_t compositor_display_time = 0;
+ 	int64_t last_display_time = 0;
+-	int64_t period = 10'000'000;
++	int64_t period = 5'000'000;
+ 
+ 	std::mutex mutex; // locks cpu/draw/gpu time
+ 	int64_t cpu_time = 0;

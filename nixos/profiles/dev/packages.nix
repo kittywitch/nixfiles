@@ -7,5 +7,13 @@
     jwt-cli
     silicon
     tokei
+    clojure
+    clojure-lsp
+    babashka
+    clj-kondo
+    polylith
+    leiningen
+    neil
+    jet
   ];
 }

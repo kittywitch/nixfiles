@@ -12,6 +12,7 @@ keys:
 - &goliath_kat age1rjldv3fn3q686647exmcukthr32gmp6s3axs0lhyenvru9ajp9rs24ukvz
 - &syncthing age1p9v6xaujkdat2tsc2mc4gxpg9hjr4suvwryuat95z2c53xhsyfxq0gf594
 - &rinnosuke age1rt0ngkum32wt6l2wnyr40hmwd9ulmzqfarg5vk62zqp0uvj4lyuqd2atgq
+- &minecraft age1nxgmdahcjhmtrf7q66jep55cjdcw6tfpw722jr4gytaykgf89ugqxufgyd
 creation_rules:
 - path_regex: tf/terraform.tfvars.sops$
   shamir_threshold: 1
@@ -35,6 +36,7 @@ creation_rules:
     - *goliath
     - *goliath_kat
     - *syncthing
+    - *minecraft
 - path_regex: ci/.*\.yaml
   shamir_threshold: 1
   key_groups:

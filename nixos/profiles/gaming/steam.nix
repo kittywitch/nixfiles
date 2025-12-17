@@ -7,8 +7,8 @@
     enable = true;
     remotePlay.openFirewall = true;
     extraCompatPackages = [
-      inputs.chaotic.packages.${pkgs.system}.proton-cachyos_x86_64_v3
-      inputs.chaotic.packages.${pkgs.system}.proton-ge-custom
+      pkgs.proton-cachyos-x86_64_v3
+      pkgs.proton-ge-bin
     ];
   };
 }

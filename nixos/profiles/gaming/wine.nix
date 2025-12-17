@@ -19,13 +19,13 @@ in {
     createDesktopItems = true;
     inherit gameStorage;
     runnerVariants = {
-      PROTON_CACHYOS = "${inputs.chaotic.packages.${pkgs.system}.proton-cachyos_x86_64_v3.out}/bin";
-      PROTON_GE = "${inputs.chaotic.packages.${pkgs.system}.proton-ge-custom.out}/bin";
+      PROTON_CACHYOS = "${pkgs.proton-cachyos-x86_64_v3}/bin";
+      PROTON_GE = "${pkgs.proton-ge-bin}/bin";
       PROTON_EXPERIMENTAL = "/games/Steam Library/steamapps/common/Proton - Experimental";
       PROTON_HOTFIX = "/games/Steam Library/steamapps/common/Proton Hotfix/";
-      PROTON_VRC = "/home/kat/.local/share/Steam/compatibilitytools.d/GE-Proton10-20-rtsp19/";
-      WINE_TKG = inputs.nix-gaming.packages.${pkgs.system}.wine-tkg;
-      WINE_CACHYOS = inputs.nix-gaming.packages.${pkgs.system}.wine-cachyos;
+      PROTON_VRC = "/home/kat/.local/share/Steam/compatibilitytools.d/GE-Proton10-26-rtsp20/";
+      WINE_TKG = pkgs.wine-tkg;
+      WINE_CACHYOS = pkgs.wine-cachyos;
     };
     pathPackages = with pkgs; [
       mangohud

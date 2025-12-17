@@ -17,11 +17,11 @@ in {
       settingsVersion = 15;
       bar = {
         position = "top";
-        backgroundOpacity = 0.9;
         monitors = [];
         density = "comfortable";
-        showCapsule = false;
-        floating = true;
+        outerCorners = false;
+        showCapsule = true;
+        floating = false;
         marginVertical = 0.25;
         marginHorizontal = 0.25;
         widgets = {
@@ -132,7 +132,6 @@ in {
       appLauncher = {
         enableClipboardHistory = true;
         position = "center";
-        backgroundOpacity = 1;
         pinnedExecs = [];
         useApp2Unit = false;
         sortByMostUsed = true;
@@ -165,8 +164,8 @@ in {
         };
       };
       dock = {
+        enabled = false;
         displayMode = "auto_hide";
-        backgroundOpacity = 1;
         floatingRatio = 1;
         onlySameOutput = true;
         monitors = [];
@@ -201,10 +200,6 @@ in {
         preferredPlayer = "";
       };
       ui = {
-        fontDefault = "Atkinson Hyperlegible Next";
-        fontFixed = "Atkinson Hyperlegible Mono";
-        fontDefaultScale = 1;
-        fontFixedScale = 1;
         monitorsScaling = [
           {
             name = "DP-2";
@@ -219,7 +214,6 @@ in {
       };
       colorSchemes = {
         useWallpaperColors = false;
-        predefinedScheme = "Dracula";
         darkMode = true;
         matugenSchemeType = "scheme-fruit-salad";
         generateTemplatesForPredefined = true;

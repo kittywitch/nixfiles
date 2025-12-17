@@ -31,8 +31,8 @@ _: {
             record off;
             hls on;
             hls_path ${streamyHome}/hls;
-            hls_fragment 3;
-            hls_playlist_length 60;
+            hls_fragment 1;
+            hls_playlist_length 20;
 
             dash on;
             dash_path ${streamyHome}/dash;

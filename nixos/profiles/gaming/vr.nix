@@ -20,22 +20,7 @@ in {
     monadoEnvironment = {
       XRT_COMPOSITOR_COMPUTE = "1";
     };
-    package = pkgs.wivrn.overrideAttrs (_old: rec {
-      cudaSupport = true;
-      #version = "84e5203be3019278925ac03708567f2982360f8a";
-      #src = pkgs.fetchFromGitHub {
-      #  owner = "notpeelz";
-      #  repo = "WiVRn";
-      #  rev = version;
-      #  # This will throw an error when evaluating and give you the correct hash - put that here
-      #  hash = "sha256-2s3j6vRtIRf6x+lQPobcuT1vzlCh1lMA54EUiCnxoFI=";
-      #};
-      #cmakeFlags =
-      #  old.cmakeFlags
-      #  ++ [
-      #    (lib.cmakeBool "WIVRN_FEATURE_SOLARXR" true)
-      #  ];
-    });
+    package = pkgs.wivrn;
     defaultRuntime = true;
     config = {
       enable = true;

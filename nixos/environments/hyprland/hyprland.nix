@@ -6,8 +6,8 @@
   programs.hyprland = {
     enable = true;
     withUWSM = true;
-    package = inputs.hyprland.packages."${pkgs.system}".hyprland;
-    portalPackage = inputs.hyprland.packages."${pkgs.system}".xdg-desktop-portal-hyprland;
+    #package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+    #portalPackage = inputs.hyprland.packages."${pkgs.system}".xdg-desktop-portal-hyprland;
   };
 
   # auto launch hyprland on tty1
@@ -16,8 +16,11 @@
         exec uwsm start hyprland-uwsm.desktop
     fi
   '';
-
-  services.clipboard-sync.enable = true;
+  
+  services = {
+    noctalia-shell.enable = true;
+    clipboard-sync.enable = true;
+  };
   /*
     services.displayManager.sddm = {
     enable = true;

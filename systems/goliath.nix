@@ -54,8 +54,8 @@ _: let
         dev
       ])
       ++ (with tree.nixos.environments; [
-        #hyprland
-        niri
+        hyprland
+          #niri
       ])
       ++ (with tree.nixos.servers; [
         forgejo-runner
@@ -107,74 +107,90 @@ _: let
         #     "-model_sheet"
         #   ];
         # };
-        waybar.settings.main = {
-          modules-right = [
-            "custom/nvidia-vram"
+        # waybar.settings.main = {
+        #   modules-right = [
+        #     "custom/nvidia-vram"
+        #   ];
+        #   "custom/nvidia-vram" = {
+        #     tooltip = false;
+        #     format = "vram {}";
+        #     interval = 1;
+        #     exec = let
+        #       inherit (lib.meta) getExe;
+        #       inherit (pkgs) writeShellScriptBin bc;
+        #       nvidia-vram = writeShellScriptBin "nvidia-vram" ''
+        #           export PATH="$PATH:${lib.makeBinPath [
+        #           config.hardware.nvidia.package
+        #           bc
+        #         ]}"
+        #         exec ${../packages/nvidia-vram/nvidia-vram.sh} "$@"
+        #       '';
+        #     in "${getExe nvidia-vram}";
+        #     return-type = "";
+        #   };
+        # };
+        # niri.settings = {
+        #   outputs = {
+        #     "LG Electronics LG Ultra HD 0x0001AC91" = {
+        #       scale = 1.0;
+        #       position = {
+        #         x = 1920;
+        #         y = 0;
+        #       };
+        #       mode = {
+        #         width = 2560;
+        #         height = 1440;
+        #         refresh = 59.951;
+        #       };
+        #     };
+        #     "Samsung Electric Company SAMSUNG Unknown" = {
+        #       position = {
+        #         x = 0;
+        #         y = 0;
+        #       };
+        #     };
+        #     "PNP(XXX) Beyond TV 0x00010000" = {
+        #       mode = {
+        #         width = 2560;
+        #         height = 1440;
+        #         refresh = 119.998;
+        #       };
+        #     };
+        #   };
+        #   environment = {
+        #     NVD_BACKEND = "direct";
+        #     ELECTRON_OZONE_PLATFORM_HINT = "auto";
+        #     LIBVA_DRIVER_NAME = "nvidia";
+        #     NIXOS_OZONE_WL = "1";
+        #     QT_QTA_PLATFORM = "wayland;xcb";
+        #   };
+        # };
+      };
+      wayland.windowManager.hyprland.settings = {
+        monitor = [
+            "HDMI-A-1, 1920x1080, 0x0, 1"
+            "DP-2, 2560x1440, auto-right, 1"
           ];
-          "custom/nvidia-vram" = {
-            tooltip = false;
-            format = "vram {}";
-            interval = 1;
-            exec = let
-              inherit (lib.meta) getExe;
-              inherit (pkgs) writeShellScriptBin bc;
-              nvidia-vram = writeShellScriptBin "nvidia-vram" ''
-                  export PATH="$PATH:${lib.makeBinPath [
-                  config.hardware.nvidia.package
-                  bc
-                ]}"
-                exec ${../packages/nvidia-vram/nvidia-vram.sh} "$@"
-              '';
-            in "${getExe nvidia-vram}";
-            return-type = "";
-          };
-        };
-        niri.settings = {
-          outputs = {
-            "LG Electronics LG Ultra HD 0x0001AC91" = {
-              scale = 1.0;
-              position = {
-                x = 1920;
-                y = 0;
-              };
-              mode = {
-                width = 2560;
-                height = 1440;
-                refresh = 59.951;
-              };
-            };
-            "Samsung Electric Company SAMSUNG Unknown" = {
-              position = {
-                x = 0;
-                y = 0;
-              };
-            };
-            "PNP(XXX) Beyond TV 0x00010000" = {
-              mode = {
-                width = 2560;
-                height = 1440;
-                refresh = 119.998;
-              };
-            };
-          };
-          environment = {
-            NVD_BACKEND = "direct";
-            ELECTRON_OZONE_PLATFORM_HINT = "auto";
-            LIBVA_DRIVER_NAME = "nvidia";
-            NIXOS_OZONE_WL = "1";
-            QT_QTA_PLATFORM = "wayland;xcb";
-          };
-        };
+        env = [
+          "NVD_BACKEND,direct"
+          "ELECTRON_OZONE_PLATFORM_HINT,auto"
+          "LIBVA_DRIVER_NAME,nvidia"
+          "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+          "NIXOS_OZONE_WL,1"
+          "__NV_DISABLE_EXPLICIT_SYNC,1"
+          "QT_QPA_PLATFORM,wayland;xcb"
+        ];
       };
       imports =
         (with tree.home.profiles; [
           graphical
+          tiling
         ])
         ++ (with tree.home.environments; [
-          #hyprland
-          niri
+          hyprland
+            #niri
         ]);
-    };
+      };
 
     networking.hostId = "c3b94e85";
 

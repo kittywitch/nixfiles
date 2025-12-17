@@ -90,7 +90,6 @@
           infrastructure.nixosModules.default
           lanzaboote.nixosModules.lanzaboote
           solaar.nixosModules.default
-          chaotic.nixosModules.default
           nixpkgs-xr.nixosModules.nixpkgs-xr
           spicetify-nix.nixosModules.spicetify
           clipboard-sync.nixosModules.default
@@ -119,11 +118,11 @@
             nix-doom-emacs-unstraightened.hmModule
             nix-index-database.homeModules.nix-index
             sops-nix.homeManagerModules.sops
-            chaotic.homeManagerModules.default
             spicetify-nix.homeManagerModules.spicetify
             stylix.homeModules.stylix
             noctalia.homeModules.default
             nixvim.homeModules.nixvim
+            nixcord.homeModules.nixcord
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).home-manager; [
             i3gopher

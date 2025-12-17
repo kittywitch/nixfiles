@@ -73,6 +73,14 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    nixcord = {
+      url = "github:kaylorben/nixcord";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
     vicinae-rbw = {
       url = "github:kittywitch/vicinae-rbw";
       flake = false;
@@ -105,8 +113,8 @@
     empty.url = "github:input-output-hk/empty-flake";
     # self-explanatory
     nixpkgs = {
-      follows = "chaotic/nixpkgs"; # TODO: replace follows
-      #url = "github:nixos/nixpkgs/nixos-unstable";
+      #follows = "chaotic/nixpkgs"; # TODO: replace follows
+      url = "github:nixos/nixpkgs/nixos-unstable";
       #inputs.nixpkgs.follows = "chaotic/nixpkgs";
     };
     qml-niri = {
@@ -127,6 +135,10 @@
         flake-compat.follows = "flake-compat";
         treefmt-nix.follows = "treefmt-nix";
       };
+    };
+    proton-cachyos = {
+      url = "github:powerofthe69/proton-cachyos-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     infrastructure = {
       url = "github:gensokyo-zone/infrastructure/main";
@@ -157,14 +169,6 @@
         nix-options-doc.follows = "empty";
       };
     };
-    chaotic = {
-      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-      inputs = {
-        #nixpkgs.follows = "nixpkgs";
-        rust-overlay.follows = "rust-overlay";
-        home-manager.follows = "home-manager";
-      };
-    };
     flake-utils-plus = {
       url = "github:gytis-ivaskevicius/flake-utils-plus";
       inputs = {
@@ -177,16 +181,7 @@
       #url = "https://flakehub.com/f/Svenum/Solaar-flake/0.1.2.tar.gz";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
-        snowfall-lib.follows = "snowfall-lib";
-      };
-    };
-    snowfall-lib = {
-      url = "github:snowfallorg/lib";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils-plus.follows = "flake-utils-plus";
-        flake-compat.follows = "flake-compat";
+        utils.follows = "flake-utils-plus";
       };
     };
     quickshell = {
@@ -224,20 +219,6 @@
       inputs = {
         systems.follows = "systems";
         nixpkgs.follows = "nixpkgs";
-      };
-    };
-    naersk = {
-      url = "github:nix-community/naersk";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-    wezterm = {
-      url = "github:wez/wezterm/main?dir=nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-        rust-overlay.follows = "rust-overlay";
       };
     };
     ci = {
@@ -367,21 +348,6 @@
       #url = "github:kittywitch/arcexprs/master";
       url = "github:arcnmx/nixexprs/master";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    base16 = {
-      url = "github:arcnmx/base16.nix/flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flakelib.follows = "flakelib";
-      };
-    };
-    base16-data = {
-      url = "github:arcnmx/base16.nix/data";
-      inputs = {
-        base16.follows = "base16";
-        nixpkgs.follows = "nixpkgs";
-        flakelib.follows = "flakelib";
-      };
     };
     nur = {
       url = "github:nix-community/NUR";

@@ -161,7 +161,8 @@ in {
         nurpkgs = pkgs.${config.system};
       };
       machine = name;
-      system = config;
+      system = config.system;
+      #system = config;
     };
   };
 }

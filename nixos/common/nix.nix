@@ -12,7 +12,4 @@ _: {
     };
     #package = pkgs.lixPackageSets.stable.lix;
   };
-  system = {
-    rebuild.enableNg = true;
-  };
 }
