@@ -11,6 +11,10 @@
   in {
     "$mod" = "SUPER";
     binds.workspace_back_and_forth = true;
+    misc = {
+      session_lock_xray = true;
+      key_press_enables_dpms = true;
+    };
     bindm = [
       "$mod, mouse:272, movewindow"
       "$mod, mouse:273, resizewindow"
@@ -38,8 +42,8 @@
         ", XF86AudioPrev, exec, ${getExe pkgs.playerctl} prev"
 
         "$mod, RETURN, exec, ${getExe config.programs.vicinae.package} toggle"
-        "$mod, grave,  exec, ${uwsmApp term}"
-        "$mod SHIFT, grave,  exec, ${uwsmApp term} --class AlacrittyFloating"
+        "$mod, grave,  exec, ${term}"
+        "$mod SHIFT, grave,  exec, ${term} --class AlacrittyFloating"
         ", Print, exec, ${uwsmSingleApp "grimblast"} copy area"
         "CTRL ALT, DELETE, exec, ${uwsmApp "hyprctl kill"}"
         "CTRL ALT SHIFT, DELETE, exec, loginctl terminate-user \"\""
@@ -85,6 +89,9 @@
         "$mod CTRL SHIFT, right, hy3:movewindow, r, once, visible"
         "$mod CTRL SHIFT, up, hy3:movewindow, u, once, visible"
         "$mod CTRL SHIFT, down, hy3:movewindow, d, once, visible"
+
+        "$mod, c, togglespecialworkspace"
+        "$mod SHIFT, c, movetoworkspace, special"
 
         "$mod, P, exec, ${getExe pkgs.hyprpicker} -na"
 
