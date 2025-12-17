@@ -343,6 +343,12 @@
         flake-compat.follows = "flake-compat";
       };
     };
+    hyprland.url = "github:hyprwm/Hyprland/6712fb954f2e4f701878b97f19b7185a2cd0e192";
+    hy3 = {
+      #url = "github:outfoxxed/hy3?ref=33fb5c01f192c0b1b6c1ab29f4a38e4bdfc85427";
+      url = "github:Immelancholy/hy3/update-to-m_reserved_area";
+      inputs.hyprland.follows = "hyprland";
+    };
     # a bunch of modules (also arcnmx is good)
     arcexprs = {
       #url = "github:kittywitch/arcexprs/master";

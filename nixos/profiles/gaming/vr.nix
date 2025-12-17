@@ -13,13 +13,27 @@ in {
       ExecStart = getExe' pkgs.wlx-overlay-s "wlx-overlay-s";
     };
   };
+  programs.steam.extraPackages = with pkgs.gst_all_1; [
+    gstreamer
+    gst-plugins-base
+    gst-plugins-bad
+    gst-plugins-good
+    # ffmpeg to play almost every format
+    gst-libav
+    # hardware acceleration
+    gst-vaapi
+  ];
   services.wivrn = {
     enable = true;
     openFirewall = true;
     steam.importOXRRuntimes = true;
     monadoEnvironment = {
       XRT_COMPOSITOR_COMPUTE = "1";
+      U_PACING_APP_USE_MIN_FRAME_PERIOD="1";
+      U_PACING_APP_IMMEDIATE_WAIT_FRAME_RETURN="1";
+      XRT_COMPOSITOR_FORCE_WAYLAND_DIRECT = "1";
     };
+    highPriority = true;
     package = pkgs.wivrn;
     defaultRuntime = true;
     config = {
@@ -45,7 +59,8 @@ in {
       };
     };
   };
-
+  services.lact.enable = true;
+  
   # SlimeVR ports
   networking.firewall = let
     slimevr = {
@@ -68,6 +83,7 @@ in {
     monado-vulkan-layers
     bs-manager
     vrcx
+    lact
     appimage-run
     (unityhub.override {
       extraLibs = unityhubPkgs: [

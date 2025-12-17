@@ -82,6 +82,7 @@
       functor = {
         enable = true;
         external = with inputs; [
+          hyprland.nixosModules.default
           simple-nixos-mailserver.nixosModules.default
           nix-index-database.nixosModules.nix-index
           home-manager.nixosModules.home-manager
@@ -115,6 +116,7 @@
         enable = true;
         external = with inputs;
           [
+            hyprland.homeManagerModules.default
             nix-doom-emacs-unstraightened.hmModule
             nix-index-database.homeModules.nix-index
             sops-nix.homeManagerModules.sops
