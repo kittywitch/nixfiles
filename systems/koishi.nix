@@ -78,7 +78,7 @@ _: let
           #   };
           # };
         };
-        wayland.windowManager.hyprland.settings.monitors = [
+        wayland.windowManager.hyprland.settings.monitor = [
           "eDP-1, 2256x1504, 0x0, 1"
         ];
         imports =
