@@ -60,7 +60,8 @@ _: let
         secureboot
       ])
       ++ (with tree.nixos.environments; [
-        niri
+        #niri
+        hyprland
       ]);
     config = {
       home-manager.users.kat = {
@@ -71,18 +72,20 @@ _: let
               "rating:s"
             ];
           };
-          niri.settings = {
-            outputs = {
-              "eDP-1".scale = 1.00;
-            };
-          };
+          # niri.settings = {
+          #   outputs = {
+          #     "eDP-1".scale = 1.00;
+          #   };
+          # };
         };
         imports =
           (with tree.home.profiles; [
             graphical
+            tiling
           ])
           ++ (with tree.home.environments; [
-            niri
+            #niri
+            hyprland
           ]);
       };
 
