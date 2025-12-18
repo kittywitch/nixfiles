@@ -58,7 +58,7 @@
         "$mod ALT, ,resizeactive,"
         "$mod, Escape, exec, ${noctalia} sessionMenu toggle"
         "$mod SHIFT, Escape, exec, ${noctalia} controlCenter toggle"
-        "$mod, L, exec, ${uwsmSingleApp "${noctalia} lockScreen toggle"}"
+        "$mod, L, exec, ${noctalia} lockScreen lock"
         "$mod, d, hy3:makegroup, h"
         "$mod, s, hy3:makegroup, v"
         "$mod, z, hy3:makegroup, tab"

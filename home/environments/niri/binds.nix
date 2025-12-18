@@ -44,7 +44,7 @@ in {
       "Mod+Escape".action = sh ''${noctalia} controlCenter toggle'';
       "Mod+Shift+Escape".action = sh ''${noctalia} sessionMenu toggle'';
       #"Mod+Shift+Escape".action = sh ''${getExe config.programs.swaylock.package} -f'';
-      "Mod+L".action = sh ''${noctalia} lockScreen toggle'';
+      "Mod+L".action = sh ''${noctalia} lockScreen lock'';
       #"Mod+Tab" = {
       #  #repeat = false;
       #  cooldown-ms = 150;

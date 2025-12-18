@@ -12,7 +12,7 @@ in {
     timeouts = [
       {
         timeout = 600;
-        command = "${noctalia} lockScreen toggle";
+        command = "${noctalia} lockScreen lock";
       }
       {
         timeout = 1200;
@@ -22,7 +22,7 @@ in {
     events = [
       {
         event = "before-sleep";
-        command = "${noctalia} lockScreen toggle";
+        command = "${noctalia} lockScreen lock";
       }
     ];
   };
