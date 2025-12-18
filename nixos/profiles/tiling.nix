@@ -5,6 +5,7 @@
 }: let
   inherit (lib.modules) mkForce;
 in {
+  services.noctalia-shell.enable = true;
   programs.regreet = {
     enable = true;
     theme = mkForce config.home-manager.users.kat.gtk.theme;

@@ -6,7 +6,7 @@
     enable = true;
     stateVersion = 3;
     fqdn = "rinnosuke.inskip.me";
-    domains = ["dork.dev"];
+    domains = ["dork.dev" "kittywit.ch" "inskip.me"];
 
     fullTextSearch.enable = true;
 
@@ -17,9 +17,13 @@
         hashedPasswordFile = config.sops.secrets.kat-password.path;
         aliases = [
           "@dork.dev"
+          "@inskip.me"
+          "@kittywit.ch"
         ];
         catchAll = [
           "dork.dev"
+          "inskip.me"
+          "kittywit.ch"
         ];
       };
     };

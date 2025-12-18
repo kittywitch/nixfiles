@@ -117,6 +117,10 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
       #inputs.nixpkgs.follows = "chaotic/nixpkgs";
     };
+    nixpkgs-unfree = {
+      url = "github:numtide/nixpkgs-unfree";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     qml-niri = {
       url = "github:juuyokka/qml-niri/feat-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";

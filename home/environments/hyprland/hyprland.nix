@@ -44,8 +44,11 @@ in {
         "CLUTTER_BACKEND,wayland"
       ];
       render = {
-        direct_scanout = true;
-        new_render_scheduling = true;
+        #direct_scanout = true;
+        #new_render_scheduling = true;
+      };
+      misc = {
+        vfr = true;
       };
       #debug.disable_logs = false;
       exec-once = [

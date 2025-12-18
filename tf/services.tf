@@ -107,6 +107,26 @@ resource "cloudflare_record" "dork_mail_mx" {
   zone_id  = local.zone_ids.dork
 }
 
+resource "cloudflare_record" "inskip_mail_mx" {
+  name     = "@"
+  proxied  = false
+  ttl      = 3600
+  type     = "MX"
+  priority = 10
+  value    = "rinnosuke.inskip.me"
+  zone_id  = local.zone_ids.inskip
+}
+
+resource "cloudflare_record" "kittywitch_mail_mx" {
+  name     = "@"
+  proxied  = false
+  ttl      = 3600
+  type     = "MX"
+  priority = 10
+  value    = "rinnosuke.inskip.me"
+  zone_id  = local.zone_ids.kittywitch
+}
+
 resource "cloudflare_record" "dork_mail_spf" {
   name    = "@"
   proxied = false
@@ -114,6 +134,24 @@ resource "cloudflare_record" "dork_mail_spf" {
   type    = "TXT"
   value   = "v=spf1 a:rinnosuke.inskip.me -all"
   zone_id = local.zone_ids.dork
+}
+
+resource "cloudflare_record" "inskip_mail_spf" {
+  name    = "@"
+  proxied = false
+  ttl     = 10800
+  type    = "TXT"
+  value   = "v=spf1 a:rinnosuke.inskip.me -all"
+  zone_id = local.zone_ids.inskip
+}
+
+resource "cloudflare_record" "kittywitch_mail_spf" {
+  name    = "@"
+  proxied = false
+  ttl     = 10800
+  type    = "TXT"
+  value   = "v=spf1 a:rinnosuke.inskip.me -all"
+  zone_id = local.zone_ids.kittywitch
 }
 
 resource "cloudflare_record" "dork_mail_dkim" {
@@ -125,6 +163,25 @@ resource "cloudflare_record" "dork_mail_dkim" {
   zone_id = local.zone_ids.dork
 }
 
+resource "cloudflare_record" "inskip_mail_dkim" {
+  name    = "mail._domainkey"
+  proxied = false
+  ttl     = 10800
+  type    = "TXT"
+  value   = "v=DKIM1; k=rsa; s=email; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAn266Z2suvJyv+vISWfjajWwIdImqHjZPOJCIZ/uJ8gStp8e8X8LMnRbzG4XVmTpx5IxnACcIZz2XVzxZspub6VZsbpDbcpApSk700UpPE1zag5QCA1zKs/smOFAtN3EIcwvbQ48HrKKlQSZdV7qHsS1BPrlK1hjwi1D6JlILCg9COQR8Sscxkjvg7pNP6Q1RVK7dtbzlQnqHikHjdXUTlaf5+EVPvdP4c4Of4YI1KaJMZDcs7LpQuvGNsZmEfybA066TWIaHq+F5WSmSsUhPlTnAygGBRFic0efWn9Ij/GVwI6yDq96IWjeT9L2C7+tkfj/NAmgFoITgpAiq/2l/OwIDAQAB"
+  zone_id = local.zone_ids.dork
+}
+
+resource "cloudflare_record" "kittywitch_mail_dkim" {
+  name    = "mail._domainkey"
+  proxied = false
+  ttl     = 10800
+  type    = "TXT"
+  value   = "v=DKIM1; k=rsa; s=email; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApzVUOBiZic/cB3WYOADAgEu//H9dG6VNz8kzgopoKhAZ6AhM8o4nW5kAoFxjJP1c21ugghoYtlJJHaHqQg93nuaW8f48jsjQErMa12hMo8xeFviSBkv7G9gasviborHZIxJVHIIwSga+YZfjNmdCQHH4ABud95utZJc8AmCSJj/kE0NozmXL8HLaMLg9cFMMYB8Pv+GDsDaXCD4H0qJANqCQos/NCynmRkQHYEW7C4lm9FNJUB3wpPuTY4/i6QZcd5Ex4bPYcc9FO4km/rqSbmsZDfN2P+iofpXGIxtCm4iOJlBMjPDIhV/8jAK5t1wIWRq1+3F2DkppGL2F4DkwfQIDAQAB"
+  zone_id = local.zone_ids.dork
+}
+
+
 resource "cloudflare_record" "dork_mail_dmarc" {
   name    = "_dmarc"
   proxied = false
@@ -133,6 +190,25 @@ resource "cloudflare_record" "dork_mail_dmarc" {
   value   = "v=DMARC1; p=none"
   zone_id = local.zone_ids.dork
 }
+
+resource "cloudflare_record" "inskip_mail_dmarc" {
+  name    = "_dmarc"
+  proxied = false
+  ttl     = 10800
+  type    = "TXT"
+  value   = "v=DMARC1; p=none"
+  zone_id = local.zone_ids.inskip
+}
+
+resource "cloudflare_record" "kittywitch_mail_dmarc" {
+  name    = "_dmarc"
+  proxied = false
+  ttl     = 10800
+  type    = "TXT"
+  value   = "v=DMARC1; p=none"
+  zone_id = local.zone_ids.kittywitch
+}
+
 
 resource "cloudflare_record" "dork_mail_submission_autodiscover" {
   name    = "_submission._tcp"

@@ -125,8 +125,9 @@
           in [
             "$mod, ${ws}, workspace, ${toString (x + 1)}"
             "$mod SHIFT, ${ws}, hy3:movetoworkspace, ${toString (x + 1)}"
-            "$mod, F${ws}, workspace, ${toString (x + 11)}"
-            "$mod SHIFT, F${ws}, hy3:movetoworkspace, ${toString (x + 11)}"
+            # using F keys was confusing, as was using mod+alt, so now we use Alt instead of Super
+            "ALT, ${ws}, workspace, ${toString (x + 11)}"
+            "ALT SHIFT, F${ws}, hy3:movetoworkspace, ${toString (x + 11)}"
           ]
         )
           10)

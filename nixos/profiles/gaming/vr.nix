@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  inputs,
   ...
 }: let
   inherit (lib.lists) singleton;
@@ -33,8 +34,8 @@ in {
       U_PACING_APP_IMMEDIATE_WAIT_FRAME_RETURN="1";
       XRT_COMPOSITOR_FORCE_WAYLAND_DIRECT = "1";
     };
+    package = pkgs.wivrn.override { cudaSupport = true; };
     highPriority = true;
-    package = pkgs.wivrn;
     defaultRuntime = true;
     config = {
       enable = true;
@@ -59,7 +60,6 @@ in {
       };
     };
   };
-  services.lact.enable = true;
   
   # SlimeVR ports
   networking.firewall = let
@@ -83,7 +83,6 @@ in {
     monado-vulkan-layers
     bs-manager
     vrcx
-    lact
     appimage-run
     (unityhub.override {
       extraLibs = unityhubPkgs: [

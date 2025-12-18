@@ -32,9 +32,6 @@
         hash = "sha256-8UWf1RKsRNWJ8CC6ceDeIOv4eY3ybxZ9tv5MCHx80NY=";
       };
     };
-    wivrn = prev.wivrn.overrideAttrs (old: {
-      cudaSupport = true;
-    });
   })
   inputs.rbw-bitw.overlays.default
   #inputs.arcexprs.overlays.default
@@ -45,4 +42,9 @@
   inputs.niri.overlays.niri
   inputs.proton-cachyos.overlays.default
   (import tree.packages.default {inherit inputs tree;})
+  (_final: prev: {
+    wivrn = prev.wivrn.overrideAttrs (old: {
+      cudaSupport = true;
+    });
+  })
 ]

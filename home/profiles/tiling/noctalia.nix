@@ -29,6 +29,8 @@ in {
             {
               id = "Workspace";
               labelMode = "label";
+              hideUnoccupied = false;
+              showLabelsOnlyWhenOccupied = false;
               #characterCount = 10;
             }
             {
@@ -37,15 +39,10 @@ in {
             }
           ];
           center = [
-          ];
-          right = [
-            {
-              id = "Tray";
-            }
             {
               id = "MediaMini";
               showAlbumArt = true;
-              showVisualizer = true;
+              showVisualizer = false;
               scrollingMode = "always";
               autoHide = true;
               # check if this works,
@@ -53,16 +50,8 @@ in {
               widgetWidth = 300;
             }
             {
-              id = "NotificationHistory";
-            }
-            {
-              id = "Battery";
-            }
-            {
-              id = "Volume";
-            }
-            {
-              id = "Brightness";
+              id = "Clock";
+              formatHorizontal = "yyyy-MM-dd HH:mm t";
             }
             {
               id = "NightLight";
@@ -76,9 +65,22 @@ in {
             {
               id = "ScreenRecorder";
             }
+          ];
+          right = [
             {
-              id = "Clock";
-              formatHorizontal = "yyyy-MM-dd HH:mm t";
+              id = "Tray";
+            }
+            {
+              id = "NotificationHistory";
+            }
+            {
+              id = "Battery";
+            }
+            {
+              id = "Volume";
+            }
+            {
+              id = "Brightness";
             }
             {
               id = "ControlCenter";

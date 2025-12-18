@@ -58,6 +58,7 @@ _: let
         laptop
         performance
         secureboot
+        tiling
       ])
       ++ (with tree.nixos.environments; [
         #niri

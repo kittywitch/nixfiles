@@ -4,6 +4,7 @@ _: let
     lib,
     pkgs,
     tree,
+    std,
     inputs,
     ...
   }: let
@@ -52,10 +53,11 @@ _: let
         gaming
         performance
         dev
+        tiling
       ])
       ++ (with tree.nixos.environments; [
         hyprland
-          #niri
+        niri
       ])
       ++ (with tree.nixos.servers; [
         forgejo-runner
@@ -129,44 +131,56 @@ _: let
         #     return-type = "";
         #   };
         # };
-        # niri.settings = {
-        #   outputs = {
-        #     "LG Electronics LG Ultra HD 0x0001AC91" = {
-        #       scale = 1.0;
-        #       position = {
-        #         x = 1920;
-        #         y = 0;
-        #       };
-        #       mode = {
-        #         width = 2560;
-        #         height = 1440;
-        #         refresh = 59.951;
-        #       };
-        #     };
-        #     "Samsung Electric Company SAMSUNG Unknown" = {
-        #       position = {
-        #         x = 0;
-        #         y = 0;
-        #       };
-        #     };
-        #     "PNP(XXX) Beyond TV 0x00010000" = {
-        #       mode = {
-        #         width = 2560;
-        #         height = 1440;
-        #         refresh = 119.998;
-        #       };
-        #     };
-        #   };
-        #   environment = {
-        #     NVD_BACKEND = "direct";
-        #     ELECTRON_OZONE_PLATFORM_HINT = "auto";
-        #     LIBVA_DRIVER_NAME = "nvidia";
-        #     NIXOS_OZONE_WL = "1";
-        #     QT_QTA_PLATFORM = "wayland;xcb";
-        #   };
-        # };
+         niri.settings = {
+           outputs = {
+             "LG Electronics LG Ultra HD 0x0001AC91" = {
+               scale = 1.0;
+               position = {
+                 x = 1920;
+                 y = 0;
+               };
+               mode = {
+                 width = 2560;
+                 height = 1440;
+                 refresh = 59.951;
+               };
+             };
+             "Samsung Electric Company SAMSUNG Unknown" = {
+               position = {
+                 x = 0;
+                 y = 0;
+               };
+             };
+             "PNP(XXX) Beyond TV 0x00010000" = {
+               mode = {
+                 width = 2560;
+                 height = 1440;
+                 refresh = 119.998;
+               };
+             };
+           };
+           environment = {
+             NVD_BACKEND = "direct";
+             ELECTRON_OZONE_PLATFORM_HINT = "auto";
+             LIBVA_DRIVER_NAME = "nvidia";
+             NIXOS_OZONE_WL = "1";
+             QT_QTA_PLATFORM = "wayland;xcb";
+           };
+         };
       };
       wayland.windowManager.hyprland.settings = {
+        wayland.windowManager.hyprland.settings.workspace = let
+              inherit (std) list;
+              commonOptions = "gapsin:5,gapsout:5,rounding:true,persistent:true";
+            in lib.mkForce (
+              ["1,monitor:DP-2,default:true,${commonOptions}"]
+              ++ (list.map (
+                workspace: "${toString workspace},monitor:DP-2,${commonOptions}"
+              ) (list.range 2 10))
+              ++ ["11,monitor:HDMI-A-1,default:true,${commonOptions}"]
+              ++ (list.map (
+                workspace: "${toString workspace},monitor:HDMI-A-1,${commonOptions}"
+              ) (list.range 12 20)));
         monitor = [
             "HDMI-A-1, 1920x1080, 0x0, 1"
             "DP-2, 2560x1440, auto-right, 1"
@@ -177,7 +191,6 @@ _: let
           "LIBVA_DRIVER_NAME,nvidia"
           "__GLX_VENDOR_LIBRARY_NAME,nvidia"
           "NIXOS_OZONE_WL,1"
-          "__NV_DISABLE_EXPLICIT_SYNC,1"
           "QT_QPA_PLATFORM,wayland;xcb"
         ];
       };
@@ -188,7 +201,7 @@ _: let
         ])
         ++ (with tree.home.environments; [
           hyprland
-            #niri
+          niri
         ]);
       };
 

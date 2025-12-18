@@ -7,6 +7,7 @@ locals {
 }
 
 module "inskip-gmail" {
+  enable             = false
   source             = "./gmail_dns"
   cloudflare_api_key = var.cloudflare_api_key
   zone_id            = local.zone_ids.inskip
@@ -22,6 +23,7 @@ module "dork-gmail" {
   dkim               = local.dkims.dork
 }
 module "kittywitch-gmail" {
+  enable             = false
   source             = "./gmail_dns"
   cloudflare_api_key = var.cloudflare_api_key
   zone_id            = local.zone_ids.kittywitch

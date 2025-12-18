@@ -91,7 +91,7 @@
           infrastructure.nixosModules.default
           lanzaboote.nixosModules.lanzaboote
           solaar.nixosModules.default
-          nixpkgs-xr.nixosModules.nixpkgs-xr
+          #nixpkgs-xr.nixosModules.nixpkgs-xr
           spicetify-nix.nixosModules.spicetify
           clipboard-sync.nixosModules.default
           nixos-cli.nixosModules.nixos-cli
