@@ -5,6 +5,10 @@
 }: let
   inherit (lib.modules) mkForce;
 in {
+  security.pam.loginLimits = [
+    { domain = "*"; type = "soft"; item = "nofile"; value = "65536"; }
+    { domain = "*"; type = "hard"; item = "nofile"; value = "1048576"; }
+  ];
   services.noctalia-shell.enable = true;
   programs.regreet = {
     enable = true;

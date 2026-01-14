@@ -5,7 +5,7 @@
     "${getExe pkgs.swww} init"
     "${getExe' pkgs.dbus "dbus-update-activation-environment"} --all"
     (getExe' pkgs.networkmanagerapplet "nm-applet")
-    (getExe pkgs.udiskie)
+    (getExe' pkgs.udiskie "udiskie")
     "${getExe' pkgs.systemd "systemctl"} restart konawall-py --user"
   ];
 }

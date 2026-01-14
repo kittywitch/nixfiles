@@ -19,7 +19,7 @@ in {
     createDesktopItems = true;
     inherit gameStorage;
     runnerVariants = {
-      PROTON_CACHYOS = "${pkgs.proton-cachyos-x86_64_v3}/bin";
+      PROTON_CACHYOS = "${pkgs.proton-cachyos-x86_64_v3}/share/steam/compatibilitytools.d/*/*/";
       PROTON_GE = "${pkgs.proton-ge-bin}/bin";
       PROTON_EXPERIMENTAL = "/games/Steam Library/steamapps/common/Proton - Experimental";
       PROTON_HOTFIX = "/games/Steam Library/steamapps/common/Proton Hotfix/";
@@ -200,7 +200,7 @@ in {
       gw2 = mkMerge [
         protonCommon
         rec {
-          variant = mkForce "PROTON_CACHYOS";
+          variant = mkForce "PROTON_VRC";
           long_name = "Guild Wars 2";
           prefixFolder = gameStorage + "/guild-wars-2";
           gameFolder = prefixFolder + "/drive_c/Program Files/Guild Wars 2";

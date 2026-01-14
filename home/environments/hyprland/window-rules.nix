@@ -14,7 +14,7 @@ _: {
       "unset, title:Wine System Tray"
       "workspace special:hidden silent, title:Wine System Tray"
       "noinitialfocus, title:Wine System Tray"
-
+      "no_follow_mouse, class:Unity"
     ];
   };
 }

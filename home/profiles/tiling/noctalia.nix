@@ -7,9 +7,11 @@
 }: let
   inherit (lib.meta) getExe;
 in {
-  home.packages = [
-    pkgs.quickshell
+  home.packages = with pkgs; [
+    quickshell
     inputs.qml-niri.packages.${pkgs.system}.default
+    cliphist
+    networkmanager
   ];
   programs.noctalia-shell = {
     enable = true;

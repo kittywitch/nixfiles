@@ -27,10 +27,7 @@
         ];
       };
     };
-
-    # Use Let's Encrypt certificates. Note that this needs to set up a stripped
-    # down nginx and opens port 80.
-    certificateScheme = "acme-nginx";
+    x509.useACMEHost = "rinnosuke.inskip.me";
   };
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "security@inskip.me";
@@ -48,6 +45,7 @@
     '';
   };
 
+  
   services.nginx.enable = true;
 
   networking.firewall.allowedTCPPorts = [80 443];

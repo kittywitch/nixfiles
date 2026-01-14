@@ -1,13 +1,28 @@
 {
   pkgs,
   lib,
+  std,
   ...
 }: let
   inherit (lib.attrsets) genAttrs;
+  inherit (std) set;
 in {
-  xdg.mimeApps.defaultApplications = let
+  xdg.mimeApps = {
+    enable = true;
+    # https://www.iana.org/assignments/media-types/media-types.xhtml
+    defaultApplications = let
     genDefault = application: types: genAttrs types (_: application);
-    imageTypes = map (x: "image/${x}") [
+    mimePrefix = prefix: map (x: "${prefix}/${x}");
+    archiveTypes = mimePrefix "application" [
+      "x-bzip"
+      "x-bzip2"
+      "gzip"
+      "x-gzip"
+      "x-zip"
+      "x-tar"
+      "x-7z-compressed"
+    ];
+    imageTypes = mimePrefix "image" [
       "apng"
       "avif"
       "bmp"
@@ -19,7 +34,7 @@ in {
       "svg+xml"
       "webp"
     ];
-    videoTypes = map (x: "video/${x}") [
+    videoTypes = mimePrefix "video" [
       "AV1"
       "H264"
       "H265"
@@ -31,18 +46,32 @@ in {
       "VP8"
       "VP9"
     ];
+    archiveDefaults = genDefault "ark.desktop" archiveTypes;
     imageDefaults = genDefault "imv.desktop" imageTypes;
     videoDefaults = genDefault "mpv.desktop" videoTypes;
-    combinedDefaults = imageDefaults // videoDefaults;
+    combinedDefaults = set.merge [
+        archiveDefaults
+        imageDefaults
+        videoDefaults
+        {
+          "inode/directory" = "dolphin.desktop";
+        }
+    ];
   in
     combinedDefaults;
+  };
   home.packages = with pkgs; [
     anki
+
+    # File management
+    kdePackages.dolphin
 
     # Imagery
     aseprite
     imv
     gimp
+    blender
+    krita
 
     # Chat
     telegram-desktop # Telegram
@@ -52,10 +81,11 @@ in {
     mumble
 
     # Archivery
-    xarchiver
+    kdePackages.ark
     unzip
     zip
     p7zip
+    rar
 
     # Misc
     exiftool # EXIF Stripping

@@ -1,16 +1,36 @@
 {
   pkgs,
+  inputs,
   lib,
   ...
 }: let
   inherit (lib.attrsets) mapAttrsToList;
+  inherit (lib.meta) getExe';
+  wssrc = inputs.mpv-websocket.outPath;
+  wspkg = inputs.mpv-websocket.packages.${pkgs.system}.default;
 in {
+  xdg.configFile."mpv/mpv_websocket".source = getExe' wspkg "mpv_websocket";
+  xdg.configFile."mpv/input.conf".source = "${wssrc}/mpv/input.conf";
   programs.mpv = {
     enable = true;
     scripts = with pkgs.mpvScripts; [
       sponsorblock
       mpris
       uosc
+      thumbfast
+      (pkgs.stdenvNoCC.mkDerivation rec {
+        pname = "run_websocket_server";
+        inherit (wspkg) version;
+        src = wssrc;
+        dontBuild = true;
+        dontUnpack = true;
+
+        installPhase = ''
+          install -Dm644 ${src}/mpv/scripts/run_websocket_server.lua $out/share/mpv/scripts/run_websocket_server.lua
+      '';
+
+        passthru.scriptName = "run_websocket_server.lua";
+      })
     ];
     config = {
       profile = "gpu-hq";
@@ -18,6 +38,8 @@ in {
       vo = "gpu";
       volume-max = 200;
       opengl-waitvsync = true;
+      # https://github.com/kuroahna/mpv_websocket/blob/master/mpv/mpv.conf
+      input-ipc-server = "/tmp/mpv-socket";
       script-opts =
         builtins.concatStringsSep ","
         (mapAttrsToList (k: v: "${k}=${builtins.toString v}") {

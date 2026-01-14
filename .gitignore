@@ -12,3 +12,6 @@ data/
 __pycache__/
 tf/terraform.tfvars
 tf/terraform.tfstate.backup
+.clj-kondo/
+.clj-kondo/
+.lsp/

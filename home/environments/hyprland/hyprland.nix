@@ -15,7 +15,6 @@ in {
     brightnessctl
     playerctl
     glib
-    pcmanfm
   ];
   services = {
     swww.enable = true;

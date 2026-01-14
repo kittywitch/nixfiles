@@ -8,7 +8,7 @@
   noctalia = "${getExe parent.services.noctalia-shell.package} ipc call";
 in {
   services.swayidle = {
-    enable = true;
+    enable = false;
     timeouts = [
       {
         timeout = 600;

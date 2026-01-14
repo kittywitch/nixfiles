@@ -53,6 +53,7 @@
         "$mod SHIFT, F, fullscreenstate, -1 2" # do inform
         "$mod, T, togglefloating,"
         "$mod, tab, hy3:togglefocuslayer"
+        "$mod, b, exec, ${getExe' config.services.emacs.package "emacsclient"} -c -n -e '(switch-to-buffer nil)'"
         "$mod SHIFT, T, togglesplit,"
         "$mod SHIFT, X, pseudo,"
         "$mod ALT, ,resizeactive,"

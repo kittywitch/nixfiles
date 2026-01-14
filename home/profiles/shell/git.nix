@@ -1,8 +1,12 @@
 {
+  config,
   pkgs,
+  lib,
   tree,
   ...
-}: {
+}: let
+  inherit (lib.meta) getExe';
+in {
   home.packages = with pkgs; [
     git-remote-gcrypt
     git-crypt
@@ -30,7 +34,9 @@
       inherit (tree.home.user.data) userName userEmail;
       package = pkgs.gitFull;
       enable = true;
-      extraConfig = {
+      settings = {
+        core = {
+        };
         init = {defaultBranch = "main";};
         protocol.gcrypt.allow = "always";
         merge.conflictstyle = "diff3";

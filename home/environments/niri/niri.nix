@@ -15,10 +15,8 @@ in {
     grim
     pavucontrol
     brightnessctl
-    nautilus
     playerctl
     glib
-    pcmanfm
   ];
   stylix.targets.niri.enable = true;
   programs.niri = {

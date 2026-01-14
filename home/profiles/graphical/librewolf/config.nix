@@ -1,6 +1,11 @@
 _: {
   programs.librewolf.profiles.main.settings = {
     "browser.tabs.allow_transparent_browser" = true;
+    "widget.use-xdg-desktop-portal.file-picker" = 1;
+    "widget.use-xdg-desktop-portal.location" = 1;
+    "widget.use-xdg-desktop-portal.mime-handler" = 1;
+    "widget.use-xdg-desktop-portal.open-uri" = 1;
+    "widget.use-xdg-desktop-portal.settings" = 1;
 
     "zen.welcome-screen.seen" = true;
     "zen.watermark.enabled" = false;

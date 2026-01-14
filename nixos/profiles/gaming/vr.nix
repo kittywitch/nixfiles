@@ -9,6 +9,9 @@
 in {
   systemd.user.services.wlx-overlay-s = {
     description = "wlx-overlay-s";
+    path = [
+      pkgs.wayvr-dashboard
+    ];
     serviceConfig = {
       Type = "simple";
       ExecStart = getExe' pkgs.wlx-overlay-s "wlx-overlay-s";
@@ -80,10 +83,11 @@ in {
 
   environment.systemPackages = with pkgs; [
     wlx-overlay-s
+    wayvr-dashboard
     monado-vulkan-layers
     bs-manager
     vrcx
-    appimage-run
+    alcom
     (unityhub.override {
       extraLibs = unityhubPkgs: [
         (unityhubPkgs.runCommand "libxml2-fake-old-abi" {} ''

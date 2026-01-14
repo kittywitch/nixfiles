@@ -77,6 +77,8 @@ in {
           #tree-sitter-bash
           tree-sitter-css
           tree-sitter-dockerfile
+          tree-sitter-fennel
+          tree-sitter-clojure
           tree-sitter-go
           tree-sitter-hcl
           tree-sitter-html

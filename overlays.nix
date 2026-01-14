@@ -37,13 +37,31 @@
   #inputs.arcexprs.overlays.default
   inputs.nix-gaming.overlays.default
   inputs.darwin.overlays.default
+  inputs.nixpkgs-xr.overlays.default
   inputs.deploy-rs.overlays.default
   inputs.neorg-overlay.overlays.default
   inputs.niri.overlays.niri
+  inputs.dolphin-overlay.overlays.default
   inputs.proton-cachyos.overlays.default
   (import tree.packages.default {inherit inputs tree;})
   (_final: prev: {
-    wivrn = prev.wivrn.overrideAttrs (old: {
+    alcom = prev.stdenv.mkDerivation {
+      inherit (prev.alcom) pname version passthru;
+      src = prev.alcom;
+      nativeBuildInputs = [
+        prev.makeWrapper
+      ];
+      installPhase = ''
+        mkdir -p $out/
+        cp -r ./* $out/
+        wrapProgram $out/bin/ALCOM \
+          --set WEBKIT_DISABLE_COMPOSITING_MODE 1
+      '';
+    };
+    obs-studio = prev.obs-studio.override (old: {
+      cudaSupport = true;
+    });
+    wivrn = prev.wivrn.override (old: {
       cudaSupport = true;
     });
   })

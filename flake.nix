@@ -144,6 +144,26 @@
       url = "github:powerofthe69/proton-cachyos-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mpv-websocket = {
+      url = "github:kuroahna/mpv_websocket";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        rust-overlay.follows = "rust-overlay";
+      };
+    };
+    continuwuity = {
+      url = "github:continuwuity/continuwuity/main";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+    dolphin-overlay = {
+      url = "github:rumboon/dolphin-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     infrastructure = {
       url = "github:gensokyo-zone/infrastructure/main";
       inputs = {

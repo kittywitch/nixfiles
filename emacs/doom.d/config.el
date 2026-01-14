@@ -74,3 +74,6 @@
 
         :desc "Forward"
         "C-c <right>" #'paredit-forward))
+
+(frames-only-mode)
+(frames-only-mode-remap-common-window-split-keybindings)

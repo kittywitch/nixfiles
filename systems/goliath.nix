@@ -57,7 +57,7 @@ _: let
       ])
       ++ (with tree.nixos.environments; [
         hyprland
-        niri
+          #niri
       ])
       ++ (with tree.nixos.servers; [
         forgejo-runner
@@ -131,42 +131,42 @@ _: let
         #     return-type = "";
         #   };
         # };
-         niri.settings = {
-           outputs = {
-             "LG Electronics LG Ultra HD 0x0001AC91" = {
-               scale = 1.0;
-               position = {
-                 x = 1920;
-                 y = 0;
-               };
-               mode = {
-                 width = 2560;
-                 height = 1440;
-                 refresh = 59.951;
-               };
-             };
-             "Samsung Electric Company SAMSUNG Unknown" = {
-               position = {
-                 x = 0;
-                 y = 0;
-               };
-             };
-             "PNP(XXX) Beyond TV 0x00010000" = {
-               mode = {
-                 width = 2560;
-                 height = 1440;
-                 refresh = 119.998;
-               };
-             };
-           };
-           environment = {
-             NVD_BACKEND = "direct";
-             ELECTRON_OZONE_PLATFORM_HINT = "auto";
-             LIBVA_DRIVER_NAME = "nvidia";
-             NIXOS_OZONE_WL = "1";
-             QT_QTA_PLATFORM = "wayland;xcb";
-           };
-         };
+         # niri.settings = {
+         #   outputs = {
+         #     "LG Electronics LG Ultra HD 0x0001AC91" = {
+         #       scale = 1.0;
+         #       position = {
+         #         x = 1920;
+         #         y = 0;
+         #       };
+         #       mode = {
+         #         width = 2560;
+         #         height = 1440;
+         #         refresh = 59.951;
+         #       };
+         #     };
+         #     "Samsung Electric Company SAMSUNG Unknown" = {
+         #       position = {
+         #         x = 0;
+         #         y = 0;
+         #       };
+         #     };
+         #     "PNP(XXX) Beyond TV 0x00010000" = {
+         #       mode = {
+         #         width = 2560;
+         #         height = 1440;
+         #         refresh = 119.998;
+         #       };
+         #     };
+         #   };
+         #   environment = {
+         #     NVD_BACKEND = "direct";
+         #     ELECTRON_OZONE_PLATFORM_HINT = "auto";
+         #     LIBVA_DRIVER_NAME = "nvidia";
+         #     NIXOS_OZONE_WL = "1";
+         #     QT_QTA_PLATFORM = "wayland;xcb";
+         #   };
+         # };
       };
       wayland.windowManager.hyprland.settings = {
         wayland.windowManager.hyprland.settings.workspace = let
@@ -201,7 +201,7 @@ _: let
         ])
         ++ (with tree.home.environments; [
           hyprland
-          niri
+            #niri
         ]);
       };
 
@@ -226,12 +226,26 @@ _: let
         availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
       };
       kernelModules = ["nct6775" "kvm-amd" "k10temp"];
-      supportedFilesystems = ["ntfs" "zfs"];
+      supportedFilesystems = ["ntfs" "zfs" "exfat"];
     };
 
     fileSystems =
       datasetEntries
       // {
+        # "/mnt/katstore" = {
+        #   device = "/dev/disk/by-uuid/659A-0735";
+        #   fsType = "exfat";
+        #   options = [
+        #     "users"
+        #     "allow_other"
+        #     "nofail"
+        #     "exec"
+        #       "x-systemd.automount"
+        #       "x-systemd.idle-timeout=5m"
+        #       "x-systemd.device-timeout=1s"
+        #       "x-systemd.mount-timeout=1s"
+        #   ];
+        # };
         "/boot" = drives.boot.result;
       };
 
