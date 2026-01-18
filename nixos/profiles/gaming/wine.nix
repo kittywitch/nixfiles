@@ -167,35 +167,32 @@ in {
       };
 
       #
-      # VRChat utilities
-      #
-
-      vrosc = mkMerge [
-        protonCommon
-        rec {
-          long_name = "VR OSC";
-          prefixFolder = gameStorage + "/Steam Library/steamapps/compatdata/438100";
-          gameFolder = gameStorage + "/Steam Library/steamapps/common/VRChat";
-          gameExecutable = gameFolder + "/VROSCSetup.exe";
-        }
-      ];
-
-      #
       # Guild Warses
       #
 
       gw1 = mkMerge [
         protonCommon
         #wineCommon
-        rec {
+        (let
+          prefixFolder = gameStorage + "/guild-wars";
+          gameFolder' = prefixFolder + "/drive_c/Program Files/Guild Wars";
+        in rec {
+          enableGamemode = lib.mkForce false;
           #variant = mkForce "PROTON_CACHYOS";
           #variant = mkForce "PROTON_GE";
+          variant = mkForce "PROTON_VRC";
           long_name = "Guild Wars 1";
-          prefixFolder = gameStorage + "/guild-wars";
-          gameFolder = prefixFolder + "/drive_c/Program Files/Guild Wars";
-          gameExecutable = gameFolder + "/Gw.exe";
+          inherit prefixFolder;
+          gameFolder = prefixFolder;
+          #gameExecutable = gameFolder + "/Gw.exe";
+          gameExecutable = "./drive_c/cmd.exe";
+          gameArguments = [
+            "/k"
+            "C:/script.bat"
+            gameFolder'
+          ];
           environments = ["vkbasalt"];
-        }
+        })
       ];
       gw2 = mkMerge [
         protonCommon
@@ -404,6 +401,8 @@ in {
     // {
       "Games/battlenet/drive_c/script.bat".source = ./bnet_script.bat;
       "Games/battlenet/drive_c/cmd.exe".source = ./reactos_cmd.exe;
+      "Games/guild-wars/drive_c/script.bat".source = ./Gw.bat;
+      "Games/guild-wars/drive_c/cmd.exe".source = ./reactos_cmd.exe;
       # https://learnjapanese.moe/vn-linux/
       "Games/VNs/drive_c/script.bat".source = ./vn_script.bat;
       "Games/VNs/drive_c/cmd.exe".source = ./reactos_cmd.exe;
