@@ -42,16 +42,6 @@ in {
           ];
           center = [
             {
-              id = "MediaMini";
-              showAlbumArt = true;
-              showVisualizer = false;
-              scrollingMode = "always";
-              autoHide = true;
-              # check if this works,
-              # if not, rewrite their system for it o.o
-              widgetWidth = 300;
-            }
-            {
               id = "Clock";
               formatHorizontal = "yyyy-MM-dd HH:mm t";
             }
