@@ -35,7 +35,7 @@ in {
     };
     */
     dns = {
-      enable = mkDefault true;
+      enable = mkDefault false;
     };
     monitoring = {
       enable = mkIf config.gensokyo-zone.access.local.enable (mkDefault true);

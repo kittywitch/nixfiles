@@ -2,7 +2,6 @@
   environment.systemPackages = with pkgs; [
     gsettings-desktop-schemas
   ];
-  programs.adb.enable = true;
   users.users.kat.extraGroups = ["adbusers"];
   services.udev.extraRules = ''
     SUBSYSTEM=="usb",ATTR{idVendor}=="2833",ATTR{idProduct}=="0186",MODE="0660",GROUP="adbusers",TAG+="uaccess",SYMLINK+="android",SYMLINK+="android%n"

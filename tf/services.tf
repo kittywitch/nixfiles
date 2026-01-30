@@ -127,6 +127,16 @@ resource "cloudflare_record" "kittywitch_mail_mx" {
   zone_id  = local.zone_ids.kittywitch
 }
 
+resource "cloudflare_record" "katslime_mail_mx" {
+  name     = "@"
+  proxied  = false
+  ttl      = 3600
+  type     = "MX"
+  priority = 10
+  value    = "rinnosuke.inskip.me"
+  zone_id  = local.zone_ids.katslime
+}
+
 resource "cloudflare_record" "dork_mail_spf" {
   name    = "@"
   proxied = false
@@ -152,6 +162,15 @@ resource "cloudflare_record" "kittywitch_mail_spf" {
   type    = "TXT"
   value   = "v=spf1 a:rinnosuke.inskip.me -all"
   zone_id = local.zone_ids.kittywitch
+}
+
+resource "cloudflare_record" "katslime_mail_spf" {
+  name    = "@"
+  proxied = false
+  ttl     = 10800
+  type    = "TXT"
+  value   = "v=spf1 a:rinnosuke.inskip.me -all"
+  zone_id = local.zone_ids.katslime
 }
 
 resource "cloudflare_record" "dork_mail_dkim" {
@@ -181,7 +200,14 @@ resource "cloudflare_record" "kittywitch_mail_dkim" {
   zone_id = local.zone_ids.kittywitch
 }
 
-
+resource "cloudflare_record" "katslime_mail_dkim" {
+  name    = "mail._domainkey"
+  proxied = false
+  ttl     = 3600#10800
+  type    = "TXT"
+  value = "v=DKIM1; k=rsa; s=email; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmwPILF7D7pzBW0wVElKKAt0uVhfl7Jba6iChOTy8Hjw0FD9qp5LMILlOOjHsWwaUZdDnwesEhhnHLmBZHUDon0c1LNWaJsxbv6JrUw9sqQMhsMDOXPj0Gt8UdvpwoNu/MVHQL2d1YlJswlDcfNl7qphW5KjLI10Xh1eif0ssmSk5BuIVSKgenDmZGc81uWSH1/8RvmYNyN6bqco+ZjhW/8IeHgZslZVm283Zag7+mMdjwo7f9kSotsm0uk9rkblkYB3GckBSEWmtwZbgN6e6f5zCcill3ndJN54HylKeBeiGAUlM1C0RCq2COXEjZCE+3ljPv1zD9+BvJGEroP5nWwIDAQAB"
+  zone_id = local.zone_ids.katslime
+}
 resource "cloudflare_record" "dork_mail_dmarc" {
   name    = "_dmarc"
   proxied = false
@@ -207,6 +233,15 @@ resource "cloudflare_record" "kittywitch_mail_dmarc" {
   type    = "TXT"
   value   = "v=DMARC1; p=none"
   zone_id = local.zone_ids.kittywitch
+}
+
+resource "cloudflare_record" "katslime_mail_dmarc" {
+  name    = "_dmarc"
+  proxied = false
+  ttl     = 10800
+  type    = "TXT"
+  value   = "v=DMARC1; p=none"
+  zone_id = local.zone_ids.katslime
 }
 
 
@@ -359,5 +394,23 @@ resource "cloudflare_record" "xmpp_upload" {
   ttl     = 3600
   type    = "CNAME"
   value   = "rinnosuke.inskip.me"
+  zone_id = local.zone_ids.kittywitch
+}
+
+resource "cloudflare_record" "searx" {
+  name    = "search"
+  proxied = false
+  ttl     = 3600
+  type    = "A"
+  value   = "100.73.129.88"
+  zone_id = local.zone_ids.kittywitch
+}
+
+resource "cloudflare_record" "searx_v6" {
+  name = "search"
+  proxied = false
+  ttl = 3600
+  type = "AAAA"
+  value = "fd7a:115c:a1e0::5634:8158"
   zone_id = local.zone_ids.kittywitch
 }

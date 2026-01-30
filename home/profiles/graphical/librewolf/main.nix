@@ -18,6 +18,24 @@
     enable = true;
     profiles = {
       main = {
+        search = {
+          engines = {
+            searxng = {
+              name = "Kat SearxNG";
+              urls = [
+                {
+                  template = "https://search.kittywit.ch/search";
+                  params = [
+                    { name = "q"; value = "{searchTerms}"; }
+                  ];
+                  iconMapObj."16" = "/static/themes/simple/img/favicon.png";
+                  definedAliases = [ "@searx" ];
+                }
+              ];
+            };
+          };
+          default = "searxng";
+        };
         id = 0;
         isDefault = true;
         containersForce = true;

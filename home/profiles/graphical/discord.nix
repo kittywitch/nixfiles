@@ -7,9 +7,6 @@
       frameless = true;
       plugins = {
         # Shared
-        betterFolders = {
-          enable = true;
-        };
         callTimer = {
           enable = true;
         };
@@ -30,8 +27,6 @@
           tagsList = {
           };
         };
-        mutualGroupDMs.enable = true;
-        pinDMs.enable = true;
         platformIndicators = {
           enable = true;
         };
@@ -46,7 +41,6 @@
         viewIcons.enable = true;
         youtubeAdblock.enable = true;
         # Equicord
-        amITyping.enable = true;
         anammox = {
           enable = true;
           billing = true;
@@ -54,15 +48,10 @@
           gift = true;
           serverBoost = true;
         };
-        betterUserArea = {
-          enable = true;
-        };
-        channelTabs.enable = true;
         equicordToolbox.enable = true;
         globalBadges.enable = true;
         moreKaomoji.enable = true;
         noNitroUpsell.enable = true;
-        recentDmSwitcher.enable = true;
         statusPresets = {
           enable = true;
           statusPresets = {

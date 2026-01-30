@@ -17,6 +17,8 @@ _: let
         continuwuity
         prosody
         web
+        dorkdev
+        searxng
       ]);
 
     boot = {

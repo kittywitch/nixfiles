@@ -14,8 +14,5 @@ in {
     enable = false;
     domains = ["~."];
     dnssec = "false";
-    extraConfig = ''
-      DNSOverTLS=yes
-    '';
   };
 }

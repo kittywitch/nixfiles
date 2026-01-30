@@ -71,6 +71,11 @@ _: let
         common-gpu-nvidia-nonprime
       ]);
 
+    programs.virt-manager.enable = true;
+      users.groups.libvirtd.members = [ "kat" ];
+      virtualisation.libvirtd.enable = true;
+      virtualisation.spiceUSBRedirection.enable = true;
+  
     home-manager.users.kat = {
       programs = {
         obs-studio.package = pkgs.obs-studio.override {
@@ -190,6 +195,7 @@ _: let
           "ELECTRON_OZONE_PLATFORM_HINT,auto"
           "LIBVA_DRIVER_NAME,nvidia"
           "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+          "__NV_DISABLE_EXPLICIT_SYNC,1"
           "NIXOS_OZONE_WL,1"
           "QT_QPA_PLATFORM,wayland;xcb"
         ];
@@ -252,6 +258,8 @@ _: let
     swapDevices = [
       drives.swap.result
     ];
+
+    networking.firewall.trustedInterfaces = ["tailscale0"];
 
     environment.systemPackages = with pkgs; [
       kdePackages.qttools

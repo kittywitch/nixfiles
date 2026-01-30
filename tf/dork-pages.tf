@@ -50,6 +50,7 @@ resource "cloudflare_record" "dorkdev_root_pages" {
   proxied = false
   ttl     = 3600
   type    = "CNAME"
-  value   = "${cloudflare_pages_project.dorkdev.name}.pages.dev"
+  #  value   = "${cloudflare_pages_project.dorkdev.name}.pages.dev"
+  value   = "rinnosuke.inskip.me"
   zone_id = local.zone_ids.dork
 }

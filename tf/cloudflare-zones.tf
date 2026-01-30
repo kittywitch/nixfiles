@@ -4,11 +4,13 @@ locals {
     dork       = "dork.dev"
     inskip     = "inskip.me"
     kittywitch = "kittywit.ch"
+    katslime = "katsli.me"
   }
   zone_ids = {
     dork       = cloudflare_zone.dork_zone.id
     inskip     = cloudflare_zone.inskip_zone.id
     kittywitch = cloudflare_zone.kittywitch_zone.id
+    katslime = cloudflare_zone.katslime_zone.id
   }
 }
 
@@ -34,4 +36,12 @@ resource "cloudflare_zone" "kittywitch_zone" {
   plan       = "free"
   type       = "full"
   zone       = local.zones.kittywitch
+}
+
+resource "cloudflare_zone" "katslime_zone" {
+  account_id = local.account_id
+  paused     = false
+  plan       = "free"
+  type       = "full"
+  zone       = local.zones.katslime
 }

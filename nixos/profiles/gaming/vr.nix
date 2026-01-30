@@ -7,14 +7,11 @@
   inherit (lib.lists) singleton;
   inherit (lib.meta) getExe';
 in {
-  systemd.user.services.wlx-overlay-s = {
-    description = "wlx-overlay-s";
-    path = [
-      pkgs.wayvr-dashboard
-    ];
+  systemd.user.services.wayvr = {
+    description = "wayvr";
     serviceConfig = {
       Type = "simple";
-      ExecStart = getExe' pkgs.wlx-overlay-s "wlx-overlay-s";
+      ExecStart = getExe' pkgs.wayvr "wayvr";
     };
   };
   programs.steam.extraPackages = with pkgs.gst_all_1; [
@@ -82,8 +79,7 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
-    wlx-overlay-s
-    wayvr-dashboard
+    wayvr
     monado-vulkan-layers
     bs-manager
     vrcx

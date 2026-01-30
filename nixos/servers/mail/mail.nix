@@ -6,7 +6,7 @@
     enable = true;
     stateVersion = 3;
     fqdn = "rinnosuke.inskip.me";
-    domains = ["dork.dev" "kittywit.ch" "inskip.me"];
+    domains = ["dork.dev" "kittywit.ch" "inskip.me" "katsli.me"];
 
     fullTextSearch.enable = true;
 
@@ -19,11 +19,13 @@
           "@dork.dev"
           "@inskip.me"
           "@kittywit.ch"
+          "@katsli.me"
         ];
         catchAll = [
           "dork.dev"
           "inskip.me"
           "kittywit.ch"
+          "katsli.me"
         ];
       };
     };
