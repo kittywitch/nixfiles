@@ -59,6 +59,8 @@ _: let
         performance
         secureboot
         tiling
+          gaming.minecraft
+          gaming.vintagestory
       ])
       ++ (with tree.nixos.environments; [
         #niri
@@ -212,7 +214,6 @@ _: let
   };
 in {
   arch = "x86_64";
-  deploy.hostname = "10.1.1.171";
   colmena.tags = [
     "personal"
   ];
