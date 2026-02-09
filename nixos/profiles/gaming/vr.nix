@@ -2,10 +2,11 @@
   pkgs,
   lib,
   inputs,
+  config,
   ...
 }: let
   inherit (lib.lists) singleton;
-  inherit (lib.meta) getExe';
+  inherit (lib.meta) getExe' getExe;
 in {
   systemd.user.services.wayvr = {
     description = "wayvr";
@@ -37,30 +38,10 @@ in {
     package = pkgs.wivrn.override { cudaSupport = true; };
     highPriority = true;
     defaultRuntime = true;
-    config = {
-      enable = true;
-      json = {
-        scale = [0.5 0.5];
-        bit-depth = 10;
-        bitrate = 50000 * 1000;
-        encoders = [
-          {
-            encoder = "nvenc";
-            codec = "h265";
-            width = 1.0;
-            height = 1.0;
-            offset_x = 0.0;
-            offset_y = 0.0;
-          }
-        ];
-        tcp_only = false;
-        #application = [
-        #  "${pkgs.wlx-overlay-s}/bin/wlx-overlay-s"
-        #];
-      };
-    };
   };
-  
+
+  systemd.user.services.wivrn.serviceConfig.ExecStart = lib.mkForce(getExe config.services.wivrn.package);
+
   # SlimeVR ports
   networking.firewall = let
     slimevr = {
@@ -82,6 +63,7 @@ in {
     wayvr
     monado-vulkan-layers
     bs-manager
+    android-tools
     vrcx
     alcom
     (unityhub.override {

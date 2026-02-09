@@ -4,6 +4,9 @@ module "oci_common_private_network" {
   cidr_blocks = [
     "10.25.0.0/16"
   ]
+  ipv6_cidr_blocks = [
+    "2001:db8:123:1337::/64"
+  ]
 
   display_name = "CoreNetwork"
   dns_label    = "core"

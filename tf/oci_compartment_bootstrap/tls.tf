@@ -1,5 +1,5 @@
 resource "tls_private_key" "this" {
-  # https://registry.terraform.io/providers/oracle/oci/latest/docs/resources/identity_api_key#key_value
+  # https://registry.terraform.io/providers/opentofu/oci/latest/docs/resources/identity_api_key#key_value
   # "The public key. Must be an RSA key in PEM format."
   algorithm = "RSA"
   rsa_bits  = 4096

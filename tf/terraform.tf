@@ -4,6 +4,10 @@ variable "passphrase" {
 
 terraform {
   required_providers {
+    local = {
+      source = "hashicorp/local"
+      version = "2.5.2"
+    }
     # Vendor: Hashicorp
     tls = {
       source  = "hashicorp/tls"
@@ -11,8 +15,8 @@ terraform {
     }
     # Vendor: Oracle
     oci = {
-      source  = "oracle/oci"
-      version = "5.45.0"
+      source  = "opentofu/oci"
+      version = ">= 8.0.0"
     }
     /*hcloud = {
       source = "hetznercloud/hcloud"

@@ -2,8 +2,8 @@ terraform {
   required_providers {
     # Vendor: Oracle
     oci = {
-      source  = "oracle/oci"
-      version = "5.45.0"
+      source  = "opentofu/oci"
+      version = ">= 8.0.0"
     }
   }
 }

@@ -7,6 +7,7 @@ ANY { request.operation = 'CreateNetworkSecurityGroup', request.operation = 'Del
 
 }
 
+# https://docs.oracle.com/en-us/iaas/Content/Identity/Reference/corepolicyreference.htm
 resource "oci_identity_policy" "terraform-admin" {
   compartment_id = var.tenancy_ocid
 

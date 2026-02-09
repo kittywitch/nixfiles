@@ -19,6 +19,7 @@
     profiles = {
       main = {
         search = {
+          force = true;
           engines = {
             searxng = {
               name = "Kat SearxNG";

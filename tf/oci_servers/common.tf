@@ -29,6 +29,10 @@ variable "subnet_id" {
   type = any
 }
 
+variable "v6_cidr" {
+  type = any
+}
+
 /*
 data "oci_identity_availability_domains" "this" {
   compartment_id = var.tenancy_ocid

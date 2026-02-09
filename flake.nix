@@ -15,6 +15,10 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    dns = {
+      url = "github:kirelagin/dns.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     rust = {
       url = "github:arcnmx/nixexprs-rust";
       inputs = {
