@@ -34,7 +34,7 @@ in {
     ];
     config = {
       profile = "gpu-hq";
-      hwdec = "auto";
+      hwdec = "nvdec"; # vulkan gets freezy
       vo = "gpu";
       volume-max = 200;
       opengl-waitvsync = true;
