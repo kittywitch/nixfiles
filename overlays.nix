@@ -37,7 +37,6 @@
   #inputs.arcexprs.overlays.default
   inputs.nix-gaming.overlays.default
   inputs.darwin.overlays.default
-  inputs.nixpkgs-xr.overlays.default
   inputs.deploy-rs.overlays.default
   inputs.neorg-overlay.overlays.default
   inputs.niri.overlays.niri

@@ -65,27 +65,6 @@
         "type": "github"
       }
     },
-    "arborium": {
-      "inputs": {
-        "nixpkgs": [
-          "kusachi",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1769481848,
-        "narHash": "sha256-ZeQb2sqVbDyaTSr2whI0GLKOcRQXp09xJUEemEpT0CU=",
-        "owner": "kittywitch",
-        "repo": "arborium-flake",
-        "rev": "8a5ea5e5d8d5555328d844c6472ed8653ef03f34",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kittywitch",
-        "repo": "arborium-flake",
-        "type": "github"
-      }
-    },
     "arcexprs": {
       "inputs": {
         "nixpkgs": [
@@ -287,11 +266,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1770326901,
-        "narHash": "sha256-PuN8k/kJzaZvmIIDYuCuz9Obz6ylGd1ZaVxEr28f+GQ=",
+        "lastModified": 1771097347,
+        "narHash": "sha256-ehrRlx15Of2XVPC6kNFx/f9lpn0SHkbtqkNZAskOv18=",
         "owner": "continuwuity",
         "repo": "continuwuity",
-        "rev": "00c054d3562100b065bd1afd3a40cd8a1fe0ce98",
+        "rev": "57b21c1b322bd6ab9650c04e9b5d81932b9e35c3",
         "type": "github"
       },
       "original": {
@@ -1540,18 +1519,17 @@
     },
     "kusachi": {
       "inputs": {
-        "arborium": "arborium",
         "clj-nix": "clj-nix",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1769812638,
-        "narHash": "sha256-vp0wGUqfFI6suhZKUnrVogkx/ucd1VYbvxyFLV9DtzY=",
+        "lastModified": 1771655422,
+        "narHash": "sha256-zcqpqFq8VbYhDuZrsaczqCW7DLvjYi9fTiI398PXuwU=",
         "owner": "kittywitch",
         "repo": "kusachi",
-        "rev": "93606163afcee48cacac852a46d9111b491453e9",
+        "rev": "c0af8bb602ef839bd03434dc985f8628a2a62dbe",
         "type": "github"
       },
       "original": {
@@ -2185,11 +2163,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770084921,
-        "narHash": "sha256-BfbUL69IOa+LnnAaxt2/ylbC/KhMGr3soe8n11avJME=",
+        "lastModified": 1771158734,
+        "narHash": "sha256-5dXuVJMpl3cKcllgUs0KsMaZoExAkRysSyyFyU/CXYs=",
         "owner": "nix-community",
         "repo": "nixpkgs-xr",
-        "rev": "88eabef1f8415752a0a3ea537e4c62a62b353205",
+        "rev": "471bc07ebb8d2e72dafcfc91c24224e680ed4e8f",
         "type": "github"
       },
       "original": {

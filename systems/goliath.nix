@@ -60,7 +60,6 @@ _: let
           #niri
       ])
       ++ (with tree.nixos.servers; [
-        forgejo-runner
       ])
       ++ (with inputs.nixos-hardware.outputs.nixosModules; [
         common-pc

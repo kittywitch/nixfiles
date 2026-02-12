@@ -12,6 +12,7 @@ _: {
           prefix_same_nick = "↳";
           highlight_disable_regex = "signal|discord|telegram|whatsapp";
           highlight = "kat,kittywitch";
+          prefix_align_max = 15;
         };
         # color overrides
         color = {

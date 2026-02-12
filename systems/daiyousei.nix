@@ -22,8 +22,8 @@ _: let
       ++ (with tree.nixos.servers; [
         weechat
         #matrix
-        forgejo
-        forgejo-runner
+          #forgejo
+          #forgejo-runner
         ntfy
         stream
         #navidrome

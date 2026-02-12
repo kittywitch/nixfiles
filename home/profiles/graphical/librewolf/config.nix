@@ -24,8 +24,11 @@ _: {
     "gfx.webrender.all.qualified" = true;
     "gfx.webrender.all" = true;
     "webgl.enable-draft-extensions" = true;
-    "layers.acceleration.force-enabled" = true;
-    "gfx.canvas.azure.accelerated" = true;
+    # sigh - https://codeberg.org/librewolf/issues/issues/2569
+    "layers.acceleration.force-enabled" = false;
+    "gfx.canvas.azure.accelerated" = false;
+    "layers.acceleration.disable" = true;
+    # end sigh - https://codeberg.org/librewolf/issues/issues/2569
     "browser.ctrlTab.recentlyUsedOrder" = false;
     "privacy.resistFingerprinting.block_mozAddonManager" = true;
     "extensions.webextensions.restrictedDomains" = "";

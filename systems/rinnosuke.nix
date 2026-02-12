@@ -48,13 +48,16 @@ _: let
     ];
 
     networking = {
-      interfaces.ens18 = {
+      interfaces = {
+        ens18 = {
         ipv4.addresses = [
           {
             address = "154.12.117.50";
             prefixLength = 27;
           }
         ];
+      };
+      ens19 = {
         ipv6.addresses = [
           {
             address = "2602:ffd5:1:301::1a";
@@ -62,6 +65,7 @@ _: let
           }
         ];
       };
+        };
       defaultGateway = "154.12.117.33";
       defaultGateway6 = {
         address = "2602:ffd5:1:100::1";

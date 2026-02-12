@@ -19,6 +19,11 @@ in {
         ENABLED = true;
         DEFAULT_ACTIONS_URL = "github";
       };
+      "cron.archive_cleanup" = {
+        ENABLED = true;
+        OLDER_THAN = "1h";
+        SCHEDULE = "@every 1hr";
+      };
     };
   };
   services.nginx.virtualHosts.${domain} = {
