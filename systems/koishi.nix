@@ -64,6 +64,7 @@ _: let
       ])
       ++ (with tree.nixos.environments; [
         #niri
+          #mangowc
         hyprland
       ]);
     config = {
@@ -91,6 +92,7 @@ _: let
           ])
           ++ (with tree.home.environments; [
             #niri
+              #mangowc
             hyprland
           ]);
       };
