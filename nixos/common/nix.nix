@@ -5,6 +5,7 @@ _: {
       dates = "weekly";
     };
     settings = {
+      extra-experimental-features = [ "pipe-operator" ];
       auto-optimise-store = true;
       trusted-users = [
         "deploy"
