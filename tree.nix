@@ -28,8 +28,6 @@
 
     common.functor.enable = true;
 
-    "microvms/*".functor.enable = true;
-
     "nixvim".functor.enable = true;
     "nixvim/*".functor.enable = true;
     "nixvim/plugins/*".functor.enable = true;
@@ -82,11 +80,9 @@
       functor = {
         enable = true;
         external = with inputs; [
-          hyprland.nixosModules.default
           simple-nixos-mailserver.nixosModules.default
           nix-index-database.nixosModules.nix-index
           home-manager.nixosModules.home-manager
-          minecraft.nixosModules.minecraft-servers
           sops-nix.nixosModules.sops
           infrastructure.nixosModules.default
           lanzaboote.nixosModules.lanzaboote
@@ -94,12 +90,11 @@
           #nixpkgs-xr.nixosModules.nixpkgs-xr
           spicetify-nix.nixosModules.spicetify
           clipboard-sync.nixosModules.default
-          nixos-cli.nixosModules.nixos-cli
           stylix.nixosModules.stylix
-          microvm.nixosModules.host
           mewtris.nixosModules.mewtris
           noctalia.nixosModules.default
           ucodenix.nixosModules.default
+          inputs.mango.nixosModules.mango
         ];
       };
     };
@@ -116,7 +111,6 @@
         enable = true;
         external = with inputs;
           [
-            hyprland.homeManagerModules.default
             nix-doom-emacs-unstraightened.hmModule
             nix-index-database.homeModules.nix-index
             sops-nix.homeManagerModules.sops
@@ -125,6 +119,7 @@
             noctalia.homeModules.default
             nixvim.homeModules.nixvim
             nixcord.homeModules.nixcord
+            inputs.mango.hmModules.mango
           ]
           ++ (with (import (inputs.arcexprs + "/modules")).home-manager; [
             i3gopher

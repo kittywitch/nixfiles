@@ -56,7 +56,8 @@ _: let
         tiling
       ])
       ++ (with tree.nixos.environments; [
-        hyprland
+          #hyprland
+          mangowm
           #niri
       ])
       ++ (with tree.nixos.servers; [
@@ -205,7 +206,8 @@ _: let
           tiling
         ])
         ++ (with tree.home.environments; [
-          hyprland
+            #hyprland
+            mangowm
             #niri
         ]);
       };

@@ -4,11 +4,10 @@
       noto-fonts-cjk-sans
       twitter-color-emoji
       corefonts
+      cozette
       vista-fonts
       open-dyslexic
       ubuntu-sans
-      monaspace
-      jost
     ];
     enableDefaultPackages = true;
     fontDir.enable = true;

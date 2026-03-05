@@ -25,7 +25,6 @@ in {
       PROTON_HOTFIX = "/games/Steam Library/steamapps/common/Proton Hotfix/";
       PROTON_VRC = "/home/kat/.local/share/Steam/compatibilitytools.d/GE-Proton10-26-rtsp20/";
       WINE_TKG = pkgs.wine-tkg;
-      WINE_CACHYOS = pkgs.wine-cachyos;
     };
     pathPackages = with pkgs; [
       mangohud
@@ -81,7 +80,7 @@ in {
     games = let
       protonCommon = {
         runner = "proton";
-        variant = "PROTON_GE";
+        variant = "PROTON_VRC";
         enableGamemode = true;
         environments = [
           "common"
@@ -92,7 +91,7 @@ in {
         ];
       };
       vrCommon = {
-        variant = lib.mkForce "PROTON_GE";
+        variant = lib.mkForce "PROTON_VRC";
         environment = {
         };
       };

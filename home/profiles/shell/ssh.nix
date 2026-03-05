@@ -1,15 +1,17 @@
 _: {
   programs.ssh = {
     enable = true;
-    controlMaster = "auto";
-    controlPersist = "10m";
-    hashKnownHosts = true;
-    compression = true;
-    forwardAgent = true;
-    /*
-      extraConfig = ''
-        RemoteForward /run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra
-    '';
-    */
+    matchBlocks."*" = {
+      controlPath = "~/.ssh/master-%r@%n:%p";
+      controlMaster = "auto";
+      controlPersist = "10m";
+      hashKnownHosts = true;
+      userKnownHostsFile = "~/.ssh/known_hosts";
+      compression = true;
+      forwardAgent = true;
+      addKeysToAgent = "no";
+      serverAliveInterval = 0;
+      serverAliveCountMax = 3;
+    };
   };
 }

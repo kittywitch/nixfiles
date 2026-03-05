@@ -15,6 +15,9 @@ in {
   programs.sway = {
     enable = list.any (user: user.wayland.windowManager.sway.enable) (set.values config.home-manager.users);
     package = pkgs.swayfx;
+    extraOptions = [
+      "--unsupported-gpu"
+    ];
     extraPackages = with pkgs; mkForce [xwayland swaylock swayidle swaylock-fancy wmctrl];
   };
 }

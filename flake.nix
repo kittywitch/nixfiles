@@ -31,13 +31,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    microvm = {
-      url = "github:microvm-nix/microvm.nix/main";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
-    };
     nix-doom-emacs-unstraightened = {
       url = "github:marienz/nix-doom-emacs-unstraightened";
       inputs.nixpkgs.follows = "";
@@ -189,16 +182,6 @@
         flake-compat.follows = "empty";
         barcodebuddy.follows = "empty";
         tree.follows = "tree";
-      };
-    };
-    nixos-cli = {
-      type = "github";
-      owner = "nix-community";
-      repo = "nixos-cli";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
-        nix-options-doc.follows = "empty";
       };
     };
     flake-utils-plus = {
@@ -355,13 +338,9 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    minecraft = {
-      url = "github:Infinidoge/nix-minecraft";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-        flake-compat.follows = "flake-compat";
-      };
+    mango = {
+      url = "github:mangowm/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell/main";
@@ -374,11 +353,6 @@
         nix-std.follows = "nix-std";
         flake-compat.follows = "flake-compat";
       };
-    };
-    hyprland.url = "github:hyprwm/Hyprland";
-    hy3 = {
-      url = "github:outfoxxed/hy3";
-      inputs.hyprland.follows = "hyprland";
     };
     # a bunch of modules (also arcnmx is good)
     arcexprs = {

@@ -9,7 +9,7 @@ in {
     enable = true;
     enableZshIntegration = true;
   };
-  programs.zsh.plugins = list.optional (pkgs.hostPlatform == pkgs.buildPlatform) {
+  programs.zsh.plugins = list.optional (pkgs.hostPlatform == pkgs.stdenv.buildPlatform) {
     name = "fzf-tab";
     src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
   };
