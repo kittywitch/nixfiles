@@ -19,7 +19,6 @@ with pkgs; let
       deadnix # dead-code scanner
       alejandra # code formatter
       statix # anti-pattern finder
-      deploy-rs.deploy-rs # deployment system
     ];
     inherit (git-hooks) buildInputs;
     shellHook = ''

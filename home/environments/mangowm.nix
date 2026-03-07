@@ -1,6 +1,6 @@
 { lib, parent, pkgs, std, ... }: let
   inherit (lib.meta) getExe' getExe;
-  inherit (std) list;
+  inherit (std) list string;
   wireplumber = parent.services.pipewire.wireplumber.package;
 in {
   home.packages = with pkgs; [
@@ -44,7 +44,13 @@ in {
   wayland.windowManager.mango = {
     enable = true;
     settings = let
+      workspaceMap = f: list.map (t: let ts = string.unsafeConvert t; in f ts) (list.range 1 9);
+      workspaceMapSep = f: string.concatSep "\n" (workspaceMap f);
       genBind = keys: verb: target: "bind=${keys},${verb},${target}";
+      mappedViews = workspaceMapSep (t: genBind "Alt,${t}" "view" "${t},0");
+      mappedTags = workspaceMapSep (t: genBind "Alt+Shift,${t}" "tag" "${t},0");
+      mappedToggleViews = workspaceMapSep (t: genBind "Super,${t}" "toggleview" "${t},0");
+      mappedToggleTags = workspaceMapSep (t: genBind "Super+Shift,${t}" "toggletag" "${t},0");
     in ''
       monitorrule=model:LG Ultra HD,width:2560,height:1440,refresh:59.951,x:1920,y:0
       monitorrule=model:SAMSUNG,x:0,y:0
@@ -125,45 +131,11 @@ in {
       bind=CTRL+SUPER,Left,tagtoleft,0
       bind=CTRL+SUPER,Right,tagtoright,0
 
-      bind=Ctrl,1,view,1,0
-      bind=Ctrl,2,view,2,0
-      bind=Ctrl,3,view,3,0
-      bind=Ctrl,4,view,4,0
-      bind=Ctrl,5,view,5,0
-      bind=Ctrl,6,view,6,0
-      bind=Ctrl,7,view,7,0
-      bind=Ctrl,8,view,8,0
-      bind=Ctrl,9,view,9,0
+      ${mappedViews}
+      ${mappedTags}
+      ${mappedToggleViews}
+      ${mappedToggleTags}
 
-      bind=Alt,1,tag,1,0
-      bind=Alt,2,tag,2,0
-      bind=Alt,3,tag,3,0
-      bind=Alt,4,tag,4,0
-      bind=Alt,5,tag,5,0
-      bind=Alt,6,tag,6,0
-      bind=Alt,7,tag,7,0
-      bind=Alt,8,tag,8,0
-      bind=Alt,9,tag,9,0
-
-      bind=ctrl+Super,1,toggletag,1
-      bind=ctrl+Super,2,toggletag,2
-      bind=ctrl+Super,3,toggletag,3
-      bind=ctrl+Super,4,toggletag,4
-      bind=ctrl+Super,5,toggletag,5
-      bind=ctrl+Super,6,toggletag,6
-      bind=ctrl+Super,7,toggletag,7
-      bind=ctrl+Super,8,toggletag,8
-      bind=ctrl+Super,9,toggletag,9
-
-      bind=Super,1,toggleview,1
-      bind=Super,2,toggleview,2
-      bind=Super,3,toggleview,3
-      bind=Super,4,toggleview,4
-      bind=Super,5,toggleview,5
-      bind=Super,6,toggleview,6
-      bind=Super,7,toggleview,7
-      bind=Super,8,toggleview,8
-      bind=Super,9,toggleview,9
 
       # monitor switch
       bind=alt+shift,Left,focusmon,left

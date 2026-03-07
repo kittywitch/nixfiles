@@ -55,14 +55,6 @@
       type = "tarball";
       flake = false;
     };
-    rbw-bitw = {
-      url = "github:arcnmx/rbw/bitw-v1.12.x";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flakelib.follows = "flakelib";
-        rust.follows = "rust";
-      };
-    };
     vicinae = {
       url = "github:vicinaehq/vicinae";
       inputs = {
@@ -117,20 +109,6 @@
       #follows = "chaotic/nixpkgs"; # TODO: replace follows
       url = "github:nixos/nixpkgs/nixos-unstable";
       #inputs.nixpkgs.follows = "chaotic/nixpkgs";
-    };
-    nixpkgs-unfree = {
-      url = "github:numtide/nixpkgs-unfree";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    qml-niri = {
-      url = "github:juuyokka/qml-niri/feat-nix-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    clipboard-sync = {
-      url = "github:dnut/clipboard-sync";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
     };
     nixpkgs-xr = {
       url = "github:nix-community/nixpkgs-xr";
@@ -199,25 +177,10 @@
         utils.follows = "flake-utils-plus";
       };
     };
-    quickshell = {
-      # add ?ref=<tag> to track a tag
-      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
-
-      # THIS IS IMPORTANT
-      # Mismatched system dependencies will lead to crashes and other issues.
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     ucodenix.url = "github:e-tho/ucodenix";
     nh = {
       url = "github:nix-community/nh";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    niri = {
-      url = "github:sodiboo/niri-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixpkgs-stable.follows = "nixpkgs";
-      };
     };
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
@@ -227,13 +190,6 @@
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
         rust-overlay.follows = "rust-overlay";
-      };
-    };
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
-      inputs = {
-        systems.follows = "systems";
-        nixpkgs.follows = "nixpkgs";
       };
     };
     ci = {
@@ -248,15 +204,6 @@
       url = "github:flakelib/fl";
       inputs.std.follows = "std";
     };
-    # deployments
-    deploy-rs = {
-      url = "github:serokell/deploy-rs/master";
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        nixpkgs.follows = "nixpkgs";
-        utils.follows = "flake-utils";
-      };
-    };
     colmena.url = "github:zhaofengli/colmena";
     # self-explanatory
     home-manager = {
@@ -264,11 +211,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
       };
-    };
-    # self-explanatory
-    darwin = {
-      url = "github:lnl7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils = {
       url = "github:numtide/flake-utils";
@@ -307,10 +249,6 @@
     };
     mango = {
       url = "github:mangowm/mango";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     mewtris = {

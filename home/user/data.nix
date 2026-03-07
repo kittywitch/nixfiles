@@ -1,4 +1,4 @@
-rec {
+_: rec {
   description = "Kat Inskip";
   email = "kat@inskip.me";
   keys = [

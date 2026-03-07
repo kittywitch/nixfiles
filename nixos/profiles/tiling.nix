@@ -9,7 +9,6 @@ in {
     { domain = "*"; type = "soft"; item = "nofile"; value = "65536"; }
     { domain = "*"; type = "hard"; item = "nofile"; value = "1048576"; }
   ];
-  services.noctalia-shell.enable = false;
   programs.regreet = {
     enable = true;
     theme = mkForce config.home-manager.users.kat.gtk.theme;

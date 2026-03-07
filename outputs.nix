@@ -26,10 +26,8 @@
         };
       };
     format = formatting.checks;
-    deploy = set.map (_: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
   in
     forAllSystems (system: {
-      deploy = deploy.${system};
       format = format.${system};
       git-hooks = git-hooks system;
     });

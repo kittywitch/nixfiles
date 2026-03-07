@@ -88,13 +88,10 @@
           lanzaboote.nixosModules.lanzaboote
           solaar.nixosModules.default
           #nixpkgs-xr.nixosModules.nixpkgs-xr
-          spicetify-nix.nixosModules.spicetify
-          clipboard-sync.nixosModules.default
           stylix.nixosModules.stylix
           mewtris.nixosModules.mewtris
-          noctalia.nixosModules.default
           ucodenix.nixosModules.default
-          inputs.mango.nixosModules.mango
+          mango.nixosModules.mango
         ];
       };
     };
@@ -114,9 +111,7 @@
             nix-doom-emacs-unstraightened.hmModule
             nix-index-database.homeModules.nix-index
             sops-nix.homeManagerModules.sops
-            spicetify-nix.homeManagerModules.spicetify
             stylix.homeModules.stylix
-            noctalia.homeModules.default
             nixvim.homeModules.nixvim
             nixcord.homeModules.nixcord
             inputs.mango.hmModules.mango

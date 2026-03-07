@@ -28,10 +28,6 @@ in {
       magicRollback = mkOptionDefault true;
       fastConnection = mkOptionDefault false;
       hostname = mkOptionDefault "${name}.devices.inskip.me";
-      profiles.system = {
-        user = "root";
-        path = inputs.deploy-rs.lib.${config.system}.activate.nixos inputs.self.nixosConfigurations.${name};
-      };
     };
   };
 }

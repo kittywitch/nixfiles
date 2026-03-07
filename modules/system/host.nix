@@ -140,7 +140,7 @@ in {
           safeArgs = removeAttrs renamedArgsWithPkgs attrsToRemove;
         in
           inputs.home-manager.lib.homeManagerConfiguration safeArgs;
-        darwin = inputs.darwin.lib.darwinSystem;
+        #darwin = inputs.darwin.lib.darwinSystem;
         macos = inputs.darwin.lib.darwinSystem;
       }
       .${
