@@ -1,4 +1,4 @@
-_: {
+{
   boot.loader = {
     grub = {
       devices = ["nodev"];

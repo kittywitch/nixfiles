@@ -1,4 +1,4 @@
-_: {
+{
   programs.librewolf.profiles.main = {
     containersForce = true;
     containers = {

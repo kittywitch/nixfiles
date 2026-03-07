@@ -1,4 +1,4 @@
-_: {
+{
   services.nginx = {
     enable = true;
     recommendedTlsSettings = true;

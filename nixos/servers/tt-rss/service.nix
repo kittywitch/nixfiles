@@ -1,4 +1,4 @@
-_: {
+{
   services.tt-rss = {
     enable = true;
     virtualHost = "rss.kittywit.ch";

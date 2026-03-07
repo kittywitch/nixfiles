@@ -1,4 +1,4 @@
-_: {
+{
   programs.wofi = {
     enable = false;
     settings = {

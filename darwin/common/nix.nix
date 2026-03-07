@@ -1,4 +1,4 @@
-_: {
+{
   services.nix-daemon.enable = true;
   nix = {
     extraOptions = ''

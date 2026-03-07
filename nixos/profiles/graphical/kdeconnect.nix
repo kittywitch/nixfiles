@@ -1,4 +1,4 @@
-_: {
+{
   networking.firewall = rec {
     allowedTCPPortRanges = [
       {

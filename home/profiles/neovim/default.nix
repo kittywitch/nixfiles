@@ -40,8 +40,6 @@ in {
       lualine-nvim
       # EasyMotion Equivalent
       hop-nvim
-      # org-mode for vim
-      neorg
       # Fonts
       nvim-web-devicons
       # Completion
@@ -85,7 +83,6 @@ in {
           tree-sitter-javascript
           tree-sitter-markdown
           tree-sitter-nix
-          tree-sitter-norg
           tree-sitter-python
           tree-sitter-regex
           tree-sitter-scss

@@ -3,7 +3,7 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 
-_: let
+let
   hostConfig = { config, lib, pkgs, tree, modulesPath, ... }: {
   imports =
     [ # Include the results of the hardware scan.

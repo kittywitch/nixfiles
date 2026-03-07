@@ -274,39 +274,6 @@
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
     };
-    neorg-overlay = {
-      url = "github:nvim-neorg/nixpkgs-neorg-overlay";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-        norg.follows = "norg";
-        norg-meta.follows = "norg-meta";
-      };
-    };
-    norg = {
-      url = "github:kittywitch/tree-sitter-norg/dev";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-        flake-compat.follows = "flake-compat";
-      };
-    };
-    norg-meta = {
-      url = "github:kittywitch/tree-sitter-norg-meta";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-        flake-compat.follows = "flake-compat";
-      };
-    };
-    fzfdapter = {
-      url = "github:kittywitch/fzfdapter";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-        flake-compat.follows = "flake-compat";
-      };
-    };
     # file structure -> attrset
     tree = {
       url = "github:kittywitch/tree";
@@ -367,28 +334,10 @@
         flake-parts.follows = "flake-parts";
       };
     };
-    nix-search-tv = {
-      url = "github:3timeslazy/nix-search-tv";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
-    };
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs = {
         flake-parts.follows = "flake-parts";
-      };
-    };
-    slimevr-wrangler-src = {
-      url = "github:kittywitch/slimevr-wrangler/fix-mac-casing";
-      flake = false;
-    };
-    slimevr-wrangler = {
-      url = "github:kittywitch/slimevr-wrangler-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        slimevr-wrangler-src.follows = "slimevr-wrangler-src";
       };
     };
     simple-nixos-mailserver = {

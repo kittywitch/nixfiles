@@ -1,4 +1,4 @@
-_: {
+{
   services.nginx = {
     virtualHosts = {
       "irc.kittywit.ch" = {

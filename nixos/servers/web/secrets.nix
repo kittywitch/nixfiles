@@ -1,4 +1,4 @@
-_: let
+let
   secretConfig = {
     format = "yaml";
     sopsFile = ./secrets.yaml;

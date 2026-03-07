@@ -1,4 +1,4 @@
-_: {
+{
   home.language = let
     ca = "en_CA.UTF-8";
   in {

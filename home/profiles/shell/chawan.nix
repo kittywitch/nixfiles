@@ -1,4 +1,4 @@
-_: {
+{
   programs.chawan = {
     enable = true;
     settings = {

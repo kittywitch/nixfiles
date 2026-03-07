@@ -1,4 +1,4 @@
-_: {
+{
   users.users.kat = {
     name = "kat";
     home = "/Users/kat";

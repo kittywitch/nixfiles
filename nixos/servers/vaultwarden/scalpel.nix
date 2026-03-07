@@ -1,4 +1,4 @@
-_: {
+{
   secrets.files.vaultwarden-env = {
     owner = "bitwarden_rs";
     group = "bitwarden_rs";

@@ -1,4 +1,4 @@
-_: {
+{
   programs.niriswitcher = {
     enable = true;
     settings = {

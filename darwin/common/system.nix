@@ -1,4 +1,4 @@
-_: {
+{
   services.activate-system.enable = true;
   system = {
     defaults = {

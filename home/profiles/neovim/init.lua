@@ -236,23 +236,6 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 vim.lsp.inlay_hint.enable();
 
--- neorg
-require('neorg').setup {
-	-- Tell Neorg what modules to load
-	load = {
-		['core.defaults'] = {}, -- Load all the default modules
-		['core.concealer'] = {}, -- Allows for use of icons
-		['core.dirman'] = { -- Manage your directories with Neorg
-			config = {
-				workspaces = {
-					notes = '~/Notes',
-				},
-				default_workspace = "notes",
-			}
-		}
-	},
-}
-
 -- overseer
 require("overseer").setup()
 

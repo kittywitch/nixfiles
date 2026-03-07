@@ -1,4 +1,3 @@
-_:
 #let
 #   theme = with config.lib.stylix.colors.withHashtag; pkgs.writeTextFile {
 #    name = "swayosd-css";

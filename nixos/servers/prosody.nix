@@ -1,4 +1,4 @@
-_: {
+{
   services.prosody = {
     enable = true;
     ssl.cert = "/var/lib/prosody/xmpp-fullchain.pem";

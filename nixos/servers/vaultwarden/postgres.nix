@@ -1,4 +1,4 @@
-_: {
+{
   services.postgresql = {
     ensureDatabases = ["bitwarden_rs"];
     ensureUsers = [

@@ -1,4 +1,4 @@
-_: {
+{
   users.users.vaultwarden.name = "bitwarden_rs";
   users.groups.vaultwarden.name = "bitwarden_rs";
 

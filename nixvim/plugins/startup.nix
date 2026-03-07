@@ -1,4 +1,4 @@
-_: {
+{
   plugins = let
     basePlugin = {
       enable = true;

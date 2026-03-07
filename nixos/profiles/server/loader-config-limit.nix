@@ -1,4 +1,4 @@
-_: {
+{
   boot = {
     loader = {
       grub.configurationLimit = 1;

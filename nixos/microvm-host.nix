@@ -1,4 +1,4 @@
-_: {
+{
   microvm = {
     host.enable = true;
   };

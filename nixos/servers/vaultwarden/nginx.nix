@@ -1,4 +1,4 @@
-_: {
+{
   services.nginx.virtualHosts."vault.kittywit.ch" = {
     enableACME = true;
     forceSSL = true;

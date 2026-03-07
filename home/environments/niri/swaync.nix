@@ -1,4 +1,4 @@
-_: {
+{
   stylix.targets.swaync.enable = true;
   systemd.user.services.swaync = {
     Service = {

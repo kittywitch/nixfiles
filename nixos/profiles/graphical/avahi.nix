@@ -1,4 +1,4 @@
-_: {
+{
   services.avahi = {
     nssmdns4 = true;
     enable = true;

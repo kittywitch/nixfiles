@@ -1,4 +1,4 @@
-_: let
+let
   hostConfig = {
     tree,
     pkgs,
@@ -64,8 +64,8 @@ _: let
       ])
       ++ (with tree.nixos.environments; [
         #niri
-          #mangowc
-        hyprland
+          mangowm
+          #hyprland
       ]);
     config = {
       home-manager.users.kat = {
@@ -92,8 +92,8 @@ _: let
           ])
           ++ (with tree.home.environments; [
             #niri
-              #mangowc
-            hyprland
+              mangowm
+              #hyprland
           ]);
       };
 

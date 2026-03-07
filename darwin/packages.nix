@@ -1,4 +1,4 @@
-_: {
+{
   homebrew = {
     brewPrefix = "/opt/homebrew/bin";
     brews = [

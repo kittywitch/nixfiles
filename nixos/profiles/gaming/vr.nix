@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  inputs,
   config,
   ...
 }: let
@@ -76,6 +75,5 @@ in {
     })
     #slimevr
     #slimevr-server
-    #inputs.slimevr-wrangler.packages.${pkgs.system}.slimevr-wrangler
   ];
 }

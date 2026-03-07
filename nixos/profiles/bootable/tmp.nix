@@ -1,4 +1,4 @@
-_: {
+{
   boot = {
     tmp = {
       tmpfsSize = "80%";

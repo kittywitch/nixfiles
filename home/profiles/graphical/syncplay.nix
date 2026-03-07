@@ -1,4 +1,4 @@
-_: {
+{
   programs.syncplay = {
     enable = true;
     username = "kat";

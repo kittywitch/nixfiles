@@ -38,7 +38,6 @@
   inputs.nix-gaming.overlays.default
   inputs.darwin.overlays.default
   inputs.deploy-rs.overlays.default
-  inputs.neorg-overlay.overlays.default
   inputs.niri.overlays.niri
   inputs.dolphin-overlay.overlays.default
   inputs.proton-cachyos.overlays.default

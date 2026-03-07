@@ -1,4 +1,4 @@
-_: {
+{
   keymaps = [
     {
       options.silent = true;

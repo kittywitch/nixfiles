@@ -1,3 +1,3 @@
-_: {
+{
   home.clobberAllFiles = true;
 }

@@ -1,5 +1,6 @@
-{ lib, parent, pkgs, ... }: let
+{ lib, parent, pkgs, std, ... }: let
   inherit (lib.meta) getExe' getExe;
+  inherit (std) list;
   wireplumber = parent.services.pipewire.wireplumber.package;
 in {
   home.packages = with pkgs; [
@@ -42,9 +43,16 @@ in {
   };
   wayland.windowManager.mango = {
     enable = true;
-    settings = ''
+    settings = let
+      genBind = keys: verb: target: "bind=${keys},${verb},${target}";
+    in ''
       monitorrule=model:LG Ultra HD,width:2560,height:1440,refresh:59.951,x:1920,y:0
       monitorrule=model:SAMSUNG,x:0,y:0
+
+      shadows=1
+      layer_shadows=1
+      blur=1
+      blur_optimized=1
 
       bind=CTRL+ALT,a,spawn_shell,grim -g "$(slurp)" -t ppm - | satty -f -
       # the rule is to avoid occlusion and ghosting
@@ -59,10 +67,10 @@ in {
       # switch window focus
       bind=SUPER,Tab,focusstack,next
       bind=SUPER,u,focuslast
-      bind=ALT,Left,focusdir,left
-      bind=ALT,Right,focusdir,right
-      bind=ALT,Up,focusdir,up
-      bind=ALT,Down,focusdir,down
+      bind=Ctrl,Left,focusdir,left
+      bind=Ctrl,Right,focusdir,right
+      bind=Ctrl,Up,focusdir,up
+      bind=Ctrl,Down,focusdir,down
 
       # swap window
       bind=SUPER+SHIFT,Up,exchange_client,up
@@ -180,7 +188,6 @@ in {
       mousebind=SUPER+CTRL,btn_left,minimized
       mousebind=SUPER+CTRL,btn_right,killclient
       mousebind=SUPER+CTRL,btn_middle,togglefullscreen
-      mousebind=NONE,btn_middle,togglemaximizescreen,0
 
       # Axis Bindings
       axisbind=SUPER,UP,viewtoleft_have_client
@@ -208,7 +215,9 @@ in {
       bind=none,XF86MonBrightnessDown,spawn,${getExe pkgs.brightnessctl} -c backlight set 5%-
     '';
     autostart_sh = ''
-      systemctl restart --user waybar
+      systemctl start --user waybar
+      systemctl start --user swww
+      swww restore
     '';
   };
 }

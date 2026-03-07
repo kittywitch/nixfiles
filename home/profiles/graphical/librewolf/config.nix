@@ -1,4 +1,4 @@
-_: {
+{
   programs.librewolf.profiles.main.settings = {
     "browser.tabs.allow_transparent_browser" = true;
     "widget.use-xdg-desktop-portal.file-picker" = 1;

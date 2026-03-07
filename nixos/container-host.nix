@@ -1,4 +1,4 @@
-_: {
+{
   networking.useNetworkd = true;
 
   systemd.network.netdevs."20-container".netdevConfig = {
