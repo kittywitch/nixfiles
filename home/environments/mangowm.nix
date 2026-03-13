@@ -54,6 +54,7 @@ in {
     in ''
       monitorrule=model:LG Ultra HD,width:2560,height:1440,refresh:59.951,x:1920,y:0
       monitorrule=model:SAMSUNG,x:0,y:0
+      xkb_rules_options=compose:rctrl,ctrl:nocaps
 
       shadows=1
       layer_shadows=1
@@ -79,10 +80,10 @@ in {
       bind=Ctrl,Down,focusdir,down
 
       # swap window
-      bind=SUPER+SHIFT,Up,exchange_client,up
-      bind=SUPER+SHIFT,Down,exchange_client,down
-      bind=SUPER+SHIFT,Left,exchange_client,left
-      bind=SUPER+SHIFT,Right,exchange_client,right
+      bind=Alt+SHIFT,Up,exchange_client,up
+      bind=Alt+SHIFT,Down,exchange_client,down
+      bind=Alt+SHIFT,Left,exchange_client,left
+      bind=Alt+SHIFT,Right,exchange_client,right
 
       # movewin
       bind=CTRL+SHIFT,Up,movewin,+0,-50
@@ -138,10 +139,10 @@ in {
 
 
       # monitor switch
-      bind=alt+shift,Left,focusmon,left
-      bind=alt+shift,Right,focusmon,right
-      bind=alt+shift,Up,focusmon,up
-      bind=alt+shift,Down,focusmon,down
+      bind=Super+shift,Left,focusmon,left
+      bind=Super+shift,Right,focusmon,right
+      bind=Super+shift,Up,focusmon,up
+      bind=Super+shift,Down,focusmon,down
       bind=SUPER+Alt,Left,tagmon,left
       bind=SUPER+Alt,Right,tagmon,right
       bind=SUPER+Alt,Up,tagmon,up
@@ -154,9 +155,9 @@ in {
 
 
       # Mouse Button Bindings
-      mousebind=SUPER,btn_left,moveresize,curmove
-      mousebind=alt,btn_middle,set_proportion,0.5
-      mousebind=SUPER,btn_right,moveresize,curresize
+      mousebind=Alt,btn_left,moveresize,curmove
+      mousebind=Alt,btn_middle,set_proportion,0.5
+      mousebind=Alt,btn_right,moveresize,curresize
       mousebind=SUPER+CTRL,btn_left,minimized
       mousebind=SUPER+CTRL,btn_right,killclient
       mousebind=SUPER+CTRL,btn_middle,togglefullscreen

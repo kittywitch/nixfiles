@@ -132,7 +132,7 @@
       };
     };
     continuwuity = {
-      url = "github:continuwuity/continuwuity/main";
+      url = "github:continuwuity/continuwuity/v0.5.5";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
